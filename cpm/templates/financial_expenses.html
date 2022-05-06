@@ -1,0 +1,59 @@
+ {% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>FINANCIAL EXPENSES</h1>
+    </div>
+    <form action="financial_expenses" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Month</label>
+            <div class="col-sm-10">
+              <input style="width:110px" type="month" name="month" required="required" id="orderno">
+            </div>
+        </div>
+        <table class="table table-hover table-striped table-bordered" style="width: 40%; margin-left: 20px">
+            <thead class="thead-dark">
+              <tr>
+                <th class="col">Fields</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bank Charges</td>
+                    <td><input style="width:110px;" type="number" name="bank" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Export Bank Charges</td>
+                    <td><input style="width:110px;" type="number" name="export" required="required"></td>
+                </tr>
+                <tr>
+                    <td>L/C Related Charges</td>
+                    <td><input style="width:110px;" type="number" name="lc" required="required"></td>
+                </tr>
+              </tbody>
+        </table>
+        <div class="container text-center">
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+
+    </form>
+
+    <script language="javascript">
+        function calcltf()
+    {
+        var ocd = new Date(document.getElementById("ocd").value);
+
+        var plancd = new Date(document.getElementById("plancd").value);
+
+        var timeDiff = Math.abs(ocd.getTime() - plancd.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+         //alert(diffDays);
+         var ltf = document.getElementById("ltf");
+         ltf.value = diffDays;
+
+    }
+    </script>
+{% endblock %}

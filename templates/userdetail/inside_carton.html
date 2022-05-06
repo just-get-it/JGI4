@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h3>Order:- {{ Carton.order }}</h3>
+    <h3>Carton id:- {{Carton.id}}</h3>
+    <h3>Address:- {{Carton.address}}</h3>
+    <h3>Pieces:- </h3>
+        {% for i in Carton.sizes.all %}
+    <h5>size:{{i.size}}</h5>
+    <h5>color: {{i.color}}</h5>
+    <h5>quantity:{{i.quantity}}</h5>
+        {% endfor %}
+    <h3>Packing_list:- {{Carton.packing_list}}</h3>
+</div>
+
+{% endblock %}

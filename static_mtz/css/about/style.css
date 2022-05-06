@@ -1,0 +1,115 @@
+.top_div{
+	height:15%;
+	background-color:#4682B4;
+}
+.bottom_div{
+	height:85%;
+	background-color:#C0C0C0;
+}
+.nopad{
+	padding:0px !important;
+}
+
+.logo_name{
+	font-size:60px;
+	font-weight:bold;
+	font-family: cursive;
+}
+.recent_login{
+	font-size:30px;
+	font-weight:bold;
+	font-family: cursive;
+	text-align:center;
+	padding-top:3%;
+}
+
+.recent_login_photo{
+	
+	text-align:center;
+	padding-top:5%;
+
+}
+
+.img_border{
+	border:2px solid black;
+	border-radius:30%;
+}
+
+.create_account{
+	font-size:45px;
+	font-weight:bold;
+	font-family: arial;
+}
+.message_display{
+	font-size:20px;
+	font-weight:bold;
+	font-family: arial;
+}
+
+.gap{
+	margin-top:10px;
+	height:60px;
+}
+
+.mybtn{
+	width:60px;
+	height:40px;
+}
+
+.input_box_border{
+	border:4px solid gray;
+	
+}
+.gap_calc{
+	padding-top:5px !important;
+}
+
+
+.table_border{
+	border:2px solid green !important;
+	padding-right:50px !important;
+}
+
+.sign_up_bg_color{
+	background-color: #e1deda;
+}
+.sign_up_body_color{
+	background-color: #4b4b49;
+}
+.blog_color{
+	background-color: #e6ccb3 !important;
+}
+
+.review_form_div{
+	background-color:#cb571f;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

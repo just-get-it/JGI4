@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Managers</h3>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="row">
+					{% for o in obj %}
+					<div class="col-2">
+						{% if o.image %}
+						<a href="/userdetail/staff_profile/{{o.email}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;"></a>
+						{% else %}
+						<a href="/userdetail/staff_profile/{{o.email}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;"></a>
+						{% endif %}
+						<h6 class="mt-3 centered"><b>{{o.name}}</b></h6>
+						<h6>{{o.email}}</h6>
+					</div>
+					{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

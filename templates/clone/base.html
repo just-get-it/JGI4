@@ -1,0 +1,1229 @@
+﻿
+
+<!DOCTYPE html>
+{% load static %}
+<!-- {% load productfilters %} -->
+<html>
+
+<head>
+	<title> JUSTGETIT</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- ======================================================================== -->
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#253031">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#253031">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#253031">
+	<!-- ============================================================================ -->
+	<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
+	<!-- ======================================================================== -->
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+	<!-- ======================================================================== -->
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+	<!-- ======================================================================== -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+	<!-- ======================================================================== -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+	<!-- ======================================================================== -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+	<!-- ======================================================================== -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Cabin|Pacifico" rel="stylesheet"> -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<!-- ======================================================================== -->
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/less/fontawesome.less' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/scss/fontawesome.scss' %}">
+
+
+
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-grid.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-grid.min.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-reboot.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-reboot.min.css' %}"> -->
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}"> -->
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script> -->
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script> -->
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script> -->
+	<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].trim();
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+	</script>
+
+	<style type="text/css">
+		#nav-link-scroll{
+
+			height: 300px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		.modal-backdrop {
+			position: static;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #343A40;
+			border: 1px solid rgb(70, 77, 85);
+			min-width: 90px;
+			font-size: 12px;
+			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+			padding: 10px 10px 10px 10px;
+			z-index: 1;
+			overflow-y: scroll;
+			overflow-x: scroll;
+		}
+
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		@font-face {
+			font-family: 'Cabin';
+			src: url('/static/fonts/Cabin/Cabin-Regular.ttf');
+		}
+
+		@font-face {
+			font-family: 'Pacifico';
+			src: url('/static/fonts/Pacifico/Pacifico-Regular.ttf');
+		}
+
+		body {
+			font-size: 0.8em !important;
+		}
+
+
+
+	</style>
+
+	{% block customcss %}
+	{% endblock %}
+</head>
+
+<body onload="myfuc();">
+
+	{% if request.GET.unauth %}
+
+	<script type="text/javascript">
+		alert("Sorry You Don't Have Permission");
+	</script>
+
+	{% endif %}
+
+
+	<!-- =================================================================================== -->
+	<!-- Loader -->
+
+	<div class="loader" id="loader">
+		<img src="{% static 'img/loader.gif' %}">
+	</div>
+
+	<script type="text/javascript">
+
+	</script>
+
+	<!-- navigation bar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="navigation1" >
+	<a class="navbar-brand mt-1" href="/">
+			<!--<img src="{{logo.image.url}}" alt="">-->
+			<img src="{% static 'img/logo.png' %}" alt="" width="30px" height="30px">
+		</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse bg-dark" id="navbarCollapse" style="height:5px;" >
+
+		<ul class="navbar-nav mr-auto  " id="icon" >
+			<li class="nav-item active">
+				<li class="nav-item d-md-none ">
+					<div class="row">
+						{% if not request.user.is_authenticated %}
+						<div class="col-4 text-center">
+							<a href="/userdetail/login" class="text-decoration-none text-light"><i class="fas fa-2x fa-sign-in-alt"></i>
+								<p class="br"> Login</p>
+							</a>
+						</div>
+						<div class="col-4 text-center"><a href="/userdetail/register" class="text-decoration-none text-light"><i
+									class="fas fa-2x fa-user-plus"></i>
+								<p class="br"> Register</p>
+							</a></div>
+						<!--<div class="col-4 text-center">
+							<a href="/cart" class="text-decoration-none text-light "><i class="fas fa-2x fa-shopping-cart"></i>
+								<sup>
+									<span class="badge badge-light h2" style="position: absolute; margin-left: 60%; margin-top: -60%;">{{cartItems}}</span>
+								</sup>
+								<br>
+								Cart
+							</a>
+						</div>-->
+						{% else %}
+						<div class="col-4 text-center"><a href="/userdetail/logout" class="text-decoration-none text-light"><i
+									class="fas fa-2x fa-sign-in-alt"></i><br> LogOut</a></div>
+						<!--<div class="col-4 text-center">
+							<a href="/cart" class="text-decoration-none text-light "><i class="fas fa-2x fa-shopping-cart"></i><sup><span
+								class="badge badge-light" style="position: absolute; margin-left: 60%; margin-top: -60%;">{{cartItems}}</span></sup><br>Cart</a>
+						</div>-->
+						<div class="col-4 text-center">
+							<a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.customer %}/userdetail/profile{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% elif oim1.student %}{% url 'planner_home' %}{% else %}/userdetail/login{% endif %}"
+								class="text-decoration-none text-light"><i class="fas fa-2x fa-user"></i><br>Profile</a>
+						</div>
+						{% endif %}
+						<!--<div class="col-4 text-center">
+							<a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.customer %}/userdetail/profile{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% else %}/userdetail/login{% endif %}"
+								class="text-decoration-none text-light"><i class="fas fa-2x fa-user"></i><br> Profile</a>
+						</div>-->
+
+              <li class="d-lg-none d-md-block" style="color:white;">----------------------------------------------------</li>
+
+			<li class="nav-item position-relative" style="top:7px;"  >
+				<form method='get' class=" form-inline md-form form-sm d-none d-sm-none d-md-none d-lg-block " action='/search'>
+            {% comment %} <input class="form-control mr-sm-2" type="search" placeholder="Product Search" aria-label="Search"> {% endcomment %}
+            <input class="form-control form-control-sm mr-3 w-100" type="search" placeholder="Product Search" aria-label="Search" name='query' id='query' >
+
+         </form>
+
+			</li>
+
+
+				<li class="nav-item dropdown active  ml-lg-5">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						Quik
+					</a>
+					<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item text-light" href="{% url 'product_order' %}">Product Order</a>
+						<a class="dropdown-item text-light" href="{% url 'services' %}">Services</a>
+						<a class="dropdown-item text-light" href="{% url 'customize' %}">Customize</a>
+						<a class="dropdown-item text-light" href="{% url 'quick_subscribe' %}">Subscription</a>
+
+						<a class="dropdown-item text-light" href="{% url 'pick_and_deliver' %}">Pick & Deliver</a>
+					</div>
+				</li>
+
+
+			<li class="nav-item  active">
+
+						<div> <a href="{% url 'subscription' %}" class="nav-link text-light">Subscribe</a></div>
+
+				</li>
+
+
+				<li class="nav-item  active">
+					<!-- Button trigger modal -->
+
+					<button type="button" class="btn btn-dark btn-sm py-2 ml-lg-2" data-toggle="modal" data-target="#staticBackdrop">
+						Product
+					</button>
+
+
+					<!-- Modal -->
+					<div class="modal position-fixed fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+						role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-xl text-white">
+							<div class="modal-content bg-dark">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel">Product</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								
+								<div class="modal-body">
+									<form action="#" method='get'>
+										{% for i in tags_wise %}
+										{% if i.homepage_link %}
+										<div class="col px-0 py-3 mt-1 cursor-pointer hov-a">
+											<a class="color-white hov-a pr-2" href="{% url 'filterproducts' base_name=i.name %}">{{i.name}}</a>
+										</div>
+									</form>
+									{% endif %}
+									{% endfor %}
+									{% if home_links.ready_to_wear %}
+									<div class="col px-0 py-3 cursor-pointer hov-a" id="hov-drop1" onclick="">
+										<a class="color-white hov-a pr-2">PRODUCTS</a><i class="fas fa-chevron-right pt-1"></i>
+									</div>
+									{% endif %}
+									<div class="row">
+										<div class="col-2 ml-4 cate-row">
+											{% for cate,subcate in category.items %}
+											<div class="row color-white pt-2 hov-a cursor-pointer" onclick="display(event,'{{cate}}');"
+												id="cate_{{cate}}">
+												{{cate}}<i class="fas fa-chevron-right pt-1" style="margin-left: .5vw;"></i>
+											</div>
+											{% endfor %}
+										</div>
+										<div class="col-9">
+											<div class="container-fluid">
+												{% for cate,subcate in category.items %}
+												<div class="tabcontent" id="{{cate}}">
+													<div class="row" style="font-size: 1em;" id="row_{{cate}}">
+														{% for subhead,supcate in subcate.items %}
+														<div class="col-2 ml-3">
+															<div class="row mt-3" style="box-shadow: 0 4px 3px -3px white;">
+																{% if subhead in product_sub_name %}
+																<p class="head-sub cursor-pointer">{{subhead}}</p>
+																<ul class="pl-0 list-sub">
+																	{%for a in supcate %}
+																	{% if a.name in product_name %}
+																	<a href="/products?cate={{cate|to_and}}&sub={{subhead|to_and}}&sup={{a.name|to_and}}"
+																		class="drop-a">
+																		<li>{{a.name}}</li>
+																	</a>
+																	{% endif %}
+																	{% endfor %}
+																</ul>
+																{% endif %}
+															</div>
+														</div>
+														{% endfor %}
+													</div>
+												</div>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			<li class="nav-item  active ml-lg-2">
+					{% if home_links.institutional %}
+						<div> <a href="/buisness" class="nav-link text-light">Services</a></div>
+					{% endif %}
+				</li>
+<li class="nav-item  dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						Supermarket
+					</a>
+					<div class="dropdown-menu bg-dark p-3" aria-labelledby="navbarDropdown" id="nav-link-scroll">
+						{% for item in market %}
+						<a href="/products?cate={{item.product_Category}}&sub={{item.product_Subcategory}}"
+							class="nav-link">{{item.product_Subcategory}}</a>
+						<!-- <a href="#" class="nav-link">Fruits</a>
+				<a href="#" class="nav-link">Vegitable</a> -->
+						{% endfor %}
+
+					</div>
+				</li>
+				<li class="nav-item  dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						Fashion
+					</a>
+					<div class="dropdown-menu bg-dark p-3" aria-labelledby="navbarDropdown">
+						<a href="#" class="nav-link">Mens</a>
+						<a href="#" class="nav-link">Womens</a>
+						<a href="#" class="nav-link">Kids</a>
+						<a href="#" class="nav-link">Home & Living</a>
+						<a href="#" class="nav-link">Fabric</a>
+
+
+
+					</div>
+				</li>
+
+			<li class="nav-item  dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						Electronics
+					</a>
+					<div class="dropdown-menu bg-dark p-3" aria-labelledby="navbarDropdown">
+						{% for item in electronic %}
+						<a href="/products?cate={{item.product_Category}}&sub={{item.product_Subcategory}}"
+							class="nav-link">{{item.product_Subcategory}}</a>
+						<!-- <a href="#" class="nav-link">TV</a>
+			<a href="#" class="nav-link">Home Appliances</a>
+			<a href="#" class="nav-link">Accessory</a> -->
+						{% endfor %}
+					</div>
+				</li>
+				<li class="nav-item px-1 dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						Brand
+					</a>
+					<div class="dropdown-menu bg-dark p-3" aria-labelledby="navbarDropdown" id="nav-link-scroll">
+						<form method='get' class="form-inline d-flex md-form form-sm my-2 my-lg-0" action='/searchbrand'>
+							<input class="form-control form-control-sm mr-3 w-75" type="search" placeholder="Brand Search" aria-label="Search" name='query' id='query'>
+							<!-- <button type="submit" class="fas fa-search" style="color: white;" aria-hidden="true"></button> -->
+
+							</form>
+						{% for br in brand %}
+						<a href="/products?cate={{br.product_Category}}&brand={{br.brand}}" class="nav-link">{{ br.brand }}</a>
+						<!-- <a href="#" class="nav-link">Lenovo</a>
+						<a href="#" class="nav-link">Brook Bond</a>
+						<a href="#" class="nav-link">Amul</a> -->
+						{% endfor %}
+					</div>
+				</li>
+
+				<li class="nav-item px-1 dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						Store
+					</a>
+					<div class="dropdown-menu bg-dark p-3" aria-labelledby="navbarDropdown">
+						{% for item in store %}
+						<a href="/products?cate={{item.product_Category}}" class="nav-link">{{ item.product_Category }}</a>
+						<!-- <a href="#" class="nav-link">Fashion</a>
+						<a href="#" class="nav-link">Electronics</a>
+						<a href="#" class="nav-link">Services</a> -->
+						{% endfor %}
+					</div>
+				</li>
+
+				<li class="nav-item dropdown active">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+						B2B
+					</a>
+					<div class="dropdown-menu bg-dark p-3" aria-labelledby="navbarDropdown">
+						<a href="/" class="nav-link">Ready Stock</a>
+						<a href="/buisness/placeorder" class="nav-link"> Made To Order</a>
+						{% if home_links.institutional %}
+						<div> <a href="/buisness" class="nav-link">Institutional</a></div>
+						{% endif %}
+
+					</div>
+				</li>
+			</ul>
+			<ul class="navbar-nav text-center">
+				<li class="nav-item py-2 d-none d-md-block">
+					<a href="#" class="h3 px-3">
+						<i class="fa fa-map-marker-alt color-white hov-a cursor-pointer" ></i>
+					</a>
+				</li>
+				<li class="nav-item dropdown px-1 d-none d-md-block">
+					<a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-2x color-white fa-user-circle" ></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right bg-dark rounded px-5" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item text-light h5" href="{% url 'myorders' %}">Order</a>
+						<a class="dropdown-item text-light h5" href="/wallet">Wallet</a>
+						<a class="dropdown-item text-light h5" href="/wishlists">Wishlist</a>
+						{% if home_links.task %}
+						<a class="dropdown-item text-light h5" href="{% url 'dash' %}" class="nav-link">Task</a>
+						{% endif %}
+
+						<div class="dropdown-divider"></div>
+						<div class="row py-3">
+							{% if not request.user.is_authenticated %}
+							<div class="col-6">
+								<a href="/userdetail/login" class="text-decoration-none text-light"><i class="fas fa-2x fa-sign-in-alt"></i>Login</a>
+							</div>
+							<div class="col-6"><a href="/userdetail/register" class="text-decoration-none text-light"><i
+										class="fas fa-2x fa-user-plus"></i>Register</a></div>
+							{% else %}
+							<div class="col-6">
+								<a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.b2b_order %}{% url 'b2b_consumer' %}{% elif oim1.customer %}/userdetail/profile
+							{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile
+							{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% elif oim1.student %}{% url 'planner_home' %}{% else %}
+							/userdetail/login {% endif %}" class="text-decoration-none text-light">
+									<i class="fas fa-2x fa-user"></i>Profile</a>
+							</div>
+							<div class="col-6"><a href="/userdetail/logout" class="text-decoration-none text-light"><i
+										class="fas fa-2x fa-sign-in-alt"></i>LogOut</a></div>
+							{% endif %}
+
+						</div>
+					</div>
+				</li>
+				 <li class="d-lg-none d-md-block" style="color:white;">----------------------------------------------------</li>
+				{% if request.user.is_authenticated %}
+				<li class="nav-item py-2  d-md-block"><a href="{% url 'newcart' %}" class="h4">
+						<i class="fas fa-shopping-cart color-white hov-a cursor-pointer"></i><sup><span class="badge badge-dark" id="total_cart_items">{{ cartItems }}</span></sup></a></li>
+				{% else %}
+				<li class="nav-item py-2  d-md-block"><a href="/cart" class="h4">
+					<i class="fas fa-shopping-cart color-white hov-a cursor-pointer"></i><sup><span
+						class="badge badge-dark" id="cart_counter"></span></sup></a></li>
+
+
+				{% endif %}
+				 <li class="d-lg-none d-md-block" style="color:white;">----------------------------------------------------</li>
+						<script>
+							function getCount() {
+								let cart = localStorage.getItem("cart");
+								cart  = JSON.parse(cart);
+								let total = 0;
+								console.log(cart);
+								for(let [key, value] of Object.entries(cart)){
+									total += value[0];
+								}
+
+								let cart_count = document.getElementById("cart_counter");
+								cart_count.innerText = total;
+
+							}
+
+							$(function(){
+								getCount();
+							});
+							// window.onload = getCount();
+						</script>
+
+
+			</ul>
+	</div>
+</div>
+</nav>
+	<!-- ======================================================================== -->
+	<!-- ===================================== mobile Navbar==================================== -->
+
+	<div class="container position-fixed d-lg-none " style="background-color:#343A40; padding:0px; z-index:100; top:0px;">
+		<div class="row">
+		  <div class="col-1 text-left" style="top:0">
+             <span style="font-size:30px; color:white; cursor:pointer" onclick="openNav()">&#9776;</span>
+		  </div>
+			<div class="col-7 text-left mt-2">
+				<a  href="/">
+			<!--<img src="{{logo.image.url}}" alt="">-->
+					<img src="{% static 'img/logo.png' %}" alt="" width="30px" height="30px">
+				</a>
+			</div>
+			<div class="col-4 text-right mt-2">
+				<a href="/cart" class="h4">
+					<i class="fas fa-shopping-cart color-white hov-a cursor-pointer"></i>
+					<sup>
+						<span class="badge badge-dark">{{cartItems}}</span>
+					</sup>
+				</a>
+			</div>
+		</div>
+		<div class="row "  style="margin:5px;">
+			<div class="col ">
+			<form method='get'  action='/search'>
+				<input class="form-control form-control-sm  " type="search" placeholder="Product Search" aria-label="Search" name='query' id='query'>
+			</form>
+			</div>
+		</div>
+	</div>
+
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	<hr class="hr">
+  <a>
+					<div class="row">
+						{% if not request.user.is_authenticated %}
+						<div class="col-4 text-center">
+							<a href="/userdetail/login" class="text-decoration-none text-light"><i class="fas fa-2x fa-sign-in-alt"></i>
+								<p class="br"> Login</p>
+							</a>
+						</div>
+						<div class="col-4 text-center"><a href="/userdetail/register" class="text-decoration-none text-light"><i
+									class="fas fa-2x fa-user-plus"></i>
+								<p class="br"> Register</p>
+							</a>
+						</div>
+						<!--<div class="col-4 text-center">
+							<a href="/cart" class="text-decoration-none text-light "><i class="fas fa-2x fa-shopping-cart"></i>
+								<sup>
+									<span class="badge badge-light h2" style="position: absolute; margin-left: 60%; margin-top: -60%;">{{cartItems}}</span>
+								</sup>
+								<br>
+								Cart
+							</a>
+						</div>-->
+						{% else %}
+						<div class="col-4 text-center"><a href="/userdetail/logout" class="text-decoration-none text-light"><i
+									class="fas fa-2x fa-sign-in-alt"></i><br> LogOut</a>
+						</div>
+						<!--<div class="col-4 text-center">
+							<a href="/cart" class="text-decoration-none text-light "><i class="fas fa-2x fa-shopping-cart"></i><sup><span
+								class="badge badge-light" style="position: absolute; margin-left: 60%; margin-top: -60%;">{{cartItems}}</span></sup><br>Cart</a>
+						</div>-->
+						<div class="col-4 text-center">
+							<a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.customer %}/userdetail/profile{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% elif oim1.student %}{% url 'planner_home' %}{% else %}/userdetail/login{% endif %}"
+								class="text-decoration-none text-light mt-2"><i class="fas fa-2x fa-user"></i><br>  Profile</a>
+						</div>
+						{% endif %}
+						<!--<div class="col-4 text-center">
+							<a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.customer %}/userdetail/profile{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% else %}/userdetail/login{% endif %}"
+								class="text-decoration-none text-light"><i class="fas fa-2x fa-user"></i><br> Profile</a>
+						</div>-->
+					</div>
+				</a>
+
+<hr  class="hr">
+	<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Quick
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+   <a class="dropdown-item text-light" href="{% url 'product_order' %}">Product Order</a>
+						<a class="dropdown-item text-light" href="{% url 'services' %}">Services</a>
+						<a class="dropdown-item text-light" href="{% url 'customize' %}">Customize</a>
+						<a class="dropdown-item text-light" href="{% url 'quick_subscribe' %}">Subscription</a>
+
+						<a class="dropdown-item text-light" href="{% url 'pick_and_deliver' %}">Pick & Deliver</a>
+  </div>
+</div>
+	</a>
+
+
+
+
+	<a   href="{% url 'subscription' %}">Subscribe</a>
+
+
+
+
+
+
+
+	<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Store
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu8">
+	{% for item in store %}
+						<a href="/products?cate={{item.product_Category}}"  class="dropdown-item text-light">{{ item.product_Category }}</a>
+						<!-- <a href="#" class="nav-link">Fashion</a>
+						<a href="#" class="nav-link">Electronics</a>
+						<a href="#" class="nav-link">Services</a> -->
+						{% endfor %}
+  </div>
+</div>
+</a>
+
+	 <a   href="/buisness" >Services</a>
+
+<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Supermarket
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+
+						{% for item in market %}
+						<a href="/products?cate={{item.product_Category}}&sub={{item.product_Subcategory}}"
+							 class="dropdown-item text-light">{{item.product_Subcategory}}</a>
+						<!-- <a href="#" class="nav-link">Fruits</a>
+				<a href="#" class="nav-link">Vegitable</a> -->
+						{% endfor %}
+  </div>
+</div>
+</a>
+
+
+
+	<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Fashion
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
+
+						<a href="#"  class="dropdown-item text-light">Mens</a>
+						<a href="#"  class="dropdown-item text-light">Womens</a>
+						<a href="#"  class="dropdown-item text-light">Kids</a>
+						<a href="#"  class="dropdown-item text-light">Home & Living</a>
+						<a href="#"  class="dropdown-item text-light">Fabric</a>
+  </div>
+</div>
+</a>
+
+
+
+<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Electronics
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
+
+						{% for item in electronic %}
+						<a href="/products?cate={{item.product_Category}}&sub={{item.product_Subcategory}}"
+						class="dropdown-item text-light"	>{{item.product_Subcategory}}</a>
+						<!-- <a href="#" class="nav-link">Fruits</a>
+				<a href="#" class="nav-link">Vegitable</a> -->
+						{% endfor %}
+  </div>
+</div>
+</a>
+
+	<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Brand
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
+  <form method='get' class="form-inline d-flex md-form form-sm my-2 my-lg-0" action='/searchbrand'>
+							<input class="form-control form-control-sm mr-3 w-75" type="search" placeholder="Brand Search" aria-label="Search" name='query' id='query'>
+  </form>
+	 {% for br in brand %}
+						<a href="/products?cate={{br.product_Category}}&brand={{br.brand}}" class="dropdown-item text-light"	>{{ br.brand }}</a>
+						<!-- <a href="#" class="nav-link">Lenovo</a>
+						<a href="#" class="nav-link">Brook Bond</a>
+						<a href="#" class="nav-link">Amul</a> -->
+						{% endfor %}
+  </div>
+</div>
+</a>
+
+
+<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Store
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu7">
+	{% for item in store %}
+						<a href="/products?cate={{item.product_Category}}"  class="dropdown-item text-light">{{ item.product_Category }}</a>
+						<!-- <a href="#" class="nav-link">Fashion</a>
+						<a href="#" class="nav-link">Electronics</a>
+						<a href="#" class="nav-link">Services</a> -->
+						{% endfor %}
+  </div>
+</div>
+</a>
+
+
+	<a>
+<div class="dropdown">
+  <a class=" dropdown-toggle" type="button" id="dropdownMenu9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    B2B
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu9">
+	<a href="/" class="">Ready Stock</a>
+						<a href="/buisness/placeorder"  class="dropdown-item text-light"> Made To Order</a>
+						{% if home_links.institutional %}
+						<div> <a href="/buisness"  class="dropdown-item text-light">Institutional</a></div>
+						{% endif %}
+  </div>
+</div>
+</a>
+
+</div>
+
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "300px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+
+
+	<!-- There is a another bar for resonsive purpose -->
+
+<div class="container-fluid d-md-none mt-4 d-lg-block " id="navigation2">
+	<div class="row search-container">
+		<div class="col-12 topnav">
+			{% if home_links.printful %}
+				<a href="{% url 'printful' %}" class="px-3 nav-link">Personalizse</a>
+				{% endif %}
+				{% if home_links.mtm %}
+				<a href="/madetomeasure" class="px-3 nav-link">Customise</a>
+				{% endif %}
+				{% if home_links.institutional %}
+				 <a href="https://www.tryndbuy.com/women-sweatshirt/i/83" class="px-3 nav-link">Visualise</a>
+				{% endif %}
+				{% if home_links.my_Design %}
+			     <a href="/mydesign" class="px-3 nav-link">Socialise</a>
+				{% endif %}
+				{% if home_links.institutional %}
+				 <a href="/news" class="px-3 nav-link">News</a>
+				{% endif %}
+				{% if home_links.institutional %}
+				 <a href="/blog" class="px-3 nav-link">Blog</a>
+				{% endif %}
+				{% if home_links.institutional %}
+				 <a href="#" class="px-3 nav-link">Compare</a>
+				{% endif %}
+				{% if home_links.institutional %}
+				<a href="/userdetail/staff_profile/message" class="px-3 nav-link">Consult</a>
+				{% endif %}
+
+
+
+
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+	<div class="container-fluid mt-5" style="margin-top: 0px!important;">
+		<div class="row d-md-block d-lg-none ">
+		<div class="wrapper  pt-5 ">
+			{% if home_links.printful %}
+			<div class="items"><a href="{% url 'printful' %}" class=""><img
+						src="https://image.flaticon.com/icons/svg/1345/1345260.svg">
+					<p >Personalise</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.mtm %}
+			<div class="items"><a href="/madetomeasure"> <img
+						src="https://image.flaticon.com/icons/svg/681/681560.svg">
+					<p>Customise</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.institutional %}
+			<div class="items"> <a href="https://www.tryndbuy.com/women-sweatshirt/i/83"><img
+						src="https://image.flaticon.com/icons/svg/3026/3026023.svg">
+					<p>Visualise</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.my_Design %}
+			<div class="items"> <a href="/mydesign"><img
+						src="https://image.flaticon.com/icons/svg/875/875460.svg" alt="">
+					<p>Socialise</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.institutional %}
+			<div class="items"> <a href="/news"> <img
+						src="https://image.flaticon.com/icons/svg/1074/1074208.svg">
+					<p>News</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.institutional %}
+			<div class="items"> <a href="/blog"> <img
+						src="https://image.flaticon.com/icons/svg/1187/1187544.svg">
+					<p>Blog</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.institutional %}
+			<div class="items"> <a href="#"> <img
+						src="https://image.flaticon.com/icons/svg/2331/2331709.svg">
+					<p>Compare</p>
+				</a></div>
+			{% endif %}
+			{% if home_links.institutional %}
+			<div class="items"><a href="/userdetail/staff_profile/message"> <img src="https://image.flaticon.com/icons/svg/1848/1848755.svg"><p>Consult</p></a></div>
+			{% endif %}
+		</div>
+	</div>
+
+
+
+
+	<div class="row " >
+		{% block topcontent %}
+
+		{% endblock %}
+	</div>
+
+
+
+
+
+
+
+	{% block content %}
+
+	{% endblock %}
+
+
+
+
+		<div class="container-fluid" style="background: #253031;">
+			<div class="row">
+
+				<div class="col-6 col-lg-2 color-white">
+
+					<h5 class="mt-5 ml-2">Services</h5>
+					<ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+						<a href="http://justgetit.in" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Home</li>
+						</a>
+				<!--		<a href="/buisness/enquiry" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Enquiry</li>
+						</a>
+						<a href="/buisness/design" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Design</li>
+						</a>
+						<a href="/buisness/sampling" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Sampling</li>
+						</a>
+						<a href="/buisness/placeorder" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Bulk Orders</li>
+						</a>
+						<a href="/daily_report" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Daily Report</li>
+						</a>
+						<a href="https://drive.google.com/open?id=1KCfQ1Hp58fmt9I-AvA0fUuZOv4JUMux9q8-AsxX_Gtg" class="hov-a" style="color:white;">
+							<li class="hov-a cursor-pointer">Daily Work Upload</li>
+						</a>
+					-->
+					</ul>
+
+				</div>
+				<div class="col-6 col-lg-2 color-white">
+					<h5 class="mt-5 ml-2">Email :</h5>
+					<ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+						<li class="hov-a cursor-pointer">info@justgetit.in</li>
+						<li class="hov-a cursor-pointer">sales@justgetit.in</li>
+						<li class="hov-a cursor-pointer">hr@justgetit.in</li>
+						<li class="hov-a cursor-pointer">support@justgetit.in</li>
+						<li class="hov-a cursor-pointer">admin@justgetit.in</li>
+					</ul>
+				</div>
+
+
+				<div class="col-6 col-lg-2 color-white">
+					<h5 class="mt-5 ml-2">Address</h5>
+					<p class="ml-3 mt-3">{{address789.address_of_website|linebreaks}}</p>
+					
+					<p> Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204 </p>
+				</div>
+				<div class="col-6 col-lg-2 color-white newslet">
+					<h5 class="mt-5 ml-2">Newsletter</h5>
+					<form method="POST">{% csrf_token %}
+						<input type="email" name="subscribe" placeholder="Email" class="ml-3"
+							style="border: none; border-bottom: 1px solid white; color: white;background: transparent;">
+						<button style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="mt-3 ml-4 py-1 px-4 but-subs"
+							type="submit">Subscribe</button>
+					</form>
+				</div>
+				<div class="col-6 col-lg-2 mt-3">
+					<a href="/"><img src="{% static 'img/payment.png' %}" class="img-fluid"></a>
+				</div>
+
+				<div class="col-xs-12 col-md-2 col-lg-3 color-white">
+					{% if home_links.footer_track or home_links.footer_shipping or home_links.footer_return or home_links.footer_faq %}<h5
+						class="mt-5 ml-2">Help</h5>{% endif %}
+					<ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+						{% if home_links.footer_track %}<li class="hov-a mt-2 cursor-pointer">Track Order</li>{% endif %}
+						{% if home_links.footer_shipping %}<li class="hov-a cursor-pointer">Shipping</li>{% endif %}
+						{% if home_links.footer_return %}<li class="hov-a cursor-pointer">Returns</li>{% endif %}
+						{% if home_links.footer_faq %}<li class="hov-a cursor-pointer">FAQs</li>{% endif %}
+					</ul>
+				</div>
+			</div>
+	<div class="row " id="bottomnavi">
+				<div class="col-12 m-0 p-0">
+					<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+						<a class="navbar-brand" href="#"></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+							aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item active">
+									<a class="nav-link navbar-nav" href="/userdetail/seller_registration">Register Seller <span
+											class="sr-only">(current)</span></a>
+								</li>
+						<!--	<li class="nav-item active">
+									<a class="nav-link navbar-nav" href="/userdetail/buisness_registration">Register Business <span
+											class="sr-only">(current)</span></a>
+								</li>
+							-->
+								<li class="nav-item active">
+									<a class="nav-link navbar-nav" href="/userdetail/register">Register Consumer <span
+											class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item active">
+									<a class="nav-link navbar-nav" href="/userdetail/staff_registration">Register Staff <span
+											class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item active">
+									<a class="nav-link navbar-nav" href="http://about.justgetit.in">About Us <span
+											class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item active">
+									<a class="nav-link navbar-nav" href="/term">Terms & Conditions <span
+											class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item active">
+									<a class="nav-link navbar-nav"  href="/privacy">Privacy policy <span
+											class="sr-only">(current)</span></a>
+								</li>
+							</ul>
+
+
+							<!--Facebook-->
+							<div class="row social">
+								<a href="https://www.facebook.com/justy.gety"><img
+										src="https://img.icons8.com/fluent/48/000000/facebook-new.png" />
+									<!--<i class="fab fa-2x fa-facebook-f"></i>--></a>
+								<!--Twitter-->
+								<a href="https://twitter.com/JUSTGETIT9"><img
+										src="https://img.icons8.com/fluent/48/000000/twitter.png" />
+									<!--<i class="fab fa-2x fa-twitter"></i>--></a>
+								<!--Google +-->
+								<img src="https://img.icons8.com/fluent/48/000000/google-plus.png" />
+								<!--Linkedin-->
+								<a href="https://www.linkedin.com/in/just-get-it-74177b1a8/"><img
+										src="https://img.icons8.com/fluent/48/000000/linkedin-2.png" /></a>
+								<!--Instagram-->
+								<img src="{% static 'img/playstore.png' %}" alt="" width="40px" height="40px"/>
+								<img src="https://img.icons8.com/color/48/000000/apple-app-store--v1.png"/>
+								<img src="https://img.icons8.com/color/48/000000/whatsapp.png"/>
+								<img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" />
+								<img src="https://img.icons8.com/fluent/48/000000/youtube-play.png" />
+								<img src="https://img.icons8.com/fluent/48/000000/pinterest.png" />
+								<!--<img src="https://img.icons8.com/fluent/48/000000/skype.png" />-->
+								<img src="https://img.icons8.com/fluent/48/000000/telegram-app.png" />
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<div class="container d-lg-none"  style="background: #253031; color:white;">
+		<div class="row">
+			<div class="col"> Register Consumer</div>
+			<div class="col">Terms & Conditions</div>
+
+		</div>
+		<div class="row">
+			<div class="col">Register Seller</div>
+			<div class="col"> Privacy policy</div>
+
+		</div>
+		<div class="row">
+
+			<div class="col"> Register Staff  </div>
+			<div class="col">About US </div>
+		</div>
+		<div class="row social">
+<a href="https://www.facebook.com/justy.gety"><img
+										src="https://img.icons8.com/fluent/48/000000/facebook-new.png" />
+									<!--<i class="fab fa-2x fa-facebook-f"></i>--></a>
+								<!--Twitter-->
+								<a href="https://twitter.com/JUSTGETIT9"><img
+										src="https://img.icons8.com/fluent/48/000000/twitter.png" />
+									<!--<i class="fab fa-2x fa-twitter"></i>--></a>
+								<!--Google +-->
+								<img src="https://img.icons8.com/fluent/48/000000/google-plus.png" />
+								<!--Linkedin-->
+								<a href="https://www.linkedin.com/in/just-get-it-74177b1a8/"><img
+										src="https://img.icons8.com/fluent/48/000000/linkedin-2.png" /></a>
+								<!--Instagram-->
+								<img src="{% static 'img/playstore.png' %}" alt="" width="40px" height="40px"/>
+								<img src="https://img.icons8.com/color/48/000000/apple-app-store--v1.png"/>
+								<img src="https://img.icons8.com/color/48/000000/whatsapp.png"/>
+								<img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" />
+								<img src="https://img.icons8.com/fluent/48/000000/youtube-play.png" />
+								<img src="https://img.icons8.com/fluent/48/000000/pinterest.png" />
+								<!--<img src="https://img.icons8.com/fluent/48/000000/skype.png" />-->
+								<img src="https://img.icons8.com/fluent/48/000000/telegram-app.png" />
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript">
+		function myfuc() {
+			// alert("called");
+			var qwe = document.getElementById('loader');
+			qwe.style.display = "none";
+		}
+	</script>
+	<script type="text/javascript" src="{% static 'js/script.js' %}">
+
+	</script>
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+	{% block js %} {% endblock %}
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+</body>
+<style>
+
+	.wrapper {
+		display: flex;
+		text-align: center;
+		font-weight: 600;
+		overflow-x: auto;
+		background-color: #d6f1fc;
+		padding-top: 15px;
+	}
+
+	.wrapper .items {
+		min-width: 100px;
+	}
+	.wrapper::-webkit-scrollbar{
+		width: 0;
+	}
+	.wrapper img {
+		width: 4vh;
+	}
+	.wrapper a {
+		color: #253031;
+		font-size: 15px;
+	}
+	.wrapper p {
+		margin-bottom: 0px;
+	}
+</style>
+
+
+<style>
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index:5000;
+  top: 0;
+  left: 0;
+  background-color:#343A40;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  margin:4px;
+  text-decoration: none;
+  font-size:15px;
+  color:white;
+  display: block;
+
+}
+
+
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 30px;
+  margin-left: 50px;
+}
+a:not([href]):not([tabindex]) {
+    color: black;
+    text-decoration: none;
+}
+
+a:not([href]):not([tabindex]):hover {
+    color: #30C5FF;
+    text-decoration: none;
+}
+
+.hr{
+background-color:white;
+}
+
+.dropdown-menu{
+background-color:#343A40;
+color:white;
+
+}
+
+</style>
+
+
+<style>
+.row{
+margin-left:0px;
+margin-right:0px;
+}
+
+.topnav a {
+position:relative;
+ left:350px;
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  top:6px;
+  padding:15px 15px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.search-container{
+	background-color:#343A40;
+
+	}
+
+	@media all and (max-width: 600px) {
+		#bottomnavi{
+			display:none;
+		}
+		#navigation2{
+		display:none;
+		}
+		#navigation1{
+		display:none;
+		}
+
+
+
+
+
+
+
+		}
+
+		    .container-fluid {
+   padding-left:0px;
+   padding-right:0px;
+
+   }
+
+.sticky-top {
+
+     z-index:0;
+}
+
+
+
+</style>
+
+</html>

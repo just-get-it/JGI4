@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+      <div class="row justify-content-center">
+        
+        <div class="col-12">
+          <h1 class="mt-2" style="background-color: burlywood;color: aliceblue;text-align: center;">Nutrition Content of : <bold>" {{ product_name }} "</bold></h1>
+
+          <div class="col-6">
+            <form id="search" method="get" action="{% url 'product' %}">
+
+              <label for="searchBy">Search by:</label>
+      
+              <select name="searchBy" id="id_searchBy" class="form-control" placeholder="abc">
+                <option value="product">Product Name</option>
+                <option value="nutrient">Nutrient Name</option>
+              </select><br>
+      
+              <input type="text" class="form-control" id="txtSearch" name="txtSearch" placeholder="search product"><br>
+              <button type="submit" class="btn btn-default btn-submit">Search</button>
+              </form>
+            </div>
+
+          <table class="table table-hover" style="text-align: center;">
+
+            <thead>
+                <tr>
+                  <th scope="col">Nutrient Name</th>
+                  <th scope="col">Contain</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key,value in nt_object %}
+                <tr>
+                    <th scope="row">{{key}}</th>
+                  <td>{{value}}</td>
+                </tr>
+                {% endfor %}
+          <hr class="mt-0 mb-4">
+        </div>
+      </div>
+    </div>
+{% endblock %}

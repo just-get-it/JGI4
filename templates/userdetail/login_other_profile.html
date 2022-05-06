@@ -1,0 +1,36 @@
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	{% for i in users %}
+	{% for j in i %}
+	<div class="col-2 mx-3" style="overflow: hidden;">
+		<div class="row my-3" style="cursor: pointer;" onclick="window.location.href='?user_login={{j.email}}'">
+			{% if j.image %}
+			<img src="{{j.image.url}}" style="border-radius: 50%;width: 200px;height: 200px;">
+			{% else %}
+			<img src="http://files.softicons.com/download/application-icons/must-have-icons-by-visualpharm/png/256/User.png" style="border-radius: 50%;width: 200px;height: 200px;">
+			{% endif %}
+
+		</div>
+		<div class="row">
+			<b>{{j.email}}</b>
+		</div>
+	</div>
+	{% endfor %}
+	{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="container mt-3 mb-3 centered">
+    <div class="row">
+      <div class="col">
+        <video id="video"></video>
+      </div>
+    </div>
+
+      <canvas  id="myCanvas" width="400" height="400" style="display: none;"></canvas>
+
+    {% csrf_token %}
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  var video=document.getElementById('video'),
+  vendorURL=window.URL || window.webkitURL;
+
+  navigator.getMedia = navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia;
+
+  navigator.getMedia({
+    video:true,
+    audio:false
+  },function(stream){
+    video.srcObject = stream;
+    video.play();
+  },
+  function(error){
+
+  });
+
+    var canvas, ctx;
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext('2d');
+  function snapshot() {
+     // Draws current image from the video element into the canvas
+    ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+    // some();
+  }
+  // a();
+  // some();
+  setInterval(some,2000);
+  function some(){
+    var canvas, ctx;
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+    var dataURL=canvas.toDataURL();
+
+
+    var formdata = new FormData();
+    formdata.append("ajax_qr", dataURL);
+    formdata.append("csrfmiddlewaretoken",$('input[name=csrfmiddlewaretoken]').val());
+    $.ajax({
+       url: "/scan_qr/",
+       type: "POST",
+       data: formdata,
+       processData: false,
+       contentType: false,
+       success:function(respond){
+        if (respond.code == "NO BarCode Found"){
+
+        }
+        else{
+          // alert(respond.code);
+          var data = JSON.parse(respond);
+          // alert(data[0].code);
+          window.location.href=data[0].code;
+        }
+       }
+    });
+    // setTimeout(a,1000)
+  }
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

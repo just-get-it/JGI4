@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="row">
+	{% if deactivated %}
+		<div class="container-fluid">
+			<div class="row centered fontpacifico" style="height: 92vh;">
+				<h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+			</div>
+		</div>
+	{% else %}
+
+
+
+
+
+	<div class="container">
+		<div class="row mt-3 mb-5">
+			{% if data.image %}
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+				<img src="{{data.image.url}}">
+			</div>
+			{% endif %}
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+				<h1><b>{{data.name}}</b></h1>
+				<h6> <b>Email</b> - {{data.email}}</h6>
+				<h6> <b>Mission</b> - {{data.mission}}</h6>
+				<h6> <b>Contact</b> - {{data.contact}}</h6>
+			</div>
+		</div>
+		<div class="row mt-2 mb-5 buis_desc_row">
+			<h6 align="justify"><b>Description</b> : - {{data.description}}</h6>
+			
+		</div>
+
+
+
+		
+		<div class="row mt-2 mb-2">
+			<h5><b>Labels</b></h5>
+		</div>
+		{% if label.0 %}
+		<div id="labels_data">
+			{% for l in label %}
+			<div class="row mt-2 mb-2" style="border-bottom: 1px solid #c0bdba;">
+				<h6>{{l.name}}</h6>
+			</div>
+			{% endfor %}
+		</div>
+		{% endif %}
+
+
+		<div class="row mt-4 mb-2">
+			<h5><b>Fits</b></h5>
+		</div>
+		{% if fit.0 %}
+
+		{% for l in fit %}
+		<div class="row mt-2 mb-2" style="border-bottom: 1px solid #c0bdba;">
+			<div class="col">
+				<h6>{{l.name}}</h6>
+			</div>
+			<div class="col centered">
+				<h6>Label : {{l.label}}</h6>
+			</div>
+		</div>
+		{% endfor %}
+		{% endif %}
+
+
+
+
+
+
+
+		
+		<div class="row mt-4 mb-2">
+			<h5><b>Seasons</b></h5>
+		</div>
+		{% if season.0 %}
+		{% for l in season %}
+		<div class="row mt-2 mb-2" style="border-bottom: 1px solid #c0bdba;">
+			<div class="col">
+				<h6>{{l.name}}</h6>
+			</div>
+			<div class="col centered">
+				<h6>Label : {{l.label}}</h6>
+			</div>
+
+			<div class="col centered">
+				<h6>Fit : {{l.fit}}</h6>
+			</div>
+		</div>
+		{% endfor %}
+		{% endif %}
+		{% if orders.0 %}
+		<div class="row mb-5 mt-4">
+			<div class="container-fluid">
+				<div class="row">
+					<h5><b>Your Products</b></h5>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row mt-4">
+					{% if order_bool %}
+						{% for ord in orders %}
+							<div class="col-2 px-2 py-2 mr-4" style="box-shadow: 0 0 3px black;">
+								<img src="{{ord.image1.url}}" width="170" height="200">
+								<div class="row ml-2">
+									<h6><b>{{ord.title}}</b></h6>
+								</div>
+								<div class="row ml-3">
+									<h6>Rs. {{ord.price}}</h6>									
+								</div>
+								<div class="row">
+									<a href="/products/{{ord.slug}}" class="hov-a ml-auto mr-3">View</a>
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						<h6>You didn't UPLOADED any products yet</h6>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+
+{% if meas.0 %}
+
+		<div class="row mt-2 mb-5">
+			<h5 class="fontcabin"><b>Your Measurements</b></h5>
+		</div>
+		<div class="row mt-2 mb-5">
+			{% for l in meas %}
+			<div class="col-2 pt-2 pb-2 px-2 mr-4" style="box-shadow: 0 0 3px black;">
+				<h5><b>Size Label - </b> {{l.name}}</h5>
+				<h6><b>Label - </b>{{l.label}}</h6>
+				<h6><b>Fit - </b>{{l.fit}}</h6>
+				<h6><b>Season - </b>{{l.season}}</h6>
+				<h6><b>Category - </b>{{l.product_Category}}</h6>
+				<h6><b>Sub-Category - </b>{{l.product_Subcategory}}</h6>
+				<h6><b>Super-Category - </b>{{l.product_Supercategory}}</h6>
+				<div class="row">
+					<a href="/userdetail/seller_profile/measurements/{{l.slug}}" class="hov-a" style="margin-left: 11vw;">View</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+{% endif %}
+
+{% if activate %}
+		<form method="POST">{% csrf_token %}
+		<div class="row mt-4">
+			
+			<input type="checkbox" name="activate" class="ml-3">
+			<label class="ml-2">Activate</label>
+		</div>
+		<div class="row mt-2 mb-2 centered">
+			<button type="submit" style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="py-1 px-4">Save</button>
+		</div>
+		</form>
+{% endif %}
+
+
+	{% endif %}
+</div>
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">	
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</div>
+
+{% endblock %}

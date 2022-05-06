@@ -1,0 +1,1132 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+{% block content %}
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+
+<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+   createTable();
+}, false);
+
+        </script>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+			
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>FABRIC INSPECTION<br></h3>
+            </div>
+        </div>
+        <div class="container">
+
+
+ <form method="POST" id="form">{% csrf_token %}
+				<div class="form-group row">
+					<label for="orderNo" class="col-sm-2 col-form-label">Order Number</label>
+					<div class="col-sm-4">
+						  <input type="text" name="orderNo" class="form-control" id="orderNo" value="{{Rorder_no}}{{ord}}" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="supplier" class="col-sm-2 col-form-label">Supplier Name</label>
+					<div class="col-sm-4">
+						  <input type="text" name="supplier" class="form-control" id="supplier" value="{{inh_ob.supplier}}{{supp}}" readonly>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="lotNo" class="col-sm-2 col-form-label">Lot Number</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="lotNo" id="lotNo" value="{{lottt}}{{looot}}" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="numRolls" class="col-sm-2 col-form-label">Number of Rolls</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="numRolls" id="numRolls" value="{{rolls}}{{total}}" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="insPer" class="col-sm-2 col-form-label">Inspection %</label>
+					<div class="col-sm-4">
+						<input type="text" name="insPer" class="form-control" id="insPer" value="{{RinsP}}{{insper}}" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="rollnum" class="col-sm-2 col-form-label">Roll number</label>
+					<div class="col-sm-4" id="rollnumdiv">
+						<select class="form-control" id="rollnum" name="rollnum"  onblur="f_rolsss()">
+							<option value="">Select Roll Number</option>
+							{% for x in list %}
+							<option value="{{x}}">{{x}}</option>
+							 {% endfor %}
+						</select>
+
+					</div>
+					<div id="rollnumdiv2"></div>
+						<script type="text/javascript">
+							 function f_rolsss() {
+                                        if (document.getElementById("rollnum").value=="")
+                                            document.getElementById("rollnumdiv2").innerHTML="<font color=red>Select Roll number<font>";
+                                        else
+                                            document.getElementById("rollnumdiv2").innerHTML="";
+                                    }
+
+						</script>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="fType" class="col-sm-2 col-form-label">Fabric Types</label>
+					<div class="col-sm-4">
+						<select class="form-control" id="fType" name="fType"  onchange="set_acceptance(this)">
+							<option value="">Select Type</option>
+							{% if fab %}
+							<option value="{{fab}}" selected>{{fab}}</option>
+							{% endif %}
+							<option value="Knits">Knits</option>
+							<option value="Woven">Woven</option>
+							<option value="Non-Woven">Non-Woven</option>
+						<!--	<option value="Checks">Checks</option>
+							<option value="Solids">Solids</option>
+							<option value="Stripes">Stripes</option>
+							<option value="Printed">Printed</option>
+							<option value="Yarn Dye">Yarn Dye</option>
+							<option value="Fibre Dye">Fibre Dye</option>
+							<option value="Piece Dye">Piece Dye</option>-->
+						</select>
+					</div>
+					<div id="fabdiv2"></div>
+						<script type="text/javascript">
+						var setsel="";
+							function set_acceptance(select)
+							{
+							 if (document.getElementById("fType").value=="")
+                                            document.getElementById("fabdiv2").innerHTML="<font color=red>Select Fabric Type<font>";
+                                        else
+
+							{ document.getElementById("fabdiv2").innerHTML="";
+							var fabtype=select.options[select.selectedIndex].getAttribute("value");
+							var Knits=['Bariness','Bunching Up','Drop Stitch','Holes/Cracks','Crack Fall Out','Horizontal Stripes','Vertical Stripes','Birdseye','Course Yarn','Misdraw'];
+							var Woven=['Coloured Flecks','Knots','Slub','Broken Ends Woven In A Bunch','B roken Pattern','Double End','Float','Gout','Hole','Lashing-In','Local Distortion','Missing Ends','Missing Picks','Oil/Stain','Oily Ends','Oily Picks','Reed Mark','Slough Off','Shuttle Smash','Snarls','Stitches','Untrimmed Loose Threads','Weft Bar','Defective Selvadge'];
+							var Checks=['Coloured Flecks','Knots','Slub','Broken Ends Woven In A Bunch','B roken Pattern','Double End','Float','Gout','Hole','Lashing-In','Local Distortion','Missing Ends'];
+							var Stripes=['Crack Between Stripes'];
+							var Printed=['Broken Colour Pattern','Flipped Yarn','Blabbiness','Bleeding','Stain','Uneven Printing','Slight Touching','Poorly Adjusted Screen','Double Printing','Pressing Paste By Frame','Pattern Bending','Speck','Colour Smear','Listing'];
+							var YarnDye=['Barre','Bleeding','Crocking','Shade Bar','Shading','Stain','Colour Variation in Yarn','Hole','Creasing','Streaked'];
+							var FibreDye=['Coloured Flecks','Knots','Slub','Broken Ends Woven In A Bunch','B roken Pattern','Double End','Float','Gout','Hole','Lashing-In','Local Distortion','Missing Ends'];
+							var PieceDye=['Coloured Flecks','Knots','Slub','Broken Ends Woven In A Bunch','B roken Pattern','Double End','Float','Gout','Hole','Lashing-In','Local Distortion','Missing Ends'];
+
+
+							var fabtype=document.getElementById("fType").value+"";
+
+							if(fabtype=="Knits")
+									{
+									document.getElementById("acceptP1").value=15;
+									document.getElementById("acceptP2").value=15;
+									//Defect Set
+									setsel="";
+									for(i=0;i<Knits.length;i++)
+										{
+											setsel+="<option value="+Knits[i]+">"+Knits[i]+"</option>";
+										}
+
+									}
+								else if(fabtype=="Woven")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<Woven.length;i++)
+										{
+											setsel+="<option value="+Woven[i]+">"+Woven[i]+"</option>";
+										}
+
+									}else if(fabtype=="Non-Woven")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<Woven.length;i++)
+										{
+											setsel+="<option value="+Woven[i]+">"+Woven[i]+"</option>";
+										}
+
+									}
+									else if(fabtype=="Checks")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<Checks.length;i++)
+										{
+											setsel+="<option value="+Checks[i]+">"+Checks[i]+"</option>";
+										}
+
+									}
+									else if(fabtype=="Solids")
+									{
+									document.getElementById("acceptP1").value="NA";
+									document.getElementById("acceptP2").value="NA";
+									//Defect Set
+									setsel="";
+									setsel+="<option value='NA'>NA</option>";
+
+									}
+									else if(fabtype=="Stripes")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<Stripes.length;i++)
+										{
+											setsel+="<option value="+Stripes[i]+">"+Stripes[i]+"</option>";
+										}
+
+									}
+									else if(fabtype=="Printed")
+									{
+									document.getElementById("acceptP1").value=0;
+									document.getElementById("acceptP2").value=0;
+									//Defect Set
+									setsel="";
+									for(i=0;i<Printed.length;i++)
+										{
+											setsel+="<option value="+Printed[i]+">"+Printed[i]+"</option>";
+										}
+
+									}
+									else if(fabtype=="Yarn Dye")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<YarnDye.length;i++)
+										{
+											setsel+="<option value="+YarnDye[i]+">"+YarnDye[i]+"</option>";
+										}
+
+									}
+									else if(fabtype=="Fibre Dye")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<FibreDye.length;i++)
+										{
+											setsel+="<option value="+FibreDye[i]+">"+FibreDye[i]+"</option>";
+										}
+
+									}
+									else if(fabtype=="Piece Dye")
+									{
+									document.getElementById("acceptP1").value=28;
+									document.getElementById("acceptP2").value=28;
+									//Defect Set
+									setsel="";
+									for(i=0;i<PieceDye.length;i++)
+										{
+											setsel+="<option value="+PieceDye[i]+">"+PieceDye[i]+"</option>";
+										}
+
+									}
+
+
+
+							}
+							}
+
+						</script>
+				</div>
+
+	 <div class="form-group row">
+					<label for="fType" class="col-sm-2 col-form-label">Design Type</label>
+					<div class="col-sm-4">
+						<select class="form-control" id="desType" name="desType"  onchange="design_set_acceptance(this)">
+							<option value="">Select Design Type</option>
+							<option value="Solid">Solid</option>
+							<option value="Checks">Checks</option>
+							<option value="Stripes">Stripes</option>
+						</select>
+					</div>
+					<div id="designdiv2"></div>
+						<script type="text/javascript">
+							function design_set_acceptance(select)
+							{
+							 if (document.getElementById("desType").value=="")
+                                            document.getElementById("designdiv2").innerHTML="<font color=red>Select Design Type<font>";
+                                        else
+							document.getElementById("designdiv2").innerHTML="";
+							}
+			function f_repeat_size()
+							{
+
+							var insPer=document.getElementById("repeat_size").value;
+ 							if (insPer.length==0)
+                                            document.getElementById("repeat_sizediv").innerHTML="<font color=red>Field required<font>";
+                            else if(isNaN(insPer))
+                                            document.getElementById("repeat_sizediv").innerHTML="<font color=red>Enter integer value<font>";
+                             else
+                                    document.getElementById("repeat_sizediv").innerHTML="";
+   							}
+   			function validate_fabric_shade(select)
+							{
+							 if (document.getElementById("fabShade").value=="")
+                                            document.getElementById("v_fab_shade").innerHTML="<font color=red>Select Fabric Shade<font>";
+                                        else
+							document.getElementById("v_fab_shade").innerHTML="";
+							}
+			function f_Fabric_Width()
+							{
+
+							var insPer=document.getElementById("fWidth").value;
+ 							if (insPer.length==0)
+                                            document.getElementById("fWidthvd").innerHTML="<font color=red>Field required<font>";
+                            else if(isNaN(insPer))
+                                            {document.getElementById("fWidthvd").innerHTML="<font color=red>Enter integer value<font>";
+                                            document.getElementById("units1div").innerHTML="";
+                                             document.getElementById("units3div").innerHTML="";
+                                            }
+                             else
+                                    {document.getElementById("fWidthvd").innerHTML="";
+                                    document.getElementById("units1div").innerHTML="";
+                                     document.getElementById("units3div").innerHTML="";
+                                    }
+   							}
+function Stickered_Roll_flength()
+							{
+							var unit1=document.getElementById("units").value;
+							var insPer=document.getElementById("slength").value;
+							if(unit1=="")
+							                document.getElementById("sWidthvd").innerHTML="<font color=red>Select Unit for Fabric Width first!<font>";
+
+ 							else if (insPer.length==0)
+                                            document.getElementById("sWidthvd").innerHTML="<font color=red>Field required<font>";
+                            else if(isNaN(insPer))
+                                            {document.getElementById("sWidthvd").innerHTML="<font color=red>Enter integer value<font>";
+                                            document.getElementById("units2div").innerHTML="";
+                                             document.getElementById("units3div").innerHTML="";
+                                            }
+                             else
+                                    {document.getElementById("sWidthvd").innerHTML="";
+                                    document.getElementById("units2div").innerHTML="";
+                                     document.getElementById("units3div").innerHTML="";
+                                    }
+   							}
+function Actual_Roll_fLength()
+							{
+								var unit1=document.getElementById("units").value;
+								var unit2=document.getElementById("units2").value;
+							var insPer=document.getElementById("alength").value;
+							if (insPer.length==0)
+                                            document.getElementById("ssdthvd").innerHTML="<font color=red>Field required<font>";
+                            else if(isNaN(insPer))
+                                           { document.getElementById("ssdthvd").innerHTML="<font color=red>Enter integer value<font>";
+                                           document.getElementById("units3div").innerHTML="";
+                                           }
+                             else
+                                    {document.getElementById("ssdthvd").innerHTML="";
+                                    document.getElementById("units3div").innerHTML="";
+                                    }
+                            var alength=parseFloat(document.getElementById("alength").value);
+							   var slength=parseFloat(document.getElementById("slength").value);
+							   if(slength>alength)
+							   		document.getElementById("deviation").value=slength-alength;
+							   else
+							   		document.getElementById("deviation").value=alength-slength;
+							var unit2_selectedoption=document.getElementById("units2").value;
+							//alert(unit2_selectedoption);
+							document.getElementById("units4").value=unit2_selectedoption;
+   							}
+						</script>
+				</div>
+
+<div class="form-group row">
+					<label for="repeat_size" class="col-sm-2 col-form-label">Repeat Size in Inches</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="repeat_size" id="repeat_size" value="{{repeat}}" placeholder="0" onblur="f_repeat_size()">
+						<div id="repeat_sizediv"></div>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="fabShade" class="col-sm-2 col-form-label">Fabric Shade</label>
+					<div class="col-sm-4">
+						<select class="form-control" id="fabShade" name="fabShade"  onchange="validate_fabric_shade(this)">
+							<option value="">Select Shade</option>
+							<option value="Black">Black</option>
+							<option value="White">White</option>
+							<option value="Blue">Blue</option>
+							<option value="Green">Green</option>
+							<option value="Red">Red</option>
+							<option value="Yellow">Yellow</option>
+						</select>
+					</div>
+					<div id="v_fab_shade"></div>
+				</div>
+	 			<div class="form-group row">
+					<label for="acceptP1" class="col-sm-2 col-form-label">Acceptance Points <span>&#x28;</span>per 100 yards square<span>&#41;</span></label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="acceptP1" name="acceptP1" value="0" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="acceptP2" class="col-sm-2 col-form-label">Acceptance Points <span>&#x28;</span>per 100 meter square<span>&#41;</span></label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="acceptP2" name="acceptP2" value="0" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="fWidth" class="col-sm-2 col-form-label">Fabric Width</label>
+					<div class="col-sm-2">
+						  <input type="text" class="form-control" id="fWidth" name="fWidth" value="{{fwidth}}" placeholder="0" onblur="f_Fabric_Width()">
+						<div id="fWidthvd"></div>
+					</div>
+
+					<div class="col-sm-2">
+						  <select class="form-control" id="units" name="units" onchange="change_units()">
+							<option value="meter" selected>meter</option>
+							<option value="inch">inch</option>
+							<option value="yard">yard</option>
+						</select>
+					</div>
+					<div id="units1div"></div>
+						<script type="text/javascript">
+						function change_units()
+							{
+
+							var insPer=document.getElementById("fWidth").value;
+ 							if (insPer.length==0)
+                                            document.getElementById("units1div").innerHTML="<font color=red>Enter Fabric Width<font>";
+                             else
+                                    document.getElementById("units1div").innerHTML="";
+   							}
+					</script>
+				</div>
+	 	 <div class="form-group row">
+		 <label class="col-sm-2 col-form-label">Width Variation</label>
+		 <div class="col-sm-4">
+		 <input type="text" class="form-control" id="wv1" name="wv1" value="{{wv1}}" placeholder="Start" onblur="startvar_fv()">
+			 <input type="text" class="form-control" id="wv2" name="wv2" value="{{wv2}}" placeholder="Middle" onblur="startvar_fv()">
+			 <input type="text" class="form-control" id="wv3" name="wv3" value="{{wv3}}" placeholder="End" onblur="startvar_fv()">
+		</div>
+		 <div id="startvarfv"></div>
+	 </div>
+				<div class="form-group row">
+					<label for="slength" class="col-sm-2 col-form-label">Stickered Roll length</label>
+					<div class="col-sm-3">
+						  <input type="text" class="form-control" id="slength" value="{{sr1}}" name="slength" placeholder="0" onblur="Stickered_Roll_flength()">
+						<div id="sWidthvd"></div>
+					</div>
+
+					<div class="col-sm-2">
+						  <select class="form-control" id="units2" name="units2"  onchange="change_unit1(this)">
+							<option value="meter"  selected>meter</option>
+							<option value="inch">inch</option>
+							<option value="yard">yard</option>
+						</select>
+					</div>
+					<div id="units2div"></div>
+				</div>
+				<script type="text/javascript">
+							function change_unit1(select)
+							{
+							var insPer=document.getElementById("slength").value;
+ 							if (insPer.length==0)
+                                            document.getElementById("units2div").innerHTML="<font color=red>Enter Stickered Roll length<font>";
+                             else
+                                 document.getElementById("units2div").innerHTML="";
+								//Unit 1 option value
+								var unit1=document.getElementById("units").value; //For value change
+								//alert(unit1);
+								//Unit update for unit1
+								var unit2_selectedoption=select.options[select.selectedIndex].getAttribute("value");
+								//alert(unit2_selectedoption);
+								var unit1options = document.getElementById("units").options;
+								for(i=0;i<unit1options.length;i++)
+								{
+									if(unit2_selectedoption==unit1options[i].value)
+										{
+											selectindex=i;
+											break;
+										}
+								}
+								document.getElementById("units").selectedIndex=i;
+
+								//Update Value
+								var fwidthval=document.getElementById("fWidth").value;
+								if(unit2_selectedoption=="inch")
+									{
+									if(unit1=="meter")
+										{
+										document.getElementById("fWidth").value=fwidthval*39.37;
+										}
+									if(unit1=="yard")
+										{
+										document.getElementById("fWidth").value=fwidthval*36;
+										}
+									}
+								if(unit2_selectedoption=="meter")
+									{
+									if(unit1=="inch")
+										{
+										document.getElementById("fWidth").value=fwidthval/39.37;
+										}
+									if(unit1=="yard")
+										{
+										document.getElementById("fWidth").value=fwidthval/1.094;
+										}
+									}
+								if(unit2_selectedoption=="yard")
+									{
+									if(unit1=="meter")
+										{
+										document.getElementById("fWidth").value=fwidthval*1.094;
+										}
+									if(unit1=="inch")
+										{
+										document.getElementById("fWidth").value=fwidthval/36;
+										}
+									}
+							}
+
+						</script>
+
+
+
+				<div class="form-group row">
+					<label for="alength" class="col-sm-2 col-form-label">Actual Roll Length</label>
+					<div class="col-sm-3">
+						  <input type="text" class="form-control" id="alength" name="alength" value="{{arl}}" placeholder="0" onblur="Actual_Roll_fLength()">
+						<div id="ssdthvd"></div>
+
+
+					</div>
+					<div class="col-sm-2">
+						<select class="form-control" id="units3" name="units3" onchange="change_unit1_2(this)">
+							<option value="meter" selected>meter</option>
+							<option value="inch">inch</option>
+							<option value="yard">yard</option>
+						</select>
+						<script type="text/javascript">
+						function change_unit1_2(select)
+							{
+							var insPer=document.getElementById("fWidth").value;
+							var insPer2=document.getElementById("slength").value;
+ 							if (insPer.length==0)
+                                            document.getElementById("units3div").innerHTML="<font color=red>Enter Fabric width first!<font>";
+					else if (insPer2.length==0)
+                                            document.getElementById("units3div").innerHTML="<font color=red>Enter Stickered Roll length first!<font>";
+
+                             else
+                                 document.getElementById("units3div").innerHTML="";
+
+							    //Initial units for units and units2
+							    var unit1=document.getElementById("units").value;
+							    //Unit update for unit1 and 2 acc to unit 3
+								var unit3_selectedoption=select.options[select.selectedIndex].getAttribute("value");
+								var unit1options = document.getElementById("units").options;
+								for(i=0;i<unit1options.length;i++)
+								{
+									if(unit3_selectedoption==unit1options[i].value)
+										{
+											selectindex=i;
+											break;
+										}
+								}
+								document.getElementById("units").selectedIndex=i;
+								document.getElementById("units2").selectedIndex=i;
+								//value update fwidthval and slength
+								var fwidthval=document.getElementById("fWidth").value;
+								var slength=document.getElementById("slength").value;
+								if(unit3_selectedoption=="inch")
+									{
+									if(unit1=="meter")
+										{
+										document.getElementById("fWidth").value=fwidthval*39.37;
+										document.getElementById("slength").value=slength*39.37;
+										}
+									if(unit1=="yard")
+										{
+										document.getElementById("fWidth").value=fwidthval*36;
+										document.getElementById("slength").value=slength*36;
+										}
+									}
+								if(unit3_selectedoption=="meter")
+									{
+									if(unit1=="inch")
+										{
+										document.getElementById("fWidth").value=fwidthval/39.37;
+										document.getElementById("slength").value=slength/39.37;
+										}
+									if(unit1=="yard")
+										{
+										document.getElementById("fWidth").value=fwidthval/1.094;
+										document.getElementById("slength").value=slength/1.094;
+										}
+									}
+								if(unit3_selectedoption=="yard")
+									{
+									if(unit1=="meter")
+										{
+										document.getElementById("fWidth").value=fwidthval*1.094;
+										document.getElementById("slength").value=slength*1.094;
+										}
+									if(unit1=="inch")
+										{
+										document.getElementById("fWidth").value=fwidthval/36;
+										document.getElementById("slength").value=slength/36;
+										}
+									}
+									 var alength=parseFloat(document.getElementById("alength").value);
+							   var slength=parseFloat(document.getElementById("slength").value);
+							   if(slength>alength)
+							   		document.getElementById("deviation").value=slength-alength;
+							   else
+							   		document.getElementById("deviation").value=alength-slength;
+							   document.getElementById("units4").value=unit3_selectedoption;
+							}
+
+						</script>
+
+
+					</div>
+					<div id="units3div"></div>
+				</div>
+
+					<div class="form-group row">
+					<label for="deviation" class="col-sm-2 col-form-label">Deviation</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="deviation" name="deviation" Value="0" readonly>
+					</div>
+
+					<label for="units4" class="col-sm-2 col-form-label">Units4</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="units4" name="units4" value="0" readonly>
+					</div>
+					</div>
+	  			<input type="button" id="addRow" class="btn btn-primary" value="Add New Defect Type" onclick="addRow12()" />
+ 				<div id="defectTable"></div>
+<script type="text/javascript">
+	let nodef=0;
+    var dataId = 1;
+    var arrHead = new Array();
+    arrHead = ['ID', 'Defect Type','<3"', '3"-6"', '6"-9"', '>9"','Linear Points','Options'];
+
+    function createTable() {
+        var empTable = document.createElement('table');
+        empTable.setAttribute('id', 'empTable');
+        empTable.setAttribute('class', 'table table-bordered');
+
+        var tr = empTable.insertRow(-1);
+
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th');
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('defectTable');
+        div.appendChild(empTable);
+    }
+
+    function addRow12() {
+
+        var empTab = document.getElementById('empTable');
+
+        var rowCnt = empTab.rows.length;
+        var tr = empTab.insertRow(rowCnt);
+        tr = empTab.insertRow(rowCnt);
+		var temp_id=dataId;
+        for (var c = 0; c < arrHead.length; c++) {
+            var td = document.createElement('td');
+
+            td = tr.insertCell(c);
+
+            if (c == 0) {
+                td.appendChild(document.createTextNode(dataId));
+                //Storing id value for toatal point calculation loop
+                nodef+=1;
+                document.getElementById("idNo_hid").value=nodef;
+                dataId += 1;
+
+            }
+			else  if (c == 1) {
+                var ele = document.createElement('select');
+                ele.setAttribute('id', 'dType.'+temp_id);
+				ele.setAttribute('name', 'dType.'+temp_id);
+				ele.setAttribute('class', 'form-control');
+                ele.innerHTML=setsel;
+                td.appendChild(ele);
+            }
+			else if (c == 2) {
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('id', 'd3.'+temp_id);
+				ele.setAttribute('name', 'd3.'+temp_id);
+                ele.setAttribute('placeholder', '0');
+                ele.setAttribute('class', 'form-control');
+				ele.setAttribute('value', '0');
+                td.appendChild(ele);
+            }else if (c == 3) {
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('id', 'd36.'+temp_id);
+				ele.setAttribute('name', 'd36.'+temp_id);
+                ele.setAttribute('placeholder', '0');
+				ele.setAttribute('value', '0');
+				ele.setAttribute('class', 'form-control');
+                td.appendChild(ele);
+            }else if (c == 4) {
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('id', 'd69.'+temp_id);
+				ele.setAttribute('name', 'd69.'+temp_id);
+                ele.setAttribute('placeholder', '0');
+				ele.setAttribute('value', '0');
+				ele.setAttribute('class', 'form-control');
+                td.appendChild(ele);
+            }
+			else  if (c == 5){
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('id', 'd9.'+temp_id);
+				ele.setAttribute('name', 'd9.'+temp_id);
+                ele.setAttribute('placeholder', '0');
+				ele.setAttribute('value', '0');
+				ele.setAttribute('class', 'form-control');
+
+
+                td.appendChild(ele);
+            }
+			else if (c==6){
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('id', 'totalPoints.'+temp_id);
+				ele.setAttribute('name', 'totalPoints.'+temp_id);
+                ele.setAttribute('value', '0');
+				ele.setAttribute('readonly','true');
+				ele.setAttribute('class', 'form-control');
+
+                td.appendChild(ele);
+            }
+			else if (c==7){
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'button');
+                ele.setAttribute('id', 'rem_row_b.'+temp_id);
+				ele.setAttribute('name', 'rem_row_b.'+temp_id);
+				ele.setAttribute('value', 'Remove this row');
+				ele.setAttribute('onclick', 'removeRow(this)');
+				ele.setAttribute('class', 'btn btn-primary');
+                td.appendChild(ele);
+            }
+			var p1="d3."+temp_id;
+			var p2="d36."+temp_id;
+			var p3="d69."+temp_id;
+			var p4="d9."+temp_id;
+			var p5="totalPoints."+temp_id;
+			defectTable.addEventListener('blur',function(e){
+				if((e.target && e.target.id== p1)||(e.target && e.target.id== p2)||(e.target && e.target.id== p3)||(e.target && e.target.id== p4)){
+				var p1v=document.getElementById(p1).value;
+    			var p2v=document.getElementById(p2).value;
+    			var p3v=document.getElementById(p3).value;
+    			var p4v=document.getElementById(p4).value;
+				document.getElementById(p5).value=1*parseInt(p1v)+2*parseInt(p2v)+3*parseInt(p3v)+4*parseInt(p4v);
+				var StaticTLP=0;
+				var loop_id=parseInt(document.getElementById("idNo_hid").value);
+				for(var j_f=1;j_f<=loop_id;j_f++)
+          							{
+          								var index ="totalPoints."+j_f;
+									if(empTab.contains(document.getElementById(index)))
+										{
+										var tva=parseInt(document.getElementById(index).value);
+										StaticTLP+=parseInt(tva);
+										}
+
+          							}
+          		document.getElementById("totalPoints").value=StaticTLP;
+          		document.getElementById("tlp").value=parseInt(document.getElementById("hp").value)+parseInt(document.getElementById("totalPoints").value);
+
+          		}
+ 			},true);
+        }
+    }
+
+    function removeRow(oButton) {
+        var empTab = document.getElementById('empTable');
+        empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // BUTTON -> TD -> TR.
+        var StaticTLP=0;
+		var loop_id=parseInt(document.getElementById("idNo_hid").value);
+		for(var j_f=1;j_f<=loop_id;j_f++)
+          							{//alert("lopp "+j_f);
+          							var index ="totalPoints."+j_f;
+									if(empTab.contains(document.getElementById(index)))
+										{
+										var tva=parseInt(document.getElementById(index).value);
+										StaticTLP+=parseInt(tva);
+										}
+
+          							}
+          		document.getElementById("totalPoints").value=StaticTLP;
+          		document.getElementById("tlp").value=parseInt(document.getElementById("hp").value)+parseInt(document.getElementById("totalPoints").value);
+          		nodef-=1;
+                document.getElementById("idNo_hid").value=nodef;
+    }
+</script>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" for="n01"> No. of holes (0-1)<span>&#x22;</span> </label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="n01" name="n01" value="0" placeholder="0" onblur="totalholepoint()">
+					</div>
+
+					<label class="col-sm-2 col-form-label" for="totalPoints"> Total Linear Points </label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="totalPoints" name="totalPoints" value='0' readonly>
+					</div>
+					<div id="n01vdiv"></div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" for="ng1"> No. of holes <span>&#62;</span>1<span>&#x22;</span> </label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="ng1" name="ng1"  value="0" placeholder="0" onblur="totalholepoint()">
+					</div>
+
+					<label for="hp" class="col-sm-2 col-form-label">Total Hole Points</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="hp" name="hp" value="0" readonly>
+							<script type="text/javascript">
+							function totalholepoint()
+							{
+								var insPer1=document.getElementById("n01").value;
+								var insPer2=document.getElementById("ng1").value;
+ 							if (insPer1.length==0)
+                                            document.getElementById("n01vdiv").innerHTML="<font color=red>Enter No. of holes (0-1)<font>";
+                            else if(isNaN(insPer1))
+                                            document.getElementById("n01vdiv").innerHTML="<font color=red>Enter integer value<font>";
+
+                            else if (insPer2.length==0)
+                                            document.getElementById("ng1vdiv").innerHTML="<font color=red>No. of holes >1<font>";
+
+                            else if(isNaN(insPer2))
+                                            document.getElementById("ng1vdiv").innerHTML="<font color=red>Enter integer value<font>";
+
+                             else
+                                  {  document.getElementById("n01vdiv").innerHTML="";
+                                  document.getElementById("ng1vdiv").innerHTML="";
+								var n01=parseInt(document.getElementById("n01").value);
+								 var ng1=parseInt(document.getElementById("ng1").value);
+								 document.getElementById("hp").value=2*n01+4*ng1;
+								 document.getElementById("tlp").value=parseInt(document.getElementById("hp").value)+parseInt(document.getElementById("totalPoints").value);
+									}
+
+							}
+
+						</script>
+
+
+					</div>
+						<div id="ng1vdiv"></div>
+				</div>
+
+
+
+					<div class="form-group row">
+
+					<label for="tlp" class="col-sm-2 col-form-label">Total Linear + Hole Points</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="tlp" name="tlp" value="0" readonly>
+					</div>
+				</div>
+
+
+<div class="form-group row">
+					<label for="shadevar" class="col-sm-2 col-form-label">Shade Variation</label>
+					<div class="col-sm-2">
+						  <select class="form-control" id="shadevar" name="shadevar" onchange="shadevar_fv()">
+							<option value="">Whether Variation</option>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+
+						</select>
+					</div>
+		 <div id="shadevarfv"></div>
+		 <script type="text/javascript">
+							function shadevar_fv()
+							{
+							 if (document.getElementById("shadevar").value=="")
+                                            document.getElementById("shadevarfv").innerHTML="<font color=red>Select Shade Variation<font>";
+                                        else
+							document.getElementById("shadevarfv").innerHTML="";
+							}
+							function startvar_fv()
+							{
+							var start=document.getElementById("wv1").value;
+							var mid=document.getElementById("wv2").value;
+							var end=document.getElementById("wv3").value;
+							 if (start=="" || mid=="" || end=="")
+                                            document.getElementById("startvarfv").innerHTML="<font color=red>Enter all three values..<font>";
+
+                                        else
+							document.getElementById("startvarfv").innerHTML="";
+							}
+function shadegrade1_fv()
+							{
+							 if (document.getElementById("shadegrade").value=="")
+                                            document.getElementById("shadegradevarfv").innerHTML="<font color=red>Select Shade Grade<font>";
+                                        else
+							document.getElementById("shadegradevarfv").innerHTML="";
+							}
+function csv_fv()
+							{
+							 if (document.getElementById("shadecsv").value=="")
+                                            document.getElementById("csvdevarfv").innerHTML="<font color=red>Select CSV<font>";
+                                        else
+							document.getElementById("csvdevarfv").innerHTML="";
+							}
+	function shrinkage_fv()
+							{
+								var insPer1=document.getElementById("shper").value;
+							if (insPer1.length==0)
+                                            document.getElementById("shper_fvdiv").innerHTML="<font color=red>Enter value<font>";
+                            else if(isNaN(insPer1))
+                                            document.getElementById("shper_fvdiv").innerHTML="<font color=red>Enter integer value<font>";
+ 							else if(insPer1<0 || insPer1>100)
+                                            document.getElementById("shper_fvdiv").innerHTML="<font color=red>Enter value between 1 and 100<font>";
+
+                             else
+                                    document.getElementById("shper_fvdiv").innerHTML="";
+                                    }
+	function fi_grv_fv()
+							{
+								var insPer1=document.getElementById("fgrade").value;
+							if (insPer1=="")
+                                            document.getElementById("id0_fgrade").innerHTML="<font color=red>Select Grade<font>";
+
+                             else
+                                    document.getElementById("id0_fgrade").innerHTML="";
+                                    }
+
+							</script>
+				</div>
+	 <div class="form-group row">
+					<label for="shadegrade" class="col-sm-2 col-form-label">Shade Grade</label>
+					<div class="col-sm-2">
+						  <select class="form-control" id="shadegrade" name="shadegrade" onchange="shadegrade1_fv()">
+							<option value="">Select Shade Grade</option>
+							<option value="A">A</option>
+							  <option value="B">B</option>
+							  <option value="C">C</option>
+							  <option value="D">D</option>
+							  <option value="E">E</option>
+
+
+						</select>
+					</div>
+		 <div id="shadegradevarfv"></div>
+				</div>
+	 	 <div class="form-group row">
+					<label for="shadecsv" class="col-sm-2 col-form-label">CSV</label>
+					<div class="col-sm-2">
+						  <select class="form-control" id="shadecsv" name="shadecsv" onchange="csv_fv()">
+							<option value="">Whether CSV</option>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+
+						</select>
+					</div>
+			 <div id="csvdevarfv"></div>
+				</div>
+
+	 <div class="form-group row">
+		 <label  for="shper" class="col-sm-2 col-form-label">Shrinkage %</label>
+		 <div class="col-sm-4">
+		 <input type="text" class="form-control" id="shper" value="{{shrinkage}}" name="shper" placeholder="1-100" onblur="shrinkage_fv()">
+		</div>
+		 <div id="shper_fvdiv"></div>
+	 </div>
+	 <div class="form-group row">
+		 <label  for="sub_but" class="col-sm-2 col-form-label">Click to submit </label>
+		 <div class="col-sm-4">
+			 <input type="button" class="btn btn-primary" value="Submit" id="sub_but" name="sub_but" onclick="f_sub_but()">
+		</div>
+	 </div>
+	 		<script type="text/javascript">
+							function f_sub_but()
+							{
+
+
+							//alert("Welcome");
+
+								var tlp=parseFloat(document.getElementById("tlp").value);
+								var fwidthval=parseFloat(document.getElementById("fWidth").value);
+								var alength=parseFloat(document.getElementById("alength").value);
+								var newval=(fwidthval*alength);
+								var finalvalm,finalvaly;
+							//	alert(newval);
+								var unit3_sel = document.getElementById("units3").value;
+							//	alert(unit3_sel);
+								if(unit3_sel=="meter")
+									{//alert("m");
+										document.getElementById("p100m").value=tlp*100/newval;
+										finalvaly=newval*1.094;
+										document.getElementById("p100").value=tlp*100/finalvaly;
+									}
+								if(unit3_sel=="yard")
+									{
+									//alert("y");
+									document.getElementById("p100").value=tlp*100/newval;
+									finalvalm=newval/1.094;
+										document.getElementById("p100m").value=tlp*100/finalvalm;
+									}
+								if(unit3_sel=="inch")
+									{//alert("i");
+									finalvalm=newval/39.37;
+									finalvaly=newval/36;
+									    document.getElementById("p100").value=tlp*100/finalvaly;
+										document.getElementById("p100m").value=tlp*100/finalvalm;
+
+									}
+//							alert("accm "+document.getElementById("acceptP1").value);
+//							alert("p100 "+document.getElementById("p100").value);
+//							alert("p100m "+document.getElementById("p100m").value);
+							if(parseFloat(document.getElementById("p100").value)<=parseFloat(document.getElementById("acceptP1").value))
+								{alert("Accepted");
+								document.getElementById("resultNo_hid").value="Accepted";
+								}
+							else
+								{alert("Not Accepted");
+								document.getElementById("resultNo_hid").value="Not Accepted";
+								}
+
+							}
+
+						</script>
+
+<div class="form-group row">
+					<label for="p100" class="col-sm-2 col-form-label">Points/100 sq yards</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="p100" name="p100" value="0" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="p100m" class="col-sm-2 col-form-label">Points/100 sq meters</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" id="p100m" name="p100m" value="0" readonly>
+					</div> 
+
+				</div>
+	 	 <div class="form-group row">
+					<label for="fgrade" class="col-sm-2 col-form-label">Fabric Grade</label>
+					<div class="col-sm-2">
+						  <select class="form-control" id="fgrade" name="fgrade" onchange="fi_grv_fv()">
+							<option value="">Select Grade</option>
+							<option value="A">A</option>
+							  <option value="B">B</option>
+							  <option value="C">C</option>
+							  <option value="D">D</option>
+							  <option value="E">E</option>
+
+
+						</select>
+					</div>
+			 <div id="id0_fgrade"></div>
+				</div>
+	<!--//Order Field to send order number from this form, nod id, result-->
+	 <input type="text" name="idNo_hid" id="idNo_hid" value="0" hidden>
+	 <input type="text" name="resultNo_hid" id="resultNo_hid" value="0"  hidden>
+	 <input type="text" name="test" id="test" value="Accept"  hidden>
+	 {% for z in list %}
+	 <input type="text" name="test1" id="test1" value="{{z}}"  hidden>
+	{% endfor %}
+
+	 
+
+	 <div class="form-group row">
+		 <div class="col-sm-4">
+			 <input type="button" class="btn btn-primary" value="Send Debit and Credit Note Notification " id="note_but" name="note_but">
+		</div>
+	 </div>
+	 <div class="form-group row">
+		 <div class="col-sm-4">
+			 <input type="submit" class="btn btn-primary" value="Save in records" id="final_summary_but" name="final_summary_but" onclick="saveStatus()" formaction="{% url 'inspectiondb' %}">
+		</div>
+	 </div>
+
+
+	 		</form><br>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    $(document).on('submit','#form',function(e){
+
+        $.ajax({
+            type:'POST',
+			url:'/fabric/update_roll/',
+			data:{
+				orderNo:$('#orderNo').val(),
+				supplier:$('#supplier').val(),
+				lotNo:$('#lotNo').val(),
+				numRolls:$('#numRolls').val(),
+				insPer:$('#insPer').val(),
+				rollnum:$('#rollnum').val(),
+				fType:$('#fType').val(),
+				desType:$('#desType').val(),
+				repeat_size:$('#repeat_size').val(),
+				fabShade:$('#fabShade').val(),
+				acceptP1:$('#acceptP1').val(),
+				acceptP2:$('#acceptP2').val(),
+				fWidth:$('#fWidth').val(),
+				units:$('#units').val(),
+				wv1:$('#wv1').val(),
+				wv2:$('#wv2').val(),
+				wv3:$('#wv3').val(),
+				slength:$('#slength').val(),
+				units2:$('#units2').val(),
+				alength:$('#alength').val(),
+				units3:$('#units3').val(),
+				deviation:$('#deviation').val(),
+				units4:$('#units4').val(),
+				idNo_hid:$('#idNo_hid').val(),
+				totalPoints:$('#totalPoints').val(),
+				ng1:$('#ng1').val(),
+				hp:$('#hp').val(),
+				tlp:$('#tlp').val(),
+				shadevar:$('#shadevar').val(),
+				shadegrade:$('#shadegrade').val(),
+				shadecsv:$('#shadecsv').val(),
+				shper:$('#shper').val(),
+				p100:$('#p100').val(),
+				p100m:$('#p100m').val(),
+				fgrade:$('#fgrade').val(),
+				resultNo_hid:$('#resultNo_hid').val(),
+				test:$('#test').val(),
+				test1:$('#test1').val(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+			success:function(){
+			}
+
+        });
+    });
+</script>
+{% endblock %}

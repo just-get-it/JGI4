@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/listview.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+{% include 'include/filter_products_staff.html' %}
+
+
+
+
+<div class="row">
+	{% if empty %}
+		<div class="container">
+			<div class="row centered empty-row">
+				<h3 class="fontpacifico">Sorry No Products added here</h3>
+			</div>
+		</div>
+	{% else %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- <div class="col-3 filters">
+				<div class="row centered mb-3 pt-2 fontcabin">
+					<h5><b>FILTERS</b></h5>
+				</div>
+				<form method="GET">
+					<input type="hidden" name="cate" value="Mens">
+					<input type="hidden" name="sub" value="Topwear">
+					<input type="hidden" name="sup" value="Blazers & Coats">
+				<div class="row pt-2" style="border-top: 1px solid rgba(0,0,0,0.3)">
+				<h6><b>BRANDS</b></h6>
+				</div>
+				<div class="row filters_brand">
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">Roadster</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Raymond" class="ml-2">
+							<label class="ml-2 fontcabin">Raymond</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Park Avenue" class="ml-2">
+							<label class="ml-2 fontcabin">Park Avenue</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Parx" class="ml-2">
+							<label class="ml-2 fontcabin">Parx</label>
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">BlackBerry</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">Allen Solly</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">Van Hausen Sport</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">Louis Phillepne Sport</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">Tommy Hilfinger</label>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Brand" value="Roadster" class="ml-2">
+							<label class="ml-2 fontcabin">Blck Coffee</label>
+						</div>
+					</div>
+				</div>
+				<div class="row pt-2">
+					<h6><b>PRICE</b></h6>
+				</div>
+				<div class="row filters_price">
+					{% for p in price %}
+					<div class="container">
+						<div class="row">
+							<input type="radio" name="Price" value="{{p.title}}" class="ml-2">
+							<label class="ml-2 fontcabin">{{p.title}}</label>
+						</div>
+					</div>
+					{% endfor %}
+
+				</div>
+				<div class="row pt-2">
+					<h6><b>COLOR</b></h6>
+				</div>
+				<div class="row filters_color">
+					{% for p in color %}
+					<div class="container">
+						<div class="row">
+							<input type="checkbox" name="Color" value="{{p.title}}" class="ml-2">
+							<div class="filters_color_custom" style="background: {{p.background}}"></div>
+							<label class="ml-2 fontcabin">{{p.title}}</label>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="row filters_submit centered">
+					<button style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="my-3 py-1 px-4 but-subs" type="submit">Apply Filters</button>
+
+				</div>
+
+			</form>
+			</div>
+			<style type="text/css">
+				@media screen and (max-width: 990px){
+					.filters{
+						display: none;
+					}
+				}
+			</style> -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="row mb-3 pt-2 fontcabin ml-2" style="border-bottom: 1px solid rgba(0,0,0,0.3);">
+					<h5 style="color: grey;cursor: pointer;" class="fontcabin"><!--{{cate}}/{% if sub %}{{sub}}{% endif %}-->Products</h5>
+          <!-- <h5 class="fontcabin" style="cursor: pointer"><b>{% if sub %}/{{sup}}{% endif %}</b></h5> -->
+					<button type="button" class="hov-a" style="margin-left:auto;background:none;border:none;" onclick="showupdateresp()">Apply Filters</button>
+          <a href="/userdetail/seller_profile/upload_product" class="hov-a" style="text-decoration:none;margin-top:.5vh;"><button type="button" class="hov-a" style="margin-left:auto;background:none;border:none;">Upload Product</button></a>
+        </div>
+				<div class="container-fluid">
+					<div class="row py-2" style="background: rgba(48,197,255,0.1);">
+						<div class="col-1 centered">
+							<b>S.No.</b>
+						</div>
+						<div class="col-1 centered">
+							<b>Image</b>
+						</div>
+						<div class="col-2 centered">
+							<b>Product Title</b>
+						</div>
+						<div class="col-1 centered">
+							<b>Price</b>
+						</div>
+						<div class="col-1 centered">
+							<b>Quantity</b>
+						</div>
+
+						<div class="col-1 centered">
+							<b>Sold</b>
+						</div>
+						<div class="col-1">
+							<b>Safe Stock</b>
+						</div>
+						<div class="col-2 centered">
+							<b>Colors</b>
+						</div>
+						<div class="col-2 centered">
+							<b>Sizes</b>
+						</div>
+					</div>
+					{% for ob in obj %}
+					<div class="row pt-3 pb-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+						<div class="col-1 centered">
+							{{forloop.counter}}
+						</div>
+						<div class="col-1 centered">
+							{% if ob.image1 %}
+								<img src="{{ob.image1.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" style="width: 20px;height: 20px;">
+							{% else %}
+								<img src="{% static 'img/noimage.png' %}" style="width: 20px;height: 20px;">
+							{% endif %}
+						</div>
+						<div class="col-2 centered">
+							<a href="/userdetail/staff_profile/products/{{ob.slug}}" class="hov-a">{{ob.title}}</a>
+						</div>
+						<div class="col-1 centered">
+							{{ob.price}}
+						</div>
+						<div class="col-1 centered">
+							<p id="quantity{{ob.id}}"></p>
+							<script type="text/javascript">
+								var a=document.getElementById('quantity{{ob.id}}');
+								var val=0
+								{% for i in ob.size_color_quantity_set.all %}
+									val+=parseInt('{{i.quantity}}');
+								{% endfor %}
+								a.innerHTML=val;
+							</script>
+						</div>
+						<div class="col-1 centered">
+							{{ob.sold_quantity}}
+						</div>
+						<div class="col-1 centered">
+							{{ob.safe_stock}}
+						</div>
+						<div class="col-2 centered">
+							{% for i in ob.size_color_quantity_set.all %}
+								{{i.color}},
+							{% endfor %}
+						</div>
+						<div class="col-2 centered">
+							{% for i in ob.size_color_quantity_set.all %}
+								{{i.size}},
+							{% endfor %}
+						</div>
+						 
+					</div>
+					{% endfor %}
+						
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+
+
+{% endblock %}

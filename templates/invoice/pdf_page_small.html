@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>InvoiceJGI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        /* th,
+        td {
+            padding: 3px;
+        }
+
+        th {
+            background-color: black;
+            color: white;
+        } */
+
+        @page {
+            size: a6 portrait;
+        }
+
+        body {
+            font-size: 8px;
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 1cm 10px 0px;
+        }
+
+        /* .basic-details {
+            padding: 0 1.5cm;
+            background-color: rosybrown;
+        } */
+
+        /* .cust-details,
+        .comp-details {
+            display: inline-block;
+            width: 50%;
+        } */
+
+        /* .cust-details {
+            background-color: seagreen;
+        }
+
+        .comp-details {
+            background-color: slategray;
+        } */
+        .info-table {
+            margin: 0 1cm;
+        }
+
+        .info-table tr th,
+        td {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="header_content" style="padding-top: 1cm;">
+        <div>
+            <h2 style="text-align: center;">Tax Invoice/Cash memo</h2>
+        </div>
+    </div> -->
+    <!-- <div style="padding-left: 1cm; padding-right: 1cm;">
+        <h2>Customer details:</h2>
+        Customer Name: {{ context.name }} <br>
+        Email: {{ context.email }} <br>
+        Contact no. {{ context.phone }} <br>
+        Address: {{ context.address }} <br>
+        City: {{ context.city }} <br>
+    </div> -->
+
+    <div class="row">
+        <div class="page-title">
+            <h2>Tax Invoice / Cash Memo</h2>
+        </div>
+    </div>
+    <table class="info-table">
+        <tr>
+            <th style="width: 50%;">Customer Details</th>
+            <th style="width: 50%;">Company Details</th>
+        </tr>
+        <tr>
+            <td style="width: 50%;">{{ context.name }}</td>
+            <td style="width: 50%;">{{ context.comp_name }}</td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">{{ context.email }}</td>
+            <td style="width: 50%;">{{ context.comp_email }}</td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">{{ context.phone }}</td>
+            <td style="width: 50%;">{{ context.comp_mob }}</td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">{{ context.address }}, {{ context.city }}</td>
+            <td style="width: 50%;">{{ context.comp_add }}</td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">Other Info</td>
+            <td style="width: 50%;">GSTIN {{ context.comp_gstin }}</td>
+        </tr>
+    </table>
+    
+    <div>
+        <table style="margin-left: 1cm; margin-right: 1.5cm; text-align: center;">
+            <tr style="padding-top: 2px;">
+                <th style="text-align: center;width: 50%;">Item</th>
+                <th style="width: 12.5%;">Qty</th>
+                <th style="width: 12.5%;">Price(INR)</th>
+                <th style="width: 12.5%;">Tax</th>
+                <th style="width: 12.5%;">Total(INR)</th>
+            </tr>
+            {% for item, sell_price, prod_total in item_n_sell_n_prodtot %}
+            <tr>
+                <td>{{ item.product.title }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ sell_price }}</td>
+                <td>{{ item.product.gst }}%</td>
+                <td>{{ prod_total }}</td>
+            </tr>
+            {% endfor %}
+            <tr style="border-top: 1px dashed; border-bottom: 1px dashed;">
+                <td style="text-align: center; width: 50%; font-weight: bold;">GRAND TOTAL (INR)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="width: 12.5%; font-weight: bold;">{{final_amt}}</td>
+            </tr>
+        </table>
+    </div>
+    {% if context.additional_items or context.instructions %}
+        <div>
+        <table>
+        <tr>
+            <th>Additional items</th>
+            <th>Special instructions</th>
+        </tr>
+        <tr>
+            {% if context.additional_items %}
+            <td>{{ context.additional_items }}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+            {% if context.instructions %}
+            <td>{{ context.instructions }}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+        </tr>
+    </table>
+    </div>
+    {% endif %}
+
+    <!-- <div class="row">
+            <div class="page-title">
+                <h2>Tax Invoice / Cash Memo</h2>
+            </div>
+        </div>
+        <table class="info-table">
+            <tr>
+                <th>Customer Details</th>
+                <th>Company Details</th>
+            </tr>
+            <tr>
+                <td>Customer Name</td>
+                <td>Company Name</td>
+            </tr>
+            <tr>
+                <td>example@example.com</td>
+                <td>example@example.com</td>
+            </tr>
+            <tr>
+                <td>8087966429</td>
+                <td>8087966429</td>
+            </tr>
+            <tr>
+                <td>104-A, Galaxy Heights, Charkop Naka, V.P. Road, Borivali, Mumbai, Maharashtra, 400028</td>
+                <td>104-A, Galaxy Heights, Charkop Naka, V.P. Road, Borivali, Mumbai, Maharashtra, 400028</td>
+            </tr>
+            <tr>
+                <td>Sample Name</td>
+                <td>GSTIN - 271240ASX5225A4</td>
+            </tr>
+        </table> -->
+
+    <!-- <table style="margin-left: 1cm; margin-right: 1.5cm; text-align: center;">
+            <tr style="padding-top: 2px;">
+                <th style="text-align: center;width: 50%;">Item</th>
+                <th style="width: 12.5%;">Qty</th>
+                <th style="width: 12.5%;">Price(INR)</th>
+                <th style="width: 12.5%;">Tax</th>
+                <th style="width: 12.5%;">Total(INR)</th>
+            </tr>
+            {% for i,j in item_n_gst %}
+            <tr>
+                <td style="text-align: center;width: 50%;">{{ i.product.title }}</td>
+                <td style="width: 12.5%;">{{ i.quantity }}</td>
+                <td style="width: 12.5%;">{{ i.product.price }}</td>
+                <td style="width: 12.5%;">{{ i.product.gst }}</td>
+                <td style="width: 12.5%;">{{ j }}</td>
+            </tr>
+            {% endfor %}
+            <tr style="border-top: 1px dashed; border-bottom: 1px dashed;">
+                <td style="text-align: center; width: 50%; font-weight: bold;">GRAND TOTAL (INR)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="width: 12.5%; font-weight: bold;">{{final_amt}}</td>
+            </tr>
+        </table> -->
+
+    <div id="footer_content" style="margin-left: 1.5cm">
+        Page No. <pdf:pagenumber> / <pdf:pagecount>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

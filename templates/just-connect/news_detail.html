@@ -1,0 +1,49 @@
+{% extends 'base_connect.html' %} {% load static %} {%load crispy_forms_tags%}
+{% block content %}
+
+<main id="page" role="main">
+  <div
+    id="content"
+    class="main-content"
+    data-content-field="main-content"
+    data-collection-id="5f4f1eccca1e2c277194f1a0"
+  >
+    <a href="{% url 'connect-event-manage' %}"> Go to manage form</a>
+    <div class="container -sm">
+      <h2>{{news.title}}</h2>
+      <h2>{{news.title}}</h2>
+      {% if news.image %}
+      <p>
+        <img src=" {{news.image.url}}" alt="" />
+      </p>
+      {% endif %}
+      <p>{{news.news}}</p>
+
+      <p>likes:- {{news.totalLikes}}</p>
+    </div>
+  </div>
+  <div class="container -sm">
+    <form enctype="multipart/form-data" method="post" action="">
+      {% csrf_token %} {{form|crispy}} {% if form.errors %}
+      <li>{{ form.label }}: {{ form.errors|striptags }}</li>
+      {% endif %}
+      <button type="submit" class="btn btn-success">Comment</button>
+    </form>
+  </div>
+  <p>Comments</p>
+  <div class="allNewsComment">
+    {% for comment in allcomment%}
+
+    <div class="card-body-event">
+      <h4 class="card-title">{{comment.comment}}</h4>
+      <p class="card-text">{{comment.user}}</p>
+      <p class="card-text">
+        <small class="text-muted">Create time {{comment.create}}</small>
+      </p>
+    </div>
+
+    {% endfor %}
+  </div>
+</main>
+
+{% endblock %}

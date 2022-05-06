@@ -1,0 +1,258 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container mt-4">
+  <div class="col my-4">
+    <h3 style="text-align: center;">
+      Thanks for Ordering with Us. Your Order has been confirmed!
+    </h3>
+    <h4 style="text-align: center;">You can Download the invoice below.</h4>
+    <form method="post">
+      <!-- action="/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&" -->
+
+      <!-- formaction="/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&a4=0&download=true&" -->
+
+      <!-- formaction="/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&a4=1&download=true&" -->
+      {% csrf_token %}
+      <div style="text-align: center;">
+        <input
+          type="submit"
+          onclick="printpdf();"
+          class="btn btn-success my-2"
+          value="Download Invoice"
+        />
+        <input
+          onclick="printA2pdf();"
+          type="submit"
+          class="btn btn-success my-2"
+          value="Download Invoice (A4 Size)"
+        />
+        <!-- <button type="submit" class="btn btn-success my-2">
+                    Download Invoice
+                </button> -->
+      </div>
+    </form>
+  </div>
+  <!-- <div id="header_content">
+
+        <div>
+            <h2>Tax Invoice/Cash memo</h2>
+        </div>
+    </div> -->
+  <div>
+    <!-- <h2>Customer details:</h2>
+
+        Customer Name: {{ context.name }} <br>
+        Email: {{ context.email }} <br>
+        Contact no. {{ context.phone }} <br>
+        Address: {{ context.address }} <br>
+        City: {{ context.city }} <br> -->
+  </div>
+  <div
+    id="invoice_id"
+    style="
+      width: 50%;
+      text-align: center;
+      margin-left: 25%;
+      text-align: left;
+      padding: 10px 0;
+    "
+  >
+    <p style="text-align: center;">Tax Invoice/Cash memo</p>
+    <table id="table_1" class="table table-hover">
+      <thead>
+        <tr>
+          <th style="width: 50%;">Customer Details</th>
+          <th style="width: 50%;">Company Details</th>
+        </tr>
+      </thead>
+      <tr>
+        <td style="width: 50%;">{{ context.name }}</td>
+        <td style="width: 50%;">{{ context.comp_name }}</td>
+      </tr>
+      <tr>
+        <td style="width: 50%;">{{ context.email }}</td>
+        <td style="width: 50%;">{{ context.comp_email }}</td>
+      </tr>
+      <tr>
+        <td style="width: 50%;">{{ context.phone }}</td>
+        <td style="width: 50%;">{{ context.comp_mob }}</td>
+      </tr>
+      <tr>
+        <td>{{ context.address }}, {{ context.city }}</td>
+        <td>{{ context.comp_add }}</td>
+      </tr>
+      <tr>
+        <td style="width: 50%;">Other Info</td>
+        <td style="width: 50%;">GSTIN {{ context.comp_gstin }}</td>
+      </tr>
+    </table>
+    <hr />
+    <table id="table_2" class="table table-hover" style="width: 100%;">
+      <thead
+        style="
+          text-align: center;
+          border-top: 1px dashed;
+          border-bottom: 1px dashed;
+        "
+      >
+        <tr id="table_row_2">
+          <th style="text-align: left;">Item</th>
+          <th>Qty</th>
+          <th>Price(INR)</th>
+          <th>Tax</th>
+          <th>Total(INR)</th>
+        </tr>
+      </thead>
+      {% for item, sell_price, prod_total in item_n_sell_n_prodtot %}
+      <tr id="table_row_3">
+        <td>{{ item.product.title }}</td>
+        <td>{{ item.quantity }}</td>
+        <td style="text-align: center;">{{ sell_price }}</td>
+        <td>{{ item.product.gst }}%</td>
+        <td style="text-align: center;">{{ prod_total }}</td>
+      </tr>
+      {% endfor %}
+      <!-- <tr style="border-bottom: 1px dashed;">
+                <td style="font-weight: bold;">GST</td>
+                <td></td>
+                <td></td>
+                <td style="font-weight: bold;">{{ total_gst }}</td>
+                <td></td>
+                
+            </tr> -->
+      <tr style="background-color: lightsteelblue;">
+        <td style="font-weight: bold;">GRAND TOTAL (INR)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="final_amt" style="text-align: center; font-weight: bold;">
+          {{final_amt}}
+        </td>
+      </tr>
+    </table>
+    <hr />
+    {% if context.additional_items %}
+    <table class="table mt-2" id="add_table">
+      <tr id="add1">
+        <th>Additional items</th>
+      </tr>
+      <tr id="add2">
+        <td><pre>{{ context.additional_items }}</pre></td>
+      </tr>
+    </table>
+    <p><i>{{ context.hint_message }}</i></p>
+    <hr />
+    {% endif %} {% if context.instructions %}
+    <table class="table mt-2" id="instr_table">
+      <tr id="instr1">
+        <th>Special instructions</th>
+      </tr>
+      <tr id="instr2">
+        <td><pre>{{ context.instructions }}</pre></td>
+      </tr>
+    </table>
+    <hr />
+    {% endif %}
+  </div>
+  <div>
+    <h4 style="text-align: center;">Looking for something else?</h4>
+    <div style="text-align: center;">
+    <a href="/" class="btn btn-primary my-2"
+    value="Continue Shopping!">Continue Shopping</a>
+    </div>
+</div>
+<br>
+<br>
+</div>
+<link rel="stylesheet" href="" />
+<script>
+  function printpdf() {
+    event.preventDefault();
+    let mywindow = window.open(
+      "",
+      "PRINT",
+      "height=650,width=900,top=100,left=150"
+    );
+    // mywindow.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>InvoiceJGI</title>');
+    // mywindow.document.write('<style> @page {size: a6 portrait;} body {font-size: 8px;} .page-title {text-align: center;padding: 1cm 10px 0px;} .info-table {margin: 0 1cm;} .info-table tr th,td {padding: 0px;margin: 0px;}</style>');
+    // mywindow.document.write('</head><body style="font-size: 8px;"><div class="row"><div class="page-title"><h2>Tax Invoice / Cash Memo</h2></div></div>');
+    // mywindow.document.write('<table class="info-table">');
+    // mywindow.document.write(document.getElementById('table_1').innerHTML);
+    // mywindow.document.write('</table><div><table style="margin-left: 1cm; margin-right: 1.5cm;text-align: center;"><tr style="padding-top: 2px;">');
+    // mywindow.document.write(document.getElementById('table_row_2').innerHTML);
+    // mywindow.document.write('</tr><tr>'+document.getElementById('table_row_3').innerHTML);
+    // mywindow.document.write('</tr><tr style="border-top: 1px dashed; border-bottom: 1px dashed;"><td style="text-align: center; width: 50%;font-weight: bold;">GRAND TOTAL (INR)</td>');
+    // mywindow.document.write('<td></td><td></td><td></td><td style="width: 12.5%; font-weight: bold;">'+document.getElementById('final_amt').innerText+'</td></tr></table>');
+    // mywindow.document.write('</div></body></html>');
+    mywindow.document.write(
+      "<html><head><title>InvoiceJGI</title></head><body>" +
+        document.getElementById("invoice_id").outerHTML +
+        "</body></html>"
+    );
+    mywindow.document.close();
+    mywindow.focus();
+    mywindow.print();
+    mywindow.close();
+
+    $.ajax({
+      type: "GET",
+      url:
+        "/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&instructions={{context.instructions}}&additional_items={{context.additional_items}}&a4=0&",
+      processData: false,
+    })
+      .success(function () {
+        alert("print successfull");
+      })
+      .fail(function () {
+        alert("printing error");
+      });
+  }
+
+  function printA2pdf() {
+    event.preventDefault();
+    let mywindow = window.open(
+      "",
+      "PRINT",
+      "height=650,width=900,top=100,left=150"
+    );
+    mywindow.document.write(
+      '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>InvoiceJGI</title><style> th,td{ padding: 3px; } th{ background-color: black;color: white;} @page{ size: a4 portrait; @frame header_frame{ -pdf-frame-content: header_content;left: 60pt;width: 512pt;top: 60pt;height: 50pt} @frame footer_frame{ -pdf-frame-content: footer_content;left: 60pt;width: 512pt; top: 772pt; height: 30pt } @frame content_frame{ left: 50pt;width: 512pt;top: 90pt;height: 620pt;} }</style></head><body><div id="header_content"><div><h2>Tax Invoice/Cash memo</h2></div></div><table style="border-collapse: collapse;">'
+    );
+    mywindow.document.write(document.getElementById("table_1").innerHTML);
+    mywindow.document.write(
+      '</table> <table class="table mt-2" style="border-collapse:collapse;"><tr><th>Item</th><th>Qty</th><th>Price(INR)</th><th>Tax</th><th>Total(INR)</th></tr><tr>'
+    );
+    mywindow.document.write(document.getElementById("table_row_3").innerHTML);
+    mywindow.document.write(
+      '</tr></table><table class="table mt-2"><tr><td><h2 style="text-align:left">Grand Total (INR)</h2><h2 style="text-align:right">Rs ' +
+        document.getElementById("final_amt").textContent +
+        '</h2></td></tr> </table> <table style="border-collapse: collapse;"'
+    );
+    mywindow.document.write(document.getElementById("add_table").innerHTML);
+    mywindow.document.write(
+      '</table><p><i>"{{ context.hint_message }}"</i></p><table style="border-collapse: collapse;>'
+    );
+    mywindow.document.write(document.getElementById("instr_table").innerHTML);
+    mywindow.document.write(
+      '</table></body></html>'
+    );
+    mywindow.document.close();
+    mywindow.focus();
+    mywindow.print();
+    mywindow.close();
+
+    $.ajax({
+      type: "GET",
+      url:
+        "/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&instructions={{context.instructions}}&additional_items={{context.additional_items}}&hint_message={{context.message}}&a4=1&",
+      processData: false,
+    })
+      .success(function () {
+        alert("print successfull");
+      })
+      .fail(function () {
+        alert("printing error");
+      });
+  }
+</script>
+
+{% endblock %}

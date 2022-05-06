@@ -1,0 +1,20 @@
+
+
+
+{% if sizes.0 %}
+<table class="meas_chart mt-4 mb-2" style="width:80%;margin-left:10%;">
+    <tr>
+        <th>Brand({{sizes.0.size}})</th>
+        <th>Data</th>
+        <th> Alteration(If Required)</th>
+    <tr>
+    {% for i in sizes %}
+    <tr>
+        <th>{{i.pom.label}}</th>
+        <td>{{i.value}}</td>
+        <td><input type="number" placeholder="{{i.pom.label}}" name="pom_alteration_{{i.pom.id}}"></td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}

@@ -1,0 +1,1949 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load productfilters %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/upload_product.css' %}">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/css/bootstrap-markdown.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/less/bootstrap-markdown.less' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/scss/bootstrap-markdown.scss' %}">
+<style media="screen">
+
+.textar{
+	width: 800px !important;
+}
+.file-upload {
+  background-color: #ffffff;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+  width: 100px;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  height: 300px;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+.hid{
+		display: none;
+	}
+	.md-editor .md-fullscreen-controls{
+	    margin-top: 12vh;
+	}
+	#some-textarea{
+		padding-left: 2vw;
+
+	}
+	.md-editor.md-fullscreen-mode .md-header{
+	    margin-top: 12vh;
+	}
+	.md-editor.md-fullscreen-mode .md-input{
+	    margin-top: 10vh !important;
+	}
+	.md-editor.md-fullscreen-mode .md-input{
+	    margin-top: 10vh !important;
+	    height: 80vh !important;
+	    overflow: auto;
+	}
+
+	.md-editor.md-fullscreen-mode .md-preview{
+	    margin-top: 10vh !important;
+	    height: 80vh !important;
+	}
+	.product-info{
+		background-color: #30c5ff ;
+	}
+	.product-info button:hover{
+		background: #253031;
+		color: #30c5ff;
+	}
+	.product-info button.active {
+  		background: #253031;
+		color: #30c5ff;
+	}
+	.product-link{
+		background-color: #30c5ff;
+		color: white;
+		padding: 10px 50px;
+		text-align: center;
+		border: none;
+		font-size: 15px;
+	}
+	.product-content{
+		display: none;
+	}
+	.b2b-cate{
+		display: none;
+	}
+	.requiredins{
+		border:1px solid rgba(240, 52, 52, 1);
+	}
+</style>
+<style>
+	/* AUTOCOMPLETE */
+	.ui-autocomplete {
+		background: #ffffff;
+		border-radius: 1px;
+		border: 1px solid #454545;
+		width: fit-content;
+	}
+	.ui-menu {
+		list-style:none;
+		padding: 2px;
+		margin: 0;
+		display:block;
+		float: left;
+	}
+	.ui-menu .ui-menu {
+		margin-top: -3px;
+	}
+	.ui-menu .ui-menu-item {
+		margin:0;
+		padding: 0;
+		zoom: 1;
+		float: left;
+		clear: left;
+		width: 100%;
+	}
+	.ui-menu .ui-menu-item a {
+		text-decoration:none;
+		display:block;
+		padding:.2em .4em;
+		line-height:1.5;
+		zoom:1;
+	}
+	.ui-menu .ui-menu-item a.ui-state-hover,
+	.ui-menu .ui-menu-item a.ui-state-active {
+		font-weight: normal;
+		margin: -1px;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+{% csrf_token %}
+<div class="row">
+	<div class="container mt-5 mb-5">
+		<div class="row mb-1">
+			<h4 style="font-family: 'Cabin', sans-serif;" id="head_upload">Select Super-Category of Product</h4>
+		</div>
+		<div class="row" id="prod_cate">
+
+			{% for o in cate %}
+			<div class="col-3 mb-4 prod_cate" onclick="select_subcate('{{o.id}}');">
+				<img src="{{o.image.url}}">
+				<div class="overlay"></div>
+				<div class="overlay_cate">
+					<button type="button">{{o.name}}</button>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="row" id="prod_subcate"></div>
+
+		<div class="row" id="prod_supcate"></div>
+<form method="POST" enctype="multipart/form-data" id="upload_form" onsubmit="mySubmit(event)">
+	{% csrf_token %}
+
+			<div class="row hide to_be_hidden">
+				<div class="container mt-4" >
+					<div class="row">
+
+					<div class="product-info" style="width: auto;">
+						<button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid; " class="product-link" id="Vitalinf" onclick="openform(event ,'independent-attributes')">Vital Info</button>
+						<button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="product-link" id="deplink" onclick="openform(event ,'dependent-common')">Common Info</button>
+						<button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="product-link" id="nondeplink" onclick="openform(event ,'dependent-notcommon')">Dependent Attributes</button>
+						<button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="product-link" id="uploads" onclick="openform(event ,'Uploads')">Images </button>
+						<button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="product-link" id="variations" onclick="openform(event ,'Variations')">Variations</button>
+						{% if vendor_servive %}
+							<button type="button" style="font-size: 17px;" class="product-link" id="services" onclick="openform(event ,'service')">Service</button>	
+						{% endif %}
+						<button type="button" style="font-size: 17px;" class="product-link" id="descriptions" onclick="openform(event ,'units')">Description</button>
+						
+					</div>
+						<!-- <div class="row hide to_be_hidden">
+
+				<input type="number" name="price" class="input_attribute" placeholder="Price of the Product" required>
+				<p style="font-size: .6em; margin-left: 4vw">Final Price would be update by the Sales Person by Inspection of the Product - <br>
+					- Price given by the Sales Person will be final. <br>
+					- It should not contain special character.<br>
+					- It can contain numbers. </p>
+			</div> -->
+			<input type="hidden" name="cate" id="input_cate" value="">
+			<input type="number" name="sub_cate" id="input_subcate" value="" style="display: none;">
+			<input type="number" name="sup_cate" id="input_supcate" value="" style="display: none;">
+			</div>
+				</div>
+			</div>
+
+		<div class="product-content" id="independent-attributes">
+			<div class="row hide to_be_hidden">
+				<div class="container mt-4" style="margin-left:2vw;">
+					<br>
+					<p style="color: black;"><b>Please select proper label here:-</b></p>
+					<div class="row">
+						{% for i in label %}
+								<div class="col-2">
+									<input type="checkbox" name="{{i.id}}" value="True" id="label_check_{{i.id}}" class="hov-a class-{{i.name}}" style="margin-right: 5%;margin-top: 20px;">
+									<label>{{i.name}}</label>
+								</div>
+								<script type="text/javascript">
+									$('#label_check_{{i.id}}').on('change',function(){
+										var a=document.getElementById('label_check_{{i.id}}');
+										var b=document.getElementById('label_content_{{i.id}}');
+										console.log(a.checked,b)
+										if (a.checked){
+											b.classList.remove('hid');
+										}
+										else{
+											b.classList.add('hid');
+										}
+									})
+								</script>
+								{% endfor %}
+
+					</div>
+
+
+					<div class="row b2b-cate">
+						<div class="col-2 ">
+							Select B2B Categories
+							<select multiple class="input_attribute" name="b2b_cate" style="background:none;box-shadow: 0 0 1px black;width: 150px;margin-left: 0px;">
+								{% for i in b2b_cate %}
+									<option value="{{i.id}}">{{i.name}}</option>	
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<script>
+						$(".class-B2B").change(function(){
+							if(this.checked){
+								$(".b2b-cate").css({"display": "block", "disabled": "False"});
+							}
+							else{
+								$(".b2b-cate").css({"display": "none", "disabled": "True"});
+							}
+						});
+					</script>
+				</div>
+			</div>
+			<br>
+			<div class="row hide to_be_hidden">
+				<!-- <input type="text" name="title" class="input_attribute requiredins" oninput="changeborder('title');" placeholder="Title of the Product" required> -->
+				<input type="text" id="productTitle" name="title" onkeyup="searchOpen()" class="input_attribute requiredins" oninput="changeborder('title');" placeholder="Title of the Product" required>
+				<p style="font-size: .6em; margin-left: 4vw">This would be shown to the users on the following pages as - <br>
+				 -	Title on the Product Listing Page <br>
+				 -  Will be used as the Title of the Product Detail Page</p>
+
+			</div>
+<!--change 1-->
+<!--			<div class="row hide to_be_hidden">-->
+<!--				<select class="input_attribute" name="b2b_cate" style="background:transparent;">-->
+<!--					<option value="" selected disabled>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--					{% for a in prod_cate %}-->
+<!--						<option value="{{a.id}}">{{a}}</option>-->
+<!--					{% endfor %}-->
+<!--				</select>-->
+<!--				<p style="font-size: .6em; margin-left: 4vw">This would be shown to the users on the following pages as - <br>-->
+<!--				 -	Home Page <br>-->
+<!--				 -  Will be used for Filtering the Products</p>-->
+
+<!--</div>-->
+			<div class="row hide to_be_hidden" >
+
+				<input type="text" name="slug" class="input_attribute requiredins"  placeholder="Unique Identity of the Product/ASIN/UPC/EAN/GCID" minlength="10" maxlength="50" required id="slug">
+				<p style="font-size: .6em; margin-left: 4vw">This would help us to identify the uniqueness of the Product - <br>
+					- Must be atleast 10 characters. <br>
+					- It should not contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+		
+
+			<!---<div class="row hide to_be_hidden" style="padding-left:150px;">
+				<label for="barcode" style="font-family: 'Cabin', sans-serif;">Choose a barcode:</label>
+				<select class="input_attribute" name="barcode" id="brand_barcode" required style="background:none;box-shadow: 0 0 1px black;width: 150px;margin-left:40px;">
+					<option disabled selected>---------------</option>
+				</select>
+			</div>--->
+
+			<div class="row hide to_be_hidden" id="slug_update">
+			</div>
+
+			<div class="row hide to_be_hidden">
+				<textarea class="input_attribute requiredins" placeholder="Notes for Product requiredins" oninput="changeborder('notes');" name="notes" ></textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Wash Care Details of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+			<div class="row hide to_be_hidden">
+				<textarea class="input_attribute requiredins" placeholder="Terms & Conditions of Product" oninput="changeborder('terms');" name="terms" >{% if details.t_and_c %}{{details.t_and_c}}{% endif %}</textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Wash Care Details of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+
+
+
+			<div class="row hide to_be_hidden">
+				<select name="fixed_privacy" class="input_attribute requiredins" onchange="changeborder('fixed_privacy');"  style="background: transparent; padding: 20px 30px">
+					<option value="" disabled selected>Please Select Privacy for Product</option>
+					<option value="private">Private</option>
+					<option value="consumers">Consumers</option>
+					<option value="staffs">Staffs</option>
+					<option value="merchant">Merchandiser</option>
+					<option value="public" selected>Public</option>
+					
+				</select>
+				<p style="font-size: 10px; margin-left: 4vw;margin-top: 1vh;">Select the Privacy of The product. </p>
+			</div>
+			<div class="row hide to_be_hidden">
+				<select multiple name="product_group" id="product_group" class="input_attribute requiredins" style="background: transparent; padding: 20px 30px">
+					<option value="" disabled >Product Group list</option>
+					{% for i in product_group_obj %}
+						<option value="{{i.type}}">{{i.type}}</option>
+					{% endfor %}
+				</select>
+				<p style="font-size: 10px; margin-left: 4vw;margin-top: 1vh;" id="product-group-info">It is important to fill this field. Before you proceed. </p>
+			</div>
+
+			<br>
+		<br>
+		<table>
+			<tr  id="brandsection">
+				<div class="row hide to_be_hidden" >
+				<td id="brandlabel"> <label for="brand"  style="margin-top:10px;font-family: 'Cabin', sans-serif;"><b>Choose a brand:</b></label></td>
+				<td style="width: 700px;"><select class="input_attribute requiredins" onchange="changeborder('brand');" id="brand_ajax" name="brand" style="background:none;box-shadow: 0 0 1px black;padding-left: 10px;" >
+					<option selected value="">------------------</option>
+					{% for i in brands %}
+						<option value="{{i.email}}">{{i.name}}</option>
+					{% endfor %}
+				</select></td>
+			</div>
+			</tr>
+		</table>
+		<table>
+			<tr id="otherbrand">
+				<td>	
+			<button type="button" style="color: blue;background-color: white;width: 100px;margin-left: 110px;border-width: 0.6px;" id="otherbrands" name="otherbrands">Other</button></td>
+				<!--<input type="text" name="brandother" id="brandother" class="input_attribute" placeholder="Enter your Brand Name Here" style="width: 300px;display: none;">-->
+				<td>
+				<select name="brandother" id="brandother"  class="input_attribute"  style="width:300px;background: transparent;display: none;margin-left: 10px;">
+									<option value="" disabled selected><b>Choose Your Brand Here</b></option>
+									<option selected value="">------------------</option>
+									{% for brand in otherbrand %}
+									<option value="{{brand}}">{{brand}}</option>
+									{%endfor%}
+							</select>
+				
+			</td>
+		</tr>
+	</table>
+		<br>
+	<table>
+		<tr id="labelsection" style="padding-top: 5px;">
+
+			<div class="row hide to_be_hidden" >
+			<td>	<label for="label" style="font-family: 'Cabin', sans-serif;"><b>Choose a label(Optional):</b></label></td>
+				<td style="width: 700px;"><select class="input_attribute" name="label" id="brand_label" style="background:none;box-shadow: 0 0 1px black;padding-left: 50px;" >
+					<option selected value="">None</option>
+				</select>
+		</td>
+		</div>
+		</tr>
+	</table><br>
+	<div class="row hide to_be_hidden" style="padding-left:10px;" id="fitsection">
+				<label for="fit" style="font-family: 'Cabin', sans-serif;"><b>Choose a fit:</b></label>
+				<select class="input_attribute" name="fit" id="brand_fit"  style="background:none;box-shadow: 0 0 1px black;width: 300px;margin-left:70px;">
+					<option disabled selected>---------------</option>
+				</select>
+			</div>
+
+			<div class="row hide to_be_hidden" style="padding-left:10px;" id="seasonsection">
+				<label for="season" style="font-family: 'Cabin', sans-serif;"><b>Choose a Season:</b></label>
+				<select class="input_attribute" name="season" id="brand_season"  style="background:none;box-shadow: 0 0 1px black;width: 300px;margin-left:43px;">
+					<option disabled selected>---------------</option>
+				</select>
+			</div>
+
+				<div class="row hide to_be_hidden" style="padding-left:10px;" id="washcaresection">
+					<label for="washcare" style="font-family: 'Cabin', sans-serif;"><b>Choose a washcare:</b></label>
+					<select class="input_attribute" name="washcare" id="brand_washcare"  style="background:none;box-shadow: 0 0 1px black;width: 300px;margin-left:35px;">
+						<option disabled selected>---------------</option>
+					</select>
+				</div>
+			<!--
+			
+
+			<div class="row hide to_be_hidden" style="padding-left:150px;">
+				<label for="fit" style="font-family: 'Cabin', sans-serif;">Choose a fit:</label>
+				<select class="input_attribute" name="fit" id="brand_fit"  style="background:none;box-shadow: 0 0 1px black;width: 150px;margin-left:70px;">
+					<option disabled selected>---------------</option>
+				</select>
+			</div>
+
+			<div class="row hide to_be_hidden" style="padding-left:150px;">
+				<label for="season" style="font-family: 'Cabin', sans-serif;">Choose a Season:</label>
+				<select class="input_attribute" name="season" id="brand_season"  style="background:none;box-shadow: 0 0 1px black;width: 150px;margin-left:43px;">
+					<option disabled selected>---------------</option>
+				</select>
+			</div>
+
+				<div class="row hide to_be_hidden" style="padding-left:150px;">
+					<label for="washcare" style="font-family: 'Cabin', sans-serif;">Choose a washcare:</label>
+					<select class="input_attribute" name="washcare" id="brand_washcare"  style="background:none;box-shadow: 0 0 1px black;width: 150px;margin-left:35px;">
+						<option disabled selected>---------------</option>
+					</select>
+				</div><br>-->
+				<table>
+		<tr id="unitsection">
+
+			<div class="row hide to_be_hidden"  >
+				<td><label for="brand" style="font-family: 'Cabin', sans-serif;"><b>Choose Pieces per Unit:</b></label></td>
+				<td style="padding-left:20px ;"><input type="number" name="indi_quantity" class="input_attribute" value="0" style="width:150px;display: inline;" placeholder="Quantity per Unit" ></td>
+			</div>
+		</tr>
+				</table>
+
+		
+			<br><br>
+				
+				<div class="form-group row container mt-4 " style=" display: flex;">
+				<div class="row">
+				<!--	<input type="checkbox" name="made_in_india" value="True">-->
+				<label style="margin-left: 15px;"><b>Made in</b> </label>&nbsp;	
+				<select name="made_in" class="input_attribute" style="width: 300px;" >
+   <option value="Afganistan">Afghanistan</option>
+   <option value="Albania">Albania</option>
+   <option value="Algeria">Algeria</option>
+   <option value="American Samoa">American Samoa</option>
+   <option value="Andorra">Andorra</option>
+   <option value="Angola">Angola</option>
+   <option value="Anguilla">Anguilla</option>
+   <option value="Antigua & Barbuda">Antigua & Barbuda</option>
+   <option value="Argentina">Argentina</option>
+   <option value="Armenia">Armenia</option>
+   <option value="Aruba">Aruba</option>
+   <option value="Australia">Australia</option>
+   <option value="Austria">Austria</option>
+   <option value="Azerbaijan">Azerbaijan</option>
+   <option value="Bahamas">Bahamas</option>
+   <option value="Bahrain">Bahrain</option>
+   <option value="Bangladesh">Bangladesh</option>
+   <option value="Barbados">Barbados</option>
+   <option value="Belarus">Belarus</option>
+   <option value="Belgium">Belgium</option>
+   <option value="Belize">Belize</option>
+   <option value="Benin">Benin</option>
+   <option value="Bermuda">Bermuda</option>
+   <option value="Bhutan">Bhutan</option>
+   <option value="Bolivia">Bolivia</option>
+   <option value="Bonaire">Bonaire</option>
+   <option value="Bosnia & Herzegovina">Bosnia & Herzegovina</option>
+   <option value="Botswana">Botswana</option>
+   <option value="Brazil">Brazil</option>
+   <option value="British Indian Ocean Ter">British Indian Ocean Ter</option>
+   <option value="Brunei">Brunei</option>
+   <option value="Bulgaria">Bulgaria</option>
+   <option value="Burkina Faso">Burkina Faso</option>
+   <option value="Burundi">Burundi</option>
+   <option value="Cambodia">Cambodia</option>
+   <option value="Cameroon">Cameroon</option>
+   <option value="Canada">Canada</option>
+   <option value="Canary Islands">Canary Islands</option>
+   <option value="Cape Verde">Cape Verde</option>
+   <option value="Cayman Islands">Cayman Islands</option>
+   <option value="Central African Republic">Central African Republic</option>
+   <option value="Chad">Chad</option>
+   <option value="Channel Islands">Channel Islands</option>
+   <option value="Chile">Chile</option>
+   <option value="China">China</option>
+   <option value="Christmas Island">Christmas Island</option>
+   <option value="Cocos Island">Cocos Island</option>
+   <option value="Colombia">Colombia</option>
+   <option value="Comoros">Comoros</option>
+   <option value="Congo">Congo</option>
+   <option value="Cook Islands">Cook Islands</option>
+   <option value="Costa Rica">Costa Rica</option>
+   <option value="Cote DIvoire">Cote DIvoire</option>
+   <option value="Croatia">Croatia</option>
+   <option value="Cuba">Cuba</option>
+   <option value="Curaco">Curacao</option>
+   <option value="Cyprus">Cyprus</option>
+   <option value="Czech Republic">Czech Republic</option>
+   <option value="Denmark">Denmark</option>
+   <option value="Djibouti">Djibouti</option>
+   <option value="Dominica">Dominica</option>
+   <option value="Dominican Republic">Dominican Republic</option>
+   <option value="East Timor">East Timor</option>
+   <option value="Ecuador">Ecuador</option>
+   <option value="Egypt">Egypt</option>
+   <option value="El Salvador">El Salvador</option>
+   <option value="Equatorial Guinea">Equatorial Guinea</option>
+   <option value="Eritrea">Eritrea</option>
+   <option value="Estonia">Estonia</option>
+   <option value="Ethiopia">Ethiopia</option>
+   <option value="Falkland Islands">Falkland Islands</option>
+   <option value="Faroe Islands">Faroe Islands</option>
+   <option value="Fiji">Fiji</option>
+   <option value="Finland">Finland</option>
+   <option value="France">France</option>
+   <option value="French Guiana">French Guiana</option>
+   <option value="French Polynesia">French Polynesia</option>
+   <option value="French Southern Ter">French Southern Ter</option>
+   <option value="Gabon">Gabon</option>
+   <option value="Gambia">Gambia</option>
+   <option value="Georgia">Georgia</option>
+   <option value="Germany">Germany</option>
+   <option value="Ghana">Ghana</option>
+   <option value="Gibraltar">Gibraltar</option>
+   <option value="Great Britain">Great Britain</option>
+   <option value="Greece">Greece</option>
+   <option value="Greenland">Greenland</option>
+   <option value="Grenada">Grenada</option>
+   <option value="Guadeloupe">Guadeloupe</option>
+   <option value="Guam">Guam</option>
+   <option value="Guatemala">Guatemala</option>
+   <option value="Guinea">Guinea</option>
+   <option value="Guyana">Guyana</option>
+   <option value="Haiti">Haiti</option>
+   <option value="Hawaii">Hawaii</option>
+   <option value="Honduras">Honduras</option>
+   <option value="Hong Kong">Hong Kong</option>
+   <option value="Hungary">Hungary</option>
+   <option value="Iceland">Iceland</option>
+   <option value="Indonesia">Indonesia</option>
+   <option value="India" selected>India</option>
+   <option value="Iran">Iran</option>
+   <option value="Iraq">Iraq</option>
+   <option value="Ireland">Ireland</option>
+   <option value="Isle of Man">Isle of Man</option>
+   <option value="Israel">Israel</option>
+   <option value="Italy">Italy</option>
+   <option value="Jamaica">Jamaica</option>
+   <option value="Japan">Japan</option>
+   <option value="Jordan">Jordan</option>
+   <option value="Kazakhstan">Kazakhstan</option>
+   <option value="Kenya">Kenya</option>
+   <option value="Kiribati">Kiribati</option>
+   <option value="Korea North">Korea North</option>
+   <option value="Korea Sout">Korea South</option>
+   <option value="Kuwait">Kuwait</option>
+   <option value="Kyrgyzstan">Kyrgyzstan</option>
+   <option value="Laos">Laos</option>
+   <option value="Latvia">Latvia</option>
+   <option value="Lebanon">Lebanon</option>
+   <option value="Lesotho">Lesotho</option>
+   <option value="Liberia">Liberia</option>
+   <option value="Libya">Libya</option>
+   <option value="Liechtenstein">Liechtenstein</option>
+   <option value="Lithuania">Lithuania</option>
+   <option value="Luxembourg">Luxembourg</option>
+   <option value="Macau">Macau</option>
+   <option value="Macedonia">Macedonia</option>
+   <option value="Madagascar">Madagascar</option>
+   <option value="Malaysia">Malaysia</option>
+   <option value="Malawi">Malawi</option>
+   <option value="Maldives">Maldives</option>
+   <option value="Mali">Mali</option>
+   <option value="Malta">Malta</option>
+   <option value="Marshall Islands">Marshall Islands</option>
+   <option value="Martinique">Martinique</option>
+   <option value="Mauritania">Mauritania</option>
+   <option value="Mauritius">Mauritius</option>
+   <option value="Mayotte">Mayotte</option>
+   <option value="Mexico">Mexico</option>
+   <option value="Midway Islands">Midway Islands</option>
+   <option value="Moldova">Moldova</option>
+   <option value="Monaco">Monaco</option>
+   <option value="Mongolia">Mongolia</option>
+   <option value="Montserrat">Montserrat</option>
+   <option value="Morocco">Morocco</option>
+   <option value="Mozambique">Mozambique</option>
+   <option value="Myanmar">Myanmar</option>
+   <option value="Nambia">Nambia</option>
+   <option value="Nauru">Nauru</option>
+   <option value="Nepal">Nepal</option>
+   <option value="Netherland Antilles">Netherland Antilles</option>
+   <option value="Netherlands">Netherlands (Holland, Europe)</option>
+   <option value="Nevis">Nevis</option>
+   <option value="New Caledonia">New Caledonia</option>
+   <option value="New Zealand">New Zealand</option>
+   <option value="Nicaragua">Nicaragua</option>
+   <option value="Niger">Niger</option>
+   <option value="Nigeria">Nigeria</option>
+   <option value="Niue">Niue</option>
+   <option value="Norfolk Island">Norfolk Island</option>
+   <option value="Norway">Norway</option>
+   <option value="Oman">Oman</option>
+   <option value="Pakistan">Pakistan</option>
+   <option value="Palau Island">Palau Island</option>
+   <option value="Palestine">Palestine</option>
+   <option value="Panama">Panama</option>
+   <option value="Papua New Guinea">Papua New Guinea</option>
+   <option value="Paraguay">Paraguay</option>
+   <option value="Peru">Peru</option>
+   <option value="Phillipines">Philippines</option>
+   <option value="Pitcairn Island">Pitcairn Island</option>
+   <option value="Poland">Poland</option>
+   <option value="Portugal">Portugal</option>
+   <option value="Puerto Rico">Puerto Rico</option>
+   <option value="Qatar">Qatar</option>
+   <option value="Republic of Montenegro">Republic of Montenegro</option>
+   <option value="Republic of Serbia">Republic of Serbia</option>
+   <option value="Reunion">Reunion</option>
+   <option value="Romania">Romania</option>
+   <option value="Russia">Russia</option>
+   <option value="Rwanda">Rwanda</option>
+   <option value="St Barthelemy">St Barthelemy</option>
+   <option value="St Eustatius">St Eustatius</option>
+   <option value="St Helena">St Helena</option>
+   <option value="St Kitts-Nevis">St Kitts-Nevis</option>
+   <option value="St Lucia">St Lucia</option>
+   <option value="St Maarten">St Maarten</option>
+   <option value="St Pierre & Miquelon">St Pierre & Miquelon</option>
+   <option value="St Vincent & Grenadines">St Vincent & Grenadines</option>
+   <option value="Saipan">Saipan</option>
+   <option value="Samoa">Samoa</option>
+   <option value="Samoa American">Samoa American</option>
+   <option value="San Marino">San Marino</option>
+   <option value="Sao Tome & Principe">Sao Tome & Principe</option>
+   <option value="Saudi Arabia">Saudi Arabia</option>
+   <option value="Senegal">Senegal</option>
+   <option value="Seychelles">Seychelles</option>
+   <option value="Sierra Leone">Sierra Leone</option>
+   <option value="Singapore">Singapore</option>
+   <option value="Slovakia">Slovakia</option>
+   <option value="Slovenia">Slovenia</option>
+   <option value="Solomon Islands">Solomon Islands</option>
+   <option value="Somalia">Somalia</option>
+   <option value="South Africa">South Africa</option>
+   <option value="Spain">Spain</option>
+   <option value="Sri Lanka">Sri Lanka</option>
+   <option value="Sudan">Sudan</option>
+   <option value="Suriname">Suriname</option>
+   <option value="Swaziland">Swaziland</option>
+   <option value="Sweden">Sweden</option>
+   <option value="Switzerland">Switzerland</option>
+   <option value="Syria">Syria</option>
+   <option value="Tahiti">Tahiti</option>
+   <option value="Taiwan">Taiwan</option>
+   <option value="Tajikistan">Tajikistan</option>
+   <option value="Tanzania">Tanzania</option>
+   <option value="Thailand">Thailand</option>
+   <option value="Togo">Togo</option>
+   <option value="Tokelau">Tokelau</option>
+   <option value="Tonga">Tonga</option>
+   <option value="Trinidad & Tobago">Trinidad & Tobago</option>
+   <option value="Tunisia">Tunisia</option>
+   <option value="Turkey">Turkey</option>
+   <option value="Turkmenistan">Turkmenistan</option>
+   <option value="Turks & Caicos Is">Turks & Caicos Is</option>
+   <option value="Tuvalu">Tuvalu</option>
+   <option value="Uganda">Uganda</option>
+   <option value="United Kingdom">United Kingdom</option>
+   <option value="Ukraine">Ukraine</option>
+   <option value="United Arab Erimates">United Arab Emirates</option>
+   <option value="United States of America">United States of America</option>
+   <option value="Uraguay">Uruguay</option>
+   <option value="Uzbekistan">Uzbekistan</option>
+   <option value="Vanuatu">Vanuatu</option>
+   <option value="Vatican City State">Vatican City State</option>
+   <option value="Venezuela">Venezuela</option>
+   <option value="Vietnam">Vietnam</option>
+   <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
+   <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
+   <option value="Wake Island">Wake Island</option>
+   <option value="Wallis & Futana Is">Wallis & Futana Is</option>
+   <option value="Yemen">Yemen</option>
+   <option value="Zaire">Zaire</option>
+   <option value="Zambia">Zambia</option>
+   <option value="Zimbabwe">Zimbabwe</option>
+</select>
+				</div>
+			
+			</div>
+
+			<label style="margin-left: 15px;"><b>Select Options:</b> </label>&nbsp;
+			<select name="options" id="grade_select"  class="input_attribute" style="width: 300px;" multiple onclick="addGrade()">
+				{% for i in options %}
+				{% if i.name == "Perishable" %}
+				<option value="{{i.name}}" >{{i.name}}</option>
+				{% else %}
+				<option value="{{i.name}}">{{i.name}}</option>
+				{%endif%}
+				{%endfor%}
+			</select>
+			<div style="display: none;" id="grade">
+				<label style="margin-left: 15px;" for="#grade"><b>Grade Quality:</b> </label>&nbsp;
+				<input name="grade"  type="text" class="input_attribute" style="width: 300px;" maxlength="25" placeholder="Grade Product uner 25 words">
+			</div>
+			<div class="col-6">
+				<label for=""><b>MOQ Range 1:</b></label>
+				<input type="number" name="moq1_lower" id="moq1_lower" placeholder="lower bound">
+				<input type="number" name="moq1_upper" id="moq1_upper" placeholder="upper bound">
+				<br>
+				<label for="moq1_discount"><b>MOQ  Discount 1:</b></label>
+				<input type="number" name="moq1_discount" id="moq1_discount" min="0" max="100" class="col-7" placeholder="discount in % between 0 to 100">
+			</div>
+			<br>
+			<div class="col-6">
+				<label for=""><b>MOQ Range 2:</b></label>
+				<input type="number" name="moq2_lower" id="moq1_lower" placeholder="lower bound">
+				<input type="number" name="moq2_upper" id="moq1_upper" placeholder="upper bound">
+				<br>
+				<label for="moq2_discount"><b>MOQ  Discount 2:</b></label>
+				<input type="number" name="moq2_discount" id="moq2_discount" min="0" max="100" class="col-7" placeholder="discount in % between 0 to 100">
+			</div>
+			<br>
+			<div class="col-6">
+				<label for=""><b>MOQ Range 3:</b></label>
+				<input type="number" name="moq3_lower" id="moq3_lower" placeholder="lower bound">
+				<input type="number" name="moq3_upper" id="moq3_upper" placeholder="upper bound">
+				<br>
+				<label for="moq3_discount"><b>MOQ  Discount 3:</b></label>
+				<input type="number" name="moq3_discount" id="moq3_discount" min="0" max="100" class="col-7" placeholder="discount in % between 0 to 100">
+			</div>
+				<!-- <div class="form-group row container mt-4 " style="width: 1200px; display: flex;">
+                    <div class="col-sm-2" >
+                        <input type="checkbox" name="is_rent" value="True"><label style="margin-left: 5px;">is_rent</label>
+                    </div>
+                    <div class="col-sm-2" >
+                        <input type="checkbox" name="is_heavy" value="True"><label style="margin-left: 5px;">is_heavy</label>
+                    </div>
+                    <div class="col-sm-2" >
+                        <input type="checkbox" name="is_garment" value="True"><label style="margin-left: 5px;">is_garment</label>
+                    </div>
+                    <div class="col-sm-2" >
+                        <input type="checkbox" name="packed" value="True"><label style="margin-left: 5px;">Packed</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="checkbox" name="service" value="True"><label style="margin-left: 5px;">Service</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="subscription" id="subscriptionaval" onclick="showNameofSub()" value="True" style="display: inline;"><label style="margin-left: 5px;width: 250px;display: inline;">Available for subscription</label>
+
+                    </div>
+                        <div class="col-sm-2" style="margin-left: 100px;">
+                        <input type="checkbox" name="new_product" value="True"><label style="margin-left: 5px;">Old Product</label>
+                    </div>
+			    </div> -->
+
+			
+		<br>
+		<br>
+			
+			
+			<div >
+				<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;"  onclick="openpart(event ,'deplink')">Next</button>
+			</div>
+		</div>
+
+
+		<div class="product-content" id="dependent-common" style="padding-left:50px;">
+			<br>
+			<table>
+			{% for dep in dependent_commons %}
+				{% with loopcounter=forloop.counter|stringformat:"s" %}
+				{% with attr="attribute"|add:loopcounter %}
+				{% with deplabel="deplabel"|add:loopcounter %}
+				<input type="text" name="{{deplabel}}" hidden readonly value={{dep.id}}>
+				{% endwith %}
+				<tr>
+					<td>
+						<label for="{{attr}}" style="margin-top:10px;font-family: 'Cabin', sans-serif;width:200px;">
+							{{ dep.name }}
+						</label>
+					</td>
+					<td>
+						{% if dep.input_type == "Text" %}
+							<input type="text" name="{{attr}}" class="input_attribute" placeholder="Value" style="background:none;box-shadow: 0 0 1px black;width: 300px" />
+						{% elif dep.input_type == "Date" %}
+							<input type="date" name="{{attr}}" class="input_attribute"  style="background:none;box-shadow: 0 0 1px black;width: 300px" />
+						{% elif dep.input_type == "Drop Down" %}
+						<select class="input_attribute" name="{{attr}}" style="background:none;box-shadow: 0 0 1px black;width: 300px">
+							{% with options=dep.values|split:"," %}
+							{% for op in options %}
+								{% if op|cut:" " %}
+								<option value="{{op}}">{{op}}</option>
+								{% endif %}
+							{% endfor %}
+							{% endwith %}
+						</select>
+						{% endif %}	
+					</td>
+				</tr>
+				{% endwith %}
+				{%endwith%}
+			{% endfor %}
+			</table>
+
+			<div id="catbygroup"></div>
+			<br><br>
+	
+			<div class="form-group" style="display: none;" id="onlyforsub">
+			<label>Enter Subscription :</label>
+			<select name="product" class="form-control" style="width: 176px;">
+				{% for i in super_cat %}
+				<option value="{{i.name}}">{{i.name}}</option>
+				{% endfor %}
+				
+				
+			</select>
+		</div>
+			
+			<div>
+				<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;text-align: center;"  onclick="openpart(event ,'nondeplink')">Next</button>
+			</div>
+
+		</div>
+
+
+		<div class="product-content" id="dependent-notcommon">
+			<br><br>
+
+<label style="padding-left: 30px;"><b> Some Optional General Attributes :- </b></label>
+			<div>
+			{% for i in cont %}
+			<div class="row" id="label_content_{{i.0.id}}">
+				<table style="margin-left: 40px;">
+			{% for j in i.1 %}	
+				<tr id="label{{j.name}}" style="display: none;width: 500px;">
+				<td style="width: 200px;"><label>{{j.name}}</label></td>
+				{% if j.input_type == "Text" %}
+					<td>
+						<input type="text" name="label_content_{{j.id}}" class="input_attribute" style="width:300px;" placeholder="{{j.name}}">
+					</td>
+				{% elif j.input_type == "Date" %}
+					<td >
+						
+						<input type="date" name="label_content_{{j.id}}" class="input_attribute" style="width:300px;" placeholder="{{j.name}}">
+					</td>
+				{% else %}
+				<td >	
+							<select class="hide to_be_hidden input_attribute" style="width:300px;" name="label_content_{{j.id}}">
+
+								<option disabled selected>{{j.name}}</option>
+								{% for a in j.values|split:"," %}
+										<option value="{{a}}">{{a}}</option>
+								{% endfor %}
+						<!-- {% for a in attribute_values %}
+							{% ifequal a.attribute|stringformat:"s" j.name %}
+								<option value="{{a.id}}">{{a.attribute_value}}</option>
+							{% endifequal %}
+						{% endfor %} -->
+
+						</select>
+				</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</table>
+			</div>
+
+			{% endfor %}
+		</div>
+<br>
+
+		<!--	<table>
+		<tr>
+		<td><label>Manufacturer Name</label></td><td><input type="text" name="ManufacturerNameC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		</tr>
+		<tr>
+		<td><label>Manufacturer Number</label></td><td><input type="text" name="ManufacturerNoC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		</tr>
+		<tr>
+		<td><label>Volume Capacity</label></td><td><input type="text" name="VolumeCapacityC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		</tr>
+		<tr>
+		<td><label>Weight</label></td><td><input type="text" name="WeightC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+			<tr>
+		<td><label>Batteries Included</label></td><td><input type="text" name="BatteriesInC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>No. of Batteries Required</label></td><td><input type="text" name="NoofBatterisC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Wattage</label></td><td><input type="text" name="WattageC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Applicable to Dangerous Goods Regulations</label></td><td><input type="text" name="ApptoDangerC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Shape</label></td><td><input type="text" name="ShapeC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Length</label></td><td><input type="text" name="LenC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Width</label></td><td><input type="text" name="WidthC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Heigth</label></td><td><input type="text" name="heightC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Country of Origin</label></td>
+		<td>
+			<input type="text" name="CountryC" class="input_attribute" style="width: 300px;" >
+			<select name="CountryC" class="input_attribute" style="width: 300px;" >
+   <option value="Afganistan">Afghanistan</option>
+   <option value="Albania">Albania</option>
+   <option value="Algeria">Algeria</option>
+   <option value="American Samoa">American Samoa</option>
+   <option value="Andorra">Andorra</option>
+   <option value="Angola">Angola</option>
+   <option value="Anguilla">Anguilla</option>
+   <option value="Antigua & Barbuda">Antigua & Barbuda</option>
+   <option value="Argentina">Argentina</option>
+   <option value="Armenia">Armenia</option>
+   <option value="Aruba">Aruba</option>
+   <option value="Australia">Australia</option>
+   <option value="Austria">Austria</option>
+   <option value="Azerbaijan">Azerbaijan</option>
+   <option value="Bahamas">Bahamas</option>
+   <option value="Bahrain">Bahrain</option>
+   <option value="Bangladesh">Bangladesh</option>
+   <option value="Barbados">Barbados</option>
+   <option value="Belarus">Belarus</option>
+   <option value="Belgium">Belgium</option>
+   <option value="Belize">Belize</option>
+   <option value="Benin">Benin</option>
+   <option value="Bermuda">Bermuda</option>
+   <option value="Bhutan">Bhutan</option>
+   <option value="Bolivia">Bolivia</option>
+   <option value="Bonaire">Bonaire</option>
+   <option value="Bosnia & Herzegovina">Bosnia & Herzegovina</option>
+   <option value="Botswana">Botswana</option>
+   <option value="Brazil">Brazil</option>
+   <option value="British Indian Ocean Ter">British Indian Ocean Ter</option>
+   <option value="Brunei">Brunei</option>
+   <option value="Bulgaria">Bulgaria</option>
+   <option value="Burkina Faso">Burkina Faso</option>
+   <option value="Burundi">Burundi</option>
+   <option value="Cambodia">Cambodia</option>
+   <option value="Cameroon">Cameroon</option>
+   <option value="Canada">Canada</option>
+   <option value="Canary Islands">Canary Islands</option>
+   <option value="Cape Verde">Cape Verde</option>
+   <option value="Cayman Islands">Cayman Islands</option>
+   <option value="Central African Republic">Central African Republic</option>
+   <option value="Chad">Chad</option>
+   <option value="Channel Islands">Channel Islands</option>
+   <option value="Chile">Chile</option>
+   <option value="China">China</option>
+   <option value="Christmas Island">Christmas Island</option>
+   <option value="Cocos Island">Cocos Island</option>
+   <option value="Colombia">Colombia</option>
+   <option value="Comoros">Comoros</option>
+   <option value="Congo">Congo</option>
+   <option value="Cook Islands">Cook Islands</option>
+   <option value="Costa Rica">Costa Rica</option>
+   <option value="Cote DIvoire">Cote DIvoire</option>
+   <option value="Croatia">Croatia</option>
+   <option value="Cuba">Cuba</option>
+   <option value="Curaco">Curacao</option>
+   <option value="Cyprus">Cyprus</option>
+   <option value="Czech Republic">Czech Republic</option>
+   <option value="Denmark">Denmark</option>
+   <option value="Djibouti">Djibouti</option>
+   <option value="Dominica">Dominica</option>
+   <option value="Dominican Republic">Dominican Republic</option>
+   <option value="East Timor">East Timor</option>
+   <option value="Ecuador">Ecuador</option>
+   <option value="Egypt">Egypt</option>
+   <option value="El Salvador">El Salvador</option>
+   <option value="Equatorial Guinea">Equatorial Guinea</option>
+   <option value="Eritrea">Eritrea</option>
+   <option value="Estonia">Estonia</option>
+   <option value="Ethiopia">Ethiopia</option>
+   <option value="Falkland Islands">Falkland Islands</option>
+   <option value="Faroe Islands">Faroe Islands</option>
+   <option value="Fiji">Fiji</option>
+   <option value="Finland">Finland</option>
+   <option value="France">France</option>
+   <option value="French Guiana">French Guiana</option>
+   <option value="French Polynesia">French Polynesia</option>
+   <option value="French Southern Ter">French Southern Ter</option>
+   <option value="Gabon">Gabon</option>
+   <option value="Gambia">Gambia</option>
+   <option value="Georgia">Georgia</option>
+   <option value="Germany">Germany</option>
+   <option value="Ghana">Ghana</option>
+   <option value="Gibraltar">Gibraltar</option>
+   <option value="Great Britain">Great Britain</option>
+   <option value="Greece">Greece</option>
+   <option value="Greenland">Greenland</option>
+   <option value="Grenada">Grenada</option>
+   <option value="Guadeloupe">Guadeloupe</option>
+   <option value="Guam">Guam</option>
+   <option value="Guatemala">Guatemala</option>
+   <option value="Guinea">Guinea</option>
+   <option value="Guyana">Guyana</option>
+   <option value="Haiti">Haiti</option>
+   <option value="Hawaii">Hawaii</option>
+   <option value="Honduras">Honduras</option>
+   <option value="Hong Kong">Hong Kong</option>
+   <option value="Hungary">Hungary</option>
+   <option value="Iceland">Iceland</option>
+   <option value="Indonesia">Indonesia</option>
+   <option value="India">India</option>
+   <option value="Iran">Iran</option>
+   <option value="Iraq">Iraq</option>
+   <option value="Ireland">Ireland</option>
+   <option value="Isle of Man">Isle of Man</option>
+   <option value="Israel">Israel</option>
+   <option value="Italy">Italy</option>
+   <option value="Jamaica">Jamaica</option>
+   <option value="Japan">Japan</option>
+   <option value="Jordan">Jordan</option>
+   <option value="Kazakhstan">Kazakhstan</option>
+   <option value="Kenya">Kenya</option>
+   <option value="Kiribati">Kiribati</option>
+   <option value="Korea North">Korea North</option>
+   <option value="Korea Sout">Korea South</option>
+   <option value="Kuwait">Kuwait</option>
+   <option value="Kyrgyzstan">Kyrgyzstan</option>
+   <option value="Laos">Laos</option>
+   <option value="Latvia">Latvia</option>
+   <option value="Lebanon">Lebanon</option>
+   <option value="Lesotho">Lesotho</option>
+   <option value="Liberia">Liberia</option>
+   <option value="Libya">Libya</option>
+   <option value="Liechtenstein">Liechtenstein</option>
+   <option value="Lithuania">Lithuania</option>
+   <option value="Luxembourg">Luxembourg</option>
+   <option value="Macau">Macau</option>
+   <option value="Macedonia">Macedonia</option>
+   <option value="Madagascar">Madagascar</option>
+   <option value="Malaysia">Malaysia</option>
+   <option value="Malawi">Malawi</option>
+   <option value="Maldives">Maldives</option>
+   <option value="Mali">Mali</option>
+   <option value="Malta">Malta</option>
+   <option value="Marshall Islands">Marshall Islands</option>
+   <option value="Martinique">Martinique</option>
+   <option value="Mauritania">Mauritania</option>
+   <option value="Mauritius">Mauritius</option>
+   <option value="Mayotte">Mayotte</option>
+   <option value="Mexico">Mexico</option>
+   <option value="Midway Islands">Midway Islands</option>
+   <option value="Moldova">Moldova</option>
+   <option value="Monaco">Monaco</option>
+   <option value="Mongolia">Mongolia</option>
+   <option value="Montserrat">Montserrat</option>
+   <option value="Morocco">Morocco</option>
+   <option value="Mozambique">Mozambique</option>
+   <option value="Myanmar">Myanmar</option>
+   <option value="Nambia">Nambia</option>
+   <option value="Nauru">Nauru</option>
+   <option value="Nepal">Nepal</option>
+   <option value="Netherland Antilles">Netherland Antilles</option>
+   <option value="Netherlands">Netherlands (Holland, Europe)</option>
+   <option value="Nevis">Nevis</option>
+   <option value="New Caledonia">New Caledonia</option>
+   <option value="New Zealand">New Zealand</option>
+   <option value="Nicaragua">Nicaragua</option>
+   <option value="Niger">Niger</option>
+   <option value="Nigeria">Nigeria</option>
+   <option value="Niue">Niue</option>
+   <option value="Norfolk Island">Norfolk Island</option>
+   <option value="Norway">Norway</option>
+   <option value="Oman">Oman</option>
+   <option value="Pakistan">Pakistan</option>
+   <option value="Palau Island">Palau Island</option>
+   <option value="Palestine">Palestine</option>
+   <option value="Panama">Panama</option>
+   <option value="Papua New Guinea">Papua New Guinea</option>
+   <option value="Paraguay">Paraguay</option>
+   <option value="Peru">Peru</option>
+   <option value="Phillipines">Philippines</option>
+   <option value="Pitcairn Island">Pitcairn Island</option>
+   <option value="Poland">Poland</option>
+   <option value="Portugal">Portugal</option>
+   <option value="Puerto Rico">Puerto Rico</option>
+   <option value="Qatar">Qatar</option>
+   <option value="Republic of Montenegro">Republic of Montenegro</option>
+   <option value="Republic of Serbia">Republic of Serbia</option>
+   <option value="Reunion">Reunion</option>
+   <option value="Romania">Romania</option>
+   <option value="Russia">Russia</option>
+   <option value="Rwanda">Rwanda</option>
+   <option value="St Barthelemy">St Barthelemy</option>
+   <option value="St Eustatius">St Eustatius</option>
+   <option value="St Helena">St Helena</option>
+   <option value="St Kitts-Nevis">St Kitts-Nevis</option>
+   <option value="St Lucia">St Lucia</option>
+   <option value="St Maarten">St Maarten</option>
+   <option value="St Pierre & Miquelon">St Pierre & Miquelon</option>
+   <option value="St Vincent & Grenadines">St Vincent & Grenadines</option>
+   <option value="Saipan">Saipan</option>
+   <option value="Samoa">Samoa</option>
+   <option value="Samoa American">Samoa American</option>
+   <option value="San Marino">San Marino</option>
+   <option value="Sao Tome & Principe">Sao Tome & Principe</option>
+   <option value="Saudi Arabia">Saudi Arabia</option>
+   <option value="Senegal">Senegal</option>
+   <option value="Seychelles">Seychelles</option>
+   <option value="Sierra Leone">Sierra Leone</option>
+   <option value="Singapore">Singapore</option>
+   <option value="Slovakia">Slovakia</option>
+   <option value="Slovenia">Slovenia</option>
+   <option value="Solomon Islands">Solomon Islands</option>
+   <option value="Somalia">Somalia</option>
+   <option value="South Africa">South Africa</option>
+   <option value="Spain">Spain</option>
+   <option value="Sri Lanka">Sri Lanka</option>
+   <option value="Sudan">Sudan</option>
+   <option value="Suriname">Suriname</option>
+   <option value="Swaziland">Swaziland</option>
+   <option value="Sweden">Sweden</option>
+   <option value="Switzerland">Switzerland</option>
+   <option value="Syria">Syria</option>
+   <option value="Tahiti">Tahiti</option>
+   <option value="Taiwan">Taiwan</option>
+   <option value="Tajikistan">Tajikistan</option>
+   <option value="Tanzania">Tanzania</option>
+   <option value="Thailand">Thailand</option>
+   <option value="Togo">Togo</option>
+   <option value="Tokelau">Tokelau</option>
+   <option value="Tonga">Tonga</option>
+   <option value="Trinidad & Tobago">Trinidad & Tobago</option>
+   <option value="Tunisia">Tunisia</option>
+   <option value="Turkey">Turkey</option>
+   <option value="Turkmenistan">Turkmenistan</option>
+   <option value="Turks & Caicos Is">Turks & Caicos Is</option>
+   <option value="Tuvalu">Tuvalu</option>
+   <option value="Uganda">Uganda</option>
+   <option value="United Kingdom">United Kingdom</option>
+   <option value="Ukraine">Ukraine</option>
+   <option value="United Arab Erimates">United Arab Emirates</option>
+   <option value="United States of America">United States of America</option>
+   <option value="Uraguay">Uruguay</option>
+   <option value="Uzbekistan">Uzbekistan</option>
+   <option value="Vanuatu">Vanuatu</option>
+   <option value="Vatican City State">Vatican City State</option>
+   <option value="Venezuela">Venezuela</option>
+   <option value="Vietnam">Vietnam</option>
+   <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
+   <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
+   <option value="Wake Island">Wake Island</option>
+   <option value="Wallis & Futana Is">Wallis & Futana Is</option>
+   <option value="Yemen">Yemen</option>
+   <option value="Zaire">Zaire</option>
+   <option value="Zambia">Zambia</option>
+   <option value="Zimbabwe">Zimbabwe</option>
+</select>
+
+		</td>
+	</tr>
+		<tr>
+		<td><label>All Parts of Product</label></td><td><input type="text" name="allpartsC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Pattern</label></td><td><input type="text" name="PatternC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Shaft Type</label></td><td><input type="text" name="ShaftC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Features</label></td><td><input type="text" name="FeatureC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Style</label></td><td><input type="text" name="StyleC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Graphics</label></td><td><input type="text" name="GraphicsC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Specifications</label></td><td><input type="text" name="SpecificationsC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Power Source</label></td><td><input type="text" name="PowerSourceC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Occasion</label></td><td><input type="text" name="OccasionC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Number of Items</label></td><td><input type="text" name="NoofItemsC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Sale</label></td><td><input type="text" name="SaleC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>sale Start Date</label></td><td><input type="date" name="SaleStartC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Sale End Date</label></td><td><input type="date" name="SaleEndC" class="input_attribute" style="width: 300px;" ></td>
+	</tr>
+		<tr>
+		<td><label>Sale Discount</label></td><td><input type="text" name="SaleDiscC" class="input_attribute" style="width: 300px;" ></td>
+		<br>
+	</tr>
+		
+</table>-->
+			<div >
+				<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;text-align: center;" onclick="openpart(event ,'uploads')">Next</button>
+			</div>
+	</div>
+
+	
+<!--Uploads-->
+
+<div class="product-content" id="Uploads" style="padding-left:50px;">
+			
+			<div class="row hide to_be_hidden" >
+				<p style="font-size: 14px;margin-top: 1vh;">Please upload pictures of your product - <br>
+					- It is best to upload various angles of the product so that the user can get a better look at the product. <br>
+					- Adding Atleast One image is compulsory. <br>
+					  </p>
+				<div class="row  hide to_be_hidden"  style="margin-top:10px;width: 100%;">
+
+				<div class="container mt-4" style="width: 100%">
+					<div class="row" style="margin-left: 10px;">
+
+						<label><b>Images of the Product</b></label>
+						<label><b>Images dimentations 800 x 1000</b></label>
+					</div>
+
+					<div id="images_upload" name="images_upload" class="images_upload"  style="display: inline;">
+	  					<div class="file-upload" style="display:inline-table;">
+		 				 <button class="file-upload-btn" type="button" id="imagebutton1" onclick="$('#file-upload-input1').trigger( 'click' )">Add Image</button>
+						  <input type="checkbox" id="isactual1" name="isactual1" value=true style="margin-left: 10px;"><label for="isactual1"> Is Actual Image</label>
+ 					 <div class="image-upload-wrap" id="image-upload-wrap1">
+  					  <input class="file-upload-input" id="file-upload-input1" name="file-upload-input1" type='file' onchange="readURL(this,1);" accept="image/*" />
+  					  <div class="drag-text">
+     				 <h3 style="font-size: 20px;">Drag and drop a file or select add Image</h3>
+    				</div>
+  					</div>
+  					
+ 				 <div class="file-upload-content" id="file-upload-content1" >
+    				<img class="file-upload-image" id="file-upload-image1" src="#" style="width: 280px;height: 350px;" alt="your image" />
+    				<div class="image-title-wrap" id="image-title-wrap1">
+   				   <button type="button" onclick="removeUpload(1)" class="remove-image">Remove <span class="image-title" id="image-title1">Uploaded Image</span></button>
+   				 </div>
+  				</div>
+						</div>
+			</div>
+			<br>
+				<div class="col-4" style="margin-left: auto;margin-right: auto;">
+							<button type="button" onclick="addimage();" class="hov-a" style="color:white;border-radius: 20px;background-color: deepskyblue;margin-left:auto; width: 200px;height: 40px;font-size: 20px; " id="addmore">Add More Images</button>
+						</div> 	
+						<br><br>
+					
+			</div>
+		</div>
+		<br><br>
+		<div >
+			<br><br>
+				<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;text-align: center;"  onclick="openpart(event ,'variations')">Next</button>
+			</div>
+
+			<br><br>
+	</div>
+</div>
+<!--Pack_trime-->
+
+		<div class="product-content" id="Variations" style="padding-left:50px;">
+			
+			<div class="row hide to_be_hidden" style="margin-left: 100px;">
+				<div class="container mt-4" style="margin-left:2vw;">
+				<p style="font-size: 14px; margin-left: 4vw;margin-top: 10px;">You can add multiple variations of your product here. <br>
+					- If want the products to vary only by size choose the same color and enter different sizes. <br>
+					-  If want the products to vary only by color choose the same size and enter different colors. <br>
+					-  If want the products to vary both by size and colors you choose both. </p>	
+					
+					<table>
+						<tr id="sizers">
+							<div class="row"  style="display: inline;">
+								<td>
+									<label for="brand" style="font-family: 'Cabin', sans-serif;display: inline;">
+										<b>Choose Size:</b>
+									</label>
+								</td>
+								<td style="padding-left: 20px;">
+									<input type="number" name="size1" class="input_attribute" value="0" style=" width:200px;display: inline;" placeholder="Size/Quantity" >
+									<div id="unit" class="col" style="display: inline;">
+										<select id="unit1" name="unit1"  class="input_attribute"  style="width:200px;background: transparent;">
+											<option value="" disabled selected>Select unit</option>
+											{% for unit in units %}
+											<option value="{{unit}}">{{unit}}</option>
+											{%endfor%}
+										</select>
+									</div>
+								</td>	
+						</tr>
+						<tr id="colorsection">
+							<div class="row"  style="display: inline;">
+								<td>
+									<label for="brand" style="font-family: 'Cabin', sans-serif;display: inline;">
+										<b>Choose Color:</b>
+									</label>
+								</td>
+								<td  style="padding-left: 20px;">
+									<input type="color" class="input_attribute" name="color1" style="width:200px;background: transparent;display: inline;" value="#000000" >
+								</td>
+							</div>
+						</tr>
+						<tr id="pricesection">
+							<div class="row"  style="display: inline;">
+								<td>
+									<label for="brand" style="font-family: 'Cabin', sans-serif;display: inline;">
+										<b>Select Prices:</b>
+									</label>
+								</td>
+								<td  style="padding-left: 20px;">
+									<input type="number" name="price1" class="input_attribute" placeholder="Selling Price of Product" value="0" style="width:200px;">
+									<input type="number" name="c_price1" class="input_attribute" placeholder="Cost Price of Product"  value="0"style="padding-left: .5vw;width:200px;">
+								</td>
+							</div>
+						</tr>
+						<tr id="offerSection">
+							<div class="row"  style="display: inline;">
+								<td>
+									<label for="brand" style="font-family: 'Cabin', sans-serif;display: inline;">
+										<b>offer</b>
+									</label>
+								</td>
+								<td  style="padding-left: 20px;">
+									<input type="number" name="offer" class="input_attribute" placeholder="offer" value="0" style="width:200px;">
+								</td>
+							</div>
+						</tr>
+						<tr id="B2BofferSection">
+							<div class="row"  style="display: inline;">
+								<td>
+									<label for="brand" style="font-family: 'Cabin', sans-serif;display: inline;">
+										<b>B2B offer</b>
+									</label>
+								</td>
+								<td  style="padding-left: 20px;">
+									<input type="number" name="B2Boffer" class="input_attribute" placeholder="B2Boffer" value="0" style="width:200px;">
+								</td>
+							</div>
+						</tr>
+						<tr id="stocksection">
+							<div class="row"  style="display: inline;">
+								<td>
+									<label for="brand" style="font-family: 'Cabin', sans-serif;display: inline;">
+										<b>Stock Information(In Pieces):</b>
+									</label>
+								</td>
+								<td style="padding-left: 20px;">
+									<input type="number" name="quantity1" class="input_attribute" placeholder="Quantity of Product" value="0"  style="width:200px;">
+									<input type="number" name="safety_stock1" id="safety_stock1" class="input_attribute" value="0" placeholder="Safety Stock of Product"  style="padding-left: .5vw;width:200px;"></td>
+							</div>
+						</tr>
+					</table>
+					<div class="row" id="sizeimagesection1">
+						<div class="col">
+							<input type="button" value="+ Size Image" id="sizeImgBtn" onclick="addSizeImage('1')" class="btn btn-primary" style="margin: 10px;">
+						</div>
+					</div>
+					<div  id="size2"></div>
+					<div  id="size3"></div>
+					<div  id="size4"></div>
+					<div  id="size5"></div>
+					<div  id="size6"></div>
+					<div  id="size7"></div>
+					<div  id="size8"></div>
+					<div  id="size9"></div>
+					<div  id="size10"></div>
+					<div class=" mt-4">
+					<button onclick="addsize();" type="button" id="addmore_size" class="hov-a" style="margin-left: 4vw;color:white;border-radius: 20px;background-color: deepskyblue;width: 300px;height: 40px;font-size: 17px;font-weight: bold;">Add More Size-vis-Quantity</button>
+					</div>
+				</div>
+		</div>
+		<br><br>
+			<div >
+				{% if vendor_servive %}
+				<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;text-align: center;"  onclick="openpart(event ,'services')">Next</button>
+				{% else %}
+				<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;text-align: center;" onclick="openpart(event ,'descriptions')">Next</button>
+				{%endif%}
+			</div>
+		<br>
+	</div>
+<!--Service-->
+
+	<div class="product-content" id="service" style="padding-left:50px;">
+			<br><br>
+
+		<div class="form-group">
+			<label>Enter Service :</label>
+			<select name="productservice" class="form-control" style="width: 176px;">
+				{% for i in super_cat %}
+				<option value="{{i.name}}">{{i.name}}</option>
+				{% endfor %}
+				
+				
+			</select>
+		</div>
+			<div class="form-group">
+			<label>Enter price range :</label>
+			<br><input type="text" name="serviceprice" class="form-control" style="width: 176px;">
+			<br>
+			
+			</div>
+			<button type="button" class="px-5 py-2" style="width: 200px;background-color: gray;color:white;text-align: center;"  onclick="openpart(event ,'descriptions')">Next</button>
+		</div>
+
+<!--Units-->
+
+	<div class="product-content" id="units" style="padding-left:50px;">
+			<div>
+			<br><br>
+			<label for="searchterms" style="font-size: 14px;font-family: 'Cabin', sans-serif;margin-left: 200px;"><b>Search Terms:</b></label>
+			<input type="text" name="searchterms" class="input_attribute" style="width:400px;display: inline;margin-left: 10px;" placeholder="Search Terms" >
+			<br><br><br>
+			<label for="brand" style="font-size: 14px;font-family: 'Cabin', sans-serif;"><b>Add Description:</b></label>
+			<br>
+			<div class="row hide to_be_hidden" style="width: auto;">
+				<textarea class="input_attribute textar" name="description" id="some-textarea" data-provide="markdown" placeholder="Description of Product"  style="height:300px;box-shadow: 0 0 1px black;background-color: white ;padding: 1.3vw;margin-top: 1vh;"></textarea>
+				<p style="font-size: 10px; margin-left: 30px;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Additinal Attribute of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+			<textarea style="display: none" name="desc_up" id="desc_up"></textarea>
+			
+
+		<br><br><br>
+</div>
+
+<div class="row mt-3 mb-3 hide upload_row_but to_be_hidden">
+				<button type="submit" class="px-5 py-2" style="width: 300px;height: 50px;font-size: 25px;font-weight: bolder;" name="upload_product">Upload</button>
+</div>
+
+</div>
+
+
+</form>
+
+
+		<!--Subscription-->
+		
+
+</div>
+</div>
+<script type="text/javascript">
+
+$('#otherbrands').on('click',function(){
+	$('#brandother').toggle();
+});
+
+
+function openpart(evt,id){
+	if(id=="uploads")
+		{
+			var element=document.getElementById(id);
+			if(element.style.display=="none"){
+				id="variations";
+			}
+		}
+	if(id=="variations"){
+		var element=document.getElementById(id);
+			if(element.style.display=="none"){
+				{% if vendor_servive %}
+						id="services";
+				{%else%}
+					id="descriptions";
+				{%endif%}
+			}
+	}
+
+
+	document.getElementById(id).click();
+}	
+
+function showNameofSub(){
+
+	var checkBox = document.getElementById("subscriptionaval");
+  // Get the output text
+  var text = document.getElementById("onlyforsub");
+console.log(checkBox.checked);
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
+function changeborder(id){
+	//alert('called');
+	var x=document.getElementsByName(id)[0];
+	x.style.border="2px solid gray";
+	//x.= "gray";
+}
+
+function openform(evt, formcontent) {
+  		var i, procontent, prolinks;
+  		procontent = document.getElementsByClassName("product-content");
+  		for (i = 0; i < procontent.length; i++) {
+  		  procontent[i].style.display = "none";
+  		}
+  		prolinks = document.getElementsByClassName("product-link");
+  		for (i = 0; i < prolinks.length; i++) {
+  		  prolinks[i].className = prolinks[i].className.replace(" active", "");
+  		}
+  		document.getElementById(formcontent).style.display = "block";
+  		evt.currentTarget.className += " active";
+  		//document.getElementById('Vitalinf').click();
+	}
+
+var sizes="<option disabled selected>---------------</option>"
+
+$('#brand_ajax').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			brand_ajax_cate:$('#brand_ajax').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_label').html(ht);
+			}
+		}
+	});
+});
+
+$('#brandother').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			brand_ajax_cate_other:$('#brandother').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.label+`</option>`;
+				});
+				$('#brand_label').html(ht);
+			}
+		}
+	});
+});
+
+$('#brand_label').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			label_fits_ajax:$('#brand_label').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_fit').html(ht);
+			}
+		}
+	});
+});
+
+$('#brand_fit').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			fits_season_ajax:$('#brand_fit').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_season').html(ht);
+			}
+		}
+	});
+});
+
+$('#brand_season').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			season_washcare_ajax:$('#brand_season').val(),
+			season_supercategory_ajax:$('#input_supcate').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+index+`">`+value+`</option>`;
+				});
+				$('#brand_washcare').html(ht);
+				ht=`<option disabled selected>---------------</option>`;
+				$.each(data.barcode,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_barcode').html(ht);
+				sizes="<option disabled selected>---------------</option>"
+				$.each(data.sizes,function(index,value){
+					sizes=sizes+`<option value="`+value+`">`+value+`</option>`;
+				});
+				$('#size1_input').html(sizes);
+			}
+		}
+	});
+});
+
+
+
+
+var size_count=1;
+var safety_stock=0;
+function addsize(){
+	size_count=size_count+1;
+	var ht=$('#size'+size_count.toString()).html();
+	ht=ht+`
+	<br>
+	<div style="margin-left:-120px;">
+	<p><b>Detail No: `+size_count.toString()+`</b></p>
+	<div class="row">
+	<div class="col">
+		<input type="number" name="size`+size_count.toString()+`" class="input_attribute" style="padding-left: .5vw;width:100%;" placeholder="Size of Product" ="">
+	</div>
+			<div id="unit" class="col" style="display: inline;">
+							<select id="unit`+size_count.toString()+`" name="unit`+size_count.toString()+`"  class="input_attribute"  style="width:100px;background: transparent;">
+									<option value="" disabled selected>Select unit</option>
+									{% for unit in units %}
+									<option value="{{unit}}">{{unit}}</option>
+									{%endfor%}
+							</select>
+							</div> 	
+			<div class="col">
+
+							<input type="color" class="input_attribute" name="color`+size_count.toString()+`" style="width:100px;background: transparent;display: inline;" >
+			</div>
+
+	<div class="col">
+		<input type="number" name="price`+size_count.toString()+`" class="input_attribute" placeholder="Selling Price of Product"  style="padding-left: .3vw;width:100%;"number>
+	</div>
+	<div class="col">
+		<input type="number" name="c_price`+size_count.toString()+`" class="input_attribute" placeholder="Cost Price of Product"  style="padding-left: .5vw;width:100%;">
+	</div>
+	<div class="col">
+		<input type="number" name="quantity`+size_count.toString()+`" class="input_attribute" placeholder="Quantity of Product"  style="padding-left: .5vw;width:100%;"number>
+	</div>
+	<div class="col">
+		<input type="number" name="safety_stock`+size_count.toString()+`" class="input_attribute" placeholder="Safety Stock of Product" value="`+safety_stock+`"  style="padding-left: .5vw;width:100%;">
+	</div>
+	</div>
+	</div>
+	<br>
+	<div class="row" id="sizeimagesection`+size_count.toString()+`">
+		<div class="col">			
+		<input type="button" style="margin: 10px;" value="+ Size Image" id="sizeImgBtn" onclick="addSizeImage('`+size_count.toString()+`')" class="btn btn-primary">
+		</div>		
+	</div>
+	`;
+	$('#size'+size_count.toString()).html(ht);
+	if (size_count>=10){
+		var addmore=document.getElementById('addmore_size');
+		addmore.style.display="none";
+		// console.log("giver nonne");
+	}
+}
+
+</script>
+<script>
+	function readURL(input,id) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    console.log(id);
+    reader.onload = function(e) {
+    	var id1='#image-upload-wrap'.concat(id.toString());
+    	console.log(id1);
+      $(id1).hide();
+      var id2='#file-upload-image'.concat(id.toString());
+      $(id2).attr('src', e.target.result);
+      var id3='#file-upload-content'.concat(id.toString());
+      $(id3).show();
+      var id4='#image-title'.concat(id.toString());
+      $(id4).html(input.files[0].name);
+      var id5="#imagebutton".concat(id.toString());
+      $(id5).html('Change');
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+
+function removeUpload(id) {
+	var id1='#file-upload-input'.concat(id.toString());
+  $(id1).replaceWith($(id1).clone());
+  var id2='#file-upload-content'.concat(id.toString());
+  $(id2).hide();
+   var id3='#image-upload-wrap'.concat(id.toString());
+  $(id3).show();
+   var id5="#imagebutton".concat(id.toString());
+    $(id5).html('Add Image');
+}
+$('.image-upload-wrap').bind('dragover', function () {
+		$('.image-upload-wrap').addClass('image-dropping');
+	});
+	$('.image-upload-wrap').bind('dragleave', function () {
+		$('.image-upload-wrap').removeClass('image-dropping');
+});
+
+
+function addGrade(){
+	var e = document.getElementById("grade_select");
+	var x = document.getElementById("grade");
+	for (var option of document.getElementById("grade_select").options){
+		if (option.selected){
+			var strUser = option.value;
+	if(strUser == "Perishable" && x.style.display === "none"){
+		x.style.display = "block";
+	}
+	else if(strUser != "Perishable" && x.style.display === "block"){
+		x.style.display = "none";
+	}
+		}
+	}
+	
+}
+
+</script>
+
+<script type="text/javascript" src="{% static 'bootstrap-markdown/js/bootstrap-markdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-markdown/locale/bootstrap-markdown.fr.js' %}"></script>
+<script type="text/javascript">
+	$("#some-textarea").markdown({
+		autofocus:false,savable:false,width:580,iconlibrary:'fa',
+		onChange:function(e){
+			$('#some-textarea').html(e.parseContent());
+			// console.log(e.parseContent());
+		},
+		onSave:function(e){
+			$('#some-textarea').html(e.parseContent());
+		}
+	});
+	function mySubmit(e){
+		// e.preventDefault();
+		// alert(e.description);
+		// e.description = $('#some-textarea').html();
+		// alert(e.description);
+		// e.desc_up=$('#some-textarea').html();
+		$('#desc_up').html($('#some-textarea').html());
+		// return false;
+	}
+</script>
+<script>
+	function searchOpen() { 
+    var search = $('#productTitle').val()
+    var data = {
+        title_search : search,
+		csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+    };
+    $.ajax({
+		type:'POST',
+        url: '/userdetail/seller_profile/upload_product',
+        data: data,
+        dataType: 'json',
+		cache:false,
+		success:function(data){
+			console.log(data)
+			$( "#productTitle" ).autocomplete ({
+				source: data['data'],
+				select: function (event, ui) {
+					var label = ui.item.label;
+					var value = ui.item.value;
+					var data = {
+						title_value : value,
+						csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+					};
+					//store in session
+					$.ajax({
+						type:'POST',
+						url: '/userdetail/seller_profile/upload_product',
+						data: data,
+						dataType: 'json',
+						cache:false,
+						success:autofill_form
+					});
+				}
+			});
+		}
+    });
+}
+
+function autofill_form(data)
+{
+	upload_product = data['data'];
+	label_data = data['label_data'];
+	var notes = upload_product['notes'];
+	var description = upload_product['description'];
+	var terms = upload_product['terms'];
+	var notes_field = document.getElementsByName('notes');
+	var desc_field = document.getElementsByName('description');
+	var terms_field = document.getElementsByName('searchterms');
+	notes_field[0].value = notes;
+	desc_field[0].value = description;
+	terms_field[0].value = terms;
+	label_data.forEach(autofill_compliance);
+}
+
+function autofill_compliance(item){
+	var name_tag = "label_content_" + item[0];
+	var notes_field = document.getElementsByName(name_tag);
+	notes_field[0].value = item[1];
+	// Enable navigation prompt
+	window.onbeforeunload = function() {
+		return true;
+};
+	
+}
+
+</script>
+
+
+  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script data-require="marked@*" data-semver="0.3.1" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.1/marked.js"></script>
+<script type="text/javascript" src="{% static 'js/products/upload_product.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    
+{% endblock %}

@@ -1,0 +1,650 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style type="text/css">
+	.input_attri{
+		width: 80%;
+		border: none;
+		border-bottom: 2px solid rgba(0,0,0,.5);
+		margin-left: 1vw;
+	}
+	.input_attri:focus{
+		border-bottom: 2px solid #30c5ff;
+	}
+	.inp{
+		width: 140%;
+		margin-left: 2vw;
+	}
+	.but_add{
+		background: transparent;
+		border:none;
+		color: #30c5ff;
+		margin-left: auto;
+	}
+	.sub_but{
+		border:none;
+		padding-left: 4vw;
+		padding-right: 4vw;
+		padding-top: 1vh;
+		padding-bottom: 1vh;
+		background: #30c5ff;
+		color: #253031;
+		font-weight: bold;
+		border-radius: 25vw;
+		margin-left: auto;
+		margin-right: auto;
+		transition: all .5s ease;
+	}
+	.sub_but:hover{
+		background: #253031;
+		color: #30c5ff;
+	}
+	.acti_table{
+		width: 100%;
+	}
+	.acti_table tr,.acti_table th,.acti_table td{
+		border:2px solid black;
+	}
+	.acti_table td,.acti_table th{
+		padding: 8px;
+		overflow: hidden;
+	}
+
+	.acti_table th{
+		background-color: #30c5ff;
+		padding-left: 1vw;
+		padding-right: 1vw;
+	}
+</style>
+<div class="row">
+
+
+
+	{% if pack_obj %}
+		<div class="container">
+			<div class="row mt-2 mb-3" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+				<h3 style="font-family: 'Cabin',sans-serif;">Packing List</h3>
+				<p style="font-family: 'Cabin',sans-serif;font-size: .8em;" class="mt-2 ml-3">(Order - {{order.order_no}})</p>
+				<a href="?generate=True" class="hov-a" style="margin-left:auto;">Generate Packing List</a>
+			</div>
+			<div class="row mt-2 mb-1">
+				<div class="col-6">
+					<p><b>{% ifequal order.order_type 'E' %}Enquiry{% endifequal %}
+					{% ifequal order.order_type 'S' %}Sampling{% endifequal %}
+					{% ifequal order.order_type 'D' %}Design{% endifequal %}
+					{% ifequal order.order_type 'O' %}Order{% endifequal %} No - </b>{% ifequal order.order_type 'E' %}E{% endifequal %}
+					{% ifequal order.order_type 'S' %}S{% endifequal %}
+					{% ifequal order.order_type 'D' %}D{% endifequal %}
+					{% ifequal order.order_type 'O' %}O{% endifequal %}-{{order.order_no}}</p>
+				</div>
+				<div class="col-6">
+					<p><b>Form Name - </b>Packing List</p>
+				</div>
+				<div class="col-6">
+					<p><b>Product Category - </b>{{order.product_Supercategory}}</p>
+				</div>
+				<div class="col-6">
+					<p><b>Customer - </b>{{order.user_email}}</p>
+				</div>
+			</div>
+			<div class="row mt-2 mb-5" style="overflow:auto;">
+				<table class="acti_table">
+					<tr>
+						<th>Carton Name / Sizes</th>
+						<th>Address</th>
+						<th>Total</th>
+						<th>24</th>
+						<th>26</th>
+						<th>28</th>
+						<th>30</th>
+						<th>32</th>
+						<th>34</th>
+						<th>36</th>
+						<th>38</th>
+						<th>40</th>
+						<th>42</th>
+						<th>44</th>
+						<th>46</th>
+						<th>48</th>
+						<th>50</th>
+						<th>52</th>
+					</tr>
+					{% for i in carton %}
+						<tr>
+							<th>{{i.name}}{{forloop.counter}}</th>
+							<td>Location{{i.address.id}}</td>
+							<td>{{i.total_quantity}}</td>
+							<td><input type="number" value="{% if i.quantity_24 %}{{i.quantity_24}}{% endif %}" id="{{i.id}}_quantity_24" style="width:4vw;border:none;">
+								</td>
+							<td><input type="number" value="{% if i.quantity_26 %}{{i.quantity_26}}{% endif %}" id="{{i.id}}_quantity_26" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_28 %}{{i.quantity_28}}{% endif %}" id="{{i.id}}_quantity_28" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_30 %}{{i.quantity_30}}{% endif %}" id="{{i.id}}_quantity_30" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_32 %}{{i.quantity_32}}{% endif %}" id="{{i.id}}_quantity_32" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_34 %}{{i.quantity_34}}{% endif %}" id="{{i.id}}_quantity_34" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_36 %}{{i.quantity_36}}{% endif %}" id="{{i.id}}_quantity_36" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_38 %}{{i.quantity_38}}{% endif %}" id="{{i.id}}_quantity_38" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_40 %}{{i.quantity_40}}{% endif %}" id="{{i.id}}_quantity_40" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_42 %}{{i.quantity_42}}{% endif %}" id="{{i.id}}_quantity_42" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_44 %}{{i.quantity_44}}{% endif %}" id="{{i.id}}_quantity_44" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_46 %}{{i.quantity_46}}{% endif %}" id="{{i.id}}_quantity_46" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_48 %}{{i.quantity_48}}{% endif %}" id="{{i.id}}_quantity_48" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_50 %}{{i.quantity_50}}{% endif %}" id="{{i.id}}_quantity_50" style="width:4vw;border:none;"></td>
+							<td><input type="number" value="{% if i.quantity_52 %}{{i.quantity_52}}{% endif %}" id="{{i.id}}_quantity_52" style="width:4vw;border:none;"></td>
+
+						</tr>
+						<script type="text/javascript">
+							$('#{{i.id}}_quantity_24').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:24,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_24').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_26').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:26,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_26').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_28').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:28,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_28').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_30').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:30,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_30').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_32').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:32,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_32').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_34').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:34,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_34').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_36').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:36,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_36').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_38').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:38,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_38').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_40').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:40,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_40').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_42').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:42,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_42').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_44').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:44,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_44').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_46').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:46,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_46').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_48').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:48,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_48').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_50').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:50,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_50').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+							$('#{{i.id}}_quantity_52').change(function(){
+								$.ajax({
+									type:'POST',
+									url:'/userdetail/staff_profile/orders/{{order.order_no}}/forms/packing_list',
+									data:{
+										quantity_label_ajax:52,
+										carton_id_ajax:'{{i.id}}',
+										quantity_ajax_per_carton:$('#{{i.id}}_quantity_52').val(),
+										csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+									},
+									cache:false,
+									dataType:"json",
+									success:function(data){
+										// window.location="/userdetail/staff_profile/activities";
+										// alert("Well Done")
+										// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											window.location="/userdetail/staff_profile/orders/{{order}}/forms/packing_list";
+									}
+								});
+							});
+						</script>
+					{% endfor %}
+
+					<tr>
+						<th>Total</th>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>{{totals.0}}</td>
+						<td>{{totals.1}}</td>
+						<td>{{totals.2}}</td>
+						<td>{{totals.3}}</td>
+						<td>{{totals.4}}</td>
+						<td>{{totals.5}}</td>
+						<td>{{totals.6}}</td>
+						<td>{{totals.7}}</td>
+						<td>{{totals.8}}</td>
+						<td>{{totals.9}}</td>
+						<td>{{totals.10}}</td>
+						<td>{{totals.11}}</td>
+						<td>{{totals.12}}</td>
+						<td>{{totals.13}}</td>
+						<td>{{totals.14}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	{% endif %}
+		<div class="container">
+			<div class="row mt-2 mb-3" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+				<h3 style="font-family: 'Cabin',sans-serif;">Packing List</h3>
+				<p style="font-family: 'Cabin',sans-serif;font-size: .8em;" class="mt-2 ml-3">(Order - {{order.order_no}})</p>
+			</div>
+			<form method="POST">{% csrf_token %}
+			<div class="row mb-3">
+				<div class="col-6">
+					<label>Name</label>
+					<input type="text" name="name1" class="input_attri" placeholder="Name of Carton">
+				</div>
+				<div class="col-6">
+					<label>Address</label>
+					<select name="address1" class="input_attri">
+						{% for a in address %}
+						<option value="{{a.id}}">{{a.title}}({{a.address}})</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-1 mt-3">
+					<label>Quantity</label>
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size28_1" placeholder="Size 28" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size30_1" placeholder="Size 30" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size32_1" placeholder="Size 32" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size34_1" placeholder="Size 34" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size36_1" placeholder="Size 36" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size38_1" placeholder="Size 38" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size40_1" placeholder="Size 40" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size42_1" placeholder="Size 42" class="input_attri inp">
+				</div>
+			</div>
+			<div class="row" id="carton2"></div>
+			<div class="row" id="carton3"></div>
+			<div class="row" id="carton4"></div>
+			<div class="row" id="carton5"></div>
+			<div class="row" id="carton6"></div>
+			<div class="row" id="carton7"></div>
+			<div class="row" id="carton8"></div>
+			<div class="row" id="carton9"></div>
+			<div class="row" id="carton10"></div>
+			<div class="row" id="carton11"></div>
+			<div class="row" id="carton12"></div>
+			<div class="row" id="carton13"></div>
+			<div class="row" id="carton14"></div>
+			<div class="row" id="carton15"></div>
+			<div class="row" id="carton16"></div>
+			<div class="row" id="carton17"></div>
+			<div class="row" id="carton18"></div>
+			<div class="row" id="carton19"></div>
+			<div class="row" id="carton20"></div>
+			<div class="row" id="carton21"></div>
+			<div class="row" id="carton22"></div>
+			<div class="row" id="carton23"></div>
+			<div class="row" id="carton24"></div>
+			<div class="row" id="carton25"></div>
+			<div class="row" id="carton26"></div>
+			<div class="row" id="carton27"></div>
+			<div class="row" id="carton28"></div>
+			<div class="row" id="carton29"></div>
+			<div class="row" id="carton30"></div>
+			<div class="row" id="carton31"></div>
+			<div class="row" id="carton32"></div>
+			<div class="row" id="carton33"></div>
+			<div class="row" id="carton34"></div>
+			<div class="row" id="carton35"></div>
+			<div class="row" id="carton36"></div>
+			<div class="row" id="carton37"></div>
+			<div class="row" id="carton38"></div>
+			<div class="row" id="carton39"></div>
+			<div class="row" id="carton40"></div>
+			<div class="row" id="carton41"></div>
+			<div class="row" id="carton42"></div>
+			<div class="row" id="carton43"></div>
+			<div class="row" id="carton44"></div>
+			<div class="row" id="carton45"></div>
+			<div class="row" id="carton46"></div>
+			<div class="row" id="carton47"></div>
+			<div class="row" id="carton48"></div>
+			<div class="row" id="carton49"></div>
+			<div class="row" id="carton50"></div>
+			<input type="hidden" name="no_of_carton" value="1" id="no_of_carton">
+			<div class="row mt-2 mb-4">
+				<button type="button" class="but_add" onclick="add_carton();">
+					Add Carton
+				</button>
+			</div>
+			<div class="row mt-2 mb-5">
+				<button type="submit" class="sub_but">Save & Approve</button>
+			</div>
+		</form>
+		</div>
+
+
+
+
+</div>
+<script type="text/javascript">
+	var carton_no=2;
+	function add_carton(){
+		var sub=document.getElementById('carton'+carton_no.toString())
+		sub.classList.add('mb-3');
+		sub.classList.add('mt-1');
+		sub.innerHTML=`<div class="col-6">
+					<label>Name</label>
+					<input type="text" name="name`+carton_no.toString()+`" class="input_attri" placeholder="Name of Carton">
+				</div>
+				<div class="col-6">
+					<label>Address</label>
+					<select name="address`+carton_no.toString()+`" class="input_attri">
+						{% for a in address %}
+						<option value="{{a.id}}">{{a.title}}({{a.address}})</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-1 mt-3">
+					<label>Quantity</label>
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size28_`+carton_no.toString()+`" placeholder="Size 28" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size30_`+carton_no.toString()+`" placeholder="Size 30" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size32_`+carton_no.toString()+`" placeholder="Size 32" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size34_`+carton_no.toString()+`" placeholder="Size 34" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size36_`+carton_no.toString()+`" placeholder="Size 36" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size38_`+carton_no.toString()+`" placeholder="Size 38" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size40_`+carton_no.toString()+`" placeholder="Size 40" class="input_attri inp">
+				</div>
+				<div class="col-1 mt-3 ml-2">
+					<input type="number" name="size42_`+carton_no.toString()+`" placeholder="Size 42" class="input_attri inp">
+				</div>`;
+		var no_of_carton=document.getElementById('no_of_carton');
+		no_of_carton.value=carton_no;
+
+		carton_no=carton_no+1;
+	}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

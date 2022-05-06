@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="post" action="edit_activity?activity_id={{activity_id}}">
+	{% csrf_token %}
+	<label>Change name for activity</label>
+	<input type="text" name="activity_name"><br>
+	<input type="submit" name="submit">
+	</form>
+
+</body>
+</html>

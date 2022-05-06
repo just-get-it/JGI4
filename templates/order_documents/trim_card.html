@@ -1,0 +1,495 @@
+ {% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trim Card</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <style type="text/css">
+        .no_break {
+            page-break-inside: avoid;
+        }
+        
+        .define_break {
+            page-break-after: always;
+        }
+        
+        .centered {
+            display: grid;
+            justify-content: center;
+        }
+        
+        .acti_table {
+            width: 100%;
+            border: 1px solid black;
+        }
+        
+        .acti_table th {
+            background: #30c5ff;
+        }
+        
+        .acti_table tr,
+        .acti_table td,
+        .acti_table th {
+            border: 1px solid black;
+            padding: 5px;
+            padding-left: 15px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row mt-5" id="order_details">
+            <div class="container define_break mb-3" style="border:1px solid black;">
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-4" style="border-right: 1px solid black;">Order No</div>
+                    <div class="col">{{order.order_no}}</div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Date
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.order_date_time}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Customer Name
+                            </div>
+                            <div class="col">{{order.user_email}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Product Category
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.product_Category}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Product Sub-Category
+                            </div>
+                            <div class="col">{{order.product_Subcategory}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Product Super-Category
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.product_Supercategory}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Brand
+                            </div>
+                            <div class="col">{{order.fashion_Brand}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Label
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.label}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Fit
+                            </div>
+                            <div class="col">{{order.fit}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Season
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.season}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Quantity
+                            </div>
+                            <div class="col">{{order.quantity}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Price
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.total_Price}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Total Price
+                            </div>
+                            <div class="col">{{order.get_billing_amount}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Billing Month
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.get_billing_month}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Merchandiser
+                            </div>
+                            <div class="col">{{order.get_merchandiser.name}}({{order.get_merchandiser.email}})</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="border:1px solid black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">
+                                Garment Vendor
+                            </div>
+                            <div class="col" style="border-right: 1px solid black;">
+                                {{order.get_garment_vendor.name}}({{order.get_garment_vendor.email}})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-5" style="border-right: 1px solid black;">Sales Person
+                            </div>
+                            <div class="col">{{order.get_sales.name}}({{order.get_sales.email}})</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="height: 50vh;border:1px solid black;">
+                    <div class="container-fluid">
+                        <div class="row py-2" style="border: 1px solid black;display: grid;justify-content: center;">
+                            <b>Garment Pictures</b>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row" style="">
+                            <div class="col-3">
+                                <img src="{{order.image.url}}" style="width: 20vh;height: 30vh;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no_break" style="height: 28vh;border:1px solid black;">
+                    <div class="col-6" style="border-right: 1px solid black;">
+                        <div class="row py-2" style="border: 1px solid black;display: grid;justify-content: center;">
+                            Important Comments
+                        </div>
+                        <div class="container">
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row py-2" style="border: 1px solid black;display: grid;justify-content: center;">
+                            Styling Details
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if trim_section %}
+        <div class="row my-3" id="order_meas">
+            <div class="container">
+                {% if trim_section.fabric_and_quantity_no or trim_section.embroidary_sample_and_thread_code %}
+                <div class="row" style="height: 40vh;border:1px solid black;">
+                    {% if trim_section.fabric_and_quantity_no %}
+                    <div class="col" style="border-right:1px solid black;">
+                        <div class="row centered py-2" style="border-bottom: 1px solid black;">
+                            Fabric & Quality No
+                        </div>
+                    </div>
+                    {% endif %} {% if trim_section.embroidary_sample_and_thread_code %}
+                    <div class="col">
+                        <div class="row centered py-2" style="border-bottom: 1px solid black;">
+                            Embroidery Sample & Thread Code
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="container">
+                        <div class="row centered py-2" style="border: 1px solid black;border-top: 0px">
+                            Measurement Chart
+                        </div>
+                        <div class="row">
+                            <table class="acti_table">
+                                <tr>
+                                    <th>Points/Sizes</th>
+                                    {% for i in sizes_avail %}
+                                    <th>{{i.0}}</th>
+                                    {% endfor %}
+                                </tr>
+                                {% for i in meas %}
+                                <tr>
+                                    <th>{{i.0}}</th>
+                                    {% for j in i.1 %}
+                                    <td>{{j}}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row centered py-2" style="border: 1px solid black;border-top: 0px">
+                            Quantity-vis-Size
+                        </div>
+                        <div class="row">
+                            <table class="acti_table">
+                                <tr>
+                                    <th>Sizes</th>
+                                    {% for i in sizes_avail %}
+                                    <th>{{i.0}}</th>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    {% for j in sizes_avail %}
+                                    <td>{{j.1}}</td>
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        </div>
+                        <br><br><br><br><br><br><br><br><br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-3 " id="trim_card">
+            <div class="container">
+                <div class="row centered py-2">
+                    Trims & Packaging Details
+                </div>
+                {% if trim_section.thread_brand_and_count %}
+                <div class="row" style="border:1px solid black;">
+                    <div class="container">
+                        <div class="row centered py-2" style="border-bottom:1px solid black;">
+                            Thread Brand & Count
+                        </div>
+                        <div class="row" style="height: 15vh"></div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    {% for i in bom.trims_used.all %}
+                    <div class="col" style="border:1px solid black;padding: 0;">
+                        <div class="container-fluid">
+                            <div class="row centered py-2" style="border-bottom: 1px solid black;">{{i.trim.title}}</div>
+                            <div class="row centered mt-2" style="height: 20vh">
+                                <img src="{{i.trim.image1.url}}" style="width: 10vh;height: 10vh;">
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 == 0 %} {% else %}
+                    <div class="w-100"></div>
+                    {% endif %} {% endfor %}
+                </div>
+                {% if trim_section.polybag %}
+                <div class="row" style="border:1px solid black;">
+                    <div class="container">
+                        <div class="row centered py-2" style="border-bottom:1px solid black;">
+                            PolyBag
+                        </div>
+                        <div class="row" style="height: 15vh"></div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row" style="border:1px solid black;">
+                    {% if trim_section.pocketing %} {% if 'Trouser' in order.product_Supercategory.name %}
+                    <div class="col" style="padding: 0;">
+                        <div class="container-fluid">
+                            <div class="row centered" style="border:1px solid black">
+                                Pocketing
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %} {% endif %} {% if trim_section.interlining %}
+                    <div class="col" style="padding: 0">
+                        <div class="container-fluid">
+                            <div class="row centered" style="border:1px solid black;border-top: 0;">
+                                Interlining
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row" style="height: 10vh;border:1px solid black;border-top: 0"></div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row my-3" id="order_meas">
+            <div class="container">
+                <div class="row" style="height: 40vh;border:1px solid black;">
+                    <div class="col-6" style="border-right:1px solid black;">
+                        <div class="row centered py-2" style="border-bottom: 1px solid black;">
+                            Fabric & Quality No
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row centered py-2" style="border-bottom: 1px solid black;">
+                            Embroidery Sample & Thread Code
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row centered py-2" style="border: 1px solid black;border-top: 0px">
+                            Measurement Chart
+                        </div>
+                        <div class="row">
+                            <table class="acti_table">
+                                <tr>
+                                    <th>Points/Sizes</th>
+                                    {% for i in sizes_avail %}
+                                    <th>{{i.0}}</th>
+                                    {% endfor %}
+                                </tr>
+                                {% for i in meas %}
+                                <tr>
+                                    <th>{{i.0}}</th>
+                                    {% for j in i.1 %}
+                                    <td>{{j}}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row centered py-2" style="border: 1px solid black;border-top: 0px">
+                            Quantity-vis-Size
+                        </div>
+                        <div class="row">
+                            <table class="acti_table">
+                                <tr>
+                                    <th>Sizes</th>
+                                    {% for i in sizes_avail %}
+                                    <th>{{i.0}}</th>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    {% for j in sizes_avail %}
+                                    <td>{{j.1}}</td>
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        </div>
+                        <br><br><br><br><br><br><br><br><br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-3 " id="trim_card">
+            <div class="container">
+                <div class="row centered py-2">
+                    Trims & Packaging Details
+                </div>
+                <div class="row" style="border:1px solid black;">
+                    <div class="container">
+                        <div class="row centered py-2" style="border-bottom:1px solid black;">
+                            Thread Brand & Count
+                        </div>
+                        <div class="row" style="height: 15vh"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for i in bom.trims_used.all %}
+                    <div class="col" style="border:1px solid black;padding: 0;">
+                        <div class="container-fluid">
+                            <div class="row centered py-2" style="border-bottom: 1px solid black;">{{i.trim.title}}</div>
+                            <div class="row centered mt-2" style="height: 20vh">
+                                <img src="{{i.trim.image1.url}}" style="width: 10vh;height: 10vh;">
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 == 0 %} {% else %}
+                    <div class="w-100"></div>
+                    {% endif %} {% endfor %}
+                </div>
+                <div class="row" style="border:1px solid black;">
+                    <div class="container">
+                        <div class="row centered py-2" style="border-bottom:1px solid black;">
+                            PolyBag
+                        </div>
+                        <div class="row" style="height: 15vh"></div>
+                    </div>
+                </div>
+                <div class="row" style="border:1px solid black;">
+                    {% if 'Trouser' in order.product_Supercategory.name %}
+                    <div class="col-6" style="padding: 0;">
+                        <div class="container-fluid">
+                            <div class="row centered" style="border:1px solid black">
+                                Pocketing
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col" style="padding: 0">
+                        <div class="container-fluid">
+                            <div class="row centered" style="border:1px solid black;border-top: 0;">
+                                Interlining
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="height: 10vh;border:1px solid black;border-top: 0"></div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <script type="text/javascript">
+        window.print();
+    </script>
+</body>
+
+</html>

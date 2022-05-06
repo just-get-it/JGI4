@@ -1,0 +1,449 @@
+{% extends 'base2.html' %}
+    {% block content %}
+      {% csrf_token %}
+<div class="container text-center">
+    <h1>Generate PFM</h1>
+</div>
+<div class="container">
+
+<form  method="POST" id="myForm">
+  {% csrf_token %}
+      <p>
+        <label for="id_pfmno">PFM No.</label>
+        <input type="text"  name="pfmno" id="id_pfmno" value="{{pfmno}}" readonly>
+      </p>
+
+      <p>
+        <label for="id_fabric">Fabric: </label>
+        <select name="fabric" required id="id_fabric">
+          <option value="" selected>---------</option>
+        
+          {% for item in fabric %}
+        <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}
+      
+        </select>
+      </p>
+
+      <p>
+        <label for="id_wash">Wash:</label> 
+        <select name="wash" required id="id_wash">
+          <option value="" selected>---------</option>
+        
+        {% for item in washtype %}
+          <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}  </select>
+      </p>
+
+      <p><label for="id_category">Category:</label> <select name="category" required id="id_category">
+        <option value="" selected>---------</option>
+        {% for item in prodcategoryobjects %}
+        <option value="{{ item.pk }}">{{ item.name }}</option>
+        {% endfor %}
+      </select></p>
+
+      <p><label for="id_subcategory">Subcategory:</label> <select name="subcategory" required id="id_subcategory">
+        <option value="" selected>---------</option>
+        {% for i in data %}
+          <option value="{{ i.pk }}">{{ i.name }}</option>
+         {% endfor %}
+      </select></p>
+
+      <p><label for="id_supercategory">Supercategory:</label> <select name="supercategory" required id="id_supercategory">
+        <option value="" selected>---------</option>
+
+        {% for i in data %}
+          <option value="{{ i.pk }}">{{ i.name }}</option>
+         {% endfor %}
+
+      </select></p>
+
+      <p><label for="id_styletype">Styletype:</label> <select name="styletype" required id="id_styletype">
+        <option value="" selected>---------</option>
+        
+         {% for item in styletype %}
+        <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}
+      </select></p>
+
+      <br>
+
+
+      <button class="btn btn-primary" id="id_submit" type="submit"  value="Submit">Submit</button>
+      <button class="btn btn-primary" id="id_summary" onclick="myFunc()">Summary</button>
+     
+      <br>
+    </form>
+
+  </div>
+
+  <div class="container" id="container">
+  <br>
+  <button class="btn btn-primary" onclick="filter()" style="float: right;">Filter</button>
+  <input type="text" value="CT-" id="pfmn" name="pfmno"  style="float: right; width: 70px">
+  <label style="float: right;">PFM No</label>
+  <label for="fil_fabric">Fabric: </label>
+        <select name="filfabric"  id="fil_fabric">
+          <option value="" selected>---------</option>
+        
+          {% for item in fabric %}
+        <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}
+      
+        </select>
+        <label for="fil_wash">Wash:</label> 
+        <select name="filwash"  id="fil_wash">
+          <option value="" selected>---------</option>
+        
+        {% for item in washtype %}
+          <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}  </select>
+        <label for="fil_category">Category:</label> <select name="filcategory"  id="fil_category">
+        <option value="" selected>---------</option>
+        {% for item in prodcategoryobjects %}
+        <option value="{{ item.pk }}">{{ item.name }}</option>
+        {% endfor %}
+      </select>
+      <label for="fil_subcategory">Subcategory:</label> <select name="filsubcategory"  id="fil_subcategory">
+        <option value="" selected>---------</option>
+        {% for i in data %}
+          <option value="{{ i.pk }}">{{ i.name }}</option>
+         {% endfor %}
+      </select >
+      <label for="fil_supercategory">Supercategory:</label> <select onclick="superc()" name="filsupercategory" id="fil_supercategory">
+        <option value="" selected>---------</option>
+
+        {% for i in data %}
+          <option value="{{ i.pk }}">{{ i.name }}</option>
+         {% endfor %}
+
+      </select>
+      <label for="fil_styletype">Styletype:</label> <select name="filstyletype"  id="fil_styletype">
+        <option value="" selected>---------</option>
+        
+         {% for item in styletype %}
+        <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}
+      </select>
+  <table id="tableid" border="1" align="center" class="table">
+
+     <tr>
+        <th>PFM No</th>
+        <th>Fabric</th>
+        <th>Wash</th>
+        <th>Category</th>
+        <th>Sub-Category</th>
+        <th>Super-Category</th>
+        <th>Style type</th>
+        
+    </tr>
+    
+    {% for item in fabricdetailsobjects %}
+    <tr class="tr-rem" id="{{ item.pfmno}}"> 
+        <td>{{ item.pfmno }}</td>
+        <td>{{ item.fabric }}</td>
+        <td>{{ item.wash }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.sub_category }}</td>
+        <td>{{ item.super_category }}</td>
+        <td>{{ item.style_type }}</td>
+    </tr>
+    {% endfor %} 
+  </table>
+
+  </div>
+
+</body>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+<script>
+
+  
+  $("#fil_fabric").change(function (){
+    var fab=$("#fil_fabric").val();
+    console.log("fabrix"+fab)
+    $.ajax({
+        type: "POST",
+        url: '/sew/generatepfm',
+        data: {
+          
+          'fab':fab,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      });
+   });
+  $("#fil_wash").change(function (){
+    var wash=$("#fil_wash").val();
+    console.log("wash"+wash)
+    $.ajax({
+        type: "POST",
+        url: '/sew/generatepfm',
+        data: {
+          
+          'wash':wash,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      });
+   });
+  $("#fil_styletype").change(function (){
+    var style=$("#fil_styletype").val();
+    
+    $.ajax({
+        type: "POST",
+        url: '/sew/generatepfm',
+        data: {
+          
+          'style':style,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      });
+   });
+  function filter(){
+    var v=$("#pfmn").val()
+    //$("#id_co").append(`<option value="${i+1}" class="super_cat_options">${data['superc'][i]}</option>`)
+    console.log(v)
+    $.ajax({
+        type: "POST",
+        url: "/sew/generatepfm",
+        data: {
+          'pfmm':v,         
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {  
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      });
+  }
+  var catt;
+  function myFunc(){
+    var x = document.getElementById("tableid");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  function superc(){
+      var subcat = $("#fil_subcategory").val();
+      var superc =$("#fil_supercategory").find(':selected').text();
+      console.log("___"+superc)
+    $.ajax({
+        type: "POST",
+        url: "/sew/generatepfm",
+        data: {
+          'cat': catt,
+          'subc':subcat,
+          'superc':superc,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {  
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      });
+  }
+    $("#fil_category").change(function () {
+      var cat = $("#fil_category").val();
+      catt = $(this).find(':selected').text();
+      $.ajax({
+        type: "POST",
+        url: "/sew/generatepfm",
+        data: {
+          'prodcategory': cat,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {  
+          $('#fil_subcategory').find('.sub_cat_options').remove();
+          for(var i=0; i < data["sub"].length; i++){
+            $("#fil_subcategory").append(`<option value="${data['sub'][i]}" class="sub_cat_options">${data['sub'][i]}</option>`)
+          }
+        category(catt);
+        }
+      });
+
+    });
+    function category(d){
+      var cat = $("#fil_category").val();
+      console.log(cat)
+      console.log(d)
+      $.ajax({
+        type: "POST",
+        url: '/sew/generatepfm',
+        data: {
+          
+          'cate':d,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      });
+    }
+    $("#fil_subcategory").change(function () {
+      var subcat = $("#fil_subcategory").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/generatepfm",
+        data: {
+          'prodsubcategory': subcat,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) { 
+          $('#fil_supercategory').find('.super_cat_options').remove();
+          for(var i=0; i < data["superc"].length; i++){
+            $("#fil_supercategory").append(`<option value="${i+1}" class="super_cat_options">${data['superc'][i]}</option>`)
+          }
+          subcate(subcat);
+        }
+      });
+
+    });
+    function subcate(d){
+     var cat = $("#fil_subcategory").val();
+
+      console.log(catt)
+      console.log("up")
+      console.log(d)
+      $.ajax({
+        type: "POST",
+        url: '/sew/generatepfm',
+        data: {
+          'catee':d,
+          'scate':catt,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+      
+          }  
+          
+        }
+      }); 
+    }
+    $("#id_category").change(function () {
+      var cat = $("#id_category").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/generatepfm",
+        data: {
+          'prodcategory': cat,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {  
+          $('#id_subcategory').find('.sub_cat_options').remove();
+          for(var i=0; i < data["sub"].length; i++){
+            $("#id_subcategory").append(`<option value="${data['sub'][i]}" class="sub_cat_options"> ${data['sub'][i]} </option>`)
+          }
+   
+        }
+      });
+
+    });
+
+    $("#id_subcategory").change(function () {
+      var subcat = $("#id_subcategory").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/generatepfm",
+        data: {
+          'prodsubcategory': subcat,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) { 
+          $('#id_supercategory').find('.super_cat_options').remove();
+          for(var i=0; i < data["superc"].length; i++){
+            $("#id_supercategory").append(`<option value="${i+1}" class="super_cat_options">${data['superc'][i]}</option>`)
+          }
+        }
+      });
+
+    });
+
+  $("#id_submit").click(function () {
+      var pf = $('#id_pfmno').val();
+      var fabric = $('#id_fabric').find(":selected").text();
+      var wash = $('#id_wash').find(":selected").text();
+      var category = $('#id_category').find(":selected").text();
+      var subcategory = $('#id_subcategory').find(":selected").text();
+      var supercategory = $('#id_supercategory').find(":selected").text();
+      var stylet = $('#id_styletype').find(":selected").text();
+
+      $.ajax({
+        url: '/sew/generatepfm',
+        type: "GET",
+        data: {
+          'pf': pf,
+          'fabric': fabric,
+          'wash':wash,
+          'category': category,
+          'sub_category': subcategory,
+          'super_category': supercategory,
+          'style_type':stylet
+        },
+        success: function () {         
+        }
+      });
+  });
+
+</script>
+
+{% endblock %}
+

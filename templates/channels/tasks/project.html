@@ -1,0 +1,1312 @@
+{% extends 'channels/planner/student_base.html' %} {% load static %} {% load crispy_forms_tags %}{% block customcss %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/channels/newtask.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js'></script>
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script> -->
+<!-- <script>
+    $(document).ready(function() {
+        $("#myCarousel").on("slide.bs.carousel", function(e) {
+            var $e = $(e.relatedTarget);
+            var idx = $e.index();
+            var itemsPerSlide = 3;
+            var totalItems = $(".carousel-item").length;
+            alert(totalItems);
+            if (idx >= totalItems - (itemsPerSlide - 1)) {
+                var it = itemsPerSlide - (totalItems - idx);
+                for (var i = 0; i < it; i++) {
+                    // append slides to end
+                    if (e.direction == "left") {
+                        $(".carousel-item")
+                            .eq(i)
+                            .appendTo(".carousel-inner");
+                    } else {
+                        $(".carousel-item")
+                            .eq(0)
+                            .appendTo($(this).find(".carousel-inner"));
+                    }
+                }
+            }
+        });
+    });
+</script>
+<style>
+    @media (min-width: 768px) {
+        /* show 3 items */
+        .carousel-inner .active,
+        .carousel-inner .active+.carousel-item,
+        .carousel-inner .active+.carousel-item+.carousel-item {
+            display: block;
+        }
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item,
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item+.carousel-item {
+            transition: none;
+        }
+        .carousel-inner .carousel-item-next,
+        .carousel-inner .carousel-item-prev {
+            position: relative;
+            transform: translate3d(0, 0, 0);
+        }
+        /*.carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }*/
+        /* left or forward direction */
+        .active.carousel-item-left+.carousel-item-next.carousel-item-left,
+        .carousel-item-next.carousel-item-left+.carousel-item,
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item,
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+        /* farthest right hidden item must be abso position for animations */
+        .carousel-inner .carousel-item-prev.carousel-item-right {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            display: block;
+            visibility: visible;
+        }
+        /* right or prev direction */
+        .active.carousel-item-right+.carousel-item-prev.carousel-item-right,
+        .carousel-item-prev.carousel-item-right+.carousel-item,
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item,
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(100%, 0, 0);
+            visibility: visible;
+            display: block;
+            visibility: visible;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            display: none!important;
+        }
+    }
+    
+    #new_section_modal .modal-header,
+    #addProject .modal-title {
+        background: linear-gradient(60deg, #288c6c, #4ea752)!important;
+    }
+    
+    #new_section_modal .modal-body {
+        background-color: #9095A2;
+    }
+    
+    #new_section_modal .modal-body label {
+        color: black!important;
+        font-weight: 500;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $(".sortableList").sortable({
+            revert: true,
+            items: "li:not(.fixed)",
+            connectWith: ".sortableList",
+            stop: function(event, ui) {
+                // alert("New position: " + ui.item.index());
+                console.log("NEW INDEX OF " + ui.item.attr('id') + ": " + ui.item.index());
+                task_id = ui.item.attr('id');
+                index = ui.item.index();
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'ajax' %}",
+                    data: {
+                        action: 'sort_task',
+                        task_id: task_id,
+                        index: index,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            },
+            change: function() {
+                    var list = $(this).closest('ul');
+                    var topAnchor = $(list).find('.topAnchor');
+                    var bottomAnchor = $(list).find('.bottomAnchor');
+                    $(list).prepend($(topAnchor).detach());
+                    $(list).append($(bottomAnchor).detach());
+                }
+                /*update: function (event, ui) {
+                    // Some code to prevent duplicates
+                }*/
+        });
+        $(".sortableSection").sortable({
+            stop: function(event, ui) {
+                // alert("New position: " + ui.item.index());
+                section_id = ui.item.attr('id');
+                index = ui.item.index();
+                console.log("NEW INDEX OF SECTION " + ui.item.attr('id') + " : " + ui.item.index());
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'ajax' %}",
+                    data: {
+                        action: 'sort_section',
+                        project_id: '{{project.id}}',
+                        section_id: section_id,
+                        index: index,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+        $(".droppableSection").droppable({
+            accept: ".acceptable",
+            drop: function(e, ui) {
+                var dropped = ui.draggable;
+                var droppedOn = $(this);
+                var section_id = $(this).attr('id');
+                var task_id = ui.draggable.attr('id');
+                // console.log(task_id + ' dropped on ' + section_id);
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'ajax' %}",
+                    data: {
+                        action: 'task_section_change',
+                        task_id: task_id,
+                        section_id: section_id,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    });
+</script>
+<style>
+    ul,
+    li {
+        list-style-type: none;
+        list-style-position: inside;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .no-border {
+        padding: 0;
+        border: none;
+        background: none;
+    }
+    
+    #section-div .card-header {
+        background: linear-gradient(60deg, #7b1fa2, #913f9e)!important;
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)!important;
+    }
+    
+    @media only screen and (max-width: 768px) {
+        #buttons>div {
+            display: block!important;
+        }
+    }
+    
+    </style <style>.chosen-container.chosen-container-multi {
+        width: 300px !important;
+        /* or any value that fits your needs */
+    }
+</style> -->
+<link rel="stylesheet" href="{% static 'chosen/chosen.min.css' %}">
+<style>
+    li {
+        list-style: none;
+    }
+    .chosen-container.chosen-container-multi {
+        width: 100% !important;
+        /* or any value that fits your needs */
+    }
+    .chosen-container.chosen-container-multi .search-choice a {
+        background-color: green!important;
+        font-size: 14px!important;
+        color: white!important;
+        padding-left: 2px;
+        top: 6px!important;
+    }
+    .chosen-choices {
+        background-image: unset!important;
+        background-color: #deeaee!important;
+        border-radius: 10px;
+    }
+    .search-choice {
+        border-radius: 7px!important;
+    }
+    #div_id_1-task-assigned_to {        
+        border-radius: 10px!important;
+    }
+    .taskcontents .btn-warning {
+        position: relative;
+        color: #fff;
+        background-color: #f5700c;
+        border-color: #f5700c;
+        box-shadow: 0 2px 2px 0 rgba(245, 112, 12, 0.14), 0 3px 1px -2px rgba(245, 112, 12, 0.2), 0 1px 5px 0 rgba(245, 112, 12, 0.12);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 12px 30px;
+    }
+    .taskcontents .btn-warning p {
+        margin-bottom: 0px;
+        text-align: left;
+    }
+    .taskcontents .btn-warning i {
+        position: absolute;
+        float: right;
+        right: 0;
+        top: 5px;
+        color: green;
+    }
+    .taskcontents .btn-warning del {
+        color: green;
+    }
+
+    .section-header {
+        white-space: nowrap!important;
+        overflow: hidden!important;
+        text-overflow: ellipsis!important;
+    }
+    .carousel-item {
+        padding-right: 1px!important;
+        padding-left: 1px!important;
+    }
+    .carousel-item .sortableList {
+        height: 450px;
+        overflow: auto;
+    }
+    .dark-edition .modal-body .card {
+        background: #e0b3ff!important;
+    }
+    .attach a {
+        margin-left: 10px;
+    }
+    .attach i {
+        font-size: 20px;
+    }
+    @media only screen and (min-width: 768px){
+        #buttons > div {
+            margin-right: 15px;
+        }
+    }
+</style>
+{% endblock %} {% block content %}
+
+<div class="row" id="buttons">
+    <div class="col-3 col-sm-12">
+        <h3><span name="project_name" style="color: white;">{{project.name}}</span> <button class="no-border" data-toggle="modal" data-target="#edit_project" data-backdrop="false" style="background-color: transparent;border:none;padding: 0px;"><i class="material-icons" style="color: white;">edit</i></button>            </h3>
+    </div>
+    <div class="col-1 col-sm-12">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#project_assign" data-backdrop="false">Assign</button>
+    </div>
+    <div class="col-2 col-sm-12">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#new_section_modal" data-backdrop="false">Add Section</button>
+    </div>
+</div>
+<br>
+<div class="container-fluid">
+    <div id="myCarousel section-div" class="carousel slide row flex-row flex-nowrap sortableSection">
+        <div class="carousel-inner row w-100 mx-auto">
+            {% for data in section_dt %}
+            <div class="carousel-item col-md-3" id="{{data.0.id}}">
+                <div class="card" style="margin-top: 0px">
+                    <div class="card-header text-center" style="background: linear-gradient(60deg, #7b1fa2, #913f9e)!important;box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)!important;">
+                        <h4 class="section-header" style="border: none;background-color: transparent;"><button class="no-border" data-toggle="modal" data-target="#sectionmodal-{{data.0.id}}" style="border: none;background-color: transparent;color: white; font-size: 25px"><span name="section-name-{{data.0.id}}" data-toggle="tooltip" data-placement="top" title="{{data.0.name}}">{{data.0.name}}</span> </button></h4>
+                    </div>
+                    <ul class="sortableList droppableSection" id="{{data.0.id}}" style="padding-left: 0px;">
+                        {% for taskdt in data.1 %}
+                        <li class="ui-state-default taskcontents text-center acceptable" id="{{taskdt.0.id}}">
+                            <h4 style="margin-bottom: 0px"> <button class="no-border btn-warning" data-toggle="modal" data-target="#taskmodal-{{taskdt.0.id}}" data-backdrop="false" style="width: 100%!important; border-radius: 10px;min-height: 40px;background-color: #deeaee; color: black;"><p name="taskname-{{taskdt.0.id}}">{% if taskdt.0.is_complete %}<del>{{taskdt.0.name}}<i class="material-icons">alarm_on</i></del>{% else %}{{taskdt.0.name}}{% endif %}</p></button></h4>
+                        </li>
+                        {% endfor %}
+
+                        <li class="ui-state-default taskcontents text-center fixed bottomAnchor">
+                            <div class="collapse" id="add-task-{{data.0.id}}">
+                                <h5><input type="text" id="new-task-name-{{data.0.id}}"> <button class="btn btn-primary btn-sm" onclick="add_new_task('{{data.0.id}}')">Add</button></h5>
+                            </div>
+                            <button class="no-border" data-toggle="collapse" data-target="#add-task-{{data.0.id}}" data-backdrop="false" style="background-color: transparent; border:none;"><h4><i class="material-icons" style="color: white;">add_circle</i></h4></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+            <a class="carousel-control-prev" href="#myCarousel" role="button">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- PROJECT MODAL SECTION -->
+<div class="modal" tabindex="-1" id="edit_project">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Project</h5>
+                <button class="btn btn-outline-danger" style="margin-left: 10px;" data-toggle="collapse" data-target="#delete-project" aria-expanded="false" aria-controls="collapseExample"><i class="material-icons">delete</i></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="collapse text-center" style="margin-left: 10px; margin-bottom: 10px;" id="delete-project"> Are you sure? <button class="btn btn-danger" onclick="delete_project()">Yes</button> <button class="btn btn-primary" data-toggle="collapse" data-target="#delete-project" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4><input type="text" id="project_name" class="form-input" value="{{project.name}}"></h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Description</h5>
+                        <p class="card-text"><textarea rows="4" cols="40" class="form-input" id="project_desc">{{project.description}}</textarea></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="edit_project()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="project_assign">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4>Assigned to:</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>* Please hold 'ctrl' while selecting multiple values</p>
+                        {{ passign_form.assigned_to | as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="assign_project()">Assign</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PROJECT MODAL SECTION END -->
+
+<!-- TASK MODAL SECTION -->
+{% for data in section_dt %}
+<!-- SECTION MODAL SECTION -->
+<div class="modal fade" tabindex="-1" id="sectionmodal-{{data.0.id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title"><input type="text" id="section-name-{{data.0.id}}" value="{{data.0.name}}"></h5>
+                <button class="btn btn-outline-danger" style="margin-left: 10px;" data-toggle="collapse" data-target="#delete-section-{{data.0.id}}" aria-expanded="false" aria-controls="collapseExample"><i class="material-icons">delete</i></button>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="collapse text-center" style="margin-left: 10px; margin-bottom: 10px;" id="delete-section-{{data.0.id}}"> Are you sure? <button class="btn btn-danger" onclick="delete_section('{{data.0.id}}')">Yes</button> <button class="btn btn-primary" data-toggle="collapse" data-target="#delete-section-{{data.0.id}}" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+                <div class="card border-info">
+                    <div class="card-body">
+                        <p>Description: </p>
+                        <textarea id="section-description-{{data.0.id}}" rows="4" cols="40" class="form-input">{{data.0.description}}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>* Please hold 'ctrl' while selecting multiple values</p>
+                        {{data.2.assigned_to|as_crispy_field}} <button type="button" class="btn btn-primary" onclick="assign_section('{{data.0.id}}')">Assign</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="edit_section('{{data.0.id}}')">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SECTION MODAL SECTION END -->
+
+
+
+
+{% for taskdt in data.1 %}
+<div class="modal fade" tabindex="-1" id="taskmodal-{{taskdt.0.id}}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Task </h5>
+                <button class="btn btn-outline-danger" data-toggle="collapse" data-target="#delete-task-{{taskdt.0.id}}" aria-expanded="false" aria-controls="collapseExample"><i class="material-icons">delete</i></button>
+                <div class="collapse" style="margin-left: 10px;" id="delete-task-{{taskdt.0.id}}"> Are you sure? <button class="btn btn-danger" onclick="delete_task('{{taskdt.0.id}}')">Yes</button> <button class="btn btn-primary" data-toggle="collapse" data-target="#delete-task-{{taskdt.0.id}}" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-12">
+                                <h4><input onkeyup="edit_task_name(event, '{{taskdt.0.id}}')" type="text" value="{{taskdt.0.name}}" id="taskname-{{taskdt.0.id}}"></h4>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                    <h4>Completed: {% if taskdt.0.is_complete %}<input type="checkbox" onclick="complete_task('{{taskdt.0.id}}')"
+                                        id="taskcomplete-{{taskdt.0.id}}" checked> {% else %}<input type="checkbox" id="taskcomplete-{{taskdt.0.id}}" onclick="complete_task('{{taskdt.0.id}}')"> {% endif %}</h4>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="card-body">
+                        <div class="row">     
+                            <div class="col-8 col-sm-12"></div>
+                            <div class="col-4 col-sm-12">
+                                <!-- <p><strong>Due Date: </strong><span name="taskduedate-value-{{taskdt.0.id}}">{{taskdt.0.due_date}}</span></p> -->
+                                <p>Due Date: <input type="datetime-local" id="taskduedate-{{taskdt.0.id}}" style="width: 80%;margin-right: 5px;"> <a href="#" style="font-size: x-large;" onclick="update_due_date('{{taskdt.0.id}}')"><i class="fa fa-floppy-o" aria-hidden="true"></i></a></p>
+                            </div>                       
+                            <div class="col-8 col-sm-12">
+                                <h6>Check List:</h6>
+                                <ul>
+                                    {% for checklistitem in taskdt.1 %}
+                                    <li id="checklistitem-{{checklistitem.id}}">
+                                        {% if checklistitem.is_checked %}
+                                        <input type="checkbox" onclick="check_item('{{checklistitem.id}}')" id="checkbox-{{checklistitem.id}}" checked class="o-data"> {% else %}<input type="checkbox" id="checkbox-{{checklistitem.id}}" onclick="check_item('{{checklistitem.id}}')" class="o-data">{% endif %}
+                                        <label class="form-check-label o-data" for="checklist{{checklistitem.id}}"><span  id='checklist-label-{{checklistitem.id}}' >{{checklistitem.title}}</span> <a href="#" onclick="delete_checklist('{{checklistitem.id}}')"><i class="material-icons" style="color: white;" aria-hidden="true">delete_outline</i></a><a href="#" onclick="show_checklist('{{checklistitem.id}}')"><i class="material-icons" style="color: white;" aria-hidden="true">edit</i></a></label>
+                                        <input type="text" name="checklist-{{checklistitem.id}}" id="checklist-{{checklistitem.id}}" value="{{checklistitem.title}}" style="display: none;" class="e-data">
+                                        <button class="btn btn-primary btn-sm e-data" onclick="edit_checklist('{{taskdt.0.id}}')" style="display: none;">edit</button>
+                                    </li>
+                                    {% endfor %}
+                                    <div id="new_checklist-{{taskdt.0.id}}">
+
+                                    </div>
+                                    <li>
+                                        <div class="collapse" id="checklistcollapse-{{taskdt.0.id}}">
+                                            <input type="text" id="newchecklist-{{taskdt.0.id}}" />
+                                            <button class="btn btn-primary btn-sm" onclick="add_checklist('{{taskdt.0.id}}')">Add</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="no-border btn-block" data-toggle="collapse" data-target="#checklistcollapse-{{taskdt.0.id}}" aria-expanded="false" aria-controls="collapseExample"><h6><i class="material-icons">add</i></h6></button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-4 col-sm-12"></div>
+                            <div class="col-8 col-sm-12">
+                                <h6>Attachments: </h6>
+                                <ul>
+                                    {% for attachment in taskdt.2 %}
+                                    <li id="attachment-{{attachment.id}}" class="attach">
+                                        <p>{{attachment.name}} <a download href="{{attachment.file.url}}" target="_blank"><i class="material-icons">cloud_download</i></a><a href="{{attachment.file.url}}" target="_blank"><i class="fa fa-eye"></i></a><a href="#" onclick="delete_attachment('{{attachment.id}}')"><i class="material-icons" style="color: white;" aria-hidden="true">delete_outline</i></a>
+                                        </p>
+                                    </li>
+                                    {% endfor %}
+                                    <div id="new_attachment-section-{{taskdt.0.id}}">
+
+                                    </div>
+                                    <li>
+                                        <div class="collapse" id="attachmentcollapse-{{taskdt.0.id}}">
+                                            <input type="file" id="newattach-file-{{taskdt.0.id}}" />
+                                            <label>Attachment Name: </label>
+                                            <input type="text" id="newattach-name-{{taskdt.0.id}}">
+                                            <button class="btn btn-primary btn-sm" onclick="add_attachment('{{taskdt.0.id}}')">Add</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="no-border btn-block" data-toggle="collapse" data-target="#attachmentcollapse-{{taskdt.0.id}}" data-backdrop="false"><h6><i class="material-icons">add</i></h6></button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-4 col-sm-12">
+                                <h6>Description: <a href="#" style="font-size: x-large;" onclick="update_task_desc('{{taskdt.0.id}}')"><i class="fa fa-floppy-o" aria-hidden="true" style="font-size: 14px;"></i></a></h6>
+                                <textarea rows="4" cols="30" class="form-input" id="taskdesc-{{taskdt.0.id}}">{{taskdt.0.description}}</textarea>
+                            </div>                            
+                            <div class="col-8 col-sm-12">
+                                <h6>Comments: </h6>
+                                <ul>
+                                    <div id="new_comment-section-{{taskdt.0.id}}">
+
+                                    </div>
+                                    {% for comment in taskdt.3 %}
+                                    <li>
+                                        <p><strong>{{comment.text}}</strong></p>
+                                        <p>By {{comment.commentor}} on {{comment.date_created}}</p>
+                                    </li>
+                                    {% endfor %}
+                                    <li>
+                                        <div class="collapse" id="commentcollapse-{{taskdt.0.id}}">
+                                            <input type="text" id="newcomment-{{taskdt.0.id}}" />
+                                            <button class="btn btn-primary btn-sm" onclick="add_comment('{{taskdt.0.id}}')">Add</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="no-border btn-block" data-toggle="collapse" data-target="#commentcollapse-{{taskdt.0.id}}"><h6><i class="material-icons">add</i></h6></button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-4 col-sm-12">
+                                <p>* Please hold 'ctrl' while selecting multiple values</p>
+                                {{taskdt.4.assigned_to | as_crispy_field}} <button type="button" class="btn btn-primary" onclick="assign_task('{{taskdt.0.id}}')">Assign</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endfor %}
+<!-- TASK MODAL SECTION END -->
+<!-- SECTION MODAL SECTION -->
+<div class="modal fade" tabindex="-1" id="new_section_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Section</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4>Name: <input type="text" id="new_section_name"></h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Description: </p>
+                        <textarea id="new_section_description" rows="4" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="add_section()">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION MODAL SECTION END -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".ui-state-default:first-child").css("margin-top", "15px");
+        $(".ui-state-default:not(first-child)").css("margin-top", "5px");
+        var l = $(window).width()
+        if (l > 768) {
+            $(".modal .modal-body .card-body textarea").attr('cols', '20');
+            $(".carousel-item").slice(0, 4).addClass("active");
+            $(".carousel-item:not(.active)").hide()
+            $(".carousel-control-next").hide()
+            $(".carousel-control-prev").hide()
+            var a = $(".carousel-item").length;
+            if (a >= 4) {
+                var x = 1
+                var y = 4
+                $(".carousel-control-next").show();
+                $(".carousel-control-next").click(function() {
+                    $(".carousel-control-prev").show();
+                    var q = $(".carousel-item.active:first-child").next().next().next().index();
+                    var $f = $(".carousel-item.active:first-child");
+                    $f.index(y)
+                    var $p = $(".carousel-item.active:first-child").next().next().next();
+                    var $n = $p.next();
+                    $f.removeClass("active")
+                    $n.addClass("active")
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (q == a - 2) {
+                        $(".carousel-control-next").hide()
+                    }
+                })
+                $(".carousel-control-prev").click(function() {
+                    var q = $(".carousel-item.active:first-child").index();
+                    var $f = $(".carousel-inner .active:first-child");
+                    var $p = $(".carousel-item.active:first-child").next().next().next();
+                    var $n = $f.prev();
+                    $p.removeClass("active")
+                    $n.addClass("active")
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (q == 1) {
+                        $(".carousel-control-prev").hide()
+                    }
+                })
+
+            }
+        }
+    })
+    $(document).ready(function() {
+        var l = $(window).width()
+        if (l <= 768) {
+            $("#buttons > div ").css("margin-left", "15px")
+            $(".carousel-item:first-child").addClass("active")
+            $(".carousel-item:not(.active)").hide()
+            $(".carousel-control-prev").hide()
+        }
+        var total = $(".carousel-item").length;
+        $(".carousel-control-next").click(function() {
+            if (l <= 768) {
+                $(".carousel-control-prev").show()
+                var e = $(".carousel-inner > .active").index();
+                var $s = $(".carousel-item.active");
+                if (e < total - 1) {
+                    var $n = $s.next();
+                    $s.removeClass("active");
+                    $n.addClass("active");
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (e == total - 2) {
+                        $(".carousel-control-next").hide()
+                    }
+                }
+            }
+        })
+        $(".carousel-control-prev").click(function() {
+            if (l <= 768) {
+                $(".carousel-control-next").show()
+                var e = $(".carousel-inner > .active").index();
+                var $s = $(".carousel-item.active");
+                if (e >= 1) {
+                    var $n = $s.prev();
+                    $s.removeClass("active");
+                    $n.addClass("active");
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (e == 1) {
+                        $(".carousel-control-prev").hide()
+                    }
+                }
+            }
+        })
+    })
+</script>
+<!-- <script>
+    $(document).ready(function() {
+  $("#myCarousel").on("slide.bs.carousel", function(e) {
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 3;
+    var totalItems = $(".carousel-item").length;
+    alert(totalItems);
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+      var it = itemsPerSlide - (totalItems - idx);
+      for (var i = 0; i < it; i++) {
+        // append slides to end
+        if (e.direction == "left") {
+          $(".carousel-item")
+            .eq(i)
+            .appendTo(".carousel-inner");
+        } else {
+          $(".carousel-item")
+            .eq(0)
+            .appendTo($(this).find(".carousel-inner"));
+        }
+      }
+    }
+  });
+});
+
+</script> -->
+<!-- AJAX FUNCTIONS -->
+<script>
+    // currwork
+    function delete_task(task_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_task',
+                task_id: task_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.reload();
+            }
+        });
+    }
+
+    function delete_section(section_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_section',
+                section_id: section_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.reload();
+            }
+        });
+    }
+
+    function delete_project(task_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_project',
+                project_id: '{{project.id}}',
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                window.location.replace("{% url 'dash' %}");
+            }
+        });
+    }
+
+    function add_new_task(section_id) {
+        var name = $('#new-task-name-' + section_id).val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_task',
+                    name: name,
+                    section_id: section_id,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    location.reload();
+                }
+            });
+        }
+    }
+
+    function add_section() {
+        var name = $('#new_section_name').val();
+        var description = $('#new_section_description').val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_section',
+                    project_id: '{{project.id}}',
+                    name: name,
+                    description: description,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    location.reload();
+                }
+            });
+        }
+    }
+
+
+    function edit_section(section_id) {
+        var name = $('#section-name-' + section_id).val();
+        var description = $('#section-description-' + section_id).val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'edit_section',
+                    section_id: section_id,
+                    name: name,
+                    description: description,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    var pname = document.getElementsByName('section-name-' + section_id)
+                    pname.forEach(element => {
+                        element.innerText = name;
+                        console.log(element.innerText);
+                    });
+                }
+            });
+        }
+    }
+
+    function show_checklist(checklist_id){
+        var o = $('#checklistitem-' + checklist_id)
+        o.children(".o-data").hide()
+        o.children(".e-data").show()   
+        $("#checklist-" + checklist_id).show()
+    }
+
+    function edit_checklist(checklist_id) {
+        var name = $('#checklist-' + checklist_id).val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'edit_checklist',
+                    checklist_id: checklist_id,
+                    name: name,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $('#checklist-label-' + checklist_id).text(name);
+                }
+            });
+            var o = $('#checklistitem-' + checklist_id)
+            o.children(".e-data").hide()   
+            $("#checklist-" + checklist_id).hide()
+            o.children(".o-data").show()
+        }
+    }
+
+    function add_comment(task_id) {
+        comment = $('#newcomment-' + task_id).val();
+        comment_div = document.getElementById('new_comment-section-' + task_id);
+        if (comment.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_comment',
+                    task_id: task_id,
+                    comment: comment,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    var element = document.createElement('li');
+                    element.innerHTML = `<p><strong>` + comment + `</strong></p>
+                <p>By ` + data['commentor'] + ` on ` + data['date'] + `</p>`;
+                    comment_div.appendChild(element);
+                    $('#newcomment-' + task_id).val('');
+                }
+            });
+        }
+    }
+
+    function assign_project() {
+        var selectedValues = $('#id_project-assigned_to').val();
+        console.log(selectedValues);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'assign_project',
+                project_id: '{{project.id}}',
+                assign_to: JSON.stringify(selectedValues),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+            }
+        });
+
+    }
+
+    function assign_task(task_id) {
+        var selectedValues = $('#id_' + task_id + '-task-assigned_to').val();
+        console.log(selectedValues);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'assign_task',
+                task_id: task_id,
+                assign_to: JSON.stringify(selectedValues),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+            }
+        });
+
+    }
+
+
+    function assign_section(section_id) {
+        var selectedValues = $('#id_' + section_id + '-section-assigned_to').val();
+        console.log(selectedValues);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'assign_section',
+                section_id: section_id,
+                assign_to: JSON.stringify(selectedValues),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+            }
+        });
+
+    }
+
+
+
+    function edit_task_name(e, task_id) {
+        console.log('keycode: ' + e.code);
+        console.log('task_id: ' + task_id);
+        if (e.code == "Enter") {
+            var name = $('#taskname-' + task_id).val();
+            if (name.trim() !== "") {
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'ajax' %}",
+                    data: {
+                        action: 'update_taskname',
+                        name: name,
+                        task_id: task_id,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data)
+                        var pname = document.getElementsByName('taskname-' + task_id);
+                        pname.forEach(element => {
+                            element.innerText = name;
+                        });
+                    }
+                });
+            }
+        }
+    }
+
+    function add_attachment(task_id) {
+        name = $('#newattach-name-' + task_id).val();
+        file = $('#newattach-file-' + task_id).val();
+        if (name.trim() !== "" && file.trim() !== "") {
+            var new_attach_div = document.getElementById('new_attachment-section-' + task_id);
+            var file = $('#newattach-file-' + task_id)[0].files[0]
+            var fd = new FormData();
+            fd.append('file', file);
+            fd.append('action', 'add_attachment');
+            fd.append('task_id', task_id);
+            fd.append('name', name);
+            fd.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data);
+                    attachment_id = data['attachment_id'];
+                    url = data['url'];
+                    var element = document.createElement('li');
+                    element.setAttribute('id', "attachment-" + attachment_id);
+                    element.innerHTML = `<p>` + name + ` <a download href="` + url + `" target="_blank" class="btn btn-sm"><i class="fas fa-download"></i></a><a href="` + url + `" target="_blank" class="btn btn-sm"><i class="fa fa-eye"></i></a><a href="#" onclick="delete_attachment('` + attachment_id + `')"><i class="material-icons" style="color: white;" aria-hidden="true">delete_outline</i></a>
+                                        </p>`;
+                    new_attach_div.appendChild(element);
+                    $('#newattach-file-' + task_id).val('');
+                    $('#newattach-name-' + task_id).val('');
+                }
+            });
+        }
+    }
+
+    function delete_checklist(checklist_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_checklist',
+                checklist_id: checklist_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                document.getElementById('checklistitem-' + checklist_id).remove()
+            }
+        });
+    }
+
+    function delete_attachment(attachment_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_attachment',
+                attachment_id: attachment_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                document.getElementById('attachment-' + attachment_id).remove()
+            }
+        });
+    }
+
+    function complete_task(task_id) {
+        if (document.getElementById('taskcomplete-' + task_id).checked) {
+            value = true;
+        } else {
+            value = false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'complete_task',
+                task_id: task_id,
+                value: value,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                var pname = document.getElementsByName('taskname-' + task_id);
+                pname.forEach(element => {
+                    if (value == true) {
+                        element.innerHTML = `<del>` + data['task_name'] + '</del>';
+                    } else {
+                        element.innerText = data['task_name'];
+                    }
+                });
+            }
+        });
+    }
+
+    function update_due_date(task_id) {
+        var date = $("#taskduedate-" + task_id).val();
+        if (date.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'update_due_date',
+                    task_id: task_id,
+                    date: date,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    var pname = document.getElementsByName('taskduedate-value-' + task_id);
+                    pname.forEach(element => {
+                        element.innerText = date;
+                    });
+                }
+            });
+        }
+    }
+
+    function update_task_desc(task_id) {
+        var desc = $("#taskdesc-" + task_id).val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'update_task_desc',
+                task_id: task_id,
+                description: desc,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+
+            }
+        });
+    }
+
+    function check_item(checklist_id) {
+        if (document.getElementById('checkbox-' + checklist_id).checked) {
+            value = true;
+        } else {
+            value = false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'check_item',
+                checklist_id: checklist_id,
+                value: value,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function add_checklist(task_id) {
+        checklist_title = $('#newchecklist-' + task_id).val();
+        if (checklist_title.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_checklist',
+                    task_id: task_id,
+                    title: checklist_title,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    checklist_id = data['checklist_id']
+                    checklist_section = document.getElementById('new_checklist-' + task_id);
+                    var element = document.createElement('li');
+                    element.setAttribute('id', "checklistitem-" + checklist_id);
+                    element.innerHTML = `<input type="checkbox" id="checkbox-` + checklist_id + `" onclick="check_item('` + checklist_id + `' class="o-data")">                                  
+                             <label class="form-check-label o-data" for="checklist` + checklist_id + `"><span id="checklist-label-` + checklist_id + `">` + checklist_title + ` </span><a href="#" onclick="delete_checklist('` + checklist_id + `')"><i class="material-icons" style="color: white;" aria-hidden="true">delete_outline</i></a><a href="#" onclick="edit_checklist('` + checklist_id + `')"><i class="material-icons" style="color: white;" aria-hidden="true">edit</i></a></label><input type="text" name="checklist-` + checklist_id + `" id="checklist-` + checklist_id + `" value="` + checklist_title + `" style="display: none;" class="e-data">
+                                        <button class="btn btn-primary btn-sm e-data" onclick="edit_checklist('` + task_id + `')" style="display: none;">edit</button>`;
+                    checklist_section.appendChild(element);
+                    $('#newchecklist-' + task_id).val('');
+                }
+            });
+        }
+    }
+
+    function edit_project() {
+        var name = $('#project_name').val();
+        var description = $('#project_desc').val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'edit_project',
+                    project_id: '{{project.id}}',
+                    name: name,
+                    description: description,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    var pname = document.getElementsByName('project_name')
+                    pname.forEach(element => {
+                        element.innerText = name;
+                        console.log(element.innerText);
+                    });
+                    $('#edit_project').modal('toggle');
+                    console.log('HIDING MODAL')
+                }
+            });
+        }
+    }
+</script>
+<script>
+    $(function() {
+        $("#draggable").draggable();
+        $("#droppable").droppable({
+            drop: function(event, ui) {
+                $(this)
+                    .addClass("ui-state-highlight")
+                    .find("p")
+                    .html("Dropped!");
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $(".chosen-select").chosen()
+        $(".search-choice").css("background","#4EA753");
+    });
+    $(document).click(function(){
+        $(".search-choice").css({"background":"#4EA753","padding":"5px 20px 5px 5px"});
+        $(".search-choice span").css("font-size","16px");
+        $(".search-choice-close").text("X")
+    });
+    $(document).ready(function() {
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(5)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(5) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+{% endblock %} {% block customjs %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js'></script>
+<!-- <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script> -->
+{% endblock %}

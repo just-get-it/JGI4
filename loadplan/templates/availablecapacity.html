@@ -1,0 +1,83 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1>AVAILABLE CAPACITY</h1>
+    </div>
+    <form action="availablecapacity" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Line No</label>
+            <div class="col-sm-10">
+              <input type="text" name="lineno" id="lineno">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">No. of operators</label>
+            <div class="col-sm-10">
+              <input type="text" name="noo" id="noo">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Working Days</label>
+            <div class="col-sm-10">
+              <input type="text" name="workdays" id="workdays">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Daily Working Hours</label>
+            <div class="col-sm-10">
+              <input type="text" name="dwh" id="dwh">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Abseentism</label>
+            <div class="col-sm-10">
+              <input type="text" name="absent" id="absent">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Efficiency</label>
+            <div class="col-sm-10">
+              <input type="text" name="efficiency" id="efficiency">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Available Capacity</label>
+            <div class="col-sm-10">
+              <input type="text" name="mac" id="mac" onfocus="calcmac()" style="background: #D3D3D3; " readonly>
+            </div>
+        </div>
+
+        <div class="container text-center">
+            <a class="btn btn-primary" href="avctable" role="button">View Available Capacity Table</a>
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+
+    </form>
+    
+    <script language="javascript">
+
+        function calcmac()
+    {
+        var noo = parseFloat(document.getElementById("noo").value);
+        var workdays = parseFloat(document.getElementById("workdays").value);
+        var dwh = parseFloat(document.getElementById("dwh").value);
+        var absent = parseFloat(document.getElementById("absent").value);
+        var efficiency = parseFloat(document.getElementById("efficiency").value);
+        var mac = document.getElementById("mac");
+        mac.value = (((noo*workdays*dwh*60)-absent)*efficiency);
+        
+
+    }
+
+    </script>
+
+ {% endblock %}

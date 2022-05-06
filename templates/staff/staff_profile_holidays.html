@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<style type="text/css">
+  .holiday_row{
+    transition: all .2s ease;
+    background: white;
+  }
+  .anim{
+    animation-name: top_bottom;
+    animation-duration: 1s;
+
+  }
+  .days{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+  .days:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  .holiday_row:hover{
+    background: rgba(48,197,255,.5);
+  }
+  @keyframes top_bottom{
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+</style>
+<script type="text/javascript">
+  var cur;
+  function clickedHoliday(event,i){
+    var a=document.getElementById('holiday_cont');
+    // console.log("yum");
+    // console.log(event.clientY);
+    if (a.classList.contains("anim")){
+      a.classList.remove("anim");
+    }
+    var c=document.getElementById(i);
+    cur=i;
+    var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    a.style.top=(event.clientY-52+scrollTop).toString()+"px";
+    a.style.left=(event.clientX-75).toString()+"px";
+    a.style.display="";
+    a.classList.add("anim");
+  }
+  function markHoliday(){
+    showLoader();
+    $.ajax({
+      type:'POST',
+      url:'/userdetail/staff_profile/holidays',
+      data:{
+        holiday_ajax:cur,
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+      },
+        cache:false,
+        dataType: "json",
+      success:function(data) {
+        hideLoader();
+        var a=document.getElementById('holiday_cont');
+        var j=document.getElementById('holiday_'+cur.toString());
+        j.style.display="";
+        a.style.display="none";
+      }
+   });
+  }
+  function markHoliday_staff(){
+    showLoader();
+    $.ajax({
+      type:'POST',
+      url:'/userdetail/staff_profile/holidays',
+      data:{
+        holiday_staff_ajax:cur,
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+      },
+        cache:false,
+        dataType: "json",
+      success:function(data) {
+        hideLoader();
+        var a=document.getElementById('holiday_cont');
+        var j=document.getElementById('holiday_'+cur.toString());
+        j.style.display="";
+        a.style.display="none";
+      }
+   });
+  }
+  
+</script>
+{% endblock %}
+
+
+{% block content %}
+{% include 'include/loader.html' %}
+<div class="row" id="main_content">
+  <div class="container" style="display: none;">
+    {% if user.position == 'H' %}
+      <div class="row mt-5">
+        <h5 style="font-family:'Cabin', sans-serif;">Mark Holidays for all Staffs</h5>
+      </div>
+      <form method="post">{% csrf_token %}
+      <div class="row ml-2 mt-3">
+        <h6 style="font-family:'Cabin', sans-serif;">Selected Dates - </h6>
+        <!-- <h6 style="font-family:'Cabin', sans-serif;" id="real_dates" name="real_dates"></h6> -->
+        <textarea name="original_dates" rows="3" cols="60" style="" id="original_dates" placeholder="Format of Dates YYYY-MM-DD"></textarea>
+      </div>
+      <div class="row ml-2 mt-2">
+        <input type="date" id="select_date">
+      </div>
+      <div class="row">
+        <button type="submit" style="margin-left:auto;border:none;background:#30c5ff;border-radius:5vw;" class="px-4 py-2 mb-5">Save & Mark Holiday</button>
+      </div>
+      </form>
+    {% endif %}
+    <script type="text/javascript">
+      var colors=[]
+      {% for i in colors %}
+        colors.push('{{i}}');
+      {% endfor %}
+      var weekdays=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    </script>
+  </div>
+  <div class="container-fluid holiday_cont" style="position:absolute;z-index:100;width: 150px;background: white;display: none;" id="holiday_cont">
+    <div class="row p-2 centered holiday_row" style="border-bottom: 1px solid rgba(0,0,0,.1);cursor: pointer;" onclick="markHoliday();">
+      Holiday
+    </div>
+    {% if user.position == 'H' %}
+    <div class="row p-2 centered holiday_row" style="border-bottom: 1px solid rgba(0,0,0,.1);cursor: pointer;" onclick="markHoliday_staff();">
+      Holiday for Staffs
+    </div>
+    {% endif %}
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4 centered" style="background:#db7a7a;height: 150px;border:1px solid rgba(0,0,0,.1);">
+        <h1 style="text-transform: uppercase;font-weight: bold;margin-top: auto;margin-bottom: auto;color:rgba(255,255,255,0.6);font-family: 'Cabin',sans-serif;">{{cur_month.1}}</h1>
+      </div>
+      {% for per in days %}
+        {% for i in per %}
+          {% if i %}
+            <div class="col-2 p-2 px-3 days" id="{{cur_year}}-{{cur_month.0}}-{{i}}" style="height: 150px;border:1px solid rgba(0,0,0,.1);cursor: pointer;" onclick="clickedHoliday(event,`{{cur_year}}-{{cur_month.0}}-{{i}}`);">
+              <h3 style="text-transform: uppercase;font-weight:bold;color:#253031;font-family: 'Cabin',sans-serif;">{{i}}</h3>
+              <p id="weekday_{{cur_year}}-{{cur_month.0}}-{{i}}"></p>
+              <p id="holiday_{{cur_year}}-{{cur_month.0}}-{{i}}" class="p-2" style="border-radius: 25vw;width:60px;background: rgba(48,197,255,.5);display:none;">Holiday</p>
+            </div>
+          {% endif %}
+          <script type="text/javascript">
+            var indi=parseInt("{{forloop.counter}}")+7*(parseInt("{{forloop.parentloop.counter}}")-1);
+            console.log(indi);
+            var o=document.getElementById('{{cur_year}}-{{cur_month.0}}-{{i}}');
+            o.style.background=colors[indi-1];
+            var indi1=parseInt("{{forloop.counter}}")-1;
+            var oj=document.getElementById('weekday_{{cur_year}}-{{cur_month.0}}-{{i}}');
+            oj.innerHTML=weekdays[indi1];
+            if (weekdays[indi1]=="Sunday"){
+              document.getElementById('holiday_{{cur_year}}-{{cur_month.0}}-{{i}}').style.display="";
+            }
+          </script>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $('#select_date').change(function(){
+    var ht=$('#original_dates').html();
+    ht=ht+$('#select_date').val().toString()+",";
+    $('#original_dates').html(ht);
+    // $('#original_dates').html(ht);
+  });
+  {% for i in holidays %}
+    var a=document.getElementById("holiday_{{cur_year}}-{{cur_month.0}}-{{i}}");
+    console.log(a);
+    if (a){
+      a.style.display="";
+    }
+  {% endfor %}
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

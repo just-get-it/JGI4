@@ -1,0 +1,253 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+{% block content %}
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+    .mclass{
+		height: 30px;
+		position: relative;
+		font-size: 14px;
+		color: black;
+		text-align: right;
+    }
+    .m2{
+		font-weight: bold;
+	}
+</style>
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+			
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center">FABRIC INHOUSE</h3>
+            </div>
+        </div>
+        <div class="container">
+            <form action="{% url 'subInhouse' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="company" class="form-control myclass" id="company" placeholder="Company Name">
+                    </div>
+                    <label for="orderDate" class="col-sm-2 col-form-label mclass ">Order Date</label>
+                    <div class="col-sm-4">
+                        <input type="date" name="orderDate" class="form-control myclass" id="orderDate">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="address" class="form-control myclass" id="address" placeholder="Address">
+                    </div>
+                    <label for="poNum" class="col-sm-2 col-form-label mclass ">PO Number</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="poNum" class="form-control myclass" id="poNum">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="city" class="form-control myclass" id="city" placeholder="City">
+                    </div>
+                    <label for="orderNum" class="col-sm-2 col-form-label mclass ">Order Number</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="orderNum" class="form-control myclass" id="orderNum">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="phone" class="form-control myclass" id="phone" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="fax" class="form-control myclass" id="fax" placeholder="Fax">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="email" class="form-control myclass" id="email" placeholder="Email">
+                    </div>
+                </div><br>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label class="m2">SUPPLIER</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="m2">SHIP TO</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="supplierCompany" class="form-control myclass" id="supplierCompany" placeholder="Company Name">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="shipName" class="form-control myclass" id="shipName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="supplierContName" class="form-control myclass" id="supplierContName" placeholder="Contact Name">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="shipCompany" class="form-control myclass" id="shipCompany" placeholder="Company Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="supplierAddress" class="form-control myclass" id="supplierAddress" placeholder="Address">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="shipAddress" class="form-control myclass" id="shipAddress" placeholder="Address">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="supplierCity" class="form-control myclass" id="supplierCity" placeholder="City">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="shipCity" class="form-control myclass" id="shipCity" placeholder="City">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="number" name="supplierPhone" class="form-control myclass" id="supplierPhone" placeholder="Phone">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="number" name="shipPhone" class="form-control myclass" id="shipPhone" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="text" name="supplierFax" class="form-control myclass" id="supplierFax" placeholder="Fax">
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="myclass">SHIP VIA</th>
+                            <th scope="col" class="myclass">SHIPPING TERMS</th>
+                            <th scope="col" class="myclass">Delivery Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="shipVia" class="form-control myclass" id="shipVia"></td>
+                            <td><input type="text" name="shipTerms" class="form-control myclass" id="shipTerms"></td>
+                            <td><input type="date" name="deliveryDate" class="form-control myclass" id="deliveryDate"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="myclass">Goods</th>
+                            <th scope="col" class="myclass">Construction</th>
+                            <th scope="col" class="myclass">Colour</th>
+                            <th scope="col" class="myclass">Item Code</th>
+                            <th scope="col" class="myclass">Order Quantity</th>
+                            <th scope="col" class="myclass">Unit Price</th>
+                            <th scope="col" class="myclass">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab1">
+                        <tr>
+                            <td><input type="text" name="goods.1" class="form-control myclass" id="goods.1"></td>
+                            <td><input type="text" name="construction.1" class="form-control myclass" id="construction.1"></td>
+                            <td><input type="text" name="colour.1" class="form-control myclass" id="colour.1"></td>
+                            <td><input type="text" name="itemCode.1" class="form-control myclass" id="itemCode.1"></td>
+                            <td><input type="text" name="orderQTY.1" class="form-control myclass" id="orderQTY.1"></td>
+                            <td><input type="text" name="unitPrice.1" class="form-control myclass" id="unitPrice.1"></td>
+                            <td><input type="text" name="Total.1" class="form-control myclass" id="Total.1"></td>
+                            <td>
+                                <div id="clickMe.1" name="clickMe.1" onclick="newRow();">Add</div>
+                            </td>
+                            <td><div id="delete.1"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <script>
+                    var count=1;
+                    function newRow() {
+                        count+=1; 
+                        var html = '';
+                        html += '<tr>'
+                        html+='<td><input type="text" name="goods.'+count+'" class="form-control myclass" id="goods.'+count+'"></td>';
+                        html+='<td><input type="text" name="construction.'+count+'" class="form-control myclass" id="construction.'+count+'"></td>';
+                        html+='<td><input type="text" name="colour.'+count+'" class="form-control myclass" id="colour.'+count+'"></td>';
+                        html+='<td><input type="text" name="itemCode.'+count+'" class="form-control myclass" id="itemCode.'+count+'"></td>';
+                        html+='<td><input type="text" name="orderQTY.'+count+'" class="form-control myclass" id="orderQTY.'+count+'"></td>';
+                        html+='<td><input type="text" name="unitPrice.'+count+'" class="form-control myclass" id="unitPrice.'+count+'"></td>';
+                        html+='<td><input type="text" name="Total.'+count+'" class="form-control myclass" id="Total.'+count+'"></td>'
+                        html+='<td><div id="clickMe.'+count+'" name="clickMe.'+count+'" onclick="newRow();">Add</div></td>';
+                        html+='<td><div id="delete.'+count+'" name="delete.'+count+'" onclick="deleteRoll(this);">Delete</div></td></tr>'
+                        var prevHtml = document.getElementById('tab1').innerHTML;
+                        document.getElementById('tab1').innerHTML = prevHtml + html;
+                        }
+                    function deleteRoll(delObj){
+                        var i=delObj.parentNode.parentNode.rowIndex-1;
+                        var s="clickMe."+(Number(i));
+                        var st="delete."+(Number(i));
+                        document.getElementById("tab1").deleteRow(i);
+                        document.getElementById(s).innerHTML="Add";
+                        if(Number(i)-1!=1)
+                        document.getElementById(st).innerHTML="Delete";
+                    }
+                </script>
+                <div class="form-group row">
+                    <label for="comments" class="col-sm-6 col-form-label m2 ">Comments/Special Instruction</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <textarea name="comments" class="form-control myclass" id="comments" rows="8"></textarea>
+                    </div>
+                    <div class="form-group row col-sm-6">
+                        <label for="subTotal" class="col-sm-4 col-form-label mclass ">Subtotal</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="subTotal" class="form-control myclass" id="subTotal">
+                        </div>
+                        <label for="hsn" class="col-sm-4 col-form-label mclass ">HSN Code</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="hsn" class="form-control myclass" id="hsn">
+                        </div>
+                        <label for="gst" class="col-sm-4 col-form-label mclass ">GST Tax Rate</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="gst" class="form-control myclass" id="gst">
+                        </div>
+                        <label for="tax" class="col-sm-4 col-form-label mclass ">Tax Amount</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="tax" class="form-control myclass" id="tax">
+                        </div>
+                        <label for="shipping" class="col-sm-4 col-form-label mclass ">Shipping</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="shipping" class="form-control myclass" id="shipping">
+                        </div>
+                        <label for="other" class="col-sm-4 col-form-label mclass ">Other</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="other" class="form-control myclass" id="other">
+                        </div>
+                        <label for="tax" class="col-sm-4 col-form-label mclass ">Total</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="total" class="form-control myclass" id="total">
+                        </div>
+                    </div>
+                    
+                    
+                        
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="text-center "><input type="submit" class="btn btn-primary col-sm-4"></div><br><br>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

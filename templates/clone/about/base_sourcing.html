@@ -1,0 +1,506 @@
+{% load static %} {% load productfilters %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> JUSTGETIT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ======================================================================== -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#253031">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#253031">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#253031">
+    <!-- ============================================================================ -->
+    <link rel="icon" type="logo/png" href="{% static 'img/logo.png' %}" />
+    <!-- ======================================================================== -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <!-- ======================================================================== -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Cabin|Pacifico" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- ======================================================================== -->
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/less/fontawesome.less' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/scss/fontawesome.scss' %}">
+    <script type="text/javascript" src="{% static 'jQuery/jQuery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'fontawesome/js/all.js' %}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-grid.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-grid.min.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-reboot.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-reboot.min.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}"> -->
+    <!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script> -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+    </script>
+    <style type="text/css">
+        .slider {
+            margin-top: 50px;
+        }
+        
+        #nav-link-scroll {
+            height: 300px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .modal-backdrop {
+            position: static;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #343A40;
+            border: 1px solid rgb(70, 77, 85);
+            min-width: 90px;
+            font-size: 12px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 10px 10px 10px 10px;
+            z-index: 1;
+            overflow-y: scroll;
+            overflow-x: scroll;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        @font-face {
+            font-family: 'Cabin';
+            src: url('/static/fonts/Cabin/Cabin-Regular.ttf');
+        }
+        
+        @font-face {
+            font-family: 'Pacifico';
+            src: url('/static/fonts/Pacifico/Pacifico-Regular.ttf');
+        }
+        
+        body {
+            font-size: 0.8em !important;
+        }
+        
+        ul.navbar-nav {
+            width: 95%;
+        }
+        
+        .nav-item {
+            display: inline-block;
+            float: left;
+        }
+        
+        .nav-text {
+            width: 75%;
+            padding: 0% 10%;
+        }
+        
+        .nav-icons {
+            width: 45%;
+        }
+        
+        .nav-icons li {
+            float: right;
+        }
+    </style>
+    {% block customcss %} {% endblock %}
+</head>
+
+<body onload="myfuc();">
+
+    {% if request.GET.unauth %}
+
+    <script type="text/javascript">
+        alert("Sorry You Don't Have Permission");
+    </script>
+
+    {% endif %}
+
+
+    <!-- =================================================================================== -->
+    <!-- Loader -->
+
+    <div class="loader" id="loader">
+        <img src="{% static 'img/loader.gif' %}">
+    </div>
+
+    <script type="text/javascript">
+    </script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-0 fixed-top navbar1" style="height: 60px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo4" aria-controls="navbarTogglerDemo4" aria-expanded="false" aria-label="Toggle navigation">
+		<span class=""><svg class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><!-- <i class="fas fa-bars" aria-hidden="true"></i> --></span>
+	</button>
+
+
+        <a class="navbar-brand px-1" href="/">
+            <!--<img src="{{logo.image.url}}" alt="">-->
+            <img src="{% static 'img/logo.png' %}" alt="" width="30px" height="30px">
+        </a>
+
+        <div class="collapse navbar-collapse mr-auto justify-content-center bg-dark" id="navbarTogglerDemo4">
+
+            <ul class="navbar-nav text-center bg-dark">
+                <li class="nav-item active">
+                    <a class="nav-link navbar-brand" href="/userdetail/buisness_registration">Register Business <span
+						class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link navbar-brand" href="http://about.justgetit.in">About Us <span
+						class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link navbar-brand" href="/term">Terms & Conditions <span
+						class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link navbar-brand" href="/privacy">Privacy policy <span
+						class="sr-only">(current)</span></a>
+                </li>
+                <div class="nav-icons">
+                    <li class="nav-item dropdown px-1 d-none d-md-block">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-2x color-white fa-user-circle"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right bg-dark rounded px-5" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light h5" href="/order_history">Order</a>
+                            <a class="dropdown-item text-light h5" href="/wallet">Wallet</a>
+                            <a class="dropdown-item text-light h5" href="/wishlists">Wishlist</a> {% if home_links.task %}
+                            <a class="dropdown-item text-light h5" href="{% url 'dash' %}" class="nav-link">Task</a> {% endif %}
+
+                            <div class="dropdown-divider"></div>
+                            <div class="row py-3">
+                                {% if not request.user.is_authenticated %}
+                                <div class="col-6">
+                                    <a href="/userdetail/login" class="text-decoration-none text-light"><i class="fas fa-2x fa-sign-in-alt"></i>Login</a>
+                                </div>
+                                <div class="col-6"><a href="/userdetail/register" class="text-decoration-none text-light"><i
+										class="fas fa-2x fa-user-plus"></i>Register</a></div>
+                                {% else %}
+                                <div class="col-6">
+                                    <a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.customer %}/userdetail/profile
+							{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile
+							{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% elif oim1.b2b_order %}{% url 'b2b_consumer' %}{% else %}
+							/userdetail/login{% endif %}" class="text-decoration-none text-light">
+                                        <i class="fas fa-2x fa-user"></i>Profile</a>
+                                </div>
+                                <div class="col-6"><a href="/userdetail/logout" class="text-decoration-none text-light"><i
+										class="fas fa-2x fa-sign-in-alt"></i>LogOut</a></div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item py-2 d-none d-md-block">
+                        <a href="#" class="h3 px-3">
+                            <i class="fa fa-map-marker-alt color-white hov-a cursor-pointer"></i>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+
+
+    </nav>
+
+
+    <div class="row">
+        {% block topcontent %} {% endblock %}
+    </div>
+
+
+
+
+
+
+
+    <!-- <div class="container-fluid dp"> -->
+
+    {% block content %} {% endblock %}
+
+
+    <div class="row " style="height: auto; position: relative;top: 40px;">
+
+        <div class="container-fluid" style="background: #253031;">
+            <div class="row">
+
+                <div class="col-6 col-lg-2 color-white">
+
+                    <h5 class="mt-5 ml-2">Services</h5>
+                    <ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+                        <a href="http://justgetit.in" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Home</li>
+                        </a>
+                        <a href="/buisness/enquiry" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Enquiry</li>
+                        </a>
+                        <a href="/buisness/design" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Design</li>
+                        </a>
+                        <a href="/buisness/sampling" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Sampling</li>
+                        </a>
+                        <a href="/buisness/placeorder" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Bulk Orders</li>
+                        </a>
+                        <a href="/daily_report" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Daily Report</li>
+                        </a>
+                        <a href="https://drive.google.com/open?id=1KCfQ1Hp58fmt9I-AvA0fUuZOv4JUMux9q8-AsxX_Gtg" class="hov-a" style="color:white;">
+                            <li class="hov-a cursor-pointer">Daily Work Upload</li>
+                        </a>
+                    </ul>
+
+                </div>
+                <div class="col-6 col-lg-2 color-white">
+                    <h5 class="mt-5 ml-2">Email :</h5>
+                    <ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+                        <li class="hov-a cursor-pointer">
+                            <a href="mailto:info@justgetit.in">info@justgetit.in</a>
+                        </li>
+                        <li class="hov-a cursor-pointer">
+                            <a href="mailto:sales@justgetit.in">sales@justgetit.in</a>
+                        </li>
+                        <li class="hov-a cursor-pointer">
+                            <a href="mailto:hr@justgetit.in">hr@justgetit.in</a>
+                        </li>
+                        <li class="hov-a cursor-pointer">
+                            <a href="mailto:support@justgetit.in">support@justgetit.in</a>
+                        </li>
+                        <li class="hov-a cursor-pointer">
+                            <a href="mailto:admin@justgetit.in">admin@justgetit.in</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="col-6 col-lg-2 color-white">
+                    <h5 class="mt-5 ml-2">Address</h5>
+                    <p class="ml-3 mt-3">{{address789.address_of_website|linebreaks}}</p>
+                    <p> Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204 </p>
+                </div>
+                <div class="col-6 col-lg-2 color-white newslet">
+                    <h5 class="mt-5 ml-2">Newsletter</h5>
+                    <form method="POST">{% csrf_token %}
+                        <input type="email" name="subscribe" placeholder="Email" class="ml-3" style="border: none; border-bottom: 1px solid white; color: white;background: transparent;">
+                        <button style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="mt-3 ml-4 py-1 px-4 but-subs" type="submit">Subscribe</button>
+                    </form>
+                </div>
+                <div class="col-6 col-lg-2 mt-3">
+                    <a href="/"><img src="{% static 'img/payment.png' %}" class="img-fluid"></a>
+                </div>
+
+                <div class="col-xs-12 col-md-2 col-lg-3 color-white">
+                    {% if home_links.footer_track or home_links.footer_shipping or home_links.footer_return or home_links.footer_faq %}
+                    <h5 class="mt-5 ml-2">Help</h5>{% endif %}
+                    <ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+                        {% if home_links.footer_track %}
+                        <li class="hov-a mt-2 cursor-pointer">Track Order</li>{% endif %} {% if home_links.footer_shipping %}
+                        <li class="hov-a cursor-pointer">Shipping</li>{% endif %} {% if home_links.footer_return %}
+                        <li class="hov-a cursor-pointer">Returns</li>{% endif %} {% if home_links.footer_faq %}
+                        <li class="hov-a cursor-pointer">FAQs</li>{% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 m-0 p-0">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <a class="navbar-brand" href="#"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="/userdetail/seller_registration">Register Seller <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="/userdetail/buisness_registration">Register Business <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="/userdetail/register">Register Consumer <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="/userdetail/staff_registration">Register Staff <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="http://about.justgetit.in">About Us <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="/term">Terms & Conditions <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link navbar-nav" href="/privacy">Privacy policy <span
+											class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+
+
+                            <!--Facebook-->
+                            <div class="row social">
+                                <a href="https://www.facebook.com/justy.gety"><img src="https://img.icons8.com/fluent/48/000000/facebook-new.png" />
+                                    <!--<i class="fab fa-2x fa-facebook-f"></i>--></a>
+                                <!--Twitter-->
+                                <a href="https://twitter.com/JUSTGETIT9"><img src="https://img.icons8.com/fluent/48/000000/twitter.png" />
+                                    <!--<i class="fab fa-2x fa-twitter"></i>--></a>
+                                <!--Google +-->
+                                <img src="https://img.icons8.com/fluent/48/000000/google-plus.png" />
+                                <!--Linkedin-->
+                                <a href="https://www.linkedin.com/in/just-get-it-74177b1a8/"><img src="https://img.icons8.com/fluent/48/000000/linkedin-2.png" /></a>
+                                <!--Instagram-->
+                                <img src="{% static 'img/playstore.png' %}" alt="" width="40px" height="40px" />
+                                <img src="https://img.icons8.com/color/48/000000/apple-app-store--v1.png" />
+                                <img src="https://img.icons8.com/color/48/000000/whatsapp.png" />
+                                <img src="https://img.icons8.com/fluent/48/000000/instagram-new.png" />
+                                <img src="https://img.icons8.com/fluent/48/000000/youtube-play.png" />
+                                <img src="https://img.icons8.com/fluent/48/000000/pinterest.png" />
+                                <!--<img src="https://img.icons8.com/fluent/48/000000/skype.png" />-->
+                                <img src="https://img.icons8.com/fluent/48/000000/telegram-app.png" />
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <!-- ======================================================================== -->
+
+
+
+
+    <script type="text/javascript">
+        function myfuc() {
+            // alert("called");
+            var qwe = document.getElementById('loader');
+            qwe.style.display = "none";
+        }
+    </script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}">
+    </script>
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+    {% block js %} {% endblock %}
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+</body>
+<style>
+    @media all and (max-width: 600px) {
+        .social img {
+            width: 30px;
+        }
+        .social {
+            justify-content: center;
+        }
+        .navbar1 {
+            padding-bottom: 50px;
+            justify-content: space-between;
+        }
+        .product_serch {
+            padding-left: 3em;
+        }
+        .serch_input {
+            width: 70%;
+        }
+        .navbar-brand {
+            margin-right: 0rem;
+        }
+    }
+    
+    .wrapper {
+        display: flex;
+        text-align: center;
+        font-weight: 600;
+        overflow-x: auto;
+        background-color: #d6f1fc;
+        padding-top: 15px;
+    }
+    
+    .wrapper .items {
+        min-width: 100px;
+    }
+    
+    .wrapper::-webkit-scrollbar {
+        width: 0;
+    }
+    
+    .wrapper img {
+        width: 4vh;
+    }
+    
+    .wrapper a {
+        color: #253031;
+        font-size: 15px;
+    }
+    
+    .wrapper p {
+        margin-bottom: 0px;
+    }
+</style>
+
+</html>

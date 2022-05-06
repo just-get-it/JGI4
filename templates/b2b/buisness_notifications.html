@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_notifications.css' %}">
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+
+
+
+
+</style>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container mt-5 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Notifications</h3>
+			<div class="noti_detail_head"></div>
+			<h6 style="margin-left: auto; margin-top: 17px">Filter by - </h6>
+			<select id="filter_by" style="border: none; margin-top: 10px">
+				<option value="all" selected>All Notifications</option>
+				<option value="staff" {% ifequal request.GET.filter 'staff' %}selected{% endifequal %}>Staff Notifications</option>
+				<option value="enquiry" {% ifequal request.GET.filter 'enquiry' %}selected{% endifequal %}>Enquiry Notifications</option>
+				<option value="design" {% ifequal request.GET.filter 'design' %}selected{% endifequal %}>Design Notifications</option>
+				<option value="sampling" {% ifequal request.GET.filter 'sampling' %}selected{% endifequal %}>Sampling Notifications</option>
+				<option value="order" {% ifequal request.GET.filter 'order' %}selected{% endifequal %}>Order Notifications</option>
+			</select>
+		</div>
+	</div>
+	<style type="text/css">
+		.noti_row{
+			padding: 15px;
+			padding-left: 20px;
+			transition: all .3s ease-out;
+		}
+		.noti_row:hover{
+			box-shadow: 0 0 3px rgba(0,0,0,.5);
+			padding: 20px;
+
+		}
+	</style>
+	<div class="container mt-2 mb-4">
+		{% if noti.0 %}
+		{% for i in noti %}
+			<div class="row noti_row" style="cursor: pointer;">
+				<div class="container-fluid">
+				<div class="row">
+					<h6 style=" font-family: 'Cabin', sans-serif;"><b>{{i.title}}</b></h6>
+					<div class="noti_detail_tit">{% if i.seen %}Seen{% else %}New{% endif %}</div>
+					{% if i.seen %}
+					<style type="text/css">
+						.noti_detail_tit{
+							background: #253031;
+						}
+					</style>
+					{% else %}
+					<style type="text/css">
+						.noti_detail_tit{
+							background: #30c5ff;
+						}
+					</style>
+					{% endif %}
+				</div>
+				</div>
+				<div class="container-fluid">
+				<div class="row">
+					<p style="font-size: .8em; font-family: 'Cabin', sans-serif;">Description -{{i.description}}</p>
+				</div>
+				</div>
+				<div class="container-fluid">
+				<div class="row">
+					<a href="{{i.link}}" class="hov-a" style="margin-left: auto;">Link</a>
+				</div>
+				</div>
+			</div>
+		{% endfor %}
+
+		{% else %}
+			<div class="row mt-5 centered" style="margin-bottom: 30vh;">
+				<p style="font-size: 1.5em; font-family: 'Pacifico', cursive;">Sorry there are No Notifications !</p>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$('#filter_by').on('change',function(){
+		var filter=$('#filter_by').val();
+		if (filter=='all'){
+			window.location='/buisness/buisness_profile/notifications';
+		}
+		else if (filter=='staff'){
+			window.location='/buisness/buisness_profile/notifications?filter=staff';
+		}
+		else if (filter=='enquiry'){
+			window.location='/buisness/buisness_profile/notifications?filter=enquiry';
+		}
+		else if (filter=='design'){
+			window.location='/buisness/buisness_profile/notifications?filter=design';
+		}
+		else if (filter=='sampling'){
+			window.location='/buisness/buisness_profile/notifications?filter=sampling';
+		}
+		else if (filter=='order'){
+			window.location='/buisness/buisness_profile/notifications?filter=order';
+		}
+	});
+</script>
+
+{% endblock %}

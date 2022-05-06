@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+    
+    {% block customcss %}
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/style1.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    {% endblock %}
+    
+    {% block content %}
+    <main style="font-family: 'Open Sans', sans-serif;" class="page
+            contact-page">
+        <section class="portfolio-block contact">
+            <div class="container">
+                <div class="heading">
+                    <h1 id="url">{{ url }}</h1>
+                </div>
+                <div class="container" >
+                    <a href="/daily_report/new_link"><button class="btn btn-primary"  > Change Link </button></a>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function showurl() {
+                url = document.getElementById("url")
+                url_text = url.innerText
+                domain = String(window.location.href)
+                url_to_show = domain.replace("generate", url_text)
+                url.innerText = url_to_show
+            }
+
+            $(document).ready(function () {
+                console.log("ready!")
+                showurl()
+            });
+    </script>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/form.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>>
+{% endblock %}
+

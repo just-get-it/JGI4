@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}"> {% endblock %} {% block content %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <div class="row">
+        <div class="container mb-3">
+            <div class="row my-3" style="border-bottom:1px solid black;">
+                <h4>Fabrics / Trims</h4>
+            </div>
+            <div class="row my-1 mb-0">
+                <div class="col-4 p-2" style="border:1px solid black;">
+                    Trim Title
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;">
+                    Category
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;">
+                    Sub-Category
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;">
+                    Super-Category
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;">
+                    Trim Id
+                </div>
+            </div>
+            {% for trim in trims %}
+            <div class="row">
+                <div class="col-4 p-2" style="border:1px solid black;border-top: 0px;">
+                    {{trim.title}}
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;border-top: 0px;">
+                    {% if trim.product_Category %}{{trim.product_Category}}{% else %} - {% endif %}
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;border-top: 0px;">
+                    {% if trim.product_Subcategory %}{{trim.product_Subcategory}}{% else %} - {% endif %}
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;border-top: 0px;">
+                    {% if trim.product_Supercategory %}{{trim.product_Supercategory}}{% else %} - {% endif %}
+                </div>
+                <div class="col-2 p-2" style="border:1px solid black;border-top: 0px;">
+                    {{trim.id}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</form>
+{% endblock %}

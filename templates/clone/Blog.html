@@ -1,0 +1,86 @@
+{% load static %}
+<div class="container">
+    <button type="button" class="btn btn-info my-4">
+
+        <a href="/blog/create/" style="color: white;">Create Post</a>
+    </button>
+
+    {% for post in posts %}
+
+
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="
+                {% if post.thumbnail.url != None %}
+                {{post.thumbnail.url}}
+                {% else %}
+                {% static 'img/logo2.png' %}
+                {% endif %}" class="card-img" alt="..." height="100%%">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'detail_post' post.pk %}">{{post.title}}</a>
+                    </h5>
+                    <p class="card-text">{{post.content|truncatechars:200}}</p>
+                    <p class="card-text"><small class="text-muted">{{post.posted_on}}</small></p>
+
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'like' post.pk %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+
+                        {% if user in post.likes.all %}
+                        <button class="btn btn-success" type="submit" name="post_id" value="{{ post.id }}">
+                            <!-- Unlike -->
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        </button>
+                        {%else%}
+                        <button class="btn btn-success" type="submit" name="post_id" value="{{ post.id }}" style="opacity: 0.7;">
+                            <!-- Like -->
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        </button>
+                        {%endif%}
+                        - {{ post.total_likes }} Likes
+                    </form>
+                    <form action="{% url 'dislike' post.pk %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+
+                        {% if user in post.dislikes.all %}
+                        <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}">
+                            <!-- Undislike -->
+                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        </button>
+                        {%else%}
+                        <button class="btn btn-danger" type="submit" name="post_id" value="{{ post.id }}" style="opacity: 0.7;">
+                            <!-- disLike -->
+                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        </button>
+                        {%endif%}
+                        - {{ post.total_dislikes }} Dislikes
+                    </form>
+                    {%else%}
+                    <button class="btn btn-success" disabled>
+                        <!-- Like -->
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    - {{ news.total_likes }} Likes
+
+                    <button class="btn btn-danger" disabled>
+                        <!-- Like -->
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                    - {{ news.total_dislikes }} Dislikes
+
+
+                    <a class="d-block" href="/userdetail/login/">Login to React</a>
+                    {%endif%}
+                    <button class="btn pt-2 " style="color:#1799fc;border-block-color: transprent;"><i class="fas fa-2x fa-comment-alt"></i></button><span class="pb-2" style="color: rgb(95, 93, 93); 
+                        font-size: 17px;font-weight: 500 ; display:inline;">Comments ({{comments.count}})</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

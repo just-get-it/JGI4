@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="post" action="add_subtask?project_id={{project_id}}&task_id={{task_id}}">
+	{% csrf_token %}
+		<label>ADD Subtask for task {{task_name}}</label>
+		<input type="hidden" name="task_name" value="{{task_name}}}">
+		<input type="text" name="subtask_name">
+		<input type="submit" name="submit">
+	</form>
+
+</body>
+</html>

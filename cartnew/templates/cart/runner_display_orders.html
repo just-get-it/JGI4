@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    {% for i in orders %}
+    <div class="row">
+        <p>Order id: {{i.0.id}}</p>
+        <p>Product name: {{i.0.product_name}}</p>
+        {% if i.0 == 'p' %}
+        <p>Pickup address: {{i.0.pickup_address}}</p>
+        <p>Pickup landmark: {{i.0.pickup_landmark}}</p>
+        <p>Pickup time: {{i.0.pickup_time}}</p>
+        {% else if i.0 = 'd' %}
+        <p>Delivery address: {{i.0.delivery_address}}</p>
+        <p>Delivery landmark: {{i.0.delivery_landmark}}</p>
+        <p>Delivery time: {{i.0.delivery_time}}</p>
+        {% endif %}
+        <div class="col-2">
+            <a href="/userdetail/seller_rating_form/{{i.0.id}}" class="btn btn-primary">Rate seller</a>
+            <a href="/userdetail/customer_rating_form/{{i.0.id}}" class="btn btn-primary">Rate customer</a>
+            <a href="/userdetail/product_rating_form/{{i.0.id}}" class="btn btn-primary">Rate product</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,1825 @@
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+
+
+<!--
+===================================================================
+===================================================================
+===================================================================
+===================================================================
+========================Home Page Slider ==========================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== -->
+
+<!-- Main Corousel  -->
+<link href="{% static 'img/factory-profile/tshirts/favicon.ico' %}" rel="shortcut icon"/>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/bootstrap.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/font-awesome.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/flaticon.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/slicknav.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/jquery-ui.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/owl.carousel.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/animate.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/factory-profile/tshirts/style.css' %}"/>
+<style>
+.col-md-3
+          {
+          padding-left: 0px;
+          padding-right:0px;
+
+          display: inline-block;
+          margin-left:-4px;
+          }
+          .carousel-indicators .active {
+          background-color: blue;
+            }
+          .col-md-3  img{
+          width:270px;
+          height:300px;
+          }
+          body .carousel-indicator li{
+          background-color: blue;
+          }
+          body .carousel-indicators{
+          bottom: 0;
+          }
+          body .carousel-control-prev-icon,
+          body .carousel-control-next-icon{
+          background-color: blue;
+          }
+           body .no-padding{
+           padding-left: 0;
+           padding-right: 0;
+           }
+           .centered {
+           background-color:#33cccc;
+           color: white;
+           border-radius:18px;
+           padding:5px;
+           font-size:15px;
+           width:170px;
+           border: 1px solid #33cccc ;
+           position:absolute;
+           top:80%;
+           left: 50%;
+          transform: translate(-50%, -50%);
+           }
+
+         .for-mobile{
+         display:none;
+         }
+         .container-fluid{
+         padding-left:0px;
+         padding-right:0px;
+         }
+          .home-img img{
+         height:70vh;
+         }
+         .container-fluid {
+   padding-left:0px;
+   padding-right:0px;
+
+   }
+
+                .mt-5, .my-5 {
+     margin-top: 0rem !important; 
+}
+
+.col-md-6 img{
+	height:180px;
+}
+
+
+
+
+
+     @media only screen and (max-width: 600px) {
+
+    .col-sm-12  img{
+          width:300px;
+          height:300px;
+          }
+           .centered1 {
+           background-color:#33cccc;
+           color: white;
+           border-radius:18px;
+           padding:5px;
+           text-align:center;
+           font-size:15px;
+           width:170px;
+           border: 1px solid #33cccc ;
+           position:absolute;
+           top:70%;
+           left: 90%;
+
+           }
+
+          .for-pc{
+         display:none;
+         }
+         .for-mobile{
+         display:block;
+         }
+         .home-img img{
+         height:150px;
+         }
+        .head {
+        top:30px;
+        }
+        .head1 {
+        top:50px;
+        }
+        .head2 {
+        top:80px;
+        }
+		.col-md-6 img{
+	height:100px;
+}
+
+
+              .mt-5, .my-5 {
+     margin-top: 2.5rem !important;
+}
+     }
+
+</style>
+
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        <div class="hs-item set-bg" data-setbg="{% static 'img/factory-profile/tshirts/bg.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-7 text-white">
+                        <span>New Arrivalsssssssssssssssssssss</span>
+                        <h2>denim jackets</h2>
+                        <p>A T-shirt, or tee shirt, is a style of fabric shirt named after the T shape of its body and sleeves. ... A V-neck T-shirt has a V-shaped neckline, as opposed to the round neckline of the more common crew neck shirt (also called a U-neck)</p>
+                        <a href="#" class="site-btn sb-line">DISCOVER</a>
+                        <a href="#" class="site-btn sb-white">ADD TO CART</a>
+                    </div>
+                </div>
+                <div class="offer-card text-white">
+                    <span>from</span>
+                    <h2>$29</h2>
+                    <p>SHOP NOW</p>
+                </div>
+            </div>
+        </div>
+        <div class="hs-item set-bg" data-setbg="{% static 'img/factory-profile/tshirts/bg-2.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-7 text-white">
+                        <span>New Arrivals</span>
+                        <h2>denim jackets</h2>
+                        <p>A T-shirt, or tee shirt, is a style of fabric shirt named after the T shape of its body and sleeves. ... A V-neck T-shirt has a V-shaped neckline, as opposed to the round neckline of the more common crew neck shirt (also called a U-neck)</p>
+                        <a href="#" class="site-btn sb-line">DISCOVER</a>
+                        <a href="#" class="site-btn sb-white">ADD TO CART</a>
+                    </div>
+                </div>
+                <div class="offer-card text-white">
+                    <span>from</span>
+                    <h2>$29</h2>
+                    <p>SHOP NOW</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="slide-num-holder" id="snh-1"></div>
+    </div>
+</section>
+
+
+
+<div class=" container justify-content-center pt-md-5 pb-md-5" style="font-family: Roboto,Arial,sans-serif !important;">
+    <div class="row w-100 mx-0">
+        {% for p in products %}
+        <div class="col-6 col-lg-3 col-sm-4 col-xs-6 px-1 px-sm-2 px-xl-4 pb-3 ">
+        <a href="/products/{{p.slug}}" class="cards_a " style="text-decoration: none">
+            <div class="card border-0 text-center prod-cards mb-2 h-100 prod__div">
+                <div class="embed-responsive embed-responsive-1by1">
+                    <img class="card-img-top embed-responsive-item" src="{{p.image1.url}}" alt="Card image cap"
+                    style="object-fit: fill"/>
+                </div>
+                <div class="card-body prod_pad">
+                    <p class="card-title m-0" style="font-size: 15px;text-transform: capitalize;">
+                    {{p.title}}
+                    </p>
+                    <p class="card-text m-0 w-100" id="{{p.title}}{{p.id}}" style="color:grey;font-size:14px;text-transform: capitalize; white-space: nowrap; 
+                    width: 100%; 
+                    overflow: hidden;
+                    text-overflow: ellipsis;">
+                    {{p.description}}
+                    </p>
+                    <div class="card-text" style="font-size: 15px">
+                        <div>
+                            <p style="
+                                    font-size: 14px;
+                                    display: inline;
+                                    vertical-align: top;
+                                    color: #b12704;
+                                ">
+                                ₹
+                            </p>
+                            <div style="font-size: 16px; display: inline; color: #b12704;margin-right:.5rem; font-weight:500; " id="{{p.id}}_price">
+                                {{p.price}}
+                            </div>
+                            <p style="display: inline; color: green; font-size: 13px; letter-spacing: -.2px; font-weight: 500;" class="ml-2" id="dis_percent">
+                                {{p.offer}}% off
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+        {% endfor%}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container-fluid">
+<div id="demo9" class="carousel slide " data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo9" data-slide-to="0" class="active"></li>
+
+       {% for i in range1 %}
+      <li data-target="#demo9" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container-fluid carousel-inner no-padding home-img">
+		<div class="carousel-item active ">
+			{% for img in home_crou %}
+			<div class="col-mg-12">
+				{% if img.image %}
+				<img  src="{{img.image.url}}" class="d-block w-100" alt="">
+				{% else %}
+				<img src="{% static 'img/index.jpeg' %}" class="d-block w-100" alt="">
+				{% endif %}
+				<div class="row head">
+					<h2>{{img.product_type}}</h2>
+				</div>
+				<div class="row head1">
+					<h1>{{img.product_name}}</h1>
+				</div>
+				<div class="row head2">
+					<a href="{{img.link}}"><button>Shop Now</button></a>
+				</div>
+			</div>
+			{% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item ">
+        {% endif %}
+		{% endfor%}
+	</div>
+	</div>
+</div>
+</div> -->
+
+
+
+
+<!--
+<div class="container-fluid  d-none d-lg-block d-md-none">
+	<div id="demo7" class="carousel slide my-3" data-ride="carousel">
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel"  data-interval="3000" data-pause="false">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img style="height: 70vh;" src="{% static 'img/index.jpg' %}" class="d-block w-100" alt="">
+				<div class="row head mx-0">
+					<h2>Welcome</h2>
+				</div>
+				<div class="row head1 mx-0">
+					<h1>All in one store</h1>
+				</div>
+				<div class="row head2">
+					<a href="/products/?cate=Mens"><button>Shop Now</button></a>
+				</div>
+			</div>
+			{% for img in home_crou %}
+			<div class="carousel-item">
+				{% if img.image %}
+				<img style="height: 70vh;" src="{{img.image.url}}" class="d-block w-100" alt="">
+				{% else %}
+				<img style="height: 70vh;" src="{% static 'img/index.jpeg' %}" class="d-block w-100" alt="">
+				{% endif %}
+				<div class="row head">
+					<h2>{{img.product_type}}</h2>
+				</div>
+				<div class="row head1">
+					<h1>{{img.product_name}}</h1>
+				</div>
+				<div class="row head2">
+					<a href="{{img.link}}"><button>Shop Now</button></a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+			<i style="font-size: 20px; filter: invert(1);" class="fas fa-arrow-alt-circle-left" aria-hidden="true"></i>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+			<i style="font-size: 20px; filter: invert(1);" class="fas fa-arrow-alt-circle-right" aria-hidden="true"></i>
+		</a>
+	</div>
+</div>
+-->
+
+<!-- responsive main cursor
+<div class="container-fluid .d-none .d-md-block d-lg-none  ">
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+		<div class="carousel-inner">
+			<div class="carousel-item active" >
+				<img class="d-block w-100 " src="{% static 'img/index.jpg' %}" alt="First slide" style="height:250px;" >
+			</div>
+			{% for img in home_crou %}
+			<div class="carousel-item" style="height:250px;">
+				{% if img.image %}
+				<img  src="{{img.image.url}}" class="d-block w-100 ">
+				{% else %}
+				<img  src="{% static 'img/index.jpeg' %}" class="d-block w-100 " alt="" >
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span style="font-size: 20px; filter: invert(1);"  class="fas fa-arrow-alt-circle-left" aria-hidden="true"></span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span style="font-size: 20px; filter: invert(1);"  class="fas fa-arrow-alt-circle-right" aria-hidden="true"></span>
+		</a>
+	</div>
+</div>
+-->
+<!-- responsive main cursor -->
+<!-- Discount Corousel 1  -->
+
+
+
+
+<div id="demo10" class="carousel slide my-3" data-ride="carousel">
+	 <div class="container-fluid carousel-inner no-padding ">
+	<div class="row">
+			<div class="col-md-6 mb-2">
+				<div class="carousel-item active ">
+			  {% for img1 in dis_crou1 %}
+					{% if img1.image %}
+				<img  src='/media/{{img1.image}}' class="d-block w-100" alt="">
+				   {% else %}
+				<img  src="{% static 'img/index.jpg' %}" class="d-block w-100" alt="">
+				  {% endif %}
+
+
+			{% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item ">
+        {% endif %}
+		{% endfor%}
+			</div>
+			</div>
+
+	<div class="col-md-6 mb-2">
+		<div class="carousel-item active ">
+			{% for img in dis_crou2 %}
+			{% if img.image %}
+				<img src='/media/{{img.image}}' class="d-block w-100" alt="" >
+				{% else %}
+				<img src="{% static 'img/index.jpg' %}" class="d-block w-100" alt="">
+				{% endif %}
+
+
+			{% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item ">
+        {% endif %}
+		{% endfor%}
+	</div>
+	</div>
+
+
+
+
+<!--
+<div class="container-fluid my-lg-5 my-2">
+	<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel" data-interval="3000"
+		 data-pause="false">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img style="height: 20vh;" src="{% static 'img/d1.jpg' %}"
+					 class="d-none d-lg-block d-md-none w-10 img-fluid" alt="Responsive image">
+			</div>
+			<div class="carousel-item active">
+				<img style="height: 7vh;" src="{% static 'img/d3.jpg' %}" class="d-lg-none w-10 img-fluid"
+					 alt="Responsive image">
+			</div>
+			{% for img in dis_crou1 %}
+			<div class="carousel-item">
+				{% if img.image %}
+				<img style="height: 7vh;" src="{{img.image.url}}" class="d-block w-100" alt="">
+				{% else %}
+				<img style="height: 7vh;" src="{% static 'img/index.jpeg' %}" class="d-block w-100" alt="">
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
+			<i style="font-size: 20px; filter: invert(1);" class="fas fa-arrow-alt-circle-left" aria-hidden="true"></i>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
+			<i style="font-size: 20px; filter: invert(1);" class="fas fa-arrow-alt-circle-right" aria-hidden="true"></i>
+		</a>
+	</div>
+</div>
+-->
+<!-- Discount Corousel 2
+<div class="container-fluid my-lg-5 my-2">
+	<div id="carouselExampleControls2" class="carousel slide" data-ride="carousel" data-interval="3000"
+		 data-pause="false">
+		<div class="carousel-inner">
+			<div class="carousel-item active ">
+				<img style="height: 20vh;" src="{% static 'img/d3.jpg' %}"
+					 class="d-none d-lg-block d-md-none w-10 img-fluid" alt="">
+			</div>
+			<div class="carousel-item active">
+				<img style="height: 7vh;" src="{% static 'img/d1.jpg' %}" class="d-lg-none w-10 img-fluid"
+					 alt="Responsive image">
+			</div>
+			{% for img in dis_crou2 %}
+			<div class="carousel-item">
+				{% if img.image %}
+				<img style="height: 7vh;" src="{{img.image.url}}" class="d-block w-100" alt="">
+				{% else %}
+				<img style="height: 7vh;" src="{% static 'img/index.jpeg' %}" class="d-block w-100" alt="">
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
+			<i style="font-size: 20px; filter: invert(1);" class="fas fa-arrow-alt-circle-left" aria-hidden="true"></i>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+			<i style="font-size: 20px; filter: invert(1);" class="fas fa-arrow-alt-circle-right" aria-hidden="true"></i>
+		</a>
+	</div>
+</div>
+</div>
+-->
+
+
+<!--
+
+
+===================================================================
+===================================================================
+===================================================================
+===================================================================
+========================Super Category====================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== -->
+<div class="container  for-pc">
+    <h5>hereeeeeeeeeeeeeeeeeeee</h5>
+
+    <h1>Super Category</h1>
+<div id="demo" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container carousel-inner no-padding" >
+		<div class="carousel-item active color1"  >
+            {% for item in test_new %}
+		    <div class="col-3 col-sm-3 col-md-3 col-lg-3 wom-cate" id="color">
+			{% if item.image1 != None %}
+			<a href="/products?cate={{item.product_Category.all.first}}">
+				<img  src="{{ item.image1.url }}">
+			</a>
+				<div class="centered">{{item.product_Category.all.first|slice:"0:1"}}</div>
+
+			{% elif item.product_Category.image != None %}
+			{% else %}
+			<img src="{% static 'img/noimage.jpg' %}" alt="image1_error_2">
+				{% endif %}
+			{% if item.product_Category == 'Men Fashion' %}
+			<a href="/products?cate={{item.product_Category}}" style="display: inline-flex;">
+				<div class="over d-none d-lg-block d-md-none">
+					<h4>{{ item.product_Category }}</h4>
+				</div>
+			</a>
+				{% else %}
+				{% endif %}
+		</div>
+
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item color1" >
+        {% endif %}
+
+
+
+		{% endfor %}
+    </div>
+	</div>
+</div>
+</div>
+
+
+
+
+
+<div class="container  for-mobile">
+    <h1>Super Category</h1>
+<div id="demo1" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo1" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo1" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container carousel-inner no-padding" >
+		<div class="carousel-item active "  >
+            {% for item in test_new %}
+		    <div class="col-3 col-sm-12 col-md-12 col-lg-3 " >
+			{% if item.image1 != None %}
+			<a href="/products?cate={{item.product_Category}}">
+				<img  src="{{ item.image1.url }}">
+			</a>
+				<div class="centered1">{{item.product_Category|slice:"0:1"}}</div>
+
+			{% elif item.product_Category.image != None %}
+			{% else %}
+			<img src="{% static 'img/noimage.jpg' %}" alt="image1_error_2">
+				{% endif %}
+			{% if item.product_Category == 'Men Fashion' %}
+			<a href="/products?cate={{item.product_Category}}" style="display: inline-flex;">
+				<div class="over d-none d-lg-block d-md-none">
+					<h4>{{ item.product_Category }}</h4>
+				</div>
+			</a>
+				{% else %}
+				{% endif %}
+		</div>
+
+        {% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item " >
+        {% endif %}
+
+
+
+		{% endfor %}
+    </div>
+	</div>
+</div>
+</div>
+</div>
+
+<!--
+<div class="container-fluid" id="prod-slider">
+	<h3> Super Category</h3>
+	<div class="row prod-sub" style=" margin-bottom: 5vh;">
+		{% for item in test_new %}
+		<div class="col-6 col-sm-3 col-md-3 col-lg-3 wom-cate">
+			{% if item.image1 != None %}
+			<a href="/products?cate={{item.product_Category}}">
+				<img  src="{{ item.image1.url }}">
+			</a>
+			{% elif item.product_Category.image != None %}
+			{% else %}
+			<img src="{% static 'img/noimage.jpg' %}" alt="image1_error_2">
+			{% endif %}
+			{% if item.product_Category == 'Men Fashion' %}
+			<a href="/products?cate={{item.product_Category}}" style="display: inline-flex;">
+				<div class="over d-none d-lg-block d-md-none">
+					<h4>{{ item.product_Category }}</h4>
+				</div>
+			</a>
+			{% else %}
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	<div class="arrows">
+		<a class="prev" href="#"><</i></a>
+		<a class="next" href="#">></a>
+	</div>
+</div>
+-->
+
+
+<!--	===================================================================
+=================================SubCategory===============================
+=================================================================== 	-->
+
+<div class="container for-pc">
+    <h1>Sub Category</h1>
+<div id="demo2" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo2" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo2" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container carousel-inner no-padding">
+
+      <div class="carousel-item active color1">
+
+
+
+
+
+			{% for item in test_new %}
+		<div class="col-3 col-sm-3 col-md-3 col-lg-3 wom-cate" >
+			{% if item != None %}
+				<a href="/products?cate={{item.product_Category.all.first}}&sub={{item.product_Subcategory.all.first}}">
+					<img src="{{ item.product_Subcategory.image.url }}">
+				</a>
+			<div class="centered">{{item.product_Subcategory.all.first|slice:"0:1"}}</div>
+
+			{% endif %}
+			{% if item.product_Category == 'Men Fashion' %}
+
+			{% else %}
+
+			{% endif %}
+		</div>
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item color1">
+        {% endif %}
+
+
+
+        {% endfor %}
+    </div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="container for-mobile">
+    <h1>Sub Category</h1>
+<div id="demo3" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo3" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo3" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container carousel-inner no-padding">
+
+      <div class="carousel-item active ">
+
+
+
+
+
+			{% for item in test_new %}
+		<div class="col-3 col-sm-12 col-md-12 col-lg-3 " >
+			{% if item != None %}
+
+			<a href="/products?cate={{item.product_Category}}">
+				<img src="{{ item.product_Subcategory.image.url }}">
+			</a>
+			<div class="centered1">{{item.product_Subcategory|slice:"0:1"}}</div>
+
+			{% endif %}
+			{% if item.product_Category == 'Men Fashion' %}
+
+			{% else %}
+
+			{% endif %}
+		</div>
+        {% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item ">
+        {% endif %}
+
+
+
+        {% endfor %}
+    </div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!--
+<div class="container-fluid" id="pro-sub-slider">
+	<h3>Sub Category</h3>
+	<div class="row prod-sub" style=" margin-bottom: 5vh;">
+		{% for item in test_new %}
+		<div class="col-3 col-sm-3 col-md-3 col-lg-3 wom-cate">
+			{% if item != None %}
+			<h3>{{ item.product_Subcategory }}</h3>
+			<a href="/products?cate={{item.product_Subcategory}}">
+				<img src="{{ item.product_Subcategory.image.url }}">
+			</a>
+			{% endif %}
+			{% if item.product_Category == 'Men Fashion' %}
+			<a href="/products?cate={{item.product_Subcategory}}" style="display: inline-flex;">
+				<div class="over d-none d-lg-block d-md-none">
+					<h6>Spring 2019</h6>
+					<div class="row shop_banner">
+						SHOP NOW
+					</div>
+				</div>
+			</a>
+			{% else %}
+			<div class=" row pl-3 .d-none .d-md-block d-lg-none " style="color:rgb(39, 38, 38)">
+				<span class="title">{{ item.product_Category }}</span>
+			</div>
+			<div class="row shop_banner">
+				SHOP NOW
+			</div>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	<div class="arrows">
+		<a class="prev" href="#"><</i></a>
+		<a class="next" href="#">></a>
+	</div>
+</div>
+-->
+
+<!--	===================================================================
+=================================Super Category============================
+=================================================================== 	-->
+
+
+<div class="container for-pc">
+    <h1>Category</h1>
+<div id="demo4" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo4" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo4" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container carousel-inner no-padding">
+
+      <div class="carousel-item active color1" >
+
+
+        {% for item in test_new %}
+		<div class="col-3 col-sm-3 col-md-3  col-lg-3 wom-cate">
+			{% if item != None %}
+
+				<a href="/products?cate={{item.product_Category.all.first}}&sub={{item.product_Subcategory.all.first}}&sup={{item.product_Supercategory.all.first}}">
+					<img src="{{ item.product_Supercategory.image.url }}" >
+				</a>
+			<div class="centered">{{item.product_Supercategory.all.first|slice:"0:1"}}</div>
+			{% endif %}
+			{% if item.product_Supercategory == 'Men Fashion'%}
+				<a href="/products?cate={{item.product_Category.all.first}}&sup={{item.product_Supercategory.all.first}}" style="display: inline-flex;">
+				</a>
+			{% else %}
+
+
+			{% endif %}
+		</div>
+
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item color1">
+        {% endif %}
+
+
+
+
+        {% endfor %}
+    </div>
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+<div class="container for-mobile">
+    <h1>Category</h1>
+<div id="demo5" class="carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo5" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo5" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+    <div class="container carousel-inner no-padding">
+
+      <div class="carousel-item active " >
+
+
+        {% for item in test_new %}
+		<div class="col-3 col-sm-12 col-md-12  col-lg-3 ">
+			{% if item != None %}
+
+			<a href="/products?cate={{item.product_Supercategory}}">
+				<img src="{{ item.product_Supercategory.image.url }}" >
+			</a>
+			<div class="centered1">{{item.product_Supercategory|slice:"0:1"}}</div>
+			{% endif %}
+			{% if item.product_Supercategory == 'Men Fashion'%}
+			<a href="/products?cate={{item.product_Supercategory}}" style="display: inline-flex;">
+
+			</a>
+			{% else %}
+
+
+			{% endif %}
+		</div>
+
+        {% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item ">
+        {% endif %}
+
+
+
+
+        {% endfor %}
+    </div>
+
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+<!--
+<div class="container-fluid" id="pro-cat-slider">
+	<h3>Category</h3>
+	<div class="row prod-sub" style=" margin-bottom: 5vh;">
+		{% for item in test_new %}
+		<div class="col-3 col-sm-3 col-md-3 col-lg-3 wom-cate">
+			{% if item != None %}
+			<h3>{{ item.product_Supercategory }}</h3>
+			<a href="/products?cate={{item.product_Supercategory}}">
+				<img src="{{ item.product_Supercategory.image.url }}">
+			</a>
+			{% endif %}
+			{% if item.product_Supercategory == 'Men Fashion' %}
+			<a href="/products?cate={{item.product_Supercategory}}" style="display: inline-flex;">
+			</a>
+			{% else %}
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	<div class="arrows">
+		<a class="prev" href="#"><</i></a>
+		<a class="next" href="#">></a>
+	</div>
+</div>
+-->
+<!--
+===================================================================
+===================================================================
+===================================================================
+===================================================================
+========================Categories of Products ====================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== -->
+
+
+<div class="container-fluid">
+	{% for prod_cate, cate in prod %}
+	<div class="row product-over-head mt-2">
+		{% with x=forloop.counter %}
+		<h1>{{ cate }} Products</h1>
+
+	</div>
+	<div class="row">
+		{% for i in prod_cate %}
+		<div class="col-6 col-md-3 col-lg-2 product-over" style="height: 300px;">
+			{% if i.image1 != None %}
+			<a href="/products/{{i.slug}}">
+				<div>
+					<img src="{{i.image1.url}}" style="height:200px;">
+				</div></a>
+			{% else %}
+			<div>
+				<img src="{% static 'img/product-01.jpeg' %}" style="height:200px;">
+			</div>
+			{% endif %}
+			<h6 style="margin-left: 1vw; margin-left: 1vw;" id="name{{forloop.counter}}{{x}}">{{i.title}}</h6>
+			<div class="row">
+				<p  style="margin-left: 2vw;"><b>MRP</b> &nbsp;&nbsp;&nbsp;</p><h6 id="price{{forloop.counter}}{{x}}">Rs {{i.price}}</h6>
+			</div>
+			<div class="row" id="before{{forloop.counter}}{{x}}">
+				<button style="margin-left: 2vw;width: 200px;" data-product="{{i.product_code}}" id="{{forloop.counter}}{{x}}" name="{{forloop.counter}}{{x}}" data-action="add" onclick="updatecart({{x}},3,{{forloop.counter}})"  class="btn-sm btn-dark"><b>Add to Cart</b></button>
+			</div>
+
+			<div class="row" id="after{{forloop.counter}}{{x}}" hidden="true">
+
+				<button style="margin-left: 2vw;width: 75px;background-color:white;border-color:#F08080;color: black;"  data-product="{{i.product_code}}" id="delete{{forloop.counter}}{{x}}" data-action="delete" onclick="updatecart({{x}},2,{{forloop.counter}})"  class="btn-sm btn-dark cart"><b>Remove</b></button>
+
+
+				<div style="margin-left: 10px;border-color: gray;border-width: 0.3px;border-style: solid;" >
+					<img data-product="{{i.product_code}}" data-action="add" id="add{{forloop.counter}}{{x}}" class="chg-quantity cart" onclick="updatecart({{x}},0,{{forloop.counter}})" style="display: inline; width: 25px;height: 25px;" alt="up"   src="https://img.icons8.com/ios/50/000000/plus.png"/>
+					<b>QTY:</b>
+					<input type="text" class="quantity" id="quant{{forloop.counter}}{{x}}" name="quant{{forloop.counter}}{{x}}" style="width: 25px;display: inline;height: 30px;font-size: 20px;margin-top: 3px;" disabled="true">
+					<img data-product="{{i.product_code}}" data-action="remove" id="remove{{forloop.counter}}{{x}}" class="chg-quantity updatethecart" onclick="updatecart({{x}},1,{{forloop.counter}})" style="display: inline;width: 25px;height: 25px;" alt="down" src="https://img.icons8.com/pastel-glyph/100/000000/minus.png"/>
+				</div>
+			</div>
+		</div>
+
+		{% endfor %}
+	</div>
+	{% endwith %}
+	{% endfor %}
+	<hr><hr>
+
+</div>
+
+
+<!-- <div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-02.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Hershell Supply</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-03.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Only Check Trouser</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-04.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Classic Trench Coat</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-05.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Front Pocket Jumper</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-06.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Vintage Inspired Classic</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-07.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Shirt in Stretch Cotton</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-08.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-09.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Front Pocket Jumper</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-10.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Vintage Inspired Classic</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-11.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Shirt in Stretch Cotton</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-12.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-13.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-14.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-15.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+    <div>
+    <img src="{% static 'img/product-16.jpeg' %}"></div>
+    <h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+    <h6 style="margin-left: 1vw;">15.50 Rs</h6>
+</div>
+</div>
+</div> -->
+
+
+{% endblock %}
+{% block js %}
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.13/dist/sweetalert2.all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+
+	function added(id){
+		//console.log(id);
+		//id= id.toString()+val.toString();
+		var pressed=id.toString();
+		localStorage.setItem("pressed", pressed);
+		localStorage.setItem("flag","1");
+		var x="quant"+id.toString();
+		var name="name"+id.toString();
+		var price="price"+id.toString();
+		var quan=document.getElementById(x);
+		var flag=localStorage.getItem("flag");
+		quan.value=flag;
+		//console.log(quan.value);
+		//alert('done');
+		var item_name=document.getElementById(name).innerHTML;
+		var item_pr=document.getElementById(price).innerHTML;
+		//var total=Number(item_pr)*Number(quant);
+		console.log(item_name);
+
+		var msg=item_name+"&nbsp;&nbsp;<br>"+"QTY: "+quan.value+"&nbsp;&nbsp; MRP: <b>"+item_pr.toString()+"</b>";
+
+Swal.fire({
+  position: 'top-end',
+
+  html: '<b>Item has been added to your cart!</b><br>'+msg,
+  showConfirmButton: false,
+  width: '400px',
+  timer: 3500
+});
+
+	}
+
+	function removepro(){
+		localStorage.setItem("flag","0");
+		location.reload();
+	}
+
+	var pressed = localStorage.getItem("pressed");
+	var flag=localStorage.getItem("flag");
+	if (pressed!=null && flag!=0){
+		//console.log('called');
+		strid="before"+pressed.toString();
+		x=document.getElementById(strid);
+		//console.log(x);
+		x.hidden=true;
+		newid="after"+pressed.toString();
+		y=document.getElementById(newid);
+		y.hidden=false;
+	}
+	if(flag!=null){
+		//console.log('in flag');
+		var x="quant"+pressed.toString();
+		var quan=document.getElementById(x);
+		var flag=localStorage.getItem("flag");
+		quan.value=flag;
+		//console.log(quan);
+	}
+
+	if (flag=="0"){
+				strid="before"+idstr.toString();
+				x=document.getElementById(strid);
+				x.hidden=false;
+				newid="after"+idstr.toString();
+				y=document.getElementById(newid);
+				y.hidden=true;
+			}
+
+	function updatecart(val,act,id){
+		id= id.toString()+val.toString();
+	Swal.fire({
+		 position: 'top-end',
+		 html: '<b>Item updated in cart!</b>',
+  		 showConfirmButton: false,
+  		 width: '400px',
+  		 timer: 1500
+	});
+	if (act==0){
+		ids="add"+id;
+		var flag=localStorage.getItem("flag");
+        	var str=Number(flag)+1;
+        	localStorage.setItem("flag", str.toString());
+
+	}
+	if (act==1){
+		ids="remove"+id;
+			var flag=localStorage.getItem("flag");
+        	if(flag>0){
+        	var rem=Number(flag)-1;
+        	localStorage.setItem("flag", rem.toString());
+	}
+	}
+	if (act==2){
+		ids="delete"+id;
+			//var flag=localStorage.getItem("flag");
+        	localStorage.setItem("flag", "0");
+	}
+	if (act==3){
+		ids="add"+id;
+		var flag=localStorage.getItem("flag");
+        	var str=Number(flag)+1;
+        	localStorage.setItem("flag", str.toString());
+        added(id);
+	}
+	var x=document.getElementById(ids);
+    var action=x.dataset.action;
+    var idstr=x.dataset.product;
+        if (user=='AnonymousUser'){
+            console.log("user:",user);
+             if (cart[idstr] != undefined){
+                cart[idstr][0]+=1;                                 // if cart has item then +1
+
+             }
+            else {
+                qty = document.getElementById('quantity'+idstr).innerHTML;
+                name = document.getElementById('name'+idstr).innerHTML;          //namepr1 id given to card title
+                price = document.getElementById('price'+idstr).innerHTML;
+                cart[idstr]=[qty, name, parseInt(price.slice(3, ))];
+
+            }
+            updateCart(cart);
+
+        }
+        else{
+            updateuserorder(idstr,action);
+        }
+
+
+        }
+
+	function mySlider(element="#dx-slider", auto=false, pause){
+		$this = $(element);
+		var slidesCont = $this.children(".prod-sub");
+		var slides = slidesCont.children(".wom-cate");
+		var slideCount = slides.length;
+		var arrowsCont = $this.children('.arrows');
+        var prevSlide = arrowsCont.children('.prev');
+        var nextSlide = arrowsCont.children('.next');
+		var currentSlide = slides.first();
+		var secondSlide = currentSlide.next();
+		var thirdSlide = secondSlide.next();
+		var currentSlideIndex = 1;
+		var secondSlideIndex = 2;
+		var thirdSlideIndex = 3;
+		var autoplay=null;
+		slides.not(':first').css('display','none');
+		secondSlide.css('display','inline-block');
+		thirdSlide.css('display','inline-block');
+		currentSlide.addClass("active");
+		secondSlide.addClass("active");
+		thirdSlide.addClass("active");
+
+		function fadeNext(){
+			currentSlide.removeClass("active").fadeOut(700);
+			secondSlide.removeClass("active").fadeOut(700);
+			thirdSlide.removeClass("active").fadeOut(700);
+			if(thirdSlideIndex==slideCount)
+			{
+				currentSlideIndex++;
+				secondSlideIndex++;
+				thirdSlideIndex=1;
+				currentSlide = currentSlide.next();
+				secondSlide = currentSlide.next();
+				thirdSlide = slides.first();
+				currentSlide.delay(500).addClass("active").fadeIn(700);
+				secondSlide.delay(500).addClass("active").fadeIn(700);
+				thirdSlide.delay(500).addClass("active").fadeIn(700);
+			}
+			else if(secondSlideIndex==slideCount)
+			{
+				currentSlideIndex++;
+				secondSlideIndex=1;
+				thirdSlideIndex++;
+				currentSlide = currentSlide.next();
+				secondSlide = slides.first();
+				thirdSlide = secondSlide.next();
+				currentSlide.delay(500).addClass("active").fadeIn(700);
+				secondSlide.delay(500).addClass("active").fadeIn(700);
+				thirdSlide.delay(500).addClass("active").fadeIn(700);
+			}
+			else if(currentSlideIndex==slideCount)
+			{
+				currentSlide = slides.first();
+				secondSlide = currentSlide.next();
+				thirdSlide = secondSlide.next()
+				currentSlide.delay(500).addClass("active").fadeIn(700);
+				secondSlide.delay(500).addClass("active").fadeIn(700);
+				thirdSlide.delay(500).addClass("active").fadeIn(700);
+				currentSlideIndex=1;
+				secondSlideIndex=2;
+				thirdSlideIndex=3;
+			}
+			else
+			{
+				currentSlideIndex++;
+				secondSlideIndex++;
+				thirdSlideIndex++;
+				currentSlide = currentSlide.next();
+				secondSlide = currentSlide.next();
+				thirdSlide = secondSlide.next();
+				currentSlide.delay(500).addClass("active").fadeIn(700);
+				secondSlide.delay(500).addClass("active").fadeIn(700);
+				thirdSlide.delay(500).addClass("active").fadeIn(700);
+			}
+		}
+
+		function fadePrev() {
+            currentSlide.removeClass('active').fadeOut(700);
+			secondSlide.removeClass('active').fadeOut(700);
+			thirdSlide.removeClass('active').fadeOut(700);
+
+			if(thirdSlide == 1){
+				currentSlideIndex--;
+				secondSlideIndex--;
+				currentSlide = currentSlide.prev();
+				secondSlide = currentSlide.next();
+				thirdSlide = slides.last();
+				secondSlide.delay(500).addClass('active').fadeIn();
+				currentSlide.delay(500).addClass('active').fadeIn();
+				thirdSlide.delay(500).addClass('active').fadeIn();
+				thirdSlideIndex = slideCount;
+			}
+
+			else if(secondSlideIndex == 1){
+				currentSlideIndex--;
+				thirdSlideIndex--;
+				currentSlide = currentSlide.prev();
+				secondSlide = slides.last();
+				thirdSlide = slides.first();
+				thirdSlide.delay(500).addClass("active").fadeIn(700);
+				currentSlide.delay(500).addClass("active").fadeIn(700);
+				secondSlide.delay(500).addClass("active").fadeIn(700);
+				secondSlide = slideCount;
+			}
+
+            else if(currentSlideIndex == 1) {
+				secondSlideIndex--;
+				thirdSlideIndex--;
+                currentSlide = slides.last();
+				secondSlide = slides.first();
+				thirdSlide = secondSlide.next();
+                secondSlide.delay(500).addClass('active').fadeIn();
+				thirdSlide.delay(500).addClass('active').fadeIn();
+                currentSlide.delay(500).addClass('active').fadeIn();
+				currentSlideIndex = slidesCount;
+            } else {
+                currentSlideIndex--;
+				secondSlideIndex--;
+				thirdSlideIndex--;
+                currentSlide = currentSlide.prev();
+				secondSlide = currentSlide.prev();
+				thirdSlide = secondSlide.prev();
+                currentSlide.delay(500).addClass('active').fadeIn(700);
+				secondSlide.delay(500).addClass('active').fadeIn(700);
+				thirdSlide.delay(500).addClass('active').fadeIn(700);
+            }
+        }
+
+		function AutoPlay(){
+			clearInterval(autoplay);
+
+			if(auto == true)
+			{
+				autoplay = setInterval(function() {fadeNext()}, pause);
+			}
+		}
+
+		// Detect if user clicked on arrow for next slide and fade next slide if it did
+        $(nextSlide).click(function(e) {
+            e.preventDefault();
+            fadeNext();
+            AutoPlay();
+        });
+
+        // Detect if user clicked on arrow for previous slide and fade previous slide if it did
+        $(prevSlide).click(function(e) {
+            e.preventDefault();
+            fadePrev();
+            AutoPlay();
+        });
+
+		AutoPlay();
+	}
+
+	function mySlider1(element="#dx-slider", auto=false, pause){
+		$this = $(element);
+		var slidesCont1 = $this.children(".prod-sub");
+		var slides1 = slidesCont1.children(".wom-cate");
+		var slideCount1 = slides1.length;
+		var arrowsCont1 = $this.children('.arrows');
+        var prevSlide1 = arrowsCont1.children('.prev');
+        var nextSlide1 = arrowsCont1.children('.next');
+		var currentSlide1 = slides1.first();
+		var secondSlide1 = currentSlide1.next();
+		var thirdSlide1 = secondSlide1.next();
+		var currentSlideIndex1 = 1;
+		var secondSlideIndex1 = 2;
+		var thirdSlideIndex1= 3;
+		var autoplay1=null;
+		slides1.not(':first').css('display','none');
+		secondSlide1.css('display','inline-block');
+		thirdSlide1.css('display','inline-block');
+		currentSlide1.addClass("active");
+		secondSlide1.addClass("active");
+		thirdSlide1.addClass("active");
+
+		function fadeNext1(){
+			currentSlide1.removeClass("active").fadeOut(700);
+			secondSlide1.removeClass("active").fadeOut(700);
+			thirdSlide1.removeClass("active").fadeOut(700);
+			if(thirdSlideIndex1==slideCount1)
+			{
+				currentSlideIndex1++;
+				secondSlideIndex1++;
+				thirdSlideIndex1=1;
+				currentSlide1 = currentSlide1.next();
+				secondSlide1 = currentSlide1.next();
+				thirdSlide1 = slides1.first();
+				secondSlide.delay(500).addClass('active').fadeIn();
+				currentSlide.delay(500).addClass('active').fadeIn();
+				thirdSlide.delay(500).addClass('active').fadeIn();
+			}
+			else if(secondSlideIndex1==slideCount1)
+			{
+				currentSlideIndex1++;
+				secondSlideIndex1=1;
+				thirdSlideIndex1++;
+				currentSlide1 = currentSlide1.next();
+				secondSlide1 = slides1.first();
+				thirdSlide1 = secondSlide1.next();
+				currentSlide1.delay(500).addClass("active").fadeIn(700);
+				secondSlide1.delay(500).addClass("active").fadeIn(700);
+				thirdSlide1.delay(500).addClass("active").fadeIn(700);
+			}
+			else if(currentSlideIndex1==slideCount1)
+			{
+				currentSlide1 = slides1.first();
+				secondSlide1 = currentSlide1.next();
+				thirdSlide1 = secondSlide1.next()
+				currentSlide1.delay(500).addClass("active").fadeIn(700);
+				secondSlide1.delay(500).addClass("active").fadeIn(700);
+				thirdSlide1.delay(500).addClass("active").fadeIn(700);
+				currentSlideIndex1=1;
+				secondSlideIndex1=2;
+				thirdSlideIndex1=3;
+			}
+			else
+			{
+				currentSlideIndex1++;
+				secondSlideIndex1++;
+				thirdSlideIndex1++;
+				currentSlide1 = currentSlide1.next();
+				secondSlide1 = currentSlide1.next();
+				thirdSlide1 = secondSlide1.next();
+				currentSlide1.delay(500).addClass("active").fadeIn(700);
+				secondSlide1.delay(500).addClass("active").fadeIn(700);
+				thirdSlide1.delay(500).addClass("active").fadeIn(700);
+			}
+		}
+
+		function fadePrev1() {
+            currentSlide1.removeClass('active').fadeOut(700);
+			secondSlide1.removeClass('active').fadeOut(700);
+			thirdSlide1.removeClass('active').fadeOut(700);
+
+			if(thirdSlide1 == 1){
+				currentSlideIndex1--;
+				secondSlideIndex1--;
+				currentSlide1 = currentSlide1.prev();
+				secondSlide1 = currentSlide1.next();
+				thirdSlide1 = slides1.last();
+				secondSlide1.delay(500).addClass('active').fadeIn();
+				currentSlide1.delay(500).addClass('active').fadeIn();
+				thirdSlide1.delay(500).addClass('active').fadeIn();
+				thirdSlideIndex1 = slideCount1;
+			}
+
+			else if(secondSlideIndex1 == 1){
+				currentSlideIndex1--;
+				thirdSlideIndex1--;
+				currentSlide1 = currentSlide1.prev();
+				secondSlide1 = slides1.last();
+				thirdSlide1 = slides1.first();
+				thirdSlide1.delay(500).addClass('active').fadeIn();
+				currentSlide1.delay(500).addClass('active').fadeIn();
+				secondSlide1.delay(500).addClass('active').fadeIn();
+				secondSlide1 = slideCount1;
+			}
+
+            else if(currentSlideIndex1 == 1) {
+				secondSlideIndex1--;
+				thirdSlideIndex1--;
+                currentSlide1 = slides1.last();
+				secondSlide1 = slides1.first();
+				thirdSlide1 = secondSlide1.next();
+                secondSlide1.delay(500).addClass('active').fadeIn();
+				thirdSlide1.delay(500).addClass('active').fadeIn();
+				currentSlide1.delay(500).addClass('active').fadeIn();
+                currentSlideIndex1 = slidesCount1;
+            } else {
+                currentSlideIndex1--;
+				secondSlideIndex1--;
+				thirdSlideIndex1--;
+                currentSlide1 = currentSlide1.prev();
+				secondSlide1 = currentSlide1.prev();
+				thirdSlide1 = secondSlide1.prev();
+                currentSlide1.delay(500).addClass('active').fadeIn(700);
+				secondSlide1.delay(500).addClass('active').fadeIn(700);
+				thirdSlide1.delay(500).addClass('active').fadeIn(700);
+            }
+        }
+
+		function AutoPlay1(){
+			clearInterval(autoplay1);
+
+			if(auto == true)
+			{
+				autoplay1 = setInterval(function() {fadeNext1()}, pause);
+			}
+		}
+
+		// Detect if user clicked on arrow for next slide and fade next slide if it did
+        $(nextSlide1).click(function(e) {
+            e.preventDefault();
+            fadeNext1();
+            AutoPlay1();
+        });
+
+        // Detect if user clicked on arrow for previous slide and fade previous slide if it did
+        $(prevSlide1).click(function(e) {
+            e.preventDefault();
+            fadePrev1();
+            AutoPlay1();
+        });
+
+		AutoPlay1();
+	}
+
+	function mySlider2(element="#dx-slider", auto=false, pause){
+		$this = $(element);
+		var slidesCont2 = $this.children(".prod-sub");
+		var slides2 = slidesCont2.children(".wom-cate");
+		var slideCount2 = slides2.length;
+		var arrowsCont2 = $this.children('.arrows');
+        var prevSlide2 = arrowsCont2.children('.prev');
+        var nextSlide2 = arrowsCont2.children('.next');
+		var currentSlide2 = slides2.first();
+		var secondSlide2 = currentSlide2.next();
+		var thirdSlide2 = secondSlide2.next();
+		var currentSlideIndex2 = 1;
+		var secondSlideIndex2 = 2;
+		var thirdSlideIndex2 = 3;
+		var autoplay2=null;
+		slides2.not(':first').css('display','none');
+		secondSlide2.css('display','inline-block');
+		thirdSlide2.css('display','inline-block');
+		currentSlide2.addClass("active");
+		secondSlide2.addClass("active");
+		thirdSlide2.addClass("active");
+
+		function fadeNext2(){
+			currentSlide2.removeClass("active").fadeOut(700);
+			secondSlide2.removeClass("active").fadeOut(700);
+			thirdSlide2.removeClass("active").fadeOut(700);
+			if(thirdSlideIndex2==slideCount2)
+			{
+				currentSlideIndex2++;
+				secondSlideIndex2++;
+				thirdSlideIndex2=1;
+				currentSlide2 = currentSlide2.next();
+				secondSlide2 = currentSlide2.next();
+				thirdSlide2 = slides2.first();
+				secondSlide2.delay(500).addClass('active').fadeIn();
+				currentSlide2.delay(500).addClass('active').fadeIn();
+				thirdSlide2.delay(500).addClass('active').fadeIn();
+			}
+			else if(secondSlideIndex2==slideCount2)
+			{
+				currentSlideIndex2++;
+				secondSlideIndex2=1;
+				thirdSlideIndex2++;
+				currentSlide2 = currentSlide2.next();
+				secondSlide2 = slides2.first();
+				thirdSlide2 = secondSlide2.next();
+				currentSlide2.delay(500).addClass("active").fadeIn(700);
+				secondSlide2.delay(500).addClass("active").fadeIn(700);
+				thirdSlide2.delay(500).addClass("active").fadeIn(700);
+			}
+			else if(currentSlideIndex2==slideCount2)
+			{
+				currentSlide2 = slides2.first();
+				secondSlide2 = currentSlide2.next();
+				thirdSlide2 = secondSlide2.next()
+				currentSlide2.delay(500).addClass("active").fadeIn(700);
+				secondSlide2.delay(500).addClass("active").fadeIn(700);
+				thirdSlide2.delay(500).addClass("active").fadeIn(700);
+				currentSlideIndex2=1;
+				secondSlideIndex2=2;
+				thirdSlideIndex2=3;
+			}
+			else
+			{
+				currentSlideIndex2++;
+				secondSlideIndex2++;
+				thirdSlideIndex2++;
+				currentSlide2 = currentSlide2.next();
+				secondSlide2 = currentSlide2.next();
+				thirdSlide2 = secondSlide2.next();
+				currentSlide2.delay(500).addClass("active").fadeIn(700);
+				secondSlide2.delay(500).addClass("active").fadeIn(700);
+				thirdSlide2.delay(500).addClass("active").fadeIn(700);
+			}
+		}
+
+		function fadePrev2() {
+            currentSlide2.removeClass('active').fadeOut(700);
+			secondSlide2.removeClass('active').fadeOut(700);
+			thirdSlide2.removeClass('active').fadeOut(700);
+
+			if(thirdSlide2 == 1){
+				currentSlideIndex2--;
+				secondSlideIndex2--;
+				currentSlide2 = currentSlide2.prev();
+				secondSlide2 = currentSlide2.next();
+				thirdSlide2 = slides2.last();
+				secondSlide2.delay(500).addClass('active').fadeIn();
+				currentSlide2.delay(500).addClass('active').fadeIn();
+				thirdSlide2.delay(500).addClass('active').fadeIn();
+				thirdSlideIndex2 = slideCount2;
+			}
+
+			else if(secondSlideIndex2 == 1){
+				currentSlideIndex2--;
+				thirdSlideIndex2--;
+				currentSlide2 = currentSlide2.prev();
+				secondSlide2 = slides2.last();
+				thirdSlide2 = slides2.first();
+				thirdSlide2.delay(500).addClass('active').fadeIn();
+				currentSlide2.delay(500).addClass('active').fadeIn();
+				secondSlide2.delay(500).addClass('active').fadeIn();
+				secondSlide2 = slideCount2;
+			}
+
+            else if(currentSlideIndex2 == 1) {
+				secondSlideIndex2--;
+				thirdSlideIndex2--;
+                currentSlide2 = slides2.last();
+				secondSlide2 = slides2.first();
+				thirdSlide2 = secondSlide2.next();
+                secondSlide2.delay(500).addClass('active').fadeIn();
+				thirdSlide2.delay(500).addClass('active').fadeIn();
+                currentSlide2.delay(500).addClass('active').fadeIn();
+				currentSlideIndex2 = slidesCount2;
+            } else {
+                currentSlideIndex2--;
+				secondSlideIndex2--;
+				thirdSlideIndex2--;
+                currentSlide2 = currentSlide2.prev();
+				secondSlide2 = currentSlide2.prev();
+				thirdSlide2 = secondSlide2.prev();
+                currentSlide2.delay(500).addClass('active').fadeIn(700);
+				secondSlide2.delay(500).addClass('active').fadeIn(700);
+				thirdSlide2.delay(500).addClass('active').fadeIn(700);
+            }
+        }
+
+		function AutoPlay2(){
+			clearInterval(autoplay2);
+
+			if(auto == true)
+			{
+				autoplay2 = setInterval(function() {fadeNext2()}, pause);
+			}
+		}
+
+		// Detect if user clicked on arrow for next slide and fade next slide if it did
+        $(nextSlide2).click(function(e) {
+            e.preventDefault();
+            fadeNext2();
+            AutoPlay2();
+        });
+
+        // Detect if user clicked on arrow for previous slide and fade previous slide if it did
+        $(prevSlide2).click(function(e) {
+            e.preventDefault();
+            fadePrev2();
+            AutoPlay2();
+        });
+
+		AutoPlay2();
+	}
+
+	$(function() {
+		mySlider("#prod-slider", true, 8000);
+		mySlider1("#pro-sub-slider", true, 8000);
+		mySlider2("#pro-cat-slider", true, 8000);
+	});
+
+
+</script>
+
+
+
+
+
+
+
+
+<!--<script>-->
+<!-- if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--    updateCart(cart);-->
+<!--    }-->
+
+<!--   $('.divpr').on('click', 'button.cart', function(){-->
+<!--        var idstr=this.id.toString();-->
+<!--        console.log(idstr)-->
+<!--        if (cart[idstr] != undefined){-->
+<!--            cart[idstr][0]+=1;                                 // if cart has item then +1-->
+
+<!--        }-->
+<!--        else {-->
+<!--            qty = 1;-->
+<!--            name = document.getElementById('name'+idstr).innerHTML;          //namepr1 id given to card title-->
+<!--            price = document.getElementById('price'+idstr).innerHTML;-->
+<!--            cart[idstr]=[qty, name, parseInt(price)];-->
+
+<!--        }-->
+<!--        updateCart(cart);-->
+<!--        updatePop(cart);-->
+<!--    });-->
+<!--  function updatePop(cart){-->
+
+<!--        var popStr="";-->
+<!--        popStr+="<h5> Here is your cart! </h5><div class='mx-2'>";-->
+<!--        var i=1;-->
+<!--        for (var item in cart){-->
+<!--            popStr=popStr+ "<b>" + i + "</b>. ";-->
+<!--            popStr=popStr+ document.getElementById('name'+item).innerHTML + " Qty: " + cart[item][0] + '<br>';     // added id name to cart title above-->
+<!--            i+=1;-->
+
+<!--        }-->
+<!--        popStr = popStr + "</div> <a href='/checkout' class='mx-2 my-2'> <button class='btn btn-success' id ='checkout'>Checkout</button></a> <button class='btn btn-danger' id ='clearCart' onclick='clearCart()'>Clear Cart</button>     "-->
+
+<!--        document.getElementById('popcart').setAttribute('data-content', popStr);-->
+<!--        $('#popcart').popover('show');-->
+
+<!--    }-->
+
+<!--     function clearCart(){-->
+<!--        cart = JSON.parse(localStorage.getItem('cart'));-->
+<!--        for (var item in cart){-->
+<!--            document.getElementById('div'+item).innerHTML='<button id="'+ item +'" class="btn-sm btn-success cart"><b>Add to Cart</b></button>';-->
+<!--        }-->
+<!--        localStorage.clear();-->
+<!--        cart={};-->
+<!--        updateCart(cart);-->
+<!--    }-->
+
+<!--       function updateCart(cart){-->
+
+<!--        var sum=0;-->
+<!--        for (var item in cart){-->
+<!--            if (cart[item][0]==0){-->
+<!--                //document.getElementById('div'+item).innerHTML='<button id="'+ item +'" class="btn-sm btn-success cart"><b>Add to Cart</b></button>';-->
+
+<!--                delete cart[item];-->
+<!--                continue;-->
+<!--            }-->
+<!--            sum+=cart[item][0];-->
+
+<!--        }-->
+<!--        console.log(cart);-->
+
+<!--        for (var item in cart){-->
+<!--            // item is keys of dictionary so id = div+pr-->
+
+<!--            document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn-sm btn-success minus'><b>-</b></button> <span id='val" + item + "'><b>"  + cart[item][0]  +  "</b></span> <button id='plus" + item + "' class='btn-sm btn-success plus'> <b>+</b> </button>";-->
+
+<!--        }-->
+<!--        localStorage.setItem('cart',JSON.stringify(cart));                  // save when page reload-->
+<!--        // document.getElementById('cart').innerHTML = Object.keys(cart).length;-->
+<!--        document.getElementById('cart').innerHTML = sum;-->
+
+<!--        updatePop(cart);-->
+<!--    }-->
+
+<!--     $('.divpr').on("click", "button.minus", function(){-->
+<!--        a=this.id.slice(7, );-->
+<!--        if (cart['pr'+a]) {-->
+<!--            cart['pr'+a][0]-=1;-->
+<!--            //cart['pr'+a][0]=Math.max(0,cart['pr'+a][0])-->
+<!--            document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];       // value on page -valpr+-->
+<!--            updateCart(cart);-->
+<!--        }-->
+<!--    });-->
+
+<!--    $('.divpr').on("click", "button.plus", function(){-->
+<!--        a=this.id.slice(6, );-->
+<!--        if (cart['pr'+a])-->
+<!--            cart['pr'+a][0]+=1;-->
+<!--        else {-->
+<!--            qty=1;-->
+<!--            name = document.getElementById('namepr'+a).innerHTML;-->
+<!--            cart['pr'+a]=[qty, name];-->
+<!--        }-->
+<!--        document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];         // value on page -valpr+-->
+<!--        updateCart(cart);-->
+
+
+<!--    });-->
+<!--</script>-->
+
+
+{% endblock %}

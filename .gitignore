@@ -1,0 +1,67 @@
+*.pyc
+__pycache__/
+.idea/
+
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+.vscode
+
+# Backup files # 
+*.bak 
+
+# If you are using PyCharm # 
+*.iws /out/ 
+
+# Python # 
+*.py[cod] 
+*$py.class 
+
+# Distribution / packaging 
+.Python build/ 
+dev
+venv
+b2benv
+
+# images
+# media/cover_pics
+
+# Visual Studio Code # 
+.vscode/* 
+!.vscode/settings.json 
+!.vscode/tasks.json 
+!.vscode/launch.json 
+!.vscode/extensions.json 
+.history
+
+# Environments 
+.env 
+.venv
+b2benv
+env/ 
+venv/ 
+ENV/ 
+env.bak/ 
+venv.bak/ 
+
+# media files
+media/*
+!media/local/
+!media/media
+media/local/orders/invoices/*
+media/local/product/*
+!media/default.jpg
+!media/default2.jpg
+media/local/b2b/logo/*
+media/local/subscriptions/invoices/*
+media/local/rental/invoices/*
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+*/migrations/*
+movintrendz/settings.py

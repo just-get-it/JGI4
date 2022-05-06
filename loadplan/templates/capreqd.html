@@ -1,0 +1,131 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>CAPACITY REQUIRED</h1>
+    </div>
+    <form action="capreqd" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Order No.</label>
+            <div class="col-sm-10">
+                <select name="orderno1" id="orderno1" onchange="calcoqty(this.value)">
+                    <option id="b2">----</option>
+                    
+                    {% for b in allorder %}
+                    <option value="{{b.orderqty}}" id="b1">{{b.orderno}}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+        </div>
+        <input type="text" name = "orderno" id="orderno" hidden>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Loaded To Line No.</label>
+            <div class="col-sm-10">
+                <select name="ltlc1" id="ltlc1" onchange="calccapd(this.value)">
+                    <option id="a2">----</option>
+                    
+                    {% for a in macfill %}
+                    <option value="{{a.mac}}" id="a1">{{a.lineno}}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+        </div>
+        <input type="hidden" name = "ltlc" id="ltlc">
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Order Quantity</label>
+            <div class="col-sm-10">
+              <input type="text" name="orderqty" id="orderqty" style="background: #D3D3D3; " readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Style SMV</label>
+            <div class="col-sm-10">
+              <input type="text" name="smv" id="smv">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Capacity Required (mins.)</label>
+            <div class="col-sm-10">
+              <input type="text" name="crm" id="crm" onfocus="calccrm()" style="background: #D3D3D3; " readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Capacity Available per Day</label>
+            <div class="col-sm-10">
+
+              <input type="text" name="capd" id="capd"  style="background: #D3D3D3; " readonly>
+        
+            </div>
+        </div>
+
+        
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Capacity Required (Days)</label>
+            <div class="col-sm-10">
+              <input type="text" name="crd" id="crd" onfocus="calccrd()" style="background: #D3D3D3; " readonly>
+            </div>
+        </div>  
+        
+        <div class="container text-center">
+            <a class="btn btn-primary" href="cprtable" role="button">View Capacity Required Table</a>
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+        
+       
+        
+
+    </form>
+
+    <script language="javascript">
+       
+        function calccrm()
+        {
+            var orderqty = parseFloat(document.getElementById("orderqty").value);
+            var smv = parseFloat(document.getElementById("smv").value);
+            var crm = document.getElementById("crm");
+            crm.value = orderqty*smv;
+    
+        }
+    
+        function calccrd()
+        {
+            var crm = parseFloat(document.getElementById("crm").value);
+            var capd = parseFloat(document.getElementById("capd").value);
+            var crd = document.getElementById("crd");
+            crd.value = crm/capd;
+    
+        }
+        function calccapd()
+        {
+            var ltlc1 = document.getElementById("ltlc1").value;
+            var capd = document.getElementById("capd");
+            capd.value = ltlc1;
+            var x = document.getElementById("ltlc1");
+           var y = x.options[x.selectedIndex].text;
+           var ltlc = document.getElementById("ltlc");
+           ltlc.value=y;
+           }
+
+        function calcoqty() 
+        {
+            var orderno1 = document.getElementById("orderno1").value;
+            var orderqty = document.getElementById("orderqty");
+            orderqty.value = orderno1;
+            var x = document.getElementById("orderno1");
+           var y = x.options[x.selectedIndex].text;
+           var orderno = document.getElementById("orderno");
+           orderno.value=y;
+
+        }
+        
+       
+
+    </script>
+ {% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+    <div class="col my-4">
+        <table style="width: 100%;font-size: 18px;">
+            <tr>
+                <th>Payment status regarding your order Id:</th>
+                <td>{{response.razorpay_order_id}}</td>
+            </tr>
+            <tr>
+                <th>Payment id:</th>
+                <td>{{response.razorpay_payment_id}}</td>
+            </tr>
+            <!-- <tr>
+                <th>Signature:</th>
+                <td>{{response.razorpay_signature}}</td>
+            </tr> -->
+            <tr>
+                <th>Status:</th>
+                <td style="text-transform: uppercase;">{{response.status}}</td>
+            </tr>
+        </table>
+        {% if response.status == 'Payment Successful' %}
+        <div class="container mt-4">
+            <div class="col my-4">
+                <h2 style="text-align: center;">
+                    Thanks for Ordering with Us. Your Order has been confirmed!
+                </h2>
+                <h4 style="text-align: center;">You can Download the invoice below.</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <div style="text-align: center;">
+                        <input
+                            formaction="/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&a4=0&"
+                            type="submit" class="btn btn-success my-2" value="Download Invoice" />
+                        <input
+                            formaction="/getpdfPage/?name={{context.name}}&phone={{context.phone}}&email={{context.email}}&address={{context.address}}&city={{context.city}}&state={{context.state}}&zip_code={{context.zip_code}}&a4=1&"
+                            type="submit" class="btn btn-success my-2" value="Download Invoice (A4 Size)" />
+                    </div>
+                </form>
+            </div>
+            <div style="width: 40%;  text-align: center; margin-left: 30%; text-align: left; padding: 10px 0;">
+                <p style="text-align: center;">Tax Invoice/Cash memo</p>
+                <table>
+                    <tr>
+                        <th style="width: 50%;">Customer Details</th>
+                        <th style="width: 50%;">Company Details</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">{{ context.name }}</td>
+                        <td style="width: 50%;">{{ context.comp_name }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">{{ context.email }}</td>
+                        <td style="width: 50%;">{{ context.comp_email }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">{{ context.phone }}</td>
+                        <td style="width: 50%;">{{ context.comp_mob }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">{{ context.address }}, {{ context.city }}</td>
+                        <td style="width: 50%;">{{ context.comp_add }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">Other Info</td>
+                        <td style="width: 50%;">GSTIN {{ context.comp_gstin }}</td>
+                    </tr>
+                </table>
+                <table style="width: 100%;">
+                    <tr style="border-top: 1px dashed; border-bottom: 1px dashed;">
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price(INR)</th>
+                        <th>Tax</th>
+                        <th>Total(INR)</th>
+                    </tr>
+                    {% for item, sell_price, prod_total in item_n_sell_n_prodtot %}
+                    <tr>
+                        <td>{{ item.product.title }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ sell_price }}</td>
+                        <td>{{ item.product.gst }}%</td>
+                        <td>{{ prod_total }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr style="border-top: 1px dashed; border-bottom: 1px dashed;">
+                        <td style="font-weight: bold;">GRAND TOTAL (INR)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{final_amt}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

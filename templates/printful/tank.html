@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'printful/css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.18/fabric.min.js"></script>
+
+
+<div class="row" style="margin-top: 20px;">
+  
+    <div class="col col-lg-3 col-md-3 col-sm-12 col-12">
+      <a  href="{% url 'printful' %}" class="btn btn-outline-danger btn-sm">Home Page</a>
+      <div class="card textSec">
+        <h2 class="title">TEXT</h2>
+        <div class="card-body" style="font-size: 12px;font-weight: 700;">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control"  id="IPtxt" placeholder="Add text" style="color: #000000;"/>
+            <div class="input-group-append">
+              <button class="btn btn-danger" onclick="Addtext()">ADD</button>
+            </div>
+          </div>
+            <!-- Text Editing Form -->
+            <div class="form-group" id="text-wrapper" style="margin-top: 10px" ng-show="getText()">
+              <div id="text-controls">
+                <label for="font-family" style="display:inline-block">Font Type:</label>
+                <select id="font-family">
+                  <option value="arial">Arial</option>
+                  <option value="helvetica" selected>Helvetica</option>
+                </select>
+                <br/>
+                <label>Font Color:</label>
+                <input type="color" value="" id="text-color" size="20">
+                <br/>
+                <div>
+                  <label for="text-bg-color">Background color:</label>
+                  <input type="color" value="" id="text-bg-color" size="10">
+                </div>
+                <div>
+                  <label for="text-stroke-color">Stroke color:</label>
+                  <input type="color" value="" id="text-stroke-color">
+                </div>
+                <div>
+                  <label for="text-stroke-width">Stroke width:</label>
+                  <input type="range" value="1" min="1" max="5" id="text-stroke-width">
+                </div>
+                <div>
+                  <label for="text-font-size">Font size:</label>
+                  <input type="range" value="30" min="10" max="120" step="1" id="text-font-size">
+                </div>
+              </div>
+              <label>Font Properties</label>
+              <div id="text-controls-additional" class="row">
+                <p class="col-3" style="font-weight: 700;">B <input type='checkbox' name='fonttype' id="text-cmd-bold"></p> 
+                <p class="col-3" style="font-style: italic;">i <input type='checkbox' name='fonttype' id="text-cmd-italic"></p> 
+                <p class="col-3" style="text-decoration: underline;">U<input type='checkbox' name='fonttype' id="text-cmd-underline" ></p>
+              </div>
+            </div>
+      </div>
+    </div>
+    <div class="card textSec">
+      <h2 class="title">Add to cart</h2>
+      <div class="card-body" style="font-size: 12px;font-weight: 700;">
+        <div>
+                <select id="quantity">
+                  <option selected disabled>Select Quantity</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <button class="btn btn-sm btn-danger" style="float: right; font-size: 12px;">Order</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- Canvas and Image  -->
+    <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
+      <div class="row">
+        <a class="col-3" href="tee"><button class="btn btn-outline-danger">T-Shirt</button></a>
+      <a class="col-3" href="hoodie"><button class="btn btn-outline-danger">Hoodie</button></a>
+      <a class="col-3" href="jacket"><button class="btn btn-outline-danger">Jacket</button></a>
+      <a class="col-3" href="tank"><button class="btn btn-danger">Tank Top</button></a>
+      </div>
+      <div class="tshirt">
+          <div class="picPart" id="front-Tshirt">
+            <div class="layer1" style=" position: relative;">
+              <img src="{% static 'printful/images/tang.png' %}" id="TColor" alt="Responsive image" style="width: 100%; height: auto;">
+            </div>
+            <div class="layer2" id="canvasTank" style=" position: absolute;">
+              <canvas id="c" class="layer2" style="border:1px solid #000000; padding: 5px 5px 5px 5px;"></canvas>
+            </div>
+          </div>
+      </div>
+      <h6 style="margin-top: 10px;">To remove the Text or Design just select it and press <span class="badge badge-secondary">Delete</span> on keyboard</h6>
+    </div>
+    <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+      <div class="card textSec">
+        <h2 class="title">Design</h2>
+        <div class="card-body" style="font-size: 12px;font-weight: 700;">
+          <div class="input-group mb-3">
+            <input id="imgURL" class="form-control" placeholder="Enter Image URL"></input>
+            <div class="input-group-append">
+               <button class="btn btn-danger" onclick = "submitURL()" type = "button">Add</button> 
+            </div>
+          </div>
+          <div>
+            <label>Add Image: <input type="file" id="addImg"/></label>
+          </div>
+          <div>
+            <label for="resize-img">Resize Image:</label>
+            <input type="range" value="0" min="0" max="0.9" step="0.1" id="resize-img">
+          </div>
+          <div>
+            <label for="shift-x-axis">Shift X-axis:</label>
+            <input type="range" value="0" min="0" max="15" step="1" id="shift-x-axis">
+          </div>
+          <div>
+            <label for="shift-y-axis">Shift Y-axis:</label>
+            <input type="range" value="0" min="0" max="15" step="1" id="shift-y-axis">
+          </div>
+        </div>
+      </div>
+      <div class="card textSec">
+        <h2 class="title">T-Shirt color</h2>
+        <div class="card-body" style="font-size: 12px;font-weight: 700;">
+          <div style="text-align: center; margin-right: 35px; margin-left: 35px;">
+            <button class="btn bg" id="Tbg1" style="background-color: #ffffff;border: 1px solid #333333;"></button>
+            <button class="btn bg" id="Tbg2" style="background-color: #000000;"></button>
+            <button class="btn bg" id="Tbg3" style="background-color: #0074D9;"></button>
+            <button class="btn bg" id="Tbg4" style="background-color: #D34B56;"></button>
+            <button class="btn bg" id="Tbg5" style="background-color: #EADC32;"></button>
+            <button class="btn bg" id="Tbg6" style="background-color: #3D9970;"></button>
+            <button class="btn bg" id="Tbg7" style="background-color: #F1A9C4;"></button>
+            <button class="btn bg" id="Tbg8" style="background-color: #36454F;"></button>
+            <button class="btn bg" id="Tbg9" style="background-color: #800080;"></button>
+            <button class="btn bg" id="Tbg10" style="background-color: #D2B48C;"></button>
+            <button class="btn bg" id="Tbg11" style="background-color: #F28D20;"></button>
+            <button class="btn bg" id="Tbg12" style="background-color: #B3B3B3;"></button>
+            <button class="btn bg" id="Tbg13" style="background-color: #3C4477;"></button>
+            <button class="btn bg" id="Tbg14" style="background-color: #FFE5B4;"></button>
+            <button class="btn bg" id="Tbg15" style="background-color: #A03245;"></button>
+            <button class="btn bg" id="Tbg16" style="background-color: #B7410E;"></button>
+            <button class="btn bg" id="Tbg17" style="background-color: #5DB653;"></button>
+            <button class="btn bg" id="Tbg18" style="background-color: #008080;"></button>
+            <button class="btn bg" id="Tbg19" style="background: radial-gradient(circle, rgba(251,169,205,1) 0%, rgba(250,255,128,1) 28%, rgba(133,255,141,1) 53%, rgba(83,162,255,1) 76%);"></button>
+          </div>
+          <div style="text-align: center; margin-top: 20px;">
+            <label for="colorIP">Generate your own color: </label>
+            <br/>
+            <input type="color" id="colorIP" style="border: none;border-radius: 100%;background-color: #FFF;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'printful/js/tank.js' %}"></script>
+  <!-- <script src="./js/backT.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+
+  <script type="text/javascript">
+    new WOW().init();
+
+  </script>
+{% endblock %}

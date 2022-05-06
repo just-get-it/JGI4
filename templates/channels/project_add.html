@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="post" action="p_add">
+	{% csrf_token %}
+	<label>ADD PROJECT</label>
+	<input type="text" name="p_name">
+	<input type="submit" name="submit">
+	</form>
+
+</body>
+</html>

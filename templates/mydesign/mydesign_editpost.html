@@ -1,0 +1,108 @@
+{% extends 'base_connect.html' %} {% load static %} {% load crispy_forms_tags %} {% block customcss %}
+<style>
+    .chosen-container.chosen-container-multi {
+        width: 300px !important;
+        /* or any value that fits your needs */
+    }
+</style>
+<link rel="stylesheet" href="{% static 'chosen/chosen.min.css' %}"> {% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card" style="width: 50rem;">
+            <button class="btn btn-danger" type="button" style="margin-left: 10px;" data-toggle="collapse" data-target="#delete-post" aria-expanded="false" aria-controls="collapseExample">DELETE POST</button>
+            <form method="POST">{% csrf_token %}
+                <div class="collapse text-center" style="margin-left: 10px; margin-bottom: 10px;" id="delete-post"> Are you sure?
+                    <button name="delete_post" value="True" class="btn btn-danger" type="submit">Yes</button> <button class="btn btn-primary" tyepe='button' data-toggle="collapse" data-target="#delete-project" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+            </form>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-3">
+                    {{form.title | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {{form.description | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {{form.actual_price | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {% if form.instance.image %}
+                    <img id="disp_image" src="{{form.instance.image.url}}"> {% else %}
+                    <img id="disp_image"> {% endif %}
+                    <button id='clear_image' type="button" class="btn btn-danger btn-sm" onclick="ClearImage('id_image','disp_image');"><i class="fa fa-trash"></i></button> {{form.image | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {% if form.instance.image1 %}
+                    <img id="disp_image1" src="{{form.instance.image1.url}}"> {% else %}
+                    <img id="disp_image1"> {% endif %}
+                    <button id='clear_image1' type="button" class="btn btn-danger btn-sm" onclick="ClearImage('id_image1','disp_image1');"><i class="fa fa-trash"></i></button> {{form.image1 | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {% if form.instance.image2 %}
+                    <img id="disp_image2" src="{{form.instance.image2.url}}"> {% else %}
+                    <img id="disp_image2"> {% endif %}
+                    <button id='clear_image2' type="button" class="btn btn-danger btn-sm" onclick="ClearImage('id_image2','disp_image2');"><i class="fa fa-trash"></i></button>{{form.image2 | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {% if form.instance.image3 %}
+                    <img id="disp_image3" src="{{form.instance.image3.url}}"> {% else %}
+                    <img id="disp_image3"> {% endif %}
+                    <button id='clear_image3' type="button" class="btn btn-danger btn-sm" onclick="ClearImage('id_image3','disp_image3');"><i class="fa fa-trash"></i></button> {{form.image3 | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {% if form.instance.image4 %}
+                    <img id="disp_image4" src="{{form.instance.image4.url}}"> {% else %}
+                    <img id="disp_image4"> {% endif %}
+                    <button id='clear_image4' type="button" class="btn btn-danger btn-sm" onclick="ClearImage('id_image4','disp_image4');"><i class="fa fa-trash"></i></button> {{form.image4 | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {{form.post_privacy | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    {{form.related_interests | as_crispy_field}}
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %} {% block customjs %}
+<script>
+    function ClearImage(Inp_Id, Disp_Id) {
+        $('#' + Disp_Id).attr('src', '');
+        $('#' + Inp_Id).val('');
+    }
+
+    function ImgDisplay(input, Id) {
+        console.log('IMGDISPLAY CALLED');
+        console.log('INPUT:' + input + ' ID:' + Id)
+        InputE = document.getElementById(input);
+        if (InputE.files && InputE.files[0]) {
+            var reader = new FileReader();
+            console.log('Reading');
+            reader.onload = function(e) {
+                // $("#display_profile_pic").show();
+                $('#' + Id).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(InputE.files[0]); // convert to base64 string
+        }
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $(".chosen-select").chosen()
+    });
+</script>
+<script src="{% static 'chosen/chosen.jquery.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $(".dropdown").removeClass("active");
+        $("#headerNav ul li:nth-child(2)").addClass("active");
+    })
+</script>
+{% endblock %}

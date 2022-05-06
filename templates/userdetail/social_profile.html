@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block topcontent %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/styles_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/profile_style.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<div class="container-fluid">
+	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+    <ul class="navbar-nav m-auto" >
+      <li class="nav-item"><a  class="nav-link" href="/userdetail/academic_profile?email={{email}}"   style="color: white;">Profile</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/upload_product"   style="color: white;">Product Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/staff_profile/message"   style="color: white;">Service Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/products"   style="color: white;">Suscribe</a></li>	
+	  <li class="nav-item"><a  class="nav-link" href="/cal"   style="color: white;">Diet Plan</a>
+		</li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/store"   style="color: white;">Whislist</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Cart</a>
+		</li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Order Placement</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Payment</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/generate"   style="color: white;">Generate Link For Form</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/display_report_user"   style="color: white;">Display Report</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+
+
+<div class="container">
+	<br><br><br><br>
+	<h1>Social Profile</h1><br>
+	<div class="container">
+		<div class="tab row">
+			<div class="col-3 items">
+				<div class="row men"><a href="/userdetail/academic_profile?email={{email}}"><b>Academic Profile</b></a>
+				</div>
+				<div class="row men"><a href="/userdetail/professional_profile?email={{email}}"><b>Professional
+							Profile</b></a></div>
+				<div class="row men"><a href="/userdetail/social_profile?email={{email}} "
+						style="color: black;"><b>Social Profile</b></a></div>
+				<div class="row men"><a href="/userdetail/medical_profile?email={{email}}"><b>Medical Profile</b></a>
+				</div>
+			</div>
+			<div class="col-9 display">
+				<div class="form-group">
+					{% for i in academic_obj %}
+					<ul>
+						<li>
+							<p>{{i.school_or_college}}</p>
+						</li>
+					</ul>
+					{% endfor %}
+				</div>
+				<form method="post" action="social_profile">
+					{% csrf_token %}
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Date of Birth</label>
+						<div class="col-sm-4">
+							{{form.dob}}
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Gender</label>
+						<div class="col-sm-4">
+							{{form.gender}}
+
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Marital Status</label>
+						<div class="col-sm-4">
+							{{form.marital}}
+
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Hometown</label>
+						<div class="col-sm-4">
+							{{form.hometown}}
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Hobbies</label>
+						<div class="col-sm-4">
+							{{form.hobbies}}
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Mobile Number</label>
+						<div class="col-sm-4">
+							{{form.mobile_number}}
+						</div>
+
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Linkedin Profile</label>
+						<div class="col-sm-4">
+							{{form.linkedin_profile}}
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Facebook Profile</label>
+						<div class="col-sm-4">
+							{{form.facebook_profile}}
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+
+						<div class="col-sm-4">
+							<input type="submit" name="submit" class="btn btn-success">
+						</div>
+
+					</div>
+
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+</div>-->
+
+<br>
+<br>
+<br>
+<br>
+<div class="container-0">
+{% endblock %}
+{% block content %}
+
+    <br><br><br><br>
+</div> <br><br><br><br>
+{% endblock %}

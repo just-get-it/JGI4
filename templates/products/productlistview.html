@@ -1,0 +1,909 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/listview.css' %}">
+<style>
+	.prod-image{
+		width: 90% !important;
+		height: 333px !important;
+		object-fit:cover;
+		/* border: 2px solid red; */
+	}
+	.product-mrp{
+		color:gray;
+		text-decoration: line-through;
+		font-weight: 300;
+		font-size: 12px;
+	}
+	@media only screen and (max-width: 600px) {
+		.prod-image{
+			width: 90% !important;
+			height: 150px !important;
+			object-fit:cover;
+			/* border: 2px solid red; */
+		}
+		.product-mrp{
+			font-weight: 200;
+			font-size: 10px;
+		}
+		.product-offer{
+			font-weight: bold;
+			font-size: 13px;
+		}
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<style>
+	.slidecontainer {
+		width: 100%;
+	}
+
+	.slider {
+		-webkit-appearance: none;
+		width: 100%;
+		height: 15px;
+		border-radius: 5px;
+		background: #d3d3d3;
+		outline: none;
+		opacity: 0.7;
+		-webkit-transition: .2s;
+		transition: opacity .2s;
+	}
+
+	.slider:hover {
+		opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #4CAF50;
+		cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #4CAF50;
+		cursor: pointer;
+	}
+</style>
+
+<style>
+	section.range-slider {
+		position: relative;
+		width: 300px;
+		height: 300px;
+		float: left;
+		text-align: center;
+	}
+
+	section.range-slider input[type="range"] {
+		pointer-events: none;
+		position: absolute;
+		-webkit-appearance: none;
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+		border: none;
+		border-radius: 14px;
+		background: #f1efef;
+		box-shadow: inset 0 1px 0 0 #cdc6c6, inset 0 -1px 0 0 #d9d4d4;
+		-webkit-box-shadow: inset 0 1px 0 0 #cdc6c6, inset 0 -1px 0 0 #d9d4d4;
+		overflow: hidden;
+		left: 0;
+		top: 50px;
+		width: 300px;
+		outline: none;
+		height: 20px;
+		margin: 0;
+		padding: 0;
+	}
+
+	section.range-slider input[type="range"]::-webkit-slider-thumb {
+		pointer-events: all;
+		position: relative;
+		z-index: 1;
+		outline: 0;
+		-webkit-appearance: none;
+		width: 20px;
+		height: 20px;
+		border: none;
+		border-radius: 14px;
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dad8da), color-stop(100%, #413f41));
+		/* android <= 2.2 */
+		background-image: -webkit-linear-gradient(top, #dad8da 0, #413f41 100%);
+		/* older mobile safari and android > 2.2 */
+		background-image: linear-gradient(to bottom, #dad8da 0, #413f41 100%);
+		/* W3C */
+	}
+
+	section.range-slider input[type="range"]::-moz-range-thumb {
+		pointer-events: all;
+		position: relative;
+		z-index: 10;
+		-moz-appearance: none;
+		width: 20px;
+		height: 20px;
+		border: none;
+		border-radius: 14px;
+		background-image: linear-gradient(to bottom, #dad8da 0, #413f41 100%);
+		/* W3C */
+	}
+
+	section.range-slider input[type="range"]::-ms-thumb {
+		pointer-events: all;
+		position: relative;
+		z-index: 10;
+		-ms-appearance: none;
+		width: 20px;
+		height: 20px;
+		border-radius: 14px;
+		border: 0;
+		background-image: linear-gradient(to bottom, #dad8da 0, #413f41 100%);
+		/* W3C */
+	}
+
+	section.range-slider input[type=range]::-moz-range-track {
+		position: relative;
+		z-index: -1;
+		background-color: rgba(0, 0, 0, 1);
+		border: 0;
+	}
+
+	section.range-slider input[type=range]:last-of-type::-moz-range-track {
+		-moz-appearance: none;
+		background: none transparent;
+		border: 0;
+	}
+
+	section.range-slider input[type=range]::-moz-focus-outer {
+		border: 0;
+	}
+</style>
+
+<div class="row">
+	{% if data.empty %}
+	<div class="container">
+		<div class="row centered empty-row">
+			<h3 class="fontpacifico">Sorry No Products added here</h3>
+		</div>
+	</div>
+	{% else %}
+	
+	<div class="container-fluid">
+	<br>
+	<br>
+		<div class="row">
+			<div class="col-2 filters">
+				<div class="row centered mb-3 pt-2 fontcabin">
+					<h5><b>FILTERS</b></h5>
+				</div>
+				<div class="row pt-2 filters_name" style="border-top: 1px solid rgba(0,0,0,0.3)">
+					<h6><b>BRANDS</b></h6>
+				</div>
+				<div class="row filters_brand">
+					<div class="container"  id ='brand_holder'>
+						{% for brand in data.brands %}
+						<div class="row">
+							<input type="checkbox" {% if brand in data.checked %} checked {% endif %} name="{{ brand }}" value="{{ brand }}" class="ml-2 common_selector brand">
+							<label class="ml-2 fontcabin">{{ brand }}</label>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<!-- Price -->
+				<div class="row pt-2 filters_name">
+					<h6><b>PRICE</b></h6>
+				</div>
+				<div class="row filters_name">
+					<p>Price Range</p>
+					<section class="range-slider" id ='pricechanger'>
+
+						<span class="rangeValues"></span>
+						<!-- <span id ='pricechanger'> -->
+						{% for i in data.slider_range %}
+						<input value="0" id="lower" min="0" max="{{i.higher_price}}" step="{{i.price_range}}" type="range">
+						<input value="{{i.higher_price}}" id="higher" min="0" max="{{i.higher_price}}" step="{{i.price_range}}" type="range">
+						<input type="hidden" id ='myRange-min' value="0">
+						<input type="hidden" id ='myRange-max' value="{{i.higher_price}}">
+						{% endfor %}
+					<!-- </span> -->
+					</section>
+					<div>
+						<label for="price-sort">Sort:</label>
+						<select class="sort" name="sorting" text="1">
+							<!-- <option>Default Sorting</option> -->
+							<option  value="1">Price: low to high</option>
+							<!-- <option class = "sort2" value="2">Price: low to high</option> -->
+							<option   value="2">Price: high to low</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- Categories to Show -->
+				{% if data.cate_print %}
+				<div class="row pt-2 filters_name" style="border-top: 1px solid rgba(0,0,0,0.3)">
+					<h6><b>Categories</b></h6>
+				</div>
+				<div class="row filters_brand">
+					<div class="container">
+						{% for cat in data.categories %}
+						<div class="row">
+							<input type="checkbox" {% if cat.name in data.checked %} checked {% endif %} name="{{ cat.name }}" value="{{ cat.name }}"
+								class="ml-2 common_selector category">
+							<label class="ml-2 fontcabin">{{ cat.name }}</label>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% endif %}
+
+				{% if data.sub_print %}
+				<div class="row pt-2 filters_name" style="border-top: 1px solid rgba(0,0,0,0.3)">
+					<h6><b> Sub-Categories</b></h6>
+				</div>
+				<div class="row filters_brand">
+					<div class="container" id= 'subcat_holder'>
+						{% for su in data.subcategories %}
+						<div class="row">
+							<input type="checkbox" {% if su.name in data.checked %} checked {% endif %} name="{{ su.name }}" value="{{ su.name }}"
+								class="ml-2 common_selector subcategories">
+							<label class="ml-2 fontcabin">{{ su.name }}</label>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% endif %}
+				<div id ="specifications">
+
+				</div>
+
+
+				{% if data.sup_print %}
+				<div class="row pt-2 filters_name" style="border-top: 1px solid rgba(0,0,0,0.3)">
+					<h6><b> Super Categories</b></h6>
+				</div>
+				<div class="row filters_brand">
+					<div class="container" id= 'supercat_holder'>
+						{% for su in data.supcategories %}
+						<div class="row">
+							<input type="checkbox" {% if su.name in data.checked %} checked {% endif %} name="{{ su.name }}" value="{{ su.name }}"
+								class="ml-2 common_selector supcategories">
+							<label class="ml-2 fontcabin">{{ su.name }}</label>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% endif %}
+			</div>
+			<style type="text/css">
+				@media screen and (max-width: 990px) {
+					.filters {
+						display: none;
+					}
+				}
+			</style>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+			<br>
+				<div class="container-fluid">
+					<div class="row filter_data">
+					</div>
+					<div  id="peginator" class="mt-3">
+										
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+	function cart_un_auth(id) {
+    // alert("Item added");
+    let idstr = id.id;
+    var action = "add";
+	var cart = JSON.parse(localStorage.getItem('cart'));
+	if (!cart) {
+			cart = {};
+		}
+	if (cart[idstr] != undefined) {
+      cart[idstr][0] += 1; // if cart has item then +1
+    //   console.log("inside cart annoymous user");
+    } else {
+		qty = 1;
+		name = document.getElementById("name" + idstr).innerHTML; //namepr1 id given to card title
+		price = document.getElementById("price" + idstr).innerHTML;
+		cart[idstr] = [qty, name, parseInt(price.slice(3))];
+		// console.log('There');
+	}
+	updateCart(cart);
+	Swal.fire({
+      position: "top-end",
+      html: "<b>Item added in cart!</b>",
+      showConfirmButton: false,
+      width: "400px",
+      timer: 1500,
+    });
+  }
+
+  function cart_auth(id) {
+    // console.log(id.id);
+    var idstr = id.id;
+    var action = "add";
+    // console.log("id", id);
+    // console.log(user);
+    var cart = localStorage.getItem('cart');
+    if (user == "AnonymousUser") {
+    //   console.log("user:");
+      if (cart && cart[idstr] != undefined) {
+        cart[idstr][0] += 1; // if cart has item then +1
+        // console.log("inside cart annoymous user");
+      } else {
+        qty = 1;
+        name = document.getElementById("name" + idstr).innerHTML; //namepr1 id given to card title
+        price = document.getElementById("price" + idstr).innerHTML;
+        cart[idstr] = [qty, name, parseInt(price.slice(3))];
+      }
+    //   console.log("lgged out");
+      updateCart(cart);
+    //   console.log("After updateCart");
+    } else {
+    //   console.log("lgged in");
+      // updateuserorder(idstr, action);
+      updateuserorder(idstr, action, user);
+    }
+
+    Swal.fire({
+      position: "top-end",
+      html: "<b>Item added in cart!</b>",
+      showConfirmButton: false,
+      width: "400px",
+      timer: 1500,
+    }); //alert('Updated in cart');
+  }
+
+
+	function getVals() {
+		// Get slider values
+		console.log('checkfor javascripts')
+		var parent = this.parentNode;
+		var lower = document.getElementById("lower");
+		var higher = document.getElementById("higher");
+		var slides = parent.getElementsByTagName("input");
+		var slide1 = parseFloat(slides[0].value);
+		var slide2 = parseFloat(slides[1].value);
+		// Neither slider will clip the other, so make sure we determine which is larger
+		if (slide1 > slide2) {
+			var tmp = slide2;
+			slide2 = slide1;
+			slide1 = tmp;
+		}
+
+		var displayElement = parent.getElementsByClassName("rangeValues")[0];
+		displayElement.innerHTML = "Rs " + slide1 + " - Rs " + slide2 ;
+		document.getElementById("myRange-min").value = slide1;
+		document.getElementById("myRange-max").value = slide2;
+	}
+	var sliderSections = document.getElementsByClassName("range-slider");
+	for (var x = 0; x < sliderSections.length; x++) {
+		var sliders = sliderSections[x].getElementsByTagName("input");
+		for (var y = 0; y < sliders.length; y++) {
+			if (sliders[y].type === "range") {
+				sliders[y].oninput = getVals;
+				// Manually trigger event first time to display values
+				sliders[y].oninput();
+			}
+		}
+	}
+	lower.onchange = function () {
+		console.log("came here");
+		// Initialize Sliders
+		var sliderSections = document.getElementsByClassName("range-slider");
+		for (var x = 0; x < sliderSections.length; x++) {
+			var sliders = sliderSections[x].getElementsByTagName("input");
+			for (var y = 0; y < sliders.length; y++) {
+				if (sliders[y].type === "range") {
+					sliders[y].oninput = getVals;
+					// Manually trigger event first time to display values
+					sliders[y].oninput();
+				}
+			}
+		}
+	}
+	higher.onchange = function () {
+		console.log("came here");
+		// Initialize Sliders
+		var sliderSections = document.getElementsByClassName("range-slider");
+		for (var x = 0; x < sliderSections.length; x++) {
+			var sliders = sliderSections[x].getElementsByTagName("input");
+			for (var y = 0; y < sliders.length; y++) {
+				if (sliders[y].type === "range") {
+					sliders[y].oninput = getVals;
+					// Manually trigger event first time to display values
+					sliders[y].oninput();
+				}
+			}
+		}
+	}
+</script>
+<script>
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("demo");
+	if (slider != null) {
+		output.innerHTML = slider.value;
+
+		slider.oninput = function () {
+			output.innerHTML = this.value;
+		}
+	}
+</script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.13/dist/sweetalert2.all.min.js"></script>
+
+<script src="{% static 'js/cart.js' %}"></script>
+
+<script>
+	$(document).ready(function () {
+		filter_data();
+		update_specifications();
+		update_page();
+		function update_subCat()
+		{
+
+			console.log("called subcat");
+			var category = get_filter('category');
+			var subcategories = get_filter('subcategories');
+			var supcategories = get_filter('supcategories');
+			var function_name = 'filter';
+			var host_url= window.location.href;
+
+			$.ajax({
+				url:"/products/sub_fetch",
+				method:"POST",
+				data:{
+					category:category,
+					subcategories:subcategories,
+					subcategories:subcategories,
+					supcategories:supcategories,
+					url:host_url,
+
+
+				},
+				success:function(data){
+					//$('.filter_data').html(data)
+					//if(data!=""){
+						$("#subcat_holder").html(data);
+						console.log();
+				//}
+					//console.log('we are here'+data);
+				}
+			});
+		}
+		function update_supCat()
+		{
+
+			//console.log("called super");
+			var category = get_filter('category');
+			var subcategories = get_filter('subcategories');
+			var supcategories = get_filter('supcategories');
+			var function_name = 'filter';
+			var host_url= window.location.href;
+
+			$.ajax({
+				url:"/products/sup_fetch",
+				method:"POST",
+				data:{
+					category:category,
+					subcategories:subcategories,
+					subcategories:subcategories,
+					supcategories:supcategories,
+					url:host_url,
+
+
+				},
+				success:function(data){
+					//$('.filter_data').html(data)
+					//if(data!=""){
+						$("#supercat_holder").html(data);
+
+
+				//}
+					//console.log('we are here'+data);
+				}
+			});
+		}
+
+
+		function update_brand()
+		{
+
+			console.log("called brand");
+			var category = get_filter('category');
+			var subcategories = get_filter('subcategories');
+			var supcategories = get_filter('supcategories');
+			var brands = get_filter('brand');
+			var function_name = 'filter';
+			var host_url= window.location.href;
+
+			$.ajax({
+				url:"/products/brand_fetch",
+				method:"POST",
+				data:{
+					category:category,
+					subcategories:subcategories,
+					subcategories:subcategories,
+					supcategories:supcategories,
+					url:host_url,
+					brands: brands,
+
+
+				},
+				success:function(data){
+					//$('.filter_data').html(data)
+					//if(data!=""){
+						$("#brand_holder").html(data);
+
+				//}
+					//console.log('we are here'+data);
+				}
+			});
+		}
+		function update_specifications()
+		{
+
+			console.log("called specifications");
+			var category = get_filter('category');
+			var subcategories = get_filter('subcategories');
+			var supcategories = get_filter('supcategories');
+			var specifications = get_filter('specifications');
+			var function_name = 'filter';
+			var host_url= window.location.href;
+
+			$.ajax({
+				url:"/products/specifications_fetch",
+				method:"POST",
+				data:{
+					category:category,
+					subcategories:subcategories,
+					subcategories:subcategories,
+					supcategories:supcategories,
+					url:host_url,
+					specifications: specifications,
+
+				},
+
+				success:function(data){
+					//$('.filter_data').html(data)
+					//if(data!=""){
+						console.log('data'+data)
+						$("#specifications").html(data);
+
+
+				//}
+					//console.log('we are here'+data);
+				}
+			});
+		}
+
+		function update_slider()
+		{
+
+
+			var category = get_filter('category');
+
+			var function_name = 'filter';
+			var host_url= window.location.href;
+
+			$.ajax({
+				url:"/products/fetch_pricerange",
+				method:"POST",
+				data:{
+					category:category,
+					url:host_url,
+
+
+				},
+
+				success:function(data){
+					//$('.filter_data').html(data)
+					//if(data!=""){
+						console.log('slidercheck'+data.higher_price)
+
+						//$("#pricechanger").html(data);
+						var min=0;
+						var high_price=data.higher_price;
+						var step=data.price_range;
+						var rangeValues = 'Rs '+min+' - '+high_price;
+						$('.rangeValues').html(rangeValues);
+						$('#lower').attr('max',high_price);
+						$('#lower').attr('step',step);
+						$('#higher').attr('step',step);
+						$('#higher').attr('max',high_price);
+						$('#higher').attr('value',high_price);
+						$('#myRange-max').attr('value', high_price);
+
+
+
+
+				//}
+					//console.log('we are here'+data);
+				}
+			});
+		}
+
+		function update_page(pageno) {
+
+
+			var min_price =$('#myRange-min').val();
+			var max_price =$('#myRange-max').val();
+			var price = [];
+			price.push($('#myRange-min').val());
+			price.push($('#myRange-max').val());
+			console.log("price"+price);
+			var brand = get_filter('brand');
+			var page=pageno;
+			console.log('pageno'+page);
+			var category = get_filter('category');
+			var subcategories = get_filter('subcategories');
+			var supcategories = get_filter('supcategories');
+			var specifications = get_filter('specifications');
+			var specifications = get_filter('specifications');
+			console.log(category);
+			console.log(subcategories);
+			console.log(supcategories);
+			var host_url = window.location.href;
+			$.ajax({
+				url: "/products/fetch_page",
+				method: "POST",
+				data: {
+					category: category,
+					subcategories: subcategories,
+					supcategories: supcategories,
+					rate: price,
+					url: host_url,
+					brands: brand,
+					min_price: min_price,
+					max_price: max_price,
+					specifications: specifications,
+					page: page,
+				},
+				success: function (data) {
+					console.log('datacheck'+data )
+					$('#peginator').html(data)
+				}
+			});
+		}
+
+		function filter_data(pageno) {
+
+
+			var min_price =$('#myRange-min').val();
+			var max_price =$('#myRange-max').val();
+			var price = [];
+			price.push($('#myRange-min').val());
+			price.push($('#myRange-max').val());
+			console.log("price"+price);
+			var page=pageno;
+			var sort = $('select.sort').children("option:selected").val();
+			var brand = get_filter('brand');
+			var category = get_filter('category');
+			var subcategories = get_filter('subcategories');
+			var supcategories = get_filter('supcategories');
+			var specifications = get_filter('specifications');
+			console.log(category);
+			console.log(subcategories);
+			console.log(supcategories);
+			var host_url = window.location.href;
+			$.ajax({
+				url: "/products/fetch",
+				method: "POST",
+				data: {
+					category: category,
+					subcategories: subcategories,
+					supcategories: supcategories,
+					rate: price,
+					url: host_url,
+					brands: brand,
+					min_price: min_price,
+					max_price: max_price,
+					specifications: specifications,
+					page: page,
+					sort: sort,
+				},
+				success: function (data) {
+					$('.filter_data').html(data)
+				}
+			});
+		}
+
+		$(document).on('click', '.page-link',function(){
+			console.log('hi pagecheck active')
+			console.log('rohit '+$(this).attr('text'));
+			$(".page-link").each(function (){
+				console.log("checking page link")
+			$(this).removeClass("active");
+
+			});
+			console.log('plz check'+$(this).addClass(' active'));
+			console.log('page_valcheck '+$(this).val());
+			update_page($(this).attr('text'));
+			filter_data($(this).attr('text'));
+			});
+
+		$("select.sort").change(function(){
+			filter_data();
+			});
+
+
+		function get_filter(class_name) {
+			var filter = [];
+			$('.' + class_name + ':checked').each(function () {
+				filter.push($(this).val());
+			});
+			return filter
+		}
+
+
+		$(document).on('change', '#lower',function(){
+			console.log('hi testing')
+			filter_data();
+			update_page();
+		});
+
+		$(document).on('change', '#higher',function(){
+			//console.log('hi new')
+			filter_data();
+			update_page();
+		});
+		/*$('.common_selector').click(function () {
+			filter_data();
+		})*/
+
+		$(document).on('click', '.common_selector',function(){
+			//console.log('called from ');
+			filter_data();
+			update_subCat();
+			update_supCat();
+			update_brand();
+			update_specifications();
+			update_page();
+			update_slider();
+
+
+		})
+	});
+</script>
+<!--<script>-->
+<!-- if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--    updateCart(cart);-->
+<!--    }-->
+
+<!--   $('.divpr').on('click', 'button.cart', function(){-->
+<!--        var idstr=this.id.toString();-->
+<!--        console.log(idstr)-->
+<!--        if (cart[idstr] != undefined){-->
+<!--            cart[idstr][0]+=1;                                 // if cart has item then +1-->
+
+<!--        }-->
+<!--        else {-->
+<!--            qty = 1;-->
+<!--            name = document.getElementById('name'+idstr).innerHTML;          //namepr1 id given to card title-->
+<!--            price = document.getElementById('price'+idstr).innerHTML;-->
+<!--            console.log(price)-->
+<!--            cart[idstr]=[qty, name, parseInt(price)];-->
+
+<!--        }-->
+<!--        updateCart(cart);-->
+<!--        updatePop(cart);-->
+<!--    });-->
+<!--  function updatePop(cart){-->
+
+<!--        var popStr="";-->
+<!--        popStr+="<h5> Here is your cart! </h5><div class='mx-2'>";-->
+<!--        var i=1;-->
+<!--        for (var item in cart){-->
+<!--            popStr=popStr+ "<b>" + i + "</b>. ";-->
+<!--            popStr=popStr+ document.getElementById('name'+item).innerHTML + " Qty: " + cart[item][0] + '<br>';     // added id name to cart title above-->
+<!--            i+=1;-->
+
+<!--        }-->
+<!--        popStr = popStr + "</div> <a href='/checkout' class='mx-2 my-2'> <button class='btn btn-success' id ='checkout'>Checkout</button></a> <button class='btn btn-danger' id ='clearCart' onclick='clearCart()'>Clear Cart</button>     "-->
+
+<!--        document.getElementById('popcart').setAttribute('data-content', popStr);-->
+<!--        $('#popcart').popover('show');-->
+
+<!--    }-->
+
+<!--     function clearCart(){-->
+<!--        cart = JSON.parse(localStorage.getItem('cart'));-->
+<!--        for (var item in cart){-->
+<!--            document.getElementById('div'+item).innerHTML='<button id="'+ item +'" class="btn-sm btn-dark cart"><b>Add to Cart</b></button>';-->
+<!--        }-->
+<!--        localStorage.clear();-->
+<!--        cart={};-->
+<!--        updateCart(cart);-->
+<!--    }-->
+
+<!--       function updateCart(cart){-->
+
+<!--        var sum=0;-->
+<!--        for (var item in cart){-->
+<!--            if (cart[item][0]==0){-->
+<!--                //document.getElementById('div'+item).innerHTML='<button id="'+ item +'" class="btn-sm btn-dark cart"><b>Add to Cart</b></button>';-->
+
+<!--                delete cart[item];-->
+<!--                continue;-->
+<!--            }-->
+<!--            sum+=cart[item][0];-->
+
+<!--        }-->
+<!--        console.log(cart);-->
+
+<!--        for (var item in cart){-->
+<!--            // item is keys of dictionary so id = div+pr-->
+
+<!--            document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn-sm btn-dark minus'><b>-</b></button> <span id='val" + item + "'><b>"  + cart[item][0]  +  "</b></span> <button id='plus" + item + "' class='btn-sm btn-dark plus'> <b>+</b> </button>";-->
+
+<!--        }-->
+<!--        localStorage.setItem('cart',JSON.stringify(cart));                  // save when page reload-->
+<!--        // document.getElementById('cart').innerHTML = Object.keys(cart).length;-->
+<!--        document.getElementById('cart').innerHTML = sum;-->
+
+<!--        updatePop(cart);-->
+<!--    }-->
+
+<!--     $('.divpr').on("click", "button.minus", function(){-->
+<!--        a=this.id.slice(7, );-->
+<!--        if (cart['pr'+a]) {-->
+<!--            cart['pr'+a][0]-=1;-->
+<!--            //cart['pr'+a][0]=Math.max(0,cart['pr'+a][0])-->
+<!--            document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];       // value on page -valpr+-->
+<!--            updateCart(cart);-->
+<!--        }-->
+<!--    });-->
+
+<!--    $('.divpr').on("click", "button.plus", function(){-->
+<!--        a=this.id.slice(6, );-->
+<!--        if (cart['pr'+a])-->
+<!--            cart['pr'+a][0]+=1;-->
+<!--        else {-->
+<!--            qty=1;-->
+<!--            name = document.getElementById('namepr'+a).innerHTML;-->
+<!--            cart['pr'+a]=[qty, name];-->
+<!--        }-->
+<!--        document.getElementById('valpr'+a).innerHTML = cart['pr'+a][0];         // value on page -valpr+-->
+<!--        updateCart(cart);-->
+
+
+<!--    });-->
+<!--</script>-->
+{% endblock %}

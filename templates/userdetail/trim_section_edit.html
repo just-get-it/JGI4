@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button type="buttom" class="btn btn-danger" data-toggle="collapse" data-target="#delete_confirm" aria-expanded="false" aria-controls="collapseExample">Delete</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="collapse" id="delete_confirm">
+            <div class="col">
+                <p>Are you sure?</p>
+            </div>
+            <div class="col">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#delete_confirm" aria-expanded="false" aria-controls="collapseExample">Cancel</button>
+                    <button type="submit" name='delete_trim_section' value="True" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.seller | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.name | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.product_Category | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.product_Subcategory | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.product_Supercategory | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.fabric_and_quantity_no | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.embroidary_sample_and_thread_code | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.thread_brand_and_count | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.polybag | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.pocketing | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                {{trim_form.internlining | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-center">
+                <button type="submit" name='trims_form' value="True" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>> {% endblock %}

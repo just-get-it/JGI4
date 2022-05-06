@@ -1,0 +1,38 @@
+{% extends 'base_connect.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="page" role="main">
+    <div id="content" class="main-content" data-content-field="main-content"
+        data-collection-id="5f4f1eccca1e2c277194f1a0">
+        <div class="padding">
+        </div>
+        <a href="{% url 'connect-event-add' %}">create Event </a>
+        <div class="container-event">
+            {% for obj in hosted_list%}
+
+
+            <div class="card-event">
+                <a href="{% url 'connect-event-detail' slug=obj.slug%}">
+                {% if obj.pic %}
+                        <p>
+                            <img class="card-img-top img-fluid" src={{obj.pic.url}} alt="">
+                        </p>
+                {% endif %}
+                <div class="card-body-event">
+                    <h4 class="card-title">{{obj.event_name}}</h4>
+                    <p class="card-text"> <p class="card-text"> {{obj.event_description}}</p>
+                    <p class="card-text">
+                        <small class="text-muted">Event will start on {{obj.start_time}}</small>
+                    </p>
+                    <a href="{% url 'connect-event-update' slug=obj.slug%}">edit </a>
+                </div>
+                </a>
+                
+                {% endfor %}
+            </div>
+
+</main>
+
+{% endblock %}

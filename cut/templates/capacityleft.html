@@ -1,0 +1,56 @@
+{% extends 'basecut.html' %}
+
+    {% block content %}
+			{% csrf_token %}
+		
+	<div class="container text-center">
+		<h1>Capacity Left</h1>
+	</div>
+
+	
+	<div>
+	<a href="/cut/issuedetails" class="btn btn-primary" id="id_prev">Previous</a>
+
+	<br>
+	<br>
+	<br>
+
+
+	<style type="text/css">
+	table {border-collapse: collapse;}
+	th, td {
+		border-collapse: collapse;
+		padding: 5px;
+		text-align: center;
+	}
+	</style>
+
+	<table id="tableid" border="1" align="center" width="80%">
+
+    <tr>
+    	<th>Order No</th>
+        <th>Table No</th>
+        <th>Table Type</th>
+        <th>Available Capacity For Spreading & Cutting per day</th>
+        <th>Capacity Left</th>
+        <th>Date</th>
+    </tr>
+    {% for item in capacityleftobject %}
+    <tr> 
+    	<td>{{ item.orderno }}</td>
+        <td>{{ item.tableno }}</td>
+        <td>{{ item.tabletype }}</td>
+        <td>{{ item.availcapaforspreadandcut }}</td>
+        <td>{{ item.capacityleft }}</td>
+        <td>{{ item.datefield }}</td> 
+    </tr>
+    {% endfor %} 
+	</table>
+
+	</div>
+		
+
+</body>
+
+
+	{% endblock %}

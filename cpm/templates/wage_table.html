@@ -1,0 +1,32 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>Wages and Employee Summary Table</h1>
+    </div>
+    <table class="table table-hover table-striped table-bordered" style="width: 97%; margin-left: 20px">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Department</th>
+            <th scope="col">Line Number</th>
+            <th scope="col">Month</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Amount</th>
+
+          </tr>
+        </thead>
+    {% for w in wages %}
+        <tbody>
+          <tr>
+            <td>{{w.department}}</td>
+            <td>{{w.line_number}}</td>
+            <td>{{w.month}}</td>
+            <td>{{w.employee}}</td>
+            <td>{{w.amount}}</td>
+          </tr>
+        </tbody>
+    {% endfor %}
+      </table>
+
+    
+{% endblock %}

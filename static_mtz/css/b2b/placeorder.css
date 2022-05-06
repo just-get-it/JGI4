@@ -1,0 +1,43 @@
+
+
+
+
+
+
+.loginrow{
+	height: 200vh;	 
+}
+
+.logincol{
+	height: 180vh;
+}
+
+.logincol1{
+	height: 155vh;
+}
+
+
+.loginfile{
+	margin-top: .5vh;
+}
+
+.logincol1 label{
+	margin-top: 3vh;
+}
+
+
+
+@media screen and (max-width: 1200px){
+	.loginrow{
+		height: 210vh;	 
+	}
+
+	.logincol{
+		height: 190vh;
+	}
+
+	.logincol1{
+		height: 165vh;
+	}
+
+}

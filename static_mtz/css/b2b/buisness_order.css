@@ -1,0 +1,19 @@
+
+
+
+
+
+.order_image img{
+	width: 100%;
+	height: 40vh;
+}
+
+
+.order_head{
+	font-family: 'Cabin', sans-serif;
+}
+@media screen and (max-width: 500px){
+	.order_head h1{
+		font-size: 1.5em;
+	}
+}

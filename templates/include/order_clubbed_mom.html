@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+
+
+<style media="screen">
+  .hide_row{
+    display:none;
+  }
+</style>
+
+
+<div class="row hide_row" id="history_mom">
+		<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+			<div class="row centered" style="z-index: 105; margin-top: 15vh;margin-bottom: auto; ">
+				<div class="container-fluid">
+					<div class="row" style="width: 45vw;height:73vh;background: white;">
+						<div class="row mt-1" style="height: 2vh;">
+							<button style="border: none;background: transparent;margin-left: 43vw;" onclick="remhistory_mom();"><i class="fas fa-times-circle"></i></button>
+						</div>
+						<div class="row" style="height: 1vh">
+							<h4 class="fontcabin" style="margin-left: 13.5vw;">Minutes of Meeting History</h4>
+						</div>
+						<div class="row" id="momcontainer" style="width: 100%;max-height: 60vh;overflow: auto;margin-top: 2vh;">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+          function showhistory_mom(){
+          	var up=document.getElementById('history_mom');
+          	up.classList.remove('hide_row');
+          }
+
+			function updateScroll1(){
+			    
+			        var element = document.getElementById("momcontainer");
+			        element.scrollTop = element.scrollHeight;
+			    
+			}
+
+          function remhistory_mom(){
+
+          	var up=document.getElementById('history_mom');
+          	up.classList.add('hide_row');
+          }
+    </script>

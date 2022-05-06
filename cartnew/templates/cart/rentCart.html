@@ -1,0 +1,207 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    
+    .dot {
+        border: 1px solid grey;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+{% endblock %} {% block content %}
+<br>
+<br>
+<div class="container">
+<div class="btn-group-lg" role="group" aria-label="Basic example" style="text-align: center;">
+    <a href="{% url 'newcart' %}">
+        <button type="button" class="btn btn-secondary">Products</button>
+    </a>
+    <a href="{% url 'subscriptionCart' %}">
+        <button type="button" class="btn btn-secondary">Subscriptions</button>
+    </a>
+    <a href="{% url 'rentCart' %}">
+        <button type="button" class="btn btn-primary active">Rental Products</button>
+    </a>
+</div>
+    <div class="row">
+        <!-- <h3><i class="fas fa-shopping-cart"></i> Cart:</h3> -->
+        <h3> Rental Cart: </h3>
+        <div class="col-lg-4">
+            <h5>Coupons</h5>
+                {% if coupon_applied %}
+              <div class="coupon">
+                <div class="row w-100 mx-0">
+                  <div class="col-8" style="color:green; font-size:14px">
+                    <b style="font-size: large;margin-right:10px">{{code}}</b><br>Coupon applied succesfully 
+                  </div>
+                  <div class="col-4">
+                    <button onclick="location.href = '/cartnew/delete/'" class="btn w-100 btn-warning">Remove</button>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+            <div>
+                <p style="display: inline;">Apply Coupons</p>
+                <button class="btn btn-primary d-inline float-right" data-toggle="modal" data-target="#CouponOffers">APPLY</button>
+            </div>
+            {% endif %}
+          
+          
+          {% if coupon_applied %}
+          <div class="row w-100 mx-0" style="font-size:15px">
+            <div class="card-footer w-100" style="border:none; background-color:white;">
+              <div class="pull-left" style="margin: 0px">
+                Total Discount
+              </div>
+              <div class="pull-right" style="margin: 0px">
+                <b style="color:rgb(1, 153, 1); margin: 0px">- ₹{{discount}}</b>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+            <h3 class="col text-right mt-4" id="cart_total">Total: ₹{% if cartTotal %}{{cartTotal}}{% else %}0{% endif %}/-</h3>
+        </div>
+       
+        <div class="modal fade" id="CouponOffers" tabindex="-1" role="dialog" aria-labelledby="CouponOffersLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="CouponOffersLabel">Apply Coupon</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            {% for coupon in coupons %}
+                            <div class="row bg-light p-4">
+                                <input type="radio" name="coupon_code" id="coupon_code" value="{{coupon.code}}"/>
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-outline-danger text-uppercase">{{coupon.code}}</button>
+                                </div>
+                                <div class="col-12">
+                                    <p>{{coupon.description}}
+                                </div>
+                            </div>
+                            <hr>
+                            {% endfor %}
+                            <button class="btn btn-primary" onclick="apply_coupon()">Apply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function apply_coupon(){
+              coupon_code = document.getElementById('coupon_code')
+              if(coupon_code.value != ""){
+              redir_link = '/cartnew/apply/' + coupon_code.value
+              window.location.href = redir_link
+            }
+            }
+          </script>
+        <h3 class="col text-right" id="cart_total">Total: ₹{% if cartTotal %}{{cartTotal}}{% else %}0{% endif %}/-</h3>
+
+    </div>
+    <hr> {% if cartdata %} {% for cartItem in cartdata %}
+    <div class="row">
+        <div class="col-2">
+            <img height="100" width="100" src="{{cartItem.product.image1.url}}">
+        </div>
+        <div class="col-3">
+            <h4><a href="{% url 'product_detail' cartItem.product.slug %}">{{cartItem.product.title}}</a></h4>
+            <div class="col-8">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-danger" onclick="decreaseQuant('{{cartItem.id}}', 'quant-{{cartItem.id}}');">
+                      <span class="fas fa-minus"></span>
+                    </button>
+                    </span>
+                    <input type="number" id="quant-{{cartItem.id}}" value={{cartItem.quantity}} class="form-control input-number" onchange="cartUpdate('{{cartItem.id}}', this.value);">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-success" onclick="increaseQuant('{{cartItem.id}}', 'quant-{{cartItem.id}}');">
+                      <span class="fas fa-plus"></span>
+                    </button>
+                    </span>
+
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-4">
+            <h4>Starts on: {{cartItem.start_date|date:"d/m/y"}}</h4>
+            <h4>Ends on: {{cartItem.end_date|date:"d/m/y"}}</h4>
+        </div>
+        
+        <div class="col-1">
+            <h4 id="{{cartItem.id}}-cartItem">₹{{cartItem.amount}}</h4>
+            <a href='#'  style="color: red;">Remove</a> 
+            <!-- add on delete -->
+        </div>
+    </div>
+    <br> {% endfor %}
+    <div class="row">
+        <div class="col text-right">
+            <span id="free-delivery">
+            {% if  cartTotal > 10000 %}
+                <p>You are eligible for free delivery</p>
+            {% else %}
+                <p>You are not eligible for free delivery</p>
+            {% endif %}
+            </span>
+            {% if order.id %}
+            <a class="btn btn-primary" href="{% url 'update_existing_order' order_id=order.id %}">Update Order</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'rent_selectaddress' %}">Select Address</a>
+            {% endif %}
+        </div>
+    </div>
+    <br> {% else %}
+    <br>
+    <h4> Looks like you have no items in your shopping cart! <i class="fas fa-shopping-cart"></i></h4>
+    <br> {% endif %}
+</div>
+
+
+<script>
+    function increaseQuant(Oid, Id) {
+        var quant_div = document.getElementById(Id);
+        prev_val = quant_div.value;
+        if (prev_val == "") {
+            prev_val = 1;
+        } else {
+            prev_val = parseInt(prev_val);
+            prev_val++;
+        }
+        quant_div.value = prev_val;
+        // cartUpdate(Oid, prev_val);
+    }
+
+    function decreaseQuant(Oid, Id) {
+        var quant_div = document.getElementById(Id);
+        prev_val = quant_div.value;
+        if (prev_val == "") {
+            prev_val = 1;
+        }
+        prev_val = parseInt(prev_val);
+        if (prev_val > 1) {
+            prev_val--;
+        }
+        quant_div.value = prev_val;
+        //cartUpdate(Oid, prev_val);
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/cartnew/cartnew.js' %}"></script>
+
+{% endblock %}

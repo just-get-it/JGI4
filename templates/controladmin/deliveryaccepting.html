@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<br>
+
+
+    <!-- /.container-fluid-->
+<div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Delivery tasks</div>
+        <div class="card-body">
+          <div class="table-responsive">
+
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Product</th>
+    <th>Pickup Contact</th>
+    <th> Pickup Person</th>
+        <th> Pickup date and Time</th>
+        <th> Pickup Address</th>
+ <th> Delivery date and Time</th>
+ <th> Delivery Address</th>
+        <th>Delivery Contact</th>
+    <th>Status</th>
+
+                </tr>
+              </thead>
+
+              
+              <tbody>
+{% for post in deliver %}
+                <tr>
+     <td>{{post.product_name}}</td>
+    <td>{{post.pickup_contact}}</td>
+    <td>{{post.pickup_person}}</td>
+    <td>{{post.pickup_date}},{{post.pickup_time}}</td>
+    <td>{{post.pickup_address}}</td>
+    <td>{{post.delivery_date}},{{post.delivery_time}}</td>
+    <td>{{post.delivery_address}}</td>
+
+    <td>{{post.delivery_contact}}</td>
+    <td>
+
+
+
+          {% if post.accepted %}  Accepted {% else %}
+      
+      <a class="btn btn-primary" id="like{{post.id}}" href="#" pk="{{pk}}" data-catid="{{ post.id }}">Accept</a>
+      <a class="reject" id="liker{{post.id}}" href="#" pk="{{pk}}" data-catid="{{ post.id }}"><button id="button{{post.id}}" class="btn btn-primary">Reject</button></a>
+          <p id="message{{post.id}}"></p><p id="messager{{post.id}}"></p> {% endif %}
+      </td>
+
+                </tr>
+{% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script>
+ $('.btn.btn-primary').click(function(){
+    var catid;
+    catid = $(this).attr("data-catid");
+    pk=$(this).attr("pk")
+    $.ajax(
+    {
+        type:"GET",
+        url: "{%url 'deliveryaccept' %}",
+        data:{
+                 post_id: catid,
+                 pk:pk,
+        },
+        success: function( data ) 
+        {
+           
+            $( '#like'+ catid ).remove();
+            $( '#message'+catid ).text("Accepted");
+            $( '#liker'+ catid ).remove();
+            $( '#messager'+catid ).remove();
+            $( '#messager'+catid ).remove();
+            $( '#button'+ catid).remove();
+        }
+     })
+});
+
+
+$('.reject').click(function(){
+    var catid;
+    catid = $(this).attr("data-catid");
+    pk=$(this).attr("pk")
+    $.ajax(
+    {
+        type:"GET",
+        url: "{%url 'deliveryreject' %}",
+        data:{
+                 post_id: catid,
+                 pk:pk,
+        },
+        success: function( data ) 
+        {
+             $( '#like'+ catid ).remove();
+            $( '#messager'+catid ).text("Reject");
+            $( '#liker'+ catid ).remove();
+            $( '#message'+catid ).remove();
+            $( '#button' + catid).remove();
+        }
+     })
+});</script>
+{% endblock content %}

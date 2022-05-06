@@ -1,0 +1,271 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+
+
+
+
+<style type="text/css">
+    {
+        % if no_count %
+    }
+    
+    .noti_detail_head::after {
+        content: '{{no_count}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .noti_detail_head::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    .staf_noti::after {
+        display: none;
+    }
+    
+    {
+        % if oty4 %
+    }
+    
+    .noti_head::after {
+        content: '{{oty4}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .noti_head::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty %
+    }
+    
+    .enq_noti::after {
+        content: '{{oty}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .enq_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty1 %
+    }
+    
+    .des_noti::after {
+        content: '{{oty1}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .des_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty2 %
+    }
+    
+    .samp_noti::after {
+        content: '{{oty2}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .samp_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty3 %
+    }
+    
+    .ord_noti::after {
+        content: '{{oty3}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .ord_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+</style>
+{% endblock %} {% block content %}
+<style type="text/css">
+    .hover-col {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    
+    .hover-col:hover {
+        box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+    }
+</style>
+<div class="row">
+    <div class="container my-3 mt-3" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+        <div class="row">
+            <h3 style="font-family: 'Cabin',sans-serif;">Orders</h3>
+            <button onclick="window.location.href='/buisness/bulk_order_upload'" style="background:none;border:none;border-radius:25vw;color:#30c5ff;margin-left:auto;">Bulk Order Upload</button>
+            <button onclick="window.location.href='/buisness/bulk_order_bom_upload'" style="background:none;border:none;border-radius:25vw;color:#30c5ff;margin-left:2vw;">Bulk Order BOM Upload</button>
+        </div>
+
+    </div>
+    <div class="container">
+        {% ifequal request.GET.req 'O' %} {% if orders.0 %}
+        <div class="row mt-3 pt-2 pl-2" style="">
+            <div class="col-12">
+                <h5><b>Your Orders</b></h5>
+            </div>
+            {% for o in orders %}
+            <div class="col-2 hover-col mt-2">
+                {% if o.image %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+                {% else %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+                {% endif %}
+                <div class="container-fluid mt-2">
+                    <div class="row">
+										<h6 class=""><b>{{o.order_no}}</b></h6>
+										<p class="product_details_p">
+											Label - {{o.label|truncatewords:2}}<br>
+											Super-Category - {{o.product_Category}}<br>
+											Sub-Category - {{o.product_Subcategory}}<br>
+											Category - {{o.product_Supercategory}}
+										</p>
+									</div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %} {% endifequal %} {% ifequal request.GET.req 'S' %} {% if sample.0 %}
+        <div class="row mt-3 pt-2 pl-2" style="">
+            <div class="col-12">
+                <h5><b>Your Sample</b></h5>
+            </div>
+            {% for o in sample %}
+            <div class="col-2 hover-col mt-2">
+                {% if o.image %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+                {% else %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+                {% endif %}
+                <div class="container-fluid mt-2">
+                    <div class="row">
+										<h6 class=""><b>{{o.order_no}}</b></h6>
+										<p class="product_details_p">
+											Label - {{o.label|truncatewords:2}}<br>
+											Super-Category - {{o.product_Category}}<br>
+											Sub-Category - {{o.product_Subcategory}}<br>
+											Category - {{o.product_Supercategory}}
+										</p>
+									</div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %} {% endifequal %} {% ifequal request.GET.req 'D' %} {% if design.0 %}
+        <div class="row mt-3 pt-2 pl-2" style="">
+            <div class="col-12">
+                <h5><b>Your Design</b></h5>
+            </div>
+            {% for o in design %}
+            <div class="col-2 hover-col mt-2">
+                {% if o.image %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+                {% else %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+                {% endif %}
+                <div class="container-fluid mt-2">
+                    <div class="row">
+										<h6 class=""><b>{{o.order_no}}</b></h6>
+										<p class="product_details_p">
+											Label - {{o.label|truncatewords:2}}<br>
+											Super-Category - {{o.product_Category}}<br>
+											Sub-Category - {{o.product_Subcategory}}<br>
+											Category - {{o.product_Supercategory}}
+										</p>
+									</div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %} {% endifequal %} {% ifequal request.GET.req 'E' %} {% if enquiry.0 %}
+        <div class="row mt-3 pt-2 pl-2" style="">
+            <div class="col-12">
+                <h5><b>Your Enquiry</b></h5>
+            </div>
+            {% for o in enquiry %}
+            <div class="col-2 hover-col mt-2">
+                {% if o.image %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+                {% else %}
+                <a href="/buisness/buisness_order/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+                {% endif %}
+                <div class="container-fluid mt-2">
+                    <div class="row">
+										<h6 class=""><b>{{o.order_no}}</b></h6>
+										<p class="product_details_p">
+											Label - {{o.label|truncatewords:2}}<br>
+											Super-Category - {{o.product_Category}}<br>
+											Sub-Category - {{o.product_Subcategory}}<br>
+											Category - {{o.product_Supercategory}}
+										</p>
+									</div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %} {% endifequal %}
+        <div class="row centered mt-2 mb-3">
+            <a href="/buisness/buisness_profile" class="hov-a" style="color:#30c5ff;">Back to Profile</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

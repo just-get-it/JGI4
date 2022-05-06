@@ -1,0 +1,46 @@
+
+
+
+
+
+
+
+#measurement_label,#measurement_fit,#measurement_season,#measurement_category,
+#measurement_subcategory,
+#measurement_supercategory{
+	width: 15vw;
+	border:none;
+	border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+
+
+.attri_input{
+	width: 15vw;
+	border:none;
+	border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+
+
+#measurement_label:focus,#measurement_fit:focus,#measurement_season:focus,#measurement_category:focus,
+#measurement_subcategory:focus,
+#measurement_supercategory:focus,
+.attri_input:focus{
+	border-bottom: 2px solid #30c5ff;
+}
+
+
+.submit_but{
+	text-decoration: none;
+	background: #30c5ff;
+	color: white;
+	border:none;
+	border-radius: 3vw;
+	transition: all .5s ease-out;
+}
+
+
+.submit_but:hover{
+	background:#253031;
+}

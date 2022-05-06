@@ -1,0 +1,13 @@
+{% extends 'cal/base.html' %}
+
+{% block content %}
+<div class="clearfix">
+	<form method='GET' action="{% url 'calendar' %}">
+		<button id="prev_btn" class="btn-primary" name='day' value="{{p_year}}-{{p_month}}">Previous month</button>
+	</form>
+	<form method='GET' action="{% url 'calendar' %}">
+		<button id="next_btn" class="btn-primary" name='day' value="{{n_year}}-{{n_month}}">Next month</button>
+	</form>
+</div>
+{{ calendar }}
+{% endblock %}

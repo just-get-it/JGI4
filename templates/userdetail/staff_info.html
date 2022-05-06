@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_timeline.css' %}">
+
+{% endblock %}
+
+
+
+{% block content %}
+<style type="text/css">
+
+	.loginrow{
+		height:110vh;
+	}
+	.loginfile{
+		margin-top: 1vh;
+	}
+	label{
+		padding-top: 2vh;
+	}
+	.logincol{
+		height: 100vh;
+
+	}
+	.logincol1{
+		height: 80vh;
+	}
+</style>
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+				<h4>Staff Details</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1">
+					<input type="text" name="name" value="{% if user.name %}{{user.name}}{% endif %}" class="loginpassword" placeholder="Name" required>
+					<input type="number" name="contact" value="{% if user.contact %}{{user.contact}}{% endif %}" class="loginpassword" placeholder="Contact No" required>
+					<textarea name="desc" class="loginpassword" placeholder="Staff Description" required>{% if user.description %}{{user.description}}{% endif %}</textarea>
+
+					<textarea name="address" class="loginpassword" placeholder="Staff Address" required>{% if user.address %}{{user.address}}{% endif %}</textarea>
+					<input type="text" name="mission" placeholder="Staff Mission" class="loginpassword" required {% if user.mission %}value="{{user.mission}}"{% endif %}>
+					<label>Staff Image</label>
+					<input type="file" name="image" placeholder="Staff Image" class="loginfile" {% if not user.info_update %}required{% endif %}>
+					{% if user.image %}<a href="{{user.image.url}}" class="hov-a">View</a>{% endif %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">SUBMIT</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

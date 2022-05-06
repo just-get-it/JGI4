@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="post" action="add_task?project_id={{project_id}}&project={{project_name}}">
+	{% csrf_token %}
+		<label>ADD section for project {{project_name}}</label>
+		<input type="text" name="task_name">
+		<input type="submit" name="submit">
+	</form>
+
+</body>
+</html>

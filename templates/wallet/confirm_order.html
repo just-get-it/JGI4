@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+ <div class="main-block">
+
+      
+      <h1>Creating order</h1>
+      <fieldset>
+         <div class="mt-4">
+
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page"> <b>Your Total Amount is Rs. {{ price }}.00</b></li>
+              </ol>
+            </nav>
+
+        </div>
+
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h3 style="text-align:center">Personal Details</h3>
+        </legend>
+        <div  class="personal-details">
+          <div class="container">
+              <ul class="list-group">
+              <li class="list-group-item">Name: {{ name }}</li>
+            <li class="list-group-item">Phone:  {{ phone }}</li>
+              <li class="list-group-item">Email: {{ email }} </li>
+              <li class="list-group-item">Address:  {{ address }}</li>
+            </ul>
+
+
+          </div>
+
+        </div>
+      </fieldset>
+        <form action="{% url 'checkPayStatus' %}" method="POST">{% csrf_token %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_9joF0fVvCUMOZC" data-amount="{% widthratio price 1 100 %}" data-currency="INR" data-buttontext="Pay with Razorpay" data-name="Just Get It" data-description="Test transaction"
+            data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU" data-prefill.name="{{ name }}" data-prefill.email="{{ email }}" data-prefill.contact="{{ phone }}"
+            data-order_id="{{order_id}}" data-theme.color="#F37254"></script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+      </form>
+    </div>
+{% endblock %}

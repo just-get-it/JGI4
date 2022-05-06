@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container-fluid">
+		<div class="row" style="background:black;height: 91vh;">
+			<div class="col-3" style="border-right: 1px solid rgba(255,255,255,.1)">
+				<div class="container-fluid" onclick="addFilter();">
+					<div class="row" style="border-bottom: 1px solid rgba(255,255,255,.1);cursor: pointer;overflow: auto;" onclick="addmystatus();">
+						<div class="col-2 py-2">
+							<img src="https://cdn2.iconfinder.com/data/icons/web-and-seo-43/64/47-512.png" style="width: 40px;height: 40px;border-radius: 50%;">
+						</div>
+						<div class="col py-3">
+							<h6 style="color:white">Filter Status</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-9" id="status">
+				<div class="container-fluid">
+					<div class="row" id="my_status" style="color:white">
+						<div class="container">
+							<div class="row my-3">
+								<div class="col-12" id="filter" style="display:none;">
+								<form class="forms-sample" method="POST"> {% csrf_token %}
+									<div class="row">
+										<div class="col-3 form-check" style="text-background:white">
+											<label class="form-check-label" style="font- color::white;">
+											<input type="checkbox" class="form-check-input selectMe" value="daily_achi" name="checkbox[]" id="checkbox">Daily Achievement</label>
+										</div>
+										<div class="col-3 form-check">
+											<label class="form-check-label" style="color::white;">
+											<input type="checkbox" class="form-check-input selectMe" name="checkbox[]" id="checkbox" value="daily_hurd"  >Daily Hurdle</label>
+										</div>
+										<input style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;" type="date" id="dateON" name="date_update" value="{% now "Y-m-d" %}"/>
+										<select  id="order_input" list="orders_list" name="order_no" style="margin-left: 1vw;background: black;border:none;color: white;height: 25px" placeholder="Order No">
+											<option value="">Select Order No.</option>
+											{% for x in co %}
+											<option value="{{x.order_no}}">{{x.order_no}}</option>
+											{% endfor %}
+										</select>
+										{% comment %} <select style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;background: transparent;color: white" onclick="" id="activities" name="activities">Activities
+											<option value="">Activity</option>										
+											
+										</select> {% endcomment %}
+										</div>
+											<button type="submit" class="btn btn-primary mr-2">Submit</button>  
+										</div>										
+									</div>
+
+{% if isPost == True %}
+								<div class="row table-responsive" id="filtered" style="background:white;" >
+					                <div class="table-responsive">
+										<table class="table table-bordered">
+											<thead>
+											<tr>
+												<th>Sr No.</th>
+												<th>Firstname</th>
+												<th>Type</th>
+												<th>Order No.</th>
+												<th>Date</th>
+												<th>Status</th>
+
+											</tr>
+											</thead>
+											<tbody>
+											{% for x in mine %}
+											<tr>
+												<td>{{forloop.counter}}</td>
+												<td>{{x.user}}</td>
+												<td>{{x.daily_achi}}{{x.daily_hurd}}</td>
+												<td>{{x.order_no}}</td>
+												<td>{{x.date}}</td>
+												<td>{{x.status_text}}</td>
+											</tr>
+											{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+{% endif %}
+{% if isPost == False %}
+
+								<div class="row table-responsive" id="todays" style="background:white;" >
+					                <div class="table-responsive">
+										<table class="table table-bordered">
+											<thead>
+											<tr>
+												<th>Sr No.</th>
+												<th>Firstname</th>
+												<th>Type</th>
+												<th>Order No.</th>
+												<th>Date</th>
+												<th>Status</th>
+
+											</tr>
+											</thead>
+											<tbody>
+											{% for x in lay %}
+											<tr>
+												<td>{{forloop.counter}}</td>
+												<td>{{x.user}}</td>
+												<td>{{x.daily_hurd}}{{x.daily_achi}}</td>
+												<td>{{x.order_no}}</td>
+												<td>{{x.date}}</td>
+												<td>{{x.status_text}}</td>
+											</tr>
+											{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+								</form>
+								</div>
+							</div>
+{% endif %}
+							<div class="row" id="user_status">
+						
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'include/loader.html' %}
+<script type="text/javascript" src="{% static 'jQuery/jQuery.js' %}"></script>
+<script>
+	function addFilter(){
+		document.getElementById("filter").style.display=""
+		document.getElementById("filtered").style.display=""
+		document.getElementById("todays").style.display="none"
+	}
+	function Filter(){
+		document.getElementById("filter").style.display=""
+		document.getElementById("filtered").style.display=""
+		document.getElementById("todays").style.display="none"
+	}
+	$(document).ready(function(){
+		$('input:checkbox').click(function() {
+			$('input:checkbox').not(this).prop('checked', false);
+		});
+	});
+
+</script>
+{% endblock %}

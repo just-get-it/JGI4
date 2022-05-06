@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %} {% block title %} {% endblock title %}
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="Just Get It" />
+    <meta name="distribution" content="global" />
+    <meta name="language" content="english" />
+    <meta name="subject" content="Just Get It Pvt. Ltd." />
+    <meta name="robots" content="ALL" />
+    <meta
+      name="description"
+      content="Just Get It provides one stop solutions to Customers, Buyers and Brands for their all types of requirement from Consulting, Designing, Product Development to ..."
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'branding_css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'branding_css/animations.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'branding_css/font-awesome5.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'branding_css/icomoon.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'branding_css/main.css' %}"
+      class="color-switcher-link"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'branding_css/shop.css' %}"
+      class="color-switcher-link"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="{% static 'branding_js/vendor/modernizr-2.6.2.min.js' %}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-140690468-2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-140690468-2");
+    </script>
+
+    <!-- branding base extra script -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Just Get It Pvt Ltd",
+        "url": "/branding",
+        "logo": "{% static 'branding_images/tentackles-logoicon.png' %}",
+        "image": "{% static 'branding_images/tentackles-logoicon.png' %}",
+        "description": "Best user experience / user interface (UX/UI) design studio in India, offering user testing, UX design, UI Design, Content and Strategy, Social Media Marketing, Animation, Development, SEO, EMail Marketing and user experience design training.",
+        "telephone": "",
+        "pricerange": "Contact: +91 | Email : ",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 12.9205781,
+          "longitude": 77.647143
+        },
+
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bangalore",
+          "addressRegion": "KA",
+          "streetAddress": "#39, 24th Main, HSR Layout, Bengaluru, India 560102",
+          "postalCode": "560102"
+        },
+        "openingHours": ["Mon-Fri 10:00AM-07:00PM"],
+        "sameAs": [
+          "https://www.facebook.com/",
+          "https://www.linkedin.com/",
+          "https://www.instagram.com/"
+        ]
+      }
+    </script>
+    <link
+      rel="stylesheet"
+      href="{% static 'branding_css/direction-aware.css' %}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    {% block style %} {% endblock style %}
+  </head>
+  <body>
+    {% block nav %}          
+    <div class="preloader">
+      <div class="preloader_image"></div>
+    </div>
+
+    <div id="canvas">
+      <div id="box_wrapper">
+        <div class="header_absolute">
+          <!-- header with two Bootstrap columns - left for logo and right for navigation -->
+          <header class="page_header ds bg-transparent s-py-20">
+            <div class="container">
+              <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 col-12">
+                  <a href="/branding" class="logo">
+                    <img
+                      src="{% static 'branding_images/JGI_Logo_2.png' %}"
+                      alt="JGI Icon"
+                    />
+                    <img
+                      src="{% static 'branding_images/JGI_Logo.png' %}"
+                      alt="Logo of JGI"
+                    />
+                    <span class="logo-text color-darkgrey"></span>
+                  </a>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-8 col-sm-4 col-12">
+                  <!-- main nav start -->
+                  <nav>
+                    <div class="top-nav"></div>
+                    <div class="overlay-nav">
+                      <ul>
+                        <li>
+                          <a
+                            href="https://www.facebook.com"
+                            target="_blank"
+                          >
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://www.linkedin.com"
+                            target="_blank"
+                          >
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                          >
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a onclick="openNav()">
+                            <div class="menu-toggle">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+                  <!-- eof main nav -->
+                </div>
+              </div>
+            </div>
+            <!-- header toggler -->
+            <span class="toggle_menu"><span></span></span>
+          </header>
+        </div>
+        {% endblock nav %}
+        {% block content %} {% endblock content %}
+
+        <footer
+          class="
+            page_footer
+            text-center text-sm-left
+            ds
+            ms
+            bg-gradient5
+            s-pt-xl-150
+            s-pt-lg-130
+            s-pt-md-90
+            s-pt-60
+            s-pb-xl-205
+            s-pb-lg-185
+            s-pb-md-145
+            s-pb-105
+            c-gutter-30 c-mb-50 c-mb-lg-0
+          "
+        >
+          <div class="waveWrapper waveAnimation">
+            <div class="waveWrapperInner bgTop">
+              <div class="wave waveTop"></div>
+            </div>
+            <div class="waveWrapperInner bgMiddle">
+              <div class="wave waveMiddle"></div>
+            </div>
+            <div class="waveWrapperInner bgMiddle2">
+              <div class="wave waveMiddle2"></div>
+            </div>
+            <div class="waveWrapperInner bgBottom">
+              <div class="wave waveBottom"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-6 animate" data-animation="fadeInUp">
+                <a href="#" class="logo">
+                  <span class="d-flex flex-column">
+                    <span class="logo-text color-darkgrey">Just Get It</span>
+                  </span>
+                </a>
+                <ul>
+                  <li class="icon-inline">
+                    <div class="icon-styled icon-top fs-14">
+                      <i class="fa fa-map-marker"></i>
+                    </div>
+                    <p>
+                        Urbano L, Lodha palava lakeshore green Dombivli,
+                        Thane, Maharashtra, India, 421204.
+                    </p>
+                    <br/>
+                  </li>
+                  <li class="icon-inline">
+                    <div class="icon-styled icon-top fs-14">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <p><a href="tel:+91-9619348557">+91-9619348557</a><br /></p>
+                  </li>
+                  <li class="icon-inline">
+                    <div class="icon-styled icon-top fs-14">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <p>
+                      <a href="mailto:support@justgetit.in"
+                        >support@justgetit.in</a
+                      >
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-lg-3 col-md-6 animate" data-animation="fadeInUp">
+                <div class="widget widget_nav_menu mb-0">
+                  <h3 class="widget-title">
+                    <span class="thin">Quick</span> Links
+                  </h3>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="/branding/about"
+                        ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        About</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/branding/services"
+                        ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        Services</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/branding/portfolio"
+                        ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        Portfolio</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/branding/blog/page/1" target="_blank"
+                        ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        Blog</a
+                      >
+                    </li>
+
+                    <li>
+                      <a href="/branding/contact"
+                        ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        Contact Us</a
+                      >
+                    </li>
+                    <div class="footer-icon">
+                      <a
+                        href="https://www.facebook.com"
+                        target="_blank"
+                        ><i class="fa fa-facebook" aria-hidden="true"></i
+                      ></a>
+                      <a
+                        href="https://www.linkedin.com"
+                        target="_blank"
+                        ><i class="fa fa-linkedin" aria-hidden="true"></i
+                      ></a>
+                      <a
+                        href="https://www.instagram.com"
+                        target="_blank"
+                        ><i class="fa fa-instagram" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-5 col-md-6 animate" data-animation="fadeInUp">
+                <div class="widget widget_nav_menu mb-0">
+                  <h3 class="widget-title">
+                    <span class="thin">Design</span> Demand
+                  </h3>
+                  <div class="footer-demond">
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="https://drive.google.com/drive/u/0/folders/1FLv034PIjbbtuooVeMSus6cyBB2Qa6Pa"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Logo</a
+                        >
+                      </li>
+                      <li>
+                        <a href="/branding/user-experience"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          User experience</a
+                        >
+                      </li>
+                      <li>
+                        <a href="/branding/user-interface"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          User interface</a
+                        >
+                      </li>
+                      <li>
+                        <a href="/branding/explainer-video"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Explainer video</a
+                        >
+                      </li>
+
+                      <li>
+                        <a href="/branding/design-and-concept"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Design and concept</a
+                        >
+                      </li>
+                      <li>
+                        <a href="/branding/social-media-marketing"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Social media marketing</a
+                        >
+                      </li>
+                      <li>
+                        <a href="/branding/seo"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Search engine optimization</a
+                        >
+                      </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="/branding/animation"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Animation</a
+                        >
+                      </li>
+
+                      <li>
+                        <a href="/branding/branding"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Branding</a
+                        >
+                      </li>
+
+                      <li>
+                        <a href="/branding/presentation"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Presentation</a
+                        >
+                      </li>
+                      <li>
+                        <a href="/branding/email-marketing"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Email marketing</a
+                        >
+                      </li>
+
+                      <li>
+                        <a href="/branding/content-strategy"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Content strategy</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          target="_blank"
+                          ><i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Site map</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        <div class="copyright_absolute">
+          <section class="page_copyright ds bg-transparent s-overlay s-py-25">
+            <div class="container">
+              <div class="row align-items-center">
+                <div class="col-md-12 term-text">
+                  <a href="/branding/privacy-policy">Privacy Policy </a>
+                  <a href="/branding/termandcondition"> Terms and Condition</a>
+                  <p>
+                    © Just Get It <span class="copyright_year">2021</span> All
+                    Rights Reserved
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- eof #box_wrapper -->
+    </div>
+    <!-- eof #canvas -->
+
+    <!-- <script
+      src="//code.tidio.co/2lukllzzjixfcfgqhruktdzie9rwfoxm.js"
+      async
+    ></script> -->
+    <script src="{% static 'branding_js/compressed.js' %}"></script>
+    <script src="{% static 'branding_js/main.js' %}"></script>
+    <script src="{% static 'branding_js/switcher.js' %}"></script>
+
+    <!-- Google Map Script -->
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0pr5xCHpaTGv12l73IExOHDJisBP2FK4&amp;callback=initGoogleMap"
+    ></script>
+    <script>
+      const nodes = [].slice.call(
+        document.querySelectorAll(".project_hover_li"),
+        0
+      );
+      const directions = { 0: "top", 1: "right", 2: "bottom", 3: "left" };
+      const classNames = ["in", "out"]
+        .map((p) => Object.values(directions).map((d) => `${p}-${d}`))
+        .reduce((a, b) => a.concat(b));
+
+      const getDirectionKey = (ev, node) => {
+        const { width, height, top, left } = node.getBoundingClientRect();
+        const l = ev.pageX - (left + window.pageXOffset);
+        const t = ev.pageY - (top + window.pageYOffset);
+        const x = l - (width / 2) * (width > height ? height / width : 1);
+        const y = t - (height / 2) * (height > width ? width / height : 1);
+        return Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
+      };
+
+      class Item {
+        constructor(element) {
+          this.element = element;
+          this.element.addEventListener("mouseover", (ev) =>
+            this.update(ev, "in")
+          );
+          this.element.addEventListener("mouseout", (ev) =>
+            this.update(ev, "out")
+          );
+        }
+
+        update(ev, prefix) {
+          this.element.classList.remove(...classNames);
+          this.element.classList.add(
+            `${prefix}-${directions[getDirectionKey(ev, this.element)]}`
+          );
+        }
+      }
+
+      nodes.forEach((node) => new Item(node));
+    </script>
+    <script>
+      function openNav() {
+        document.getElementById("myNavBox").style.height = "100%";
+      }
+
+      function closeNav() {
+        document.getElementById("myNavBox").style.height = "0%";
+      }
+    </script>
+    <script>
+      $.fn.jQuerySimpleCounter = function (options) {
+        var settings = $.extend(
+          {
+            start: 0,
+            end: 100,
+            easing: "swing",
+            duration: 400,
+            complete: "",
+          },
+          options
+        );
+
+        var thisElement = $(this);
+
+        $({ count: settings.start }).animate(
+          { count: settings.end },
+          {
+            duration: settings.duration,
+            easing: settings.easing,
+            step: function () {
+              var mathCount = Math.ceil(this.count);
+              thisElement.text(mathCount);
+            },
+            complete: settings.complete,
+          }
+        );
+      };
+
+      $("#number1").jQuerySimpleCounter({ end: 40, duration: 3000 });
+      $("#number2").jQuerySimpleCounter({ end: 8, duration: 3000 });
+      $("#number3").jQuerySimpleCounter({ end: 22, duration: 2000 });
+
+      /* AUTHOR LINK */
+      $(".about-me-img").hover(
+        function () {
+          $(".authorWindowWrapper")
+            .stop()
+            .fadeIn("fast")
+            .find("p")
+            .addClass("trans");
+        },
+        function () {
+          $(".authorWindowWrapper")
+            .stop()
+            .fadeOut("fast")
+            .find("p")
+            .removeClass("trans");
+        }
+      );
+    </script>
+
+    <div id="myNavBox" class="overlaybox">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+        >&times;</a
+      >
+      <div class="overlay-contentbox">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="nav-overlay">
+                <a href="/branding">Home.</a>
+                <a href="/branding/about">About Us.</a>
+                <a href="/branding/services">Services.</a>
+                <a href="/branding/portfolio">Portfolio.</a>
+                <a href="/branding/blog/page/1" target="_blank">Blog.</a>
+                <a href="/branding/industries">Industries.</a>
+                <a href="/branding/innovation">Innovations.</a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="nav-overlay1">
+                <h5>Design Demand</h5>
+                <ul>
+                  <li>
+                    <a href="https://drive.google.com/drive/u/0/folders/1FLv034PIjbbtuooVeMSus6cyBB2Qa6Pa">Logo</a>
+                  </li>
+                  <li>
+                    <a href="/branding/user-experience">User experience</a>
+                  </li>
+                  <li><a href="/branding/user-interface">User interface</a></li>
+                  <li>
+                    <a href="/branding/explainer-video">Explainer video</a>
+                  </li>
+                  <li>
+                    <a href="/branding/email-marketing">Email marketing</a>
+                  </li>
+                  <li>
+                    <a href="/branding/design-and-concept"
+                      >Design and concept</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/branding/content-strategy">Content strategy</a>
+                  </li>
+                  <li><a href="/branding/animation">Animation</a></li>
+                  <li>
+                    <a href="/branding/seo">Search engine optimization</a>
+                  </li>
+                  <li><a href="/branding/branding">Branding</a></li>
+                  <li><a href="/branding/presentation">Presentation</a></li>
+                  <li>
+                    <a href="/branding/social-media-marketing"
+                      >Social media marketing</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="nav-overlay2">
+                <img
+                  src="{% static 'branding_images/new-animation.gif' %}"
+                  alt="Animation of an Octopus with two eyes blinking."
+                />
+              </div>
+              <div class="nav-get-in-btn">
+                <p>Helping you define your brand</p>
+                <a
+                  href="/branding/contact"
+                  class="strategy-footer-btn nav-get-btn"
+                  >Get in Touch</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'branding_js/wow.min.js' %}"></script>
+    <script>
+      new WOW().init();
+    </script>
+    <script>
+      $(function () {
+        $("#frmpopup").click(function () {
+          var nm = $("#frmpopup input[name=username]").val();
+          var em = $("#frmpopup input[name=email]").val();
+          var no = $("#frmpopup input[name=mobile]").val();
+          var mb = $("#frmpopup textarea[name=message]").val();
+          if (nm == "") {
+            $("#frmpopup input[name=username]").css("border", "2px solid red");
+            return false;
+          } else if (em == "") {
+            $("#frmpopup input[name=email]").css("border", "2px solid red");
+            $("#frmpopup input[name=username]").css(
+              "border",
+              "2px solid #dcdcec"
+            );
+            return false;
+          } else if (no == "") {
+            $("#frmpopup input[name=mobile]").css("border", "2px solid red");
+            $("#frmpopup input[name=username]").css(
+              "border",
+              "2px solid #dcdcec"
+            );
+            $("#frmpopup input[name=email]").css("border", "2px solid #dcdcec");
+            return false;
+          } else if (mb == "") {
+            $("#frmpopup textarea[name=message]").css(
+              "border",
+              "2px solid red"
+            );
+            $("#frmpopup input[name=username]").css(
+              "border",
+              "2px solid #dcdcec"
+            );
+            $("#frmpopup input[name=email]").css("border", "2px solid #dcdcec");
+            $("#frmpopup input[name=mobile]").css(
+              "border",
+              "2px solid #dcdcec"
+            );
+            return false;
+          } else {
+            $.ajax({
+              url: "https://tentackles.com/mailsend/",
+              type: "POST",
+              data: { name: nm, email: em, mobile: no, message: mb },
+              success: function (data) {
+                if (data == 1) {
+                  $("#errormsg")("Mail Send Successfuly").css("color", "#090");
+                  $("#frmpopup input[name=mobile]")
+                    .val("")
+                    .css("border", "2px solid #dcdcec");
+                  $("#frmpopup input[name=username]")
+                    .val("")
+                    .css("border", "2px solid #dcdcec");
+                  $("#frmpopup input[name=email]")
+                    .val("")
+                    .css("border", "2px solid #dcdcec");
+                  $("#frmpopup textarea[name=message]")
+                    .val("")
+                    .css("border", "2px solid #dcdcec");
+                } else {
+                  $("#errormsg")("Somthing is wrong").css("color", "red");
+                }
+                return true;
+              },
+            });
+            return false;
+          }
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        function slider(
+          md_lg_screen = 3,
+          sm_screen = 2,
+          xs_screen = 1,
+          time = 2500
+        ) {
+          //number of mainSlides of differnt screens with slide show time
+          var sliderItem = $(".slider-item"),
+            sliderContainer = $(".slider-container"),
+            sliderContent = $(".slider-content"),
+            nextBtn = $(".slider-container .right"),
+            prevBtn = $(".slider-container .left"),
+            mainSlides = md_lg_screen,
+            trackBtn,
+            clicked = false;
+
+          function checkScreenSize() {
+            if ($(window).width() <= 991 && $(window).width() > 550) {
+              mainSlides = sm_screen;
+            } else if ($(window).width() <= 550) {
+              mainSlides = xs_screen;
+            } else {
+              mainSlides = md_lg_screen;
+            }
+            trackBtn = mainSlides; //first trackbtn will have mainSlides number
+          }
+          checkScreenSize();
+
+          function fixWidth() {
+            sliderItem.css("width", "calc(100% / " + mainSlides + ")");
+            sliderContent.height(sliderItem.height());
+          }
+          fixWidth();
+
+          $(window).resize(function () {
+            checkScreenSize();
+            fixWidth();
+            sliderContent.css("left", "0");
+            sliderContent.css("width", "100%");
+            sliderItem.css("width", "calc(100% / " + mainSlides + ")");
+          });
+
+          nextBtn.click(function () {
+            if (clicked == false) {
+              clicked = true;
+              if (mainSlides < sliderItem.length) {
+                leftValue =
+                  parseInt(sliderContent.css("left")) - sliderItem.outerWidth();
+                sliderContent.animate(
+                  {
+                    left: leftValue,
+                  },
+                  500
+                );
+                sliderContent.css(
+                  "width",
+                  parseInt(sliderContent.css("width")) + sliderItem.outerWidth()
+                );
+                mainSlides++;
+                fixWidth();
+              }
+              setTimeout(function () {
+                clicked = false;
+              }, 500);
+            }
+          });
+
+          prevBtn.click(function () {
+            if (clicked == false) {
+              clicked = true;
+              if (trackBtn < mainSlides) {
+                // mainSlides increase onclick nextBtn
+                leftValue =
+                  parseInt(sliderContent.css("left")) + sliderItem.outerWidth();
+                sliderContent.animate(
+                  {
+                    left: leftValue,
+                  },
+                  500,
+                  function () {
+                    sliderContent.css(
+                      "width",
+                      parseInt(sliderContent.css("width")) -
+                        sliderItem.outerWidth()
+                    );
+                    mainSlides--;
+                    fixWidth();
+                  }
+                );
+              }
+              setTimeout(function () {
+                clicked = false;
+              }, 500);
+            }
+          });
+
+          var timer;
+          function slideShow() {
+            timer = setInterval(function () {
+              if (mainSlides < sliderItem.length) {
+                nextBtn.click();
+              } else {
+                sliderContent.animate(
+                  {
+                    left: 0,
+                  },
+                  500,
+                  function () {
+                    checkScreenSize();
+                    sliderContent.css("width", "100%");
+                    sliderItem.css("width", "calc(100% / " + mainSlides + ")");
+                  }
+                );
+              }
+            }, time);
+          }
+          slideShow();
+
+          sliderContainer.mouseover(function () {
+            clearInterval(timer);
+          });
+          sliderContainer.mouseleave(function () {
+            slideShow();
+          });
+        }
+
+        slider();
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        function slider(
+          md_lg_screen = 3,
+          sm_screen = 2,
+          xs_screen = 1,
+          time = 2500
+        ) {
+          //number of mainSlides of differnt screens with slide show time
+          var sliderItem = $(".slider-item"),
+            sliderContainer = $(".slider-container"),
+            sliderContent = $(".slider-content"),
+            nextBtn = $(".slider-container .right"),
+            prevBtn = $(".slider-container .left"),
+            mainSlides = md_lg_screen,
+            trackBtn,
+            clicked = false;
+
+          function checkScreenSize() {
+            if ($(window).width() <= 991 && $(window).width() > 550) {
+              mainSlides = sm_screen;
+            } else if ($(window).width() <= 550) {
+              mainSlides = xs_screen;
+            } else {
+              mainSlides = md_lg_screen;
+            }
+            trackBtn = mainSlides; //first trackbtn will have mainSlides number
+          }
+          checkScreenSize();
+
+          function fixWidth() {
+            sliderItem.css("width", "calc(100% / " + mainSlides + ")");
+            sliderContent.height(sliderItem.height());
+          }
+          fixWidth();
+
+          $(window).resize(function () {
+            checkScreenSize();
+            fixWidth();
+            sliderContent.css("left", "0");
+            sliderContent.css("width", "100%");
+            sliderItem.css("width", "calc(100% / " + mainSlides + ")");
+          });
+
+          nextBtn.click(function () {
+            if (clicked == false) {
+              clicked = true;
+              if (mainSlides < sliderItem.length) {
+                leftValue =
+                  parseInt(sliderContent.css("left")) - sliderItem.outerWidth();
+                sliderContent.animate(
+                  {
+                    left: leftValue,
+                  },
+                  500
+                );
+                sliderContent.css(
+                  "width",
+                  parseInt(sliderContent.css("width")) + sliderItem.outerWidth()
+                );
+                mainSlides++;
+                fixWidth();
+              }
+              setTimeout(function () {
+                clicked = false;
+              }, 500);
+            }
+          });
+
+          prevBtn.click(function () {
+            if (clicked == false) {
+              clicked = true;
+              if (trackBtn < mainSlides) {
+                // mainSlides increase onclick nextBtn
+                leftValue =
+                  parseInt(sliderContent.css("left")) + sliderItem.outerWidth();
+                sliderContent.animate(
+                  {
+                    left: leftValue,
+                  },
+                  500,
+                  function () {
+                    sliderContent.css(
+                      "width",
+                      parseInt(sliderContent.css("width")) -
+                        sliderItem.outerWidth()
+                    );
+                    mainSlides--;
+                    fixWidth();
+                  }
+                );
+              }
+              setTimeout(function () {
+                clicked = false;
+              }, 500);
+            }
+          });
+
+          var timer;
+          function slideShow() {
+            timer = setInterval(function () {
+              if (mainSlides < sliderItem.length) {
+                nextBtn.click();
+              } else {
+                sliderContent.animate(
+                  {
+                    left: 0,
+                  },
+                  500,
+                  function () {
+                    checkScreenSize();
+                    sliderContent.css("width", "100%");
+                    sliderItem.css("width", "calc(100% / " + mainSlides + ")");
+                  }
+                );
+              }
+            }, time);
+          }
+          slideShow();
+
+          sliderContainer.mouseover(function () {
+            clearInterval(timer);
+          });
+          sliderContainer.mouseleave(function () {
+            slideShow();
+          });
+        }
+
+        slider();
+      });
+    </script>
+  </body>
+</html>

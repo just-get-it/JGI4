@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container">
+		<div class="row mt-4" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+			<h3 style="font-family: 'Cabin',sans-serif;">Production Products</h3>
+		</div>
+		{% for i in prod_obj %}
+			<div class="row mt-3">
+				<div class="container" style="box-shadow:0 0 1px black;{% if forloop.counter0|divisibleby:'2' %}background:rgba(211,211,211,.2);{% else %}background:rgba(211,211,211,.5);{% endif %}">
+					<div class="row mt-3">
+						<div class="col">
+							<label><b>Product Super-Category : </b>{{i.prod.product_Category}}</label>
+						</div>
+						<div class="col">
+							<label><b>Product Sub-Category : </b>{{i.prod.product_Subcategory}}</label>
+						</div>
+							<div class="col">
+								<label><b>Product Super-Category : </b>{{i.prod.product_Supercategory}}</label>
+							</div>
+
+					</div>
+					<div class="row mt-2 mb-3">
+						<div class="col">
+							<label><b>Quantity</b><input type="number" id="prod_quan_{{i.prod.id}}" value="{{i.prod.quantity}}" style="width: 60%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;"></label>
+						</div>
+						<div class="col">
+							<label><b>Cost</b><input type="number" id="prod_cost_{{i.prod.id}}" value="{{i.prod.cost}}" style="width: 60%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;"></label>
+						</div>
+						<div class="col">
+							<label><b>Working Days</b><input type="number" id="prod_work_{{i.prod.id}}" value="{{user.no_of_working}}" style="width: 60%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;"></label>
+						</div>
+					</div>
+					{% for j in i.lines %}
+						<div class="row mt-2 mb-2">
+							<div class="col">
+								<label><b>Line Name</b><input type="text" id="line_name_{{j.id}}" value="{{j.name}}" style="width: 60%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;"></label>
+							</div>
+							<div class="col">
+								<label><b>Line Quantity/Day</b><input type="number" id="line_quan_{{j.id}}" value="{{j.quantity}}" style="width: 40%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;"></label>
+							</div>
+							<script type="text/javascript">
+								$('#line_name_{{j.id}}').change(function(){
+									$.ajax({
+										type:'POST',
+										url:'/userdetail/vendor_profile/create_production_products',
+										data:{
+											line_name_ajax:$('#line_name_{{j.id}}').val(),
+											line_quan_ajax:$('#line_quan_{{j.id}}').val(),
+											line_deta_ajax:{{j.id}},
+											csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+										},
+										cache:false,
+										dataType:"json",
+										success:function(data){
+											// window.location="/userdetail/staff_profile/activities";
+											// alert("Well Done")
+											// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											//window.location="/userdetail/staff_profile/orders/{{order}}";
+										}
+									});
+								});
+								$('#line_quan_{{j.id}}').change(function(){
+									$.ajax({
+										type:'POST',
+										url:'/userdetail/vendor_profile/create_production_products',
+										data:{
+											line_name_ajax:$('#line_name_{{j.id}}').val(),
+											line_quan_ajax:$('#line_quan_{{j.id}}').val(),
+											line_deta_ajax:{{j.id}},
+											csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+										},
+										cache:false,
+										dataType:"json",
+										success:function(data){
+											// window.location="/userdetail/staff_profile/activities";
+											// alert("Well Done")
+											// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+											//window.location="/userdetail/staff_profile/orders/{{order}}";
+										}
+									});
+								});
+							</script>
+						</div>
+					{% endfor %}
+					<div class="row mt-3 mb-3">
+						<a href="/userdetail/vendor_profile/create_production_products?del={{i.prod.id}}" class="hov-a" style="margin-left:auto;margin-right:2vw;">Delete Production Product</a>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$('#prod_quan_{{i.prod.id}}').change(function(){
+					// alert("Work");
+					$.ajax({
+						type:'POST',
+						url:'/userdetail/vendor_profile/create_production_products',
+						data:{
+							quantity_ajax_prod:$('#prod_quan_{{i.prod.id}}').val(),
+							cost_ajax_prod:$('#prod_cost_{{i.prod.id}}').val(),
+							work_ajax_prod:$('#prod_work_{{i.prod.id}}').val(),
+							prod_ajax:{{i.prod.id}},
+							csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+						},
+						cache:false,
+						dataType:"json",
+						success:function(data){
+							// window.location="/userdetail/staff_profile/activities";
+							// alert("Well Done")
+							// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+							//window.location="/userdetail/staff_profile/orders/{{order}}";
+						}
+					});
+				});
+				$('#prod_cost_{{i.id}}').change(function(){
+					$.ajax({
+						type:'POST',
+						url:'/userdetail/vendor_profile/create_production_products',
+						data:{
+							quantity_ajax_prod:$('prod_quan_{{i.prod.id}}').val(),
+							cost_ajax_prod:$('prod_cost_{{i.prod.id}}').val(),
+							work_ajax_prod:$('prod_work_{{i.prod.id}}').val(),
+							prod_ajax:{{i.prod.id}},
+							csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+						},
+						cache:false,
+						dataType:"json",
+						success:function(data){
+							// window.location="/userdetail/staff_profile/activities";
+							// alert("Well Done")
+							// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+							//window.location="/userdetail/staff_profile/orders/{{order}}";
+						}
+					});
+				});
+				$('#prod_work_{{i.id}}').change(function(){
+					$.ajax({
+						type:'POST',
+						url:'/userdetail/vendor_profile/create_production_products',
+						data:{
+							quantity_ajax_prod:$('prod_quan_{{i.prod.id}}').val(),
+							cost_ajax_prod:$('prod_cost_{{i.prod.id}}').val(),
+							work_ajax_prod:$('prod_work_{{i.prod.id}}').val(),
+							prod_ajax:{{i.prod.id}},
+							csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+						},
+						cache:false,
+						dataType:"json",
+						success:function(data){
+							// window.location="/userdetail/staff_profile/activities";
+							// alert("Well Done")
+							// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+							//window.location="/userdetail/staff_profile/orders/{{order}}";
+						}
+					});
+				});
+
+			</script>
+		{% endfor %}
+
+			<div class="row mt-4" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+				<h3 style="font-family: 'Cabin',sans-serif;">Add Production Products</h3>
+			</div>
+		<form method="POST">{% csrf_token %}
+		<div class="row mt-4">
+			<div class="col-6">
+				<label><b> Product Category</b></label>
+				<select name="category" class="loginemail" id="category" required style="width: 50%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 5.5vw;">
+					<option value="" disabled selected>------</option>
+					{% for b in cate %}
+					<option value="{{b.name}}">{{b.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-6">
+					<label><b> Product Sub-Category</b></label>
+					<select name="sub_category" class="loginemail" id="sub_category" required style="width: 50%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 2.2vw;">
+
+					</select>
+
+			</div>
+			<div class="col-6 mt-4">
+					<label><b> Product Super-Category</b></label>
+					<select name="super_category" class="loginemail" id="super_category" required style="width: 50%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 2vw;">
+
+					</select>
+
+			</div>
+			<div class="col-3 mt-4 mb-4">
+					<label><b> Quantity</b></label>
+					<input type="number" name="quantity" id="final_quan" placeholder="Quantity Produced/day" style="width: 60%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;">
+
+			</div>
+			<div class="col-3 mt-4 mb-4">
+					<label><b> Cost</b></label>
+					<input type="number" name="cost" placeholder="Cost/Piece" style="width: 50%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;">
+
+			</div>
+			<div class="col-12 mt-4 mb-4">
+					<label><b>Working Days/Month</b></label>
+					<input type="number" name="num_work_month" placeholder="No. of Working Days/Month" style="width: 50%;border: none;border-bottom: 1px solid rgba(0,0,0,.5);margin-left: 1vw;">
+
+			</div>
+		</div>
+
+		<div class="row my-4" id="machine_line1">
+
+		</div>
+		<div class="row" id="machine_line2"></div>
+		<div class="row" id="machine_line3"></div>
+		<div class="row" id="machine_line4"></div>
+		<div class="row" id="machine_line5"></div>
+		<div class="row" id="machine_line6"></div>
+		<div class="row" id="machine_line7"></div>
+		<div class="row" id="machine_line8"></div>
+		<div class="row" id="machine_line9"></div>
+		<div class="row" id="machine_line10"></div>
+
+		<div class="row mt-4 mb-5">
+			<button type="button" style="margin-left: auto;border: none;background: transparent;color:#30c5ff;" onclick="addmachineline();" id="machine_but">Add Machine Lines</button>
+		</div>
+		<div class="row mb-3">
+				<div class="centered">
+					<button class="py-1 px-5 loginbutton" type="submit" style="border:none;margin-left: 35vw;background: #30c5ff;border-radius: 25vw;font-weight: bold;">SUBMIT</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var machineline=1;
+	var total=0;
+	function addmachineline(){
+		var machine=document.getElementById('machine_line'+machineline.toString());
+		machine.innerHTML=`
+			<div class="col-2">
+				<label><b>Line `+machineline.toString()+`</b></label>
+			</div>
+			<div class="col-5">
+				<input type="text" name="line`+machineline.toString()+`_name" placeholder="Line Name" required style="border: none;border-bottom: 1px solid rgba(0,0,0,.5);width: 100%;">
+			</div>
+			<div class="col-5">
+				<input type="number" class="quantity_line" name="line`+machineline.toString()+`_quantity" placeholder="Line Quantity/day" required style="border: none;border-bottom: 1px solid rgba(0,0,0,.5);width: 100%;">
+			</div>
+		`
+		machine.classList.add('my-4');
+		machineline=machineline+1;
+		if (machineline>10){
+			var machine_but=document.getElementById('machine_but');
+			machine_but.style.display="none";
+		}
+	}
+	function update(){
+
+	}
+	function refreshData()
+{
+    x = 100;  // 5 Seconds
+
+    // Do your thing here
+
+		quantity_line_wise=document.getElementsByClassName('quantity_line');
+		total=0;
+		for (i=0;i<quantity_line_wise.length;i++){
+			if (quantity_line_wise[i].value){
+				total=total+parseInt(quantity_line_wise[i].value);
+			}
+		}
+		document.getElementById('final_quan').value=total;
+    setTimeout(refreshData, x);
+}
+
+
+refreshData();
+
+	// while (machineline<=10){
+	//
+	// }
+</script>
+<script type="text/javascript" src="{% static 'js/b2b/placeorder.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

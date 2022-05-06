@@ -1,0 +1,123 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+<!--
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+{% endblock %}
+
+{% block title %}
+	Fabric Inhouse Form
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %} -->
+
+{% block content %}
+
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #30c5ff;
+  color: white;
+}
+</style>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>TRIM INSPECTION SUMMARY<br></h3>
+            </div>
+        </div>
+        <div class="container">
+								<table id="customers">
+								<tr>
+									<td>Order Number</td>
+									<td>Carton Number</td>
+									<td>Supplier Name</td>
+									<td>Lot Number</td>
+									<td>Category</td>
+									<td>Sub category</td>
+									<td>Super category</td>
+									<td>Total No. of Cartons</td>
+									<td>Total Quantity</td>
+									<td>AQL</td>
+									<td>Inspection Quantity</td>
+									<td>Quantity to be taken from each box</td>
+
+									<td>Acceptance Criteria</td>
+									
+								<td>Fail Quantity</td>
+								<td>Pass Quantity</td>
+								<td>Result</td>
+								<td>Grade</td>	
+								</tr>
+										{% for f2 in f %}
+									<tr>
+										<td>{{f2.orderNo}}</td>
+										<td>{{f2.cartonNo}}</td>
+										<td>{{f2.supplier}}</td>
+										<td>{{f2.lotNo}}</td>
+                               			<td>{{f2.cat}}</td>
+										<td>{{f2.subcat}}</td>
+										<td>{{f2.supcat}}</td>
+										<td>{{f2.noc}}</td>
+										<td>{{f2.tqty}}</td>
+                                		<td>{{f2.aql}}</td>
+									    <td>{{f2.insqty}}</td>
+                                		<td>{{f2.qeachbox}}</td>
+
+										
+										<td>{{f2.accp}}</td>
+										<td>{{f2.fqty}}</td>
+										<td>{{f2.paqty}}</td>
+										<td>{{f2.result}}</td>
+										<td>{{f2.grade}}</td>
+
+									</tr>
+									 {%endfor %}
+										</table>
+<br><br><br>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

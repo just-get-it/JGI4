@@ -1,0 +1,218 @@
+{% extends "archplan/base.html" %} {% block title %}
+<title>Just Get It | Blogs</title> {% endblock title %} {% block content %}
+
+<body class="blog">
+  <section class="blog">
+    <div class="container">
+      <div class="row">
+        <div
+          class="section-head col-md-12 animate-box"
+          data-animate-effect="fadeInUp"
+        >
+          <h4>Blog & News</h4>
+          <a class="read-btn" href="/blog/create/"
+                  >Create Blog</a>
+        </div>
+        <div class="col-md-8 animate-box" data-animate-effect="fadeInUp">
+          {% for post in posts %}
+
+          <div class="blog-entry">
+            <div class="item">
+              <div class="post-img">
+                <div class="img">
+                  <a href="{% url 'archplan' post.slug %}"
+                    ><img
+                      src= "/media/{{ post.thumbnail }}"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div class="cont">
+                <div class="info">
+                  <i class="fa fa-user"></i>
+                  <a href="#" title="Posts by admin" rel="author"
+                    >{{ post.author }}</a
+                  >
+                  <p class="info-distance">|</p>
+                  <i class="fa fa-calendar-o"></i> {{ post.posted_on }}
+                </div>
+                <h3 class="blog-title">
+                  <a href="{% url 'archplan' post.slug %}"
+                    >{{ post.title }}</a
+                  >
+                </h3>
+                <p class="blog-excerpt">
+                  {{ post.content | truncatewords:100 }}
+                </p>
+                <a class="read-btn" href="{% url 'archplan' post.slug %}"
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+          <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="nextarch-blog-navigation">
+                            <ul class="nextarch-pagination">
+                                <li><span aria-current="page" class="page-numbers current">1</span></li>
+                                <li><a class="page-numbers" href="/archplan/news/page2">2</a></li>
+                                <li><a class="next page-numbers" href="/archplan/news/page2"><i class="fa fa-arrow-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+        </div>
+        <div class="col-md-4">
+          <div
+            class="nextarch-sidebar-part animate-box"
+            data-animate-effect="fadeInUp"
+          >
+            <div id="search-2" class="single-widget mb-45 widget_search">
+              <form class="nextarch-sidebar-search-form" action="#">
+                <input type="search" placeholder="Search..." name="s" />
+                <button type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+
+            <div class="single-widget recent-posts">
+              <div class="widget-title">
+                <h3 class="widget-title">Recent Posts</h3>
+              </div>
+              <ul class="recent">
+                <li>
+                  <div class="thum">
+                    <img
+                      src="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/08/3.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <a href="https://shtheme.org/demosd/nextarchwp/?p=27"
+                    >Trending in Interior 2021</a
+                  >
+                </li>
+                <li>
+                  <div class="thum">
+                    <img
+                      src="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/08/2.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <a href="https://shtheme.org/demosd/nextarchwp/?p=24"
+                    >Renovation Design</a
+                  >
+                </li>
+                <li>
+                  <div class="thum">
+                    <img
+                      src="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/08/1-1.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <a href="https://shtheme.org/demosd/nextarchwp/?p=21"
+                    >Architecture and Design</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div
+              id="categories-2"
+              class="single-widget mb-45 widget_categories"
+            >
+              <h3 class="widget-title">Categories</h3>
+              <ul>
+                <li class="cat-item cat-item-2">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=2"
+                    >Architecture</a
+                  >
+                </li>
+                <li class="cat-item cat-item-4">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=4"
+                    >Exterior Design</a
+                  >
+                </li>
+                <li class="cat-item cat-item-3">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=3"
+                    >Interior Design</a
+                  >
+                </li>
+                <li class="cat-item cat-item-5">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=5"
+                    >Urban Design</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div id="tag_cloud-2" class="single-widget mb-45 widget_tag_cloud">
+              <h3 class="widget-title">Tags</h3>
+              <div class="tagcloud">
+                <ul class="wp-tag-cloud">
+                  <li>
+                    <a
+                      href="#"
+                      class="tag-cloud-link tag-link-6 tag-link-position-1"
+                      style="font-size: 15.2px; border: none;"
+                      aria-label="Architecture (2 items)"
+                      >Architecture</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="tag-cloud-link tag-link-7 tag-link-position-2"
+                      style="font-size: 18px; border: none;"
+                      aria-label="Design (3 items)"
+                      >Design</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="tag-cloud-link tag-link-8 tag-link-position-3"
+                      style="font-size: 11px; border: none;"
+                      aria-label="Exterior (1 item)"
+                      >Exterior</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="tag-cloud-link tag-link-9 tag-link-position-4"
+                      style="font-size: 18px;  border: none;"
+                      aria-label="Interior (3 items)"
+                      >Interior</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="tag-cloud-link tag-link-10 tag-link-position-5"
+                      style="font-size: 15.2px;  border: none;"
+                      aria-label="Residental (2 items)"
+                      >Residental</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="tag-cloud-link tag-link-11 tag-link-position-6"
+                      style="font-size: 11px;  border: none;"
+                      aria-label="Urban (1 item)"
+                      >Urban</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock content %}
+</body>

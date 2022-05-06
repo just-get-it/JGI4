@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Printful-JUSTGETIT</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'printful/css/bootstrap.css' %}">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="{% static 'printful/css/mdb.min.css' %}">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" type="text/css" href="{% static 'printful/css/style.min.css' %}">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    .drawing-area1{
+        position: absolute;
+        top: 150px;
+        right: 218px;
+        z-index: 10;
+    }
+    .drawing-area2{
+        position: absolute;
+        top: 150px;
+        right: 218px;
+        z-index: 10;
+    }
+    .drawing-area3{
+        position: absolute;
+        top: 180px;
+        right: 150px;
+        z-index: 10;
+    }
+    .drawing-area4{
+        position: absolute;
+        top: 180px;
+        left: 170px;
+        z-index: 10;
+    }
+
+    .canvas-container{
+        width: 175px;
+        height: 300px;
+        position: relative;
+        user-select: none;
+    }
+    #tshirt-div{
+        width: 452px;
+        height: 548px;
+        position: relative;
+        background-color: #fff;
+    }
+    #canvas{
+        position: absolute;
+        width: 200px;
+        height: 400px;
+        left: 370px;
+        top: 0px;
+        user-select: none;
+        cursor: default;
+    }
+
+
+.flex-container{
+    display:flex;
+}
+.flexx-child{
+    flex:1;
+}
+.flex-child:first-child{
+    margin-left: 50px;
+}
+
+#tshirt-backgroundpicture{
+  float:center;
+}
+
+.carousel-indicators {
+  position: absolute;
+  top: -150px;
+  left: -85%;
+  margin: auto;
+  height: 100px;
+  width: auto;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.carousel .carousel-indicators li{
+  width:1rem;
+}
+
+.carousel-indicators li{
+  list-style: none;
+  margin-right: 60px;
+}
+
+.carousel-indicators li img{
+  margin-top: 50px;
+  float: left;
+  height: 90px;
+  width: 80px;
+  left: 50px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.carousel-indicators li .active img{
+  border: 3px solid #000;
+  opacity: 1;
+}
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light teal scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="#">
+        <strong class="white-text">JGI Printful</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="#">Contact us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="#">Something</a>
+          </li>
+        </ul>
+
+        <!-- Right
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link waves-effect">
+              <span class="badge red z-depth-1 mr-1"> 1 </span>
+              <i class="fas fa-shopping-cart"></i>
+              <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+              target="_blank">
+              <i class="fab fa-github mr-2"></i>MDB GitHub
+            </a>
+          </li>
+        </ul> -->
+
+      </div>
+
+    </div>
+  </nav>
+  <br><br>
+  <br><br>
+  <br><br>
+  {% block body_block %}
+  {% endblock %}
+
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+      <a href="#">
+        <i class="fab fa-facebook-f mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-twitter mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-youtube mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-google-plus-g mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-dribbble mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-pinterest mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-github mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-codepen mr-3"></i>
+      </a>
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2020 Copyright:
+      <a href="#"> JUST GET IT </a>
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  {% load static %}
+     <script type="text/javascript" src="{% static 'printful/js/jquery-3.4.1.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'printful/js/popper.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'printful/js/bootstrap.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'printful/js/mdb.min.js' %}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+
+  </script>
+</body>
+</html>

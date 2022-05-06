@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="post" action="assign_subtask?task_id={{task_id}}&project_id={{project_id}}&sub_task_id={{sub_task_id}}">
+		{% csrf_token %}
+		<select name='assigned_to'>
+			{% for dobj in dobj %}
+				<option>{{dobj.email}}</option>
+			{% endfor %}
+			
+
+
+		</select>
+		<input type="submit" name="submit">
+			
+		
+
+
+	</form>
+
+</body>
+</html>

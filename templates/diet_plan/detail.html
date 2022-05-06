@@ -1,0 +1,319 @@
+{% extends 'base.html' %}
+{% block topcontent %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/styles_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/profile_style.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="container-fluid">
+	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+    <ul class="navbar-nav m-auto" >
+      <li class="nav-item"><a  class="nav-link" href="/userdetail/academic_profile?email={{email}}"   style="color: white;">Profile</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/upload_product"   style="color: white;">Product Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/staff_profile/message"   style="color: white;">Service Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/products"   style="color: white;">Suscribe</a></li>	
+	  <li class="nav-item"><a  class="nav-link" href="/cal"   style="color: white;">Diet Plan</a>
+		</li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/store"   style="color: white;">Whislist</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Cart</a>
+		</li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Order Placement</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Payment</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/generate"   style="color: white;">Generate Link For Form</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/display_report_user"   style="color: white;">Display Report</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<!--<div class="container-fluid">
+	<div class="row">
+		<div class="col py-2 centered b2b_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/medical_profile?email={{email}}" class="hov-a" style="color: white;">Profile</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/seller_profile/upload_product" class="hov-a" style="color: white;">Product Upload</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/staff_profile/message" class="hov-a" style="color: white;">Service Upload</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/seller_profile/products" class="hov-a" style="color: white;">Suscribe</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Whislist</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Cart</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Order Placement</a>
+		</div>
+		<div class="col py-2 centered vend_head"
+			style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Payment</a>
+		</div>
+
+	</div>
+
+
+
+</div>-->
+
+
+
+<div class="container">
+	<br><br><br><br>
+	<h1>Profile</h1><br>
+	<div class="container">
+		<div class="tab row">
+			<div class="col-3 items">
+				<div class="row men"><a href="/userdetail/academic_profile?email={{email}}"><b>Academic Profile</b></a>
+				</div>
+				<div class="row men"><a href="/userdetail/professional_profile?email={{email}}"><b>Professional
+							Profile</b></a></div>
+				<div class="row men"><a href="/userdetail/social_profile?email={{email}}"><b>Social Profile</b></a>
+				</div>
+				<div class="row men"><a href="/userdetail/medical_profile?email={{email}}"
+						style="color: black;"><b>Medical Profile</b></a></div>
+			</div>
+			<div class="col-9 display" style="background-color: #F5F5F5;">
+				<br>
+				{% if user.is_superuser %}
+				<h2>Diet Plan Overview: </h2>
+				<h4>Diet table</h4>
+				<h9>Check & Edit if required</h9>
+				<br>
+				<h5 style="background-color: rgba(221, 212, 200, 0.815);border: 1px solid;
+				padding: 5px;
+				box-shadow: 2px 5px 8px rgb(37, 36, 36);">&nbsp;&nbsp;Serial &nbsp; Type &nbsp; Region &nbsp;Season &nbsp;Periods &nbsp; Disease</h5>
+				{%for x in d%}
+				<h5 style="background-color: #cab959; color: crimson;border: 1px solid;
+				padding: 10px;
+				box-shadow: 5px 10px 18px red;">	&nbsp;&nbsp;&nbsp;&nbsp;{{x.diet_sr}} &nbsp;&nbsp;&nbsp; {{x.type}} &nbsp;&nbsp;&nbsp; {{x.regio}} &nbsp;&nbsp;&nbsp; {{x.seaso}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{x.t_periods}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{x.disease}}<a style="color: darkgreen;" href="/diet_plan/updtdietp/{{x.id}}">Edit</a>
+				</h5>
+					{%endfor%}
+				
+				{% else %}
+				<form method="post" action="{% url 'check_nutri' %}">
+					{% csrf_token %}
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Gender</label>
+						<div class="col-sm-4">
+							<select name="gender" id="id_gender">
+  <option  >SELECT</option>
+  <option value="Male">Male</option>
+
+  <option value="Female" >Female</option>
+
+</select>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Age</label>
+						<div class="col-sm-4">
+							<input  type="number" name="age" value="" required id="id_age" />
+
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Height in cms</label>
+						<div class="col-sm-4">
+							<input type="number" name="height" value="" required id="id_height" />
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Weight in kg</label>
+						<div class="col-sm-4">
+							<input type="number" name="weight" value="" required id="id_weight" />
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Body Physics Type</label>
+						<div class="col-sm-4">
+							<input type="text" name="bodyphy" value="normal" required id="id_bodyphy" />
+						</div>
+					
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Activity Level</label>
+						<div class="col-sm-4">
+							<select name="activity" id="id_activity">
+                                 <option >SELECT</option>
+                                 <option value="Sedentary">Sedentary</option>
+                                 <option value="Lightly Active">Lightly Active</option>
+                                 <option value="Moderately Active">Moderately Active</option>
+                                 <option value="Intence Weight training/sports">Intence Weight training/sports</option>
+                                 <option value="Very Active">Very Active </option>
+                                 <option value="Extra Active">Extra Active </option>
+
+
+                            </select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Blood Pressure</label>
+						<div class="col-sm-4">
+							<input type="text" name="blood_pressure" value="" required id="id_blood_pressure" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Sugar</label>
+						<div class="col-sm-4">
+							<input class="pr-3" type="text" name="sugar" value="" required id="id_sugar" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Blood Group</label>
+						<div class="col-sm-4">
+							<input type="text" name="blood_group" value="" maxlength="200" required id="id_blood_group" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Choose Meals</label>
+						<div class="col-sm-4">
+							<select name="meal" id="id_meal">
+                                <option >SELECT</option>
+                                <option value="3">Breakfast,Lunch,Dinner</option>
+
+                                <option value="4" >Breakfast,Lunch,Evening snaks,Dinner</option>
+                                <option value="5" >Breakfast,Morning meal,Lunch,Evening snaks,Dinner</option>
+                                <option value="6" >Breakfast,Morning meal,Lunch,Evening snaks,Post WorkOut Shake,Dinner</option>
+
+                            </select>
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Food Preference</label>
+						<div class="col-sm-4">
+							<select name="food_habbit" id="id_food_habbit">
+                                 <option >SELECT</option>
+                                 <option value="VEG">VEG</option>
+                                  <option value="NONVEG" >NONVEG</option>
+                            </select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Region & Commuity</label>
+						<div class="col-sm-4">
+							<input type="text" name="food_preference" value="" maxlength="200" required id="id_food_preference" />
+                        </div>
+					 </div>
+					
+					 <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Disability (if any)</label>
+						<div class="col-sm-4">
+							<select name="disability" id="id_disability">
+  <option >SELECT</option>
+  <option value="YES">YES</option>
+
+  <option value="NO" >NO</option>
+
+</select>
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Other medical issues (if any)</label>
+						<div class="col-sm-4">
+							<select name="medical_issues" id="id_medical_issues">
+                                <option >SELECT</option>
+                                <option value="YES">YES</option>
+
+                                <option value="NO" >NO</option>
+
+                            </select>
+						</div>
+
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Diseases</label>
+						<div class="col-sm-4">
+							<input type="text" name="diseases" value="" maxlength="200" required id="id_diseases" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Likes</label>
+						<div class="col-sm-4">
+							<input type="text" name="diseases" value="" maxlength="200" required id="id_diseases" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Dislikes</label>
+						<div class="col-sm-4">
+							<input type="text" name="diseases" value="" maxlength="200" required id="id_diseases" />
+						</div>
+					</div>
+
+			
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<input type="submit" name="submit" class="btn btn-success">
+
+						</div>
+					</div>
+
+
+
+
+				</form>
+
+{% endif %}
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class="container-0">
+{% endblock %}
+{% block content %}
+
+    <br><br><br><br>
+</div> <br><br><br><br>
+{% endblock %}

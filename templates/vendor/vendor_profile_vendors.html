@@ -1,0 +1,468 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+
+
+
+
+</style>
+{% endblock %}
+
+
+{% block topcontent %}
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+</style>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1"
+        aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item">
+           <a href="/userdetail/vendor_profile/" class="nav-link" style="color: white;">Profile & Settings</a>
+          </li>
+         <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Notifications
+              </a>
+              <div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+              <a href="/buisness/vendor_profile/notifications?filter=staff" class="nav-link text-white dropdown-item">Staff Notification</a>
+              <a href="/buisness/vendor_profile/notifications?filter=enquiry" class="nav-link text-white dropdown-item">Enquiry Notifications</a>
+              <a href="/buisness/vendor_profile/notifications?filter=design" class="nav-link text-white dropdown-item">Design Notifications</a>
+              <a href="/buisness/vendor_profile/notifications?filter=sampling" class="nav-link text-white dropdown-item">Sampling Notifications</a>
+              <a href="/buisness/vendor_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+              </div>
+        </li>
+         <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Activities
+              </a>
+              <div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+              <a href="/userdetail/vendor_profile/activities?filter=today"  class="nav-link text-white dropdown-item">
+                          Today's
+  
+                      </a>
+              <a href="/userdetail/vendor_profile/activities?filter=pending"  class="nav-link text-white dropdown-item">
+                          Pending
+  
+                      </a>
+                  <a href="/userdetail/vendor_profile/activities?filter=enquiry"  class="nav-link text-white dropdown-item">
+                          Enquiry
+  
+                      </a>
+                  <a href="/userdetail/vendor_profile/activities?filter=design"  class="nav-link text-white dropdown-item">
+                          Design
+  
+                      </a>
+                      <a href="/userdetail/vendor_profile/activities?filter=sampling"  class="nav-link text-white dropdown-item">
+                          Sampling
+  
+                      </a>
+                      <a href="/userdetail/vendor_profile/activities?filter=order"  class="nav-link text-white dropdown-item">
+                          Order
+  
+                      </a>
+  
+              <a href="/buisness/buisness_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+              
+        </li>
+          <li class="nav-item">
+              <a href="/userdetail/vendor_profile/vendors" class="nav-link" style="color: white;">Vendors</a>
+          </li>
+         <li class="nav-item">	<a href="/userdetail/vendor_profile/orders" class="nav-link" style="color: white;">Orders</a></li>
+          <li class="nav-item"><a href="/userdetail/vendor_profile/floated_orders" class="nav-link" style="color: white;">Floated Orders</a></li>
+          <li class="nav-item">	<a href="/daily_report/generate" class="nav-link" style="color: white;">Generate Link For Form</a></li>
+          <li class="nav-item">	<a href="/daily_report/display_report_user" class="nav-link" style="color: white;">Display Report </li>
+          
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+<!--<div class="container-fluid">
+	<div class="row">
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/vendor_profile/" class="hov-a" style="color: white;">Profile & Settings</a>
+		</div>
+		<div class="col py-2 centered noti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Notifications
+
+		</div>
+		
+		<div class="col py-2 centered acti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Activities
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/vendor_profile/vendors" class="hov-a" style="color: white;">Vendors</a>
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/vendor_profile/orders" class="hov-a" style="color: white;">Orders</a>
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/vendor_profile/floated_orders" class="hov-a" style="color: white;">Floated Orders</a>
+		</div>
+		<div class="container-fluid drop_noti">
+			<div class="row">
+				<div class="col-2 my-3 mx-3 ml-5 tod_noti staf_noti">
+					<img src="{% static 'img/jamie.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=staff"><div class="noti_tod_overlay">
+						<p>Staff Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti enq_noti">
+					
+					<img src="{% static 'img/pris.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=enquiry"><div class="noti_tod_overlay">
+						<p>Enquiry Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti des_noti">
+					
+					<img src="{% static 'img/kelly.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=design"><div class="noti_tod_overlay">
+						<p>Design Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti samp_noti">
+					
+					<img src="{% static 'img/freestock.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=sampling"><div class="noti_tod_overlay">
+						<p>Sampling Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti ord_noti">
+					
+					<img src="{% static 'img/andre.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=order"><div class="noti_tod_overlay">
+						<p>Order Notifications</p>
+
+					</div></a>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid drop_noti_acti">
+			<div class="row">
+				<div class="col my-3 mx-3 ml-5 tod_noti">
+					<img src="{% static 'img/agni.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=today"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Today's</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+					
+					<img src="{% static 'img/yunm.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=pending"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Pending</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+					
+					<img src="{% static 'img/carl.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=enquiry"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Enquiry</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+					
+					<img src="{% static 'img/dmit.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=design"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Design</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+					
+					<img src="{% static 'img/kelly2.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=sampling"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Sampling</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+					
+					<img src="{% static 'img/san.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=order"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Order</p>
+
+					</div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		
+	
+</div>-->
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="row mt-5">
+	{% if deactivated %}
+		<div class="container-fluid">
+			<div class="row centered fontpacifico" style="height: 92vh;">
+				<h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+			</div>
+		</div>
+	{% else %}
+
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.hov-link{
+			transition: all .5s ease-out;
+			border: 1px solid black;
+			background: #30c5ff;
+			color: black;
+			border-radius: 50px;
+			text-decoration: none;
+		}
+		.hov-link:hover{
+			background: #253031;
+			text-decoration: none;
+			color: white;
+		}
+	</style>
+
+	
+
+	<div class="container">
+		
+
+		{% if vend.0 %}
+ 		<div class="row mt-3 mb-5" id="profile_vendor">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Vendors</h3>
+<!-- 					<a href="/userdetail/staff_profile/staff" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-3 pt-2 pl-2" style="">
+
+					{% for o in vend %}
+					<div class="col-2 hover-col">
+						{% if o.image %}
+						<a href="/userdetail/seller_profile/{{o.email}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;"></a>
+						{% else %}
+						<a href="/userdetail/seller_profile/{{o.email}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;"></a>
+						{% endif %}
+						<h6 class="mt-3 centered"><b>{{o.name|truncatechars:15}}</b></h6>
+						<h6 class="centered">{{o.email|truncatechars:15}}</h6>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+
+	</div>
+
+
+
+	{% endif %}
+</div>
+
+
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/staff_profile.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">	
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

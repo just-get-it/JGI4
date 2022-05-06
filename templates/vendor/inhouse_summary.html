@@ -1,0 +1,104 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+<!-- 
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+{% endblock %}
+
+{% block title %}
+	Fabric Inhouse Form
+{% endblock %}
+	
+{% block body %}
+
+    
+{% endblock %} -->
+
+{% block content %}
+
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #30c5ff;
+  color: white;
+}
+</style>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>FABRIC INHOUSE SUMMARY<br></h3>
+            </div>
+        </div>
+
+        <div class="container">
+            <table id="customers">
+                <thead>
+                                <th>Date</th>
+                                <th>PO Number</th>
+                                <th>Order Number</th>
+                                <th>Supplier Name</th>
+                                <th>Lot Number</th>
+                                <th>Goods</th>
+                                <th>Number of rolls</th>
+                                <th>QTY in meters</th>
+
+                </thead>
+
+
+            {% for item in f %}
+        <tr>
+            <td> {{item.date}}</td>
+              <td> {{item.po}}</td>
+              <td> {{item.orderNo}}</td>
+              <td> {{item.supplier}}</td>
+              <td> {{item.lotNo}}</td>
+              <td> {{item.goods}}</td>
+              <td> {{item.numRolls}}</td>
+              <td> {{item.qty}}</td>
+        </tr>
+            {%endfor %}
+</table>
+<br><br><br>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

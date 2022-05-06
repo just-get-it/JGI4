@@ -1,0 +1,486 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<script type="text/javascript">
+	var fght=0;
+
+	function show_sub_Acti(clas_to_show){
+		console.log(clas_to_show);
+			// document.get
+			var jk;
+			var a=document.getElementsByClassName(clas_to_show);
+			console.log(a.length);
+			for (i=0;i<a.length;i++){
+				jk=a[i].classList.contains("micro_acti");
+				if (jk){
+
+					a[i].classList.remove("micro_acti");
+				}
+				else{
+					a[i].classList.add("micro_acti");
+				}
+			}
+	}
+</script>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+	<style type="text/css">
+		.acti_table{
+			table-layout: fixed;
+			width: 50vw;
+		}
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+			overflow: hidden;
+			width: 12vw;
+			/* align-content: center; */
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			padding-left: 1vw;
+			padding-right: 1vw;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.hov-link{
+			transition: all .5s ease-out;
+			border: 1px solid black;
+			background: #30c5ff;
+			color: black;
+			border-radius: 50px;
+			text-decoration: none;
+		}
+		.hov-link:hover{
+			background: #253031;
+			text-decoration: none;
+			color: white;
+		}
+		.view_but_sub{
+			border:none;
+			background:transparent;
+			margin-left: auto;
+		}
+
+		.anim_class{
+			animation-name: fadein_anim;
+			animation-duration: 1s;
+		}
+		@keyframes fadein_anim{
+			0%{
+				opacity:0;
+			}
+			100%{
+				opacity:1;
+			}
+		}
+	</style>
+
+{% include 'include/order_clubbed_mom.html' %}
+{% include 'include/loader.html' %}
+<div class="row hide_row" id="update_resp">
+		<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+			<div class="row centered" style="z-index: 105; margin-top: 15vh;margin-bottom: auto; ">
+				<div class="container-fluid">
+					<div class="row" style="width: 45vw;height: 78vh;background: white;">
+						<div class="row mt-1" style="height: 2vh;">
+							<button style="border: none;background: transparent;margin-left: 43vw;" onclick="remupresp();"><i class="fas fa-times-circle"></i></button>
+						</div>
+						<div class="row" style="height: 1vh">
+							<h4 class="fontcabin" style="margin-left: 20.5vw;">Filters</h4>
+						</div>
+						<div class="row">
+						<form method="GET">
+							<div class="container mt-2 ml-5">
+							<div class="row">
+							<label><b>Customers</b></label>
+							<select name="b2b" style="margin-left: 10vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								{% for i in b2b_cust %}
+								<option value="{{i.email}}"{% ifequal request.GET.b2b i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Sales</b></label>
+							<select name="sales" style="margin-left: 13vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								{% for i in sales %}
+								<option value="{{i.email}}"{% ifequal request.GET.sales i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Merchandiser</b></label>
+							<select name="merchant" style="margin-left: 8.3vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								{% for i in merchant %}
+								<option value="{{i.email}}"{% ifequal request.GET.merchant i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Garments Vendor</b></label>
+							<select name="gmt" style="margin-left: 6vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								{% for i in gmt %}
+								<option value="{{i.email}}"{% ifequal request.GET.gmt i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Fabric Vendor </b></label>
+							<select name="fab_vendor" style="margin-left: 7.9vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								{% for i in fab_vendor %}
+								<option value="{{i.email}}"{% ifequal request.GET.fab_vendor i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Status of Order</b></label>
+							<select name="status" style="margin-left: 7.1vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								<option value="BT"{% ifequal request.GET.status 'BT' %}selected{% endifequal %}>Before Time</option>
+								<option value="IA"{% ifequal request.GET.status 'IA' %}selected{% endifequal %}>Immediate Action Required</option>
+								<option value="IP"{% ifequal request.GET.status 'IP' %}selected{% endifequal %}>In Process</option>
+								<option value="ND"{% ifequal request.GET.status 'ND' %}selected{% endifequal %}>New Delay</option>
+								<option value="OH"{% ifequal request.GET.status 'OH' %}selected{% endifequal %}>On Hold</option>
+								<option value="OT"{% ifequal request.GET.status 'OT' %}selected{% endifequal %}>On Time</option>
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Request Type</b></label>
+
+							<select name="order_type" style="margin-left: 8.1vw;width: 20vw;">
+								<option value="" selected>---------</option>
+								<option value="E"{% ifequal request.GET.order_type 'E' %}selected{% endifequal %}>Enquiry</option>
+								<option value="D"{% ifequal request.GET.order_type 'D' %}selected{% endifequal %}>Design</option>
+								<option value="S"{% ifequal request.GET.order_type 'S' %}selected{% endifequal %}>Sampling</option>
+								<option value="O"{% ifequal request.GET.order_type 'O' %}selected{% endifequal %}>Order</option>
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Billing Month</b></label>
+								<select name="bill" style="margin-left: 8.1vw;width: 20vw;">
+									<option value="" selected>---------</option>
+									{% for i in bill %}
+									<option value="{{i}}" {% ifequal request.GET.bill i %}selected{% endifequal %}>{{i}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row centered">
+							<button type="submit" style="background: #30c5ff;border:none;padding: 1vh;padding-left: 3vw;padding-right: 3vw;border-radius: 25vw;font-weight: bold;">Apply Filters</button>
+							</div>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+
+<div class="row">
+	<div class="container">
+		<div class="row mt-3 mb-2">
+			<h2 class="fontcabin">Orders-vis-Activities Clubbed Table</h2>
+
+			<button class="hov-a" style="background: transparent;border: none;margin-left: auto;color: blue;" onclick="showupdateresp();" type="button">Apply Filters</button>
+		</div>
+		<div class="row mb-5" style="overflow: auto;max-height: 80vh;padding-bottom: 5vh;">
+			<table class="acti_table">
+				<tr>
+					<th>Orders</th>
+					<th>User</th>
+					<th>Product Details
+						<button type="button" onclick="show_sub_Acti('product_details');" class="view_but_sub">View</button></th>
+					</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Billing Month</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Billing Amount</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Product Category</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Product Sub-Category</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Product Super Category</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Merchandiser</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Sales</th>
+					<th class="micro_acti product_details anim_class" style="background:rgba(48,197,255,.5)">Garment Vendor</th>
+					{% for a in macro %}
+						<th>{{a.title}}
+							<button type="button" onclick="show_sub_Acti('macro_{{a.id}}');" class="view_but_sub">View</button></th>
+						{% for b in a.activities.all %}
+						<th class="micro_acti macro_{{a.id}} anim_class" style="background:rgba(48,197,255,.5)">{{b.title}}</th>
+						{% endfor %}
+					{% endfor %}
+					<th style="border:2px solid black; width: 350px;">Minutes of Meeting</th>
+				</tr>
+				{% for o in li %}
+					<tr>
+						<th>{{o.order.order_no}}<input type="button" value="View" style="background:none;border:none;" onmouseout="hideOrder();" onmouseover="showOrder({{o.order.order_no}},{% if o.order.total_Price %}{{o.order.total_Price}}{% else %}0{% endif %},{{o.order.quantity}});"></th>
+						<td>{{o.order.user_email}}</td>
+						<td>{{o.order.product_Supercategory}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.get_billing_month}}</td>
+						<td class="micro_acti product_details anim_class" onclick="add_bill(event);" style="border:2.5px solid black;">{{o.order.get_billing_amount}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.product_Supercategory}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.product_Subcategory}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.product_Category}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.get_merchandiser}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.get_sales}}</td>
+						<td class="micro_acti product_details anim_class">{{o.order.get_garment_vendor}}</td>
+						{% for j in o.acti_dates %}
+							<td style="{% if j.planned %}background:yellow;{% endif %}" class="{% if j %}micro_acti macro_{{j.micro_id}} anim_class{% endif %}">
+								{% if j %}
+									{% if j.custom %}
+										{{j.custom}}
+									{% else %}
+										{% if j.planned %}{{j.planned}} || {% else %}----{% endif %}
+									{% endif %}
+									{% if j.actual %}
+										{{j.actual}}
+									{% else %}
+										{% if j.tentative %}{{j.tentative}}{% endif %}
+									{% endif %}
+								{% endif %}
+							</td>
+						{% endfor %}
+						<td><input type="text" id="mom{{o.order}}" placeholder="Describe Meeting" value="{% if o.order.mom %}{{o.order.mom}}{% endif %}" style="width: 70%;border:none;"><button type="button" style="background: none;border:none;" onclick="viewHistory('{{o.order}}');">View History</button></td>
+
+					</tr>
+					<script type="text/javascript">
+						var typingTimer;                //timer identifier
+						var doneTypingInterval = 3000;
+
+						$('#mom{{o.order}}').keyup(function(){
+						    clearTimeout(typingTimer);
+						    if ($('#mom{{o.order}}').val()) {
+						        typingTimer = setTimeout(function(){
+									alert("Data is under Process !");
+									$.ajax({
+										type:'POST',
+										url:'/userdetail/staff_profile/orders_clubbed',
+										data:{
+											mom_activity_ajax:$('#mom{{o.order}}').val(),
+											activity_ajax_cate:'{{o.order}}',
+											csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+										},
+										cache:false,
+										dataType:"json",
+										success:function(data){
+											console.log("MOM saved !");
+										}
+									});
+						        }, doneTypingInterval);
+						    }
+						});
+					</script>
+				{% endfor %}
+
+				<style media="screen">
+					.micro_acti{
+						display: none;
+					}
+				</style>
+			</table>
+		</div>
+		<div class="row">
+			<h6>Total Bill Amount - </h6>
+			<p id="bill_amount"></p>
+		</div>
+	</div>
+</div>
+<div class="container order_details" id="order_details">
+	<div class="row mt-2">
+		<h6 style="margin-left:100px;"><b>Order Details</b></h6>
+	</div>
+	<div class="row" style="padding-left:20px;">
+		Order No. - <p id="order_no" style="margin:0;"></p>
+	</div>
+	<div class="row" style="padding-left:20px;">
+		Unit Price - <p id="order_price" style="margin:0;"></p>
+	</div>
+	<div class="row" style="padding-left:20px;">
+		Total Price - <p id="order_total" style="margin:0;"></p>
+	</div>
+	<div class="row" style="padding-left:20px;">
+		Quantity - <p id="order_quan" style="margin:0;"></p>
+	</div>
+	<div class="row">
+		<a href="/userdetail/staff_profile/orders/" id="order_view" style="margin-left:130px;" style="text-decoration:none;">View</a>
+		<input type="button" value="X" style="background:none;border:0;margin-left:auto;margin-right:10px;" onclick="remove()">
+	</div>
+</div>
+<style media="screen">
+	.show_macr{
+		display:block;
+	}
+	.order_details{
+		position:fixed;
+		width:300px;
+		height:170px;
+		top:200px;
+		left:230px;
+		background: rgba(135,206,235,1);
+		border-radius:10px;
+		border:2px solid white;
+		display:none;
+
+	}
+</style>
+{% if request.GET.macro_to_show %}
+	<script type="text/javascript">
+		console.log("HEre")
+		var a = document.getElementsByClassName({{request.GET.macro_to_show}});
+		for (i=0;i<a.length;i++){
+			a[i].style.display="block";
+		}
+	</script>
+{% endif %}
+<script type="text/javascript">
+
+function showupdateresp(){
+	var up=document.getElementById('update_resp');
+	up.classList.remove('hide_row');
+}
+function remupresp(){
+
+	var up=document.getElementById('update_resp');
+	up.classList.add('hide_row');
+}
+
+// function show_sub_Acti(clas_to_show){
+// 	console.log(clas_to_show);
+// 		// document.get
+// 		var jk;
+// 		var a=document.getElementsByClassName(clas_to_show);
+// 		console.log(a.length);
+// 		for (i=0;i<a.length;i++){
+// 			jk=a[i].classList.contains("micro_acti");
+// 			if (jk){
+//
+// 				a[i].classList.remove("micro_acti");
+// 			}
+// 			else{
+// 				a[i].classList.add("micro_acti");
+// 			}
+// 		}
+// }
+
+
+function showOrder(order_no,price,quantity,dispatch,staffs){
+	// alert(order_no,price,quantity,dispatch,staffs);
+	var kj=document.getElementById('order_no');
+	kj.innerHTML=order_no;
+	var kj1=document.getElementById('order_price');
+	kj1.innerHTML=price;
+	kj1=document.getElementById('order_total');
+	kj1.innerHTML=parseInt(price)*parseInt(quantity);
+	kj1=document.getElementById('order_quan');
+	kj1.innerHTML=quantity;
+	kj1=document.getElementById('order_view');
+	kj1.href="/userdetail/staff_profile/orders/"+order_no;
+	kj2=document.getElementById('order_details');
+	kj2.style.display="block";
+}
+function remove(){
+	var kj2=document.getElementById('order_details');
+	kj2.style.display="none";
+}
+var bill=0;
+function add_bill(e){
+	if (e.target.style.borderColor == "black"){
+		e.target.style.borderColor = "blue";
+		bill+=parseInt(e.target.innerHTML);
+		document.getElementById('bill_amount').innerHTML=bill;
+	}
+	else{
+		e.target.style.borderColor="black";
+		bill-=parseInt(e.target.innerHTML);
+		document.getElementById('bill_amount').innerHTML=bill;
+	}
+}
+
+
+function viewHistory(o){
+	showLoader()
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/staff_profile/orders_clubbed',
+		data:{
+			mom_show_ajax:true,
+			activity_ajax_cate:o,
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType:"json",
+		success:function(data){
+			showhistory_mom();
+			ht='';
+			$.each(data.mom,function(index,value){
+					if (('{{request.user.email}}'==value.email)) {
+						ht=ht+`<div class="container">
+						<div class="row" style="margin-left:28vw;margin-top:1vh;">`+value.name+`(`+value.email+`)</div>
+ 						<div class="row" style="margin-top:.5vh;margin-right:0px;margin-left:auto;width:25vw;background:rgba(48,197,255,.8);padding:1vw;padding-top:.5vw;padding-bottom:.5vw;border-radius:.4vw;">
+						<h6 style="font-family'Cabin', sans-serif;color:black;">`+value.message+`</h6>
+						<h6 style="font-family:'Cabin', sans-serif;font-size:.8em;color:black;margin-top:auto;margin-left:auto;">`+value.time+`</h6>
+						</div></div>`;
+					}
+					else{
+						ht=ht+`<div class="container">
+						<div class="row" style="margin-left:2vw;margin-top:1vh;">`+value.name+`(`+value.email+`)</div>
+						<div class="row" style="margin-top:2px;margin-left:2vw;width:25vw;background:rgba(48,197,255,.2);padding:5px;">
+						<h6 style="font-family:'Cabin', sans-serif;"><b></b></h6>
+						<h6 style="font-family'Cabin', sans-serif;color:black;">`+value.message+`</h6>
+						<h6 style="font-family:'Cabin', sans-serif;font-size:.8em;color:black;margin-top:auto;margin-left:auto;">`+value.time+`</h6>
+						</div></div>`;
+					}
+				});
+			$('#momcontainer').html(ht);
+			updateScroll1();
+			hideLoader();
+
+		}
+	});
+}
+
+
+</script>
+<script type="text/javascript" src="{% static 'js/userdetail/orders_clubbed.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load qr_code %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style media="screen">
+  .but_print{
+    background:#30c5ff;
+    border:none;
+    border-radius:25vw;
+    transition:all 1s ease;
+    /* font-weight:bold; */
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .but_print:hover{
+    background:#253031;
+    color:#30c5ff;
+  }
+</style>
+
+<div class="row">
+  <div class="container mt-4">
+    <div class="row">
+      <h6 style="color:grey;">Order - {{order.order_no}} / QR Generate / Cartons QR / </h6>
+      <h6><b>&nbsp;&nbsp;Carton No {{count}}</b></h6>
+    </div>
+
+  </div>
+  <div class="container mt-1">
+    <div class="row">
+      {% for i in link %}
+      <div class="col-3">
+        <div class="container-fluid">
+
+          <div class="row">
+            {# {{i.0}} #}
+            {% qr_from_text i.0 %}
+          </div>
+          <div class="row ml-auto">
+            <h6 style="margin-left:auto;margin-right:auto;"><b>Size - {{i.1}}</b></h6>
+          </div>
+          <div class="row mb-4">
+            <div class="col-12">
+              <button type="button" style="margin-left:6.2vw;" class="px-4 py-1 but_print" onclick="printSizeQR({{count}},{{i.1}});">Print</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function printSizeQR(carton_count,size){
+    // carton_count=Integer.parseInt(carton_count);
+    var a=window.location.protocol;
+    var link=a+"/userdetail/staff_profile/orders/"+{{order.order_no}}+"/qr_generate/view?carton="+carton_count+"&size="+size;
+    var win=window.open(link,"Print Carton","height=800,width=1200,modal=yes,alwaysRaised=yes");
+    if (win){
+      win.focus();
+    } else{
+      alert('Please Allow popups for this website.');
+    }
+
+  }
+</script>
+
+
+
+
+{% endblock %}

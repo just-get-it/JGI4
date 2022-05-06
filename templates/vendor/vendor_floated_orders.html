@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_order.css' %}">
+{% endblock %}
+
+
+{% block content %}
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+	<div class="row">
+		<div class="container">
+			<div class="row mt-4">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 order_image">
+					{% if order.image %}
+					<img src="{{order.image.url}}" style="border-radius: 50%;">
+					{% else %}
+					<img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2" style="border-radius: 50%;">
+					{% endif %}
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_head" style="margin-top: auto; margin-bottom: auto;">
+					<h1>{{order.fashion_Brand}}({{order.label}})</h1>
+					<h6><b>Order Time -</b> {{order.order_date_time}}</h6>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Description</b></h3>
+
+			</div>
+			<div class="row mx-1">
+				<div class="col-xs-12 col-sm-12 col-md-6">
+					<h6><b>Product Type - </b>{{order.product_Type}}</h6>
+					<h6><b>Product Category - </b>{{order.product_Category}}</h6>
+					<h6><b>Product Style - </b>{{order.style}}</h6>
+					<h6><b>Product Design - </b>{{order.design}}</h6>
+					<h6><b>GSTI No - </b>{{order.gstin}}</h6>
+					<h6><b>Quantity - </b>{{order.quantity}}</h6>
+					<h6><b>Size- </b>{{order.size}}</h6>
+					{% for d in order.dispatch_Address.all %}
+					<h6><b>Dispatch Address - </b>{{d.address|linebreaks}}</h6>
+					{% endfor %}
+					<h6><b>Billing Address - </b>{{order.billing_Address|linebreaks}}</h6>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-6">
+					<h6><b>Total Price - </b>{{order.total_Price}}</h6>
+					<h6><b>Alteration Charge - </b>{{order.alteration_Charge}}</h6>
+					<h6><b>Custom Charge - </b>{{order.custom_Charges}}</h6>
+					<h6><b>Single Unit Price - </b>{{order.single_unit_Price}}</h6>
+					<h6><b>Contact Person - </b>{{order.contact_Person}}</h6>
+					<h6><b>Contact Person No - </b>{{order.contact_Person_No}}</h6>
+					<h6><b>Colors - </b>{% for c in order.colors_avail.all %}{{c.name}},{% endfor %}</h6>
+					<h6><b>Order No - </b>{{order.order_no}}</h6>
+					<h6><b>Order Time  - </b>{{order.order_date_time}}</h6>
+					<h6><b>Details of Users - </b>{% if order.excel %}<a href="{{order.excel.url}}" style="text-decoration: none;"><b>Excel Sheet</b></a>{% endif %}</h6>
+				</div>
+			</div>
+
+
+
+
+
+
+			{% if prd.0 %}
+
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Production Orders</b></h3>
+
+			</div>
+			
+			<div class="row mb-1 mt-1 mx-1">
+				{% for f in prd %}
+				<div class="col-6">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Size</th>
+							<th>Color</th>
+							<th>Address</th>
+							<th>Quantity</th>
+						</tr>
+						{% for q in f.sizes.all %}
+						<tr>
+							<td><b>{{q.size_label}}</b></td>
+							<td><b>{{q.color}}</b></td>
+							<td><b>Location{{q.address.id}}</b></td>
+							<td>{{q.quantity}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+				{% endfor %}
+			</div>
+
+
+			{% endif %}
+
+
+
+
+
+<!-- 
+
+			{% if quan.0 %}
+			{% if size_bool %}
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Quantity by Size Assortment</b></h3>
+
+			</div>
+			
+			<div class="row mb-1 mt-1 mx-1">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Size</th>
+							<th>Quantity</th>
+						</tr>
+						{% for q in quan %}
+						<tr>
+							<td><b>{{q.size_label}}</b></td>
+							<td>{{q.quantity}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				
+			</div>
+			
+			{% endif %}
+			{% endif %} -->
+
+
+
+
+
+			{% if acti.0 %}
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Activities</h3>
+					<!-- <a href="/userdetail/staff_profile/activities" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-2">
+					{% for a in acti %}
+						<div class="col-12 mt-2">
+							<h6><b>User</b> - {{a.0.user}}</h6>
+							<table style="width: 100%" class="acti_table">
+								<tr>
+									<th>Activity Title</th>
+									<th>Created Date</th>
+									<th>Lap</th>
+									<th>Planned Date</th>
+									<th>Custom Lap</th>
+									<th>Custom Date</th>
+									<th>Status of Activity</th>
+									<th>Actual Date</th>
+								</tr>
+								{% for j in a %}
+
+								<tr id="{{j.user}}{{forloop.counter}}">
+									<td>{{j.activity_Cate.title}} <!-- <a href="/userdetail/staff_profile/activity/{{j.slug}}" class="ml-2 hov-a">View</a> --></td>
+									<td>{{j.created_on}}</td>
+									<td>{{j.activity_Cate.completed_in}}</td>
+									<td>{{j.planned_date}}</td>
+									<td>{{j.lap}}</td>
+									<td>{{j.custom_date}}</td>
+									<td>{{j.status}}</td>
+									<td>{{j.actual_date}}</td>
+								</tr>
+								<script type="text/javascript">
+									var now_date=Date.parse("{{current}}");
+									var to=Date.parse("{{j.custom_date}}");
+									if (isNaN(to)){
+										to=Date.parse("{{j.planned_date}}");}
+									var some=document.getElementById('{{j.user}}{{forloop.counter}}');
+									if (now_date>to){
+										some.style.backgroundColor="{{j.activity_Cate.late_Time_Color}}";
+									}
+									else if (now_date<to){
+										some.style.backgroundColor="{{j.activity_Cate.before_Time_Color}}";
+									}
+									else{
+										some.style.backgroundColor="{{j.activity_Cate.on_Time_Color}}"
+									}
+								</script>
+								{% endfor %}
+							</table>
+						</div>
+
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+			<!-- <div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Forms</b></h3>
+
+			</div>
+			<div class="row">
+				{% if is_gare %}
+				<div class="col-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom{% if boms_obj %}/{{boms_obj.id}}{% endif %}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Bill of Materials & Costing({% if boms_obj %}Filled{% else %}Empty{% endif %})</h6></a>
+				</div>
+				{% endif %}
+				{% for i in forms %}
+				<div class="col-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/{{i.id}}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">{{i.name}}</h6></a>
+				</div>
+				{% endfor %}
+			</div> -->
+			
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Custom Price / piece</b></label>
+						<input type="number" name="custom_price" value="{% if cust.updated_price %}{{cust.updated_price}}{% endif %}" placeholder="Custom Price" style="border: none;border-bottom: 2px solid rgba(0,0,0,.5);margin-left: 1.5vw;">
+					<input type="submit" value="Add Custom Price" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			
+</div>
+
+
+{% if is_gare %}
+		
+		
+			
+
+	
+		{% if fab_obj.0 %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Fabric Vendor</b></label>
+						<select name="gar_to_fab" class="ml-4" required>
+							<option disabled selected></option>
+							{% for i in fab_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Fabric Vendor" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+		{% endif %}
+
+
+			{% if log_obj.0 %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Logistics Vendor</b></label>
+						<select name="gar_to_log" class="ml-4">
+							<option disabled selected></option>
+							
+							{% for i in log_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Logistics Vendor" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if fin_obj %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Finishing Trims</b></label>
+						<select name="gar_to_fin" class="ml-4">
+							<option disabled selected></option>
+							{% for i in fin_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Finishing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if sew_obj %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Sewing Trims</b></label>
+						<select name="gar_to_sew" class="ml-4">
+							<option disabled selected></option>
+							{% for i in sew_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Sewing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+			{% if pack_obj.0 %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Packing Trims</b></label>
+						<select name="gar_to_pack" class="ml-4">
+							<option disabled selected></option>
+							{% for i in pack_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Packing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Colors Availiable</b></label>
+						<input type="text" name="colo" list="suggest" id="colo">
+						<datalist id="suggest">
+							
+						</datalist>
+					<input type="submit" value="Add Color Availiable" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+
+
+
+
+
+
+{% endif %}
+
+	<div class="container">
+			<div class="row mt-4 mb-4 centered mt-3">
+				<a href="/userdetail/vendor_profile" style="text-decoration: none;"><b>Back to Profile</b></a>
+			</div>
+		</div>
+
+		
+	
+
+
+
+
+	<script type="text/javascript">
+		$('#colo').on('input',function(){
+			$.ajax({
+				type:'POST',
+				url:'/userdetail/vendor_profile/orders/{{order_no}}',
+				data:{
+					color_ajax_label:$('#colo').val(),
+					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+				},
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					var ht='';
+					if (data.bol){
+					$.each(data.data,function(index,value){
+						ht=ht+`<option>`+value.name+`</option>`
+					});
+					$('#measurement_season').html(ht);
+					}
+					else{
+						$('#measurement_season').html(ht);
+					}
+				}
+			});
+		});
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</div>
+
+
+
+{% endblock %}

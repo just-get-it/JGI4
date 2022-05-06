@@ -1,0 +1,3368 @@
+{% extends 'base_about.html' %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>JustGetIt</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!--owl-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+   <!-- bootstap new -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/responsive/1.0.5/responsive.min.js"></script>
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- ======= hero Section ======= -->
+<!-- frontend-owl  -->
+  <!-- <section id="hero0">
+    <div class="container-fluid">
+    <div id="hero-slider0" class="hero-slider owl-carousel owl-theme">
+          
+        <div class="item"style="background-image:url({% static 'walior/bloom-4.jpg' %})">
+            <div class="d-flex carousel-caption d-none d-md-block">
+                <span><h2>WE CONNECT</h2></span>
+                <h3>Connect and trade with thousands of buyers and suppliers in our global network for the apparel industry.</h3>
+                <div class="d-flex">
+        <a href="/connect" class="btn-get-started scrollto">CONNECT NOW</a>
+                </div>
+              </div></div>
+              
+        <div class="item"style="background-image:url({% static 'walior/bloom-1.jpg' %})">
+            <div class="d-flex carousel-caption d-none d-md-block">
+            <span><h2>WE CONSULT</h2></span>
+                <h3>We make your Justgetit-Standard factory world class by making it smart, digital, efficient, clean and compliant to international standards for the global demand.</h3>
+                <div class="d-flex">
+        <a href="/consulting" class="btn-get-started scrollto">CONSULT NOW</a>
+                </div>
+              </div></div>
+        <div class="item"style="background-image:url({% static 'walior/bloom-3.jpg' %})">
+            <div class="d-flex carousel-caption d-none d-md-block">
+            <span><h2>WE CREATE</h2></span>
+                <h3>Create a dramatic shift in design and development by introducing disruptive UX/UI in your strategic design plans.</h3>
+                <div class="d-flex">
+        <a href="/branding" class="btn-get-started scrollto">CREATE NOW</a>
+                </div>
+              </div></div>
+
+    </div>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $(document).ready(function() {
+ 
+  $("#hero-slider0").owlCarousel({
+    animateOut: 'slideOutDown',
+    animateIn: 'flipInX',
+    items:1,
+    responsiveClass:true,
+    margin:30,
+    stagePadding:30,
+    smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    
+ 
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+ 
+  });
+ 
+});
+  
+  </script>
+  <style>#hero0 {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-size: cover;
+    
+}</style>
+   </div>  
+      
+    
+  
+</section>  -->
+
+
+ <section id="hero">
+    <div class="container-fluid">
+    <div id="hero-slider" class="hero-slider owl-carousel owl-theme">
+ {% for b in banner_images %}  
+        <div class="item">  <img src="{{b.image.url}}" alt="banner">
+            <div class="d-flex carousel-caption d-none d-md-block">
+                <span><h2>{{b.name}}</h2></span>
+                 <h3>{{b.subtitle}}</h3> 
+                <div class="d-flex">
+        <a href="{{b.link}}" class="btn-get-started scrollto">{{b.button}}</a>
+                </div>
+              </div></div>
+              
+  {% endfor %}    
+    </div>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $(document).ready(function() {
+ 
+  $("#hero-slider").owlCarousel({
+    animateOut: 'slideOutDown',
+    animateIn: 'flipInX',
+    items:1,
+    responsiveClass:true,
+    margin:30,
+    stagePadding:30,
+    smartSpeed:450,
+    autoplay: true,
+    autoHeight:true,
+    // 
+    loop : true,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            dots:false,
+            stagePadding:20,
+            autoHeight:true,
+            
+        
+        },
+        
+    }
+    
+   
+        // "singleItem:true" is a shortcut for:
+        // items : 1, 
+        // itemsDesktop : false,
+        // itemsDesktopSmall : false,
+        // itemsTablet: false,
+        // itemsMobile : false
+   
+    });
+   
+   });
+    
+  
+  </script>
+  <style>#hero {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-size: cover;}
+    
+    #hero .item img{ background-size: cover; margin-top: 70px
+        ;}
+        @media screen and (max-width: 39.9375em) {
+        .item{min-height: 280px;background-position: center;    background-size: cover;} }
+        @media screen and (min-width: 40em) {
+        .item{ height: 360px; min-height: 320px;} }
+        @media screen and (min-width: 64em) {
+        .item{ height: 600px; min-height: 600px;}}
+        
+</style>
+   </div>  
+      
+    
+  
+</section> 
+  <!-- End owl -->
+
+  
+    <section id="page-title">
+
+      <div class="container clearfix">
+          <div>
+              <span class="center"><font size="4"><b><h3>Connect! Consult! Create! Consume!</h3></b><br>
+                Facilitating top-line and bottom-line gain of upto 10% for our customers every year
+              </font></span>
+              <!-- <span style="float:right"><font size="4">Experience live product run & services</font></span> -->
+              
+          </div>
+          
+          <!-- <span>Just Transform with Intelligence<br><br>        
+              Facilitating top-line and bottom-line gain of upto 10% for our customers every year
+          </span>	 -->
+          <!-- <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Pages</a></li>
+              <li class="active">Services</li>
+          </ol> -->
+      </div>
+    </section>
+      <div class="section">
+        <div class="container-clearfix">
+            <div class="heading-block ">
+                <div class="new-category center padded">
+                    <h2>DIFFERENT SERVICES WE OFFER </h2>
+                    <h4>Fashion! Design! Technology! Supply Chain! Management!</h4>
+                    <!-- <h4>Quick Info - MOQ! Leadtime! Cost!</h4>
+                    <h4>Connect - Networking! Traceability! Transparancy! Visibility!</h4>
+                    <h4>Consulting/Operations - Optimise! Efficient! Profitable! Sustainable!</h4>
+                    <h4>Digitize - Traceability! Transparancy! Visibility!</h4>
+                    <h4>Create - Design! Brand! Studio! Space! Automation!</h4>
+                    <h4>Sourcing/Manufacturing - Simplified! Digitised! Faster! Smarter!</h4>
+                    <h4>Catalogue - Catagories! Varieties! Collections!</h4>
+                    <h4>Market - Varieties! Quality! Cheapest! </h4>
+                    <h4>Brands - Trendy! Fast Fashion! Affordable!</h4>
+                    <h4>Supply Chain - Simple! Glocal! Digital! Sustainable! Ethical! </h4> -->
+
+                    <span class="px-2">JustGetIt is a fashion supply chain consulting firm specialised in Professional Connect, Consulting, Digitizing, Designing, Branding, Automation, Sourcing, Product Development, Manufacturing, Quality, Marketplace and Brands</span>
+                </br><span class="px-2"></span>
+                </div>
+            </div>
+    
+            <!-- <div class="col_full">
+    
+                 <img data-animate="fadeIn" class="aligncenter" src="images/services/macbook.png" alt="Macbook"> 
+    
+            </div> -->
+             <!-- <section>
+                <div class="new-category center padded">
+                  
+                  <div id="owl-demo14" class="owl-carousel owl-theme"> 
+                    
+                          <div class="card-content">
+                              <div class="fbox-icon">
+                                  <a href="#"><i class="i-alt">1</i></a>
+                              </div>
+                              <h4>{{b.name}}</h4> 
+                              <h3><a href="/supply-chain">SUPPLY CHAIN - INDUSTRY 4.0</a></h3>
+                    <p>Just Get It provides one stop solutions to Customers, Buyers and Brands for their all types of requirement from Consulting, Designing, Product Development to execution to optimise their Supply Chain efficiently.</p>
+                          </div>
+                     
+                  </div> 
+                        
+                                <script>
+                                $(document).ready(function() {
+                             
+                              $("#owl-demo14").owlCarousel({
+                             
+                                
+                                items:4,
+                                autoplay: true,
+                                smartSpeed: 1500,
+                                
+                                dots: true,
+                                loop : true,
+                                  
+                             
+                                  // "singleItem:true" is a shortcut for:
+                                  // items : 1, 
+                                  // itemsDesktop : false,
+                                  // itemsDesktopSmall : false,
+                                  // itemsTablet: false,
+                                  // itemsMobile : false
+                             
+                          //     
+                      });
+                             
+                          //   
+                       });
+                              
+                              </script>
+                            
+                </div>        
+              </section> -->
+              <style>.feature-box.fbox-plain .fbox-icon i {
+                  font-size: 30px;
+                  line-height: 1 !important;
+              }
+              .feature-box.fbox-plain .fbox-icon i, .feature-box.fbox-plain .fbox-icon img {
+                  border: none !important;
+                  background-color: transparent !important;
+                  color: #1977cc;
+                  border-radius: 0;}
+                  .button {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      white-space: nowrap;
+      margin: 5px;
+      padding: 0 22px;
+      font-size: 14px;
+      height: 40px;
+      line-height: 40px;
+      background-color: #1977cc;
+      color: #FFF;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      text-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
+  }
+             
+                  </style>
+                 
+    <div id="owl-demo15" class="owl-carousel owl-theme">
+  
+      <div class="col-xs card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">1</i></a>
+                  </div></br>
+                  <h3><a href="/supply-chain">SUPPLY CHAIN - INDUSTRY 4.0</a></h3>
+                  <p>Just Get It provides one stop solutions to Customers, Buyers and Brands for their all types of requirement from Consulting, Designing, Product Development to execution to optimise their Supply Chain efficiently.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">2</i></a>
+                  </div></br>
+                  <h3><a href="/supply-chain">PROFESSIONAL CONNECT</a></h3>
+                  <p>We facilitate all stakeholders of Retail, Fashion and Manufacturing industry to have a common professional networking for their all requirements dynamically to interact and resolve their requirements</p>
+              </div>
+          </div>        
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">3</i></a>
+                  </div></br>
+                  <h3><a href="{% url 'consulting' %}">Consulting</a></h3>
+                  <p>At JustGetIt Consultancy, we offer you a range of services and technical expertise to help increase your productivity and boost your capacity and skill sets which makes you more competitive and most importantly-profitable</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">4</i></a>
+                  </div></br>
+                  <h3><a href="/supply-chain">DESIGNING</a></h3>
+                  <p>Just Get It follows detailed design procedures to offer best design services of Graphics, UX, UI, Contents for Garments, Accessories and Softwares as per technical inputs and product detailing constantly evolving with raw materials and techniques</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">5</i></a>
+                  </div></br>
+                  <h3><a href="{% url 'branding' %}">BRANDING</a></h3>
+                  <p>At Just Get It, all types of Branding like Logo, Copyrighting, Graphics, Packaging and Products are executed.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">6</i></a>
+                  </div></br>
+                  <h3><a href="/content">CONTENT CREATION & Management</a></h3>
+                  <p>Creative Writings, Graphics, Motion Graphics, Animations, Videos, UI & UX as Digital Contents especially for Digital Marketing, Website and Apps are executed by industry expert designers.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">7</i></a>
+                  </div></br>
+                  <h3><a href="{% url 'phinix' %}">INTERIOR & ARCHITECTURE</a></h3>
+                  <p>Just Get It provides technical support, designing and layouts for interior, landscape and Architecture projects and also helps in execution.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">8</i></a>
+                  </div></br>
+                  <h3><a href="{% url 'sourcing' %}">Sourcing</a></h3>
+                  <p>We help Customers, Buyers and Brands to have their product sourcing effectively as it is very subjective and dynamic; differ for each and every order based on specific requirements and cannot have pre-determined standard operating procedure.</p>
+              </div>
+          </div>
+          
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">9</i></a>
+                  </div></br>
+                  <h3><a href="{% url 'sourcing' %}">PRODUCT DEVELOPMENT</a></h3>
+                  <p>We help Customers, Buyers and Brands with new product development by ensuring right quality of raw materials, machinery and infrastructure to achieve best quality and industry feasible products</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">10</i></a>
+                  </div></br>
+                  <h3><a href="/manufacturing">MANUFACTURING</a></h3>
+                  <p>We help Customers, Buyers and Brands for bulk ethical and complianced manufacturing</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">11</i></a>
+                  </div></br>
+                  <h3><a href="/factory">Manufacturer</a></h3>
+                  <p>Just Get It owns and has collaborated with various categories and types of factories especially of Apparels and Hardgoods to serve Customers, Buyers and Brands efficiently.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">12</i></a>
+                  </div></br>
+                  <h3><a href="/brands">BRANDS</a></h3>
+                  <p>Just Get It is involved in various inhouse and licenced brands for their branding, postioning, UX, UI, Website, Contents, Digital Marketing, Product Development, Manufacturing, Business Development and Marketing</p>
+              </div>
+          </div>
+          
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">13</i></a>
+                  </div></br>
+                  <h3><a href="/marketplace">Marketplace</a></h3>
+                  <p>Buy and Sell With Your Local and internnational Community where people connect, and in recent time more people have been using  to online connect in another way for buying and selling with each other.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">14</i></a>
+                  </div></br>
+                  <h3><a href="/retail">RETAIL</a></h3>
+                  <p>Just Get It strives to have retail forward approach to improve the interactions of all stakeholders of retail industry so as to bring happiness on their face. </p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">15</i></a>
+                  </div></br>
+                  <h3><a href="/software">SOFTWARE-AUTOMATION</a></h3>
+                  <p>We offer advanced IT/Software solutions for productivity and efficiency enhancement of the sewn product industry.We help you speed your efficiency and reliability by introducing various IT modules.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">16</i></a>
+                  </div></br>
+                  <h3><a href="{% url 'product-development' %}">PRODUCTS</a></h3>
+                  <p>Various Supply Chain, Product Development, Manufacturing, PLM and ERP software products to solve the industry issues have been developed and research keep going on to improvise these further</p>
+              </div>
+          </div>
+          
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">17</i></a>
+                  </div></br>
+                  <h3><a href="/skill">Skill Development</a></h3>
+                  <p>JustGetIt taps into the livelihood of several talents across the apparel industry and introduces them to various certification and skill assessment programs. We are heavily involved with Skill Development and Assessment.</p>
+              </div>
+          </div>
+          <div class="card-content">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">18</i></a>
+                  </div></br>
+                  <h3><a href="/training">Training</a></h3>
+                  <p>With team of Trainers who are distinguished in their fields of expertise,JustGetIt imparts training to each level of an organization from operators to senior management.</p>
+              </div>
+          </div>  
+      </div>
+  </div>
+  <script>
+      $(document).ready(function() {
+   
+    $("#owl-demo15").owlCarousel({
+   
+      
+    // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            dotsEach:2
+        },
+        600:{
+            items:2,
+            
+            loop:true,
+            dots:true
+        
+        },
+        
+    }
+    
+   
+        // "singleItem:true" is a shortcut for:
+        // items : 1, 
+        // itemsDesktop : false,
+        // itemsDesktopSmall : false,
+        // itemsTablet: false,
+        // itemsMobile : false
+   
+    });
+   
+   });
+    
+    </script>
+    
+  </section>  
+ 
+  <section>
+      <div class="container-fluid">
+      <style>
+          
+       #hero-demo .item img{ position: relative;
+  background-repeat: no-   repeat;
+  background-position: top center;background-size: 100%
+  ;}
+  @media screen and (max-width: 39.9375em) {
+  .item{min-height: 280px;background-position: center;    background-size: cover;} }
+  @media screen and (min-width: 40em) {
+  .item{ height: 360px; min-height: 360px;} }
+  @media screen and (min-width: 64em) {
+  .item{ height: 600px; min-height: 600px;}}
+  
+          </style>
+      <!-- <div id="owl-demo" class="owl-carousel owl-theme">
+   
+          
+          {% for b in banner %}
+                    
+          <div class="center">
+              <a href="/{{b.link}}">
+                  <img src="{{b.image.url}}" alt="banner">
+              </a>
+          </div>
+          <div class="card-content">
+              <h4>{{b.name}}</h4>
+              <p></p>
+          </div>
+   
+        {% endfor %}
+        </div>
+   
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script>
+      $(document).ready(function() {
+   
+    $("#owl-demo").owlCarousel({
+      animateOut: 'slideOutDown',
+      animateIn: 'flipInX',
+      items:1,
+      margin:30,
+      stagePadding:30,
+      smartSpeed:450,
+      autoplay: true,
+      
+      loop : true, -->
+       
+  
+  </section>
+  <link rel="stylesheet" href="{% static 'css/portfolio/light-box.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <script src="{% static 'js/portfolio/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style media="screen">
+  .new-category{
+    flex-direction:column;
+    padding-top:1.5rem;
+    padding-bottom:0.2rem
+  }
+  .section h3 a {
+      color: black!important;
+  }
+  .card-wrapper{
+      background:#f8f8f8;
+      padding-top:3.5rem;
+      padding-bottom:3.5rem;
+      flex-direction:column
+  }
+  .three-card-container{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-gap:2.3rem;
+      padding-top:2rem
+  }
+  .four-card-container{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      grid-gap:2.3rem;
+      padding-top:2rem
+  }
+  @media (max-width:768px){
+      .three-card-container{
+          grid-template-columns:auto
+      }
+  }
+  @media (max-width:768px){
+      .four-card-container{
+          grid-template-columns:auto
+      }
+  }
+  .center{
+      display:flex;
+      justify-content:center;
+      align-items:center
+  }
+  .center-head{
+      text-align:center;
+      text-transform:uppercase
+  }
+  
+  
+  .card-with-img .card-content{
+    padding:0 1rem
+  }
+  
+  .card{
+    border-radius:30px;
+    box-shadow:0 12px 24px 0 rgba(130,136,162,.2);
+    background-color:#fff;
+    padding:3rem 2rem
+  }
+  
+  .card img{
+    height:180px;
+    width:100%;
+    margin:1rem 0;
+    object-fit:scale-down
+  }
+  
+  .card h4,.card p{
+    text-align:center;
+    margin:1rem 0
+  }
+  
+  .card-with-img .card-content{
+    padding:0 1rem
+  }
+  
+  .card-wrapper{
+    background:#f8f8f8;
+    padding-top:3.5rem;
+    padding-bottom:3.5rem;
+    flex-direction:column
+  }
+  
+  .card-with-img{
+    border-radius:30px;
+    box-shadow:0 12px 24px 0 rgba(130,136,162,.2);
+    background-color:#fff;
+    padding-bottom:20px;
+    max-width:380px
+  }
+  
+  .card-with-img img{
+    height:150px;
+    border-radius:30px 30px 0 0;
+    width:100%;
+    object-fit:cover
+  }
+  
+  .card-with-img h4,.card-with-img p{
+    text-align:center;
+    margin:1rem 0
+  }
+  
+  .card-with-img p{
+    font-size:14px
+  }
+  
+  
+  /* carousel css */
+  
+  .col-md-3
+            {
+            padding-left: 0px;
+            padding-right:0px;
+  
+            display: inline-block;
+            margin-left:-4px;
+            }
+            .carousel-indicators .active {
+            background-color: blue;
+              }
+            .col-md-3  img{
+            width:270px;
+            height:300px;
+            }
+            body .carousel-indicator li{
+            background-color: blue;
+            }
+            body .carousel-indicators{
+            bottom: 0;
+            }
+            body .carousel-control-prev-icon,
+            body .carousel-control-next-icon{
+            background-color: blue;
+            }
+             body .no-padding{
+             padding-left: 0,
+             padding-right: 0;
+             }
+             .centered {
+             background-color:#33cccc;
+             color: white;
+             border-radius:18px;
+             padding:5px;
+             font-size:15px;
+             width:170px;
+             border: 1px solid #33cccc ;
+             position:absolute;
+             top:80%;
+             left: 50%;
+            transform: translate(-50%, -50%);
+             }
+  
+           .for-mobile{
+           display:none;
+           }
+           .container-fluid{
+           padding-left:0px;
+           padding-right:0px;
+           }
+            .home-img img{
+           height:70vh;
+           }
+           .container-fluid {
+     padding-left:0px;
+     padding-right:0px;
+  
+     }
+  
+                  .mt-5, .my-5 {
+       margin-top: 0rem !important; */
+  }
+  
+  .col-md-6 img{
+    height:180px;
+  }
+  
+  
+  
+  
+  
+       @media only screen and (max-width: 600px) {
+  
+      .col-sm-12  img{
+            width:300px;
+            height:300px;
+            }
+             .centered1 {
+             background-color:#33cccc;
+             color: white;
+             border-radius:18px;
+             padding:5px;
+             text-align:center;
+             font-size:15px;
+             width:170px;
+             border: 1px solid #33cccc ;
+             position:absolute;
+             top:70%;
+             left: 90%;
+  
+             }
+  
+            .for-pc{
+           display:none;
+           }
+           .for-mobile{
+           display:block;
+           }
+           .home-img img{
+           height:150px;
+           }
+          .head {
+          top:30px;
+          }
+          .head1 {
+          top:50px;
+          }
+          .head2 {
+          top:80px;
+          }
+      .col-md-6 img{
+    height:100px;
+  }
+     }
+  
+  
+                .mt-5, .my-5 {
+       margin-top: 2.5rem !important;
+  }
+  
+  </style>
+  <!-- Page Title
+  ============================================= -->
+  
+  <!-- #page-title end -->
+                  
+  <!-- Content
+  ============================================= -->
+                  
+  <!-- Content
+  ============================================= -->
+  <section>
+    {% for c in Quick %}
+    <div class=container>
+        <h1 class="center-head">Quick Info</h1>
+      <img style=" width: 100% ; border-radius: 30px;" src="{{c.body_image.url}}"alt="fashion">
+    </div> {% endfor %}
+                 
+  </section>
+  <section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+       <h3>MOQ! Leadtime! Cost!</h3>
+      
+      <div id="owl-democard" class="owl-carousel owl-theme">
+        {% for c in Quick %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div>             
+             
+            <!-- <section><h1>{{bodyimage1.card}}</h1>
+                <div class=container>
+                    {% for x in bodyimage1 %} <h1>{{bodyimage1.card}}</h1><img style=" width: 100% ; border-radius: 30px;" src="{{x.Add_body_image.url}}"alt="fashion">{% endfor %} 
+                </div>
+              </section> -->
+        <!-- {% for b in retail %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div>
+          {% endfor %} -->
+            
+      </div> 
+           
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-democard").owlCarousel({
+                 
+                               // stagePadding:30,
+       // smartSpeed:450,
+    autoplay: true,
+     //
+     loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            loop:true
+        },
+        600:{
+            items:4,
+            //
+            loop:true
+        
+        },
+        
+    }
+    
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  
+ 
+ <!-----------lnet------------------------------------------------------------------------------------------------>
+ <section id="connect-content">
+    <div >  
+        <div class="container clearfix">  
+            <h1 class="center-head">Connect</h1>
+            {% for c in Connect %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="250" alt="consultancy">
+            </div> {% endfor %}
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3 id="new_con">The collaborative platform for professionals<br> the fashion and textile sector<br></h3>
+                    <h4 id="new_con">Justgetit is the ideal tool to find <br>partners who can adapt to your project's needs.</h4>
+                    
+                    <h5 id="new_con">We simplify global trade by providing businesses with a platform to connect, trade and build more efficient supply chains.</h5>
+                    <h6>We facilitates all stakeholders of Retail, Fashion and Manufacturing industry to have a common professional networking for their all requirements dynamically to interact and resolve their requirements across full supply chain to save time, efforts and money and connects especially apparel buyers, suppliers and manufacturers digitally and helps them build trusted relationships with simple information sharing.
+                    </h6>
+                   
+                        </div><br><a id="link-78-66" class="ct-link c-link-m c-transition" href="/connect/" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                    
+            </div>                 
+            
+                     
+            <!--    <div class="line"></div>    -->
+        </div>
+    </div>
+  </section>
+
+
+    <!----------------------------------------------------------------------------------------------------------->
+ 
+    <section class="position:absolute;">
+        <div class="new-category center padded">
+          <!-- <h2 class="center-head">Manufacturing </h2> -->
+           <h3>Networking! Consulting!</h3>
+      <div id="owl-demo13" class="owl-carousel owl-theme">
+        {% for c in Connect %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div>         <!-- {% for b in software %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div> -->
+          <!-- {% endfor %} -->
+      </div> 
+           
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo13").owlCarousel({
+                 
+                    
+                                   // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  <!-- <section>
+    <div class=container >
+        <h1 class="center-head">Consult</h1>
+      <img style=" width: 100% ; border-radius: 30px;" src="static/img/about/consult.png"alt="fashion">
+    </div>
+  </section> -->
+  <section id="auto-content">
+    <div >  
+        <div class="container clearfix">   
+            <h1 class="center-head">Consult</h1>         
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Optimise! Efficient! Profitable! Sustainable!</h3>
+                    <h4>Every business needs a trusted consultant</h4><br>
+                        <h5>We make your business bigger, faster, smarter, global and cost-effective, so that you can grow to the next level.
+                        </h5>
+                    <span></span>
+                </div>
+                <h4></h4>
+                
+                    <p id="text_block-77-66" class="ct-text-block c-text-m c-margin-bottom-m c-text-dark"><h6>Our promise to you is simple, we will help you capture relevant business opportunities and we will ensure that you do so profitably sustainable and within a reasonable timeframe. We exist because of you and at JGI, our client’s interest stands above everything. We stand committed, by your side, as your trusted consultant. 
+                        Screen reader support enabled.</h6>
+                        <h6>We identify client’s maximum-value opportunities, provide solutions to their key challenges and help them create a automated robust and high growth business models.</h6>
+                        <h6>We offer you a range of services and technical expertise to help increase your productivity and boost your capacity and skill sets which makes you more competitive and most importantly-profitable</h6>
+                        <h6>We are into fashion, design and management with experts having years of deep experience in working with organizations across apparel manufacturing, consulting, product development and sourcing. </h6>
+                        </p><a id="link-78-66" class="ct-link c-link-m c-transition" href="/consulting/" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                    
+            </div> 
+            {% for c in Consult %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="200" alt="consultancy">
+            </div> {% endfor %}             
+            <!--    <div class="line"></div>    -->
+        </div>
+    </div>
+  </section>
+  <section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+       <h3>Optimise! Efficient! Profitable! Sustainable!</h3>
+      <div id="owl-demo14" class="owl-carousel owl-theme">
+        {% for c in Consult %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+      </div>
+          <!-- {% for b in fashion %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div>
+          {% endfor %} -->
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo14").owlCarousel({
+                 
+                    
+                                   // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  
+  
+
+  <section id="auto-content">
+    <div >  
+        <div class="container clearfix">   
+            <h1 class="center-head">Digitize</h1>
+            {% for c in Digitize %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="340" alt="consultancy">
+            </div>      {% endfor %}    
+            
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Solution to Supply Chain stakeholders</h3>
+                    <span></span>
+                </div>
+                <h4>Optimise all KPIs - Consumption, Cost, MOQ, Lead Time, Quality, Efficiency, Suply Chain, ROI, Turnover</h4>
+                
+                    <p id="text_block-77-66" class="ct-text-block c-text-m c-margin-bottom-m c-text-dark"><h6>As a developer/owner you are always chasing your Contractor and your consultant to give you an update on the projects especially for delays and critical issues.
+                        AutoPRO™ with its online Dashboards directly connected to the schedule, the operations and the approval documents gives you instant access to this data.</h6></p>
+                        <p><h6>Various Supply Chain, Product Development, Manufacturing, PLM and ERP software products to solve the industry issues have been developed and research keep going on to improvise these further</h6></p>
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/consulting/" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+            </div>
+            
+                    
+            </div>                
+            <!--    <div class="line"></div>    -->
+        </div>
+    
+  </section>
+  <section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+       <h3>Traceability! Transparancy! Visibility!
+    </h3>
+          <div id="owl-demo20_" class="owl-carousel owl-theme">
+            {% for c in Digitize %} 
+            <div class="new-category center padded">
+                
+                <div class="card-with-img"> 
+                
+                          
+                <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                    <div class="card-content"></a>
+                      <h4>{{c.name}}</h4>
+                      <p>{{c.desc}}</p>
+                        
+                    </div>
+                </div>
+                </div>
+                </div> 
+               
+                {% endfor %}    
+                </div>  
+                        
+                                          
+                    
+              
+            </div>
+          
+              <!-- {% for b in fashion %}
+              <div class="card-with-img">
+                  <div class="center">
+                      <a href="/{{b.link}}">
+                          <img src="{{b.image.url}}" alt="fashion">
+                      </a>
+                  </div>
+                  <div class="card-content">
+                      <h4>{{b.name}}</h4>
+                      <p></p>
+                  </div>
+              </div>
+              {% endfor %} -->
+        
+                
+                        <script>
+                        $(document).ready(function() {
+                     
+                      $("#owl-demo20_").owlCarousel({
+                     
+                        
+                                      // stagePadding:30,
+        // smartSpeed:450,
+        autoplay: true,
+        // 
+        loop : true,
+        margin:10,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+                
+                
+            },
+            600:{
+                items:4,
+                
+                loop:true
+            
+            },
+            
+        }
+        
+                     
+                          // "singleItem:true" is a shortcut for:
+                          // items : 1, 
+                          // itemsDesktop : false,
+                          // itemsDesktopSmall : false,
+                          // itemsTablet: false,
+                          // itemsMobile : false
+                     
+                      });
+                     
+                     });
+                      
+                      </script>
+                    
+                      
+      </section>
+      
+     
+      <section id="auto-content">
+        <div >  
+            <div class="container clearfix">   
+                <h1 class="center-head">Automation</h1>
+                
+                <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                    <div>
+                        <h3>We Automize <br></h3>
+                        <h4>Automated tools to smoothen the processs of fashion supply chain across all categories of fashion products</h4>
+                        <span></span>
+                    </div>
+                    <h4></h4>
+                    
+                        <p id="text_block-77-66" class="ct-text-block c-text-m c-margin-bottom-m c-text-dark"><h6>All informations at your finger tip! Networking, Transparency, Traceability & Visibility!</h6></p>
+                        <p><h6>A technology platform that powers brands, wholesalers, distributors, retailers, and factories with innovative products and trade services.</h6></p>
+                        <p><h6>We offer advanced IT/Software solutions for productivity and efficiency enhancement of the sewn product industry.We help you speed your efficiency and reliability by introducing various IT modules.</h6></p>
+                        
+                        
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/automation" target="_self">
+                                <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+                   
+    
+                   <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                    
+                    <!--	<input type="text" id="input_date1" /> -->
+                        
+                </div> 
+                {% for c in Consult %}   
+                <div class="col_two_fifth topmargin-sm bottommargin">
+                    <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="300" alt="consultancy">
+                </div> {% endfor %}          
+                
+                           
+                <!--    <div class="line"></div>    -->
+            </div>
+        </div>
+      </section>
+      <!-- <section>
+        <div class=container>
+          <img style=" width: 100% ; border-radius: 30px;" src="static/img/about/automation1.jpg"alt="fashion">
+        </div>
+      </section> -->
+
+      <section class="position:absolute;">
+        <div class="new-category center padded">
+          <!-- <h2 class="center-head">Manufacturing </h2> -->
+           <h3>Engage! Entertain! Inspire!</h3>
+          <div id="owl-demo20" class="owl-carousel owl-theme">
+            {% for c in Automation %} 
+            <div class="new-category center padded">
+                
+                <div class="card-with-img"> 
+                
+                          
+                <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                    <div class="card-content"></a>
+                      <h4>{{c.name}}</h4>
+                      <p>{{c.desc}}</p>
+                        
+                    </div>
+                </div>
+                </div>
+                </div> 
+               
+                {% endfor %}    
+                </div> 
+            </div>
+          
+              <!-- {% for b in fashion %}
+              <div class="card-with-img">
+                  <div class="center">
+                      <a href="/{{b.link}}">
+                          <img src="{{b.image.url}}" alt="fashion">
+                      </a>
+                  </div>
+                  <div class="card-content">
+                      <h4>{{b.name}}</h4>
+                      <p></p>
+                  </div>
+              </div>
+              {% endfor %} -->
+        
+                
+                        <script>
+                        $(document).ready(function() {
+                     
+                      $("#owl-demo20").owlCarousel({
+                     
+                        
+                                      // stagePadding:30,
+        // smartSpeed:450,
+        autoplay: true,
+        // 
+        loop : true,
+        margin:10,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+                
+                
+            },
+            600:{
+                items:4,
+                
+                loop:true
+            
+            },
+            
+        }
+        
+                     
+                          // "singleItem:true" is a shortcut for:
+                          // items : 1, 
+                          // itemsDesktop : false,
+                          // itemsDesktopSmall : false,
+                          // itemsTablet: false,
+                          // itemsMobile : false
+                     
+                      });
+                     
+                     });
+                      
+                      </script>
+                    
+                      
+      </section>
+    
+      <section>
+        {% for c in Create %}
+        <div class=container>
+            <h1 class="center-head">Create</h1>
+          <img style=" width: 100% ; border-radius: 30px;" src="{{c.body_image.url}}"alt="fashion">
+        </div>{% endfor %}
+        
+      </section>
+      <section class="position:absolute;">
+        <div class="new-category center padded">
+          <!-- <h2 class="center-head">Manufacturing </h2> -->
+          <h3>Design! Brand! Studio! Space! Automation!</h3>
+
+          <div id="owl-demo200" class="owl-carousel owl-theme">
+            {% for c in Create %} 
+            <div class="new-category center padded">
+                
+                <div class="card-with-img"> 
+                
+                          
+                <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                    <div class="card-content"></a>
+                      <h4>{{c.name}}</h4>
+                      <p>{{c.desc}}</p>
+                        
+                    </div>
+                </div>
+                </div>
+                </div> 
+               
+                {% endfor %}    
+                </div> 
+            </div>
+          
+              <!-- {% for b in fashion %}
+              <div class="card-with-img">
+                  <div class="center">
+                      <a href="/{{b.link}}">
+                          <img src="{{b.image.url}}" alt="fashion">
+                      </a>
+                  </div>
+                  <div class="card-content">
+                      <h4>{{b.name}}</h4>
+                      <p></p>
+                  </div>
+              </div>
+              {% endfor %} -->
+        
+                
+                        <script>
+                        $(document).ready(function() {
+                     
+                      $("#owl-demo200").owlCarousel({
+                     
+                        
+                                      // stagePadding:30,
+        // smartSpeed:450,
+        autoplay: true,
+        // 
+        loop : true,
+        margin:10,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+                
+                
+            },
+            600:{
+                items:4,
+                
+                loop:true
+            
+            },
+            
+        }
+        
+                     
+                          // "singleItem:true" is a shortcut for:
+                          // items : 1, 
+                          // itemsDesktop : false,
+                          // itemsDesktopSmall : false,
+                          // itemsTablet: false,
+                          // itemsMobile : false
+                     
+                      });
+                     
+                     });
+                      
+                      </script>
+
+                      
+                    
+                      
+      </section>
+ <!-- style="position: absolute" width="100%" alt="apparel" -->
+ <section id="source-content">
+    <div >  
+        <div class="container clearfix"> 
+            <h1 class="center-head">Source</h1>
+            {% for c in Source %}            
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="340" alt="consultancy">
+            </div> {% endfor %}
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Source custom-made apparel,<br> 
+                        fabric, yarn and more</h3>
+                    <span></span>
+                </div>
+                <h4>Source from our trusted manufacturers and suppliers<br> in Bangladesh, 
+                    India, Sri Lanka, Thailand, Indonesia, Vietnam & more regions</h4>
+                
+                    <p><h6> <li>Brands can launch collections faster with less hassle</li>
+                        <li>Factories can source high-quality yarn & fabric on time</li>
+                        <li>Track real-time progress and timelines</li>
+                        <li>Fill in the RFQ and get started immediately!</h6></li></p><a id="link-78-66" class="ct-link c-link-m c-transition" href="/sourcing/" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                   
+            </div>                
+            <!--    <div class="line"></div>    -->
+            
+        </div>
+    </div>
+  </section>
+
+  <section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+      <h3>Simplified! Digitised! Faster! Smarter!</h3>
+      <div id="owl-demo16" class="owl-carousel owl-theme">
+      {% for c in Source %} 
+      <div class="new-category center padded">
+          
+          <div class="card-with-img"> 
+          
+                    
+          <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+              <div class="card-content"></a>
+                <h4>{{c.name}}</h4>
+                <p>{{c.desc}}</p>
+                  
+              </div>
+          </div>
+          </div>
+          </div> 
+         
+          {% endfor %}    
+          </div> 
+        </div>
+      
+          <!-- {% for b in fashion %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div>
+          {% endfor %} -->
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo16").owlCarousel({
+                 
+                    
+                                   // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  <!-- <section>
+  <div class="container"> -->
+    <!-- col-xs-12 col-sm-6 col-md-8 col-centered -->
+    <!-- <div class="row">
+        <div class="col">
+            <div class="maintxt" style="position:relative;">
+                <img style="position:absolute;"class="img-responsive" src="static/img/about/zling.jpg">
+                <span class="overlay-text" style="position:absolute;"><h1>Source custom-made apparel,<br> 
+                    fabric, yarn and more</h1><br>
+                    <h4>Source from our trusted manufacturers and suppliers<br> in Bangladesh, 
+                        India, Sri Lanka, Thailand, Indonesia, Vietnam & more regions</h4><br>
+                        <li>Brands can launch collections faster with less hassle</li>
+                        <li>Factories can source high-quality yarn & fabric on time</li>
+                        <li>Track real-time progress and timelines</li>
+                        <li>Fill in the RFQ and get started immediately!</li></span>
+            </div>
+        </div>
+    </div>
+   </div>
+  </section>
+
+  <section>
+   -->
+    
+    
+   
+
+
+           
+  
+  
+   <section id="auto-content">
+    <div >  
+        <div class="container clearfix">   
+            <h1 class="center-head">Manufacturing</h1>
+                  
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Micro Factory - World class Manufacturing!</h3>
+                    <span></span>
+                </div>
+                <h4>Produce best-selling clothes for your latest collection at lightning fast speed.</h4>
+                
+                    <p id="text_block-77-66" class="ct-text-block c-text-m c-margin-bottom-m c-text-dark"><h6>We offer you its own world class manufacturing setup best in industry! You can take a break or concentrate only on branding and marketing while we manage everything from design to delivery!
+                        We help Customers, Buyers and Brands for bulk ethical and complianced manufacturing</h6></p>
+                        <p><h6>Just Get It owns and has collaborated with various categories and types of factories especially of Apparels and Hardgoods to serve Customers, Buyers and Brands efficiently.</h6></p>
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/manufacturing/" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+            </div>
+            {% for c in Manufacturing %}
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="250" alt="consultancy">
+            </div>   {% endfor %}
+           
+                    
+            </div>                
+            <!--    <div class="line"></div>    -->
+        </div>
+    
+  </section>
+  
+<section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+       <h3>Simplified! Digitised! Faster! Smarter!</h3>
+    
+      <div id="owl-demo18" class="owl-carousel owl-theme">
+        {% for c in Manufacturing %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+        </div>
+          <!-- {% for b in fashion %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div>
+          {% endfor %} -->
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo18").owlCarousel({
+                 
+                    
+                                 // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  <!-- Street -->
+
+<section class="container">
+    <h1 class="center-head">Catalogue</h1>
+    <div >
+        <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">  
+            <h3>We Offer Collections</h3>
+            <p class="service-text"><h5>Introducing thousands of new styles across multiple categories<br> Extensive catalog of ready to launch designs</h5></p>
+            <ul class="service-ul">
+              <li>
+                <div class="icon-wrapper ">
+                  <img src="{% static 'img/portfolio/catalog.svg' %}" alt="icon">
+                </div>
+                <div class="li-content">
+                  <p class="li-head"><h5>Extensive catalog</h5></p>
+                  <p><h5>Access catalogs and collections across categories like ethnic wear, knitwear, activewear,
+                     sleepwear, reusable masks</h5></p>
+                </div>
+              </li>
+              <li>
+                <div class="icon-wrapper r">
+                  <img src="{% static 'img/portfolio/fashion.svg' %}" alt="icon">
+                </div>
+                <div class="li-content">
+                  <p class="li-head"><h5>Fast Fashion</h5></p>
+                  <p><h5>Launch new categories, collections, designs FAST</h5></p>
+                </div>
+              </li>
+              <li>
+                <div class="icon-wrapper">
+                  <img src="{% static 'img/portfolio/moq.svg' %}" alt="icon">
+                </div>
+                <div class="li-content">
+                  <p class="li-head"><h5>Low MOQs</h5></p>
+                  <p><h5>MOQs as low as 100 pieces to get you started, experiment with minimal investment</h5></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          </div>
+          {% for c in Catalouge %} 
+      <div class="col_two_fifth topmargin-sm bottommargin">  
+      <div class="img-wrapper ">
+        <img class="service-img" src="{{c.body_image.url}}" srcset="{{c.body_image.url}}" alt="Street">
+      </div> {% endfor %}
+      
+      </div>
+      <div>
+      </div>
+  </div>
+  </section>
+  <section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+       <h3>Catagories! Varieties! Collections!</h3>
+      <div id="owl-demo17" class="owl-carousel owl-theme">
+        
+        
+        {% for c in Catalogue %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+      </div>
+          <!-- {% for b in fashion %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div>
+          {% endfor %} -->
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo17").owlCarousel({
+                 
+                    
+                                  // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+   
+  <section id="source-content">
+    <div >  
+        <div class="container clearfix">    
+            <h1 class="center-head">Market</h1>        
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Introducing thousands of new styles across<br> multiple categories</h3>
+                    <span></span>
+                </div><h4>Buy and Sell With Your Local and internnational Community where people connect, and in recent time more people have been using to online connect in another way for buying and selling with each other.</h4>
+                <h6>We are involved in various inhouse and licenced brands for their branding, postioning, UX, UI, Website, Contents, Digital Marketing, Product Development, Manufacturing, Business Development and Marketing</h6>
+                <!-- <h4>Source from our trusted manufacturers and suppliers<br> in Bangladesh, 
+                    India, Sri Lanka, Thailand, Indonesia, Vietnam & more regions</h4>
+                
+                    <p> <li>Brands can launch collections faster with less hassle</li>
+                        <li>Factories can source high-quality yarn & fabric on time</li>
+                        <li>Track real-time progress and timelines</li>
+                        <li>Fill in the RFQ and get started immediately!</li></p> -->
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/b2b" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                    
+            </div>   
+            {% for c in Market %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="340" alt="consultancy">
+            </div>   {% endfor %} 
+                      
+            <!--    <div class="line"></div>    -->
+        </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Market</h2> -->
+      <h3>Varieties! Quality! Cheapest!</h3>
+      <div id="owl-demo22" class="owl-carousel owl-theme">
+        
+        
+        {% for c in Market %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+              </div>
+          <!-- {% for b in fashion %}
+          <div class="card-with-img">
+              <div class="center">
+                  <a href="/{{b.link}}">
+                      <img src="{{b.image.url}}" alt="fashion">
+                  </a>
+              </div>
+              <div class="card-content">
+                  <h4>{{b.name}}</h4>
+                  <p></p>
+              </div>
+          </div>
+          {% endfor %} -->
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo22").owlCarousel({
+                 
+                    
+                                  // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  
+  <!-- <section>
+    <div style=" width: 100% ; border-radius: 30px;" class=container>
+      <img src="static/img/about/fashion1.png"alt="fashion">
+    </div>
+  </section> -->
+  
+ 
+  <section id="source-content">
+    <div >  
+        <div class="container clearfix">    
+            <h1 class="center-head">Brands</h1>        
+            {% for c in Brands %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="340" alt="consultancy">
+            </div>   {% endfor %} 
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Concept to Consumer Solutions to Brands</h3>
+                    <span></span>
+                </div>
+                <h4>Collection for every occasion!<h4> 
+                  <h6>We are involved in various inhouse and licenced brands for their branding, postioning, UX, UI, Website, Contents, Digital Marketing, Product Development, Manufacturing, Business Development and Marketing</h6>  
+                <!--    <p> <li>Brands can launch collections faster with less hassle</li>
+                        <li>Factories can source high-quality yarn & fabric on time</li>
+                        <li>Track real-time progress and timelines</li>
+                        <li>Fill in the RFQ and get started immediately!</li></p> -->
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/b2b" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                    
+            </div>                
+            <!--    <div class="line"></div>    -->
+        </div>
+    </div>
+  </section>
+  <section class="position:absolute;">
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Manufacturing </h2> -->
+       <h3>Trendy! Fast Fashion! Affordable!</h3>
+      <div id="owl-demo21" class="owl-carousel owl-theme">
+        {% for c in Brands %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+            </div>
+       
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo21").owlCarousel({
+                 
+                    
+                                  // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+                
+                  
+  </section>
+  <section id="source-content">
+    <div >  
+        <div class="container clearfix">    
+            <h1 class="center-head">Supply Chain</h1>        
+            
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>Find your next space</h3>
+                    <span></span>
+                </div>
+                <h4>Globally connected, Locally invested<h4> 
+                  <h6>We provide one stop solutions to Customers, Buyers and Brands for their all types of requirement from Consulting, Designing,
+                       Product Development to Manufacturing & Marketing to optimise their Supply Chain efficiently.</h6>  
+                <!--    <p> <li>Brands can launch collections faster with less hassle</li>
+                        <li>Factories can source high-quality yarn & fabric on time</li>
+                        <li>Track real-time progress and timelines</li>
+                        <li>Fill in the RFQ and get started immediately!</li></p> -->
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/b2b" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                    
+            </div>                
+            <!--    <div class="line"></div>    -->
+            {% for c in Supplychain %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="340" alt="consultancy">
+            </div>   {% endfor %} 
+        </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Market</h2> -->
+      <h3>Simple! Glocal! Digital! Sustainable! Ethical! </h3>
+      <div id="owl-demo23" class="owl-carousel owl-theme">
+        {% for c in Supplychain %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+            </div>
+       
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo23").owlCarousel({
+                 
+                    
+                                  // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+  </section>
+  <section id="source-content">
+    <div >  
+        <div class="container clearfix">    
+            <h1 class="center-head">Credit</h1>        
+            {% for c in Credit %} 
+            <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{{c.body_image.url}}" height="340" alt="consultancy">
+            </div>   {% endfor %} 
+            <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                <div>
+                    <h3>We Fund</h3>
+                    <span></span>
+                </div>
+               <h4>The better we know you, the more we can do.</h4>
+               <h6>Our customers as well as suppliers are well funded as and when required based on performance and are never under burden of credit and delay in payments resulting in better focus on services to avoid this vicious cycle of fire fighting and under performance!</h6>
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="http://velocity.in/" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+               
+
+               <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                
+                <!--	<input type="text" id="input_date1" /> -->
+                    
+            </div>                
+            <!--    <div class="line"></div>    -->
+        </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="new-category center padded">
+      <!-- <h2 class="center-head">Market</h2> -->
+      <h3>Cash Flow! Funding! </h3>  
+      <div id="owl-demo24" class="owl-carousel owl-theme">
+        {% for c in Credit %} 
+        <div class="new-category center padded">
+            
+            <div class="card-with-img"> 
+            
+                      
+            <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                <div class="card-content"></a>
+                  <h4>{{c.name}}</h4>
+                  <p>{{c.desc}}</p>
+                    
+                </div>
+            </div>
+            </div>
+            </div> 
+           
+            {% endfor %}    
+            </div> 
+            </div>
+       
+    
+            
+                    <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-demo24").owlCarousel({
+                 
+                    
+                                  // stagePadding:30,
+    // smartSpeed:450,
+    autoplay: true,
+    // 
+    loop : true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            
+            
+        },
+        600:{
+            items:4,
+            
+            loop:true
+        
+        },
+        
+    }
+    
+                     
+                 
+                      // "singleItem:true" is a shortcut for:
+                      // items : 1, 
+                      // itemsDesktop : false,
+                      // itemsDesktopSmall : false,
+                      // itemsTablet: false,
+                      // itemsMobile : false
+                 
+                  });
+                 
+                 });
+                  
+                  </script>
+  </section>
+          <!-- <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">1</i></a>
+                  </div>
+                  <h3><a href="/supply-chain">SUPPLY CHAIN - INDUSTRY 4.0</a></h3>
+                  <p>Just Get It provides one stop solutions to Customers, Buyers and Brands for their all types of requirement from Consulting, Designing, Product Development to execution to optimise their Supply Chain efficiently.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">2</i></a>
+                  </div>
+                  <h3><a href="/supply-chain">PROFESSIONAL CONNECT</a></h3>
+                  <p>We facilitate all stakeholders of Retail, Fashion and Manufacturing industry to have a common professional networking for their all requirements dynamically to interact and resolve their requirements</p>
+              </div>
+          </div>        
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">3</i></a>
+                  </div>
+                  <h3><a href="{% url 'consulting' %}">Consulting</a></h3>
+                  <p>At JustGetIt Consultancy, we offer you a range of services and technical expertise to help increase your productivity and boost your capacity and skill sets which makes you more competitive and most importantly-profitable</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">4</i></a>
+                  </div>
+                  <h3><a href="/supply-chain">DESIGNING</a></h3>
+                  <p>Just Get It follows detailed design procedures to offer best design services of Graphics, UX, UI, Contents for Garments, Accessories and Softwares as per technical inputs and product detailing constantly evolving with raw materials and techniques</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">5</i></a>
+                  </div>
+                  <h3><a href="{% url 'branding' %}">BRANDING</a></h3>
+                  <p>At Just Get It, all types of Branding like Logo, Copyrighting, Graphics, Packaging and Products are executed.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">6</i></a>
+                  </div>
+                  <h3><a href="/content">CONTENT CREATION & Management</a></h3>
+                  <p>Creative Writings, Graphics, Motion Graphics, Animations, Videos, UI & UX as Digital Contents especially for Digital Marketing, Website and Apps are executed by industry expert designers.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">7</i></a>
+                  </div>
+                  <h3><a href="{% url 'phinix' %}">INTERIOR & ARCHITECTURE</a></h3>
+                  <p>Just Get It provides technical support, designing and layouts for interior, landscape and Architecture projects and also helps in execution.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">8</i></a>
+                  </div>
+                  <h3><a href="{% url 'sourcing' %}">Sourcing</a></h3>
+                  <p>We help Customers, Buyers and Brands to have their product sourcing effectively as it is very subjective and dynamic; differ for each and every order based on specific requirements and cannot have pre-determined standard operating procedure.</p>
+              </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">9</i></a>
+                  </div>
+                  <h3><a href="{% url 'sourcing' %}">PRODUCT DEVELOPMENT</a></h3>
+                  <p>We help Customers, Buyers and Brands with new product development by ensuring right quality of raw materials, machinery and infrastructure to achieve best quality and industry feasible products</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">10</i></a>
+                  </div>
+                  <h3><a href="/manufacturing">MANUFACTURING</a></h3>
+                  <p>We help Customers, Buyers and Brands for bulk ethical and complianced manufacturing</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">11</i></a>
+                  </div>
+                  <h3><a href="/factory">Manufacturer</a></h3>
+                  <p>Just Get It owns and has collaborated with various categories and types of factories especially of Apparels and Hardgoods to serve Customers, Buyers and Brands efficiently.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">12</i></a>
+                  </div>
+                  <h3><a href="/brands">BRANDS</a></h3>
+                  <p>Just Get It is involved in various inhouse and licenced brands for their branding, postioning, UX, UI, Website, Contents, Digital Marketing, Product Development, Manufacturing, Business Development and Marketing</p>
+              </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">13</i></a>
+                  </div>
+                  <h3><a href="/marketplace">Marketplace</a></h3>
+                  <p>Buy and Sell With Your Local and internnational Community where people connect, and in recent time more people have been using  to online connect in another way for buying and selling with each other.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">14</i></a>
+                  </div>
+                  <h3><a href="/retail">RETAIL</a></h3>
+                  <p>Just Get It strives to have retail forward approach to improve the interactions of all stakeholders of retail industry so as to bring happiness on their face. </p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">15</i></a>
+                  </div>
+                  <h3><a href="/software">SOFTWARE-AUTOMATION</a></h3>
+                  <p>We offer advanced IT/Software solutions for productivity and efficiency enhancement of the sewn product industry.We help you speed your efficiency and reliability by introducing various IT modules.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">16</i></a>
+                  </div>
+                  <h3><a href="{% url 'product-development' %}">PRODUCTS</a></h3>
+                  <p>Various Supply Chain, Product Development, Manufacturing, PLM and ERP software products to solve the industry issues have been developed and research keep going on to improvise these further</p>
+              </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">17</i></a>
+                  </div>
+                  <h3><a href="/skill">Skill Development</a></h3>
+                  <p>JustGetIt taps into the livelihood of several talents across the apparel industry and introduces them to various certification and skill assessment programs. We are heavily involved with Skill Development and Assessment.</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-12 nobottommargin">
+              <div class="feature-box fbox-plain">
+                  <div class="fbox-icon">
+                      <a href="#"><i class="i-alt">18</i></a>
+                  </div>
+                  <h3><a href="/training">Training</a></h3>
+                  <p>With team of Trainers who are distinguished in their fields of expertise,JustGetIt imparts training to each level of an organization from operators to senior management.</p>
+              </div>
+          </div>  
+      </div>
+  </div>
+  
+  <section id="content">
+      <div >  
+          <div class="container clearfix">            
+              <div class="col_two_fifth topmargin-sm bottommargin">
+                  <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{% static 'img/about/services/consultancy.jpg' %}" height="340" alt="consultancy">
+              </div>
+              <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                  <div class="heading-block topmargin">
+                      <h2>Every business needs a trusted consultant</h2>
+                      <span></span>
+                  </div>
+                  <h4></h4>
+                  <p>
+                      Our promise to you is simple, we will help you capture relevant business opportunities and we will ensure that you do so profitably sustainable and within a reasonable timeframe. We exist because of you and at JGI, our client’s interest stands above everything. We stand committed, by your side, as your trusted consultant. Just Transform with Intelligence, Experience live product run & services
+                  </p>
+  
+                 <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                  
+                  <!--	<input type="text" id="input_date1" /> -->
+                      
+              <!-- </div>                 -->
+              <!--    <div class="line"></div>    -->
+          <!-- </div>
+          <div class="new-category center padded">
+              
+          </div>
+  
+         
+          <div class="container clearfix">
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <img src="images/services/1.jpg" alt="Why choose Us?"> 
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>OUR VISION<span class="subtitle">One Stop Solution</span></h3>
+                          <p>To facilitate one stop solution to Customers, Buyers and Brands for their all types of requirement from consulting to execution to optimise their Supply Chain efficiently.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                           <img src="images/services/2.jpg" alt="Why choose Us?"> -->
+                      <!-- </div>
+                      <div class="fbox-desc">
+                          <h3>Our Mission.<span class="subtitle"> Values of honesty, integrity, commitment and delivery.</span></h3>
+                          <p> We are committed to growing our business through embracing technology, developing strong partnerships and by placing the emphasis on providing high levels of customer satisfaction.
+  
+  To ensure that we provide the right resources at the right time to maximise our clients’ business potential</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin col_last">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media"> -->
+                          <!-- <img src="images/services/3.jpg" alt="Why choose Us?"> -->
+                      <!-- </div>
+                      <div class="fbox-desc">
+                          <h3>What we Do.<span class="subtitle">Make our Customers Happy.</span></h3>
+                          <p>Individual commitment to group effort – that’s what makes a team work, a company work, a society work, a civilization work
+  Our network consists of consultants who possess high qualifications from leading management and engineering institutes around the world.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media"> -->
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      <!-- </div>
+                      <div class="fbox-desc">
+                          <h3>Why choose Us.<span class="subtitle">Because we are Reliable.</span></h3>
+                          <p>Obstacles do not define who we are… we are defined by our potential
+  We strive to deliver strategic solutions that are unique and structured to suit your business requirements. Our services are designed using an out-of-the-box approach rather than a cookie cutter.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media"> -->
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      <!-- </div>
+                      <div class="fbox-desc">
+                          <h3>WHO WE ARE.<span class="subtitle">Young & Dynamic Workforce.</span></h3>
+                          <p>Industry Experts from eminent fashion, engineering and management Univerties of the world </p>
+                      </div>
+                  </div>
+              </div> 
+              <div class="col_one_third nobottommargin col_last">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media"> -->
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      <!-- </div>
+                      <div class="fbox-desc">
+                          <h3>HOW WE DO<span class="subtitle">Live status notification and tracking</span></h3>
+                          <p>With timeliness, honesty, visibility and transparent communication and early challenge resolution as the founding principles of our services</p>
+                      </div>
+                  </div>
+              </div>       
+          </div> 
+          -->
+          <!-- Google Map
+  ============================================= -->
+          <!--<div class="container">
+              <h1>Where we operate</h1>
+              <h4>Rustomjee Urbania,Azziano </h4>
+              <h4>Saket Ground, Thane West</h4>
+              <h4>Maharashtra, Pin - 400601</h4>
+          </div>-->
+         <!-- <section id="google-map" class="gmap"></section> 
+  
+          <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+          <script type="text/javascript" src="js/jquery.gmap.js"></script>
+  
+          <script type="text/javascript">
+              $('#google-map').gMap({
+  
+                  address: 'Sector 1, HSR Layout, Bangalore, India',
+                  maptype: 'ROADMAP',
+                  zoom: 14,
+                  markers: [
+                      {
+                          address: "Sector 1, HSR Layout, Bangalore, India",
+                          html: '<div style="width: 300px;"><h4 style="margin-bottom: 8px;">Hi, we\'re <span>JustGetIt</span></h4><p class="nobottommargin"></p></div>',
+                          icon: {
+                              image: "images/icons/map-icon-red.png",
+                              iconsize: [32, 39],
+                              iconanchor: [13, 39]
+                          }
+  }
+  ],
+                  doubleclickzoom: false,
+                  controls: {
+                      panControl: true,
+                      zoomControl: true,
+                      mapTypeControl: true,
+                      scaleControl: false,
+                      streetViewControl: false,
+                      overviewMapControl: false
+                  }
+  
+              });
+          </script> -->
+  <section id="content">
+      <div class="content-wrap">  
+          <div class="container clearfix">            
+              
+              <div class="col_three_fifth topmargin-sm bottommargin-lg col_last">
+                  <div>
+                      <h3>Every business needs a trusted consultant</h3><br><h4>Optimise! Efficient! Profitable! Sustainable!</h4>
+                      <span></span>
+                  </div>
+                  <h4>Just Transform with Intelligence</h4>
+                  <h6>Our promise to you is simple, we will help you capture relevant business opportunities and we will ensure that you do so profitably sustainable and within a reasonable timeframe. We exist because of you and at JGI, our client’s interest stands above everything. We stand committed, by your side, as your trusted consultant.
+                    Experience live product run & services</h6>
+                        <a id="link-78-66" class="ct-link c-link-m c-transition" href="/consulting" target="_self">
+                            <div id="text_block-79-66" class="ct-text-block c-margin-right-m">Learn More Now</a></div>
+  
+                 <!-- <a href="orderform.html" class="button button-border button-rounded button-large noleftmargin topmargin-sm">PLACE YOUR ORDER HERE</a>-->
+                  
+                  <!--	<input type="text" id="input_date1" /> -->
+                      
+              </div>                
+              <!--    <div class="line"></div>    -->
+              <div class="col_two_fifth topmargin-sm bottommargin">
+                <img style="border-radius: 30px;" data-animate="fadeInLeftBig" src="{% static 'img/about/services/consultancy.jpg' %}" height="340" alt="consultancy">
+            </div>
+          </div>
+          <div class="new-category center padded">
+              
+          </div>
+  
+         
+          <div class="container clearfix">
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>OUR VISION<span class="subtitle">One Stop Solution</span></h3>
+                          <p>To facilitate one stop solution to Customers, Buyers and Brands for their all types of requirement from consulting to execution to optimise their Supply Chain efficiently.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <!-- <img src="images/services/2.jpg" alt="Why choose Us?"> -->
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>Our Mission.<span class="subtitle"> Values of honesty, integrity, commitment and delivery.</span></h3>
+                          <p> We are committed to growing our business through embracing technology, developing strong partnerships and by placing the emphasis on providing high levels of customer satisfaction.
+  
+  To ensure that we provide the right resources at the right time to maximise our clients’ business potential</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin col_last">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <!-- <img src="images/services/3.jpg" alt="Why choose Us?"> -->
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>What we Do.<span class="subtitle">Make our Customers Happy.</span></h3>
+                          <p>Individual commitment to group effort – that’s what makes a team work, a company work, a society work, a civilization work
+  Our network consists of consultants who possess high qualifications from leading management and engineering institutes around the world.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>Why choose Us.<span class="subtitle">Because we are Reliable.</span></h3>
+                          <p>Obstacles do not define who we are… we are defined by our potential
+  We strive to deliver strategic solutions that are unique and structured to suit your business requirements. Our services are designed using an out-of-the-box approach rather than a cookie cutter.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col_one_third nobottommargin">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>WHO WE ARE.<span class="subtitle">Young & Dynamic Workforce.</span></h3>
+                          <p>Industry Experts from eminent fashion, engineering and management Univerties of the world </p>
+                      </div>
+                  </div>
+              </div> 
+              <div class="col_one_third nobottommargin col_last">
+                  <div class="feature-box media-box">
+                      <div class="fbox-media">
+                          <!-- <img src="images/services/1.jpg" alt="Why choose Us?"> -->
+                      </div>
+                      <div class="fbox-desc">
+                          <h3>HOW WE DO<span class="subtitle">Live status notification and tracking</span></h3>
+                          <p>With timeliness, honesty, visibility and transparent communication and early challenge resolution as the founding principles of our services</p>
+                      </div>
+                  </div>
+              </div>       
+          </div>
+  </section>
+          <!-- Google Map End -->
+  
+          <div class="container clearfix">
+              <div class="col_two_fifth topmargin nobottommargin" id="radarChart" style="opacity: 0;">
+                  <canvas id="radarChartCanvas" width="430" height="300"></canvas>
+              </div>
+              <div class="col_three_fifth nobottommargin col_last">
+                  <div class="heading-block">
+                      <h3>Future Insights</h3>
+                      <!--                            <span>Reports let you easily track and analyze your product sales, orders, and payments.</span>-->
+                  </div>
+                  <p> 
+                  </p>
+                  <a href="#">Learn more &rarr;</a>
+              </div>
+              <div class="clear"></div>
+              <div class="line"></div>
+              <script type="text/javascript">
+                  jQuery(window).load(function () {
+  
+                      var radarChartData = {
+                          labels: ["Connect", "Market Place", "Design", "Sourcing", "Consulting", "Training", "Automation"],
+                          datasets: [
+                              {
+                                  fillColor: "rgba(220,220,220,0.5)",
+                                  strokeColor: "rgba(220,220,220,1)",
+                                  pointColor: "rgba(220,220,220,1)",
+                                  pointStrokeColor: "#fff",
+                                  data: [65, 59, 90, 81, 56, 55, 40]
+  },
+                              {
+                                  fillColor: "rgba(151,187,205,0.5)",
+                                  strokeColor: "rgba(151,187,205,1)",
+                                  pointColor: "rgba(151,187,205,1)",
+                                  pointStrokeColor: "#fff",
+                                  data: [28, 48, 40, 19, 96, 27, 100]
+  }
+  ]
+  
+                      };
+  
+                      var doughnutChartData = [
+                          {
+                              value: 30,
+                              color: "#F7464A"
+  },
+                          {
+                              value: 50,
+                              color: "#46BFBD"
+  },
+                          {
+                              value: 100,
+                              color: "#FDB45C"
+  },
+                          {
+                              value: 40,
+                              color: "#949FB1"
+  },
+                          {
+                              value: 120,
+                              color: "#4D5360"
+  }
+  ];
+  
+                      var globalGraphSettings = {
+                          animation: Modernizr.canvas
+                      };
+  
+                      function showRadarChart() {
+                          var ctx = document.getElementById("radarChartCanvas").getContext("2d");
+                          new Chart(ctx).Radar(radarChartData, globalGraphSettings);
+                      }
+  
+                      function showDoughnutChart() {
+                          var ctx = document.getElementById("doughnutChartCanvas").getContext("2d");
+                          new Chart(ctx).Doughnut(doughnutChartData, globalGraphSettings);
+                      }
+  
+                      $('#radarChart').appear(function () {
+                          $(this).css({
+                              opacity: 1
+                          });
+                          setTimeout(showRadarChart, 300);
+                      }, {
+                          accX: 0,
+                          accY: -155
+                      }, 'easeInCubic');
+  
+                      $('#doughnutChart').appear(function () {
+                          $(this).css({
+                              opacity: 1
+                          });
+                          setTimeout(showDoughnutChart, 300);
+                      }, {
+                          accX: 0,
+                          accY: -155
+                      }, 'easeInCubic');
+  
+                  });
+              </script>
+              <script>
+                  // $(document).ready(function(){
+                  //     var l = $(Window).width();
+                  //     if(l<=768){
+                  //         var m = $(".card-with-img").width();
+                  //         var x = $(".four-card-container");
+                  //         x.width(m*4);
+                  //         $(".four-card-container").css("display","block");
+                  //         $(".card-with-img").css({"display":"inline-block","float":"left"});
+                  //         var c = $(".four-card-container").length;
+                  //         var a = $(".four-card-container").children().first()
+                  //         var b = a.next();
+                  //         alert(b.text())
+                  //     }
+                  // })
+              </script>
+              
+          </div>
+          <a style="z-index: 996;"class="button button-full center tright topmargin footer-stick">
+              <div class="container clearfix">
+                  Download the JGI App, for a better experience <strong>Coming soon</strong> <i class="icon-caret-right" style="top:4px;"></i>
+              </div>
+          </a>
+      </div>
+  </section>
+  <!-- #content end -->
+  <!-- Footer-->
+      
+<body>
+        <footer id="footer" class="dark" style="float: left; width: 100%;">
+
+            <div class="container">
+
+                <!-- Footer Widgets
+                ============================================= -->
+                <div class="footer-widgets-wrap clearfix">
+
+                    <div class="">
+
+                        <div class="">
+
+                            <div class="widget clearfix">
+
+                                <!-- s<img src="images/footer-widget-logo.png" alt="" class="footer-logo"> -->
+
+                                <!-- <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p> -->
+
+                                <div style="background: url('../../static/img/about/world-map.png') no-repeat center center; background-size: 100%;">
+                                    
+                                <div class="row">
+                                        
+                                                <div class="col">
+                                                    
+                                                    <ul>
+                                                        <li>About Us</li>
+                                                        <li>Categories</li>
+                                                        <li>Products</li>
+                                                        <li>Services</li>
+                                                        <li>Blogs</li>
+                                                        <li>News</li>
+                                                        <li>Experts</li>
+                                                        <li>Team Diary</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col">
+                                                    <ul>
+                                                        <li>Resources</li>
+                                                        <li>Insights</li>
+                                                        <li>Clients</li>
+                                                        <li>Terms & Conditions</li>
+                                                        <li>Privacy</li>
+                                                        <li>Refund Policy</li>
+                                                        <li>Career</li>
+                                                    </ul>
+                                                </div>
+                                            <div class="col">
+                                                <!-- <div class="row"></div> -->
+                                                <ul>
+                                                    <li>Enquiry</li>
+                                                    <li>Design</li>
+                                                    <li>Samplings</li>
+                                                    <li>Bulk Orders</li>
+                                                    <li>Daily Report</li>
+                                                    <li>Daily Work Upload</li>
+                                                    
+                                                </ul>
+                                            </div>
+                                        
+                                            
+                                            
+                                        
+                                        <!-- <div class="col">
+                                            <address>                                        
+                                                <strong>Office Addresses:</strong>
+                                                <br><br>
+                                              
+                                         Arihant Commercial Complex, Bldg, No, 49, 1st Floor, Village Purna, Bhiwandi Road, Dist. Thane- 421302.
+                                                    Maharashtra
+
+                                                                          
+                                            </address> 
+                                        </div>  -->
+
+                                        <div class="col">
+                                            <address>                                        
+                                                <strong>Office Addresses:</strong>
+                                                <br><br>
+                                                27th Main Rd, Sector 2, HSR Layout, Bengaluru, Karnataka, India, 560102
+                                               <br><br>
+                                                Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204.<br><br>
+                                                                          
+                                            </address> 
+                                        </div>        
+                                        <div class="col-sm">
+                                            <address>                                        
+                                                <strong>Office Address:</strong>
+                                                <br><br>
+                                                Apparel Manufacturing Center, CP Colony, Raghavpuram, Morar, Gwalior, Madhya Pradesh 474006
+                                                <!-- <img style="float:right;" class="col-xs col-lg" src="/static/Just Get It Logo 1.png" width="100" height="70"> -->
+                              
+                                            </address> 
+                                        </div>        
+                                       
+                                       
+                                        <div class="col">
+                                            <!-- <abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br> -->
+                                            <abbr title="Phone Number"><strong>Phone:</strong></abbr><a href="tel:+919619348557"> +91-9619348557</a>
+                                            <br><br><br>
+                                            <abbr title="Email Address">
+                                            <strong>Email:</strong><a href="mailto:hr@justgetit.in"> hr@justgetit.in</a><br>
+                                            <strong>Email:</strong><a href="mailto:admin@justgetit.in"> admin@justgetit.in</a><br>
+                                            <strong>Email:</strong><a href="mailto:sales@justgetit.in"> sales@justgetit.in</a><br>
+                                            <strong>Email:</strong><a href="mailto:info@justgetit.in"> info@justgetit.in</a><br>
+                                            <strong>Email:</strong></abbr><a href="mailto:support@justgetit.in"> support@justgetit.in</a>
+                                        </div>
+                                    
+                                    <div class="col-6 col-lg-2 color-white newslet">
+                                        <h5 class="mt-5 ml-2">Newsletter</h5>
+                                        <form method="POST">{% csrf_token %}
+                                            <input type="email" name="subscribe" placeholder="Email" class="ml-3" style="border: none; border-bottom: 1px solid white; color: white;background: transparent;">
+                                            <button style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="mt-3 ml-4 py-1 px-4 but-subs" type="submit">Subscribe</button>
+                                        </form><a href="/"><img src="{% static 'img/payment.png' %}" class="img-fluid"></a>
+                                        <img style="margin-top :10px;" class="img-responsive" src="/static/Just Get It Logo 1.png" width="100" height="70">
+
+                                    </div>
+<!--                                 
+                                    <div class="col-xs-12 col-md-2 col-lg-3 color-white">
+                                        {% if home_links.footer_track or home_links.footer_shipping or home_links.footer_return or home_links.footer_faq %}
+                                        <h5 class="mt-5 ml-2">Help</h5>{% endif %}
+                                        <ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+                                            {% if home_links.footer_track %}
+                                            <li class="hov-a mt-2 cursor-pointer">Track Order</li>{% endif %} {% if home_links.footer_shipping %}
+                                            <li class="hov-a cursor-pointer">Shipping</li>{% endif %} {% if home_links.footer_return %}
+                                            <li class="hov-a cursor-pointer">Returns</li>{% endif %} {% if home_links.footer_faq %}
+                                            <li class="hov-a cursor-pointer">FAQs</li>{% endif %}
+                                        </ul>
+                                    </div> -->
+                                    <!-- <div class="col-xs col-lg">
+                                        <img style="float:right;" class="img-responsive" src="/static/Just Get It Logo 1.png" width="100" height="70">
+                                    </div> -->
+                                    <!-- <div id="logo" class="fixed-top">
+                                        <a href="/about-jgi" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src=""  id="homepage_logo" width="60" height="60">
+                                        </a>
+                                        </div> -->
+                                </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="col_one_third">
+
+                            <div class="widget widget_links clearfix">
+
+                                <h4>Blogroll</h4>
+
+                                <ul>
+                                    <li><a href="http://codex.wordpress.org/">Documentation</a></li>
+                                    <li><a href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
+                                    <li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+                                    <li><a href="http://wordpress.org/support/">Support Forums</a></li>
+                                    <li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+                                    <li><a href="http://wordpress.org/news/">WordPress Blog</a></li>
+                                    <li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+                                </ul>
+
+                            </div>
+
+                        </div> -->
+
+                        <!-- <div class="col_one_third col_last">
+
+                            <div class="widget clearfix">
+                                <h4>Recent Posts</h4>
+
+                                <div id="post-list-footer">
+                                    <div class="spost clearfix">
+                                        <div class="entry-c">
+                                            <div class="entry-title">
+                                                <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                                            </div>
+                                            <ul class="entry-meta">
+                                                <li>10th July 2014</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="spost clearfix">
+                                        <div class="entry-c">
+                                            <div class="entry-title">
+                                                <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                            </div>
+                                            <ul class="entry-meta">
+                                                <li>10th July 2014</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="spost clearfix">
+                                        <div class="entry-c">
+                                            <div class="entry-title">
+                                                <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+                                            </div>
+                                            <ul class="entry-meta">
+                                                <li>10th July 2014</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+                    <div class="col_one_third col_last">
+
+                        <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                            <div class="row">
+                                <!--   
+                                <div class="col-md-6 bottommargin-sm">
+                                    <div class="counter counter-small"><span data-from="0" data-to="132" data-refresh-interval="80" data-speed="3000" data-comma="true"></span>
+                                    </div>
+                                    <h5 class="nobottommargin">Total Deliveries</h5>
+                                </div>
+
+                                <div class="col-md-6 bottommargin-sm">
+                                    <div class="counter counter-small"><span data-from="0" data-to="47" data-refresh-interval="50" data-speed="2000" data-comma="true"></span>
+                                    </div>
+                                    <h5 class="nobottommargin">Clients</h5>
+                                </div>
+                            -->
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="widget subscribe-widget clearfix">
+
+                            <div id="widget-subscribe-form-result" data-notify-type="success" data-notify-msg=""></div>
+                            <form id="widget-subscribe-form" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-email2"></i></span>
+                                    <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="submit">Subscribe</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <script type="text/javascript">
+                                $("#widget-subscribe-form").validate({
+                                    submitHandler: function(form) {
+                                        $(form).find('.input-group-addon').find('.icon-email2').removeClass('icon-email2').addClass('icon-line-loader icon-spin');
+                                        $(form).ajaxSubmit({
+                                            target: '#widget-subscribe-form-result',
+                                            success: function() {
+                                                $(form).find('.input-group-addon').find('.icon-line-loader').removeClass('icon-line-loader icon-spin').addClass('icon-email2');
+                                                $('#widget-subscribe-form').find('.form-control').val('');
+                                                $('#widget-subscribe-form-result').attr('data-notify-msg', $('#widget-subscribe-form-result').html()).html('');
+                                                SEMICOLON.widget.notifications($('#widget-subscribe-form-result'));
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                        </div> -->
+
+                        <!-- <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                            <div class="row">
+
+                                <div class="col-md-6 clearfix bottommargin-sm">
+                                    <a href="#" class="social-icon si-dark si-colored si-facebook nobottommargin" style="margin-right: 10px;">
+                                        <i class="icon-facebook"></i>
+                                        <i class="icon-facebook"></i>
+                                    </a>
+                                    <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
+                                </div>
+                                <div class="col-md-6 clearfix">
+                                    <a href="#" class="social-icon si-dark si-colored si-rss nobottommargin" style="margin-right: 10px;">
+                                        <i class="icon-rss"></i>
+                                        <i class="icon-rss"></i>
+                                    </a>
+                                    <a href="#"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to RSS Feeds</small></a>
+                                </div>
+
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+                </div>
+                <!-- .footer-widgets-wrap end -->
+
+            </div>
+            <div class="container">
+                <div class="row">
+                <form method="POST">
+                    {% csrf_token %}
+                <div id="div_id_fullname" class="form-group col-12 col-md-6"> <label for="id_fullname" class=" requiredField">
+                                Fullname<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="fullname" maxlength="100" class="textinput textInput form-control " required="" id="id_fullname"> <p id="error_1_id_fullname" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_email" class="form-group  col-12 col-md-6"> <label for="id_email" class=" requiredField">
+                                Email<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="email" maxlength="50" class="textinput textInput form-control " required="" id="id_email"> <p id="error_1_id_email" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_number" class="form-group   col-12 col-md-6"> <label for="id_number" class=" requiredField">
+                                Contact Number<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="number" maxlength="10" class="textinput textInput form-control " required="" id="id_number"> <p id="error_1_id_number" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_country" class="form-group   col-12 col-md-6"> <label for="id_country" class=" requiredField">
+                                Country<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="country" maxlength="50" class="textinput textInput form-control " required="" id="id_country"> <p id="error_1_id_country" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_subject" class="form-group col-12 col-md-6"> <label for="id_subject" class=" requiredField">
+                                Subject<span class="asteriskField">*</span> </label> <div class=""> <input name="subject" class="textinput textInput form-control " required="" id="id_subject"> <p id="error_1_id_subject" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_disp" class="form-group col-12 col-md-6"> <label for="id_disp" class=" requiredField">
+                                Details<span class="asteriskField">*</span> </label> <div class=""> <textarea name="disp" cols="40" rows="10" class="textarea form-control " required="" id="id_disp"></textarea> <p id="error_1_id_disp" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_en_title" class="form-group col-12 col-md-6"> <label for="id_en_title" class=" requiredField">
+                                <span class="asteriskField"></span> </label> <div class=""> <input type="hidden" name="en_title" maxlength="25" class="textinput textInput form-control " required="" id="id_en_title" value="homepage"><p id="error_1_id_en_title" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div>
+                                <button type="submit" name="homepage" value="homepage" class="btn btn-primary" style="margin-left:12px">Submit</button>
+                                </div> 
+                        </form>
+                    </div>    
+                </div>
+
+            <!-- Copyrights
+            ============================================= -->
+            <style>.signupforms li {
+                display: inline-block;
+            }</style>
+            <div id="copyrights">
+
+                <div class="container clearfix">                    
+                    <div class="col-sm-9">
+                        <ul class="signupforms">
+                          
+                                
+                            <li><a href="/userdetail/consumer_register">B2C Consumers |</a></li>
+                            <li><a href="/userdetail/buisness_registration/">B2B Consumers |</a></li>
+                            <li><a href="/userdetail/buisness_registration/">B2B Customers |</a></li>
+                            <li><a href="/userdetail/seller_registration/">Buyers |</a></li>
+                            <li><a href="/userdetail/seller_registration/">Brands |</a></li>
+                            <li><a href="/userdetail/manufacturer_registration/">Manufacturer |</a></li>
+                            <li><a href="/userdetail/staff_registration/">Management Staff |</a></li>
+                            <li><a href="/userdetail/staff_registration/">Operators</a></li>                        
+                        </ul>
+                        <p style="text-align:center;">Copyrights © 2014 JustGetIt</p>
+                        <br>
+                        
+                    </div>
+
+                    <div class="col-sm-3 col_last tright" style="height: 40px">
+                        <div class="fright clearfix">
+                            <a href="https://api.whatsapp.com/send?phone=+9188619 91781" target="_blank">
+                                <i class="fa fa-whatsapp"></i>
+                            </a>
+
+                            <a href="https://m.facebook.com/Just-Get-It-109801484083189/" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+
+                            <a href="https://instagram.com/inolio_justgetit?igshid=1trb3k83sz2fr" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+
+                            <a href="https://youtube.com/channel/UCOPMH0cdOY5C1zotNMSaWLw" target="_blank">
+                                <i class="fa fa-youtube"></i>
+                            </a>
+
+                            <a href="https://www.linkedin.com/company/justgetit" target="_blank">
+                                <i class="fa fa-linkedin"></i>
+                            </a>                            
+
+                            <!-- <a href="https://m.facebook.com/Just-Get-It-109801484083189/" target="_blank" class="social-icon si-small si-borderless si-facebook">
+                                <i class="icon-facebook"></i>
+                                <i class="icon-facebook"></i>
+                            </a>
+
+                            <a href="https://instagram.com/inolio_justgetit?igshid=1trb3k83sz2fr" target="_blank" class="social-icon si-small si-borderless si-twitter">
+                                <i class="icon-instagram"></i>
+                                <i class="icon-instagram"></i>
+                            </a> -->
+
+                            <!-- <a href="https://instagram.com/inolio_justgetit?igshid=1trb3k83sz2fr" target="_blank" class="social-icon si-small si-borderless si-gplus">
+                                <i class="icon-gplus"></i>
+                                <i class="icon-gplus"></i>
+                            </a> -->
+                            <!-- <a href="https://youtube.com/channel/UCOPMH0cdOY5C1zotNMSaWLw" target="_blank" class="social-icon si-small si-borderless si-gplus">
+                                <i class="icon-youtube"></i>
+                                <i class="icon-youtube"></i>
+                            </a> -->
+
+                            <!--
+                            <a href="#" class="social-icon si-small si-borderless si-pinterest">
+                                <i class="icon-pinterest"></i>
+                                <i class="icon-pinterest"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-vimeo">
+                                <i class="icon-vimeo"></i>
+                                <i class="icon-vimeo"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-github">
+                                <i class="icon-github"></i>
+                                <i class="icon-github"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-yahoo">
+                                <i class="icon-yahoo"></i>
+                                <i class="icon-yahoo"></i>
+                            </a>
+        -->
+
+                            <!-- <a href="https://www.linkedin.com/company/justgetit" target="_blank" class="social-icon si-small si-borderless si-linkedin">
+                                <i class="icon-linkedin"></i>
+                                <i class="icon-linkedin"></i>
+                            </a> -->
+                        </div>
+
+                        <div class="clear"></div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- #copyrights end -->
+
+        </footer>
+<!-- #footer end -->
+
+    </div>
+<!-- #wrapper end -->
+
+ 
+  </section>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'index/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'index/assets/vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static 'index/assets/vendor/php-email-form/validate.js'%}"></script>
+  <script src="{% static 'index/assets/vendor/purecounter/purecounter.js'%}"></script>
+  <script src="{% static 'index/assets/vendor/swiper/swiper-bundle.min.js'%}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'index/assets/js/main.js'%}"></script>
+
+</body>
+{% endblock %}
+
+
+
+
+</html>

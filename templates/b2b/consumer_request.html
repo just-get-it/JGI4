@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+{% if invalid %}
+  <script type="text/javascript">
+    alert("Invalid Information");
+  </script>
+
+{% endif %}
+<div class="row">
+
+  <div class="container my-3">
+    <div class="row">
+      <h4><b>Request for Assortment</b></h4>
+    </div>
+  </div>
+
+
+  <div class="container my-3">
+    <form method="post">{% csrf_token %}
+    <div class="row mt-3">
+      <label>Order No.</label>
+      <input type="number" name="order" required style="margin-left:8vw;">
+    </div>
+    <div class="row mt-3">
+      <label>Order Password</label>
+      <input type="text" name="order_password" required style="margin-left:4.5vw;">
+    </div>
+    <div class="row mt-3">
+      <label>Organization Email</label>
+      <input type="email" name="org_email" required style="margin-left:3vw;">
+    </div>
+    <div class="row mt-3">
+      <button type="submit" style="color:#30c5ff;background:none;border:none;margin-left:30vw;">Request</button>
+    </div>
+
+      </form>
+    </div>
+
+
+</div>
+
+{% endblock %}

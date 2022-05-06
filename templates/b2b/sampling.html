@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_timeline.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/placeorder.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<style type="text/css">
+	.logincol1 label{
+		margin-top: 1vh;
+	}
+	label{
+		margin-bottom: 0;
+	}
+	.loginemail{
+		margin-top: 3vh;
+	}
+	.logincol{
+		height: 110vh;
+
+	}
+
+
+
+
+
+
+
+
+
+	.loginrow{
+		height: 130vh;
+	}
+	.logincol1{
+		height: 90vh;
+	}
+</style>
+
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+				<h4>Sampling Details</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1">
+					
+					<textarea class="loginpassword" name="dispatch" placeholder="Dispatch Address" required></textarea>
+					<textarea class="loginpassword" name="billing" placeholder="Billing Address" required></textarea>
+					<label><b>Sample Type</b></label>
+					<select name="sample_type" class="loginpassword" required>
+						<option value="PROTO">PROTO</option>
+						<option value="Fit">Fit</option>
+						<option value="Wash">Wash</option>
+						<option value="GPT">GPT</option>
+						<option value="PP">PP</option>
+						<option value="TOP">TOP</option>
+						<option value="Size-set">Size-set</option>
+					</select>
+					<input class="loginpassword" type="number" name="sample_quantity" placeholder="Samples Quantity" required>
+					<label for="sample">Sample Image of Product</label>
+					<input type="file" name="sample" label="Sample Image of Product" class="loginfile" id="sample" required>
+					<label for="excel">Excel Sheet of Employee Data</label>
+					<input type="file" name="excel" class="loginfile" id="excel" required>
+					<h6 class="mt-4">Sample Excel Sheet <a href="/media/local/b2b/sample.csv">Sample</a></h6>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">SUBMIT</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="{% static 'js/b2b/placeorder.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

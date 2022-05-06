@@ -1,0 +1,915 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/b2b/buisness_profile.css' %}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/userdetail/seller_profile.css' %}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/userdetail/staff_profile.css' %}"
+/>
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/b2b/buisness_profile.css' %}"
+/>
+{% endblock %} {% block topcontent %}
+
+<style type="text/css">
+
+  	{% if no_count %}
+  	.noti_detail_head::after{
+  		content: '{{no_count}}'
+  	}
+  	{% else %}
+
+  	.noti_detail_head::after{
+  		display: none;
+  	}
+  	{% endif %}
+
+
+  .staf_noti::after{
+  	display: none;
+  }
+
+  	{% if oty4 %}
+  	.noti_head::after{
+  		content: '{{oty4}}'
+  	}
+  	{% else %}
+
+  	.noti_head::after{
+  		display: none;
+  	}
+  	{% endif %}
+
+
+  	{% if oty %}
+  	.enq_noti::after{
+  		content: '{{oty}}'
+  	}
+  	{% else %}
+
+  	.enq_noti::after{
+  		display: none;
+  	}
+  	{% endif %}
+
+
+  	{% if oty1 %}
+  	.des_noti::after{
+  		content: '{{oty1}}'
+  	}
+  	{% else %}
+
+  	.des_noti::after{
+  		display: none;
+  	}
+  	{% endif %}
+  	{% if oty2 %}
+  	.samp_noti::after{
+  		content: '{{oty2}}'
+  	}
+  	{% else %}
+
+  	.samp_noti::after{
+  		display: none;
+  	}
+  	{% endif %}
+  	{% if oty3 %}
+  	.ord_noti::after{
+  		content: '{{oty3}}'
+  	}
+  	{% else %}
+
+  	.ord_noti::after{
+  		display: none;
+  	}
+  	{% endif %}
+</style>
+
+<div class="container-fluid">
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-primary font-weight-bold m-0"
+  >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown1"
+      aria-controls="navbarNavDropdown1"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item">
+           <a href="/buisness/buisness_profile" class="nav-link" style="color: white;"
+        >Profile & Settings</a
+      >
+		</li>
+		 <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notifications
+        </a>
+        <div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+          <a href="/buisness/buisness_profile/notifications?filter=staff" class="nav-link text-white dropdown-item">Staff Notification</a>
+		  <a href="/buisness/buisness_profile/notifications?filter=enquiry" class="nav-link text-white dropdown-item">Enquiry Notifications</a>
+		  <a href="/buisness/buisness_profile/notifications?filter=design" class="nav-link text-white dropdown-item">Design Notifications</a>
+		  <a href="/buisness/buisness_profile/notifications?filter=sampling" class="nav-link text-white dropdown-item">Sampling Notifications</a>
+		  <a href="/buisness/buisness_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+        </div>
+      </li>
+		<li class="nav-item"> <a
+        href="/buisness/buisness_order?req=E"
+        class="nav-link"
+        style="color: white;"
+        >Enquires</a
+      ></li>
+		<li class="nav-item"><a
+        href="/buisness/buisness_order?req=D"
+        class="nav-link"
+        style="color: white;"
+        >Designs</a
+      ></li>
+		<li class="nav-item"><a
+        href="/buisness/buisness_order?req=S"
+        class="nav-link"
+        style="color: white;"
+        >Sampling</a
+      ></li>
+		<li class="nav-item"><a
+        href="/buisness/buisness_order?req=O"
+        class="nav-link"
+        style="color: white;"
+        >Orders</a
+      ></li>
+		<li class="nav-item"><a href="/buisness/products" class="nav-link" style="color: white;"
+        >Products</a
+      ></li>
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+
+{% comment %} <div class="container-fluid">
+  <div class="row">
+    <div
+      class="col py-2 centered pro_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      <a href="/buisness/buisness_profile" class="hov-a" style="color: white;"
+        >Profile & Settings</a
+      >
+    </div>
+    <div
+      class="col py-2 centered noti_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      Notifications
+    </div>
+    <!--
+		<div class="col py-2 centered acti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Activities
+		</div> -->
+    <div
+      class="col py-2 centered vend_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      <a
+        href="/buisness/buisness_order?req=E"
+        class="hov-a"
+        style="color: white;"
+        >Enquires</a
+      >
+    </div>
+    <div
+      class="col py-2 centered vend_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      <a
+        href="/buisness/buisness_order?req=D"
+        class="hov-a"
+        style="color: white;"
+        >Designs</a
+      >
+    </div>
+    <div
+      class="col py-2 centered vend_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      <a
+        href="/buisness/buisness_order?req=S"
+        class="hov-a"
+        style="color: white;"
+        >Sampling</a
+      >
+    </div>
+    <div
+      class="col py-2 centered vend_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      <a
+        href="/buisness/buisness_order?req=O"
+        class="hov-a"
+        style="color: white;"
+        >Orders</a
+      >
+    </div>
+
+    <div
+      class="col py-2 centered vend_head"
+      style="
+        font-weight: bold;
+        font-family: 'Cabin', sans-serif;
+        color: white;
+        background: #30c5ff;
+      "
+    >
+      <a href="/buisness/products" class="hov-a" style="color: white;"
+        >Products</a
+      >
+    </div>
+    <div class="container-fluid drop_noti">
+      <div class="row">
+        <div class="col-2 my-3 mx-3 ml-5 tod_noti staf_noti">
+          <img src="{% static 'img/jamie.jpg' %}" />
+          <a href="/buisness/buisness_profile/notifications?filter=staff"
+            ><div class="noti_tod_overlay">
+              <p>Staff Notifications</p>
+            </div></a
+          >
+        </div>
+        <div class="col-2 my-3 mx-3 tod_noti enq_noti">
+          <img src="{% static 'img/pris.jpg' %}" />
+          <a href="/buisness/buisness_profile/notifications?filter=enquiry"
+            ><div class="noti_tod_overlay">
+              <p>Enquiry Notifications</p>
+            </div></a
+          >
+        </div>
+        <div class="col-2 my-3 mx-3 tod_noti des_noti">
+          <img src="{% static 'img/kelly.jpg' %}" />
+          <a href="/buisness/buisness_profile/notifications?filter=design"
+            ><div class="noti_tod_overlay">
+              <p>Design Notifications</p>
+            </div></a
+          >
+        </div>
+        <div class="col-2 my-3 mx-3 tod_noti samp_noti">
+          <img src="{% static 'img/freestock.jpg' %}" />
+          <a href="/buisness/buisness_profile/notifications?filter=sampling"
+            ><div class="noti_tod_overlay">
+              <p>Sampling Notifications</p>
+            </div></a
+          >
+        </div>
+        <div class="col-2 my-3 mx-3 tod_noti ord_noti">
+          <img src="{% static 'img/andre.jpg' %}" />
+          <a href="/buisness/buisness_profile/notifications?filter=order"
+            ><div class="noti_tod_overlay">
+              <p>Order Notifications</p>
+            </div></a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid drop_noti_acti">
+      <div class="row">
+        <div class="col my-3 mx-3 ml-5 tod_noti">
+          <img src="{% static 'img/agni.jpg' %}" />
+          <a href="/userdetail/vendor_profile/activities?filter=today"
+            ><div class="noti_tod_overlay">
+              <p style="margin-left: 125px;">Today's</p>
+            </div></a
+          >
+        </div>
+        <div class="col my-3 mx-3 tod_noti">
+          <img src="{% static 'img/yunm.jpg' %}" />
+          <a href="/userdetail/vendor_profile/activities?filter=pending"
+            ><div class="noti_tod_overlay">
+              <p style="margin-left: 125px;">Pending</p>
+            </div></a
+          >
+        </div>
+        <div class="col my-3 mx-3 tod_noti">
+          <img src="{% static 'img/carl.jpg' %}" />
+          <a href="/userdetail/vendor_profile/activities?filter=enquiry"
+            ><div class="noti_tod_overlay">
+              <p style="margin-left: 125px;">Enquiry</p>
+            </div></a
+          >
+        </div>
+        <div class="col my-3 mx-3 tod_noti">
+          <img src="{% static 'img/dmit.jpg' %}" />
+          <a href="/userdetail/vendor_profile/activities?filter=design"
+            ><div class="noti_tod_overlay">
+              <p style="margin-left: 125px;">Design</p>
+            </div></a
+          >
+        </div>
+        <div class="col my-3 mx-3 tod_noti">
+          <img src="{% static 'img/kelly2.jpg' %}" />
+          <a href="/userdetail/vendor_profile/activities?filter=sampling"
+            ><div class="noti_tod_overlay">
+              <p style="margin-left: 125px;">Sampling</p>
+            </div></a
+          >
+        </div>
+        <div class="col my-3 mx-3 tod_noti">
+          <img src="{% static 'img/san.jpg' %}" />
+          <a href="/userdetail/vendor_profile/activities?filter=order"
+            ><div class="noti_tod_overlay">
+              <p style="margin-left: 125px;">Order</p>
+            </div></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+{% endblock %} {% block content %}
+
+<style type="text/css">
+  .table_activity tr,
+  .table_activity th,
+  .table_activity td {
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+  }
+  .ord {
+    padding: 1vw;
+    transition: all 0.5s ease-out;
+    margin-left: 10px;
+  }
+  .ord:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    transform: scale(1.02);
+    font-size: 1em;
+  }
+</style>
+
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+      <img src="{{logo2.url}}" />
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+      <h1><b>{{name}}</b></h1>
+      <h6><b>Email</b> - {{email}}</h6>
+      <h6><b>Mission</b> - {{mission}}</h6>
+      <h6><b>GST Identification No.</b> - {{gstin}}</h6>
+      <div class="row">
+        <a
+          href="/buisness/buisness_profile/excel_settings"
+          class="hov-a"
+          style="margin-left: auto;"
+          >Excel Upload Settings</a
+        >
+        <a
+          href="/buisness/buisness_timeline"
+          class="hov-a"
+          style="margin-left: 3vw;"
+          >Update Profile</a
+        >
+        <a
+          href="/userdetail/seller_profile/upload_product"
+          class="hov-a"
+          style="margin-left: 3vw;"
+          >Upload Product</a
+        >
+        <a
+          href="/userdetail/seller_profile/upload_product"
+          class="hov-a"
+          style="margin-left: 3vw;"
+          >Task</a
+        >
+      </div>
+    </div>
+    <div>
+      <table
+        id="maintable1"
+        width="30%"
+        cellpadding="0"
+        cellspacing="0"
+        class="pdzn_tbl1"
+        border="#729111 5px solid "
+        style="padding-top: 30px; padding-left: 30px; margin-top: 20px;"
+      >
+        <tr style="background-color: deepskyblue;">
+          <th align="center">
+            <label style="padding-left: 35%; font-size: 1.3em;"
+              ><b
+                >Dispatch
+                <p style="color: red; margin-bottom: 0; display: inline-block;">
+                  *
+                </p></b
+              ></label
+            >
+          </th>
+        </tr>
+        <tr id="rows1">
+          <div style="padding-left: 5px;">
+            <td style="padding: 10px;">
+              <label
+                style="
+                  font-size: 15px;
+                  font-family: Arial, Helvetica, sans-serif;
+                "
+                >Address</label
+              >
+              <textarea
+                class="loginpassword"
+                onkeyup="my(this)"
+                name="dispatch"
+                placeholder="Dispatch Address"
+                id="dis"
+                required
+                style="
+                  width: 20vw;
+                  box-shadow: 0 0 1px black;
+                  background-color: white;
+                  padding: 1.3vw;
+                  margin-top: 1vh;
+                "
+              ></textarea>
+              <button
+                class="py-2 loginbutton"
+                type="submit"
+                style="border-radius: 8px; background-color: deepskyblue;"
+              >
+                SUBMIT
+              </button>
+            </td>
+          </div>
+        </tr>
+      </table>
+      <br />
+      <button
+        type="button"
+        onclick="myFunction()"
+        name="add"
+        value="Add+"
+        id="add_new"
+        style="
+          color: white;
+          border-radius: 100%;
+          background-color: deepskyblue;
+          font-size: 20px;
+          position: relative;
+        "
+        class="Add1"
+        disabled
+      >
+        +
+      </button>
+    </div>
+    <div>
+      <table
+        id="maintable2"
+        width="30%"
+        cellpadding="0"
+        cellspacing="0"
+        class="pdzn_tbl1"
+        border="#729111 5px solid"
+        align="center"
+        style="padding-top: 30px; padding-left: 300px; margin-top: 20px;"
+      >
+        <tr style="background-color: deepskyblue;">
+          <th align="center">
+            <label style="padding-left: 40%; font-size: 1.3em;"
+              ><b
+                >Billing
+                <p style="color: red; margin-bottom: 0; display: inline-block;">
+                  *
+                </p></b
+              ></label
+            >
+          </th>
+        </tr>
+        <tr id="rows2">
+          <div style="padding-left: 5px;">
+            <td style="padding: 10px;">
+              <label
+                style="
+                  font-size: 15px;
+                  font-family: Arial, Helvetica, sans-serif;
+                "
+                >Address</label
+              >
+              <textarea
+                class="loginpassword"
+                name="billing"
+                onkeyup="my1(this)"
+                placeholder="Billing Address"
+                id="bil"
+                required
+                style="
+                  width: 20vw;
+                  box-shadow: 0 0 1px black;
+                  background-color: white;
+                  padding: 1.3vw;
+                  margin-top: 1vh;
+                "
+              ></textarea>
+              <button
+                class="py-2 loginbutton"
+                type="submit"
+                style="border-radius: 8px; background-color: deepskyblue;"
+              >
+                SUBMIT
+              </button>
+            </td>
+          </div>
+        </tr>
+      </table>
+      <br />
+      <button
+        type="button"
+        name="add"
+        value="Add+"
+        id="add_new1"
+        onclick="myFunction1()"
+        class="Add2"
+        style="
+          color: white;
+          border-radius: 80%;
+          background-color: deepskyblue;
+          font-size: 20px;
+          position: relative;
+          margin-left: 62px;
+        "
+        disabled
+      >
+        +
+      </button>
+    </div>
+  </div>
+  <div class="row mt-2 mb-5 buis_desc_row">
+    <h6 align="justify"><b>Description</b> : - {{desc}}</h6>
+  </div>
+  <div class="row mt-2 mb-5 buis_desc_row">
+    <label
+      ><b>Industry - </b
+      ><input
+        type="text"
+        name="industry_ajax"
+        id="industry_ajax"
+        placeholder="Industry"
+        style="border: none; margin-left: 2vw;"
+        value="{{us.industry}}"
+    /></label>
+    {% csrf_token %}
+  </div>
+  <script>
+    function my(txt) {
+      var bt = document.getElementById("add_new");
+      if (txt.value.length != "") {
+        bt.disabled = false;
+      } else {
+        bt.disabled = true;
+      }
+    }
+
+    function myFunction() {
+      var table = document.getElementById("maintable1");
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      cell1.innerHTML =
+        '<tr id="rows1" ><div style="padding-left: 5px"><td style="padding: 10px;" ><label style="font-size: 15px;font-family: Arial, Helvetica, sans-serif;">Address</label><textarea class="loginpassword" onkeyup="my(this)" name="dispatch" placeholder="Dispatch Address" id="dis" required style="width: 20vw;box-shadow: 0 0 1px black;background-color: white;padding: 1.3vw;margin-top: 1vh;"></textarea><button class="py-2 loginbutton" type="submit" style="border-radius: 8px; background-color: deepskyblue;">SUBMIT</button></td></div></tr>';
+      document.getElementById("add_new").disabled = true;
+    }
+
+    function my1(txt1) {
+      var bt = document.getElementById("add_new1");
+      if (txt1.value === "") {
+        bt.disabled = true;
+      } else {
+        bt.disabled = false;
+      }
+    }
+    function myFunction1() {
+      var table = document.getElementById("maintable2");
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      cell1.innerHTML =
+        '<tr id="rows2" ><div style="padding-left: 5px"><td style="padding:10px;"><label style="font-size: 15px;font-family: Arial, Helvetica, sans-serif;">Address</label><textarea class="loginpassword" name="billing" onkeyup="my1(this)" placeholder="Billing Address" id="bil" required style="width: 20vw;box-shadow: 0 0 1px black;background-color: white;padding: 1.3vw;margin-top: 1vh;"></textarea><button class="py-2 loginbutton" type="submit" style="border-radius: 8px; background-color: deepskyblue;">SUBMIT</button></td></div></tr>';
+      document.getElementById("add_new1").disabled = true;
+    }
+  </script>
+
+  {% if enquiry.0 %}
+
+  <div class="row mb-5">
+    <div class="container-fluid">
+      <div class="row">
+        <h5><b>Your Enquiry's</b></h5>
+      </div>
+    </div>
+    {% if enquiry_bool %}
+    <div class="container-fluid">
+      <div class="row orders_row" style="">
+        {% for ord in enquiry %}
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+          {% if ord.image %}
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{{ord.image.url}}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% else %}
+
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{% static 'img/order_rep.jpg' %}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% endif %}
+          <div class="container-fluid mt-2">
+            <div class="row">
+              <h6 class=""><b>{{ord.order_no}}</b></h6>
+              <p class="product_details_p">
+                Label - {{ord.label|truncatewords:2}}<br />
+                Super-Category - {{ord.product_Category}}<br />
+                Sub-Category - {{ord.product_Subcategory}}<br />
+                Category - {{ord.product_Supercategory}}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% if enquiry.count > 4 %}
+        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-1 ord_next">
+          <a href="/buisness/buisness_order?req=E"
+            ><i class="fas fa-chevron-circle-right fa-2x"></i
+          ></a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}
+    <h6>You didn't have any enquiry yet</h6>
+    {% endif %}
+  </div>
+  {% endif %} {% if design.0 %}
+  <div class="row mb-5">
+    <div class="container-fluid">
+      <div class="row">
+        <h5><b>Your Design's</b></h5>
+      </div>
+    </div>
+    {% if design_bool %}
+    <div class="container-fluid">
+      <div class="row orders_row" style="">
+        {% for ord in design %}
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+          {% if ord.image %}
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{{ord.image.url}}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% else %}
+
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{% static 'img/order_rep.jpg' %}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% endif %}
+          <div class="container-fluid mt-2">
+            <div class="row">
+              <h6 class=""><b>{{ord.order_no}}</b></h6>
+              <p class="product_details_p">
+                Label - {{ord.label|truncatewords:2}}<br />
+                Super-Category - {{ord.product_Category}}<br />
+                Sub-Category - {{ord.product_Subcategory}}<br />
+                Category - {{ord.product_Supercategory}}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% if design.count > 4 %}
+        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-1 ord_next">
+          <a href="/buisness/buisness_order?req=D"
+            ><i class="fas fa-chevron-circle-right fa-2x"></i
+          ></a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}
+    <h6>You didn't have any design yet</h6>
+    {% endif %}
+  </div>
+  {% endif %} {% if sample.0 %}
+
+  <div class="row mb-5">
+    <div class="container-fluid">
+      <div class="row">
+        <h5><b>Your Sampling Orders</b></h5>
+      </div>
+    </div>
+    {% if sample_bool %}
+    <div class="container-fluid">
+      <div class="row orders_row" style="">
+        {% for ord in sample %}
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+          {% if ord.image %}
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{{ord.image.url}}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% else %}
+
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{% static 'img/order_rep.jpg' %}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% endif %}
+          <div class="container-fluid mt-2">
+            <div class="row">
+              <h6 class=""><b>{{ord.order_no}}</b></h6>
+              <p class="product_details_p">
+                Label - {{ord.label|truncatewords:2}}<br />
+                Super-Category - {{ord.product_Category}}<br />
+                Sub-Category - {{ord.product_Subcategory}}<br />
+                Category - {{ord.product_Supercategory}}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% if sample.count > 4 %}
+        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-1 ord_next">
+          <a href="/buisness/buisness_order?req=S"
+            ><i class="fas fa-chevron-circle-right fa-2x"></i
+          ></a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}
+    <h6>You didn't have any sampling orders yet</h6>
+    {% endif %}
+  </div>
+
+  {% endif %} {% if orders.0 %}
+  <div class="row mb-5">
+    <div class="container-fluid">
+      <div class="row">
+        <h5><b>Your Orders</b></h5>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row orders_row" style="">
+        {% if order_bool %} {% for ord in orders %}
+        <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+          {% if ord.image %}
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{{ord.image.url}}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% else %}
+
+          <a href="/buisness/buisness_order/{{ord.order_no}}"
+            ><img
+              src="{% static 'img/order_rep.jpg' %}"
+              style="border-radius: 25vw; width: 11vw; height: 11vw;"
+          /></a>
+          {% endif %}
+          <div class="container-fluid mt-2">
+            <div class="row">
+              <h6 class=""><b>{{ord.order_no}}</b></h6>
+              <p class="product_details_p">
+                Label - {{ord.label|truncatewords:2}}<br />
+                Super-Category - {{ord.product_Category}}<br />
+                Sub-Category - {{ord.product_Subcategory}}<br />
+                Category - {{ord.product_Supercategory}}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% if orders.count > 4 %}
+        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-1 ord_next">
+          <a href="/buisness/buisness_order?req=O"
+            ><i class="fas fa-chevron-circle-right fa-2x"></i
+          ></a>
+        </div>
+        {% endif %} {% else %}
+        <h6>You didn't placed any orders yet</h6>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row mb-5 start_order">
+    <div class="col-3 centered">
+      <a href="/buisness/enquiry" class="px-5 py-2"><b>Enquiry</b></a>
+    </div>
+    <div class="col-3 centered">
+      <a href="/buisness/design" class="px-5 py-2"><b>Design</b></a>
+    </div>
+    <div class="col-3 centered">
+      <a href="/buisness/sampling" class="px-5 py-2"><b>Sampling</b></a>
+    </div>
+    <div class="col-3 centered">
+      <a href="/buisness/placeorder" class="px-5 py-2"><b>Place Order</b></a>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var typingTimer; //timer identifier
+  var doneTypingInterval = 3000;
+
+  $("#industry_ajax").keyup(function () {
+    clearTimeout(typingTimer);
+    if ($("#industry_ajax").val()) {
+      typingTimer = setTimeout(function () {
+        alert("Data is under Process !");
+        $.ajax({
+          type: "POST",
+          url: "/buisness/buisness_profile",
+          data: {
+            industry_ajax: $("#industry_ajax").val(),
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+          },
+          cache: false,
+          dataType: "json",
+        });
+      }, doneTypingInterval);
+    }
+  });
+</script>
+
+<div class="container-fluid">
+  <div
+    class="row"
+    style="
+      bottom: 0;
+      position: fixed;
+      height: 50px;
+      width: 100%;
+      z-index: 105;
+      margin-bottom: 50px;
+      margin-left: 90vw;
+      margin-right: 10vw;
+    "
+  >
+    <a href="/userdetail/staff_profile/message"
+      ><img
+        src="{% static 'img/msg.png' %}"
+        style="width: 5vw; height: 5vw; cursor: pointer;"
+    /></a>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

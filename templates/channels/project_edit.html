@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form method="post" action="edit_project?project_id={{project_id}}">
+	{% csrf_token %}
+	<label>Change name for project</label>
+	<input type="text" name="project_name"><br>
+	<input type="submit" name="submit">
+	</form>
+
+</body>
+</html>

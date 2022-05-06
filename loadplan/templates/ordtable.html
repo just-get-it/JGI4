@@ -1,0 +1,38 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>Order Table</h1>
+    </div>
+    <table class="table table-hover table-striped table-bordered" style="width: 97%; margin-left: 20px">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Order No.</th>
+            <th scope="col">Style No.</th>
+            <th scope="col">Order Quantity</th>
+            <th scope="col">Order Confirmation Date</th>
+            <th scope="col">Plan to Cut Date</th>
+            <th scope="col">Order Completion Date</th>
+            <th scope="col">Lead Time For Factory</th>
+            <th scope="col">Lead Time For Buyer</th>
+
+          </tr>
+        </thead>
+    {% for a in allorder %}
+        <tbody>
+          <tr>
+            <td>{{a.orderno}}</td>
+            <td>{{a.styleno}}</td>
+            <td>{{a.orderqty}}</td>
+            <td>{{a.ordercd}}</td>
+            <td>{{a.plancd}}</td>
+            <td>{{a.ocd}}</td>
+            <td>{{a.ltf}}</td>
+            <td>{{a.ltb}}</td>
+          </tr>
+        </tbody>
+    {% endfor %}
+      </table>
+
+    
+{% endblock %}

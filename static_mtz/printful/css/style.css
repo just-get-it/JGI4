@@ -1,0 +1,74 @@
+body{
+  background: rgb(251, 251, 251);
+}
+.picPart{
+    display: grid;
+    margin: 5px auto auto auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  
+  .layer1, .layer2{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #canvasPos{
+    margin: 23% 30% 10% 31%;
+  }
+  #canvasTank{
+    margin: 32% 30% 10% 33%;
+  }
+  #canvasPosR{
+    margin: 30% 30% 10% 25%;
+  }
+  #canvasPosL{
+    margin: 30% 30% 10% 42%;
+  }
+    
+
+  .textSec{
+    margin: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.4s;
+  }
+
+  .textSec:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
+
+  .title{
+    padding: 5px 10px 5px auto;
+    text-align: center;
+    background: #E40F0A;
+    color: #FFFFFF;
+    font-weight: bolder;
+  }
+
+  .bg{
+    width: 20px; 
+    height: 25px;
+    margin: 3px;
+    border-radius: 50%;
+  }
+
+  #text-color,#text-bg-color,#text-lines-bg-color,#text-stroke-color,#resize-img,#shift-x-axis,#shift-y-axis{
+    border: none;
+    border-radius: 100%;
+    background-color: #FFF;
+    float: right;
+  }
+  #font-family{
+    float: right;
+    width: 70%;
+    border-radius: 50px;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-weight: lighter;
+  }
+  #text-font-size,#text-stroke-width{
+    float: right;
+  }
+  #addImg{
+    margin-left: 30px;
+  }

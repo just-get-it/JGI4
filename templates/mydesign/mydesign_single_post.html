@@ -1,0 +1,581 @@
+{% extends 'base_connect.html' %} {% load static %} {% block content %}
+<!-- Page Wrapper Start -->
+<section class="page--wrapper pt--80 pb--20">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content Start -->
+            <div class="main--content col-md-8 pb--30" data-trigger="stickyScroll">
+                <div class="main--content-inner">
+                    <!-- Post Item Start -->
+                    <div class="post--item post--single pb--30">
+                        <!-- Post Image Start -->
+                        {% if post.image %}
+                        <div class="post--img">
+                            <a href="blog-details.html"><img src="{{post.image.url}}" alt=""></a>
+                        </div>
+                        {% endif %} {% if post.image1 %}
+                        <div class="post--img">
+                            <a href="blog-details.html"><img src="{{post.image1.url}}" alt=""></a>
+                        </div>
+                        {% endif %}{% if post.image2 %}
+                        <div class="post--img">
+                            <a href="blog-details.html"><img src="{{post.image2.url}}" alt=""></a>
+                        </div>
+                        {% endif %}{% if post.image3 %}
+                        <div class="post--img">
+                            <a href="blog-details.html"><img src="{{post.image3.url}}" alt=""></a>
+                        </div>
+                        {% endif %} {% if post.image4 %}
+                        <div class="post--img">
+                            <a href="blog-details.html"><img src="{{post.image4.url}}" alt=""></a>
+                        </div>
+                        {% endif %}
+                        <!-- Post Image End -->
+
+                        <!-- Post Info Start -->
+                        <div class="post--info">
+                            <!-- Post Meta Start -->
+                            <div class="post--meta">
+                                <ul class="nav">
+                                    <li>
+                                        <a href="#">
+                                            <i class="mr--8 fa fa-calendar-o"></i>
+                                            <span>{{post.post_time}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="mr--8 fa fa-comments-o"></i>
+                                            <span>{{post.comments.all|length}} Comments</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Post Meta End -->
+
+                            <!-- Post Title Start -->
+                            <div class="post--title mt--10">
+                                <h3 class="h4">{{post.title}}</h3>
+                            </div>
+                            <!-- Post Title End -->
+
+                            <!-- Post Content Start -->
+                            <div class="post--content text-darker mt--10">
+                                <p>{{post.description}}</p>
+                            </div>
+                            <!-- Post Content End -->
+
+                            <!-- Post Footer Start -->
+                            <div class="post--footer">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- Post Meta Start -->
+                                        <div class="post--meta">
+                                            <ul class="nav">
+                                                <li>
+                                                    <i class="mr--8 fa fa-tags"></i> {% for interest in post.related_interests.all %}
+                                                    <a href="{% url 'mydesign_interest' interest_name=interest.name %}"><span>{{interest.name}}</span></a> {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Post Meta End -->
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <!-- Post Social Start -->
+                                        <div class="post--social-share clearfix">
+                                            <ul class="nav">
+                                                <li><a href="#" onclick="
+                                                      window.open(
+                                                        'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+                                                        'facebook-share-dialog', 
+                                                        'width=626,height=436'); 
+                                                      return false;"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- Post Social End -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Footer End -->
+                        </div>
+                        <!-- Post Info End -->
+                    </div>
+                    <!-- Post Item End -->
+                    <!-- Post Author Start -->
+                    <div class="post--author pt--40 pb--30">
+                        <div class="post--author-inner clearfix" data-bg-img="img/posts-img/author-bg.png">
+                            <div class="img mr--30 text-black text-center float--left">
+                                <img src="img/posts-img/author.jpg" alt="">
+
+                                <p><a href="#" class="btn-link">{{post.user.name}}</a></p>
+                            </div>
+
+                            <div class="info ov--h fs--14 pt--8">
+                                <div class="desc fw--500 fstyle--i">
+                                    <p>{{post.user.description}}</p>
+                                </div>
+
+                                <div class="social text-gray">
+                                    <ul class="nav">
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post Author End -->
+                    {% if related_posts %}
+                    <!-- Related Posts Start -->
+                    <div class="related--posts pt--40">
+                        <h4 class="h4 pb--20">You May Also Like It</h4>
+
+                        <div class="row AdjustRow">
+                            <div class="col-md-6 pb--30">
+                                <!-- Post Item Start -->
+                                <div class="post--item">
+                                    <!-- Post Image Start -->
+                                    <div class="post--img">
+                                        <a href="blog-details.html"></a>
+                                        {% if related_posts.0.image %}
+                                        <img src="{{related_posts.0.image.url}}" alt=""></a> {% endif %}
+
+                                    </div>
+                                    <!-- Post Image End -->
+
+                                    <!-- Post Info Start -->
+                                    <div class="post--info">
+                                        <!-- Post Meta Start -->
+                                        <div class="post--meta">
+                                            <ul class="nav">
+                                                <li>
+                                                    <a href="#">
+                                                        {% if related_posts.0.user.image %}
+                                                        <img src="{{related_posts.0.user.image.url}}" alt="">
+                                                        {% endif %}
+                                                        <span>{{related_posts.0.user.name}}</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="mr--8 fa fa-calendar-o"></i>
+                                                        <span>{{related_posts.0.post_time}}</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="mr--8 fa fa-comments-o"></i>
+                                                        <span>{{related_posts.0.comments.all|length}} Comment</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Post Meta End -->
+
+                                        <!-- Post Title Start -->
+                                        <div class="post--title mt--10">
+                                            <h3 class="h6">
+                                                <a href="{% url 'mydesign_post' post_id=related_posts.0.id %}" class="btn-link">{{related_posts.0.title}}</a>
+                                            </h3>
+                                        </div>
+                                        <!-- Post Title End -->
+
+                                        <!-- Post Meta Start -->
+                                        <div class="post--meta">
+                                            <ul class="nav">
+                                                <li>
+                                                    <i class="mr--8 fa fa-tags"></i>{% for interest in related_posts.0.related_interests.all %}
+                                                    <a href="{% url 'mydesign_interest' interest_name=interest.name %}"><span>{{interest.name}}</span></a> {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Post Meta End -->
+
+                                        <!-- Post Content Start -->
+                                        <div class="post--content text-darker mt--10">
+                                            <p style="white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis; height: 100px;">{{related_posts.0.description}}</p>
+                                        </div>
+                                        <!-- Post Content End -->
+
+                                        <!-- Post Action Start -->
+                                        <div class="post--action text-darkest mt--8">
+                                            <a href="{% url 'mydesign_post' post_id=related_posts.0.id %}" class="btn-link">Continue Reading<i class="ml--10 text-primary fa fa-caret-right"></i></a>
+                                        </div>
+                                        <!-- Post Action End -->
+                                    </div>
+                                    <!-- Post Info End -->
+                                </div>
+                                <!-- Post Item End -->
+                            </div>
+                            <div class="col-md-6 pb--30">
+                                <!-- Post Item Start -->
+                                <div class="post--item">
+                                    <!-- Post Image Start -->
+                                    <div class="post--img">
+                                        <a href="blog-details.html">
+                                        {% if related_posts.1.image %}
+                                            <img src="{{related_posts.1.image.url}}" alt=""></a> {% endif %}
+                                    </div>
+                                    <!-- Post Image End -->
+
+                                    <!-- Post Info Start -->
+                                    <div class="post--info">
+                                        <!-- Post Meta Start -->
+                                        <div class="post--meta">
+                                            <ul class="nav">
+                                                <li>
+                                                    <a href="#">
+                                                        {% if related_posts.1.user.image %}
+                                                        <img src="{{related_posts.1.user.image.url}}" alt="">
+                                                        {% endif %}
+                                                        <span>{{related_posts.1.user.name}}</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="mr--8 fa fa-calendar-o"></i>
+                                                        <span>{{related_posts.1.post_time}}</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="mr--8 fa fa-comments-o"></i>
+                                                        <span>{{related_posts.1.comments.all|length}} Comment</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Post Meta End -->
+
+                                        <!-- Post Title Start -->
+                                        <div class="post--title mt--10">
+                                            <h3 class="h6">
+                                                <a href="{% url 'mydesign_post' post_id=related_posts.1.id %}" class="btn-link">{{related_posts.1.title}}</a>
+                                            </h3>
+                                        </div>
+                                        <!-- Post Title End -->
+
+                                        <!-- Post Meta Start -->
+                                        <div class="post--meta">
+                                            <ul class="nav">
+                                                <li>
+                                                    <i class="mr--8 fa fa-tags"></i>{% for interest in related_posts.1.related_interests.all %}
+                                                    <a href="{% url 'mydesign_interest' interest_name=interest.name %}"><span>{{interest.name}}</span></a> {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Post Meta End -->
+
+                                        <!-- Post Content Start -->
+                                        <div class="post--content text-darker mt--10">
+                                            <p style="white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis; height: 100px;">{{related_posts.1.description}}</p>
+                                        </div>
+                                        <!-- Post Content End -->
+
+                                        <!-- Post Action Start -->
+                                        <div class="post--action text-darkest mt--8">
+                                            <a href="{% url 'mydesign_post' post_id=related_posts.1.id %}" class="btn-link">Continue Reading<i class="ml--10 text-primary fa fa-caret-right"></i></a>
+                                        </div>
+                                        <!-- Post Action End -->
+                                    </div>
+                                    <!-- Post Info End -->
+                                </div>
+                                <!-- Post Item End -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Related Posts End -->
+                    {% endif %}
+                    <!-- Comment List Start -->
+                    <div class="comment--list pt--40">
+                        <h4 class="h4 pb--20">{{post.comments.all|length}} Comments</h4>
+                        <ul class="comment--items nav">
+                            {% load mptt_tags %} {% recursetree comments %}
+                            <li>
+                                <!-- Comment Item Start -->
+                                <div class="comment--item mr--15 clearfix" id='{{node.id}}'>
+                                    <div class="img float--left" data-overlay="0.3" data-overlay-color="primary">
+                                        {% if node.user.image %}
+                                        <img src="{{ node.user.image.url }}" alt=""> {% else %}
+                                        <img src="{% static 'img/just-connect/profile_pic.png' %}" alt=""> {% endif %}
+                                    </div>
+
+                                    <div class="info ov--h">
+                                        <div class="header clearfix">
+                                            <div class="meta float--left">
+                                                <p class="fs--14 fw--700 text-darkest">
+                                                    <a href="#">{{ node.user.name }}</a>
+                                                </p>
+
+                                                <p>
+                                                    <i class="mr--10 fa fa-clock-o"></i>
+                                                    <span>{{node.date}}</span>
+                                                </p>
+                                            </div>
+
+                                            <div class="reply text-darker float--right">
+                                                <button type="button" onclick="replyComment('{{ node.id }}');" class="btn btn-default">Reply</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="content pt--8 fs--14">
+                                            <p>{{node.text}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Comment Item End -->
+                                {% if not node.is_leaf_node %}
+                                <ul class="comment--items nav">
+                                    {{ children }}
+                                </ul>
+                                {% endif %}
+                            </li>
+                            {% endrecursetree %}
+                        </ul>
+                    </div>
+                    <!-- Comment List End -->
+
+                    <!-- Comment Form Start -->
+                    <div class="comment--form pb--30" data-form="validate">
+                        <h4 class="h4 pb--15">Leave A Comment</h4>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row gutter--15">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <textarea name="text" placeholder="Comment *" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 pt--10">
+                                    {% if user.is_authenticated %}
+                                    <button type="submit" name="new_comment" value="True" class="btn btn-sm btn-primary fs--14">Post Comment</button> {% else %}
+                                    <p style="color: red;">Sign in to start commenting on posts</p>
+                                    <button type="button" class="btn btn-sm btn-primary fs--14" disabled>Post Comment</button> {% endif %}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Comment Form End -->
+                </div>
+            </div>
+            <!-- Main Content End -->
+
+            <!-- Main Sidebar Start -->
+            <div class="main--sidebar col-md-4 pb--60" data-trigger="stickyScroll">
+                <!-- Widget Start -->
+                <div class="widget">
+                    <h2 class="h4 fw--700 widget--title">Find A Buddy</h2>
+
+                    <!-- Buddy Finder Widget Start -->
+                    <div class="buddy-finder--widget">
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-xs-6 col-xxs-12">
+                                    <div class="form-group">
+                                        <label>
+                                            <span class="text-darker ff--primary fw--500">I Am</span>
+
+                                            <select name="gender" class="form-control form-sm" data-trigger="selectmenu">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-xxs-12">
+                                    <div class="form-group">
+                                        <label>
+                                            <span class="text-darker ff--primary fw--500">Looking For</span>
+
+                                            <select name="lookingfor" class="form-control form-sm" data-trigger="selectmenu">
+                                                <option value="female">Female</option>
+                                                <option value="male">Male</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-xxs-12">
+                                    <div class="form-group">
+                                        <label>
+                                            <span class="text-darker ff--primary fw--500">Age</span>
+
+                                            <select name="age" class="form-control form-sm" data-trigger="selectmenu">
+                                                <option value="18to25">18 to 25</option>
+                                                <option value="25to30">25 to 30</option>
+                                                <option value="30to35">30 to 35</option>
+                                                <option value="35to40">35 to 40</option>
+                                                <option value="40plus">40+</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-xxs-12">
+                                    <div class="form-group">
+                                        <label>
+                                            <span class="text-darker ff--primary fw--500">City</span>
+
+                                            <select name="city" class="form-control form-sm" data-trigger="selectmenu">
+                                                <option value="newyork">New York</option>
+                                                <option value="California">California</option>
+                                                <option value="Atlanta">Atlanta</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label>
+                                            <span class="text-darker ff--primary fw--500">Filter Country</span>
+
+                                            <select name="city" class="form-control form-sm" data-trigger="selectmenu">
+                                                <option value="unitedstates">United States</option>
+                                                <option value="australia">Australia</option>
+                                                <option value="turkey">Turkey</option>
+                                                <option value="vietnam">Vietnam</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Buddy Finder Widget End -->
+                </div>
+                <!-- Widget End -->
+
+                <!-- Widget Start -->
+                <div class="widget">
+                    <h2 class="h4 fw--700 widget--title">Notice</h2>
+
+                    <!-- Text Widget Start -->
+                    <div class="text--widget">
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some look even slightly believable.</p>
+                    </div>
+                    <!-- Text Widget End -->
+                </div>
+                <!-- Widget End -->
+
+                <!-- Widget Start -->
+                <div class="widget">
+                    <h2 class="h4 fw--700 widget--title">Forums</h2>
+
+                    <!-- Links Widget Start -->
+                    <div class="links--widget">
+                        <ul class="nav">
+                            <li><a href="sub-forums.html">User Interface Design<span>(12)</span></a></li>
+                            <li><a href="sub-forums.html">Front-End Engineering<span>(07)</span></a></li>
+                            <li><a href="sub-forums.html">Web Development<span>(37)</span></a></li>
+                            <li><a href="sub-forums.html">Social Media Marketing<span>(13)</span></a></li>
+                            <li><a href="sub-forums.html">Content Marketing<span>(28)</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- Links Widget End -->
+                </div>
+                <!-- Widget End -->
+
+                <!-- Widget Start -->
+                <div class="widget">
+                    <h2 class="h4 fw--700 widget--title">Archives</h2>
+
+                    <!-- Nav Widget Start -->
+                    <div class="nav--widget">
+                        <ul class="nav">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-calendar-o"></i>
+                                    <span class="text">Jan - July 2017</span>
+                                    <span class="count">(86)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-calendar-o"></i>
+                                    <span class="text">Jan - Dce 2016</span>
+                                    <span class="count">(328)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-calendar-o"></i>
+                                    <span class="text">Jan - Dec 2015</span>
+                                    <span class="count">(427)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Nav Widget End -->
+                </div>
+                <!-- Widget End -->
+
+                <!-- Widget Start -->
+                <div class="widget">
+                    <h2 class="h4 fw--700 widget--title">Advertisements</h2>
+
+                    <!-- Ad Widget Start -->
+                    <div class="ad--widget">
+                        <a href="#">
+                            <img src="img/widgets-img/ad.jpg" alt="" class="center-block">
+                        </a>
+                    </div>
+                    <!-- Ad Widget End -->
+                </div>
+                <!-- Widget End -->
+            </div>
+            <!-- Main Sidebar End -->
+        </div>
+    </div>
+</section>
+<!-- Page Wrapper End -->
+{% endblock %} {% block customjs %}
+<script>
+    $(document).ready(function() {
+        $(".dropdown").removeClass("active");
+        $("#headerNav ul li:nth-child(2)").addClass("active");
+    })
+
+    function replyComment(id) {
+
+        if (document.contains(document.getElementById("newForm"))) {
+            document.getElementById("newForm").remove();
+        }
+        var a = document.getElementById(id);
+        a.insertAdjacentHTML('afterend',
+            `<form id="newForm" method="POST"> \
+        {% csrf_token %} \
+        <div class="form-group"> \
+          <textarea name="text" class="form-control" rows="3"></textarea> \
+        </div> \
+        <input hidden class="d-none" type="text" name="parent_id" value="` + id + `" /> \
+        {%if user.is_authenticated %} \
+        <button type="submit" name='new_comment' value='True' class="btn btn-primary btn-sm">Submit</button> \
+        {% else %} \
+        <button type="submit" class="btn btn-primary btn-sm" disabled="disabled">Submit</button> \
+        <p style="color: red">   Please log in to make comments!</p> \
+        {% endif %} \
+      </form></br>`);
+    }
+</script>
+{% endblock %}

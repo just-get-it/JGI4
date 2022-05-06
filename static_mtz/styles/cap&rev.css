@@ -1,0 +1,57 @@
+table{
+	border-collapse:collapse;
+    width: max-content;
+    background-color: silver;
+
+}
+td,th{
+
+    min-width: 2em;
+    text-align: center;
+}
+table tr{
+    text-align: center;
+}
+body{
+    top:10%;
+
+}
+
+#date_submit{
+                float:left; 
+                width:50%; 
+                height:fit-content;
+                padding-left:15%;
+
+}
+
+
+#cap-n-rev-assu { 
+                float:left; 
+                width:50%; 
+                height:280px;
+                padding-left:15%;
+				
+            } 
+
+
+#total_assumptions_table { 
+    display: inline-block;
+    width:50%; 
+    height:280px; 
+    padding-left:15%;
+} 
+
+
+#total_costing_table { 
+    display: inline-block;
+    width:50%; 
+    height:280px;
+    padding-left:15%;
+} 
+
+
+.blankrow{
+	height: 20px;
+}
+

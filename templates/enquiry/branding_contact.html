@@ -1,0 +1,187 @@
+{% extends "enquiry/branding_base.html" %}
+{% load static %}
+{% block title %}
+  <title>Just Get It | Contact</title>
+{% endblock title %}
+{% block style %}
+<style>#errormsg{text-align:center;}</style>
+{% endblock style %}
+
+{% block content %}
+			<section class="page_title ds bg-gradient2 s-pb-xl-130  s-pb-lg-100  s-pb-md-90 s-pt-md-175 s-pt-220 s-pb-60">
+				<div class="waveWrapper waveAnimation">
+					<div class="waveWrapperInner bgTop">
+						<div class="wave waveTop"></div>
+					</div>
+					<div class="waveWrapperInner bgMiddle">
+						<div class="wave waveMiddle"></div>
+					</div>
+					<div class="waveWrapperInner bgMiddle2">
+						<div class="wave waveMiddle2"></div>
+					</div>
+					<div class="waveWrapperInner bgBottom">
+						<div class="wave waveBottom"></div>
+					</div>
+				</div>
+				<div class="bubbles"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<h1>Contact</h1>
+						</div>
+
+
+					</div>
+				</div>
+			</section>
+			<section class="ls  s-pt-xl-250 s-pt-lg-230 s-pt-md-190 s-pt-160 s-pb-xl-140 s-pb-lg-130 s-pb-md-90 s-pb-60 s-pb-0 c-mb-30 c-gutter-30">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-3 col-md-6 col-12">
+							<div class="media text-center text-sm-left">
+								<div class="icon-styled fs-60">
+									<i class="ico ico-smartphone"></i>
+								</div>
+								<div class="media-body">
+									<h6 class="">
+										Connect
+									</h6>
+									<p>
+											<a href="tel:"> +91 9619348557</a><br>
+										
+											<a href="mailto:support@justgetit.in"></a>
+										</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6 col-12">
+							<div class="media text-center text-sm-left">
+								<div class="icon-styled fs-60">
+									<i class="ico ico-map-location"></i>
+								</div>
+								<div class="media-body">
+									<h6 class="">
+										India Locations
+									</h6>
+									<p class="">Thane, Bengaluru.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6 col-12">
+							<div class="media text-center text-sm-left">
+								<div class="icon-styled fs-60">
+									<i class="ico ico-map-location"></i>
+								</div>
+								<div class="media-body">
+									<h6 class="">
+										Bengaluru Location
+									</h6>
+									<p class="">1658, 1st Floor, 27th Main Rd, Sector 2, HSR Layout, Bengaluru, Karnataka, India, 560102.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6 col-12">
+							<div class="media text-center text-sm-left">
+								<div class="icon-styled fs-60">
+									<i class="ico ico-map-location"></i>
+								</div>
+								<div class="media-body">
+									<h6 class="">
+										Maharashtra Location
+									</h6>
+									<p class="">Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mb--30"></div>
+				</div>
+			</section>
+			<section class="ds bg-gradient s-pt-xl-150 s-pt-lg-130 s-pt-md-90 s-pt-60 s-pb-xl-250 s-pb-lg-230 s-pb-md-190 s-pb-160">
+				<div class="bubbles"></div>
+				<!-- <div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-6">
+							<img src="{% static 'branding_images/new-animation.gif' %}" alt="Animation of an Octopus with two eyes blinking.">
+						</div>
+						<div class="col-lg-6 contact-us animate" data-animation="scaleAppear">
+							<div class="fw-divider-space divider-60 divider-lg-0"></div>
+							<div class="form-wrapper ls rounded">
+								<form class="contact-form" method="post" id="frmpopup">
+									<div class="row c-mb-20">
+										<div class="col-12 form-title text-center form-builder-item">
+											<div class="header title">
+												<h4><span class="thin">Mail</span> us</h4>
+											</div>
+										</div>
+									</div>
+									<div class="row c-mb-20">
+										<div class="col-sm-12">
+											<div class="form-group has-placeholder">
+												<label for="">Full Name <span class="required">*</span></label>
+												<input type="text" aria-required="true" size="30" name="username"  class="form-control" placeholder="Your name">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group has-placeholder">
+												<label>Email address<span class="required">*</span></label>
+												<input type="tel" aria-required="true" size="30" value="" name="email" class="form-control" placeholder="E-mail">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group has-placeholder">
+												<label>Phone No<span class="required">*</span></label>
+												<input type="tel" aria-required="true" size="30" value="" name="mobile" class="form-control" placeholder="Phone Number">
+											</div>
+										</div>
+									</div>
+									<div class="row c-mb-20">
+										<div class="col-sm-12">
+											<div class="form-group has-placeholder">
+												<label >Message</label>
+												<textarea aria-required="true" rows="3" cols="45" name="message"  class="form-control" placeholder="Message"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="row c-mb-20">
+										<div class="col-sm-12 mb-0 mt-10 text-center">
+											<div class="form-group">
+												<input class="btn btn-gradient" type="submit" value="Contact us" name="sub">
+											</div>
+										</div>
+									</div>
+								</form>
+								<p id="errormsg"></p>
+							</div>
+						</div>
+						col-*
+					</div>
+				</div> -->
+			</section>
+
+<!-- Live Whatsapp chat -->
+<script src="https://getchat.app/assets/js/min/getchatapp.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var gcaMain = new GetChatApp({
+    'mobileNumber' : '+91 8861991781',
+    'titleMessage' : '👋 Chat with us on WhatsApp!',
+    'welcomeMessage': 'Hey there! 😃<br /> <br /> Get in touch with us by typing a message here. It will go straight to Just Get It team! 🔥<br /> <br /> - Just Get It',
+    'position' : 'right',
+    'platforms' : {
+        'whatsapp' : true,
+        'facebook' : false,
+        'email' : false,
+        'instagram' : false,
+        'telegram' : false,
+    },
+    'facebookPageId' : '',
+    'gcaEmailAddress' : '',
+    'gcaEmailSubject' : '',
+    'gcaInstagramUsername' : '',
+    'gcaTelegramUsername' : '',
+  });
+});
+</script>
+		
+{% endblock content %}

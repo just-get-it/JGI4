@@ -1,0 +1,306 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+<!--
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+{% endblock %}
+
+{% block title %}
+	Fabric Inhouse Form
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %} -->
+
+{% block content %}
+
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+
+      <script type="text/javascript">
+      function f_formsubmit() {
+               var po=document.getElementById("po").value;
+               var supplier=document.getElementById("supplier").value;
+               var lotNo=document.getElementById("lotNo").value;
+
+               var numRolls=document.getElementById("numRolls").value;
+               var qty=document.getElementById("qty").value;
+
+               if(po.length==0 || supplier.length==0 || lotNo.length==0 || numRolls.length==0 || qty.length==0)
+                   {
+                   document.getElementById("formdiv").innerHTML="<font color=red>Fill all the fields....</font>";
+                   return false;
+                   }
+                else if (document.getElementById("goods").value=="")
+                    {
+                       document.getElementById("goodsdiv").innerHTML="<font color=red>Select goods<font>";
+                       return false;
+                     }
+
+                   /*
+               if(po.length>6 || isNaN(po.value) || isNaN(orderNo.value) )
+                   {
+                   document.getElementById("formdiv").innerHTML="<font color=red>Length error..</font>";
+                   return false;
+                   }
+
+               if(supplier.length>7)
+                   {
+                   document.getElementById("formdiv").innerHTML="<font color=red>Supplier length error..</font>";
+                   return false;
+                   }
+                var letters = /^[A-Za-z]+$/;
+                                        var check_param=0;
+                if(supplier.value.match(letters))
+                        check_param=1;
+                if (check_param!=1)
+                    {
+                    document.getElementById("formdiv").innerHTML="<font color=red>Enter correct information..</font>";
+                   return false;
+                    }*/
+               else
+                return true;
+              }
+        </script>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>FABRIC INHOUSE<br></h3>
+            </div>
+        </div>
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+   var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            document.getElementById("date1").value=today;
+}, false);
+
+        </script>
+        <div class="container">
+            <form  method="post" >
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="date1" class="col-sm-2 col-form-label">Date</label>
+                    <div class="col-sm-4">
+                        <input type="date" name="date1" class="form-control" id="date1" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="po" class="col-sm-2 col-form-label">PO Number</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="po" class="form-control" placeholder="Enter here" id="po" onblur="f_po()">
+                        <div id="podiv"></div>
+                        <script type="text/javascript">
+                            function f_po() {
+
+                                        if (document.getElementById("po").value.length==0)
+                                            document.getElementById("podiv").innerHTML="<font color=red>Field required<font>";
+                                        else if (document.getElementById("po").value.length>6)
+                                            document.getElementById("podiv").innerHTML="<font color=red>Length should be less than 7<font>";
+
+                                        else if(isNaN(document.getElementById("po").value))
+                                            document.getElementById("podiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("podiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="orderNo" class="col-sm-2 col-form-label">Order Number</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="orderNo" name="orderNo" onchange="roll_num(this)">
+                       <option value="" selected>Select order no</option>
+                       {% for item in ono %}
+                       <option value="{{item.orderno}}">{{item.orderno}}</option>
+                       {% endfor %}
+                       </select>
+                       <input type="text" class="form-control" name="orderNo2" id="orderNo2" placeholder="or Enter order number manually" onblur="roll_num(orderNo)" >
+
+                        <div id="orderNodiv"></div>
+
+						<script type="text/javascript">
+							function roll_num(select)
+							{
+							var orderNo=select.options[select.selectedIndex].getAttribute("value");
+							var orderNo2=document.getElementById("orderNo2").value;
+							if(orderNo.length==0)
+                                   {
+                                       if (orderNo2.length==0)
+                                           	{
+                                           	document.getElementById("orderNodiv").innerHTML="<font color=red>Select or enter manually Inspection %<font>";
+                           					}
+                           				else
+                          					orderNo=orderNo2;
+                                            console.log(orderNo)
+                                   }
+
+							if(orderNo.length!=0)
+    		                         {
+									document.getElementById("orderNodiv").innerHTML="";
+									document.getElementById("insP").value=orderNo;
+									}
+                            }
+                        </script>
+	 <input type="text" class="form-control" name="insP" id="insP" hidden>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="supplier" class="col-sm-2 col-form-label">Supplier Name</label>
+                    <div class="col-sm-4">
+                     	 <select class="form-control" id="supplier" name="supplier" onchange="f_supplier(this)">
+							 <option value="" selected>Select supplier</option>
+							{% for item in sup %}
+							 	<option value="{{item.name}}">{{item.name}}</option>
+				            {% endfor %}
+						</select>
+                        <div id="supplierdiv"></div>
+
+
+
+                        <script type="text/javascript">
+                            function f_supplier(select) {
+                                        sel_op=select.options[select.selectedIndex].getAttribute("value");
+                                        if (sel_op.length==0)
+                                            document.getElementById("supplierdiv").innerHTML="<font color=red>Select a supplier<font>";
+                                        else
+                                            document.getElementById("supplierdiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lotNo" class="col-sm-2 col-form-label">Lot Number</label>
+                    <div class="col-sm-4">
+                        <input type="number" name="lotNo" class="form-control" id="lotNo" min="1" max="99" placeholder="Enter here between 1 to 99" onblur="f_lotNo()">
+                        <div id="lotNodiv"></div>
+                        <script type="text/javascript">
+                            function f_lotNo() {
+                                        if (document.getElementById("lotNo").value.length==0)
+                                            document.getElementById("lotNodiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("lotNodiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="goods" class="col-sm-2 col-form-label">Goods</label>
+                    <div class="col-sm-4">
+
+                        <select  name="goods" class="form-control" id="goods" onblur="f_goods()">
+                                  <option value="" selected>Select Goods</option>
+                           	{% for item in gdop %}
+							 	<option value="{{item.name}}">{{item.name}}</option>
+				            {% endfor %}
+
+
+                        </select>
+                        <input type="button" onclick="f_optremove()" value="Remove selected option">
+                        <br>Or Add new goods
+                        <input type="text" name="newopt" class="form-control" placeholder="Enter new goods value" id="newopt" onblur="f_newopt()">
+                        <input type="button" value="Add option" onclick="f_addopt()">
+
+
+                         <div id="goodsdiv"></div>
+                        <script type="text/javascript">
+                            function f_goods() {
+                                        if (document.getElementById("goods").value=="")
+                                            document.getElementById("goodsdiv").innerHTML="<font color=red>Select goods<font>";
+                                        else
+                                            document.getElementById("goodsdiv").innerHTML="";
+                                    }
+                            function f_newopt() {
+                                        //var letters = /^[A-Za-z]+$/;
+                                        //var check_param=0;
+                                        if (document.getElementById("newopt").value.length>20)
+                                            document.getElementById("goodsdiv").innerHTML="<font color=red>Length should be less than 20<font>";
+                                        else
+                                            document.getElementById("goodsdiv").innerHTML="";
+
+                                       //if(document.getElementById("newopt").value.match(letters))
+                                         //   check_param=1;
+                                       // if (check_param!=1)
+                                         //       document.getElementById("goodsdiv").innerHTML="<font color=red>Enter only alphabet<font>";
+                                         if (document.getElementById("newopt").value.length==0)
+                                         document.getElementById("goodsdiv").innerHTML="";
+                                    }
+                              function f_addopt() {
+                                         var x=document.getElementById("goods");
+                                         var option = document.createElement("option");
+                                        option.text = newopt.value;
+                                        x.add(option, x[0]);
+                                        document.getElementById("newopt").value=""
+                                    }
+                              function      f_optremove(){
+                                         var x=document.getElementById("goods");
+                                        x.remove(x.selectedIndex);
+                                    }
+
+                        </script>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="numRolls" class="col-sm-2 col-form-label">Number of rolls</label>
+                    <div class="col-sm-4">
+                        <input type="number" name="numRolls" class="form-control" id="numRolls" min="1" pattern=".{1,3}"placeholder="Enter here" onblur="f_numRolls()">
+                        <div id="numRollsdiv"></div>
+                        <script type="text/javascript">
+                            function f_numRolls() {
+                                        if (document.getElementById("numRolls").value.length==0)
+                                            document.getElementById("numRollsdiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("numRollsdiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="qty" class="col-sm-2 col-form-label">QTY in meters</label>
+                    <div class="col-sm-4">
+                        <input type="number" name="qty" class="form-control" id="qty" min="1"  pattern=".{1,6}" placeholder="Enter here" onblur="f_qty()">
+                        <div id="qtydiv"></div>
+                        <script type="text/javascript">
+                            function f_qty() {
+                                        if (document.getElementById("qty").value.length==0)
+                                            document.getElementById("qtydiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("qtydiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div id="formdiv"></div>
+                <input type="submit" class="btn btn-primary" value="Submit" formaction="{% url 'subInhouse' %}" onclick="return f_formsubmit()" >
+                <input type="submit" class="btn btn-primary" value="Summary" formaction="{% url 'inhouse_summary' %}">
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

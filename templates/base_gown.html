@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>JUSTGETIT | Bridal Gowns</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Instyle Fashion HTML Template">
+	<meta name="keywords" content="instyle, fashion, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link rel="icon" type="logo/png" href="{% static 'img/logo.png' %}" />
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{% static 'css/gown/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/gown/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/gown/owl.carousel.min.css' %}"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="{% static 'css/gown/style.css' %}"/>
+
+
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark site-navbar">
+			<a class="navbar-brand site-logo" href="index.html#">
+				<h2><span>JUST</span>GETIT</h2>
+				<p>Fashion Forward</p>
+			</a>
+			<button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavId">
+				<!-- Main menu -->
+				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="../gown/">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../about/">the Brand</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../portfolio1/">Portfolio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Shop</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../blog1/">blog</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../contact/">Contact</a>
+					</li>                                                                
+				</ul>
+				<div class="social-links my-2 my-lg-0">
+					<a href="#"><i class="fa fa-pinterest"></i></a>
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+				</div>
+			</div>
+		</nav>
+	</header>
+    <!-- Header section end-->
+    
+
+    {% block content %}
+
+    {% endblock %}
+    
+
+    <!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget fw-about">
+						<img src="{% static 'img/gown/footer-logo.png' %}" alt="">
+						<p>Velit pulvinar, pellentesque neque vel, laoreet orci. Suspendisse potenti. Donec congue vel justo eget malesu ada. In arcu justo, sagittis consequat pulvinar.</p>
+						<div class="fw-social">
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget resent-post">
+						<h2 class="fw-title">Recent Posts</h2>
+						<div class="rp-item">
+							<h4>Paris Fashion Week</h4>
+							<span>20 January 2019</span>
+						</div>
+						<div class="rp-item">
+							<h4>About Our Fashion App</h4>
+							<span>20 January 2019</span>
+						</div>
+						<div class="rp-item">
+							<h4>Simple Blog Post</h4>
+							<span>20 January 2019</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget">
+						<h2 class="fw-title">Usefull Links</h2>
+						<ul>
+							<li><a href="#">Testimonials</a></li>
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Jobs</a></li>
+							<li><a href="#">Reviews</a></li>
+							<li><a href="#">Marketing</a></li>
+							<li><a href="#">Subscribe</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget contact-widget">
+						<h2 class="fw-title">Contact</h2>
+						<ul>
+							<li><span>Address:</span>Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204</li>
+							<li><span>Address:</span>10th Cross, 24th Main, Agara, Sector-1, HSR Layout, Bangalore, Karnataka, India, 560102</li>
+							<li><span>Address:</span>#11, Ashok Reddy Colony, AMR Enclave, (Opp MVSR engineering College), Nadergul, Hyderabad 501510</li>
+							<li><span>Phone:</span><a href="tel:+919619348557">+91 9619348557</a></li>
+							<li><span>Mail:</span><a href="mailto:sales@justgetit.in">sales@justgetit.in</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">JUSTGETIT</a>
+
+
+		</div>
+	</footer>
+	<!-- Footer section end -->
+	
+	
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{% static 'js/gown/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/gown/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/gown/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/gown/main.js' %}"></script>
+
+	</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+  <div class="container text-center">
+    <h1>LEAVE REPORT</h1>
+  </div>
+  <br>
+  <div class="container">
+    <div class="jumbotron">
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Operator ID</th>
+                      <th>Leave start</th>
+                      <th>Leave End</th>
+                      <th>Days</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in op1 %}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.operator_id|slugify}}</td>
+                        <td>{{i.leave_start|slugify}}</td>
+                        <td>{{i.leave_end|slugify}}</td>
+                        <td>{{i.days|slugify}}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+{% endblock %}

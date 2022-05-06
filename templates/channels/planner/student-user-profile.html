@@ -1,0 +1,1385 @@
+{% extends 'channels/planner/student_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'chosen/chosen.min.css' %}">
+<style type="text/css">
+  .chosen-container.chosen-container-multi {
+        width: 100%!important;
+        /* or any value that fits your needs */
+    }
+  .form-group p {
+    height: auto!important;
+  }
+  .p-details p {
+    display: inline-block;
+  }
+  form:not(#form) {
+    padding: 15px;
+  }
+  form:not(#form) > div {
+    width: 100%;
+    float: left;    
+  }
+  form:not(#form) > div > div {
+    margin-top: 20px;
+    width: 100%;
+    float: left;
+  }
+  form:not(#form) > div > label {
+    width: 100%;
+    float: left;
+  }
+  form:not(#form) input {
+    background-color: transparent!important;
+    border: none;
+    border-bottom: 2px solid #FE9500;
+  }
+  form .modal {
+    width: 50%;
+    top: 40%;
+    left: 25%
+  }
+
+  #form > div {    
+    margin-bottom: 30px;
+    width: 100%;
+    float: left;
+  }
+  #form .form-data {
+    position: relative;
+    display: block;
+    width: 60%;
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+    padding: 15px;
+    padding-right: 15%;
+    margin-bottom: 25px;
+  }
+  #form .form-data > .no-border:nth-last-child(3){
+    position: absolute;
+    top: 5px;
+    right: 15%;
+    display: inline-block;
+    background-color: transparent;
+    border:none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  #form .form-data > .no-border:nth-last-child(2){
+    position: absolute;
+    top: 5px;
+    right: 5%;
+    display: inline-block;
+    background-color: transparent;
+    border:none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  #form > div .no-border i {
+    color: lightgrey;
+  }
+  #form > div > button:not(.no-border) {
+    display: block;
+  }
+
+  @media only screen and (max-width: 768px){
+    #form .form-data {
+      width: 100%;
+    }
+    #form > div > .no-border:first-child {
+      right: 10%;
+    }
+    #form > div > .no-border:not(:first-child) {
+      right: 5%;
+    }
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+		<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Edit Profile</h4>
+                  <p class="card-category">Complete your profile</p>
+                </div>
+                <div class="card-body">
+                  <form method="POST" id="form">
+                   <!--  <div class="row">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Mobile</label>
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fist Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Last Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Adress</label>
+                          <textarea class="form-control" rows="5"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">City</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Country</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Postal Code</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>About Me</label>
+                          <div class="form-group">
+                            <label class="bmd-label-floating"></label>
+                            <textarea class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Education</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Education</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Jobs</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Job</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Internships</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Internships</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Positions of Responsibility</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Responsibility</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Trainings</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Trainings</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Projects</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Project</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-4">
+                        <div class="form-group">
+                        	<label class="bmd-label-floating">Skills</label>	
+                          <div style="margin-top: 15px;">
+                              <div class="form-check" style="display: inline-block;">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="checkbox" value="test" checked="">
+                                  <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                </label>
+                              </div>
+                              <button style="padding-bottom: 0;margin-bottom: 0" type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Edit Task">
+                                <i class="material-icons">edit</i>
+                              </button>
+                              <button style="padding-bottom: 0;margin-bottom: 0" type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Remove">
+                                <i class="material-icons">close</i>
+                              </button>
+                           </div>
+                          <button type="button" class="btn btn-primary pull-center">Add Skill</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Work Samples</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Work Sample</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Additional Details</label>
+                          <input type="text" class="form-control">
+                          <button type="button" class="btn btn-primary pull-center">Add Additional Details</button>
+                        </div>
+                      </div>
+                    </div> -->
+                    {% csrf_token %}
+                    <div id="personal-details">
+                      <h3>Personal Details</h3>
+                      {% for detail in student_details %}
+                      <div class="form-data">
+                        <p>Username:- {{detail.username}}</p>
+                        <p>Reporting to:- {% for item in detail.report_to.all %} {{item.name}},{% endfor %}</p>
+                        <p>First Name:- {{detail.fname}}</p>
+                        <p>Middle Name:- {{detail.mname}}</p>
+                        <p>Last name:- {{detail.lname}}</p>
+                        <p>Email:- {{detail.email}}</p>
+                        <p>Mobile:- {{detail.mobile}}</p>
+                        <p>Address:- {{detail.address}}</p>
+                        <p>Job Profile:- {% for item in detail.profile.all %} {{item.name}},{% endfor %}</p>
+                        <p>City:- {% for item in detail.cities.all %} {{item.name}},{% endfor %}</p>
+                        <p>Country:- {{detail.country}}</p>
+                        <p>Postal Code:- {{detail.postal}}</p>
+                      </div>
+                      {% endfor %}
+                      {% if first_time %}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#personal_modal" data-backdrop="false">Add Personal Details</button>
+                      {% else %}
+                        <button type="button" class="btn btn-primary">Request to edit</button>
+                      {% endif %} 
+                    </div>
+                    
+                    <div id="education">
+                      <h3>Education Details:</h3>
+                      {% for detail in education_details %}  
+                      <div class="form-data">                    
+                        <h6>College Name:- {{detail.0.college_name}}</h6>
+                        <p>Stream:- {{detail.0.stream}}</p>
+                        <p>Degree:- {{detail.0.degree}}</p>
+                        <p>Course Duration:- {{detail.0.admission_year}} - {{detail.0.passout_year}}</p>
+                        <p>Result:- {{ detail.0.result }}</p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#education_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_education-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_education-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_education" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                      
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#education_modal" data-backdrop="false">Add Education Details</button> 
+                    </div> 
+                    <div id="job_profile">
+                      <h3>Job Profile Details:</h3>
+                      {% for detail in job_profile_details %}
+                      <div class="form-data">                      
+                        <h6>Job Title:- {{detail.0.job_tile}}</h6>
+                        <p>Company Name:- {{detail.0.company_name}}</p>
+                        <p>Job Duration:- {{detail.0.join_date}} - {{detail.0.leave_date}}</p>
+                        <p>Job Location:- {{ detail.0.location }}</p>
+                        <p>Job Description:- {{detail.0.description}}</p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#job_profile_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_job-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_job-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_job" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#job_profile_modal" data-backdrop="false">Add Job Details</button> 
+                    </div>
+
+                    <div id="intern_profile">
+                      <h3>Internship Profile Details:</h3>
+                      {% for data in intern_profile_data %}                      
+                      <div class="form-data">
+                        <h6>Internship Title:- {{data.0.internship_title}}</h6>
+                        <p>Comapany name:- {{data.0.company_name}}</p>
+                        <p>Internship duration:- {{data.0.join_date}} - {{data.0.leave_date}}</p>
+                        <p>Internship Location:- {{ data.0.location }}</p>
+                        <p>Internship Description:- {{data.0.description}}</p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#intern_profile_modal-edit-{{data.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_intern-{{data.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_intern-{{data.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_internship" value="{{data.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                      
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#intern_profile_modal" data-backdrop="false">Add Internship Details</button> 
+                    </div> 
+
+                    <div id="responsibility">
+                      <h3>Responsibility Details:</h3>
+                      {% for detail in responsibility_form_details %}
+                      <div class="form-data">                      
+                        <h6>Responsibility Detail:- {{detail.0.responsibility}}</h6>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#responsibility_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_response-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_response-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_responsibility" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#responsibility_modal" data-backdrop="false">Add Responsibility</button> 
+                    </div>
+
+                    <div id="training">
+                      <h3>Training Details:</h3>
+                      {% for detail in training_details %}
+                      <div class="form-data">                      
+                        <h6>Program Name:- {{detail.0.program}}</h6>
+                        <p>Organisation Name:- {{detail.0.organisation_name}}</p>
+                        <p>Training Duration:- {{detail.0.start_date}} - {{detail.0.end_date}}</p>
+                        <p>Training Location:- {{detail.0.location}}</p>
+                        <p>Training Description:- {{detail.0.description}}</p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#training_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_training-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_training-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_training" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#training_modal" data-backdrop="false">Add Training Details</button> 
+                    </div>
+
+                    <div id="project">
+                      <h3>Project Details:</h3>
+                      {% for detail in project_details %}
+                      <div class="form-data">                      
+                        <h6>Project Name:- {{detail.0.project_name}}</h6>
+                        <p>Project Link:- <a href="{{detail.0.project_link}}" target="_blank">{{detail.0.project_link}}</a></p>
+                        <p>Project Duration:- {{detail.0.start_date}} - {{detail.0.end_date}}</p>
+                        <p>Project Description:- {{detail.0.description}}</p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#project_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_project-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_project-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_project" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#project_modal" data-backdrop="false">Add Project Details</button> 
+                    </div> 
+
+                    <div id="skill">
+                      <h3>Skill Details:</h3>
+                      {% for detail in skill_details %}
+                      <div class="form-data">                      
+                        <h6>{{detail.0.profile_skills}} ({{detail.0.proficiency_level}})</h6>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#skill_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_skill-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_skill-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_skill" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                    
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#skill_modal" data-backdrop="false">Add Skill Details</button> 
+                    </div>
+
+                    <div id="work_sample">
+                      <h3>Work Sample Details:</h3>
+                      {% for detail in work_sample_details %}
+                      <div class="form-data">                      
+                        <p>Blog Link:- <a href="{{detail.0.blog_link}}" target="_blank">{{detail.0.blog_link}}</a></p>
+                        <p>Github Link:- <a href="{{detail.0.github_link}}" target="_blank">{{detail.0.github_link}}</a></p>
+                        <p>Playstore Link:- <a href="{{detail.0.playstore_link}}" target="_blank">{{detail.0.playstore_link}}</a></p>
+                        <p>Behance Link:- <a href="{{detail.0.behance_link}}" target="_blank">{{detail.0.behance_link}}</a></p>
+                        <p>Other Links:- <a href="{{detail.0.other_link}}" target="_blank">{{detail.0.other_link}}</a></p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#ws_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_ws-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_ws-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_ws" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <p></p>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ws_modal" data-backdrop="false">Add Work Sample Details</button> 
+                    </div> 
+
+                    <div id="addition_details">
+                      <h3>Additional Details:</h3>
+                      {% for detail in addition_details %}
+                      <div class="form-data">
+                        <p>Additional Detail:- {{detail.0.additional_details}}</p>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#add_modal-edit-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="no-border" data-toggle="modal" data-target="#delete_add-{{detail.0.id}}" data-backdrop="false">
+                          <i class="material-icons">delete</i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_add-{{detail.0.id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3>Are you sure you want to Delete?</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" type="submit" name="delete_add" value="{{detail.0.id}}">Yes</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">No</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_modal" data-backdrop="false">Add Additional Details</button> 
+                    </div>                     
+                    <div class="clearfix"></div>                    
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="education_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Add Education Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}                               
+                                <p>
+                                  <label for="id_college_name">College name:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="college_name" maxlength="500" id="id_college_name">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_stream">Stream:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="stream" maxlength="200" id="id_stream">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_degree">Degree:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="degree" maxlength="500" id="id_degree">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_admission_year">Admission year:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="date" name="admission_year" class="test" required="" id="id_admission_year">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_passout_year">Passout year:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="date" name="passout_year" required="" id="id_passout_year">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_result">Result:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="result" maxlength="25" required="" id="id_result">
+                                  </span>
+                                </p>                      
+                                <button type="submit" name="submit" value="edu_form" class="btn btn-primary">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">                          
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in education_details %}
+          <div class="modal fade" tabindex="-1" id="education_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Education Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{detail.1|crispy}}
+                                <button type="submit" class="btn btn-primary" name="edit_edu_profile" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- Job Profile Models -->
+
+          <div class="modal fade" tabindex="-1" id="job_profile_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Add Job Profile</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                            <form method="POST">
+                              {% csrf_token %}                      
+                              <p>
+                                <label for="id_job_title">Job title:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="job_title" maxlength="200" required="" id="id_job_title">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_company_name">Company name:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="company_name" maxlength="200" required="" id="id_company_name">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_join_date">Join date:</label>
+                                <span class="bmd-form-group">
+                                  <input type="date" name="join_date" id="id_join_date">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_leave_date">Leave date:</label>
+                                <span class="bmd-form-group">
+                                  <input type="date" name="leave_date" id="id_leave_date">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_location">Location:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="location" maxlength="200" id="id_location">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_description">Description:</label>
+                                <span class="bmd-form-group">
+                                  <textarea name="description" cols="40" rows="10" id="id_description"></textarea>
+                                </span>
+                              </p>
+                              <button type="submit" class="btn btn-primary" name="submit" value="job_pro">Submit</button>
+                            </form>                              
+                          </div>
+                      </div>
+                      <div class="modal-footer">                          
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in job_profile_details %}
+          <div class="modal fade" tabindex="-1" id="job_profile_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Job Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{detail.1|crispy}}                                
+                                <button type="submit" class="btn btn-primary" name="edit_job" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- Internship Profile Modal -->
+
+          <div class="modal fade" tabindex="-1" id="intern_profile_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Internship Profile Model</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                <p>
+                                  <label for="id_internship_title">Internship title:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="internship_title" maxlength="200" required="" id="id_internship_title">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_company_name">Company name:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="company_name" maxlength="200" required="" id="id_company_name">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_join_date">Join date:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="date" name="join_date" id="id_join_date">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_leave_date">Leave date:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="date" name="leave_date" id="id_leave_date">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_location">Location:</label>
+                                  <span class="bmd-form-group">
+                                    <input type="text" name="location" maxlength="200" id="id_location">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label for="id_description">Description:</label>
+                                  <span class="bmd-form-group">
+                                    <textarea name="description" cols="40" rows="10" id="id_description"></textarea>
+                                  </span>
+                                </p>
+                                <button type="submit" class="btn btn-primary" name="submit" value="int_pro">Add</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for data in intern_profile_data %}
+          <div class="modal fade" tabindex="-1" id="intern_profile_modal-edit-{{data.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Internship Profile Model</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{ data.1| crispy }}
+                                <button type="submit" class="btn btn-primary" name="edit_intern_profile" value="{{data.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+          <!-- Responsibility Form Modal-->
+
+          <div class="modal fade" tabindex="-1" id="responsibility_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Add Responsibility</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                            <form method="POST">
+                              {% csrf_token %}
+                              {{ responsibility_form.as_p }}
+                              <button type="submit" class="btn btn-primary" name="submit" value="res_pro">Submit</button>
+                            </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in responsibility_form_details %}
+          <div class="modal fade" tabindex="-1" id="responsibility_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Responsibility Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{detail.1|crispy}}
+                                <button type="submit" class="btn btn-primary" name="edit_responsibility" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- Training Details Modal -->
+
+          <div class="modal fade" tabindex="-1" id="training_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Training Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                            <form method="POST">
+                              {% csrf_token %}
+                              <p><label for="id_program">Program:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="program" maxlength="200" required="" id="id_program">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_organisation_name">Organisation name:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="organisation_name" maxlength="200" required="" id="id_organisation_name">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_start_date">Start date:</label>
+                                <span class="bmd-form-group">
+                                  <input type="date" name="start_date" id="id_start_date">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_end_date">End date:</label>
+                                <span class="bmd-form-group">
+                                  <input type="date" name="end_date" id="id_end_date">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_location">Location:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="location" maxlength="200" id="id_location">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_description">Description:</label>
+                                <span class="bmd-form-group">
+                                  <textarea name="description" cols="40" rows="10" id="id_description"></textarea>
+                                </span>
+                              </p>
+                              <button type="submit" class="btn btn-primary" name="submit" value="train_pro">Submit</button>  
+                            </form>                   
+                          </div>
+                      </div>
+                      <div class="modal-footer">                          
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in training_details %}
+          <div class="modal fade" tabindex="-1" id="training_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Training Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                  {% csrf_token %}
+                                  {{detail.1|crispy}}
+                                  <button type="submit" class="btn btn-primary" name="edit_training" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- Project Details Modal-->
+
+          <div class="modal fade" tabindex="-1" id="project_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Project Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                            <form method="POST">
+                              {% csrf_token %}
+                              <p>
+                                <label for="id_project_name">Project name:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="project_name" maxlength="200" required="" id="id_project_name">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_start_date">Start date:</label>
+                                <span class="bmd-form-group">
+                                  <input type="date" name="start_date" id="id_start_date">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_end_date">End date:</label>
+                                <span class="bmd-form-group">
+                                  <input type="date" name="end_date" id="id_end_date">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_project_link">Project link:</label>
+                                <span class="bmd-form-group">
+                                  <input type="text" name="project_link" maxlength="200" id="id_project_link">
+                                </span>
+                              </p>
+                              <p>
+                                <label for="id_description">Description:</label>
+                                <span class="bmd-form-group">
+                                  <textarea name="description" cols="40" rows="10" id="id_description"></textarea>
+                                </span>
+                              </p>
+                              <button type="submit" class="btn btn-primary" name="submit" value="pro_pro">Submit</button>
+                            </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in project_details %}
+          <div class="modal fade" tabindex="-1" id="project_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Project Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {%csrf_token%}
+                                {{detail.1|crispy}}
+                                <button type="submit" class="btn btn-primary" name="edit_project" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- SKILL DETAILS MODAL -->
+
+          <div class="modal fade" tabindex="-1" id="skill_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Add Skills</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                <p>
+                                  <label for="id_profile_skills">Profile skills:</label>
+                                  <span class="bmd-form-group is-filled">
+                                    <input type="text" name="profile_skills" maxlength="100" id="id_profile_skills">
+                                  </span>
+                                </p>
+                                <p>
+                                  <label>Proficiency level:</label>
+                                </p>
+                                <p>
+                                  <label>Beginner</label>
+                                  <input type="radio" name="proficiency_level" value="beginner">
+                                  <label>Intermediate</label>
+                                  <input type="radio" name="proficiency_level" value="intermediate">
+                                  <label>Advanced</label>
+                                  <input type="radio" name="proficiency_level" value="advanced"></p>
+                                  <button type="submit" class="btn btn-primary" name="submit" value="skill_pro">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in skill_details %}
+          <div class="modal fade" tabindex="-1" id="skill_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Create New Section</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                <div id="div_id_1-profile_skills" class="form-group bmd-form-group is-filled">
+                                  <label for="id_1-profile_skills" class="bmd-label-static">Profile skills</label>
+                                  <div class="">
+                                    <input type="text" name="1-profile_skills" value="{{detail.1.instance.profile_skills}}" maxlength="100" class="textinput textInput form-control" id="id_1-profile_skills">
+                                  </div>
+                                </div>
+                                <div id="div_id_1-proficiency_level" class="form-group bmd-form-group is-filled">
+                                  <label for="id_1-proficiency_level" class="bmd-label-static">Proficiency level</label>
+                                  <div class="">
+                                    <label>Beginner:</label>
+                                    <input type="radio" name="1-proficiency_level" value="beginner">
+                                    <label>Intermediate</label>
+                                    <input type="radio" name="1-proficiency_level" value="intermediate">
+                                    <label>Advanced</label>
+                                    <input type="radio" name="1-proficiency_level" value="advanced">
+                                  </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="edit_skills" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- WORK SAMPLE MODAL -->
+
+          <div class="modal fade" tabindex="-1" id="ws_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Work Sample Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{work_sample_form.as_p}}                                
+                               <button type="submit" class="btn btn-primary" name="submit" value="ws_pro">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in work_sample_details %}
+          <div class="modal fade" tabindex="-1" id="ws_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Work Sample Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{detail.1|crispy}}
+                                <button type="submit" class="btn btn-primary" name="edit_ws" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- ADDITIONAL DETAILS -->
+
+          <div class="modal fade" tabindex="-1" id="add_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Additional Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{add_details_form.as_p}}
+                              <button type="submit" class="btn btn-primary" name="submit" value="add_pro">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {% for detail in addition_details %}
+          <div class="modal fade" tabindex="-1" id="add_modal-edit-{{detail.1.instance.id}}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Edit Additional Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                              <form method="POST">
+                                {% csrf_token %}
+                                {{detail.1|crispy}}
+                                <button type="submit" class="btn btn-primary" name="edit_add" value="{{detail.1.instance.id}}">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+
+          <!-- PERSONAL DETAILS MODAL -->
+
+          <div class="modal fade" tabindex="-1" id="personal_modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Personal Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="card border-info">
+                             <form method="POST">
+                               {% csrf_token %}
+                               {{ student_user_profile_form | crispy }}
+                               <button type="submit" class="btn btn-primary pull-right" name="submit" value="add_form">Update Profile</button>
+                             </form>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% for detail in student_details %}
+            <div class="col-md-4">
+              <div class="card card-profile">
+                <div class="card-avatar">
+                  <a>
+                    {% if detail.image %}
+                      <img class="img" id="profile-image" src="{{detail.image.url}}" />                
+                    {% else %}
+                      <img class="img" id="profile-image" src="{% static 'img/channels/planner/marc.jpg'%}" />                       
+                    {% endif %}
+                  </a>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <input type="file" id="fileupload" name="image" placeholder="Staff Image" class="loginfile" style="display: none;" {% if not detail.info_update %}required{% endif %}>
+                <p id="spnFilePath" style="color: white;"></p>    
+                <!-- {% if detail.image %}<a href="{{detail.image.url}}" class="hov-a">View</a>{% endif %} -->
+                <button type="submit" name="submit" value="upload">Upload</button>
+                </form>
+                <div class="card-body">
+                  <h6 class="card-category">{{detail.username}}</h6>
+                  <h4 class="card-title">{{detail.email}}</h4>
+                  <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                  </p>
+                  <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+
+
+        
+{% endblock %}
+{% block customjs %}
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(7)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(7) p").text();
+        $("#page-title").text(p)
+        $("")
+    })
+     $(function() {
+        $(".datepicker").datepicker({
+          changeMonth: true,
+          changeYear: true,
+          yearRange: "1970:2020",
+          // You can put more options here.
+
+        });
+        $("#ui-datepicker-div").css('background-color','black')
+
+      });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#div_id_education").append('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#education_modal" data-backdrop="false">Add Education Details</button>');
+      })
+      $(document).ready(function() {
+          $(".chosen-select").chosen()
+      });
+    </script>
+    <script type="text/javascript">
+      $(function () {
+          var fileupload = $("#fileupload");
+          var filePath = $("#spnFilePath");
+          var image = $("#profile-image");
+          image.click(function () {
+              fileupload.click();
+          });
+          fileupload.change(function () {
+              var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
+              filePath.html("<b>Selected File: </b>" + fileName);
+          });
+      });
+  </script>
+{% endblock %}

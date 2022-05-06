@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="background: linear-gradient(to bottom,#30c5ff,#253031)">
+	<div class="container p-4 my-3" style="background:white;margin-left: 25vw;margin-right: 25vw;border-radius: 10px;">
+		<div class="row">
+			<h5 class="cabin" style="margin-left: 18vw">Custom Assortment</h5>
+		</div>
+		<form method="POST">{% csrf_token %}
+		<div class="row mt-2">
+			<div class="col-3" style="margin-left: 10vw">
+				<label>Name</label>
+			</div>
+			<div class="col">
+				<input type="text" name="name">
+			</div>
+
+		</div>
+		<div class="row mt-2">
+			<div class="col-3" style="margin-left: 10vw">
+				<label>Email</label>
+			</div>
+			<div class="col">
+				<input type="text" name="email">
+			</div>
+			
+		</div>
+		<div class="row mt-2">
+			<div class="col-3" style="margin-left: 10vw">
+				<label>Contact No</label>
+			</div>
+			<div class="col">
+				<input type="text" name="phone">
+			</div>
+			
+		</div>
+		<div class="row mt-2">
+			<div class="col-3" style="margin-left: 10vw">
+				<label>Size</label>
+			</div>
+			<div class="col">
+				<input type="text" name="size">
+			</div>
+			
+		</div>
+		<div class="row mt-2">
+			<div class="col-3" style="margin-left: 10vw">
+				<label>Color</label>
+			</div>
+			<div class="col">
+				<input type="text" name="color">
+			</div>
+			
+		</div>
+		<div class="row mt-2" style="margin-left: 18vw;">
+			<button type="submit" class="py-2 px-5" style="background:#30c5ff;color:#253031; border:none;border-radius: 25vw;">Save</button>
+		</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="mt-4">
+
+    <fieldset>
+        <legend>
+          <h3 style="text-align:center">Personal Details</h3>
+        </legend>
+        <div  class="personal-details">
+          <div class="container">
+               <form method="post" action="/getinvoice/?name={{name}}&phone={{phone}}&email={{email}}&address={{address}}&city={{city}}&state={{state}}&zip_code={{zip_code}}&instructions={{instructions}}&additional_items={{additional_items}}">{% csrf_token %}
+              <ul class="list-group">
+
+              <li class="list-group-item">Name: {{ name }}</li>
+            <li class="list-group-item">Phone:  {{ phone }}</li>
+              <li class="list-group-item">Email: {{ email }} </li>
+              <li class="list-group-item">Address:  {{ address }}</li>
+              <li class="list-group-item">City:  {{ city }}</li>
+              <li class="list-group-item">State:  {{ state }}</li>
+              <li class="list-group-item">Zip:  {{ zip_code }}</li>
+              {% if additional_items %}
+              <li class="list-group-item">Additonal items:  {{ additional_items }}</li>
+              {% endif %}
+              {% if instructions %}
+              <li class="list-group-item">Instructions:  {{ instructions }}</li>
+              {% endif %} 
+            </ul>
+            <button type="submit" class="btn btn-success my-2" >Confirm Order</button>
+               </form>
+          </div>
+
+        </div>
+      </fieldset>
+<div class="text-center">
+
+
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+{% if thank %}
+    alert('Thanks for ordering. Your Order has been placed');
+            document.location='/getinvoice/';
+
+    {% endif %}
+</script>
+{% endblock %}
+

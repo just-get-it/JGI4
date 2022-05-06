@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="margin-bottom: 25vh;">
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3>{{head}}</h3>
+		</div>
+	</div>
+	<div class="container">
+	{% if label %}
+			{% for l in label %}
+
+					<div class="row mt-2 mb-2" style="border-bottom: 1px solid #c0bdba;">
+						<h6>{{l.name}}</h6> <a href="/userdetail/seller_profile/label/{{l.slug}}?delete&next=/userdetail/seller_profile/label" class="hov-a" style="margin-left: auto; margin-right: 13px">Delete Label</a>
+					</div>
+
+			{% endfor %}
+	{% endif %}
+	{% if fit %}
+		{% for l in fit %}
+		<div class="row mt-2 mb-2" style="border-bottom: 1px solid #c0bdba;">
+			<div class="col">
+				<h6>{{l.name}}</h6>
+			</div>
+			<div class="col centered">
+				<h6>Label : {{l.label}}</h6>
+			</div>
+			<div class="col">
+			 <a href="/userdetail/seller_profile/fit/{{l.slug}}?delete&next=/userdetail/seller_profile/fit" class="hov-a" style=" float: right;">Delete Label</a>
+			</div>
+		</div>
+		{% endfor %}
+	{% endif %}
+
+
+	{% if season %}
+		{% for l in season %}
+		<div class="row mt-2 mb-2" style="border-bottom: 1px solid #c0bdba;">
+			<div class="col">
+				<h6>{{l.name}}</h6>
+			</div>
+			<div class="col centered">
+				<h6>Label : {{l.label}}</h6>
+			</div>
+
+			<div class="col centered">
+				<h6>Fit : {{l.fit}}</h6>
+			</div>
+			<div class="col">
+			 <a href="/userdetail/seller_profile/season/{{l.slug}}?delete&next=/userdetail/seller_profile/season" class="hov-a" style=" float: right;">Delete Label</a>
+			</div>
+		</div>
+		{% endfor %}
+
+	{% endif %}
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,299 @@
+{% extends 'base2.html' %}
+    {% block content %}
+      {% csrf_token %}
+<div class="container text-center">
+    <h1>Operation Bulletin</h1>
+    <h2>Summary</h2>
+</div>
+<div class="row">
+  <div class="col-md-4">
+  	<label  class="col-sm-2 col-form-label">Department</label>
+        <div class="col-sm-10">
+          <select name="department" required id="department">
+              <option value="" selected>---------</option>
+                {% for item in department %}
+              <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endfor %}
+          </select>
+        </div>
+  </div>
+  <div class="col-md-4">
+  	<label  class="col-sm-2 col-form-label">Section</label>
+        <div class="col-sm-10">
+          <select name="section" required id="section">    
+              <option value="" selected>---------</option>
+              {% csrf_token %}
+            {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+  </div>
+  <div class="col-md-4">
+  	<label  class="col-sm-2 col-form-label">Sub-Section</label>
+        <div class="col-sm-10">
+          <select name="subsection" required id="subsection">    
+            {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+  </div>
+
+</div>
+
+<div class="container" >
+	<table id="tableid2" border="1"  class="table" style="
+ 	width: 60%;
+  
+    margin-left: -100px;
+">
+
+     <tr>
+        
+        <th>Operations</th>
+        <th>Complexity</th>
+        <th>SPI</th>
+        <th>Stitch Length</th>
+        <th>Machine auto</th>
+        <th>Thread Consumption</th>
+        <th>Work Aid</th>
+        <th>SMV</th>
+        <th>Allowance</th>
+        <th>SAM</th>
+        <th>CT</th>
+        <th>Grade</th>
+        <th>Type</th>
+        <th>M/P Nos.</th>
+        <th>M/P Allocation</th>
+        <th>Name</th>
+        <th>OPH</th>
+        <th>Cost</th>
+
+        
+    </tr>
+    	 {% for x in ff%}
+          {% if forloop.first %}
+           <tr class="rem-na"><td>Fabric Store</td></tr>
+           {% endif %}
+       
+    	 	{% for item in x %}
+
+        {% if item.department == 'Fabric Store' %}    
+    	<tr  value="{{ item.department }}" class="tr-rem" id="{{ item.id }}">
+      
+        <td>{{ item.operations }}</td>
+        <td>{{ item.complexity }}</td>
+        <td>{{ item.spi }}</td>
+        <td>{{ item.stitch_length }}</td>
+        <td>{{ item.thread_consumption }}</td>
+        <td>{{ item.machine_auto }}</td>
+        <td>{{ item.work_aid }}</td>
+        <td>{{ item.smv }}</td>
+        <td>{{ item.allowance }}</td>
+        <td>{{ item.sam }}</td>
+        <td>{{ item.ct }}</td>
+        <td>{{ item.grade }}</td> 
+        {% for g in gob %}
+          {% if  g.operation_id == item.id|stringformat:"i" %}
+        
+        <td>{{ g.Type}}</td>
+        <td>{{ g.mpnos}}</td>
+        <td>{{ g.mpallocation}}</td>
+        <td>{{ g.name}}</td>
+        <td>{{ g.oph}}</td>
+        <td>{{ g.cost}}</td>
+        {% endif %}
+          {% endfor %}
+      
+        </tr>
+          {% endif %}
+            {% endfor %}
+               {% endfor %}
+        
+         {% for x in ff%}
+
+           {% if  forloop.first  %}
+           <tr class="rem-na"><td>Trims Store</td></tr>
+           {% endif %}
+        {% for item in x %}
+          
+        {% if item.department == 'Trims Store' %}    
+          
+      <tr class="tr-rem" value="{{ item.department }}" id="{{ item.id }}">
+       
+       <td id="d{{ item.id }}" value="{{ item.department }}" style="display: none;">{{ item.department }}</td> 
+        
+        <td>{{ item.operations }}</td>
+        <td>{{ item.complexity }}</td>
+        <td>{{ item.spi }}</td>
+        <td>{{ item.stitch_length }}</td>
+        <td>{{ item.thread_consumption }}</td>
+        <td>{{ item.machine_auto }}</td>
+        <td>{{ item.work_aid }}</td>
+        <td>{{ item.smv }}</td>
+        <td>{{ item.allowance }}</td>
+        <td>{{ item.sam }}</td>
+        <td>{{ item.ct }}</td>
+        <td>{{ item.grade }}</td> 
+        {% for g in gob %}
+          {% if  g.operation_id == item.id|stringformat:"i" %}
+        
+        <td>{{ g.Type}}</td>
+        <td>{{ g.mpnos}}</td>
+        <td>{{ g.mpallocation}}</td>
+        <td>{{ g.name}}</td>
+        <td>{{ g.oph}}</td>
+        <td>{{ g.cost}}</td>
+        {% endif %}
+          {% endfor %}
+      
+        </tr>
+      
+          {% endif %}
+
+        {% endfor %}
+        {% endfor %}
+          {% for x in ff%}
+          {% if forloop.first %}
+           <tr class="rem-na"><td>Cutting</td></tr>
+           {% endif %}
+        
+        {% for item in x %}
+       
+        {% if item.department == 'Cutting' %}    
+      <tr class="tr-rem" value="{{ item.department }}" id="{{ item.id }}">
+       
+       <td id="d{{ item.id }}" value="{{ item.department }}" style="display: none;">{{ item.department }}</td> 
+        
+        <td>{{ item.operations }}</td>
+        <td>{{ item.complexity }}</td>
+        <td>{{ item.spi }}</td>
+        <td>{{ item.stitch_length }}</td>
+        <td>{{ item.thread_consumption }}</td>
+        <td>{{ item.machine_auto }}</td>
+        <td>{{ item.work_aid }}</td>
+        <td>{{ item.smv }}</td>
+        <td>{{ item.allowance }}</td>
+        <td>{{ item.sam }}</td>
+        <td>{{ item.ct }}</td>
+        <td>{{ item.grade }}</td> 
+        {% for g in gob %}
+          {% if  g.operation_id == item.id|stringformat:"i" %}
+        
+        <td>{{ g.Type}}</td>
+        <td>{{ g.mpnos}}</td>
+        <td>{{ g.mpallocation}}</td>
+        <td>{{ g.name}}</td>
+        <td>{{ g.oph}}</td>
+        <td>{{ g.cost}}</td>
+        {% endif %}
+          {% endfor %}
+      
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+   
+   </table> 
+</div>
+<script >
+  var depar;
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+   
+	 $("#department").change(function () {
+      var depart = $("#department").val();
+      dname=$(this).find(':selected').text();
+      depar=dname;
+      $.ajax({
+        type: "POST",
+        url: '/sew/obulletin',
+        data: {
+          'department': depart,
+          'dname':dname,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          
+          $("#section").find('.section_type_ops').remove()  
+          for(var i=0; i < data["section_res"].length; i++){
+
+            $("#section").append(`<option value="${data['section_res'][i]}" class="section_type_ops"> ${data['section_res'][i]} </option>`)
+          }
+          dataget(dname)
+        }
+      });
+    });
+	 function dataget(d){
+	 	console.log(d)
+    $.ajax({
+        type: "POST",
+        url: '/sew/obulletin',
+        data: {
+          
+          'dname':d,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid2").find('.tr-rem').css('display','none')
+          $("#tableid2").find('.rem-na').css('display','none')
+          $("#table3").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid2").find('#'+data['ids'][i]).css('display','table-row')
+            $("#table3").find('#'+data['ids'][i]).css('display','table-row')
+          }  
+          
+        }
+      });
+	 }
+   $("#section").change(function () {
+      var section = $("#section").val();
+      console.log(section)
+      $.ajax({
+        type: "POST",
+        url: "/sew/obulletin",
+        data: {
+          'section': section,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          $("#subsection").find('.sub_section_type_ops').remove()
+
+          for(var i=0; i < data['sub_section_res'].length; i++){
+
+            $("#subsection").append(`<option value="${data['sub_section_res'][i]}" class="sub_section_type_ops"> ${data['sub_section_res'][i]} </option>`)
+          }
+          datasec(section)
+        }
+      });
+    });
+  
+  function datasec(d){
+    $.ajax({
+        type: "POST",
+        url: '/sew/obulletin',
+        data: {
+          
+          'secname':d,
+          'dname':depar,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data['ids'])
+          $("#tableid2").find('.tr-rem').css('display','none')
+          $("#table3").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid2").find('#'+data['ids'][i]).css('display','table-row')
+            $("#table3").find('#'+data['ids'][i]).css('display','table-row')
+          }  
+          
+        }
+      });
+  }
+</script>
+{% endblock %}

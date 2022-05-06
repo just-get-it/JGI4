@@ -1,0 +1,267 @@
+ {% extends 'base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile_message.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mydesign/mydesign_profile.css' %}">
+
+<style type="text/css">
+    {
+        % if no_count %
+    }
+    
+    .noti_detail_head::after {
+        content: '{{no_count}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .noti_detail_head::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    .staf_noti::after {
+        display: none;
+    }
+    
+    {
+        % if oty4 %
+    }
+    
+    .noti_head::after {
+        content: '{{oty4}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .noti_head::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty %
+    }
+    
+    .enq_noti::after {
+        content: '{{oty}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .enq_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty1 %
+    }
+    
+    .des_noti::after {
+        content: '{{oty1}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .des_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty2 %
+    }
+    
+    .samp_noti::after {
+        content: '{{oty2}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .samp_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty3 %
+    }
+    
+    .ord_noti::after {
+        content: '{{oty3}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .ord_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+</style>
+<style media="screen">
+    .hov_subnav {
+        color: white;
+        transition: all .5s ease;
+    }
+    
+    .hov_subnav:hover {
+        color: #253031;
+    }
+</style>
+<style>
+    .chosen-container.chosen-container-multi {
+        width: 300px !important;
+        /* or any value that fits your needs */
+    }
+</style>
+<link rel="stylesheet" href="{% static 'chosen/chosen.min.css' %}"> {% endblock %} {% block topcontent %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/mydesign" class="hov-a hov_subnav" style="{% ifequal page 'design' %}color:#253031;{% endifequal %}">Feeds &nbsp;<i class="fas fa-rss-square"></i></a>
+        </div>
+        <div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/mydesign/trending" class="hov-a hov_subnav" style="{% ifequal page 'trending' %}color:#253031;{% endifequal %}">Trending &nbsp;<i class="fas fa-assistive-listening-systems"></i></a>
+
+        </div>
+
+        <div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/mydesign/notifications" class="hov-a hov_subnav" style="{% ifequal page 'notification' %}color:#253031;{% endifequal %}">Notifications &nbsp;<i class="fas fa-flag"></i></a>
+        </div>
+        <div class="col py-2 centered staff_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/mydesign/messages" class="hov-a hov_subnav" style="{% ifequal page 'message' %}color:#253031;{% endifequal %}">Messages &nbsp;<i class="fas fa-comment-alt"></i></a>
+        </div>
+        <div class="col py-2 centered b2b_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/mydesign/profile" class="hov-a hov_subnav" style="{% ifequal page 'profile' %}color:#253031;{% endifequal %}">Profile & Settings &nbsp;<i class="fas fa-cogs"></i></a>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{% endblock %} {% block content %}
+<style media="screen">
+    .input_mydesign {
+        border: none;
+        border-bottom: 1px solid black;
+        width: 80%;
+        margin-left: 5vw;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        padding-left: 2vw;
+        background: none;
+    }
+    
+    .label_mydesign {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+</style>
+
+<div class="row mt-5">
+    <form method="post" style="width:100%;" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="container">
+            <div class="row">
+                <label class="label_mydesign"><b>Title</b></label>
+                <input type="text" name="title" value="" required placeholder="Title of the Product" required class="input_mydesign">
+            </div>
+            <div class="row">
+                <label class="label_mydesign"><b>Description</b></label>
+                <textarea name="desc" rows="2" cols="80" style="margin-left:.5vw;" placeholder="Description of the Product" class="input_mydesign"></textarea>
+            </div>
+            <div class="row">
+                <label class="label_mydesign"><b>Price</b></label>
+                <input type="number" name="price" value="" placeholder="Price of the Product" style="margin-left:4vw;" class="input_mydesign">
+            </div>
+
+            <div class="row">
+                <label class="label_mydesign"><b>Post Privacy</b></label>
+                <select class="input_mydesign" style="margin-left:2vw;" name="post_privacy">
+        <option value="private">Private</option>
+		<option value="public">Public</option>
+		<option value="friends_only">Friends Only</option>
+      </select>
+            </div>
+            <div class="row">
+                {{interest_form.as_p}}
+            </div>
+            <div class="row">
+                <label class="label_mydesign"><b>Image</b></label>
+                <input type="file" name="image" value="" required placeholder="Image of the Product" style="margin:1vw;margin-left:4vw;">
+            </div>
+            <div class="row" id="image2"></div>
+            <div class="row" id="image3"></div>
+            <div class="row" id="image4"></div>
+            <div class="row" id="image5"></div>
+            <div class="row">
+                <button type="button" id="addimage_button" onclick="addimages();" style="margin-left:auto;background:none;color:#30c5ff;border:none;margin-bottom:2vh;">Add more Images</button>
+            </div>
+            <div class="row centered">
+                <button type="submit" style="background:#30c5ff;border:none;border-radius:2vw;" class="py-2 px-5 mb-4">Upload Post</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".chosen-select").chosen()
+    });
+</script>
+<script src="{% static 'chosen/chosen.jquery.min.js' %}"></script>
+
+<script type="text/javascript">
+    var images_count = 2;
+
+    function addimages() {
+        var a = document.getElementById('image' + images_count.toString());
+        a.innerHTML = `      <label class="label_mydesign"><b>Image</b></label>
+          <input type="file" name="image` + images_count.toString + `" value="" placeholder="Image of the Product" style="margin:1vw;margin-left:4vw;">`;
+        if (images_count >= 5) {
+            var b = document.getElementById('addimage_button');
+            b.style.display = "none";
+        }
+        images_count = images_count + 1;
+    }
+</script>
+
+
+
+{% endblock %}

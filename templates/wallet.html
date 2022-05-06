@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<style type="text/css">
+  table,
+  th,
+  td {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+
+
+
+
+
+
+
+
+
+
+  #progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #455A64;
+    padding-left: 0px;
+    margin-top: 30px
+  }
+
+  #progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    color: #455A64 !important
+  }
+
+  #progressbar #step1:before {
+    content: "1";
+    color: #fff;
+    width: 29px;
+    margin-left: 15px !important;
+    padding-left: 11px !important
+  }
+
+  #progressbar #step2:before {
+    content: "2";
+    color: #fff;
+    width: 29px
+  }
+
+  #progressbar #step3:before {
+    content: "3";
+    color: #fff;
+    width: 29px;
+    margin-right: 15px !important;
+    padding-right: 11px !important
+  }
+
+  #progressbar li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: #455A64;
+    border-radius: 50%;
+    margin: auto
+  }
+
+  #progressbar li:after {
+    content: '';
+    width: 121%;
+    height: 2px;
+    background: #455A64;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 15px;
+    z-index: -1
+  }
+
+  #progressbar li:nth-child(2):after {
+    left: 50%
+  }
+
+  #progressbar li:nth-child(1):after {
+    left: 25%;
+    width: 121%
+  }
+
+  #progressbar li:nth-child(3):after {
+    left: 25% !important;
+    width: 50% !important
+  }
+
+  #progressbar li.active:before,
+  #progressbar li.active:after {
+    background: #4bb8a9
+  }
+
+  .card {
+    background-color: #fff;
+    box-shadow: 2px 4px 15px 0px rgb(0, 108, 170);
+    z-index: 0
+  }
+
+  small {
+    font-size: 12px !important
+  }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 style="text-align:center">Your Wallet</h2>
+  <br><br>
+  <div style="display: inline-flex;">
+
+    <div
+      style="border-style: solid;border-color: black;width: 250px;font-size: 25px;height:250px;display: inline-table;">
+      <table style="width: 250px;height: 250px;">
+        <tr style="font-size: 20px;background-color: rgba(0,0,0,0.4);">
+          <td><b>Wallet Balance:&nbsp;&nbsp;<br><span
+                style="font-size: 30px;text-align: center;margin-left: 30px;">Rs.&nbsp;{{totalamount}}</span></b></td>
+        </tr>
+        <tr>
+          <td><a href="/wallet/add/"><img src="https://img.icons8.com/ios/50/000000/plus.png"
+                style="width: 40px;">&nbsp;&nbsp;Add Money</a></td>
+        </tr>
+        <tr>
+          <td><a href="/wallet/send/"><img src="https://img.icons8.com/ios/50/000000/gift.png"
+                style="width: 40px;" />&nbsp;&nbsp;Send Money</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br><br>
+
+</div>
+
+
+
+
+<br><br><br>
+{% endblock %}
+
+{% block js %}
+
+
+
+<!--<script>-->
+<!--if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--    console.log(cart);-->
+<!--    }-->
+<!--    var sum=0;-->
+<!--    var totalPrice=0;-->
+<!--    if ($.isEmptyObject(cart)){-->
+<!--        mystr='<p><h5 style="text-align:center">Your cart is empty! Please add some items</h5></p>'-->
+
+<!--        $('#items').append(mystr);-->
+<!--    }-->
+<!--    else {-->
+<!--    for (var item in cart){-->
+<!--        let qty= cart[item][0];-->
+<!--        let name= cart[item][1];-->
+<!--        let itemPrice= cart[item][2];-->
+<!--        sum+=qty;-->
+<!--        totalPrice = totalPrice + qty*itemPrice;-->
+
+<!--        mystr=`<li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                ${name}-->
+<!--                <span class="badge badge-primary badge-pill">${qty}</span>-->
+<!--              </li>`-->
+<!--        $('#items').append(mystr);-->
+<!--    }-->
+<!--    }-->
+<!--    document.getElementById('cart').innerHTML = sum;-->
+<!--    document.getElementById('totalPrice').innerHTML = totalPrice;-->
+
+<!--    $('#itemsJson').val(JSON.stringify(cart));-->
+<!--     {% if doneorder %}-->
+<!--        if (totalPrice!=0){-->
+<!--            alert('Thanks for ordering. Your Order id is: {{id}}');-->
+<!--            localStorage.clear();-->
+<!--            document.location='/';-->
+<!--        }-->
+<!--    {% endif %}-->
+
+<!--</script>-->
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load custom_tags %}
+
+{% block customcss %}
+  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+{% endblock customcss %}
+
+
+  <div>
+      <h1><i class="fa fa-calendar"></i> Calendar</h1>
+      <p>Event Calendar</p>
+  </div>
+  <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item"><a href="#">Calendar</a></li>
+  </ul>
+
+
+{% block content %}
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile row">
+            <div class="col-md-3">
+                <div id="external-events">
+                    <label for="rent"><span class="fas fa-square" style="color: blue;"></span> Rent:  </label>
+                    <input type="checkbox" name="types" id="rent" value="rent" checked class='filter'>
+                    <label for="subscribe"><span class="fas fa-square" style="color: red;"></span> Subscribe: </label>
+                    <input type="checkbox" name="types" id="subscribe" value="subscribe" checked  class='filter'>
+                    <div id="subscribes">
+                        <h4 class="mb-4">Your subscriptions</h4>
+                    {% for data in orderdata %}
+                    {% for item in data %}
+                      <div class="fc-event">
+                          <h3>Product: {{ item.product.title }}</h3>
+                          <p>From: {{ item.start_date }}</p>
+                          <p>Price: {{ item.amount }}</p>
+                      </div>
+                    {% empty %}
+                    {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-5">
+                <div id="calendar"></div>
+            </div>
+            <div class="col-md-3">
+                <div id="external-events" style="float:right;">
+                    <div id="rents">
+                        <h4 class="mb-4">Your Rentals</h4>
+                    {% for data in rentorderdata %}
+                    {% for item in data %}
+                      <div class="fc-event">
+                          <h3>Product: {{ item.product.title }}</h3>
+                          <p>From: {{ item.start_date }}</p>
+                          <p>Price: {{ item.amount }}</p>
+                      </div>
+                    {% empty %}
+                    {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Event</h5>
+                            <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Event Title:</label>
+                                    {{ form.title }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Description:</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Start Date:</label>
+                                    {{ form.start_time }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">End Date:</label>
+                                    {{ form.end_time }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <script src="{% static 'calender/main.js' %}"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var today = new Date();
+        var show_username
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth timeGridWeek timeGridDay list'
+          },
+          rerenderDelay:5,
+          initialDate: today,
+          navLinks: true, // can click day/week names to navigate views
+          selectable: true,
+          selectMirror: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: {{ obj|safe }},
+          eventDidMount: function(arg) {
+            var username = $('input:checkbox.filter:checked').map(function() {
+               return $(this).val();
+           }).get();
+           show_username = username.indexOf(arg.event.extendedProps.type) >= 0;
+           
+            return show_username
+          }
+          
+        });
+        calendar.render();
+        var events = calendar.getEvents()
+        console.log(events)
+
+         $('.filter').on('change', function() {
+            var username = $('input:checkbox.filter:checked').map(function() {
+               return $(this).val();
+           }).get();
+           events.forEach((i)=>{
+               if(username.indexOf(i.extendedProps.type) >= 0){
+
+                    // document.getElementById(i.extendedProps.type+"s").style.display = ""
+                    i.setProp('display', 'auto');
+                    
+               }
+               else{
+                // document.getElementById(i.extendedProps.type+"s").style.display = "None"
+                    i.setProp('display', 'none');
+                   
+               } 
+              
+           })
+        });
+  
+})
+      
+
+  </script>
+{% endblock content %}

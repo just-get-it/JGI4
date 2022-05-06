@@ -1,0 +1,151 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel='stylesheet' href="{% static 'styles\style.css' %}">
+</head>
+
+
+<body background = '{% static "..\static\images\bg_image_reports.jpg" %}'>
+
+<header>
+  <div class="maindiv">
+    <nav class="navbar">
+      <ul>
+          <li class="home_btn"><a href="#">HOME</a> </li>
+            <li><a href="output_reports/reports">REPORTS</a> </li>
+              <li><a href="#">Services</a> </li>
+            <li><a href="#">About</a> </li>
+          <li><a href="#">Contact</a> </li>
+
+      </ul>
+    </nav>
+  </div>
+    
+
+<center>
+<form method="POST" action="#" id='form_table_id'>
+  {% csrf_token %} 
+  <br><br><br><br><br><br>
+
+<table style="border-width: initial;border-color:rgb(135, 0, 189)">
+
+    <tr>
+        <td colspan=9 align=center style="border-width:initial;font-size: 25px;font-weight: bold; height:50px;border-color:rgb(135, 0, 189); color:rgb(17, 0, 255)">UTILIZATION GAP</td>   
+          </tr>
+  
+    <tr>  
+        <td colspan=7 align=center style="font-weight: bold;">    Factory :    
+          <select  name="factory_name" style="width: 150px;">
+            <option value="Gini & Jony" align=center>Gini & Jony</option>
+              <option value="Fact 2">Fact 2</option>
+                <option value="Fact 3">Fact 3</option>
+                  <option value="Fact 4">Fact 4</option>
+                  <option value="Fact 5">Fact 5</option>
+                <option value="Fact 6">Fact 6</option>
+              <option value="Fact 7">Fact 7</option>
+            <option value="Fact 8">Fact 8</option>
+          </select>
+        </td>
+  
+        <td  align=right style="font-weight: bold;">Date :</td>
+        <td  align=center>{% now 'd-m-y' %}</td>
+    </tr>
+  
+    <tr>
+        <td colspan=7 align=center style="font-weight: bold;">Woven Botton Floor:
+          <select name="floor_no">
+            <option value="A3 - Line 1">A3 - Line 1</option>
+              <option value="A3 - Line 2">A3 - Line 2</option>
+                <option value="A3 - Line 3">A3 - Line 3</option>
+                  <option value="A3 - Line 4">A3 - Line 4</option>
+                  <option value="A4 - Line 1">A4 - Line 1</option>
+                <option value="A4 - Line 2">A4 - Line 2</option>
+              <option value="A4 - Line 3">A4 - Line 3</option>
+            <option value="A4 - Line 4">A4 - Line 4</option>
+          </select>
+        </td>
+        
+        <td  align=right style="font-weight: bold;">Time :</td>
+        <td align=center >{{hour_12}}:{{minutes}} {{am_or_pm}}</td>
+      </tr>
+ 
+ 
+ 
+    <tr>
+        <td colspan=7 align=center>Sample Size: 25</td>
+        <td align=right style="font-weight: bold;">Duration :</td>
+        <td align=center style="font-weight: bold;">8 Hours</td>
+    </tr>
+
+    <tr>
+        <td colspan=9 align=center class="blankrow">  </td>   
+    </tr>
+  
+    <tr>
+        <td rowspan=2 align=center style="border-width:initial; font-weight: bold;border-top-color:rgb(135, 0, 189);border-left-color:rgb(135, 0, 189)"">TIME</td> 
+        <td colspan=8 align=center style="border-width: medium; font-weight: bold; border-right-color:rgb(135, 0, 189)">ACTIVITY</td>
+    </tr>
+  
+    <tr>
+        <td colspan=4 align=center style="border-width: medium; font-weight: bold;">Normal Productivity Work</td>
+        <td colspan=4 align=center style="border-width: medium; font-weight: bold;border-right-color:rgb(135, 0, 189)">Non Productivity Work</td>   
+    </tr> 
+    
+    <tr>
+        <td align=center></td>
+          <td align=center>Sew and Handle</td>
+            <td align=center>Shears*</td>
+              <td align=center>Bundle Handling/Parts Layout</td>
+                <td align=center>Machine Delay (TB,CC,BC,NC)</td>
+              <td align=center>MB</td>
+            <td align=center>Personal fatigue (WR and others)</td>
+          <td align=center>WT</td>
+        <td align=center>Others</td>
+    </tr>
+  
+    <tr>
+    
+        <td align=center>{{hour_12}}{{am_or_pm}} - {{next_hour}}{{next_hour_am_or_pm}}</td>
+          <td align=center><input type="number" value='0'  onchange="computesum()"  name='Sew_Handle'   id="H1_sew&Handle"></td>
+            <td align=center><input type="number" value='0' onchange="computesum()"  name='shears'   id="H1_shears"></td>
+              <td align=center><input type="number" value='0' onchange="computesum()"   name='Bundle'  id="H1_Bundle"></td>
+                <td align=center><input type="number" value='0' onchange="computesum()"  name='Machine_Delay'   id="H1_Machine_Delay"></td>
+	            <td align=center><input type="number" value='0' onchange="computesum()"  name="H1_MB"   id="H1_MB"></td>
+            <td align=center><input type="number" value='0' onchange="computesum()"   name="Personal_fatigue"  id="H1_Personal_fatigue"></td>
+          <td align=center><input type="number" value='0' onchange="computesum()"  name="H1_WT"   id="H1_WT"></td>
+        <td align=center><input type="number" value='0' onchange="computesum()"   name="Others"  id="H1_Others"></td>
+    </tr>
+  
+  
+    <tr>
+        <td colspan=9>*For thread cutting or trimming within an operation, part trimming is to be consider as BH</td>      
+    </tr>
+   
+    <tr>
+        <td colspan=3 align=center></td>
+          <td colspan=1 align=center style="border-width: medium;border-color:rgb(135, 0, 189);"><input type="submit" name='submit'></td>
+          <td colspan=1 align=center style="border-width: medium;border-color:rgb(135, 0, 189)"><a href="output_reports/reports">Reports</a></td>
+         <td colspan=4 align=center></td>
+    </tr>
+ 
+
+</table>
+</form>
+
+  <h3 id='submit_info' style="color: chartreuse;"></h3>
+
+
+</center>
+</header>
+</body>
+
+<script type='text/javascript'>
+  if ( window.history.replaceState ){
+    window.history.replaceState(null,null,window.location.href);
+  }
+</script>
+
+</html>

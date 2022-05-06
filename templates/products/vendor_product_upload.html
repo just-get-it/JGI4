@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/upload_product.css' %}">
+{% endblock %}
+
+
+{% block content %}
+{% csrf_token %}
+<div class="row">
+	<div class="container mt-5 mb-5">
+		<!-- <div class="row mb-1">
+			<h4 style="font-family: 'Cabin', sans-serif;" id="head_upload">Select Super-Category of Product</h4>
+		</div>
+		<div class="row" id="prod_cate">
+
+			{% for o in cate %}
+			<div class="col-3 mb-4 prod_cate" onclick="select_subcate('{{o.id}}');">
+				<img src="{{o.image.url}}">
+				<div class="overlay"></div>
+				<div class="overlay_cate">
+					<button>{{o.name}}</button>
+				</div>
+			</div>	
+			{% endfor %}
+		</div>
+		<div class="row" id="prod_subcate"></div>
+
+		<div class="row" id="prod_supcate"></div> -->
+		<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row to_be_hidden">
+				<input type="text" name="title" class="input_attribute" placeholder="Title of the Product" required>
+				<p style="font-size: .6em; margin-left: 4vw">This would be shown to the users on the following pages as - <br>
+				 -	Title on the Product Listing Page <br>
+				 -  Will be used as the Title of the Product Detail Page</p>
+
+			</div>
+			<div class="row to_be_hidden" id="slug_update">
+			</div>
+			<div class="row to_be_hidden">
+				<textarea class="input_attribute" name="description" placeholder="Comments for Product" required></textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Additinal Attribute of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+			<div class="row to_be_hidden">
+				<textarea class="input_attribute" placeholder="Notes for Product" name="notes" required></textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Wash Care Details of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+			<div class="row to_be_hidden">
+				
+				<input type="number" name="price" class="input_attribute" placeholder="Price of the Product" required>
+				<p style="font-size: .6em; margin-left: 4vw">Final Price would be update by the Sales Person by Inspection of the Product - <br>
+					- Price given by the Sales Person will be final. <br>
+					- It should not contain special character.<br>
+					- It can contain numbers. </p>
+			</div>
+			<input type="hidden" name="cate" id="input_cate" value="">
+			<input type="number" name="sub_cate" id="input_subcate" value="" style="display: none;">
+			<input type="number" name="sup_cate" id="input_supcate" value="" style="display: none;">
+			
+			<div class="row" id="form_upload_product"></div>
+			<style type="text/css">
+				.to_p p{
+					margin-left: 4vw;
+					font-size: .6em;
+				}
+			</style>
+			{% for a in attri %}
+			
+			<div class="row to_p" style="">
+				
+				<input type="text" name="attribute{{forloop.counter}}" class="input_attribute" placeholder="{{a.name}}" required>
+				{{a.description|linebreaks}}
+			</div>
+
+			{% endfor %}
+
+			<label><b><p>Fabric direction:</p></b></label>
+			<select name="fabric_direction" class="input_attribute" style="width:60vh;">
+				<option value="" selected disabled>--------</option>
+				{% for f in fabric_direction %}
+				<option value="{{f.name}}">{{f.name}}</option>
+				{% endfor %}
+			</select><br>
+			<label><b><p>Fabric width:</p></b></label>
+			<select name="fabric_width" class="input_attribute" style="width:60vh;">
+				<option value="" selected disabled>--------</option>
+				{% for f in fabric_width %}
+				<option value="{{f.name}}">{{f.name}}</option>
+				{% endfor %}
+			</select><br>
+			<label><b><p>Fabric print design:</p></b></label>
+			<select name="fabric_print_design" class="input_attribute" style="width:60vh;">
+				<option value="" selected disabled>--------</option>
+				{% for f in fabric_print_design %}
+				<option value="{{f.name}}">{{f.name}}</option>
+				{% endfor %}
+			</select><br>
+			<label><b><p>Fabric print type:</p></b></label>
+			<select name="fabric_print_type" class="input_attribute" style="width:60vh;">
+				<option value="" selected disabled>--------</option>
+				{% for f in fabric_print_type %}
+				<option value="{{f.name}}">{{f.name}}</option>
+				{% endfor %}
+			</select><br>
+			
+			<!-- {% for t in trims_attri %}
+			{% if t.is_component %}
+				<label><b><p>{{t.name}}:</p></b></label>
+				{% ifequal t.input_type 'Drop Down'%}
+				{% with t.values|split as value%}
+				{% with t.impact_fabric_consumption|split as consumption%}
+					<select name="trims_labels" class="input_attribute" style="width:60vh;">
+							<option value="" selected disabled>--------</option>
+						{% for v, c in value|zip:consumption %}
+							<option value="{{t.name}}, {{v}}, {{c}}">{{v}}</option>
+						{% endfor %}
+					</select><br>
+				{% endwith %}
+				{% endwith %}
+				{% endifequal %}
+			{% endif %}
+			{% endfor %} -->
+			<div class="row images_upload to_be_hidden" id="images_upload">
+				<div class="container mt-4" style="margin-left: 2vw;">
+					<div class="row">
+						
+						<label>Images of the Product</label>
+					</div>
+					<div class="row mt-2 mb-2">
+						<div class="col-8">
+							<input type="file" name="image1" required>
+						</div>
+						<div class="col-4">
+							<button onclick="addimage();" class="hov-a" style="background: transparent;color:#30c5ff;border: none;" id="addmore">Add More Images</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row mt-3 mb-3 upload_row_but to_be_hidden">
+				<button type="submit" class="px-5 py-2" name="upload_product">Upload</button>
+			</div>
+			
+		</form>
+	</div>
+
+		
+
+</div>
+<script type="text/javascript" src="{% static 'js/products/upload_product.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

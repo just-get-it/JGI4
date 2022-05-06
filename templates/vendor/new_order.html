@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_timeline.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/placeorder.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<style type="text/css">
+	.logincol1 label{
+		margin-top: 1vh;
+	}
+	label{
+		margin-bottom: 0;
+	}
+	.loginemail{
+		margin-top: 3vh;
+	}
+	.loginrow{
+		height: 290vh;
+	}
+	.logincol{
+		height: 270vh;
+	}
+	.logincol1{
+		height: 245vh;
+	}
+</style>
+
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+				<h4>Order Details</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1" style="padding: 0;">
+				<div style="background-image: linear-gradient(rgba(48,197,255,.3),rgba(48,197,255,.1));padding: 1vw;">
+					<label><b>Brands<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="brand" class="loginemail" id="brand" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.fashion_Brand %}
+							<option value="{{depend.fashion_Brand.id}}" selected>{{depend.fashion_Brand.name}}</option>
+						{% endif %}
+						{% for b in brand %}
+						<option value="{{b.id}}">{{b.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b> Product Category<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="category" class="loginemail" id="category" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.product_Category %}
+							<option value="{{depend.product_Category.name}}" selected>{{depend.product_Category.name}}</option>
+						{% endif %}
+						{% for b in cate %}
+						<option value="{{b.name}}">{{b.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b> Product Sub-Category<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="sub_category" class="loginemail" id="sub_category" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.product_Subcategory %}
+							<option value="{{depend.product_Subcategory.name}}" selected>{{depend.product_Subcategory.name}}</option>
+						{% endif %}
+					</select>
+					<label><b> Product Super-Category<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="super_category" class="loginemail" id="super_category" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.product_Supercategory %}
+							<option value="{{depend.product_Supercategory.name}}" selected>{{depend.product_Supercategory.name}}</option>
+						{% endif %}
+					</select>
+					<label><b>Quantity of Order<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<input type="number" value="{% if depend.quantity %}{{depend.quantity}}{% endif %}" name="quantity" placeholder="Quantity of Order" class="loginpassword" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+					<label><b>Dispatch Address<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<textarea class="loginpassword" name="dispatch" required placeholder="Dispatch Address" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.dispatch_Address.first %}{{depend.dispatch_Address.first}}{% endif %}</textarea>
+					<label><b>Billing Address<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<textarea class="loginpassword" required name="billing" placeholder="Billing Address" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.billing_Address %}{{depend.billing_Address}}{% endif %}</textarea>
+				</div>
+				<div style="background-image: linear-gradient(rgba(48,197,255,.1),rgba(48,197,255,0));padding: 1vw;">
+					<label><b>Labels</b></label>
+					<select name="label" class="loginemail" id="label" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.label %}
+							<option value="{{depend.label.slug}}" selected>{{depend.label.name}}</option>
+						{% endif %}
+					</select>
+					<label><b>Fits</b></label>
+					<select name="fit" class="loginemail" id="fit" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.fit %}
+							<option value="{{depend.fit.slug}}">{{depend.fit.slug}}</option>
+						{% endif %}
+					</select>
+					<label><b>Seasons</b></label>
+					<select name="season" class="loginemail" id="season" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" selected>------</option>
+						{% if depend.season %}
+							<option value="{{depend.season.slug}}" selected>{{depend.season.name}}</option>
+						{% endif %}
+					</select>
+					<label><b>Target Lead Time(days)</b></label>
+					<input type="number" value="{% if depend.target_lead_time %}{{depend.target_lead_time}}{% endif %}" name="target_lead_time" placeholder="Target Lead Time(days)" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+					<label><b>Target Price</b></label>
+					<input type="number" value="{% if depend.target_price %}{{depend.target_price}}{% endif %}" name="target_price" placeholder="Target Price" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+					<label><b>Description/Remarks</b></label>
+					<textarea class="loginpassword" name="description" placeholder="Description/Remarks" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.description %}{{depend.description}}{% endif %}</textarea>
+					<label><b>Colors(Separated by Comma)</b></label>
+					<input type="text" name="colors" value="{% for i in depend.colors_avail.all %}{{i}}, {% endfor %}" placeholder="Colors(Separated by Comma)" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+					<label><b>Logo Placement</b></label>
+					<input type="text" name="logo_place" value="{% if depend.logo_placement %}{{depend.logo_placement}}{% endif %}" placeholder="Logo Placement" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+					<label><b>Tech-Pack</b></label>
+					<input type="file" name="tech_pack" placeholder="Tech-Pack" class="loginfile" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+					<label><b>Specs</b></label>
+					<input type="file" name="specs" placeholder="Specs" class="loginfile" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+					<label><b>Sample Image of Product<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<input type="file" name="sample" label="Sample Image of Product" class="loginfile" id="sample" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+					<label><b>From Date<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label><br>
+          <input type="date" name="from_date" class="loginfile" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+          <label><b>To Date<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label><br>
+          <input type="date" name="to_date" class="loginfile" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+				</div>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">SUBMIT</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="{% static 'js/b2b/placeorder.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

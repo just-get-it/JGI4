@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/measurement_detail.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="margin-bottom: 25vh;" >
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Confirm Alteration</h3>
+		</div>
+	</div>
+
+
+
+	<div class="container mt-2 mb-4">
+		<div class="row">
+			<table style="width: 100%;" class="meas_chart">
+				<tr>
+					<th>Points</th>
+					<th>Brand({{asd.size_label}})</th>
+					<th>Custom</th>
+					<th>Deviation</th>
+					<th>Alteration Cost</th>
+				</tr>
+				<tr>
+				<tr>{% if kjl.0 %}
+					<th>{{kjl.0.label}}</th>
+					<td>{{fd1|floatformat}}</td>
+					<td>{{ab1|floatformat}}</td>
+					<td>{{db1|floatformat}}</td>
+					<td>{{cost1}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.1 %}
+					<th>{{kjl.1.label}}</th>
+					<td>{{fd2|floatformat}}</td>
+					<td>{{ab2|floatformat}}</td>
+					<td>{{db2|floatformat}}</td>
+					<td>{{cost2}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.2 %}
+					<th>{{kjl.2.label}}</th>
+					<td>{{fd3|floatformat}}</td>
+					<td>{{ab3|floatformat}}</td>
+					<td>{{db3|floatformat}}</td>
+					<td>{{cost3}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.3 %}
+					<th>{{kjl.3.label}}</th>
+					<td>{{fd4|floatformat}}</td>
+					<td>{{ab4|floatformat}}</td>
+					<td>{{db4|floatformat}}</td>
+					<td>{{cost4}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.4 %}
+					<th>{{kjl.4.label}}</th>
+					<td>{{fd5|floatformat}}</td>
+					<td>{{ab5|floatformat}}</td>
+					<td>{{db5|floatformat}}</td>
+					<td>{{cost5}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.5 %}
+					<th>{{kjl.5.label}}</th>
+					<td>{{fd6|floatformat}}</td>
+					<td>{{ab6|floatformat}}</td>
+					<td>{{db6|floatformat}}</td>
+					<td>{{cost6}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.6 %}
+					<th>{{kjl.6.label}}</th>
+					<td>{{fd7|floatformat}}</td>
+					<td>{{ab7|floatformat}}</td>
+					<td>{{db7|floatformat}}</td>
+					<td>{{cost7}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.7 %}
+					<th>{{kjl.7.label}}</th>
+					<td>{{fd8|floatformat}}</td>
+					<td>{{ab8|floatformat}}</td>
+					<td>{{db8|floatformat}}</td>
+					<td>{{cost8}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.8 %}
+					<th>{{kjl.8.label}}</th>
+					<td>{{fd9|floatformat}}</td>
+					<td>{{ab9|floatformat}}</td>
+					<td>{{db9|floatformat}}</td>
+					<td>{{cost9}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.9 %}
+					<th>{{kjl.9.label}}</th>
+					<td>{{fd10|floatformat}}</td>
+					<td>{{ab10|floatformat}}</td>
+					<td>{{db10|floatformat}}</td>
+					<td>{{cost10}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.10 %}
+					<th>{{kjl.10.label}}</th>
+					<td>{{fd11|floatformat}}</td>
+					<td>{{ab11|floatformat}}</td>
+					<td>{{db11|floatformat}}</td>
+					<td>{{cost11}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.11 %}
+					<th>{{kjl.11.label}}</th>
+					<td>{{fd12|floatformat}}</td>
+					<td>{{ab12|floatformat}}</td>
+					<td>{{db12|floatformat}}</td>
+					<td>{{cost12}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.12 %}
+					<th>{{kjl.12.label}}</th>
+					<td>{{fd13|floatformat}}</td>
+					<td>{{ab13|floatformat}}</td>
+					<td>{{db13|floatformat}}</td>
+					<td>{{cost13}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.13 %}
+					<th>{{kjl.13.label}}</th>
+					<td>{{fd14|floatformat}}</td>
+					<td>{{ab14|floatformat}}</td>
+					<td>{{db14|floatformat}}</td>
+					<td>{{cost14}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.14 %}
+					<th>{{kjl.14.label}}</th>
+					<td>{{fd15|floatformat}}</td>
+					<td>{{ab15|floatformat}}</td>
+					<td>{{db15|floatformat}}</td>
+					<td>{{cost15}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.15 %}
+					<th>{{kjl.15.label}}</th>
+					<td>{{fd16|floatformat}}</td>
+					<td>{{ab16|floatformat}}</td>
+					<td>{{db16|floatformat}}</td>
+					<td>{{cost16}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.16 %}
+					<th>{{kjl.16.label}}</th>
+					<td>{{fd17|floatformat}}</td>
+					<td>{{ab17|floatformat}}</td>
+					<td>{{db17|floatformat}}</td>
+					<td>{{cost17}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.17 %}
+					<th>{{kjl.17.label}}</th>
+					<td>{{fd18|floatformat}}</td>
+					<td>{{ab18|floatformat}}</td>
+					<td>{{db18|floatformat}}</td>
+					<td>{{cost18}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.18 %}
+					<th>{{kjl.18.label}}</th>
+					<td>{{fd19|floatformat}}</td>
+					<td>{{ab19|floatformat}}</td>
+					<td>{{db19|floatformat}}</td>
+					<td>{{cost19}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.19 %}
+					<th>{{kjl.19.label}}</th>
+					<td>{{fd20|floatformat}}</td>
+					<td>{{ab20|floatformat}}</td>
+					<td>{{db20|floatformat}}</td>
+					<td>{{cost20}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.20 %}
+					<th>{{kjl.20.label}}</th>
+					<td>{{fd21|floatformat}}</td>
+					<td>{{ab21|floatformat}}</td>
+					<td>{{db21|floatformat}}</td>
+					<td>{{cost21}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.21 %}
+					<th>{{kjl.21.label}}</th>
+					<td>{{fd22|floatformat}}</td>
+					<td>{{ab22|floatformat}}</td>
+					<td>{{db22|floatformat}}</td>
+					<td>{{cost22}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.22 %}
+					<th>{{kjl.22.label}}</th>
+					<td>{{fd23|floatformat}}</td>
+					<td>{{ab23|floatformat}}</td>
+					<td>{{db23|floatformat}}</td>
+					<td>{{cost23}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.23 %}
+					<th>{{kjl.23.label}}</th>
+					<td>{{fd24|floatformat}}</td>
+					<td>{{ab24|floatformat}}</td>
+					<td>{{db24|floatformat}}</td>
+					<td>{{cost24}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.24 %}
+					<th>{{kjl.24.label}}</th>
+					<td>{{fd25|floatformat}}</td>
+					<td>{{ab25|floatformat}}</td>
+					<td>{{db25|floatformat}}</td>
+					<td>{{cost25}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.25 %}
+					<th>{{kjl.25.label}}</th>
+					<td>{{fd26|floatformat}}</td>
+					<td>{{ab26|floatformat}}</td>
+					<td>{{db26|floatformat}}</td>
+					<td>{{cost26}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.26 %}
+					<th>{{kjl.26.label}}</th>
+					<td>{{fd27|floatformat}}</td>
+					<td>{{ab27|floatformat}}</td>
+					<td>{{db27|floatformat}}</td>
+					<td>{{cost27}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.27 %}
+					<th>{{kjl.27.label}}</th>
+					<td>{{fd28|floatformat}}</td>
+					<td>{{ab28|floatformat}}</td>
+					<td>{{db28|floatformat}}</td>
+					<td>{{cost28}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.28 %}
+					<th>{{kjl.28.label}}</th>
+					<td>{{fd29|floatformat}}</td>
+					<td>{{ab29|floatformat}}</td>
+					<td>{{db29|floatformat}}</td>
+					<td>{{cost29}}</td>
+				{% endif %}</tr>
+<tr>{% if kjl.29 %}
+					<th>{{kjl.29.label}}</th>
+					<td>{{fd30|floatformat}}</td>
+					<td>{{ab30|floatformat}}</td>
+					<td>{{db30|floatformat}}</td>
+					<td>{{cost30}}</td>
+				{% endif %}</tr>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="container mt-2 mb-2">
+		<div class="row">
+			<h6 style="margin-left: auto;">Total Alteration Cost - <b>{{cos}} Rs.</b></h6>
+		</div>
+	</div>
+	<div class="container mt-2">
+		<div class="row">
+			<form method="POST">{% csrf_token %}
+			<button name="with" type="submit" style="border:none;background: #30c5ff;color: black; border-radius: 30px;  font-weight: bold; " class="py-1 px-4" value="True">Continue with Alteration</button>
+			</form>
+			<form method="POST">{% csrf_token %}
+			<button name="without" style="border:none;background: #30c5ff;color: black; border-radius: 30px; margin-left: 20px; font-weight: bold;" type="submit" class="py-1 px-4" value="True">Continue without Alteration</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

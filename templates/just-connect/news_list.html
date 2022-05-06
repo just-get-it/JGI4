@@ -1,0 +1,32 @@
+{% extends 'base_connect.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="page" role="main">
+    <div id="content" class="main-content" data-content-field="main-content"
+        data-collection-id="5f4f1eccca1e2c277194f1a0">
+        <div class="padding">
+        </div>
+        <a href="{% url 'connect-event-add' %}">create Event </a>
+        <div class="container-event">
+            {% for news in news_list%}
+            <div class="card-news">
+                <a href="{% url 'connect-news-detail' slug=news.slug%}">
+               
+                <div class="card-body-event">
+                    <h4 class="card-title">{{news.title}}</h4>
+                    <p class="card-text">{{news.news}}</p>
+                    <p class="card-text">
+                        <small class="text-muted">update time {{news.timestamp}}</small>
+                    </p>
+                   
+                </div>
+                </a>
+                
+                {% endfor %}
+            </div>
+
+</main>
+
+{% endblock %}

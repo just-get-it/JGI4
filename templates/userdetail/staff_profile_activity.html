@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Activity Details</h3>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<h6 style="margin-left: auto;"><b>Activity Status</b></h6>
+			<div style="width: 50px;height: 20px;margin-left:20px;border:2px solid black;border-radius: 10px;" id="status"></div>
+		</div>
+		<div class="row">
+			<h6 style="margin-top: 10px;">Activity Title</h6>
+			<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.activity_Cate.title}}</b></h5>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="container mt-2">
+		
+
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Activity Description</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px;">{{obj.activity_Cate.description}}</h5>
+					</div>
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Planned Date</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.planned_date}}</b></h5>
+					</div>
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Custom Lap Date</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.custom_date}}</b></h5>
+					</div>
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Custom Lap</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.lap}}</b></h5>
+					</div>
+					{% if details.is_driver %}
+
+
+
+					
+
+					{% endif %}
+					{% if logistic or details.is_driver %}
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Delivery Date</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.logistics_delivery_date}}</b></h5>
+					</div>
+
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Pickup Address</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.logistics_pickup_address}}</b></h5>
+					</div>
+					<div class="row mt-2">
+						<h6 style="margin-top: 10px;">Delivery Address</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.logistics_delivery_address}}</b></h5>
+					</div>
+					{% endif %}
+
+					{% if obj.actual_date %}
+
+					<div class="row mt-2 mb-4">
+						<h6 style="margin-top: 10px;">Actual Date</h6>
+						<h5 style="font-family: 'Cabin', sans-serif; margin-left: 5px; text-transform: uppercase;"><b>{{obj.actual_date}}</b></h5>
+					</div>
+					{% else %}
+					<form method="POST">{% csrf_token %}
+					<div class="row mt-2 mb-4">
+						<h6 style="margin-top: 10px;">Actual Date</h6>
+						<input type="date" name="date" placeholder="Actual Date" style="border: none; margin-left: 10px;">
+					</div>
+					<div class="row mt-2 mb-4">
+						<h6 style="margin-top: 10px;">Tentative Date</h6>
+						<input type="date" name="tentative_date" placeholder="Tentative Date" style="border: none; margin-left: 10px;">
+					</div>
+
+
+					<div class="row mt-2 mb-4">
+						<h6 style="margin-top: 10px;">Status of Activity</h6>
+						<select name="status"  style="margin-left: 10px;">
+							<option disabled selected></option>
+							<option value="BT">Before Time</option>
+							<option value="IA">Immediate Action Required</option>
+							<option value="IP">In Process</option>
+							<option value="ND">New Delay</option>
+							<option value="OH">On Hold</option>
+							<option value="OT">On Time</option>
+						</select>
+					</div>
+
+
+					<div class="row mt-2 mb-4">
+						<h6 style="margin-top: 10px;">Custom Lap</h6>
+						<input type="number" name="custom_lap" placeholder="Custom Lap" style="border: none; margin-left: 10px;">
+					</div>
+
+					<div class="row mt-3 mb-4">
+						<input type="submit" value="Save" class="px-4 py-2" style="margin-left: auto;border-radius: 20px; background: #30c5ff;">
+					</div>
+					</form>
+					{% endif %}
+
+
+
+					
+				</div>
+			</div>
+			<div class="col-6">
+				{% if details.is_driver %}
+				<div class="container my-5" style="border: 1px solid rgba(0,0,0,.1);height: 350px;">
+					<div class="row centered my-2">
+						<h6>Activity Sub-Status</h6>
+					</div>
+					<div class="row" style="overflow: auto;height: 250px">
+						<div class="container-fluid">
+							{% for i in obj.activity_sub_status_set.all %}
+								{% if i.user.email == details.email %}
+								<div class="row mx-2 p-2 pb-0 my-2" style="background: rgba(48,197,255,.5);margin-left:200px !important;">
+									{{i.sub_status}}
+
+									<div class="container">
+										<div class="row" style="margin-left: 200px;">
+											<p style="margin-bottom: 0;">{{i.time.time}}</p>
+										</div>
+									</div>
+								</div>
+								{% else %}
+								<div class="row mx-2 p-2 my-2" style="background: rgba(48,197,255,.3);margin-right:200px !important;">
+									{{i.sub_status}}
+									<div class="container">
+										<div class="row" style="margin-left: 200px;">
+											<p style="margin-bottom: 0;">{{i.time.time}}</p>
+										</div>
+									</div>
+								</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="row">
+						<div class="container-fluid">
+						<form method="POST">{% csrf_token %}
+							<div class="row mt-2 mx-2">
+								<input type="text" name="sub_status" required placeholder="Add Sub-Status" style="border:none;width: 25vw;">
+								<button type="submit" style="border:none;background: #30c5ff;color:#253031;border-radius:25vw;" class="px-4 py-1">Add Sub-Status</button>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		var now_date=Date.parse("{{current}}");
+		var to=Date.parse("{{obj.custom_date}}");
+		if (isNaN(to)){
+			to=Date.parse("{{obj.planned_date}}")
+		}
+		var some=document.getElementById('status');
+		if (now_date>to){
+			some.style.backgroundColor="{{obj.activity_Cate.late_Time_Color}}";
+		}
+		else if (now_date<to){
+			some.style.backgroundColor="{{obj.activity_Cate.before_Time_Color}}";
+		}
+		else{
+			some.style.backgroundColor="{{obj.activity_Cate.on_Time_Color}}"
+		}
+	</script>
+</div>
+
+{% endblock %}

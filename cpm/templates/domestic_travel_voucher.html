@@ -1,0 +1,136 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+<html>
+<head>
+<script>
+    function add_number() {
+        var first_number = parseInt(document.getElementById("rent1").value)
+        var second_number = parseInt(document.getElementById("tax1").value)
+        var third_number = parseInt(document.getElementById("amt12").value)
+        var result = first_number + second_number;
+        var final_result = first_number + second_number + third_number;
+        document.getElementById("total1").value = result;
+        document.getElementById("totalities1").value = final_result;
+    }
+
+    function date() {
+        var from_date = new Date(document.getElementById("from1").value)
+        var to_date = new Date(document.getElementById("to1").value)
+        var diff_time = to_date.getTime() - from_date.getTime();
+        var diff_date = diff_time / (1000 * 3600 * 24);
+        var diff_night = diff_date - 1;
+
+        document.getElementById("diff1").value = diff_date ;
+        document.getElementById("ndiff1").value = diff_night;
+
+    }
+
+</script>
+</head>
+<body>
+<br>
+<form action="domestic_travel_voucher" method="post" style="margin-left:20px; width: 100%">
+    {% csrf_token %}
+<h2>Tour Details</h2>
+<hr color="black">
+<table border="1" width="600px">
+    <tr>
+    <td>Tour Type</td>
+        <td bgcolor="#d3d3d3"><input type="radio" name="travelway1">Domestic Travel
+            <input type="radio" name="travelway1">Local Travel</td>
+    </tr>
+</table>
+<br>
+<br>
+<br>
+<h2>Loading & Hotel Expenses</h2>
+<hr color="black"></hr>
+<table border="1" width="90%">
+    <tr bgcolor="#d3d3d3">
+        <td></td>
+        <td align="center">&nbsp;#&nbsp;</td>
+        <td align="center" width="15%">From Date</td>
+        <td align="center" width="15%">To Date</td>
+        <td align="center" width="15%">Total Period</td>
+        <td align="center" width="15%">Accomodation Type</td>
+        <td align="center" width="15%">Hotel Name</td>
+        <td align="center" width="15%">City</td>
+    </tr>
+    <tr>
+        <td align="center"><input type="checkbox" name="check"></td>
+        <td align="center">&nbsp;1&nbsp;</td>
+        <td align="center"><input type="date" id="from1" name="from" style="background-color: blanchedalmond" oninput="date()"  ></td>
+        <td align="center"><input type="date" id="to1" name="to" style=" background-color: blanchedalmond" oninput="date()"></td>
+        <td align="center"><input type="text" value="0" id="diff1" name="diff" style="width: 20px; border: none"><label>Day(s)</label>&nbsp;<input type="text" value="0" id="ndiff1" name="ndiff" style="width: 20px; border: none"><label>Night(s)</label></td>Days
+        <td align="center">
+            <select name="accomo" id="accomo1" style=" background-color: blanchedalmond">
+            <option value="select"><--Select--></option>
+            <option value="deuluxe">Deuluxe</option>
+            <option value="super">Super Deuluxe</option>
+            <option value="honeymoon">Honeymoon</option>
+            <option value="farm">Farmstay</option>
+           </select>
+        </td>
+        <td><input type="text" name="hotel" style=" background-color: blanchedalmond"></td>
+        <td align="center" >
+            <select name="city" id="city1" style=" background-color: blanchedalmond">
+            <option value="select"><--Select--></option>
+            <option value="mumbai">Mumbai</option>
+            <option value="delhi">Delhi</option>
+            <option value="chennai">Chennai</option>
+            <option value="pune">Pune</option>
+            </select>
+        </td>
+
+    </tr>
+    <tr bgcolor="#d3d3d3">
+        <td></td>
+        <td></td>
+        <td colspan="3" align="center">Hotel Bill Amount</td>
+        <td align="center">Excess Amount (D)</td>
+        <td colspan="2" align="center">Justification</td>
+    </tr>
+    <tr>
+        <td rowspan="2"></td>
+        <td rowspan="2"></td>
+        <td>A) Room Rent</td>
+        <td>B) All Taxes</td>
+        <td>C) Total (A +B )</td>
+        <td rowspan="2" align="up">Hotel:<input type="text" id="amt12" name="amt" size="14" style="background-color: silver" oninput="add_number()"></td>
+        <td rowspan="2" colspan="2" align="up">Hotel:<input type="text" name="justi" size="40" style="height:30px; background-color: silver"></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="rent1" name="rent" style=" background-color: blanchedalmond" oninput="add_number()"></td>
+        <td><input type="text" id="tax1" name="tax" style=" background-color: blanchedalmond" oninput="add_number()"></td>
+        <td><input type="text" id="total1" name="total" style="background-color: silver" ></td>
+    </tr>
+    <tr bgcolor="#d3d3d3">
+        <td></td>
+        <td></td>
+        <td align="center">Company GSTN No.</td>
+        <td align="center">Hotel GSTN No.</td>
+        <td align="center">Hotel State</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td><input type="text" name="cgst" style=" background-color: blanchedalmond"></td>
+        <td><input type="text" name="hgst" style=" background-color: blanchedalmond"></td>
+        <td><input type="text" name="hstate" style=" background-color: blanchedalmond"></td>
+    </tr>
+    <tr bgcolor="silver">
+        <td colspan="8" height="20"></td>
+    </tr>
+    <tr>
+        <td colspan="4" align="right">Grand Total Hotel Expenses:</td>
+        <td colspan="4" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="totalities1" name="totalities" style="background-color: silver"></td>
+    </tr>
+
+</table>
+    <input type="submit" class="btn btn-primary" value="+ Add" name="add" style="color: white; background-color: #0000ff; border: none" onclick="">&nbsp;<input type="submit" class="btn btn-primary" value="x Delete" name="delete">&nbsp;<a class="btn btn-primary" href="domestic_voucher_view" role="button">View Voucher</a>
+</form>
+</body>
+</html>
+
+{% endblock %}

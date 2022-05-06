@@ -1,0 +1,458 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .post-like {
+        cursor: pointer;
+    }
+    .btn {
+        padding: 0px;
+        padding-right: 2%;
+    }
+
+    .fa-thumbs-up {
+        font-size: 25px;
+    }
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+    #gallery img {
+        width: 400px;
+        height: 250px;
+    }
+    input[type=file].postimg {
+    display: none;
+}
+</style>
+        <!-- Page Header Start -->
+        <!-- <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">Activity</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="home-1.html" class="btn-link">Home</a></li>
+                    <li class="active"><span class="text-primary">Side-Wide Activities</span></li>
+                </ul>
+            </div>
+        </div> -->
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        
+        <section class="page--wrapper pt--80 pb--20">
+        <section style="float:left">
+        <a href="{% url 'showDraft' %}" style="margin:20px">Drafts</a>
+        <a href="{% url 'bookmarks' %}" style="margin:20px">Bookmarks</a>
+        <a href="{% url 'cproducts' %}" style="margin:20px">Commercial Products</a>
+        <a href="{% url 'cproductsorders' %}" style="margin:20px">Book Products</a>
+        <a href="{% url 'ProjectFeed' %}" style="margin:20px">Project Feed</a>
+        <a href="{% url 'DiscoverProject' %}" style="margin:20px">Discover Project</a>
+        <a href="/sbs/pages" style="margin:20px">Pages</a>
+        
+
+        
+        
+        
+        </section>
+            {% block indexbody %}
+
+            
+              <head>
+                  
+                  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+                  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+                  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+                  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+                  <link rel="stylesheet" href="/static/css/style.css">
+              </head>
+
+                  <div class="container mt-5" style="z-index: 0;">
+                      <!-- top -->
+                      <div class="row" style="margin-top: 1%;">
+                          
+                          <div class="col-lg-6 float-right">
+                              <div class="row">
+                                  <div class="col-lg-8">
+                                      <!-- Date Filtering-->
+                                      <form action="/filter2" method="get">
+                                      </div>
+                              <div class="col-lg-4">
+
+                                  </div>
+                              </div>  
+                          </div></form>
+          
+                      </div>
+                      <!-- // top -->
+          
+                          <div >
+                         
+                          
+                          
+              </div>
+              
+          </div>
+          <hr>
+          <div style="position: absolute;background-color: slategrey;width:0.08%;margin-left:17.99%;height: 200%;margin-top: -0.9%;"><p>.</p></div>
+          <div class="n" style="display:contents; width:70%; z-index:2 ￼Create a Button;top:0;left:0;">
+              {%for i in It %}
+              <img style="width:51%;position:relative;margin-top:-1%;height:40%;margin-left:30%;border-radius: 2%;z-index:1;"  src="{{i.page_art}}">
+              <a href="" style="z-index: 11; margin-left:-2%; margin-top:8%; position:relative;"
+                          class="Create position" onclick="openForm()">Edit</a>
+              <br>
+              <img src="{{i.page_icon}}" style="position:relative;border-radius: 100%; width:7%; margin-left:32%;margin-top: -1.5%;z-index: 10;">
+              
+              <a href="/page1/{{i.id}}" style="z-index: 11; margin-left:-2%; margin-top:8%; position:relative;"
+                          class="Create position" onclick="openForm()">Edit</a>
+                                      <div class="form-popup" id="myForm" style="position:relative;z-index:12;">
+                                          <form action="/sbs/posti/{{i.id}}" class="form-container" method="POST" enctype="multipart/form-data">
+                                                  <h4>Write a Post1</h4>
+                                                  {% csrf_token %}
+                                                  {{form.desc}}
+                                                  {{form.img}}
+                                                  <button type="submit" class="btn">Post</button>
+                                                  <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                          </form>
+                                      </div>
+          
+              <a>{{i.name}}</a>
+              <a>{{i.catg}}</a>
+              {% endfor %}
+              <button style="margin-left: 20%;">Create a Button</button>
+              <br><hr style="margin-left: 30%;"></br>
+              <ul>
+                  <li><a class="active" href="#home">Home</a></li>
+                  <li><a href="#news">Reviews</a></li>
+                  <li><a href="#contact">Videos</a></li>
+                  <li><a href="#about">Photos</a></li>
+                  <li><a href="#about">More</a></li>
+                  <li>  
+                          
+  </li>
+                  <button style="margin-left:30%">Promote</button>
+                  <button><img src="/media/sicon"></button>
+                  <button>...</button></ul>
+                  <div style="margin-top:-5.5%;margin-left: 5%; position:absolute;">
+                          
+                              <h4>Manage Page</h4>
+                              {%for i in It %}
+                              <p>{{i.name}}</p>
+                              {% endfor %}
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Your_Pages</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-top:20px; z-index:3;" href="#home">News Feed</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Updates</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Inbox</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Business App Store</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Resources & Tools</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Notifications</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Insights</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Publishing Tools</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Ad Center</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Page Quality</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Edit Page Info</a><br>
+                              <a style="display:absolute ;padding: 8px 16px;color: #000;background-color: white;margin-left:-0%; z-index:3;" href="#home">Settings</a><br>
+                              <button>Promote</button>
+                              
+                              <img src="{{g.url}}" class="block w-screen rounded h-full" alt="channel art"> 
+                  </div>
+              </div>
+                  
+                  
+          <div style="background-color: rgb(236, 235, 235); margin-left: 18%;height:100%;">
+                      <div style="margin-left:-5%; width:70%;">
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Invite friends to like Page</h5>
+                                    <p>More people might see your posts in News Feed if your friends like your Page and share posts. Invites will be sent from</p>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;" >
+                                  <div class="card-body">
+                                    <h5 class="card-title">Create Ad</h5>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Free Facebook Business Tools</h5>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Insights</h5>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Set Your Page up for Success</h5>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">About</h5>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Suggested Groups for Your Page</h5>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Photos</h5>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4" style="margin-left:30%;">
+                              <div class="card" style="height:24%; border-radius:4%;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Page Transparency</h5>
+                                  </div>
+                              </div>
+                          </div>
+                      
+                      <div class="col-lg-4" style="margin-left:52%; ">
+                          <div class="card" style="margin-top: -355%; margin-left:40%; width:160%;border-radius: 4%;height:10%;">
+                              <div class="card-body" >
+                                  <img src="/media/g.png" style="position:relative; border-radius: 100%; width: 8%; margin-left:-2%;margin-top: -1.5%;z-index: 10;">
+                                  <button class="Create position" onclick="openForm1()">Create Post>
+          
+                                    <div class="form-popup" id="myForm" style="position:relative;z-index:12;">
+                                      
+                                  </div>
+          
+          
+                              </div>
+                          </div>
+                          <p>.</p>
+                          
+                      </div>
+                  
+                      
+                      <p style="margin-top:-0%"></p>
+                     <div style="margin-left: 0%;">
+                      {% for i in Pt %}
+                      {% for j in It %}
+                      
+                      
+                      <div class="card" style="margin-top:5%;margin-left: 66%; width:540px;border-radius: 4%;height:800px;">
+                            
+                       <div class="card-body" >
+                              <img src="{{j.page_icon}}" style="position:absolute; border-radius: 100%; width: 8%; margin-left:-2%;margin-top: -1.5%;z-index: 10;">
+                              <a style="margin-left: 8%;">{{j.user}}</a>
+                              <a href="#" style="margin-left: 78%;"><b>. . .</b></a>
+                              <p style="margin-top:2%;">{{i.desc}}</p>
+                              <img src="/media/{{i.img}}" style="border-radius: 4%; width: 480px;;height:480px;">
+                              <hr>
+                                <a href="#" >{{i.ls}} likes</a>
+                              <hr>
+                              <form action="/theUrl" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="q1" name="param1" value="{{i.id}}"/>
+                                <input type="hidden" id="q2" name="param2" value="{{i.paid}}"/>
+                                <a style="color: black;" href="/sbs/like/{{i.id}}/{{i.paid}}" onClick="this.parentNode.submit()">Like</a>     <a>Comment</a> <a>Share</a>
+                              </form>
+                              <hr>
+                                <img src="{{j.page_icon}}" style="position:absolute; border-radius: 100%; width: 8%; margin-left:-2%;margin-top: -1.5%;z-index: 10;">
+                              <form action="/sbs/cmnt/{{i.id}}" class="form-container" method="POST" enctype="multipart/form-data" style="margin-top: -5.6%; width:511%">
+                              {% csrf_token %}
+                              {{form1.dete}}
+                              </form>
+
+                              {% for k in Ct%}
+                    {% if k.pid == i.id %}
+                    <div class="col-lg-4" style="margin-left:50%; "></div>
+                      <div class="card" style="margin-top:-0%;margin-left:51.9%; width:28%;border-radius: 4%;height:8%;">
+                          <div class="card-body" >
+                            <img src="{{j.page_icon}}" style="position:absolute; border-radius: 100%; width: 8%; margin-left:-2%;margin-top: -1.5%;z-index: 10;">
+                            <a></a> 
+                            <b><p>{{j.user}}</p></b>
+                            <p style="margin-top: -1%;">{{k.dete}}</p>
+                           
+                            {% endif %}
+                          </div>
+                      </div>  
+          
+                              </div>
+                        </div>
+                        
+                    
+                    
+                    
+                    
+                    <p style="margin-top: -40.9;"></p>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                  </div>
+                  </div>
+                  </div>
+                    
+                      
+                      
+                  </div>
+          </div>
+                 
+          
+                      <span style="display: inline-block;position:absolute;z-index:0;width:20%; margin-left: -39%;margin-top:-25%;">
+                          <div class = "vertical"></div> 
+                              <p><a style="color:black;"href="/pages">Pages></a>Create a Page</p>
+                             
+                  </span>
+                  <div class="col-lg-4" style="margin-left:52%; ">
+                    <div class="card" style="margin-top: -685%; margin-left:40%; width:160%;border-radius: 4%;height:10%;">
+                        <div class="card-body" >
+                            <img src="/media/g.png" style="position:relative; border-radius: 100%; width: 8%; margin-left:-2%;margin-top: -1.5%;z-index: 10;">
+                            <button class="Create position" onclick="openForm1()">Create Post>
+    
+                              <div class="form-popup" id="myForm" style="position:relative;z-index:12;">
+                                
+                            </div>
+    
+    
+                        </div>
+                    </div>
+                    <p>.</p>
+                    
+                </div>
+                  
+                  <style>
+          /* Button used to open the contact form - fixed at the bottom of the page */
+          .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+          }
+          
+          /* The popup form - hidden by default */
+          .form-popup {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+          }
+          
+          /* Add styles to the form container */
+          .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+          }
+          
+          /* Full-width input fields */
+          .form-container input[type=text], .form-container input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+          }
+          
+          /* When the inputs get focus, do something */
+          .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+          }
+          
+          /* Set a style for the submit/login button */
+          .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom:10px;
+            opacity: 0.8;
+          }
+          
+          /* Add a red background color to the cancel button */
+          .form-container .cancel {
+            background-color: red;
+          }
+          
+          /* Add some hover effects to buttons */
+          .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+          }
+                      ul {
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                        overflow: hidden;
+                        background-color: white;
+                        margin-left: 30%;
+                        margin-right: 20%;
+                      }
+                      
+                      li {
+                        float: left;
+                      }
+                      
+                      li a {
+                        display: block;
+                        color: black;
+                        text-align: center;
+                        padding: 14px 16px;
+                        text-decoration: none;
+                      }
+                      
+                      li a:hover:not(.active1) {
+                        background-color:silver;
+                        border-radius: 8%;
+                      }
+                      
+                      
+                      </style>
+                      <script>
+                          function openForm() {
+                            document.getElementById("myForm").style.display = "block";
+                          }
+                          
+                          function closeForm() {
+                            document.getElementById("myForm").style.display = "none";
+                          }
+                          function openForm1() {
+                            document.getElementById("myForm").style.display = "block";
+                          }
+                          
+                          function closeForm1() {
+                            document.getElementById("myForm").style.display = "none";
+                          }
+                          </script>
+                               
+             
+         
+            {% endblock indexbody %}
+        </section>
+        <!-- Page Wrapper End -->
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'printful/css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.18/fabric.min.js"></script>
+
+  <h1 style="margin-top: 20px; text-align: center; font-weight: bolder;">Add your Design to ower Products</h1>
+
+<div class="row" style="height: 550px; margin-top: 20px; overflow-y: scroll; text-align: center; padding: 10px;">
+ 
+  <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'printful/images/tee-front.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">T-Shirt</h4>
+        <a href="tee" class="btn btn-danger">Start Designing</a>
+      </div>
+    </div>
+  </div>
+   <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'printful/images/hoo.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">Hoodie</h4>
+        <a href="hoodie" class="btn btn-danger">Start Designing</a>
+      </div>
+    </div>
+   </div>
+   <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'printful/images/jacket.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">Jacket</h4>
+        <a href="jacket" class="btn btn-danger">Start Designing</a>
+      </div>
+    </div>
+   </div>
+   <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'printful/images/tang.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h4 class="card-title">Tank Top</h4>
+        <a href="tank" class="btn btn-danger">Start Designing</a>
+      </div>
+    </div>
+   </div>
+</div>
+  <script src="{% static 'printful/js/script.js' %}"></script>
+  <!-- <script src="./js/backT.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+
+  <script type="text/javascript">
+    new WOW().init();
+
+  </script>
+{% endblock %}

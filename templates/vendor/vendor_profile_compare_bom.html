@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container my-3">
+		<div class="row" style="border-bottom: 1px solid black;">
+			<h5>Compare Bill of Materials</h5>
+			<a href="/userdetail/vendor_profile/orders/{{order.order_no}}/forms/bom/{{options.0.id}}" class="hov-a" style="margin-left: auto;">Bill of Materials & Costing</a>
+		</div>
+		<div class="row mt-4">
+			<div class="col-5 centered mx-4 p-2" style="box-shadow: 0 0 5px rgba(0,0,0,.5);">
+				<h5>First BOM</h5>
+				<select id="bom1">
+					<option selected disabled>------------</option>
+					{% for i in options %}
+						<option value="{{i.id}}">V-{{forloop.counter}}</option>
+					{% endfor %}
+				</select>
+			</div>{% csrf_token %}
+			<div class="col-6 mx-2 p-2 centered" style="box-shadow: 0 0 5px rgba(0,0,0,.5);">
+				<h5>Second BOM</h5>
+				<select id="bom2">
+					<option selected disabled>------------</option>
+					{% for i in options %}
+						<option value="{{i.id}}">V-{{forloop.counter}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="row my-3">
+			<button style="margin-left: auto;background: #30c5ff;color:#253031;border:none;border-radius:25vw;" class="px-4 py-2" onclick="comparebom()">Compare</button>
+		</div>
+		<div class="row my-3" id="bom_content">
+			
+		</div>
+	</div>
+</div>
+{% include 'include/loader.html' %}
+<script type="text/javascript">
+	function comparebom(){
+		var bom1=$('#bom1').val();
+		var bom2=$('#bom2').val();
+		if (!(bom1)){
+			document.getElementById('bom1').style.borderColor="red";
+		}
+		else{
+			document.getElementById('bom1').style.borderColor="";
+		}
+		if (!(bom2)){
+			document.getElementById('bom2').style.borderColor="red";
+		}
+		else{
+			document.getElementById('bom2').style.borderColor="";
+		}
+		if(bom1 && bom2){
+			showLoader();
+			$.ajax({
+				type:'POST',
+				url:'/userdetail/vendor_profile/orders/{{order.order_no}}/forms/compare_bom',
+				data:{
+					bom1_un_ajax:bom1,
+					bom2_un_ajax:bom2,
+					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+				},
+				cache:false,
+			  	dataType: "html",
+				success:function(data) {
+				  hideLoader();
+			      var content=document.getElementById('bom_content');
+			      // alert(data);
+			      content.innerHTML=data;
+				}
+			});
+		}
+	}
+</script>
+{% endblock %}

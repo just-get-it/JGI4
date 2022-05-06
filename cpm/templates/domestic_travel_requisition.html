@@ -1,0 +1,244 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+<html>
+<head>
+
+</head>
+<body>
+
+<form action="domestic_travel_requisition" method="post" style=" background-color: snow; margin-left:20px; width: 95%">
+    {% csrf_token %}
+
+<br>
+
+<h2>Travel Details</h2>
+<hr color="black">
+<table border="1" bordercolor="lightgrey" width="95%" >
+    <tr>
+        <td>Travel Type: </td>
+        <td align="center" bgcolor="#F8F8F8"><input type="text" name="travtype" id="travtype1" style="background-color:floralwhite; "></td>
+        <td>Purpose:</td>
+        <td align="center" bgcolor="#F8F8F8">
+             <select name="purp" id="purp1" style=" width: 100px; background-color:floralwhite" >
+                 <option value="purpose1">Purpose 1</option>
+                 <option value="purpose2">Purpose 2</option>
+                 <option value="purpose3">Purpose 3</option>
+                 <option value="purpose4">Purpose 4</option>
+            </select>
+
+        </td>
+        <td>Purpose Description:</td>
+        <td align="center" bgcolor="#F8F8F8"><input type="text" name="purdesc" id="purdesc1" style="background-color:floralwhite; height: 40px; width: 200px"></td>
+    </tr>
+</table>
+    <br>
+    <br>
+<h2>Itinenary Details</h2>
+<hr color="black">
+    <table border="1" bordercolor="lightgrey" width="95%" >
+    <tr>
+        <td>Journey Type</td>
+        <td bgcolor="#F8F8F8">
+            <select name="jourtype" id="jourtype1" style="background-color:floralwhite; width: 155px">
+                 <option value="oneway">One Way Journey</option>
+                 <option value="return">Return Journey</option>
+                 <option value="multi">Multi-City Journey</option>
+            </select>
+        </td>
+    </tr>
+    </table>
+<br>
+<table border="1" width="95%" bordercolor="lightgrey">
+    <tr bgcolor="silver">
+        <td align="center"><b>#</b></td>
+        <td align="center"><b>Mode</b></td>
+        <td align="center"><b>Place Form</b></td>
+        <td align="center"><b>Place To</b></td>
+        <td align="center"><b>Travel Date</b></td>
+        <td align="center"><b>ETD</b></td>
+        <td align="center"><b>Class</b></td>
+        <td align="center"><b>Air/Train Preferance</b></td>
+        <td align="center"><b>Booking Type</b></td>
+    </tr>
+    <tr>
+        <td align="center">1</td>
+        <td align="center">
+            <select name="mode" id="mode1" style="background-color:floralwhite; width: 100px">
+                 <option value="mode1">Mode 1</option>
+                 <option value="mode2">Mode 2</option>
+                 <option value="mode3">Mode 3</option>
+                 <option value="mode4">Mode 4</option>
+            </select>
+        </td>
+        <td align="center">
+            <input type="text" name="placefrom" id="placefrom1" style="background-color:floralwhite">
+        </td>
+        <td align="center">
+             <input type="text" name="placeto" id="placeto1" style="background-color:floralwhite">
+        </td>
+        <td align="center"><input type="date" id="travdate1" name="travdate" style="background-color:floralwhite"></td>
+        <td align="center">
+            <select name="etd" id="etd1" style="background-color:floralwhite; width: 100px">
+                 <option value="etd1">ETD 1</option>
+                 <option value="etd2">ETD 2</option>
+                 <option value="etd3">ETD 3</option>
+                 <option value="etd4">ETD 4</option>
+            </select>
+        </td>
+        <td align="center">
+            <select name="class" id="class1" style="background-color:floralwhite; width: 100px">
+                 <option value="class1">Class 1</option>
+                 <option value="class2">Class 2</option>
+                 <option value="class3">Class 3</option>
+                 <option value="class4">Class 4</option>
+            </select>
+        </td>
+        <td align="center"><input type="text" name="preference" id="preference1" style="background-color:floralwhite"></td>
+        <td align="center">
+            <select name="booktype" id="booktype1" style="background-color:floralwhite; width: 105px">
+                 <option value="booktype1">Booktype 1</option>
+                 <option value="booktype2">Booktype 2</option>
+                 <option value="booktype3">Booktype 3</option>
+                 <option value="booktype4">Booktype 4</option>
+            </select>
+    </tr>
+    <tr>
+        <td align="center">2</td>
+        <td align="center">
+            <select name="mode0" id="mode2" style="background-color:floralwhite; width: 100px">
+                 <option value="mode1">Mode 1</option>
+                 <option value="mode2">Mode 2</option>
+                 <option value="mode3">Mode 3</option>
+                 <option value="mode4">Mode 4</option>
+            </select>
+        </td>
+        <td align="center">
+            <input type="text" name="placefrom0" id="placefrom2" style="background-color:floralwhite">
+        </td>
+        <td align="center">
+            <input type="text" name="placeto0" id="placeto2" style="background-color:floralwhite">
+        </td>
+        <td align="center"><input type="date" id="travedate2" name="travdate0" style="background-color:floralwhite" ></td>
+        <td align="center">
+            <select name="etd0" id="etd2" style="background-color:floralwhite; width: 100px">
+                <option value="etd1">ETD 1</option>
+                 <option value="etd2">ETD 2</option>
+                 <option value="etd3">ETD 3</option>
+                 <option value="etd4">ETD 4</option>
+            </select>
+        </td>
+        <td align="center">
+            <select name="class0" id="class2" style="background-color:floralwhite; width: 100px">
+                 <option value="class1">Class 1</option>
+                 <option value="class2">Class 2</option>
+                 <option value="class3">Class 3</option>
+                 <option value="class4">Class 4</option>
+            </select>
+        </td>
+        <td align="center"><input type="text" name="preference0" id="preference2" style="background-color:floralwhite"></td>
+        <td align="center">
+            <select name="booktype0" id="booktype2" style="background-color:floralwhite; width: 105px">
+                 <option value="booktype1">Booktype 1</option>
+                 <option value="booktype2">Booktype 2</option>
+                 <option value="booktype3">Booktype 3</option>
+                 <option value="booktype4">Booktype 4</option>
+            </select>
+     </tr>
+</table>
+    <br>
+    <br>
+<h2>Passport Details</h2>
+<hr color="black">
+    <table width="95%" border="1" bordercolor="lightgrey">
+        <tr>
+            <td>Nationality:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="text" name="nationality" id="nationality1" style="background-color:floralwhite"></td>
+            <td>Passport Number:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="text" name="passp" id="passp1" style="background-color:floralwhite"></td>
+        </tr>
+        <tr>
+            <td>Place of Issue:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="text" name="poi" id="poi1" style="background-color:floralwhite"></td>
+            <td>Date of Issue:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="date" name="doi" id="doi1" style="background-color:floralwhite"></td>
+        </tr>
+        <tr>
+            <td>Date of Expiry:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="date" name="doe" id="doe1" style="background-color:floralwhite"></td>
+            <td>Date of Birth:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="date" name="dob" id="dob1" style="background-color:floralwhite"></td>
+        </tr>
+        <tr>
+            <td>Attach Passport Copy:</td>
+            <td align="center" bgcolor="#F8F8F8"><input type="file" name="passcopy" id="passcopy1"></td>
+        </tr>
+    </table>
+
+
+        <br>
+        <br>
+<h2>Advanced Details</h2>
+<hr color="black">
+    <table width="95%" border="1" bordercolor="lightgrey">
+        <tr>
+            <td style="width: 46%">Advanced Required:</td>
+            <td bgcolor="#F8F8F8">
+                <select name="advance" id="advance1" style="background-color:floralwhite; width: 50px">
+                 <option value="yes">Yes</option>
+                 <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+        <br>
+    <br>
+<h2>Tour Details</h2>
+<hr color="black">
+    <table width="95%" border="1" bordercolor="lightgrey">
+        <tr>
+            <td style="width: 46%">Do you have Travel Insurance ?</td>
+            <td bgcolor="#F8F8F8">
+                <select name="travinsu" id="travinsu1" style="background-color:floralwhite; width: 50px">
+                 <option value="yes">Yes</option>
+                 <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Do you require Visa ?</td>
+            <td bgcolor="#F8F8F8">
+                <select name="visa" id="visa1" style="background-color:floralwhite; width: 50px">
+                 <option value="yes">Yes</option>
+                 <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Do you require SIM CARD ?</td>
+            <td bgcolor="#F8F8F8">
+                <select name="sim" id="sim1" style="background-color:floralwhite; width: 50px">
+                 <option value="yes">Yes</option>
+                 <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+<h2>Declaration</h2>
+<hr color="black">
+    <input type="checkbox">
+    <b>I accept all the <u>terms and conditions of Policy</u></b>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" name="submit"  class="btn btn-primary" value="Submit" id="submit1" style=" background-color: green; border-color: green">
+<input type="button" name="submit"  class="btn btn-primary" value="Exit" id="submit1" style="background-color: green; border-color: green">
+</form>
+<br>
+<br>
+</body>
+</html>
+
+{% endblock %}

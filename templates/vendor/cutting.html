@@ -1,0 +1,25 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+.cities {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid black;
+}
+</style>
+{% extends "base.html" %}
+{% block content %}
+<h1>Cutting</h1>
+<h4 style="background-color:DodgerBlue; color:White;" ><a href="#" style="color:White;">Fabric inhouse</h4>
+<h4 style="background-color:DodgerBlue; color:White;"><a href="#" style="color:White;">GRN</h4>
+<h4 style="background-color:DodgerBlue; color:White;"><a href="#" style="color:White;">Fabric Inspection</h4>
+<h4 style="background-color:DodgerBlue; color:White;"><a href="#" style="color:White;">Fabric Inventory</h4>
+<h4 style="background-color:DodgerBlue; color:White;"><a href="#" style="color:White;">Roll Allocation</h4>
+<h4 style="background-color:DodgerBlue; color:White;"><a href="{% url 'cut_list'%}" style="color:White;">Cut Order Planning</a></h4>
+<h4 style="background-color:DodgerBlue; color:White;"><a href="{% url 'lay_list'%}" style="color:White;">Lay Lot Planning</a></h4>
+{% endblock %}

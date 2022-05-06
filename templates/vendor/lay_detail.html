@@ -1,0 +1,63 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+.cities {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid black;
+}
+</style>
+{% extends "base.html" %}
+{% block content %}
+<div>
+<h1>ORDER NO-{{ order.order_no }}</h1>
+<button type="button"><a href="{% url 'detail1' order_no=order.order_no color=color %}">Method1</a></button>
+<button type="button"><a href="{% url 'detail2' order_no=order.order_no color=color %}">Method2</a></button>
+<button type="button"><a href="{% url 'detail3' order_no=order.order_no color=color %}">Method3</a></button>
+<button type="button"><a href="{% url 'detail4' order_no=order.order_no color=color %}">Method4</a></button>
+<button type="button"><a href="{% url 'detail5' order_no=order.order_no color=color %}">Method5</a></button>
+{% with t=1 %}
+{% for a,b,c,d,e in data %}
+<div class="cities">
+<table style="width:80%">
+<tr>
+<p>Lay {{e}}</p></tr>
+<tr><p>Plies-{{a}}</p></tr>
+<tr><p>Markers- {% for t in d %}
+{{t}}
+{% endfor %}</p></tr>
+<tr><table style="width:50%">
+<tr>
+    <th>SIZES</th>
+{% for s in sizes %}
+<th>{{s}}</th>
+{% endfor %}
+</tr>
+<tr>
+<td>QTY</td>
+{% for t in c %}
+<td>{{t}}</td>
+{% endfor %}
+</tr>
+<tr>
+<td>Balance</td>
+{% for t in b %}
+<td>{{t}}
+</td>
+{% endfor %}
+</tr>
+</table>
+</tr>
+</div>
+</tr>
+</table>
+{% endfor %}
+{% endwith %}
+
+</div>
+{% endblock %}

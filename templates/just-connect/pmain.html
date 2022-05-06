@@ -1,0 +1,114 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .post-like {
+        cursor: pointer;
+    }
+    .btn {
+        padding: 0px;
+        padding-right: 2%;
+    }
+
+    .fa-thumbs-up {
+        font-size: 25px;
+    }
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+    #gallery img {
+        width: 400px;
+        height: 250px;
+    }
+    input[type=file].postimg {
+    display: none;
+}
+</style>
+        <!-- Page Header Start -->
+        <!-- <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">Activity</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="home-1.html" class="btn-link">Home</a></li>
+                    <li class="active"><span class="text-primary">Side-Wide Activities</span></li>
+                </ul>
+            </div>
+        </div> -->
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        
+        <section class="page--wrapper pt--80 pb--20">
+        <section style="float:left">
+        <a href="{% url 'showDraft' %}" style="margin:20px">Drafts</a>
+        <a href="{% url 'bookmarks' %}" style="margin:20px">Bookmarks</a>
+        <a href="{% url 'cproducts' %}" style="margin:20px">Commercial Products</a>
+        <a href="{% url 'cproductsorders' %}" style="margin:20px">Book Products</a>
+        <a href="{% url 'ProjectFeed' %}" style="margin:20px">Project Feed</a>
+        <a href="{% url 'DiscoverProject' %}" style="margin:20px">Discover Project</a>
+        <a href="/sbs/pages" style="margin:20px">Pages</a>
+        
+        </section>
+            {% block indexbody %}
+            {% endblock indexbody %}
+                
+
+
+        <div class="container mt-5" style="z-index: 0;">
+            <!-- top -->
+            
+            <div class="n" style="display:contents; width:70%; z-index:2;top:0;margin-left:30%;margin-top: -100%; background-color: thistle;">
+                <hr>
+                <h5 style="margin-left:30%;">Pages You Manage</h5>
+                {% for i in It %}
+                <div class="col-lg-4" style="margin-left:30%;">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.name}}</h5>
+                          </div>
+                      </div>
+                </div>
+                <!-- // Loop -->
+                {% endfor %}
+            </div> 
+            <span style="display: inline-block;width:20%;z-index:0; margin-left: -1%;margin-top:-6.8%">
+                
+                <ul>
+                    <h2>Pages</h2>
+                    <a style="display: block;padding: 8px 16px;color: #000;background-color: white;" href="#home">Your Pages</a>
+                    {% for i in It %}
+                <div class="">
+                    <div class="">
+                        <div class="" style="margin-left: 8%; color:black;">
+                          <a href="/sbs/page1/{{i.id}}" ><p class="" style="color:black;">{{i.name}}</p></a>
+                          <br>
+                          </div>
+                      </div>
+                </div>
+                <!-- // Loop -->
+                {% endfor %}
+                <a href="/sbs/create">
+                    <button style="display: block;padding: 8px 20px; width:100%;color:blue;background-color: hsl(187, 15%, 88%); border-radius: 5.9%;" >+ Create New Page</button>
+                </a>
+                    <a class="a1a" style="display: block;padding: 8px 16px;color: #000;background-color: white;" href="#news">Discover</a>
+                    <a class="a1a" style="display: block;padding: 8px 16px;color: #000;background-color: white;"href="#contact">Liked Pages</a>
+                    <a class="a1a" href="#about" style="display: block;padding: 8px 16px;color: #000;background-color: white;">Invites</a>
+                  </ul>
+        </span>
+        <span class="n" style="display:inline-block; margin-left:10%; margin-top:-2000%; width:70%; z-index:2;position:relative;">
+            
+        </span>                
+    
+        </section>
+        <!-- Page Wrapper End -->
+
+     
+
+    
+{% endblock %}

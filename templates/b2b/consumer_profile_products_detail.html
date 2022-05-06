@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_order.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/measurement_detail.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/order_update.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="row my-3">
+	<div class="container">
+		<div class="row mt-4">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 order_image">
+				{% if order.image %}
+				<img src="{{order.image.url}}" style="border-radius: 50%;">
+				{% else %}
+				<img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2">
+				{% endif %}
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_head" style="margin-top: auto; margin-bottom: auto;">
+				<h1>{{order.user_email}}({{order.label}})</h1>
+				<h6><b>Order Time -</b> {{order.order_date_time}}</h6>
+			</div>
+		</div>
+	</div>
+
+
+
+{% if order.specs %}
+	<div class="container my-4">
+			<div class="row">
+				<h3><b>Measuremt Chart</b></h3>
+			</div>
+			<div class="row">
+				<embed src="{{order.specs.url}}" width="1180" height="800">
+			</div>
+	</div>
+{% endif %}
+
+
+{% if order.tech_pack %}
+		<div class="container my-4">
+				<div class="row">
+					<h3><b>How to Measure </b></h3>
+				</div>
+				<div class="row">
+					<embed src="{{order.tech_pack.url}}" width="1180" height="800">
+				</div>
+		</div>
+{% endif %}
+
+
+</div>
+
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_update">
+		<div class="container">
+			<div class="row centered fontpacifico mt-3 mb-2">
+				<h3>Size Assortment Form</h3>
+				<!-- {% if order.htm %}
+				<div class="row centered">
+					<p style="font-family:'Cabin', sans-serif;">How to Measure <a href="{{order.htm.url}}" class="hov-a" target="_blank">View</a></p>
+				</div>
+				{% endif %} -->
+			</div>
+			<div class="row mt-4 mb-4 fontcabin">
+				{% if order.assortment_custom %}
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 tailor py-2 cursorpointer" id="tailor_head" onclick="showtailor();">
+					Custome Size Assortment
+				</div>
+				{% endif %}
+				{% if order.assortment_size_set %}
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 yourself py-2 cursorpointer" id="yourself_head" onclick="showyourself();">
+					Size Assortment by Size-set
+				</div>
+				{% endif %}
+				{% if order.assortment_brand %}
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 py-2 brand cursorpointer" id="brand_head" onclick="showbrand();">
+					Size Assortment by Brand
+				</div>
+				{% endif %}
+			</div>
+
+
+			{% if order.assortment_custom %}
+			<div class="row tailor_row {% if order.assortment_custom %}{% if order.assortment_size_set or order.assortment_brand %}visible{% endif %}{% endif %}" id="tailor">
+				<form method="POST">{% csrf_token %}
+					<label><b>Type of Tailor</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2">
+						<option selected disabled>-------</option>
+						<option>Local Tailor</option>
+						<option>Raymond Tailor</option>
+					</select>
+					<label><b>Color</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2" name="color">
+						<option selected disabled>-------</option>
+						{% for c in color %}
+						<option value="{{c.name}}">{{c.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Address</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2" name="addre">
+						<option selected disabled>-------</option>
+						{% for c in addr %}
+						<option value="{{c.id}}">{{c.address}}</option>
+						{% endfor %}
+					</select>
+
+					<input type="number" name="quantity" placeholder="Quantity" class="loginemail" required max="{{cons_order.max_quantity}}" min="1">
+					{% for p in pom %}
+					<input type="number" name="{{p.label}}" placeholder="{{p.label}}(inch)" class="loginemail" required step="0.01">
+					 <!-- max="{{p.max_Value}}" min="{{p.min_Value}}" -->
+					{% endfor %}
+
+					<div class="container-fluid">
+						<div class="row">
+							<input type="submit" name="tailor" value="Submit" class="loginbutton py-2">
+						</div>
+					</div>
+				</form>
+			</div>
+			{% endif %}
+			{% if order.assortment_size_set %}
+			<div class="row yourself_row {% if order.assortment_custom %}{% else %}visible{% endif %}" id="yourself">
+				<form method="POST">{% csrf_token %}
+
+					<label><b>Color</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2" {% if allowed %}disabled{% endif %} name="color">
+						<option selected disabled>-------</option>
+						{% for c in color %}
+						<option value="{{c.name}}"{% if assorted_obj.color.name == c.name %}selected{% endif %}>{{c.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Address</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2" {% if allowed %}disabled{% endif %} name="addre">
+						<option selected disabled>-------</option>
+						{% for c in addr %}
+						<option value="{{c.id}}"{% if assorted_obj.address.id == c.id %}selected{% endif %}>{{c.address}}</option>
+						{% endfor %}
+					</select>
+					<input type="number" name="quantity" {% if allowed %}disabled{% endif %} placeholder="Quantity" value="{{assorted_obj.quantity}}" class="loginemail" required max="{{cons_order.max_quantity}}" min="1">
+					<input type="number" name="size" {% if allowed %}disabled{% endif %} placeholder="Size(inch)" value="{{assorted_obj.size_label}}" class="loginemail" required id="size_by_sizeset">
+
+
+
+
+
+					<input type="text" name="comment" {% if allowed %}disabled{% endif %} value="{% if assorted_obj.comment %}{{assorted_obj.comment}}{% endif %}" placeholder="Comments" class="loginemail">
+					{% if allowed %}
+						<input type="checkbox" name="distributed" style="width:2vw;">
+						<label>Distributed</label>
+					{% endif %}
+					<div class="container mt-2 mb-4">
+						<div class="row" id="table_sizeset">
+
+						</div>
+					</div>
+
+					<div class="container-fluid">
+						<div class="row">
+							<input type="submit" name="size_set_but" value="Submit" class="loginbutton py-2">
+						</div>
+					</div>
+				</form>
+			</div>
+			{% endif %}
+
+
+
+			{% if order.assortment_brand %}
+			<div class="row brand_row {% if order.assortment_custom or order.assortment_size_set %}{% else %}visible{% endif %}" id="brand">
+				<form method="POST">{% csrf_token %}
+					<label><b>Color</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2" name="color">
+						<option selected disabled>-------</option>
+						{% for c in color %}
+						<option value="{{c.name}}">{{c.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Address</b></label>
+
+					<select class="type_of_tailor mb-2 mt-2" name="addre">
+						<option selected disabled>-------</option>
+						{% for c in addr %}
+						<option value="{{c.id}}">{{c.address}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Brands</b></label>
+					<select name="brand" class="loginemail" id="brand_ajax">
+						<option value="" disabled selected>------</option>
+						{% for b in brand %}
+						<option value="{{b.id}}">{{b.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Labels</b></label>
+					<select name="label" class="loginemail" id="label">
+						<option value="" disabled selected>------</option>
+					</select>
+					<label><b>Fits</b></label>
+					<select name="fit" class="loginemail" id="fit">
+						<option value="" disabled selected>------</option>
+					</select>
+					<label><b>Seasons</b></label>
+					<select name="season" class="loginemail" id="season">
+						<option value="" disabled selected>------</option>
+					</select>
+
+					<input type="number" name="quantity" placeholder="Quantity" class="loginemail" required max="{{cons_order.max_quantity}}" min="1">
+					<label><b>Size</b></label>
+					<input type="number" name="size" step="0.01" required class="loginemail" max="50" min="24">
+					<div class="container-fluid">
+						<div class="row">
+							<input type="submit" name="brand_df" value="Submit" class="loginbutton py-2">
+						</div>
+					</div>
+				</form>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var tailor=document.getElementById('tailor');
+	var yourself=document.getElementById('yourself');
+	var brand=document.getElementById('brand');
+	{% if order.assortment_custom %}
+	var tailor_bool=true;
+	var tailor_head=document.getElementById('tailor_head');
+	tailor_head.classList.add('background30');
+	{% else %}
+	var tailor_bool=false;
+	{% endif %}
+	{% if order.assortment_custom and order.assortment_size_set %}
+	{% else %}
+	{% if order.assortment_brand %}
+	var brand_bool=true;
+	var brand_head=document.getElementById('brand_head');
+	brand_head.classList.add('background301');
+	{% else %}
+	var brand_bool=false;
+	{% endif %}
+	{% endif %}
+	{% if order.assortment_custom %}
+	{% else %}
+	{% if order.assortment_size_set %}
+	var yourself_bool=true;
+	var yourself_head=document.getElementById('yourself_head');
+
+	yourself_head.classList.add('background301');
+	{% else %}
+	var yourself_bool=false;
+	{% endif %}
+	{% endif %}
+	{% if order.assortment_custom %}
+	function showtailor(){
+		brand.classList.remove('visible');
+		yourself.classList.remove('visible');
+		tailor.classList.add('visible');
+		if (brand_bool){
+			brand_head.classList.remove('background30');
+			brand_head.classList.add('background301');
+			tailor_head.classList.remove('background301');
+			tailor_head.classList.add('background30');
+		}
+		if (yourself_bool){
+			yourself_head.classList.remove('background30');
+			yourself_head.classList.add('background301');
+			tailor_head.classList.remove('background301');
+			tailor_head.classList.add('background30');
+		}
+		tailor_bool=true;
+	}
+	{% endif %}
+	{% if order.assortment_brand %}
+	function showbrand(){
+		tailor.classList.remove('visible');
+		yourself.classList.remove('visible');
+		brand.classList.add('visible');
+		if (tailor_bool){
+			tailor_head.classList.remove('background30');
+			tailor_head.classList.add('background301');
+			brand_head.classList.remove('background301');
+			brand_head.classList.add('background30');
+		}
+		if (yourself_bool){
+			yourself_head.classList.remove('background30');
+			yourself_head.classList.add('background301');
+			brand_head.classList.remove('background301');
+			brand_head.classList.add('background30');
+		}
+		brand_bool=true;
+	}
+	{% endif %}
+	{% if order.assortment_size_set %}
+	function showyourself(){
+		{% if order.assortment_brand %}
+		brand.classList.remove('visible');
+		{% endif %}
+		{% if order.assortment_custom  %}
+		tailor.classList.remove('visible');
+		{% endif %}
+		yourself.classList.add('visible');
+		if (brand_bool){
+			brand_head.classList.remove('background30');
+			brand_head.classList.add('background301');
+			yourself_head.classList.remove('background301');
+			yourself_head.classList.add('background30');
+		}
+		if (tailor_bool){
+			tailor_head.classList.remove('background30');
+			tailor_head.classList.add('background301');
+			yourself_head.classList.remove('background301');
+			yourself_head.classList.add('background30');
+		}
+		yourself_bool=true;
+	}
+	{% endif %}
+
+
+
+	$('#size_by_sizeset').on('input',function(){
+		$.ajax({
+			type:'POST',
+			url:'/buisness/order_update/{{order.order_no}}',
+			data:{
+				placeorder_ajax_sizeset:$('#size_by_sizeset').val(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+	    	cache:false,
+	    	dataType: "json",
+			success:function(data) {
+				var ht="Sorry this Size does not exist !! (Try between 28 to 48 (even))";
+				if (data.bol){
+					ht=`<table class="meas_chart mt-4 mb-2" style="width:50%;margin-left:25%;">
+					<tr>
+					<th>Brand(`+data.size+`)</th>
+					<th>Data</th>
+					<tr>`
+					$.each(data.kh,function(index,value){
+					ht=ht+`<tr>
+					<th>`+value.label+`</th>
+					<td>`+data.li[index]+`</td>
+					</tr>`
+					});
+					ht=ht+"</table>"
+					$('#table_sizeset').html(ht);
+				}
+				else{
+					$('#table_sizeset').html(ht);
+				}
+			}
+		});
+	});
+</script>
+
+
+
+<script type="text/javascript" src="{% static 'js/b2b/order_update.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

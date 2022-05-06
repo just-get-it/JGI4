@@ -1,0 +1,74 @@
+ {% load qr_code %} {% load static %}
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Carton Sticker</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <style>
+        svg {
+            height: 160px !important;
+            width: 160px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containter">
+        <div class="row" style="margin-top: 25vh;margin-bottom: auto;margin-left:25vw;margin-right:auto;border:1px solid black;margin-right: 25vw;padding: 10px;">
+            <div class="col-9">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <b>User Name -</b>
+                        </div>
+                        <div class="col-3">
+                            {{assort.user_name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <b>User Email -</b>
+                        </div>
+                        <div class="col-3">
+                            {{assort.user}}
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <b>Size -</b>
+                        </div>
+                        <div class="col-3">
+                            {{assort.size_label}}
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <b>Alteration Assortment -</b>
+                        </div>
+                        <div class="col-6">
+                            {% for i in assort.alteration_assort.all %} {{i.pom.label}} - {{i.alteration}}<br> {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" style="height:25vh;">
+                {% qr_from_text 'http://raymondinstitutional.justgetit.in/userdetail/staff_profile/order/{{assort.order_no.order_no}}/assortments/{{assort.user}}' %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

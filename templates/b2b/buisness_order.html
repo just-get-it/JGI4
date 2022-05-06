@@ -1,0 +1,2638 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+{% load filters %}
+
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_order.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile_orders.css' %}">
+
+{% endblock %}
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+</style>
+
+
+
+{% block topcontent %}
+
+
+
+
+
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/staff_profile/" class="hov-a" style="color: white;">Profile & Settings</a>
+		</div>
+		<div class="col py-2 centered noti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Notifications
+
+		</div>
+
+		<div class="col py-2 centered acti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Activities
+		</div>
+		<div class="col py-2 centered staff_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/staff_profile/staffs" class="hov-a" style="color: white;">Staffs</a>
+		</div>
+		<div class="col py-2 centered b2b_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/staff_profile/b2b_customer" class="hov-a" style="color: white;">B2B Customers</a>
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/staff_profile/vendors" class="hov-a" style="color: white;">Vendors</a>
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/staff_profile/orders" class="hov-a" style="color: white;">Orders</a>
+		</div>
+		<div class="container-fluid drop_noti">
+			<div class="row">
+				<div class="col-2 my-3 mx-3 ml-5 tod_noti staf_noti">
+					<img src="{% static 'img/jamie.jpg' %}">
+					<a href="/userdetail/staff_profile/notifications?filter=staff"><div class="noti_tod_overlay">
+						<p>Staff Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti enq_noti">
+
+					<img src="{% static 'img/pris.jpg' %}">
+					<a href="/userdetail/staff_profile/notifications?filter=enquiry"><div class="noti_tod_overlay">
+						<p>Enquiry Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti des_noti">
+
+					<img src="{% static 'img/kelly.jpg' %}">
+					<a href="/userdetail/staff_profile/notifications?filter=design"><div class="noti_tod_overlay">
+						<p>Design Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti samp_noti">
+
+					<img src="{% static 'img/freestock.jpg' %}">
+					<a href="/userdetail/staff_profile/notifications?filter=sampling"><div class="noti_tod_overlay">
+						<p>Sampling Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti ord_noti">
+
+					<img src="{% static 'img/andre.jpg' %}">
+					<a href="/userdetail/staff_profile/notifications?filter=order"><div class="noti_tod_overlay">
+						<p>Order Notifications</p>
+
+					</div></a>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid drop_noti_acti">
+			<div class="row">
+				<div class="col my-3 mx-3 ml-5 tod_noti">
+					<img src="{% static 'img/agni.jpg' %}">
+					<a href="/userdetail/staff_profile/activities?filter=today"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Today's</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/yunm.jpg' %}">
+					<a href="/userdetail/staff_profile/activities?filter=pending"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Pending</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/carl.jpg' %}">
+					<a href="/userdetail/staff_profile/activities?filter=enquiry"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Enquiry</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/dmit.jpg' %}">
+					<a href="/userdetail/staff_profile/activities?filter=design"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Design</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/kelly2.jpg' %}">
+					<a href="/userdetail/staff_profile/activities?filter=sampling"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Sampling</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/san.jpg' %}">
+					<a href="/userdetail/staff_profile/activities?filter=order"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Order</p>
+
+					</div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block content %}
+	{% if order.status == 'C' %}
+		<div class="container-fluid" id="status_of_order" style="position: fixed;top: 0;left: 0;width: 99.9vw;height: 100vh;background: white;z-index: 1000;">
+			<div class="row" style="{% if details.is_sales %}margin-top: 35vh;{% else %}margin-top: 45vh;{% endif %}">
+				<center><h2 class="Pacifico" style="margin-left: 40vw;">Thanks for Ordering</h2></center><br>
+			</div>
+			<div class="row" style="margin-top: 1vh;">
+				<a class="hov-a" href="#" onclick="document.getElementById('status_of_order').style.display='none';" style="margin-left: 45vw">View Order Summary</a>
+			</div>
+			{% if details.is_sales %}
+			<form method="POST">{% csrf_token %}
+					<div class="row mt-2" style="margin-left: 35vw;margin-right: 35vw;">
+
+						{% for i in final_kpi_data %}
+						<div class="col-6 mt-2">{{i.0.name}}</div>
+						<div class="col-6 mt-2">
+							{% ifequal i.1 1 %}
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click_kpi(1,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click_kpi(2,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click_kpi(3,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click_kpi(4,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click_kpi(5,'kpi_{{i.0.id}}');"></i>
+								{% endifequal %}
+								{% ifequal i.1 2 %}
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click_kpi(1,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click_kpi(2,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click_kpi(3,'kpi_{{i.0.id}}');" style=""></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click_kpi(4,'kpi_{{i.0.id}}');" style=""></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click_kpi(5,'kpi_{{i.0.id}}');" style=""></i>
+								{% endifequal %}
+								{% ifequal i.1 3 %}
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click_kpi(1,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click_kpi(2,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click_kpi(3,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click_kpi(4,'kpi_{{i.0.id}}');" style=""></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click_kpi(5,'kpi_{{i.0.id}}');" style=""></i>
+								{% endifequal %}
+								{% ifequal i.1 4 %}
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click_kpi(1,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click_kpi(2,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click_kpi(3,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click_kpi(4,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click_kpi(5,'kpi_{{i.0.id}}');" style=""></i>
+								{% endifequal %}
+								{% ifequal i.1 5 %}
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click_kpi(1,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click_kpi(2,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click_kpi(3,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click_kpi(4,'kpi_{{i.0.id}}');" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star5" style="margin-right: auto;color: #30c5ff;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click_kpi(5,'kpi_{{i.0.id}}');" style=""></i>
+								{% endifequal %}
+								{% if i.1 %}
+								{% else %}
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star1" style="margin-left: auto;" onclick="star_click_kpi(1,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click_kpi(2,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click_kpi(3,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click_kpi(4,'kpi_{{i.0.id}}');"></i>
+								<i class="fas fa-star fa-lg" id="kpi_{{i.0.id}}_star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click_kpi(5,'kpi_{{i.0.id}}');"></i>
+								{% endif %}
+						</div>
+
+							<input type="hidden" name="kpi_{{i.0.id}}" id="kpi_{{i.0.id}}" required>
+
+						{% endfor%}
+						<button type="submit" style="background: #30c5ff;border:none;border-radius: 25vw;margin-left: 10vw !important;" class="py-2 px-4 mt-4" name="kpi" value="kpi">Save</button>
+
+					</div>
+					</form>
+			{% endif %}
+		</div>
+	{% endif %}
+	<style type="text/css">
+		.notvisi{
+			display: none;
+		}
+	</style>
+
+
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#filter_by{
+			border: none;
+			border-bottom: 1px solid black;
+			margin-left: 20px;
+			margin-top: 20px;
+		}
+		#star1,#star2,#star3,#star4,#star5{
+			cursor: pointer;
+			transition: all .3s ease-out;
+		}
+		#star1:hover,#star2:hover,#star3:hover,#star4:hover,#star5:hover{
+			color: #30c5ff;
+			transform: scale(1.2);
+		}
+		.hovered_star{
+			color: #30c5ff;
+		}
+		.priority_row{
+			transition: all .3s ease-out;
+		}
+		.priority_row:hover{
+			box-shadow: 0 0 5px rgba(48,197,255,1);
+		}
+		#add_assort{
+			display: none;
+		}
+		.save_but{
+			transition: all .5s ease-out;
+			border-radius: 25vw;
+			background: #30c5ff;
+		}
+		.save_but:hover{
+			background: #253031;
+			color: #30c5ff;
+		}
+		.right_menu{
+			background: #253031;
+			color: #30c5ff;
+			position: sticky;
+			height: 90vh;
+			top: 14vh;
+			left: 0;
+		}
+		.menu_item{
+			height: 3vh;
+			border-bottom: 1px solid rgba(255,255,255,.1);
+			cursor: pointer;
+			transition: all .3s ease-out;
+		}
+		.menu_item:hover{
+			border-color: rgba(48,197,255,.5);
+		}
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+			padding-left: auto;
+			padding-right: auto;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.input_field_buis{
+			border:none;
+			margin-left: 2vw;
+			width: 20vw;
+		}
+		#add_assort{
+			display: none;
+		}
+		.save_but{
+			transition: all .5s ease-out;
+			border-radius: 25vw;
+			background: #30c5ff;
+		}
+		.save_but:hover{
+			background: #253031;
+			color: #30c5ff;
+		}
+		.order-info{
+        background-color: #30c5ff ;
+    }
+    .order-info button:hover{
+        background: #253031;
+        color: #30c5ff;
+    }
+    .order-info button.active {
+        background: #253031;
+        color: #30c5ff;
+    }
+    .order-link{
+        background-color: #30c5ff;
+        color: white;
+        padding: 10px 23px;
+        text-align: center;
+        border: none;
+        font-size: 15px;
+    }
+    .order-contents{
+        display: none;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+    }
+    @-webkit-keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+	</style>
+	{% include 'include/loader.html' %}
+
+<div class="row mt-4">
+		<div class="col-2 right_menu">
+			<div class="container">
+				{% for i in order_section %}
+					<div class="row p-2 py-4 menu_item" onclick="showData('{{i.name}}')">
+						<h6 style="font-size: 1.1em;" class="fontcabin">{{i.name|safe_text}} <i class="fas fa-angle-right"></i></h6>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-10" id="content">
+			<div class="container-fluid">
+					<div class="row">
+		<div class="container">
+			<div class="row mt-4">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 order_image">
+					{% if order.image %}
+					<img src="{{order.image.url}}" style="border-radius: 50%;">
+					{% else %}
+					<img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2">
+					{% endif %}
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_head" style="margin-top: auto; margin-bottom: auto;">
+					<h1>{{order.user_email}}({{order.label}})</h1>
+					<h6><b>Order No -</b>{{order_no}}</h6>
+					<h6><b>Order Time -</b> {{order.order_date_time}}</h6>
+					<h6><b>Order Password - </b>{{order.order_password}}</h6>
+				</div>
+			</div>
+		</div>
+	</div>
+					<div class="row">
+		<div class="container">
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>{% ifequal order.order_type 'O' %}Order{% endifequal %}{% ifequal order.order_type 'D' %}Design{% endifequal %}{% ifequal order.order_type 'S' %}Sampling Order{% endifequal %}{% ifequal order.order_type 'E' %}Enquiry Request{% endifequal %} Description</b></h3>
+				<div class="order-info">
+                    <button class="order-link" onclick="openform(event ,'basic_details')">Basic Details</button>
+                    <button class="order-link" onclick="openform(event,'code')">Code</button>
+                    <button class="order-link" onclick="openform(event,'styling')">Styling</button>
+                    <button class="order-link" onclick="openform(event,'uploads')">Uploads</button>
+                    <button class="order-link" onclick="openform(event,'fabric_details')">Fabirc Details</button>
+                    <button class="order-link" onclick="openform(event,'trim_details')">Trim Details</button>
+                    <button class="order-link" onclick="openform(event,'assortments')">Assortment</button>
+                    <button class="order-link" onclick="openform(event,'tentative_info')">Tentative info</button>
+                </div>
+			</div>
+			<div class="row mx-1">
+				<div class="order-contents" id="basic_details">
+					<h6><b>Sector- </b> {{order.sector}}</h6>
+					{% for a in order.dispatch_Address.all %}
+					<h6><b>Dispatch Address - </b>{{a.address|linebreaks}}</h6>
+					{% endfor %}
+					<div class="mt-2 mb-2 notvisi" id="addaddressform">
+						<form method="POST">{% csrf_token %}
+							<textarea style="border: 1px solid rgba(0,0,0,.5);" name="addre"></textarea>
+							<input type="submit" value="Save" style="border: none; background: transparent; margin-left: 50px; color: #30c5ff">
+						</form>
+					</div>
+					<button style="margin-left: 350px;cursor: pointer; color: #30c5ff;background: transparent; border: none;" type="button" onclick="addaddre();" id="addaddrebut">Add Address</button>
+					{% with order.billing_Address|split as bill %}
+						{% for b in bill %}
+							<h6><b>Billing Address - </b>{{b|linebreaks}}</h6><br>
+						{% endfor %}
+					{% endwith %}
+					<h6><b>Contact Person - </b>{{cnt.name}}</h6>
+					<h6><b>Contact Person No - </b>{{cnt.contact}}</h6>
+				</div>
+				<div class="order-contents" id="code">
+					<h6><b>Design Code - </b>{{order.design_code}}</h6>
+					<h6><b>Garment Code - </b>{{order.garment_code}}</h6>
+					<h6><b>Style Code - </b>{{order.style_code}}</h6>
+					<h6><b>Fabric Code - </b>{{order.fabric_code}}</h6>
+
+				</div>
+				<div class="order-contents" id="styling">
+					<h6><b>Fashion Brand - </b>{{order.fashion_Brand}}</h6>
+					<h6><b>Product Super-Category - </b>{{order.product_Category}}</h6>
+					<h6><b>Product Sub-Category - </b>{{order.product_Subcategory}}</h6>
+					<h6><b>Product Category - </b>{{order.product_Supercategory}}</h6>
+					{% if order.label %}
+					<h6><b>Label - </b>{{order.label}}</h6>
+					{% endif %}
+					{% if order.fit %}
+					<h6><b>Fit - </b>{{order.fit}}</h6>
+					{% endif %}
+					{% if order.season %}
+					<h6><b>Season- </b>{{order.season}}</h6>
+					{% endif %}
+					<h6><b>Description- </b>{{order.description}}</h6>
+					<h6><b>Style Description- </b>{{order.style_description}}</h6>
+					<h6><b>Style Type- </b> {{ order.style_type }}</h6>
+
+					{% for o in order.label_atrribute %}
+					{% with o|split as value %}
+					<h6><b>{{value.0}} - </b>{{value.1}}</h6>
+					{% endwith %}
+					{% endfor %}
+				</div>
+				<div class="order-contents" id="uploads">
+					<h6><b>Order Password - </b>{{order.order_password}}</h6>
+					{% if order.logo_placement %}<h6><b>Logo Placement - </b>{{order.logo_placement}}</h6>{% endif %}
+					{% if order.custom_logo %}<h6><b>Custom Logo - </b><a href="{{order.custom_logo.url}}" class="hov-a">Logo</a></h6>{% endif %}
+					{% if order.tech_pack %}<h6><b>Tech-Pack - </b><a href="{{order.tech_pack.url}}" class="hov-a">Tech-Pack</a></h6>{% endif %}
+					{% if order.specs %}<h6><b>Specs - </b><a href="{{order.specs.url}}" class="hov-a">Specs</a></h6>{% endif %}
+					<h6><b>Details of Users - </b>{% if order.excel %}<a href="{{order.excel.url}}" style="text-decoration: none;"><b>Excel Sheet</b></a>{% endif %}</h6>
+					{% if measu %}
+					<h6><b>Measurement Chart - </b><a href="/userdetail/seller_profile/measurements/{{measu}}" class="hov-a">View</a></h6>
+					{% endif %}
+					<h6><b>Consumer List - </b><a href="/buisness/buisness_order/{{order.order_no}}/consumer_list" class="hov-a">View</a></h6>
+					<h6><b>Customer PO - </b><input type="file" name="cpo" class="input_field_buis" style="margin-left: 4.5vw;"> {% if order.cpo %}<a href="{{order.cpo.url}}" class="hov-a">File</a>{% endif %}</h6>
+					<button type="submit" style="border:none;background: transparent;color: #30c5ff;margin-left: 35vw;">Save</button>
+				</div>
+				<div class="order-contents" id="fabric_details">
+					<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<h6><b>Fabric - </b>
+						<select name="fabric" class="input_field_buis" style="margin-left: 10vw;">
+							<option disabled selected>--------------</option>
+					{% for i in trims %}
+						<option value="{{i.id}}"{% ifequal order.fabrics.id i.id %}selected{% endifequal %}>{{i}}</option>
+					{% endfor %}
+						</select>
+					</h6>
+
+					{% if fabrics %}
+					<h6><b>Fabric Supplier-  </b>{{fabrics.seller.email}}</h6>
+					<h6><b>Fabric Description-  </b>{{fabrics.notes}}</h6>
+					<h6><b>Fabric Blend-</b> {{fabrics.atrribute11}} </h6>
+					<h6><b>GSM- </b> {{fabrics.atrribute10}}</h6>
+					<h6><b>Fabric Width- </b> {{fabrics.atrribute9}}</h6>
+					<h6><b>EPI- </b> {{fabrics.atrribute7}} | <b>PPI- </b>{{fabrics.atrribute8}} </h6>
+					<h6><b>Wrap- </b>{{fabrics.atrribute4}} | <b>Weft- </b>{{fabrics.atrribute5}}</h6>
+					<h6><b>Finish- </b>{{fabrics.atrribute12}}</h6>
+					{% for t in fabrics.trims_labels %}
+						{% with t|split as value %}
+						<h6><b>{{value.0}}- </b>{{value.1}} ({{value.2}})</h6>
+						{% endwith %}
+						{% endfor %}
+					{% endif %}
+					<h6><b>Wash Type- </b> {{ order.wash_type }}</h6>
+					<h6><b>Fabric Type- </b> {{ order.fabric_type }}</h6>
+					<h6><b>Fabric Consumption - </b><input type="text" name="fab_consum" placeholder="Fabric Consumption" value="{% if order.fabric_consump %}{{order.fabric_consump}}{% endif %}" class="input_field_buis" style=""></h6>
+					<h6><b>Fabric Color - </b><input type="text" name="fab_color" placeholder="Fabric Color" value="{% if order.fabric_color %}{{order.fabric_color}}{% endif %}" class="input_field_buis" style="margin-left: 6.5vw;"></h6>
+					</form>
+				</div>
+				<div class="order-contents" id="trim_details">
+					<h6><b>Accesories - </b><input type="text" name="accesories" placeholder="Accesories" value="{% if order.accesories %}{{order.accesories}}{% endif %}" class="input_field_buis" style="margin-left: 7.1vw;"></h6>
+					<h6><b>Packing Details - </b><input type="text" name="pack" placeholder="Packing Details" value="{% if order.packing_details %}{{order.packing_details}}{% endif %}" class="input_field_buis" style="margin-left: 4.5vw;"></h6>
+					{% for o in order.trims_atrribute %}
+					{% with o|split as value %}
+					<h6><b>{{value.0}}- </b>{{value.1}}</h6>
+					{% endwith %}
+					{% endfor %}
+				</div>
+				<div class="order-contents" id="assortments">
+					<h6><b>Quantity - </b>{{order.quantity}}</h6>
+					{% if order.plus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in plus) - </b>{{order.plus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.minus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in minus) - </b>{{order.minus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.colors_avail.all %}
+					<h6><b>Colors - </b>{% for a in order.colors_avail.all %}{{a}},{% endfor %}</h6>
+					{% endif %}
+					{% if order.sizes %} <h6><b>Size's - </b> {{order.sizes}}</h6> {% endif %}
+					{% if order.accepted_rate %} <h6><b>accepted_rate - </b> {{order.accepted_rate}}</h6> {% endif %}
+					{% if order.rejection_rate %} <h6><b>rejection_rate - </b> {{order.rejection_rate}}</h6> {% endif %}
+					{% if order.stock %} <h6><b>stock - </b> {{order.stock}}</h6> {% endif %}
+					{% if order.wastage %} <h6><b>wastage - </b> {{order.wastage}}</h6> {% endif %}
+				</div>
+				<div class="order-contents" id="tentative_info">
+					<h6><b>Target Lead Time - </b>{{order.target_lead_time}}</h6>
+					<h6><b>Target Price - </b>{{order.target_price}}</h6>
+					<h6><b>Lead Time - </b>{{order.lead_time}}</h6>
+					<h6><b>Tentative Cost - </b>{{order.tentative_cost}}</h6>
+					<h6><b>Average Fabric Consumption - </b>{{order.fabric_consump}}</h6>
+					<h6><b>Unit Price - </b>{{order.total_Price}}</h6>
+					<h6><b>Total Price - </b>{% if order.total_Price %}{% widthratio order.total_Price 1 order.quantity %}{% endif %}</h6>
+					<h6><b>Alteration Charge - </b>{{order.alteration_Charge}}</h6>
+					<h6><b>Custom Charge - </b>{{order.custom_Charges}}</h6>
+					<!--<h6><b>Single Unit Price - </b><input type="number" name="single_unit" value="{{order.single_unit_Price}}" style="border: none;"></h6> -->
+				</div>
+			</div>
+			{% if quan.0 %}
+			{% if order_bool %}
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Quantity by Size Assortment</b></h3>
+
+			</div>
+			<div class="row mb-1 mt-1 mx-1" style="overflow:auto;">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Address</th>
+							{% for l in size_by_quan %}
+							<th>{{l}}</th>
+							{% endfor %}
+							<th>Total</th>
+						</tr>
+						{% for q in quan_by_clr %}
+						<tr>
+
+								<th>{{q.color.color}}</th>
+								<th>Location{{q.color.address.id}}</th>
+								{% for l in size_by_quan %}
+									<td>
+									<input type="number" value="0" id="{{q.color.id}}{{q.color.address.id}}{{l}}" style="background:transparent;border:none;width:3vw;"></td>
+
+								{% endfor %}
+								<td>{{q.total}}</td>
+								<script type="text/javascript">
+									{% for s in q.size %}
+										var f=document.getElementById('{{q.color.id}}{{q.color.address.id}}{{s.size_label}}');
+										f.value="{{s.quantity}}";
+										$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').change(function(){
+											$.ajax({
+												type:'POST',
+												url:'/buisness/buisness_order/{{order}}',
+												data:{
+													color_ajax:'{{q.color.color}}',
+													address_cate_ajax:'{{q.color.address.id}}',
+													size_label_ajax:'{{s.size_label}}',
+													quantity_matter:$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').val(),
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													// window.location="/userdetail/staff_profile/activities";
+													// alert("Well Done")
+													// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+														window.location="/buisness/buisness_order/{{order}}";
+												}
+											});
+										});
+									{% endfor %}
+
+									{% for s in q.size %}
+
+									{% endfor %}
+								</script>
+
+						</tr>
+						{% endfor %}
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for k in quan_by_sz %}
+							<td>{{k}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+					<div style="clear: both;" class="mt-2">
+					<p style="font-size: .6em;line-height: .1em">Here Locations Annotations are - <br/></p>
+					{% for q in order.dispatch_Address.all %}
+					<p style="font-size: .6em;line-height: .1em">Location{{q.id}} - {{q.address}}<br/></p>
+					{% endfor %}
+				</div>
+
+			</div>
+			{% endif %}
+			{% endif %}
+
+
+				{% if order.assortment_per_customer %}
+
+							<div class="row mt-3 mb-5">
+								<div class="container">
+
+
+												<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+													<h3 style="font-family: 'Cabin', sans-serif;">Assortment Permissions</h3>
+												</div>
+
+										<form method="post">{% csrf_token %}
+
+												<div class="row ml-5">
+													<div class="col-6">
+														<input type="checkbox" name="assortment_custom" {% if order.assortment_custom %}checked{% endif %}>
+														<label>Custom Size Assortment</label>
+													</div>
+														<div class="col-6">
+															<input type="checkbox" name="assortment_size_set" {% if order.assortment_size_set %}checked{% endif %}>
+															<label>Size Assortment by Size-set</label>
+														</div>
+															<div class="col-6">
+																<input type="checkbox" name="assortment_brand" {% if order.assortment_brand %}checked{% endif %}>
+																<label>Size Assortment by Brands</label>
+															</div>
+
+																<div class="col-6">
+																	<input type="checkbox" name="pom_for_consumer" {% if order.show_pom_in_assortment %}checked{% endif %}>
+																	<label>POM for Consumers(Size-set Assortment)</label>
+																</div>
+												</div>
+												<div class="row">
+													<button type="submit" name="perm_assortment" value="True" style="background:none;border:none;color:#30c5ff;margin-left:auto;margin-right:10vw;">Save</button>
+												</div>
+									</form>
+								</div>
+							</div>
+{% endif %}
+
+
+
+
+
+		<div class="row mt-3 mb-3" id="add_assort">
+			<div class="container-fluid">
+				<form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-3">
+						<label><b>Color</b></label>
+						<select name="color" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.colors_avail.all %}
+							<option value="{{a.id}}">{{a}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Address</b></label>
+						<select name="address" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.dispatch_Address.all %}
+							<option value="{{a.id}}">{{a.address}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Size</b></label>
+						<input type="number" name="size_assort" placeholder="Size" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+					<div class="col-3">
+						<label><b>Quantity</b></label>
+						<input type="number" name="quantity" placeholder="Quantity" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+				</div>
+				<div class="row mt-2">
+					<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;" class="save_but">Save</button>
+				</div>
+				</form>
+			</div>
+		</div>
+		{% ifequal order.order_type 'E' %}
+		{% else %}
+		<div class="row mt-2 mb-3">
+			<button type="button" style="border: none;color: #30c5ff;background: transparent;margin-left: auto;" onclick="showAddAssort();">Add Size Assortment</button>
+		</div>
+		{% endifequal %}
+
+		<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;">Order Forms</h3>
+		</div>
+			<div class="row mb-5">
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/packing_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/distribution_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Distribution List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/cummlative_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+			</div>
+
+
+
+
+					<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+						<h3 style="font-family: 'Cabin', sans-serif;">Order Documents</h3>
+					</div>
+						<div class="row mb-5">
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order PO</h6></a>
+							</div>
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order Invoice</h6></a>
+							</div>
+						</div>
+
+
+			{% if enquiry_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/design?order={{order.order_no}}" class="px-5 py-2"><b>Go for Design</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+			{% if design_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if sample_bool %}
+			<div class="row mb-1 mt-4 centered start_order">
+			<div class="col">
+				<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+			</div>
+			</div>
+			{% endif %}
+			<div class="row mt-4 mb-4 centered">
+				<a href="/buisness/buisness_profile" style="text-decoration: none;"><b>Back to Profile</b></a>
+			</div>
+		</div>
+	</div>
+			</div>
+		</div>
+	</div>
+
+
+<div id="Orders_Description" style="display: none;">
+	<div class="container-fluid">
+			<div class="row">
+		<div class="container">
+			<div class="row mt-4">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 order_image">
+					{% if order.image %}
+					<img src="{{order.image.url}}" style="border-radius: 50%;">
+					{% else %}
+					<img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2">
+					{% endif %}
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_head" style="margin-top: auto; margin-bottom: auto;">
+					<h1>{{order.user_email}}({{order.label}})</h1>
+					<h6><b>Order No -</b>{{order_no}}</h6>
+					<h6><b>Order Time -</b> {{order.order_date_time}}</h6>
+					<h6><b>Order Password - </b>{{order.order_password}}</h6>
+				</div>
+			</div>
+		</div>
+	</div>
+			<div class="row">
+		<div class="container">
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>{% ifequal order.order_type 'O' %}Order{% endifequal %}{% ifequal order.order_type 'D' %}Design{% endifequal %}{% ifequal order.order_type 'S' %}Sampling Order{% endifequal %}{% ifequal order.order_type 'E' %}Enquiry Request{% endifequal %} Description</b></h3>
+				<div class="order-info">
+                    <button class="order-link" onclick="openform(event ,'basic_details')">Basic Details</button>
+                    <button class="order-link" onclick="openform(event,'code')">Code</button>
+                    <button class="order-link" onclick="openform(event,'styling')">Styling</button>
+                    <button class="order-link" onclick="openform(event,'uploads')">Uploads</button>
+                    <button class="order-link" onclick="openform(event,'fabric_details')">Fabirc Details</button>
+                    <button class="order-link" onclick="openform(event,'trim_details')">Trim Details</button>
+                    <button class="order-link" onclick="openform(event,'assortments')">Assortment</button>
+                    <button class="order-link" onclick="openform(event,'tentative_info')">Tentative info</button>
+                </div>
+			</div>
+			<div class="row mx-1">
+				<div class="order-contents" id="basic_details">
+					<h6><b>Sector- </b> {{order.sector}}</h6>
+					{% for a in order.dispatch_Address.all %}
+					<h6><b>Dispatch Address - </b>{{a.address|linebreaks}}</h6>
+					{% endfor %}
+					<div class="mt-2 mb-2 notvisi" id="addaddressform">
+						<form method="POST">{% csrf_token %}
+							<textarea style="border: 1px solid rgba(0,0,0,.5);" name="addre"></textarea>
+							<input type="submit" value="Save" style="border: none; background: transparent; margin-left: 50px; color: #30c5ff">
+						</form>
+					</div>
+					<button style="margin-left: 350px;cursor: pointer; color: #30c5ff;background: transparent; border: none;" type="button" onclick="addaddre();" id="addaddrebut">Add Address</button>
+					{% with order.billing_Address|split as bill %}
+						{% for b in bill %}
+							<h6><b>Billing Address - </b>{{b|linebreaks}}</h6><br>
+						{% endfor %}
+					{% endwith %}
+					<h6><b>Contact Person - </b>{{cnt.name}}</h6>
+					<h6><b>Contact Person No - </b>{{cnt.contact}}</h6>
+				</div>
+				<div class="order-contents" id="code">
+					<h6><b>Design Code - </b>{{order.design_code}}</h6>
+					<h6><b>Garment Code - </b>{{order.garment_code}}</h6>
+					<h6><b>Style Code - </b>{{order.style_code}}</h6>
+					<h6><b>Fabric Code - </b>{{order.fabric_code}}</h6>
+
+				</div>
+				<div class="order-contents" id="styling">
+					<h6><b>Fashion Brand - </b>{{order.fashion_Brand}}</h6>
+					<h6><b>Product Super-Category - </b>{{order.product_Category}}</h6>
+					<h6><b>Product Sub-Category - </b>{{order.product_Subcategory}}</h6>
+					<h6><b>Product Category - </b>{{order.product_Supercategory}}</h6>
+					{% if order.label %}
+					<h6><b>Label - </b>{{order.label}}</h6>
+					{% endif %}
+					{% if order.fit %}
+					<h6><b>Fit - </b>{{order.fit}}</h6>
+					{% endif %}
+					{% if order.season %}
+					<h6><b>Season- </b>{{order.season}}</h6>
+					{% endif %}
+					<h6><b>Description- </b>{{order.description}}</h6>
+					<h6><b>Style Description- </b>{{order.style_description}}</h6>
+					<h6><b>Style Type- </b> {{ order.style_type }}</h6>
+
+					{% for o in order.label_atrribute %}
+					{% with o|split as value %}
+					<h6><b>{{value.0}} - </b>{{value.1}}</h6>
+					{% endwith %}
+					{% endfor %}
+				</div>
+				<div class="order-contents" id="uploads">
+					<h6><b>Order Password - </b>{{order.order_password}}</h6>
+					{% if order.logo_placement %}<h6><b>Logo Placement - </b>{{order.logo_placement}}</h6>{% endif %}
+					{% if order.custom_logo %}<h6><b>Custom Logo - </b><a href="{{order.custom_logo.url}}" class="hov-a">Logo</a></h6>{% endif %}
+					{% if order.tech_pack %}<h6><b>Tech-Pack - </b><a href="{{order.tech_pack.url}}" class="hov-a">Tech-Pack</a></h6>{% endif %}
+					{% if order.specs %}<h6><b>Specs - </b><a href="{{order.specs.url}}" class="hov-a">Specs</a></h6>{% endif %}
+					<h6><b>Details of Users - </b>{% if order.excel %}<a href="{{order.excel.url}}" style="text-decoration: none;"><b>Excel Sheet</b></a>{% endif %}</h6>
+					{% if measu %}
+					<h6><b>Measurement Chart - </b><a href="/userdetail/seller_profile/measurements/{{measu}}" class="hov-a">View</a></h6>
+					{% endif %}
+					<h6><b>Consumer List - </b><a href="/buisness/buisness_order/{{order.order_no}}/consumer_list" class="hov-a">View</a></h6>
+					<h6><b>Customer PO - </b><input type="file" name="cpo" class="input_field_buis" style="margin-left: 4.5vw;"> {% if order.cpo %}<a href="{{order.cpo.url}}" class="hov-a">File</a>{% endif %}</h6>
+					<button type="submit" style="border:none;background: transparent;color: #30c5ff;margin-left: 35vw;">Save</button>
+				</div>
+				<div class="order-contents" id="fabric_details">
+					<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<h6><b>Fabric - </b>
+						<select name="fabric" class="input_field_buis" style="margin-left: 10vw;">
+							<option disabled selected>--------------</option>
+					{% for i in trims %}
+						<option value="{{i.id}}"{% ifequal order.fabrics.id i.id %}selected{% endifequal %}>{{i}}</option>
+					{% endfor %}
+						</select>
+					</h6>
+
+					{% if fabrics %}
+					<h6><b>Fabric Supplier-  </b>{{fabrics.seller.email}}</h6>
+					<h6><b>Fabric Description-  </b>{{fabrics.notes}}</h6>
+					<h6><b>Fabric Blend-</b> {{fabrics.atrribute11}} </h6>
+					<h6><b>GSM- </b> {{fabrics.atrribute10}}</h6>
+					<h6><b>Fabric Width- </b> {{fabrics.atrribute9}}</h6>
+					<h6><b>EPI- </b> {{fabrics.atrribute7}} | <b>PPI- </b>{{fabrics.atrribute8}} </h6>
+					<h6><b>Wrap- </b>{{fabrics.atrribute4}} | <b>Weft- </b>{{fabrics.atrribute5}}</h6>
+					<h6><b>Finish- </b>{{fabrics.atrribute12}}</h6>
+					{% for t in fabrics.trims_labels %}
+						{% with t|split as value %}
+						<h6><b>{{value.0}}- </b>{{value.1}} ({{value.2}})</h6>
+						{% endwith %}
+						{% endfor %}
+					{% endif %}
+					<h6><b>Wash Type- </b> {{ order.wash_type }}</h6>
+					<h6><b>Fabric Type- </b> {{ order.fabric_type }}</h6>
+					<h6><b>Fabric Consumption - </b><input type="text" name="fab_consum" placeholder="Fabric Consumption" value="{% if order.fabric_consump %}{{order.fabric_consump}}{% endif %}" class="input_field_buis" style=""></h6>
+					<h6><b>Fabric Color - </b><input type="text" name="fab_color" placeholder="Fabric Color" value="{% if order.fabric_color %}{{order.fabric_color}}{% endif %}" class="input_field_buis" style="margin-left: 6.5vw;"></h6>
+					</form>
+				</div>
+				<div class="order-contents" id="trim_details">
+					<h6><b>Accesories - </b><input type="text" name="accesories" placeholder="Accesories" value="{% if order.accesories %}{{order.accesories}}{% endif %}" class="input_field_buis" style="margin-left: 7.1vw;"></h6>
+					<h6><b>Packing Details - </b><input type="text" name="pack" placeholder="Packing Details" value="{% if order.packing_details %}{{order.packing_details}}{% endif %}" class="input_field_buis" style="margin-left: 4.5vw;"></h6>
+					{% for o in order.trims_atrribute %}
+					{% with o|split as value %}
+					<h6><b>{{value.0}}- </b>{{value.1}}</h6>
+					{% endwith %}
+					{% endfor %}
+				</div>
+				<div class="order-contents" id="assortments">
+					<h6><b>Quantity - </b>{{order.quantity}}</h6>
+					{% if order.plus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in plus) - </b>{{order.plus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.minus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in minus) - </b>{{order.minus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.colors_avail.all %}
+					<h6><b>Colors - </b>{% for a in order.colors_avail.all %}{{a}},{% endfor %}</h6>
+					{% endif %}
+					{% if order.sizes %} <h6><b>Size's - </b> {{order.sizes}}</h6> {% endif %}
+					{% if order.accepted_rate %} <h6><b>accepted_rate - </b> {{order.accepted_rate}}</h6> {% endif %}
+					{% if order.rejection_rate %} <h6><b>rejection_rate - </b> {{order.rejection_rate}}</h6> {% endif %}
+					{% if order.stock %} <h6><b>stock - </b> {{order.stock}}</h6> {% endif %}
+					{% if order.wastage %} <h6><b>wastage - </b> {{order.wastage}}</h6> {% endif %}
+				</div>
+				<div class="order-contents" id="tentative_info">
+					<h6><b>Target Lead Time - </b>{{order.target_lead_time}}</h6>
+					<h6><b>Target Price - </b>{{order.target_price}}</h6>
+					<h6><b>Lead Time - </b>{{order.lead_time}}</h6>
+					<h6><b>Tentative Cost - </b>{{order.tentative_cost}}</h6>
+					<h6><b>Average Fabric Consumption - </b>{{order.fabric_consump}}</h6>
+					<h6><b>Unit Price - </b>{{order.total_Price}}</h6>
+					<h6><b>Total Price - </b>{% if order.total_Price %}{% widthratio order.total_Price 1 order.quantity %}{% endif %}</h6>
+					<h6><b>Alteration Charge - </b>{{order.alteration_Charge}}</h6>
+					<h6><b>Custom Charge - </b>{{order.custom_Charges}}</h6>
+					<!--<h6><b>Single Unit Price - </b><input type="number" name="single_unit" value="{{order.single_unit_Price}}" style="border: none;"></h6> -->
+				</div>
+			</div>
+			{% if quan.0 %}
+			{% if order_bool %}
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Quantity by Size Assortment</b></h3>
+
+			</div>
+			<div class="row mb-1 mt-1 mx-1" style="overflow:auto;">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Address</th>
+							{% for l in size_by_quan %}
+							<th>{{l}}</th>
+							{% endfor %}
+							<th>Total</th>
+						</tr>
+						{% for q in quan_by_clr %}
+						<tr>
+
+								<th>{{q.color.color}}</th>
+								<th>Location{{q.color.address.id}}</th>
+								{% for l in size_by_quan %}
+									<td>
+									<input type="number" value="0" id="{{q.color.id}}{{q.color.address.id}}{{l}}" style="background:transparent;border:none;width:3vw;"></td>
+
+								{% endfor %}
+								<td>{{q.total}}</td>
+								<script type="text/javascript">
+									{% for s in q.size %}
+										var f=document.getElementById('{{q.color.id}}{{q.color.address.id}}{{s.size_label}}');
+										f.value="{{s.quantity}}";
+										$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').change(function(){
+											$.ajax({
+												type:'POST',
+												url:'/buisness/buisness_order/{{order}}',
+												data:{
+													color_ajax:'{{q.color.color}}',
+													address_cate_ajax:'{{q.color.address.id}}',
+													size_label_ajax:'{{s.size_label}}',
+													quantity_matter:$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').val(),
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													// window.location="/userdetail/staff_profile/activities";
+													// alert("Well Done")
+													// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+														window.location="/buisness/buisness_order/{{order}}";
+												}
+											});
+										});
+									{% endfor %}
+
+									{% for s in q.size %}
+
+									{% endfor %}
+								</script>
+
+						</tr>
+						{% endfor %}
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for k in quan_by_sz %}
+							<td>{{k}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+					<div style="clear: both;" class="mt-2">
+					<p style="font-size: .6em;line-height: .1em">Here Locations Annotations are - <br/></p>
+					{% for q in order.dispatch_Address.all %}
+					<p style="font-size: .6em;line-height: .1em">Location{{q.id}} - {{q.address}}<br/></p>
+					{% endfor %}
+				</div>
+
+			</div>
+			{% endif %}
+			{% endif %}
+
+
+				{% if order.assortment_per_customer %}
+
+							<div class="row mt-3 mb-5">
+								<div class="container">
+
+
+												<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+													<h3 style="font-family: 'Cabin', sans-serif;">Assortment Permissions</h3>
+												</div>
+
+										<form method="post">{% csrf_token %}
+
+												<div class="row ml-5">
+													<div class="col-6">
+														<input type="checkbox" name="assortment_custom" {% if order.assortment_custom %}checked{% endif %}>
+														<label>Custom Size Assortment</label>
+													</div>
+														<div class="col-6">
+															<input type="checkbox" name="assortment_size_set" {% if order.assortment_size_set %}checked{% endif %}>
+															<label>Size Assortment by Size-set</label>
+														</div>
+															<div class="col-6">
+																<input type="checkbox" name="assortment_brand" {% if order.assortment_brand %}checked{% endif %}>
+																<label>Size Assortment by Brands</label>
+															</div>
+
+																<div class="col-6">
+																	<input type="checkbox" name="pom_for_consumer" {% if order.show_pom_in_assortment %}checked{% endif %}>
+																	<label>POM for Consumers(Size-set Assortment)</label>
+																</div>
+												</div>
+												<div class="row">
+													<button type="submit" name="perm_assortment" value="True" style="background:none;border:none;color:#30c5ff;margin-left:auto;margin-right:10vw;">Save</button>
+												</div>
+									</form>
+								</div>
+							</div>
+{% endif %}
+
+
+
+
+
+		<div class="row mt-3 mb-3" id="add_assort">
+			<div class="container-fluid">
+				<form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-3">
+						<label><b>Color</b></label>
+						<select name="color" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.colors_avail.all %}
+							<option value="{{a.id}}">{{a}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Address</b></label>
+						<select name="address" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.dispatch_Address.all %}
+							<option value="{{a.id}}">{{a.address}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Size</b></label>
+						<input type="number" name="size_assort" placeholder="Size" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+					<div class="col-3">
+						<label><b>Quantity</b></label>
+						<input type="number" name="quantity" placeholder="Quantity" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+				</div>
+				<div class="row mt-2">
+					<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;" class="save_but">Save</button>
+				</div>
+				</form>
+			</div>
+		</div>
+		{% ifequal order.order_type 'E' %}
+		{% else %}
+		<div class="row mt-2 mb-3">
+			<button type="button" style="border: none;color: #30c5ff;background: transparent;margin-left: auto;" onclick="showAddAssort();">Add Size Assortment</button>
+		</div>
+		{% endifequal %}
+
+		<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;">Order Forms</h3>
+		</div>
+			<div class="row mb-5">
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/packing_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/distribution_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Distribution List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/cummlative_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+			</div>
+
+
+
+
+					<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+						<h3 style="font-family: 'Cabin', sans-serif;">Order Documents</h3>
+					</div>
+						<div class="row mb-5">
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order PO</h6></a>
+							</div>
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order Invoice</h6></a>
+							</div>
+						</div>
+
+
+			{% if enquiry_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/design?order={{order.order_no}}" class="px-5 py-2"><b>Go for Design</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+			{% if design_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if sample_bool %}
+			<div class="row mb-1 mt-4 centered start_order">
+			<div class="col">
+				<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+			</div>
+			</div>
+			{% endif %}
+			<div class="row mt-4 mb-4 centered">
+				<a href="/buisness/buisness_profile" style="text-decoration: none;"><b>Back to Profile</b></a>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+<div id="Staff_Allocation" style="display: none;">
+	<div class="container">
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;">Order Allocations</h3>
+			</div>
+
+
+			{% if head %}
+			<div class="container">
+				<div class="row centered">
+					<form method="POST">{% csrf_token %}
+					<label><b>Manager</b></label>
+						<select name="head_to_manager" class="ml-4">
+							<option disabled selected>-----------</option>
+							{% for i in obj %}
+							<option value="{{i.email}}" {% ifequal cum.name i.name %}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Manager" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+
+
+			{% endif %}
+			{% if is_sales %}
+			<div class="container">
+				<div class="row centered mt-4 mb-2">
+					<form method="POST">{% csrf_token %}
+					<label><b>Merchandiser</b></label>
+						<select name="head_to_merch" class="ml-4">
+							<option disabled selected>-----------</option>
+							{% for i in merch %}
+							<option value="{{i.email}}" {% ifequal merch_alloted.name i.name %}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Merchandiser" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+
+			{% endif %}
+
+
+
+
+			{% if garment.0 %}
+			{% if fab_obj.0 %}
+				<div class="container">
+
+					<div class="row centered mt-3">
+						<form method="POST">{% csrf_token %}
+						<label><b>Fabric Vendor</b></label>
+							<select name="gar_to_fab" class="ml-4" required>
+								<option disabled selected></option>
+								{% for i in fab_obj %}
+								<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+						<input type="submit" value="Allot Fabric Vendor" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+						</form>
+					</div>
+				</div>
+			{% endif %}
+
+
+				{% if log_obj.0 %}
+				<div class="container">
+					<div class="row centered mt-3">
+						<form method="POST">{% csrf_token %}
+						<label><b>Logistics Vendor</b></label>
+							<select name="gar_to_log" class="ml-4">
+								<option disabled selected></option>
+
+								{% for i in log_obj %}
+								<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+						<input type="submit" value="Allot Logistics Vendor" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+						</form>
+					</div>
+				</div>
+				{% endif %}
+
+
+				{% if fin_obj %}
+				<div class="container">
+					<div class="row centered mt-3">
+						<form method="POST">{% csrf_token %}
+						<label><b>Finishing Trims</b></label>
+							<select name="gar_to_fin" class="ml-4">
+								<option disabled selected></option>
+								{% for i in fin_obj %}
+								<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+						<input type="submit" value="Allot Finishing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+						</form>
+					</div>
+				</div>
+				{% endif %}
+
+
+				{% if sew_obj %}
+				<div class="container">
+					<div class="row centered mt-3">
+						<form method="POST">{% csrf_token %}
+						<label><b>Sewing Trims</b></label>
+							<select name="gar_to_sew" class="ml-4">
+								<option disabled selected></option>
+								{% for i in sew_obj %}
+								<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+						<input type="submit" value="Allot Sewing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+						</form>
+					</div>
+				</div>
+				{% endif %}
+
+
+
+				{% if pack_obj.0 %}
+				<div class="container">
+					<div class="row centered mt-3">
+						<form method="POST">{% csrf_token %}
+						<label><b>Packing Trims</b></label>
+							<select name="gar_to_pack" class="ml-4">
+								<option disabled selected></option>
+								{% for i in pack_obj %}
+								<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+						<input type="submit" value="Allot Packing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+						</form>
+					</div>
+				</div>
+				{% endif %}
+			{% endif %}
+
+
+
+
+
+
+
+			{% if garment.0 %}
+
+			<div class="container">
+				<div class="row centered mt-4 mb-2">
+
+					<h6 style="font-family: 'Cabin',sans-serif;"><b>Allocated Garmenting Vendor - </b>{{garment_alloted.name}}</h6>
+					<h6 style="font-family: 'Cabin',sans-serif;margin-left: 4vw;"><b>E-mail - </b>{{garment_alloted.email}}</h6>
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/allocate_garment"><input type="button" value="Allocate Garmenting Vendor" class="ml-5" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;"></a>
+				</div>
+			</div>
+
+
+
+			{% endif %}
+			{% if manager %}
+			<div class="container">
+				<div class="row centered">
+					<form method="POST">{% csrf_token %}
+					<label><b>Staff</b></label>
+						<select name="manager_to_staff" class="ml-4">
+							{% for i in obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Staff" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+			{% if details.is_logistics %}
+			<div class="container">
+				<div class="row centered">
+					<form method="POST">{% csrf_token %}
+					<label><b>Logistics Vendor</b></label>
+						<select name="staff_to_logistics" class="ml-4">
+							<option disabled selected>-----------</option>
+							{% for i in logi_vendors %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Staff" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+	</div>
+</div>
+
+
+<div id="Production_Orders" style="display: none;">
+	<div class="container">
+		{% if prod789.0 %}
+
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Production Orders</b></h3>
+
+			</div>
+
+			<div class="row mb-1 mt-1 mx-1">
+				{% for f in prod789 %}
+				Production Order - {{forloop.counter}}
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for j in f.1 %}
+							<th>{{j}}</th>
+							{% endfor %}
+						</tr>
+						{% for q in f.2 %}
+						<tr>
+							<th><b>{{q.0}}</b></th>
+							<th><b>Location{{q.1.id}}</b></th>
+							{% for s in q.2 %}
+							<td>{{s}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+						<tr>
+							<th>Total</th>
+							<th>-</th>
+							{% for j in f.3 %}
+							<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+				</div>
+				{% endfor %}
+			</div>
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+		<h3>Manual Cumulative Production Orders</h3>
+		</div>
+		<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for i in sizes_cum_prod %}
+								<th>{{i}}</th>
+							{% endfor %}
+						</tr>
+						{% for i in manual_cum_map_prod %}
+						<tr>
+							<th>{{map_prod|get_item_color:i}}</th>
+							<th>Location{{map_prod|get_item_location:i}}</th>
+							{% for j in map_prod|get_item_sizes:i %}
+								<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+
+	</div>
+
+
+
+
+		{% endif %}
+		{% if csv_prod789.0 %}
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>CSV Production Orders</b></h3>
+
+			</div>
+
+			<div class="row mb-1 mt-1 mx-1">
+				{% for f in csv_prod789 %}
+				Production Order - {{forloop.counter}}
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for j in f.1 %}
+							<th>{{j}}</th>
+							{% endfor %}
+						</tr>
+						{% for q in f.2 %}
+						<tr>
+							<th><b>{{q.0}}</b></th>
+							<th><b>Location{{q.1.id}}</b></th>
+							{% for s in q.2 %}
+							<td>{{s}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+						<tr>
+							<th>Total</th>
+							<th>-</th>
+							{% for j in f.3 %}
+							<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+				</div>
+				{% endfor %}
+
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+							<h3>CSV Cummulative Production Orders</h3>
+			</div>
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for i in sizes_cum_prod %}
+								<th>{{i}}</th>
+							{% endfor %}
+						</tr>
+						{% for i in csv_cum_map_prod %}
+						<tr>
+							<th>{{map_prod|get_item_color:i}}</th>
+							<th>Location{{map_prod|get_item_location:i}}</th>
+							{% for j in map_prod|get_item_sizes:i %}
+								<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+
+			</div>
+
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3>Manual + Csv Cummlative Production Orders</h3>
+		</div>
+				<a href="/userdetail/staff_profile/packing/{{order_no}}">Generate Packing</a>
+				<a href="/userdetail/staff_profile/show_packing/{{order_no}}">Show Packing</a>
+
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for i in sizes_cum_prod %}
+								<th>{{i}}</th>
+							{% endfor %}
+						</tr>
+						{% for i in map_prod %}
+						<tr>
+							<th>{{map_prod|get_item_color:i}}</th>
+							<th>Location{{map_prod|get_item_location:i}}</th>
+							{% for j in map_prod|get_item_sizes:i %}
+								<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+
+</div>
+
+
+			{% endif %}
+
+
+<div id="Packing_list" style="display: none;">
+	<div class="container">
+		{% if packing_prod789.0 %}
+
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Packing List</b></h3>
+
+			</div>
+
+			<div class="row mb-1 mt-1 mx-1">
+				{% for f in packing_prod789 %}
+				Packing list - {{forloop.counter}}
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for j in f.1 %}
+							<th>{{j}}</th>
+							{% endfor %}
+						</tr>
+						{% for q in f.2 %}
+						<tr>
+							<th><b>{{q.0}}</b></th>
+							<th><b>Location{{q.1.id}}</b></th>
+							{% for s in q.2 %}
+							<td>{{s}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+						<tr>
+							<th>Total</th>
+							<th>-</th>
+							{% for j in f.3 %}
+							<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+				</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<div id="Size_Assortment" style="display: none;">
+	<div class="container" style="">
+		{% if alteration_assort.0 %}
+
+
+
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Size Assortments with Alteration</b></h3>
+			</div>
+			<div class="row mb-1 mt-1 mx-1">
+				<table class="acti_table" width="100%">
+					<tr>
+						<th>Color</th>
+						<th>Address</th>
+						<th>Size</th>
+						<th>Consumer Email</th>
+						<th>Consumer</th>
+						<th>Alteration</th>
+						<th>Carton Sticker</th>
+					</tr>
+					{% for a in alteration_assort %}
+					<tr>
+						<th>{{a.color}}</th>
+						<th>Location{{a.address.id}}</th>
+						<td>{{a.size_label}}</td>
+						<td>{{a.user}}</td>
+						<td>{{a.user_name}}</td>
+						<td>{% for i in a.alteration_assort.all %}
+							{{i.pom.label}}- {{i.alteration}}<br>
+						{% endfor %}</td>
+						<td><a href="/userdetail/staff_profile/orders/{{order.order_no}}/assortments/{{a.user}}" class="hov-a">View</a>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+
+
+
+
+			{% endif %}
+
+
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Quantity by Manual Size Assortment</b></h3>
+				{% if garment.0 %}<a href="/userdetail/staff_profile/production/{{order.order_no}}" class="hov-a" style="margin-left: auto;">Create Production Order</a>{% endif %}
+				<a href="/userdetail/staff_profile/orders/{{order.order_no}}?custom_assortment=true" class="hov-a" style="margin-left: auto;">{% if order.custom_assortment %}Turn off Custom Assortment{% else %}Turn on Custom Assortment{% endif %}</a>
+
+			</div>
+
+
+
+			<div class="row mb-1 mt-1 mx-1">
+				{% for entries in manual_assortment_table %}
+				<h3>Assortment - {{entries.0.assortment_no}}</h3><br> &nbsp; &nbsp;
+				  <h5>Time- {{entries.0.time}}</h5><br>&nbsp; &nbsp;
+				<h4>Description- </h4>
+
+				<input type="text" placeholder="{{entries.0.description}}" name="description"></input>
+
+					<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Location</th>
+							{% for obj in entries.1 %}
+
+							<th>{{obj}}</th>
+							{% endfor %}
+
+							<th>Total</th>
+						</tr>
+						{% for obj in entries.2 %}
+
+						<tr>
+
+								<th>{{obj.0}}</th>
+								<th>Location- {{obj.1.id}}</th>
+							{% for rows in obj.2 %}
+
+									<td>
+									{{ rows }}</td>
+								{% endfor %}
+
+								<td>{{obj.3}}</td>
+
+						</tr>
+						{% endfor %}
+
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for row in entries.3 %}
+							<td>{{row}}</td>
+							{% endfor %}
+							<td>{{entries.4}}</td>
+						</tr>
+					</table>
+				{% endfor %}
+
+
+				<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+
+				{% if garment.0 %}
+					<a href="/userdetail/staff_profile/csv_production/{{order.order_no}}" class="hov-a" style="margin-left: auto;">Create Production Order</a>{% endif %}
+
+				</div>
+
+				<h2> Size Assortment by CSV</h2>
+
+				<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Address</th>
+							{% for l in csv_size_by_quan %}
+							<th>{{l}}</th>
+							{% endfor %}
+							<th>Total</th>
+						</tr>
+						{% for q in csv_quan_by_clr %}
+						<tr>
+
+								<th>{{q.color.color}}</th>
+								<th>Location{{q.color.address.id}}</th>
+								{% for l in q.size %}
+									<td>
+									<input type="number" value="{{l.quantity}}" id="{{q.color.id}}{{q.color.address.id}}{{l.size}}" style="background:transparent;border:none;"></td>
+								{% endfor %}
+								<td>{{q.total}}</td>
+								<script type="text/javascript">
+									{% for s in q.size %}
+										var f=document.getElementById('{{q.color.id}}{{q.color.address.id}}{{s.size}}');
+										if (f){
+										f.value="{{s.quantity}}";}
+										$('#{{q.color.id}}{{q.color.address.id}}{{s.size}}').on("input",function(){
+											alert("yup");
+											$.ajax({
+												type:'POST',
+												url:'/userdetail/staff_profile/orders/{{order}}',
+												data:{
+													color_ajax:'{{q.color.color}}',
+													address_cate_ajax:'{{q.color.address.id}}',
+													size_label_ajax:'{{s.size}}',
+													quantity_matter:$('#{{q.color.id}}{{q.color.address.id}}{{s.size}}').val(),
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													// window.location="/userdetail/staff_profile/activities";
+													// alert("Well Done")
+													// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+														window.location="/userdetail/staff_profile/orders/{{order}}";
+												}
+											});
+										});
+									{% endfor %}
+								</script>
+
+						</tr>
+						{% endfor %}
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for k in csv_quan_by_sz %}
+							<td>{{k}}</td>
+							{% endfor %}
+						</tr>
+				</table>
+
+
+				<h2>Cummulative Size Assortment</h2>
+				<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Address</th>
+							{% for l in cum_size_by_quan %}
+							<th>{{l}}</th>
+							{% endfor %}
+							<th>Total</th>
+						</tr>
+						{% for q in cum_quan_by_clr %}
+						<tr>
+
+								<th>{{q.color.color}}</th>
+								<th>Location{{q.color.address.id}}</th>
+								{% for l in q.size %}
+									<td>
+									<input type="number" value="{{l.quantity}}" id="{{q.color.id}}{{q.color.address.id}}{{l.size}}" style="background:transparent;border:none;"></td>
+								{% endfor %}
+								<td>{{q.total}}</td>
+								<script type="text/javascript">
+									{% for s in q.size %}
+										var f=document.getElementById('{{q.color.id}}{{q.color.address.id}}{{s.size}}');
+										if (f){
+										f.value="{{s.quantity}}";}
+										$('#{{q.color.id}}{{q.color.address.id}}{{s.size}}').on("input",function(){
+											alert("yup");
+											$.ajax({
+												type:'POST',
+												url:'/userdetail/staff_profile/orders/{{order}}',
+												data:{
+													color_ajax:'{{q.color.color}}',
+													address_cate_ajax:'{{q.color.address.id}}',
+													size_label_ajax:'{{s.size}}',
+													quantity_matter:$('#{{q.color.id}}{{q.color.address.id}}{{s.size}}').val(),
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													// window.location="/userdetail/staff_profile/activities";
+													// alert("Well Done")
+													// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+														window.location="/userdetail/staff_profile/orders/{{order}}";
+												}
+											});
+										});
+									{% endfor %}
+								</script>
+
+						</tr>
+						{% endfor %}
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for k in cum_quan_by_sz %}
+							<td>{{k}}</td>
+							{% endfor %}
+						</tr>
+				</table>
+					<div style="clear: both;" class="mt-2">
+						<p style="font-size: .6em;line-height: .1em">Here Locations Annotations are - <br/></p>
+						{% for q in order.dispatch_Address.all %}
+						<p style="font-size: .6em;line-height: .1em">Location{{q.id}} - {{q.address}}<br/></p>
+						{% endfor %}
+
+					</div>
+		</div>
+			<script type="text/javascript">
+				function ShowCsv() {
+				var a=document.getElementById(CSV);
+				a.style.display="block"; }
+				function ShowManual() {
+				var a=document.getElementById(Manual);
+				a.style.display="block"; }
+				function ShowPrevManual(){
+					var a=document.getElementById(previouss);
+				a.style.display="block";
+				}
+				function ShowNewManual(){
+					var a=document.getElementById(new_manual);
+				a.style.display="block";
+				}
+			</script>
+
+		<div class="row mt-3 mb-3" id="add_assort">
+			<div id="CSV" >
+			<button onclick="ShowCsv()">CSV</button>
+				<div><button><a href="/userdetail/staff_profile/orders/new/{{order_no}}">New Upload</a></button>
+					<button><a href="/userdetail/staff_profile/orders/csv_update/new/{{order_no}}">Previous Update</a></button></div>
+			</div>
+			<h2> OR </h2>
+			<h2> UPLOAD BY MANUAL FORM</h2>
+			<button onclick="ShowManual">Manual</button>
+
+
+
+			<div>
+				<form method="POST">{% csrf_token %}
+					<div class="row">
+						<div class="col-3">
+							<label><b>Color</b></label>
+							<select name="color" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+								{% for a in order.colors_avail.all %}
+								<option value="{{a.id}}">{{a}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="col-3">
+							<label><b>Address</b></label>
+							<select name="address" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+								{% for a in order.dispatch_Address.all %}
+								<option value="{{a.id}}">{{a.address}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="col-3">
+							<label><b>Size</b></label>
+
+							<select name="size_assort" placeholder="Size" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for size in new_manual_sizes_lst %}
+								<option value="{{ size }}">{{ size }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="col-3">
+							<label><b>Quantity</b></label>
+							<input type="number" name="quantity" placeholder="Quantity" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+						</div>
+						<script>
+							function myFunction()
+							{
+							var a= document.getElementById("where");
+							if(a.value=="Old")
+							{
+							document.getElementById("List").style.display="block";
+							}
+							else
+							{
+							document.getElementById("List").style.display="none";
+							}
+
+
+							}
+						</script>
+						<div class="col-3">
+							<label><b>Choose one</b></label>
+							<select name="where" id="where" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);" onchange="myFunction()">
+								<option value="New" selected>New</option>
+								<option value="Old">Old</option>
+							</select>
+
+						</div>
+						<div class="col-3" style="display:none;" id="List">
+							<label><b>Choose List No</b></label>
+							<select name="list_no"  required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+								<option value="none" selected>------</option>
+								{% for number in manual_size_ass_numbers %}
+								<option value="{{number}}">{{number}}</option>
+								{% endfor %}
+							</select>
+
+						</div>
+					</div>
+					<div class="row mt-2">
+						<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;" class="save_but">Save</button>
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+
+
+		<div class="row mt-2 mb-3">
+			<button type="button" style="border: none;color: #30c5ff;background: transparent;margin-left: auto;" onclick="showAddAssort();">Add Size Assortment</button>
+		</div>
+
+		{% if custom_assorts.0 %}
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;"><b>Size Assortments by Custom Form</b></h3>
+		</div>
+		<div class="row my-2 py-2" style="background:rgba(48,197,255,.5);">
+			<div class="col-2">
+				Name
+			</div>
+			<div class="col-2">
+				Email
+			</div>
+			<div class="col-2">
+				Phone
+			</div>
+			<div class="col-2">
+				Size
+			</div>
+			<div class="col-2">
+				Color
+			</div>
+			<div class="col-2">
+				Approval
+			</div>
+		</div>
+		{% for i in custom_assorts %}
+		<div class="row py-1" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<div class="col-2">{{i.name}}</div>
+			<div class="col-2">{{i.email}}</div>
+			<div class="col-2">{{i.phone}}</div>
+			<div class="col-2">{{i.size}}</div>
+			<div class="col-2">{{i.color}}</div>
+			<div class="col-2">
+				{% if i.approve %}
+				<button style="border:none;background: none;color:red;" onclick="window.location.href='?approve={{i.id}}'">Reject</button>
+				{% else %}
+				<button style="border:none;background: none;color:green;" onclick="window.location.href='?approve={{i.id}}'">Approve</button>
+				{% endif %}
+			</div>
+		</div>
+		{% endfor %}
+		{% endif %}
+	</div>
+</div>
+
+
+<div id="Activities" style="display: none;">
+	<div class="container-fluid">
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<!-- <div class="row mb-4">
+					<h3 class="fontcabin">Activities</h3>
+
+				</div> -->
+
+							<div class="row mb-3 mx-1" style="border-bottom: 1px solid black;">
+								<h3 style="font-family: 'Cabin', sans-serif;">Activities</h3>
+							</div>
+				<div class="row mt-2">
+					<ul>
+						{% for acti in macro_acti %}
+							<li class="acti_col">
+								<div class="row ml-2">
+									<i class="fas fa-plus-circle fa-lg mt-1 hov-plus" style="cursor:pointer;" onclick="showSubActi({{acti.0.id}});" id="plus{{acti.0.id}}"></i>
+									<p style="padding:0;padding-left:5vw;margin:0;">{{acti.0.title}}</p>
+									<p style="padding:0;margin-right:5vw;margin-left:auto;">{% with last5=acti.1|last %}
+											{% if last5.0.custom_date %}
+												{{last5.0.custom_date}}
+											{% else %}
+												{{last5.0.planned_date}}
+											{% endif %} <b>||</b>
+											{% if last5.0.actual_date %}
+												{{last5.0.actual_date}}
+											{% else %}
+												{% if last5.0.tentative_date %}{{last5.0.tentative_date}}{% endif %}
+											{% endif %}
+
+										{% endwith %}</p>
+									<p style="margin-right:8vw;">{{acti.1|length}} Sub-Activities</p>
+								</div>
+								<div class="row mt-2 mr-3 sub_acti_main" id="sub_acti{{acti.0.id}}">
+									<table class="acti_table" style="width:97%;margin-left:2vw;">
+										<tr>
+											<th>Activity Title</th>
+											<th>Lap</th>
+											<th>Planned Date</th>
+											<th>Custom Lap</th>
+											<th>Custom Date</th>
+											<th>Tentative Date</th>
+											<th>Actual Date</th>
+											<th>Status</th>
+											<th>Form</th>
+											<th>Attachments</th>
+										</tr>
+										{% for j in acti.1 %}
+										<tr>
+											<td>{{j.0.activity_Cate.title}}</td>
+											 <!-- <a href="/userdetail/staff_profile/activity/{{j.slug}}" class="ml-2 hov-a">View</a> -->
+											<!-- <td>{{j.created_on}}</td> -->
+											<td>{{j.0.prev_lap}}</td>
+											<td>{{j.0.planned_date}}</td>
+											<td><input type="number" value="{% if j.0.lap %}{{j.0.lap}}{% endif %}" style="background: transparent;border: none;width:5vw;" id="lap{{j.0.id}}"></td>
+											<td>{% if j.0.custom_date %}{{j.0.custom_date}}{% else %}-{% endif %}</td>
+											<td>{% if j.0.tentative_date %}{{j.0.tentative_date}}{% else %}-{% endif %}</td>
+											<td><input type="date" id="actual_date{{j.0.id}}" {% if j.0.actual_date %}value="{{j.0.actual_date.year}}-{% if j.0.actual_date.month < 10 %}0{% endif %}{{j.0.actual_date.month}}-{% if j.0.actual_date.day < 10 %}0{% endif %}{{j.0.actual_date.day}}"{% endif %} style="background: transparent;border: none;"></td>
+												<!-- {% if j.actual_date %}{{j.actual_date}}{% else %}-{% endif %}</td> -->
+											<td id="{{j.0.id}}_{{acti.0.id}}_{{forloop.counter}}">{{j.1}}</td>
+											<td>
+											{% if j.0.activity_Cate.request_Forms.all.first %}<a href="/userdetail/vendor_profile/orders/{{j.0.order}}/forms/{{j.0.activity_Cate.request_Forms.all.first.id}}"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endif %}{% ifequal j.0.activity_Cate.standard_forms 'B' %}<a href="/userdetail/vendor_profile/orders/{{j.0.order}}/forms/bom"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'P' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/packing_list"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'D' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/distribution_list"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'C' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/cummlative"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'L' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/logistic_request"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'Q' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/quality_evaluation"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}</td>
+
+											<td>{% if j.0.activity_Cate.request_Forms.all.first %}<a href="/userdetail/vendor_profile/orders/{{j.0.order}}/forms/{{j.0.activity_Cate.request_Forms.all.first.id}}"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endif %}{% ifequal j.0.activity_Cate.standard_forms 'B' %}<a href="/userdetail/vendor_profile/orders/{{j.0.order}}/forms/bom"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'P' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/packing_list"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'D' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/distribution_list"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'C' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/cummlative"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'L' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/logistic_request"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.0.activity_Cate.standard_forms 'Q' %}<a href="/userdetail/staff_profile/orders/{{j.0.order}}/forms/quality_evaluation"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}</td>
+										</tr>
+										<script type="text/javascript">
+											$('#actual_date{{j.0.id}}').change(function(){
+												$.ajax({
+													type:'POST',
+													url:'/userdetail/staff_profile/activities',
+													data:{
+														actual_date_activity_ajax:$('#actual_date{{j.0.id}}').val(),
+														activity_ajax_cate:'{{j.0.id}}',
+														csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+													},
+													cache:false,
+													dataType:"json",
+													success:function(data){
+														// window.location="/userdetail/staff_profile/activities";
+														// alert("Well Done")
+														// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+															window.location="/userdetail/staff_profile/orders/{{order}}";
+													}
+												});
+											});
+											var typingTimer;                //timer identifier
+											var doneTypingInterval = 3000;
+
+											$('#lap{{j.0.id}}').keyup(function(){
+											    clearTimeout(typingTimer);
+											    if ($('#lap{{j.0.id}}').val()) {
+											        typingTimer = setTimeout(function(){
+														alert("Custom Lap will be updated Soon !");
+														$.ajax({
+															type:'POST',
+															url:'/userdetail/staff_profile/activities',
+															data:{
+																lap_activity_ajax:$('#lap{{j.0.id}}').val(),
+																activity_ajax_cate:'{{j.0.id}}',
+																csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+															},
+															cache:false,
+															dataType:"json",
+															success:function(data){
+																window.location="/userdetail/staff_profile/orders/{{order}}";
+															}
+														});
+											        }, doneTypingInterval);
+											    }
+											});
+										</script>
+
+										<script type="text/javascript">
+											var now_date=Date.parse("{{current}}");
+											var to=Date.parse("{{j.0.custom_date}}");
+											if (isNaN(to)){
+												to=Date.parse("{{j.0.planned_date}}");}
+											var some=document.getElementById('{{j.0.id}}_{{acti.0.id}}_{{forloop.counter}}');
+											if (now_date>to){
+												some.style.backgroundColor="{{j.0.activity_Cate.late_Time_Color}}";
+											}
+											else if (now_date<to){
+												some.style.backgroundColor="{{j.0.activity_Cate.before_Time_Color}}";
+											}
+											else{
+												some.style.backgroundColor="{{j.0.activity_Cate.on_Time_Color}}"
+											}
+										</script>
+										{% endfor %}
+									</table>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="Order_Forms" style="display: none;">
+	<div class="container">
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;">Order Forms</h3>
+			</div>
+			<div class="row mb-5">
+				<div class="col-3">
+					<h6 style="font-family: 'Cabin', sans-serif;color:#30c5ff !important;cursor: pointer;" class="hov-a" onclick="showFabricBlend()">Fabric Blend</h6>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/address_details" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;cursor: pointer;" class="hov-a">Address Details</h6></a>
+				</div>
+				{% if is_merch %}
+				<div class="col-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom{% if boms_obj %}/{{boms_obj.id}}{% endif %}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Bill of Materials & Costing({% if boms_obj %}Filled{% else %}Empty{% endif %})</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/packing_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing List</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/distribution_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Distribution List</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/cummlative" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/logistic_request" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Create Logistic Request</h6></a>
+				</div>
+				{% endif %}
+				{% if is_sales %}
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/distribution_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Distribution List</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/cummlative" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+				{% endif %}
+				{% if is_gare %}
+
+				<div class="col-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom{% if boms_obj %}/{{boms_obj.id}}{% endif %}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Bill of Materials & Costing({% if boms_obj %}Filled{% else %}Empty{% endif %})</h6></a>
+				</div>
+				{% endif %}
+				{% if is_quality or is_gare %}
+
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/quality_evaluation" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Quality Evaluation</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/quality_evaluation_clubbed" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">QC Clubbed Table</h6></a>
+				</div>
+				{% endif %}
+				{% for i in forms %}
+				<div class="col-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/{{i.id}}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">{{i.name}}</h6></a>
+				</div>
+				{% endfor %}
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/qr_generate" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">QR Generation</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/scan_qr" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">QR Scanner</h6></a>
+				</div>
+
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/new" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">CSV Upload</h6></a>
+				</div>
+
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/generate" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Generate Packing</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/viewlist" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Show Packing</h6></a>
+				</div>
+				<div class="col-3">
+					<a href="/userdetail/staff_profile/orders/sizeassortment" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">View Size Assortment</h6></a>
+				</div>
+
+			</div>
+			<div class="row mt-3" id="fabric_blend_form" style="display: none;">
+				<div class="col-6">
+					<form method="POST">{% csrf_token %}
+					<div class="row">
+						<div class="col">
+							<label>Fabric Blends</label>
+						</div>
+						<div class="col">
+							<select id="fabric_blend_input" name="fabric_blend_input">
+								{% for i in fabric_blends %}
+									<option value="{{i.id}}">{{i.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<button type="submit">Save</button>
+					</div>
+					</form>
+				</div>
+				<div class="col-6">
+
+				</div>
+			</div>
+	</div>
+</div>
+
+
+
+<div id="Order_Documents" style="display: none;">
+	<div class="container">
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;">Order Documents</h3>
+			</div>
+			<div class="row mb-5">
+				{% if boms_obj %}
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order.order_no}}/order_documents/trim_card" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Trim Card</h6></a>
+				</div>
+				{% endif %}
+				{% if order.washcare_obj %}
+				<div class="col-2">
+					<a href="/userdetail/seller_profile/washcare/{{order.washcare_obj.id}}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Washcare Manual</h6></a>
+				</div>
+				{% endif %}
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/order_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order PO</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/order_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order Invoice</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/garment_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Garment Vendor PO</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/garment_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Garment Invoice</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/finishing_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Finishing Trims PO</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/finishing_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Finishing Invoice</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/packing_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing Trims Invoice</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/packing_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing Trims PO</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/sewing_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Sewing Trims Invoice</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/sewing_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Sewing Trims PO</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/fabrics_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Fabrics PO</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/order_documents/fabrics_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Fabrics Invoice</h6></a>
+				</div>
+			</div>
+	</div>
+</div>
+
+
+<div id="Assortment_Permissions" style="display: none;">
+	<div class="container">
+		<div class="row mt-2 mb-5">
+					<div class="container">
+							<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+								<h3 style="font-family: 'Cabin', sans-serif;">Assortment Permissions</h3>
+							</div>
+
+							<form method="post">{% csrf_token %}
+
+									<div class="row ml-5">
+										<div class="col-6">
+											<input type="checkbox" name="assortment_custom" {% if order.assortment_custom %}checked{% endif %}>
+											<label>Custom Size Assortment</label>
+										</div>
+										<div class="col-6">
+											<input type="checkbox" name="assortment_size_set" {% if order.assortment_size_set %}checked{% endif %}>
+											<label>Size Assortment by Size-set</label>
+										</div>
+										<div class="col-6">
+											<input type="checkbox" name="assortment_brand" {% if order.assortment_brand %}checked{% endif %}>
+											<label>Size Assortment by Brands</label>
+										</div>
+										<div class="col-6">
+											<input type="checkbox" name="assortment_per_customer" {% if order.assortment_per_customer %}checked{% endif %}>
+											<label>Size Assortment Permissions to Customer</label>
+										</div>
+										<div class="col-6">
+											<input type="checkbox" name="show_pom_in_assortment" {% if order.show_pom_in_assortment %}checked{% endif %}>
+											<label>POM to Consumers (Size-Set)</label>
+										</div>
+									</div>
+									<div class="row mt-2">
+										<select multiple name="sizes_allowed" style="margin-left:5vw;width:10vw;height:15vh;">
+											{% for i in sizes_allowed %}
+												<option value="{{i.name}}" {% if i.select %}selected{% endif %}>{{i.name}}</option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="row">
+										<button type="submit" name="perm_assortment" value="True" style="background:none;border:none;color:#30c5ff;margin-left:auto;margin-right:10vw;">Save</button>
+									</div>
+							</form>
+					</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="Staff_Contacts" style="display: none;">
+	<div class="container">
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;">Staff Contact Details</h3>
+		</div>
+		{% for i in order.staffs_Allocated.all %}
+		<div class="row mx-1 p-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<div class="col">
+				{{i.name}}
+			</div>
+			<div class="col">
+				{{i.email}}
+			</div>
+			<div class="col">
+				{{i.contact}}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+<script type="text/javascript">
+	function showAddAssort(){
+		var add_assort=document.getElementById('add_assort');
+		add_assort.style.display="block";
+	}
+	function openform(evt, formcontent) {
+  		var i, content, links;
+  		content = document.getElementsByClassName("order-contents");
+  		for (i = 0; i < content.length; i++) {
+  		  content[i].style.display = "none";
+  		}
+  		links = document.getElementsByClassName("order-link");
+  		for (i = 0; i < links.length; i++) {
+  		  links[i].className = links[i].className.replace(" active", "");
+  		}
+  		document.getElementById(formcontent).style.display = "block";
+  		evt.currentTarget.className += " active";
+	}
+</script>
+<script type="text/javascript">
+		function addaddre(){
+			var gh=document.getElementById('addaddressform');
+			gh.classList.remove('notvisi');
+			var fg=document.getElementById('addaddrebut');
+			fg.classList.add('notvisi');
+		}
+</script>
+
+<script type="text/javascript">
+	function showAddAssort(){
+		var add_assort=document.getElementById('add_assort');
+		add_assort.style.display="block";
+	}
+
+</script>
+
+
+<script type="text/javascript">
+	function showData(value){
+		if (value=="Measurement_Chart"){
+			window.location.href="/userdetail/seller_profile/measurements/{{measu}}";
+		}
+		else{
+		var content=document.getElementById('content');
+		content.innerHTML="";
+		showLoader();
+		var b=document.getElementById(value.toString());
+		setTimeout(function(){
+			content.innerHTML=b.innerHTML;
+			hideLoader();
+		},100);
+		}
+	}
+
+</script>
+
+
+
+<script type="text/javascript">
+
+		var star1=document.getElementById('star1');
+		var star2=document.getElementById('star2');
+		var star3=document.getElementById('star3');
+		var star4=document.getElementById('star4');
+		var star5=document.getElementById('star5');
+	function star_over(star_value){
+		if (star_value==2){
+			star1.classList.add('hovered_star');
+		}
+		else if (star_value==3){
+			star1.classList.add('hovered_star');
+			star2.classList.add('hovered_star');
+		}
+		else if (star_value==4){
+			star1.classList.add('hovered_star');
+			star2.classList.add('hovered_star');
+			star3.classList.add('hovered_star');
+		}
+		else if (star_value==5){
+			star1.classList.add('hovered_star');
+			star2.classList.add('hovered_star');
+			star3.classList.add('hovered_star');
+			star4.classList.add('hovered_star');
+		}
+	}
+	function star_out(star_value){
+		if (star_value==2){
+			star1.classList.remove('hovered_star');
+		}
+		else if (star_value==3){
+			star1.classList.remove('hovered_star');
+			star2.classList.remove('hovered_star');
+		}
+		else if (star_value==4){
+			star1.classList.remove('hovered_star');
+			star2.classList.remove('hovered_star');
+			star3.classList.remove('hovered_star');
+		}
+		else if (star_value==5){
+			star1.classList.remove('hovered_star');
+			star2.classList.remove('hovered_star');
+			star3.classList.remove('hovered_star');
+			star4.classList.remove('hovered_star');
+		}
+	}
+	function star_click(star){
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/staff_profile/orders/{{order.order_no}}',
+			data:{
+				order_ajax_rating:'{{order.order_no}}',
+				star_click_ajax:star.toString(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+	    	cache:false,
+	    	dataType: "json",
+			success:function(data) {
+				window.location="/userdetail/staff_profile/orders/{{order.order_no}}";
+			}
+		});
+	}
+	function star_click_kpi(star,cl){
+		var a=document.getElementById(cl);
+		var b=document.getElementById(cl+'_star'+star.toString());
+		for(i=1;i<=5;i++){
+			var c=document.getElementById(cl+'_star'+i.toString());
+			if (c.classList.contains('hovered_star')){
+				c.classList.remove('hovered_star');
+			}
+		}
+		for(i=1;i<=star;i++){
+			var c=document.getElementById(cl+'_star'+i.toString());
+			if (c.classList.contains('hovered_star')){
+
+			}else{
+				c.classList.add('hovered_star');
+			}
+		}
+		a.value=star;
+	}
+</script>
+<script type="text/javascript">
+
+
+
+
+$('#filter_by').on('change',function(){
+	var vk=document.getElementById('filter_by').value;
+	window.location.href='/userdetail/staff_profile/orders/{{order.order_no}}?filter='+vk;
+});
+</script>
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/staff_profile_orders.js' %}">
+</script>
+<script type="text/javascript">
+				function showFabricBlend(){
+					var a = document.getElementById('fabric_blend_form');
+					a.style.display="";
+				}
+				$('#fabric_blend_input').on('change',function(){
+					alert("done");
+					$.ajax({
+						type:'POST',
+						url:'/userdetail/staff_profile/orders/{{order.order_no}}',
+						data:{
+							fabric_blend_select_ajax:$('#fabric_blend_input').val(),
+							csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+						},
+				    	cache:false,
+				    	dataType: "json",
+						success:function(data) {
+							alert(data);
+						}
+					});
+				})
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

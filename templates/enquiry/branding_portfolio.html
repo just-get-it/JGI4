@@ -1,0 +1,318 @@
+{% extends "enquiry/branding_base.html" %}
+{% load static %}
+{% block title %}
+  <title>Just Get It | Portfolio</title>
+{% endblock title %}
+{% block style %}
+<style>
+	*{
+    box-sizing: border-box;
+  }
+</style>
+{% endblock style %}
+{% block content %}
+  
+<body>
+	<div class="preloader">
+		<div class="preloader_image"></div>
+	</div>
+
+	<div id="canvas">
+		<div id="box_wrapper">
+			<div class="header_absolute">
+				<!-- header with two Bootstrap columns - left for logo and right for navigation -->
+				<header class="page_header ds bg-transparent s-py-20 ">
+
+					<div class="container">
+
+						<div class="row d-flex align-items-center justify-content-center">
+							<div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 col-12">
+
+
+								<a href="https://tentackles.com" class="logo">
+									<img src="{% static 'branding_images/icon.png' %}" alt="icon for tentackles logo">
+									<img src="{% static 'branding_images/tentackles-logoicon.png' %}" alt="Logo of Tentackles">
+									<span class="logo-text color-darkgrey"></span>
+								</a>
+
+							</div>
+							<div class="col-xl-9 col-lg-9 col-md-8 col-sm-4 col-12">
+								<!-- main nav start -->
+								<nav>
+									<div class="top-nav">
+									<!-- <ul class="nav sf-menu">
+
+
+										<li class="active">
+											<a href="index.html" class="active">Home</a>
+										</li>
+
+										<li>
+											<a href="about.html">About Us</a>
+										</li>
+
+										<li>
+											<a href="services.html">Services</a>
+										</li>
+
+										<li>
+											<a href="project.html">Projects</a>
+										</li>
+
+										<li>
+											<a href="https://www.tentackles.com/blog/" target"_blank">Blog</a>
+										</li>
+										<li>
+											<a href="contact.html">Contact</a>
+										</li>
+									</ul>  -->
+									</div>
+									<div class="overlay-nav"> 
+										<ul>
+											<li>
+												<a href="https://www.facebook.com/tentackles/" target="_blank">
+													<i class="fa fa-facebook" aria-hidden="true"></i>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.linkedin.com/company/tentacles" target="_blank">
+													<i class="fa fa-linkedin" aria-hidden="true"></i>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.instagram.com/tentacklesdesign/" target="_blank">
+													<i class="fa fa-instagram" aria-hidden="true"></i>
+												</a>
+											</li>
+											<li>
+												<a onclick="openNav()">
+													<div class="menu-toggle">
+														<div></div>
+														<div></div>
+														<div></div>
+														<div></div>
+													</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</nav>
+								<!-- eof main nav -->
+							</div>
+						</div>
+
+					</div>
+					<!-- header toggler -->
+					<span class="toggle_menu"><span></span></span>
+				</header>
+			</div>
+			<section class="page_title ds bg-gradient2 s-pb-xl-130  s-pb-lg-100  s-pb-md-90 s-pt-md-175 s-pt-220 s-pb-60">
+				<div class="waveWrapper waveAnimation">
+					<div class="waveWrapperInner bgTop">
+						<div class="wave waveTop"></div>
+					</div>
+					<div class="waveWrapperInner bgMiddle">
+						<div class="wave waveMiddle"></div>
+					</div>
+					<div class="waveWrapperInner bgMiddle2">
+						<div class="wave waveMiddle2"></div>
+					</div>
+					<div class="waveWrapperInner bgBottom">
+						<div class="wave waveBottom"></div>
+					</div>
+				</div>
+				<div class="bubbles"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<h1>Our Portfolio</h1>
+						</div>
+
+
+					</div>
+				</div>
+			</section>
+			<section class="bg-ccc s-pt-xl-150 s-pt-lg-130 s-pt-md-90 s-pt-60 s-pb-xl-205 s-pb-lg-185 s-pb-md-145 s-pb-105  c-gutter-30  c-mb-50 c-mb-lg-0">
+				<div class='container'>
+				<div class="project-hover">
+				  <ul>
+				    <li class="project_hover_li">
+				      <a class='normal' href='infotanks-media-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Infotanks-8.png' %}" alt="Tentackles client- Infotanks Media">
+				      </a>
+				      <div class='info'>
+				          <h2>Infotanks Media</h2>
+				          <p>B to B data provides with<span>...</span><span> multi-channel expertise for end -to - end data supply</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='aihiki-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Aihiki-8.png' %}" alt="Tentackles client- Aihiki">
+				      </a>
+				      <div class='info'>
+				          <h2>Aihiki</h2>
+				          <p>A Canadian consulting firm that<span>...</span><span> provides unparalled consulting services, start-up funding and advisory</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='mirare-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Miraretech-8.png' %}" alt="Tentackles client- MirareTech"/>
+				      </a>
+				      <div class='info'>
+				          <h2>Miraretech</h2>
+				          <p>Providing technological assistance<span>...</span><span> to create immersive MR, AR and VR experiences</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='ample-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Ample course-8.png' %}" alt="Tentackles client- Ample Courses">
+				      </a>
+				      <div class='info'>
+				         <h2>Ample Courses</h2>
+				          <p>An online platform offering online<span>...</span><span> lessons for softskill upgradation</span></p>
+				      </div>
+				    </li>
+				    
+				        <li class="project_hover_li">
+				      <a class='normal' href='drsti-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Dristi-8.png' %}" alt="Tentackles client- dRDTi"/>
+				      </a>
+				      <div class='info'>
+				          <h2>Drsti</h2>
+				          <p>Providing all around services for<span>...</span><span> built-to-suit project in the real estate market</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='mojotrack-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Mojotrack-8.png' %}" alt="Tentackles client- mojotrack">
+				      </a>
+				      <div class='info'>
+				          <h2>Mojotrack</h2>
+				          <p>An Ecommerce store with themed<span>...</span><span> apparel and merchandise</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='miljayega-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Miljayega-8.png' %}" alt="Tentackles client- Miljayega">
+				      </a>
+				      <div class='info'>
+				          <h2>Miljayega</h2>
+				          <p>Providing technological assistance<span>...</span><span> to create immersive MR, AR and VR experiences</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='anithaaswath-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Anitha-8.png' %}" alt="Tentackles client- Anitha Aswath"/>
+				      </a>
+				      <div class='info'>
+				         <h2>Anitha</h2>
+				          <p>Cutting edge unique ticketing platform<span>...</span><span> that provides tailored air travel</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='your-fayda-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Your fydaa-8.png' %}" alt="Tentackles client- YourFayda"/>
+				      </a>
+				      <div class='info'>
+				          <h2>Your Fayda</h2>
+				          <p>A Ecommerce platform for<span>...</span><span> electronic gadgets</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='anidea-directory-project.html' target="_blank">
+				        <img src="{% static 'branding_images/ID-8.png' %}" alt="Tentackles client- An Idea Directory">
+				      </a>
+				      <div class='info'>
+				          <h2>An Idea Directory</h2>
+				          <p>A global platform to consolidate<span>...</span><span> explore and contribute idea statements</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='sudhir-studio-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Sudhirstudio-8.png' %}" alt="Tentackles client- Sudhir Studio">
+				      </a>
+				      <div class='info'>
+				          <h2>Sudhir Studio</h2>
+				          <p>A national association of Indian<span>...</span><span> crafts people ensuring the continuity of India’s cultural heritage</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='aasma-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Aasma-8.png' %}" alt="Tentackles client- Aasma Ventures"/>
+				      </a>
+				      <div class='info'>
+				         <h2>Aasma</h2>
+				          <p>A research and product development<span>...</span><span> firm co designing hardware & software solutions</span></p>
+				      </div>
+				    </li>
+				        <li class="project_hover_li">
+				      <a class='normal' href='dastkari-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Dastkarihaat-8.png' %}" alt="Tentackles client- Dastkari Haar Samiti">
+				      </a>
+				      <div class='info'>
+				          <h2>Dastkari Haat Samiti</h2>
+				          <p>A national association of Indian<span>...</span><span> crafts people ensuring the continuity of India’s cultural heritage</span></p>
+				      </div>
+				      
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='problem-directory-project.html' target="_blank">
+				        <img src="{% static 'branding_images/PD-8.png' %}" alt="Tentackles client- Problem Directory">
+				      </a>
+				      <div class='info'>
+				          <h2>Problem Directory</h2>
+				          <p>A global repository of problem<span>...</span><span> statements consolidated to be addressed through idea contribution</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' href='reconnect-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Reconnect-8.png' %}" alt="Tentackles client- Reconnect Energy">
+				      </a>
+				      <div class='info'>
+				          <h2>Reconnect</h2>
+				          <p>An energy utility firm<span>...</span><span> transforming energy markets through digital solutions</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li" style="display:none">
+				      <a class='normal' href='samatva-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Samatva-8.png' %}" alt="Tentackles client- Samatva">
+				      </a>
+				      
+				      <div class='info'>
+				          <h2>Samatva</h2>
+				          <p>A social design company<span>...</span><span> implementing and documenting social development projects</span></p>
+				      </div>
+				    </li>
+				        <li class="project_hover_li">
+				      <a class='normal' href='datagets-project.html' target="_blank">
+				        <img src="{% static 'branding_images/Datagets-8.png' %}" alt="Tentackles client- Datagets"/>
+				      </a>
+				      <div class='info'>
+				          <h2>Datagets</h2>
+				          <p>Intergrative clinics providing<span>...</span><span> holistic healthcare with a preventive approach</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li" style="display:none">
+				      <a class='normal' target="_blank">
+				        <img src="{% static 'branding_images/Aqua dental-8.png' %}" alt="Tentackles client- Aqua Dental"/>
+				      </a>
+				      <div class='info'>
+				          <h2>Aqua Dental</h2>
+				          <p>A swedish dentalcare company<span>...</span><span> based out of stockholm & gothenburg</span></p>
+				      </div>
+				    </li>
+				    <li class="project_hover_li">
+				      <a class='normal' target="_blank">
+				        <img src="{% static 'branding_images/Ayurway-8.png' %}" alt="Tentackles client- Ayurway"/>
+				      </a>
+				      <div class='info'>
+				          <h2>Ayurway</h2>
+				          <p>A swedish dentalcare company<span>...</span><span> based out of stockholm & gothenburg</span></p>
+				      </div>
+				    </li>
+				  </ul>
+				</div>
+				</div>
+			</section>
+			
+{% endblock content %}

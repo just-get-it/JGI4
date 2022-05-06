@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacity and Revenue</title>
+	<link rel='stylesheet' href='{% static "styles\cap&rev.css" %}'>
+
+</head>
+<body background='{%static "..\static\images\10.jpeg" %}'>
+<br>
+<br>
+<hr>
+<hr>
+
+<form method="POST" action="c&r" id="selected_dateform_id">
+    {% csrf_token %}
+<div id='date_submit'>
+    <table>
+        <tr>
+                <td><input name="selected_date" type="date"></td>            
+                <td><input name='submit' type="submit"></td>
+        </tr>
+    </table>
+</div>
+</form>
+
+<div id='cap-n-rev-assu'>
+    <br><br>
+    <Table border='1px'>
+        <tr   style="font-weight: bold; background:rgb(255, 205, 39)">
+            <td colspan='2'>CAPACITY AND REVENUE</td>
+        </tr>
+
+        <tr   style="font-weight: bold; background:rgb(255, 205, 39)">
+            <td colspan='2'>Assumptions</td>
+        </tr>
+        
+        <tr   class='blankrow'>
+            <td>No of working days per month</td>
+            <td style='background:rgb(255, 255, 255)'>{{object_alldata.no_of_wrkng_days_month}}</td> 
+        </tr>
+        
+        <tr   class='blankrow'>
+            <td>Total no of Production days per year</td>
+            <td style='background:rgb(255, 255, 255)'>{{object_alldata.no_of_production_days_year}}</td>
+        </tr>
+    </table>
+
+    <br><br>
+    
+    <Table border='1px' class='blankrow'>
+        <tr   style="font-weight: bold; background:rgb(255, 205, 39)">
+            <td>Per Line figures</td>
+            <td>Production per line @100%</td>
+            <td>No of machines</td>
+            <td>No of Helpers</td>
+            <td>No of Checkers</td>
+            <td>Total</td>
+        </tr>
+        
+        <tr  class='blankrow'  style='background:rgb(255, 255, 255)'>
+            <td style='background:silver'>Trouser</td>
+            <td>{{object_alldata.output_100per}}</td>
+            <td>{{object_alldata.hi_fashion_subtotal}}</td>
+            <td>{{object_alldata.hi_fash_noofcheckers}}</td>
+            <td>{{object_alldata.hi_fashion_checkingtable}}</td>
+            <td>{{xyz}}</td>
+        </tr>
+    </table>
+
+    </div>
+    <br>
+    <br>
+    <div id="total_assumptions_table">
+
+
+    <table border="1px solid black" >
+        
+        <tr style="font-weight: bold; background:rgb(255, 205, 39)">
+            {% with year='year : ' %}
+            <td>Description</td>
+            {% for i in dynamic_rows %}
+                <td  height='20px'>{{year}}{{i}}</td>
+            {% endfor %}
+            {% endwith %}
+        </tr> 
+
+
+        <tr>
+            <td>Final Productivity Factor Build-Up</td>
+            {% for i in object_alldata.fpf_list %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}%</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>No. of Lines</td>
+            {% for i in object_alldata.hi_fash_list %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>No. of actual machines running</td>
+            {% for i in object_alldata.no_of_mach_running %} 
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Daily Production (Pcs.)</td>
+            {% for i in object_alldata.daily_production %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Total Annual production</td> 
+            {% for i in object_alldata.total_annual_production_list %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Total Sewing SAM's earned</td>
+            {% for i in object_alldata.total_sewing_sams_earned %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Total SAM's earned</td>
+            {% for i in object_alldata.total_sams_earned %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Revenue (INR)</td>
+            {% for i in object_alldata.revenue %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Total in Mn INR</td>
+            {% for i in object_alldata.total_revenue_million %}
+                <td  height='20px'  style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+
+    </table>
+</div>
+ 
+<br>
+<br>
+<div id="total_costing_table">
+    <table border="1px solid black" >
+        
+        <tr style="font-weight: bold ; background:rgb(255, 205, 39)">
+            {% with year='year : ' %}
+            <td>Description</td>
+            {% for i in dynamic_rows %}
+                <td  height='20px'>{{year}}{{i}}</td>
+            {% endfor %}
+            {% endwith %}
+        </tr>
+        <tr >
+            <td>Unit Economics (S.P.-Variable Cost)</td>
+            {% for i in object_alldata.unit_economics %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Sales Revenues at the Unit Level</td>
+            {% for i in object_alldata.sales_revenue_unit_level %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Variable Costs</td>
+            {% for i in object_alldata.variable_costs %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Fixed Unit Costs</td>
+            {% for i in object_alldata.fixed_unit_costs %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Unit Contribution (Revenue-Variable Cost)</td>
+            {% for i in object_alldata.unit_contribution %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Fixed Corporate Costs (Income Tax)</td>
+            {% for i in object_alldata.fixed_corp_costs %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Gross Profit (PBDIT)</td>
+            {% for i in object_alldata.gross_profit_PBDIT %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Gross Profit (PBT)</td>
+            {% for i in object_alldata.gross_profit_PBT %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+        <tr >
+            <td>Gross Profit (PAT) </td>
+            {% for i in object_alldata.gross_profit_PAT %}
+                <td  height='20px' style='background:rgb(255, 255, 255)'>{{i}}</td>
+            {% endfor %}
+        </tr>
+
+    </table>
+
+</div>
+
+    
+</body>
+<script type='text/javascript'>
+
+    if ( window.history.replaceState ){
+        window.history.replaceState(null,null,window.location.href);
+    }
+
+
+</script>
+
+
+</html>
+
+
+

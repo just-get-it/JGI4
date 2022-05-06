@@ -1,0 +1,162 @@
+{% extends 'channels/planner/student_base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<title>Hello, world!</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% endblock %} {% block content %}
+<br>
+<br>
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title">Notifications</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                {% for n in notify %} {% if n.project %}
+                <a href="{% url 'project' project_id=n.link_id %}">
+                    <h6 class="card-title">{{n.date}}</h6>
+                    {% if n.type == 'warning' %}
+                    <div class="alert alert-warning alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'primary' %}
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'success' %}
+                    <div class="alert alert-success alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'danger' %}
+                    <div class="alert alert-danger alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% endif %}
+                </a>
+                {% elif n.task %}
+                <a href="{% url 'task' task_id=n.link_id %}">
+                    <h6 class="card-title">{{n.date}}</h6>
+                    {% if n.type == 'warning' %}
+                    <div class="alert alert-warning alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'primary' %}
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'success' %}
+                    <div class="alert alert-success alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'danger' %}
+                    <div class="alert alert-danger alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% endif %}
+                </a>
+                {% elif n.section %}
+                <a href="{% url 'section' section_id=n.link_id %}">
+                    <h6 class="card-title">{{n.date}}</h6>
+                    {% if n.type == 'warning' %}
+                    <div class="alert alert-warning alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'primary' %}
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'success' %}
+                    <div class="alert alert-success alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'danger' %}
+                    <div class="alert alert-danger alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% endif %}
+                </a>
+                {% elif n.report %}
+                <a href="{% url 'report_staff' %}">
+                    <h6 class="card-title">{{n.date}}</h6>
+                    {% if n.type == 'warning' %}
+                    <div class="alert alert-warning alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'primary' %}
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'success' %}
+                    <div class="alert alert-success alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'danger' %}
+                    <div class="alert alert-danger alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% endif %}
+                </a>
+                {% elif n.internship %}
+                <a href="{% url 'applicants' internship_id=n.link_id %}">
+                    <h6 class="card-title">{{n.date}}</h6>
+                    {% if n.type == 'warning' %}
+                    <div class="alert alert-warning alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'primary' %}
+                    <div class="alert alert-primary alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'success' %}
+                    <div class="alert alert-success alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% elif n.type == 'danger' %}
+                    <div class="alert alert-danger alert-with-icon" data-notify="container">
+                        <i class="material-icons" data-notify="icon">add_alert</i>
+                        <span data-notify="message">{{n.text}}</span>
+                    </div>
+                    {% endif %}
+                </a>
+                {% endif %} {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(12)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(6) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}

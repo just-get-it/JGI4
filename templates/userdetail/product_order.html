@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<br>
+<h1>Product Order</h1>
+<hr>
+	
+	<form method="post" action="product_order">
+		{% csrf_token %}
+	<div class="form-group row">
+	<label for="product" class="col-sm-2 col-form-label">Product/Service Name/CODE</label>
+	<div class="col-sm-4">
+	<select name="product" onchange="this.form.submit()" class="form-control">
+		
+		{% for i in supercategory %}
+			<option value="{{i.name}}">{{i.name}}</option>
+		{% endfor %}
+	</select>
+	</div>
+	</div>
+
+</form>
+
+	<form method="post" action="order_product?product_name={{product_name}}" onchange="this.form.submit()">
+		{% csrf_token %}
+	<div class="form-group row">
+	<label for="requirement" class="col-sm-2 col-form-label">Quantity</label>
+	<div class="col-sm-4">
+	{% if att %}
+	
+	<select name='quantity' class="form-control">
+	
+		{% for i in unit %}
+			<option value="{{i.unit}}">{{i.unit}}</option>
+		{% endfor %}
+	</select>
+
+	{% else %}
+	
+		<input type="text" name="quantity" class="form-control">
+	{% endif %}
+</div>
+	
+		<input type="submit" name="submit" class="btn btn-success">
+	
+	</div>
+</form>
+	
+
+	
+	<form method="post" action="seller_filter?pro_id={{pro_id}}&quantity={{quantity}}">
+		{% csrf_token %}
+	<div class="form-group row">
+	<label class="col-sm-2 col-form-label">Vendor/Shop</label>
+
+	<div class="col-sm-4">
+	<select name="seller" class="form-control">	
+		
+		{% for i in seller_name %}
+			<option value={{i}}>{{i}}</option>
+		{% endfor %}
+	</select>
+	</div>
+	<input type="submit" name="submit" class="btn btn-success">
+</div>
+</form>
+	<form method="post" action="final_product_order?pro_id={{pro_id}}&quantity={{quantity}}&seller={{seller}}">
+	{% csrf_token %}
+	<div class="form-group row">
+
+	<label class="col-sm-2 col-form-label">No. of quantity</label>
+	<div class="col-sm-4">
+	<input type="number" name="no_of_quantity" class="form-control">
+</div>
+</div>
+
+	<div class="form-group row">
+
+	<label class="col-sm-2 col-form-label">Specifications</label>
+	<div class="col-sm-4">
+	<input type="text" name="specifications" class="form-control">
+</div>
+</div>
+
+	<div class="form-group row">
+
+	<label class="col-sm-2 col-form-label">Vendor Address</label>
+	<div class="col-sm-4">
+	<input type="text" name="vendor_address" value="{{seller_address}}" class="form-control">
+</div>
+</div>
+
+	<div class="form-group row">
+
+	<label class="col-sm-2 col-form-label">Vendor Landmark</label>
+	<div class="col-sm-4">
+	<input type="text" name="vendor_landmark" value="{{seller_landmark}}" class="form-control">
+</div>
+</div>
+	<div class="form-group row" id="old_address">
+
+	<label class="col-sm-2 col-form-label">Customer Drop Address</label>
+	<div class="col-sm-4">
+		<select name=cus_address class="form-control">
+		{% for i in cus_address %}
+			{% if i.permanent %}
+			<option value="{{i.address}}">{{i.address}}</option>
+			{% endif %}
+		{% endfor %}
+	</select>
+	
+	<p onclick="address()">CLICK TO CHOOSE DIFFERENT ADDRESS</p>
+</div>
+</div>
+	<div id="mydiv">
+		<div class="form-group row">
+
+	<label class="col-sm-2 col-form-label">CHOOSE ADDRESS</label>
+	<div class="col-sm-4">
+		<select name="cus_address" class="form-control">
+		{% for i in cus_address %}
+			<option value="{{i.address}}">{{i.address}}</option>
+		{% endfor %}
+	</select>
+	<a href="{% url 'add_address' %}">ADD MORE ADDRESS</a>
+</div>
+</div>
+	</div>
+
+	<div class="form-group row">
+
+	<label class="col-sm-2 col-form-label">Landmark (Customer)</label>
+	<div class="col-sm-4">
+	<input type="text" name="cus_landmark" class="form-control">
+</div>
+</div>
+	<input type="text" name="customer_id" value="{{email}}" style="display: none;">
+
+	
+
+<div class="form-group">
+	<input type="submit" name="submit" class="btn btn-success">
+</div>
+</form>
+
+</div>
+<script type="text/javascript">
+	var dv;
+	var old;
+	dv=document.getElementById('mydiv');
+	old=document.getElementById('old_address')
+	dv.style.display="none";
+	function address(){
+		dv.style.display="block";
+		old.style.display="none";
+	}
+</script>
+{% endblock %}

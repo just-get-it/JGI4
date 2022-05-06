@@ -1,0 +1,115 @@
+{% extends 'channels/planner/student_base.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    .edit-intern form {
+        border: 1px solid gray;
+        border-radius: 20px;
+        box-shadow: 5px 5px 20px 7px rgba(183,183,200,0.25), -5px -5px 20px 7px rgba(183,183,200,0.22);
+        transition: 0.4s;
+        margin-top: 30px;
+        display: block;
+        width: 100%;
+        float: left;
+    }
+    .edit-intern .col-12 > h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #833499;        
+    }
+    .edit-intern form > div {
+        margin: 25px;
+        display: block;
+        width: 90%;
+        float: left;
+        margin-right: 10%;
+    }
+    .edit-intern form input, .edit-intern form textarea, .edit-intern form select {
+        color: #AAADB5!important;
+    }
+    .edit-intern .form-check .form-check-input {
+        opacity: 1!important;
+        height: 10px!important;
+        width: 10px!important;
+    } 
+    .edit-intern form .colu-5 {
+        display: inline-block!important;
+        width: 41%;
+        float: left!important;
+    }    
+    .edit-intern .colu-4 {
+        display: inline-block;
+        width: 24%;
+    }
+    .edit-intern form .button {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+    @media only screen and (max-width:786px){
+        .edit-intern .colu-4 {
+            width: 49%!important;
+        }
+    }
+    
+</style>
+<div class="conatiner edit-intern">
+    <div class="row">
+        <div class="col-12">
+            <h2>Internship Details</h2>
+            <form method="POST">
+                {% csrf_token %} {{internship_form | crispy }}
+                <div class="button"><button type="submit" class="btn btn-primary">SAVE</button></div>
+                
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var cnt1=0,cnt2=4;
+        var l = $("#div_id_profile > div").children().length
+        var i = 0
+        $("#div_id_profile .form-check").slice(0,4).wrapAll('<div class="colu-4 colu-sm-12">');
+        $("#div_id_profile .form-check").slice(4,8).wrapAll('<div class="colu-4 colu-sm-12">');
+        $("#div_id_profile .form-check").slice(8,12).wrapAll('<div class="colu-4 colu-sm-12">');
+        $("#div_id_profile .form-check").slice(12,16).wrapAll('<div class="colu-4 colu-sm-12">');
+        $("#div_id_profile .form-check").slice(16,20).wrapAll('<div class="colu-4 colu-sm-12">');
+
+        $("#div_id_type .form-check").slice(0,4).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_type .form-check").slice(4,8).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_type .form-check").slice(8,12).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_type .form-check").slice(12,16).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_type .form-check").slice(16,20).wrapAll('<div class="colu-5 colu-sm-12">');
+
+        $("#div_id_stipend_type .form-check").slice(0,4).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_stipend_type .form-check").slice(4,8).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_stipend_type .form-check").slice(8,12).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_stipend_type .form-check").slice(12,16).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_stipend_type .form-check").slice(16,20).wrapAll('<div class="colu-5 colu-sm-12">');
+
+        $("#div_id_perks .form-check").slice(0,4).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_perks .form-check").slice(4,8).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_perks .form-check").slice(8,12).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_perks .form-check").slice(12,16).wrapAll('<div class="colu-5 colu-sm-12">');
+        $("#div_id_perks .form-check").slice(16,20).wrapAll('<div class="colu-5 colu-sm-12">');        
+    })
+</script>
+<script>
+$(document).ready(function(){
+        var t = document.referrer;
+        if(t.includes("staff")){
+            $(".nav-item").removeClass("active");
+            $(".nav-item:nth-child(2)").addClass("active");
+            var p = $(".sidebar-wrapper .nav-item:nth-child(2) p").text();
+            $("#page-title").text(p)    
+        }
+        else {
+            $(".nav-item").removeClass("active");
+            $(".nav-item:nth-child(4)").addClass("active");
+            var p = $(".sidebar-wrapper .nav-item:nth-child(4) p").text();
+            $("#page-title").text(p)
+        }
+    })
+</script>
+
+{% endblock %}

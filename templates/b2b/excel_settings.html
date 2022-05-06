@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<style media="screen">
+  .hidden{
+    display:none;
+  }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="container my-3 ">
+      <div class="row">
+        <h4><b>Excel Settings</b></h4>
+        <a href="?r=True" style="margin-left:auto;" class="hov-a">Reset</a>
+      </div>
+    </div>
+    <form method="post">{% csrf_token %}
+
+    {% for i in objs %}
+    <div class="container" style="padding-left:35vw;margin-right:25vw;">
+      <div class="row mt-3">
+        <input type="text" value="{{i.coloum_name}}" disabled>
+        <input type="number" name="number{{i.id}}" required style="padding-left:2vw;" value="{{i.coloumn_no}}" placeholder="Coloumn Number">
+      </div>
+    </div>
+    {% endfor %}
+    <div class="conatiner" id="to_Add">
+
+    </div>
+    <!-- <div class="container hidden" id="newcol1" style="padding-left:35vw;margin-right:25vw;">
+      <div class="row mt-3">
+        <input type="text" value="" placeholder="Coloumn Name" name="new_name1" required>
+        <input type="number" name="new_num1" style="padding-left:2vw;" value="" required placeholder="Coloumn Number">
+      </div>
+    </div>
+    <div class="container hidden" id="newcol2" style="padding-left:35vw;margin-right:25vw;">
+      <div class="row mt-3">
+        <input type="text" value="" placeholder="Coloumn Name" name="new_name2" required>
+        <input type="number" name="new_num2" style="padding-left:2vw;" required value="" placeholder="Coloumn Number">
+      </div>
+    </div>
+    <div class="container hidden" id="newcol3" style="padding-left:35vw;margin-right:25vw;">
+      <div class="row mt-3">
+        <input type="text" value="" placeholder="Coloumn Name" name="new_name3" required>
+        <input type="number" name="new_num3" style="padding-left:2vw;" required value="" placeholder="Coloumn Number">
+      </div>
+    </div> -->
+    <div class="container">
+      <div class="row my-3">
+        <button type="button" id="addcoloumn" onclick="addCol()" style="background:none;border:none;color:#30c5ff;margin-left:auto;margin-right:5vw;">Add Coloumn</button>
+        <button type="submit" value="t" name="settings_save" style="background:#30c5ff;color:#253031;border:none;border-radius:25vw;" class="px-5 py-1 mr-5">Save</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+<script type="text/javascript">
+  var cols=0;
+  function addCol(){
+    cols=cols+1;
+    if (cols<4){
+      var a=document.getElementById('to_Add');
+      a.innerHTML=a.innerHTML+`<div class="container" style="padding-left:35vw;margin-right:25vw;">
+        <div class="row mt-3">
+          <input type="text" value="" placeholder="Coloumn Name" name="new_name`+cols.toString()+`" required>
+          <input type="number" name="new_num`+cols.toString()+`" style="padding-left:2vw;" required value="" placeholder="Coloumn Number">
+        </div>
+      </div>`
+      if (cols==3){
+        var b=document.getElementById('addcoloumn');
+        b.disabled=true;
+      }
+    }
+  }
+</script>
+
+{% endblock %}

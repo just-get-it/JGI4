@@ -1,0 +1,71 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+
+<div class="container text-center">
+    <h1>OPERATOR ATTENDENCE</h1>
+    <h1>{{today}}</h1>
+    <h3>{{mess}}</h3>
+</div><br>
+
+<div class="container">
+
+  <form action="takeattendence" method="post">
+    {% csrf_token %}
+    <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Line no</label>
+            <div class="col-sm-10">
+              <select id="lineno" name="lineno" required>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+              </select>
+            </div>
+    </div>
+    <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Product</label>
+            <div class="col-sm-10">
+              <input type="text" name="product" id="product_category" required>
+            </div>
+    </div>
+    <input type="submit" class="btn btn-primary" name="linesubmit">
+  </form>
+  <br>
+    
+  <br>
+  <form action="takeattendence" method="post">
+    {% csrf_token %}
+    <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Line no:</label>
+            <div class="col-sm-10">
+              <input type="text" name="linenot" value='{{ line_no }}' readonly>
+            </div>
+    </div>
+    <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Product:</label>
+            <div class="col-sm-10">
+              <input type="text" name="productt" value='{{ product }}' readonly>
+            </div>
+    </div>
+    <br>
+    {% for operator in operator_list %}
+      <div class="">
+          <h3>{{ operator.operator_id }} {{ operator.operator_name }} </h3>
+          <input type="radio" id="absent" name='{{ operator.operator_id }}' value="absent">
+          <label for="absent">Absent</label>
+          <input type="radio" id="present" name='{{ operator.operator_id }}' value="present" checked>
+          <label for="present">Present</label>
+      </div>
+    {% endfor %}
+    <br>
+    
+    <div class="container text-center">
+            <input type="Submit" name="attendencesubmit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+            <a class="btn btn-primary" href="attendreporthome" role="button">View Report</a>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

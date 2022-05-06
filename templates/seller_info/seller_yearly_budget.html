@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<style type="text/css">
+	.but{
+		background:none;
+		color:#30c5ff;
+		border:none;
+		margin-left: auto;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+	<div class="container-fluid addlabel" id="addnewyear">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add New Year Data</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="cross('addnewyear');">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<input type="number" name="new_year" class="inputfield" required placeholder="New Year">
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="number" name="tearget_a" class="inputfield" required placeholder="Target A">
+					</div>
+					<div class="row mt-5 mb-2">
+						<input placeholder="Target B" type="number" name="tearget_b" class="inputfield" required>
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add New Year</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container-fluid addlabel" id="addnewsector">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add New Sector</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="cross('addnewsector');">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<input type="text" name="new_sector_name" class="inputfield" required placeholder="New Sector Name">
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="number" name="sector_weight" class="inputfield" required placeholder="Sector Weight">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add New Sector</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<div class="row">
+	<div class="container my-3">
+		<div class="row" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<h5>Brand Yearly Budget Data</h5>
+			<button type="button" onclick="addModal('addnewyear')" class="but">Add New-Year Data</button>
+		</div>
+		{% if yearly_data.0 %}
+			<div class="row mt-2" style="background:rgba(48,197,255,.2);">
+				<div class="col-3">
+					<b>Year</b>
+				</div>
+				<div class="col-3">
+					<b>Target A</b>
+				</div>
+				<div class="col-3">
+					<b>Target B</b>
+				</div>
+			</div>
+			{% for i in yearly_data %}
+				<div class="row my-1" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+					<div class="col-3">
+						{{i.year.year}}
+					</div>
+					<div class="col-3">
+						{{i.yearly_amount}}
+					</div>
+					<div class="col-3">
+						{{i.yearly_amount1}}
+					</div>
+				</div>
+			{% endfor %}
+		{% else %}
+		<div class="row my-2">
+			<center>Sorry There is No Data ! Please Add some</center>
+		</div>
+		{% endif %}
+
+
+		<div class="row mt-4" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<h5>Brand Sectors</h5>
+			<button type="button" onclick="addModal('addnewsector')" class="but">Add New Sector</button>
+		</div>
+
+		{% if brand_sectors.0 %}
+			<div class="row mt-2" style="background:rgba(48,197,255,.2);">
+				<div class="col-3">
+					<b>Sector Name</b>
+				</div>
+				<div class="col-3">
+					<b>Sector Weight</b>
+				</div>
+				<div class="col-3">
+					<b>Sector Weight %</b>
+				</div>
+			</div>
+			{% for i in brand_sectors %}
+				<div class="row my-1" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+					<div class="col-3">
+						{{i.name}}
+					</div>
+					<div class="col-3">
+						{{i.sector_weight}}
+					</div>
+					<div class="col-3">
+						{{i.weight_percent}} %
+					</div>
+				</div>
+			{% endfor %}
+		{% else %}
+		<div class="row my-2">
+			<center>Sorry There is No Data ! Please Add some</center>
+		</div>
+		{% endif %}
+
+
+
+		<div class="row mt-4" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<h5>Brand Sector-vis-Yearly Weightage</h5>
+		</div>
+
+		{% if sectors_monthly.0 %}
+			<div class="row mt-2" style="background:rgba(48,197,255,.2);">
+				<div class="col-2">
+					<b>Sector Name</b>
+				</div>
+				<div class="col">Year</div>
+				{% for i in months %}
+					<div class="col">
+						{{i.month_label|truncatewords:3}}
+					</div>
+				{% endfor %}
+			</div>
+			{% for i in sectors_monthly %}
+				<div class="row my-1" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+					<div class="col-2">
+						{{i.0.0.name}}
+					</div>
+					<div class="col">
+						{{i.0.1}}
+					</div>
+					{% for j in i.1 %}
+					<div class="col">
+						{{j}} %
+					</div>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		{% else %}
+		<div class="row my-2">
+			<center>Sorry There is No Data ! Please Add some</center>
+		</div>
+		{% endif %}
+
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	function addModal(n){
+		var a=document.getElementById(n);
+		a.style.display="block";
+	}
+	function cross(n){
+		var a=document.getElementById(n);
+		a.style.display="none";
+	}
+</script>
+
+{% endblock %}

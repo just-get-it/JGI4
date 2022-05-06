@@ -1,0 +1,366 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+{% block content %}
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+
+<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+   createTable();
+}, false);
+
+        </script>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+			
+		</div>
+	</div>
+	<br>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>TRIM INSPECTION<br></h3>
+
+            </div>
+        </div>
+		<br><br>
+        <div class="container">
+
+ <form action="{% url 'up_roll' %}" method="post">
+				{% csrf_token %}
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+  set_aacep();
+}, false);
+
+	 function set_aacep()
+	 {
+	 	var ins_quan=document.getElementById("insqty").value;
+
+	 	var aql=document.getElementById("aql").value;
+	 	if(aql=="2.5")
+	 	{
+			if(ins_quan=="2")
+			{
+			document.getElementById("acr").value=0;
+			}
+			else if(ins_quan=="3")
+			{
+			document.getElementById("acr").value=0;
+			}
+			else if(ins_quan=="5")
+			{
+			document.getElementById("acr").value=0;
+			}
+			else if(ins_quan=="8")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="13")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="20")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="32")
+			{
+			document.getElementById("acr").value=2;
+			}
+			else if(ins_quan=="50")
+			{
+			document.getElementById("acr").value=3;
+			}
+			else if(ins_quan=="80")
+			{
+			document.getElementById("acr").value=5;
+			}
+			else if(ins_quan=="125")
+			{
+			document.getElementById("acr").value=7;
+			}
+			else if(ins_quan=="200")
+			{
+			document.getElementById("acr").value=10;
+			}
+			else if(ins_quan=="315")
+			{
+			document.getElementById("acr").value=14;
+			}
+			else if(ins_quan=="500")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="800")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="1250")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="2000")
+			{
+			document.getElementById("acr").value=21;
+			}
+	 	}
+	 	else if(aql=="4")
+	 	{
+	 	if(ins_quan=="2")
+			{
+			document.getElementById("acr").value=0;
+			}
+			else if(ins_quan=="3")
+			{
+			document.getElementById("acr").value=0;
+			}
+			else if(ins_quan=="5")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="8")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="13")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="20")
+			{
+			document.getElementById("acr").value=2;
+			}
+			else if(ins_quan=="32")
+			{
+			document.getElementById("acr").value=3;
+			}
+			else if(ins_quan=="50")
+			{
+			document.getElementById("acr").value=5;
+			}
+			else if(ins_quan=="80")
+			{
+			document.getElementById("acr").value=7;
+			}
+			else if(ins_quan=="125")
+			{
+			document.getElementById("acr").value=10;
+			}
+			else if(ins_quan=="200")
+			{
+			document.getElementById("acr").value=14;
+			}
+			else if(ins_quan=="315")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="500")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="800")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="1250")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="2000")
+			{
+			document.getElementById("acr").value=21;
+			}
+	 	}
+	 	else if(aql=="6.5")
+	 	{
+	 	if(ins_quan=="2")
+			{
+			document.getElementById("acr").value=0;
+			}
+			else if(ins_quan=="3")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="5")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="8")
+			{
+			document.getElementById("acr").value=1;
+			}
+			else if(ins_quan=="13")
+			{
+			document.getElementById("acr").value=2;
+			}
+			else if(ins_quan=="20")
+			{
+			document.getElementById("acr").value=3;
+			}
+			else if(ins_quan=="32")
+			{
+			document.getElementById("acr").value=5;
+			}
+			else if(ins_quan=="50")
+			{
+			document.getElementById("acr").value=7;
+			}
+			else if(ins_quan=="80")
+			{
+			document.getElementById("acr").value=10;
+			}
+			else if(ins_quan=="125")
+			{
+			document.getElementById("acr").value=14;
+			}
+			else if(ins_quan=="200")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="315")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="500")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="800")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="1250")
+			{
+			document.getElementById("acr").value=21;
+			}
+			else if(ins_quan=="2000")
+			{
+			document.getElementById("acr").value=21;
+			}
+	 	}
+
+	 }
+ </script>
+
+
+
+	 <div class="form-group row">
+					<label for="canum" class="col-sm-2 col-form-label">Carton No.</label>
+					<div class="col-sm-4">
+  						<select class="form-control" id="canum" name="canum"  onblur="f_rolsss()">
+							<option value="">Select Carton Number</option>
+							{% for item in cartonobject %}
+							<option value="{{item.cartonNo}}">{{item.cartonNo}}</option>
+
+							 {%endfor %}
+						</select>
+
+					</div>
+				</div>
+	 <div class="form-group row">
+					<label for="acr" class="col-sm-2 col-form-label">Acceptance Criteria</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="acr" id="acr" readonly>
+					</div>
+				</div>
+	 <div class="form-group row">
+					<label for="faqty" class="col-sm-2 col-form-label">Fail Quantity</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="faqty" id="faqty" onblur="f_passqty()">
+					</div>
+				</div>
+
+	 	 <script type="text/javascript">
+	 function f_passqty()
+	 {
+	    var iq=parseInt(document.getElementById('insqty').value);
+	 	var fq=parseInt(document.getElementById('faqty').value);
+	 	var temp=iq-fq;
+	 	if (temp<0)
+	 		temp*=-1;
+	 	if(fq>temp)
+	 		document.getElementById('rst').value="Fail";
+	 	else
+	 		document.getElementById('rst').value="Pass";
+		document.getElementById('paqty').value=temp;
+	 }
+	 </script>
+
+	 <div class="form-group row">
+					<label for="paqty" class="col-sm-2 col-form-label">Pass Quantity</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="paqty" id="paqty">
+					</div>
+				</div>
+	 <div class="form-group row">
+					<label for="rst" class="col-sm-2 col-form-label">Result</label>
+					<div class="col-sm-4">
+							  <input type="text" class="form-control" name="rst" id="rst" readonly>
+
+					</div>
+				</div>
+	 <div class="form-group row">
+					<label for="gd" class="col-sm-2 col-form-label">Grade</label>
+					<div class="col-sm-4">
+							<select class="form-control" id="gd" name="gd" >
+							<option value="">Select Grade</option>
+							<option value="A">A</option>
+							  <option value="B">B</option>
+							  <option value="C">C</option>
+							  <option value="D">D</option>
+							  <option value="E">E</option>
+
+
+						</select>
+					</div>
+				</div>
+
+
+
+
+	   <input type="text" class="form-control" name="hid_on" value="{{firstob.orderNo}}"  id="hid_on" hidden>
+	   <input type="text" name="supplier" class="form-control" id="supplier" value="{{firstob.supplier}}" hidden>
+	   <input type="text" class="form-control" name="lotNo" id="lotNo" value="{{firstob.lotNo}}" hidden>
+	   <input type="text" class="form-control" name="category" id="category" value="{{firstob.cat}}" hidden>
+	   <input type="text" class="form-control" name="subcategory" id="subcategory" value="{{firstob.subcat}}"hidden>
+	   <input type="text" class="form-control" name="subcategory2" id="subcategory2" value="{{firstob.supcat}}" hidden>
+	   <input type="text" class="form-control" name="noC" id="noC" value="{{firstob.noc}}"hidden>
+	   <input type="text" class="form-control" name="tqty" id="tqty" value="{{firstob.tqty}}" hidden>
+	   <input type="text" class="form-control" name="aql" id="aql" value="{{firstob.aql}}" hidden>
+	   <input type="text" name="insqty" class="form-control" id="insqty" value="{{firstob.insqty}}"hidden>
+	   <input type="text" class="form-control" name="qeachbox" id="qeachbox" value="{{firstob.qeachbox}}"hidden>
+	   <input type="text" class="form-control" name="cti" id="cti" value="{{firstob.inspcar}}"hidden>
+
+
+	 <div class="form-group row">
+		 <div class="col-sm-4">
+			 <input type="button" class="btn btn-primary" value="Send Debit and Credit Note Notification " id="note_but" name="note_but">&nbsp;&nbsp;&nbsp;&nbsp;
+		</div>
+	 </div>
+	 <div class="form-group row">
+		 <div class="col-sm-4">
+			 <input type="submit" class="btn btn-primary" value="Save in records" id="final_submiy_but" name="final_submiy_but" formaction="{% url 'tinspectiondb' %}">&nbsp;&nbsp;&nbsp;&nbsp;
+			 
+		</div>
+	 </div>
+
+ </form>
+
+			<br>
+		</div>
+	</div>
+</div>
+{% endblock %}

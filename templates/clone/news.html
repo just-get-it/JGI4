@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Events</title>
+    <style>
+        body{
+            
+        }
+    h2{
+    background-color: red;
+    width: 13vw;
+    border: 2px solid black;
+    border-radius: 30px;
+
+    }
+    .dot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: red;
+
+  .do {
+ 
+  display: inline-block;
+  background-color: red;
+}
+footer{
+ padding-top: 60vh; 
+}
+
+</style>
+</head>
+<body>
+    <h2>Upcoming Forms</h2>
+    {% for x in data %}
+
+    <span class="dot"></span> Examination date of {{x.upcoming_form}} is from {{x.starting_date}} to {{x.ending_date}} . Those who have passed {{x.Eligibility}} can apply . <span class="dot1"><a href="{{x.link}}">Click Here</a></span></p>
+    {% endfor %}
+
+<br><br><br>
+<h2>Exam Forms</h2>
+{% for x in data2 %}
+
+<span class="dot"></span> Examination date of {{x.upcoming_form}} is from {{x.starting_date}} to {{x.ending_date}} . Those who have passed {{x.Eligibility}} can apply . <span class="dot1"><a href="{{x.link}}">Click Here</a></span></p>
+{% endfor %}
+
+
+
+
+    <footer>
+    
+
+    <h2>Closed</h2>
+    {% for x in data3 %}
+
+    <span class="dot"></span> Examination date of {{x.upcoming_form}} is from {{x.starting_date}} to {{x.ending_date}} . Those who have passed {{x.Eligibility}} can apply </p>
+    {% endfor %}
+</footer>
+</body>
+</html>

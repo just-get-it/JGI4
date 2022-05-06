@@ -1,0 +1,195 @@
+
+
+<style media="screen">
+  .hide_row{
+    display:none;
+  }
+</style>
+
+
+<div class="row hide_row" id="update_resp">
+		<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+			<div class="row centered" style="z-index: 105; margin-top: 15vh;margin-bottom: auto; ">
+				<div class="container-fluid">
+					<div class="row" style="width: 45vw;height: 80vh;background: white;">
+						<div class="row mt-1" style="height: 2vh;">
+							<button style="border: none;background: transparent;margin-left: 43vw;" onclick="remupresp();"><i class="fas fa-times-circle"></i></button>
+						</div>
+						<div class="row" style="height: 1vh">
+							<h4 class="fontcabin" style="margin-left: 20.5vw;">Filters</h4>
+						</div>
+						<div class="row">
+						<form method="GET">
+
+							<div class="container mt-2 ml-5">
+							<div class="row">
+                <label><b>Product Tag</b></label>
+                <select id="tag" name="prod_tag" style="margin-left: 7.0vw;width: 20vw;">
+                  <option selected value="">-------------</option>
+                  {% for i in tags %}
+                    <option value="{{i.id}}" {% if request.GET.prod_tag|add:'0' == i.id %}selected{% endif %}>{{i.name}}</option>
+                  {% endfor %}
+                </select>
+							</div>
+							</div>
+
+							<div class="container mt-2 ml-5">
+							<div class="row">
+                <label><b>Products Super-Category</b></label>
+                <select id="prod_cate" name="prod_cate" style="margin-left: 1.5vw;width: 20vw;">
+                  <option selected value="">-------------</option>
+                  {% for i in product_category %}
+                    <option value="{{i.id}}" {% if request.GET.prod_cate|add:'0' == i.id %}selected{% endif %}>{{i.name}}</option>
+                  {% endfor %}
+                </select>
+							</div>
+							</div>
+
+							<div class="container ml-5 mt-3">
+  							<div class="row">
+  								<label><b>Product Sub-Category</b></label>
+    							<select name="prod_subcate" id="prod_subcate" style="margin-left: 2.9vw;width: 20vw;">
+    								<option disabled selected>---------</option>
+    							</select>
+  							</div>
+							</div>
+
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Product Category</b></label>
+  							<select name="prod_supcate" id="prod_supcate" style="margin-left: 5vw;width: 20vw;">
+  								<option disabled selected>---------</option>
+  							</select>
+							</div>
+							</div>
+
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Owned by - </b></label>
+  							<select name="owned_by" style="margin-left: 7.8vw;width: 20vw;">
+  								<option selected value="">---------</option>
+  								{% for i in owned_by %}
+  								<option value="{{i.email}}"{% ifequal request.GET.gmt i.email %}selected{% endifequal %}>{{i.email}}</option>
+  								{% endfor %}
+  							</select>
+							</div>
+							</div>
+
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Price Range</b></label>
+							<select name="price_range" style="margin-left: 7.5vw;width: 20vw;">
+								<option  selected value="">---------</option>
+								{% for i in price %}
+								<option value="{{i.id}}"{% ifequal request.GET.price_range i.id|add:'0' %}selected{% endifequal %}>{{i.title}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Colors</b></label>
+							<select name="colors" multiple style="margin-left: 9.7vw;width: 20vw;">
+								<option selected value="">---------</option>
+                {% for i in color %}
+                <option value="{{i.title}}"{% ifequal request.GET.colors i.title %}selected{% endifequal %}>{{i.title}}</option>
+
+                {% endfor %}
+
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<div class="col">
+                  <input type="radio" name="my_product">
+                  <label><b>My Products</b></label>
+                </div>
+								<div class="col">
+                  <input type="radio" name="requested_product">
+                  <label><b>Requested Products</b></label>
+                </div>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row centered">
+							<button type="submit" style="background: #30c5ff;border:none;padding: 1vh;padding-left: 3vw;padding-right: 3vw;border-radius: 25vw;font-weight: bold;">Apply Filters</button>
+							</div>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+          function showupdateresp(){
+          	var up=document.getElementById('update_resp');
+          	up.classList.remove('hide_row');
+          }
+
+
+          function remupresp(){
+
+          	var up=document.getElementById('update_resp');
+          	up.classList.add('hide_row');
+          }
+
+
+
+          $('#prod_cate').change(function(){
+            var prod_cate_id=$('#prod_cate').val();
+            $.ajax({
+          		type:'POST',
+          		url:'/api/products/',
+          		data:{
+                prod_cate:prod_cate_id,
+          			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+          		},
+              	cache:false,
+              	dataType: "json",
+          		success:function(data) {
+          			var ht='<option selected value="">------</option>';
+          			if (data.bol){
+            			$.each(data.data,function(index,value){
+            				ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`
+            			});
+          			}
+                $('#prod_subcate').html(ht);
+          		}
+          	});
+          });
+
+
+
+            $('#prod_subcate').change(function(){
+              var prod_subcate_id=$('#prod_subcate').val();
+              $.ajax({
+            		type:'POST',
+            		url:'/api/products/',
+            		data:{
+                  prod_subcate:prod_subcate_id,
+            			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            		},
+                	cache:false,
+                	dataType: "json",
+            		success:function(data) {
+            			var ht='<option selected value="">------</option>';
+            			if (data.bol){
+              			$.each(data.data,function(index,value){
+              				ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`
+              			});
+            			}
+                  $('#prod_supcate').html(ht);
+            		}
+            	});
+            });
+    </script>

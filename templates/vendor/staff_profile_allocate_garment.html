@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+<style type="text/css">
+		.acti_table{
+			table-layout: fixed;
+			width: 100%;
+		}
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+			overflow: hidden;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			padding-left: 1vw;
+			padding-right: 1vw;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.hov-link{
+			transition: all .5s ease-out;
+			border: 1px solid black;
+			background: #30c5ff;
+			color: black;
+			border-radius: 50px;
+			text-decoration: none;
+		}
+		.hov-link:hover{
+			background: #253031;
+			text-decoration: none;
+			color: white;
+		}
+	</style>
+<div class="row">
+	<div class="container">
+		<div class="row mt-4" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+			<h3 style="font-family: 'Cabin',sans-serif;">Allocate Garmenting Vendor</h3>
+			<p style="font-family: 'Cabin',sans-serif;font-size: .8em;margin-top: 2vh;margin-left: 1vw;">(Order No - {{order.order_no}})</p>
+		</div>
+		<form method="POST" action="/userdetail/staff_profile/orders/{{order.order_no}}">{% csrf_token %}
+		<div class="row mt-5 mb-5">
+
+			<table class="acti_table">
+				<tr>
+					<th>Select/Choose</th>
+					<th>Garmentting Vendor</th>
+					<th>E-Mail</th>
+					<th>Quantity / Day</th>
+					<th>Standard Costing</th>
+					<th>Custom Costing</th>
+					<th>Rating of Vendor</th>
+					<th>Float Order</th>
+					<th>Expected Days</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Expected Dispatch</th>
+					<th>Availiablity</th>
+				</tr>
+				{% for i in objs %}
+				<tr>
+					<td><input type="radio" name="head_to_garment" value="{{i.0.user.email}}" required=""></td>
+					<td>{{i.0.user.name}}</td>
+					<td>{{i.0.user.email}}</td>
+					<td>{{i.0.quantity}}</td>
+					<td>{{i.0.cost}}</td>
+					<td>{% if i.1.updated_price %}{{i.1.updated_price}}{% else %}-----{% endif %}</td>
+					<td>No Rating</td>
+					<td class="centered" style="border: none;">
+						<div class="row" style="margin-top: 1.5vh; cursor: pointer;"><button type="button" style="background: transparent;border: none;color: #253031;" onclick="float_order('{{i.0.user.email}}','{{order.order_no}}');">Float<i class="fas fa-paper-plane" style="margin-top: .8vh;margin-left: .5vw;"></i></button></div></td>
+					<td>{{i.3}}</td>
+					<td>{{i.start_date}}</td>
+					<td>{{i.expected_dispatch}}</td>
+					<td>{{i.actual_dipatch}}</td>
+					<td style="background: {% if i.color %}{{i.color}}{% else %}white{% endif %};"></td>
+				</tr>
+				{% endfor %}
+			</table>
+
+		</div>
+		<div class="row mb-5 centered">
+			<button type="submit" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">Allocate</button>
+
+		</div>
+	</form>
+	<!--<div id="myDiv">--><!-- Plotly chart will be drawn inside this DIV --><!--</div>-->
+<div id="chart_visual" style="height: 300px; width: 100%;"></div>
+
+
+	<div class="row mt-3 mb-4">
+		<div class="col-3" style="border-right: 1px solid rgba(0,0,0,.5);margin-right: 3vw;">
+			<div class="row mb-3">
+				<h4 style="font-family: 'Cabin',sans-serif;">Orders</h4>
+			</div>
+			<div class="row mt-3" style="margin: 1vw;padding:1.5vw;background: #30c5ff;font-weight: bold;border: 2px solid #253031;border-radius: 25vw;cursor: pointer;" draggable="true" ondragstart="drag(event);" id="order_to_trans">
+				 <h6 style="font-weight: bold;">Order No - {{order.order_no}}</h6>
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="row">
+				<h4 style="font-family: 'Cabin',sans-serif;">Garmenting Vendors</h4>
+			</div>
+			<div class="row mb-2">
+				{% for i in objs %}
+					<div class="col-5 mt-3" style="margin: 1vw;padding:1.5vw;background: transparent;font-weight: bold;border: 2px solid #253031;border-radius: 25vw;cursor: pointer;" ondrop="drop(event);" ondragover="allowDrop(event);" id="garment{{i.0.id}}">
+							<!-- <h6 style="font-family: 'Cabin',sans-serif">{{i.0.user.name}}(Cost - {{i.0.cost}})</h6> -->
+
+				 <!-- <h6 style="font-weight: bold;">Order No - {{order.order_no}}</h6> -->
+				 <style type="text/css">
+				 	#garment{{i.0.id}}:before{
+				 		content: '{{i.0.user.name}}(Cost - {{i.0.cost}})';
+				 		font-family: 'Cabin',sans-serif;
+				 		font-size: .7em;
+				 		position: absolute;
+				 		top: 0;
+				 		left: 6vw;
+				 	}
+				 </style>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+
+
+	</div>
+
+</div>
+
+
+<!--
+
+<script>
+   var data = [{
+  x: [
+  {% for i in objs %}
+  '{{i.0.user.name}}(Cost - {{i.0.cost}})',
+  {% endfor %}],
+  y: [{% for i in objs %}
+  	parseInt('{{i.2}}',10),
+  	{% endfor %}
+  ],
+  type: 'bar'
+}];
+
+Plotly.newPlot('myDiv', data, {}, {showSendToCloud:true});
+  </script> -->
+
+	<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+	<script>
+	function arima() {
+
+	//Better to construct options first and then pass it as a parameter
+	var options = {
+		animationEnabled: true,
+		theme: "light2",
+		title:{
+			text: "Garmenting Vendor Availiablity/Dates"
+		},
+		axisY2:{
+			prefix: "$",
+			lineThickness: 0
+		},
+		toolTip: {
+			shared: true
+		},
+		legend:{
+			verticalAlign: "top",
+			horizontalAlign: "center"
+		},
+		data: [
+		{
+			type: "stackedBar",
+			showInLegend: true,
+			name: "Butter (500gms)",
+			axisYType: "secondary",
+			color: "#7E8F74",
+			dataPoints: [
+				{ y: "3-May-2019", label: "Garment 1" },
+				{ y: "5-May-2019", label: "Garment 2" },
+				{ y: "3-May-2019", label: "Garment 3" },
+				{ y: "6-May-2019", label: "Garment 4" },
+				{ y: "7-May-2019", label: "Garment 5" },
+				{ y: "5-May-2019", label: "Garment 6" },
+				{ y: "5-May-2019", label: "Garment 7" },
+				{ y: "7-May-2019", label: "Garment 8" },
+				{ y: "9-May-2019", label: "Garment 9" },
+				{ y: "8-May-2019", label: "Garment 10" },
+				{ y: "12-May-2019", label: "Garment 11" }
+			]
+		},
+		// {
+		// 	type: "stackedBar",
+		// 	showInLegend: true,
+		// 	name: "Flour (1kg)",
+		// 	axisYType: "secondary",
+		// 	color: "#F0D6A7",
+		// 	dataPoints: [
+		// 		{ y: .5, label: "India" },
+		// 		{ y: 1.5, label: "US" },
+		// 		{ y: 1, label: "Germany" },
+		// 		{ y: 2, label: "Brazil" },
+		// 		{ y: 2, label: "China" },
+		// 		{ y: 2.5, label: "Australia" },
+		// 		{ y: 1.5, label: "France" },
+		// 		{ y: 1, label: "Italy" },
+		// 		{ y: 2, label: "Singapore" },
+		// 		{ y: 2, label: "Switzerland" },
+		// 		{ y: 3, label: "Japan" }
+		// 	]
+		// },
+		// {
+		// 	type: "stackedBar",
+		// 	showInLegend: true,
+		// 	name: "Milk (2l)",
+		// 	axisYType: "secondary",
+		// 	color: "#EBB88A",
+		// 	dataPoints: [
+		// 		{ y: 2, label: "India" },
+		// 		{ y: 3, label: "US" },
+		// 		{ y: 3, label: "Germany" },
+		// 		{ y: 3, label: "Brazil" },
+		// 		{ y: 4, label: "China" },
+		// 		{ y: 3, label: "Australia" },
+		// 		{ y: 4.5, label: "France" },
+		// 		{ y: 4.5, label: "Italy" },
+		// 		{ y: 6, label: "Singapore" },
+		// 		{ y: 3, label: "Switzerland" },
+		// 		{ y: 6, label: "Japan" }
+		// 		]
+		// },
+		// {
+		// 	type: "stackedBar",
+		// 	showInLegend: true,
+		// 	name: "Eggs (20)",
+		// 	axisYType: "secondary",
+		// 	color:"#DB9079",
+		// 	indexLabel: "$#total",
+		// 	dataPoints: [
+		// 		{ y: 2, label: "India" },
+		// 		{ y: 3, label: "US" },
+		// 		{ y: 6, label: "Germany"},
+		// 		{ y: 4, label: "Brazil" },
+		// 		{ y: 4, label: "China" },
+		// 		{ y: 8, label: "Australia" },
+		// 		{ y: 8, label: "France" },
+		// 		{ y: 8, label: "Italy" },
+		// 		{ y: 4, label: "Singapore" },
+		// 		{ y: 11, label: "Switzerland" },
+		// 		{ y: 6, label: "Japan" }
+		// 	]
+		// }
+		]
+	};
+
+	$("#chart_visual").CanvasJSChart(options);
+	}
+	arima();
+	</script>
+
+<script type="text/javascript">
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+  ev.target.style.padding="0";
+  console.log(parseInt(ev.target.id.slice(7)));
+  $.ajax({
+  	type:'POST',
+  	url:'/userdetail/staff_profile/{{order.order_no}}/allocate_garment',
+	data:{
+		garment_ajax_id:ev.target.id,
+		csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+	},
+	cache:false,
+	dataType: "json",
+	success:function(data) {
+		var ht='<option value="" disabled selected>------</option>';
+		if (data.bol){
+		$.each(data.data,function(index,value){
+			ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+		});
+		$('#label').html(ht);
+		}
+		else{
+			$('#label').html(ht);
+			$('#fit').html(ht);
+			$('#season').html(ht);
+		}
+	}
+  });
+}
+  </script>
+
+
+<script type="text/javascript" src="{% static 'js/vendor/staff_profile_allocate_garment.js' %}">
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

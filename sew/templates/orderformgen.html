@@ -1,0 +1,63 @@
+{% extends 'base2.html' %}
+{% block content %}
+
+
+<div class="container text-center">
+	<h1>Add Order Details</h1>
+</div>
+
+<br>
+<br>
+
+<div class="container center">
+<form method="post">
+{% csrf_token%}
+{{form1.as_p}}
+{% if not formset %}
+<button class="btn btn-primary" id="submit" type="submit">submit</button>
+    {% endif %}
+</form>
+</div>
+<div id="ob">
+    {% if formset %}
+  <form method="post">
+  {% csrf_token%}
+    {{ formset.management_form }}
+  {{ formset.as_table}}
+<button class="btn btn-success" type="submit">submit</button>
+</form>
+    {% endif %}
+</div>
+<script>
+var x="id_form-";
+var count=0;
+{% for fd in allopp %}
+         {% for i in fd %}
+             var y = "-orderno";
+             var t=x+count+y;
+             $("#"+t).val({{ orderno }});
+             y= "-styleno";
+             t=x+count+y;
+             $("#"+t).val({{ styleno}});
+             y= "-operations";
+             t=x+count+y;
+             $("#"+t).val({{ i.operations}});
+             y= "-thread_consumption";
+             t=x+count+y;
+             $("#"+t).val({{ i.thread_consumption}});
+             y="-allowance";
+             t=x+count+y;
+             $("#"+t).val({{ i.allowance}});
+             y="-grade";
+             t=x+count+y;
+             $("#"+t).val({{i.grade}});
+             y="-mpno";
+             t=x+count+y;
+             var no=({{ i.sam }}*{{target}})/ ({{ expskill }}*{{ minps }});
+             $("#"+t).val(no);
+             count++;
+         {% endfor %}
+
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_timeline.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/placeorder.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<style type="text/css">
+	.logincol1 label{
+		margin-top: 1vh;
+	}
+	label{
+		margin-bottom: 0;
+	}
+	.loginemail{
+		margin-top: 3vh;
+	}
+	.loginrow{
+		height: 210vh;
+	}
+	.logincol{
+		height: 195vh;
+	}
+	.logincol1{
+
+		height: 169vh;
+	}
+	.loginrow{
+	}
+.logincol{
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<div class="row loginrow">
+	<div class="logincol col-xs-12 col-sm-8 col-md-8 col-lg-8">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+				<h4>Enquiry Form</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1" style="padding: 0;">
+					<div style="background-image: linear-gradient(rgba(48,197,255,.3),rgba(48,197,255,.1));padding: 1vw;">
+					<label><b>Brands<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="brand" class="loginemail" id="brand" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" disabled selected>------</option>
+						{% for b in brand %}
+						<option value="{{b.id}}">{{b.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Labels <p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="label" class="loginemail" id="label" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						
+					</select>
+					<!-- <label><b>Fits</b></label>
+					<select name="fit" class="loginemail" id="fit" required>
+						
+					</select>
+					<label><b>Seasons</b></label>
+					<select name="season" class="loginemail" id="season" required>
+						
+					</select> -->
+					<label><b>Super Category <p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="category" class="loginemail" id="category" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						<option value="" disabled selected>------</option>
+						{% for b in cate %}
+						<option value="{{b.name}}">{{b.name}}</option>
+						{% endfor %}
+					</select>
+					<label><b>Sub-Category <p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="sub_category" class="loginemail" id="sub_category" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						
+					</select>
+					<label><b>Category <p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<select name="super_category" class="loginemail" id="super_category" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+						
+					</select>
+					
+					
+					<label><b>Quantity <p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<input type="number" name="quantity" placeholder="Quantity of Order*" class="loginpassword enq_desc" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+					<label><b>Description <p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+					<textarea class="loginpassword enq_desc" name="description" placeholder="Description/Remarks*" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"></textarea>
+				</div>
+				<div style="background-image: linear-gradient(rgba(48,197,255,.1),rgba(48,197,255,0));padding: 1vw;">
+					<input type="number" name="target_lead_time" placeholder="Target Lead Time(days)" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 2vh;">
+					<input type="number" name="target_price" placeholder="Target Price" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 2vh;">
+					<input type="text" name="colors" placeholder="Colors(Separated by Comma)" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 2vh;">
+					<input type="text" name="logo_place" placeholder="Logo Placement" class="loginpassword" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 2vh;">
+					<!-- <input type="number" name="quantity" placeholder="Quantity of Order" class="loginpassword">
+					<input type="number" name="quantity" placeholder="Quantity of Order" class="loginpassword"> -->
+					<!-- <textarea class="loginpassword" name="dispatch" placeholder="Dispatch Address"></textarea>
+					<textarea class="loginpassword" name="billing" placeholder="Billing Address"></textarea> -->
+					<label>Tech-Pack</label>
+					<input type="file" name="tech_pack" placeholder="Tech-Pack" class="loginfile" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 2vh;"><br>
+					<label>Specs</label>
+					<input type="file" name="specs" placeholder="Specs" class="loginfile" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 2vh;"><br>
+					<label for="sample">Sample Image of Product</label>
+					<input type="file" name="sample" label="Sample Image of Product" class="loginfile" id="sample" style="background: transparent;padding: .5vw;margin-top: 2vh;">
+				
+					<!-- <label for="excel">Excel Sheet of Employee Data</label>
+					<input type="file" name="excel" class="loginfile" id="excel">
+					<h6 class="mt-4">Sample Excel Sheet <a href="/media/local/b2b/sample.xlsx">Sample</a></h6> -->
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">SUBMIT</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="{% static 'js/b2b/placeorder.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

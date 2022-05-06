@@ -1,0 +1,81 @@
+
+
+
+{% load qr_code %}
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+  </head>
+
+  <body>
+    <div class="" style="margin-top:2vh;margin-bottom:2vh;">
+      <center>Order No - {{order.order_no}}</center>
+      <center>Carton No - {{request.GET.carton}}</center>
+      {% if request.GET.size %}
+      <center>Size - {{request.GET.size}}</center>
+      {% endif %}
+    </div>
+    {% qr_from_text link %}
+    {% if carton %}
+    <div class="" style="margin-top:2vh;margin-bottom:2vh;">
+      <center><b>Size-vis-Quantity</b></center>
+      <ul>
+        {% if carton.quantity_24 %}
+        <li>Size 24 - {{carton.quantity_24}}</li>
+        {% endif %}
+        {% if carton.quantity_26 %}
+        <li>Size 26 - {{carton.quantity_26}}</li>
+        {% endif %}
+        {% if carton.quantity_28 %}
+        <li>Size 28 - {{carton.quantity_28}}</li>
+        {% endif %}
+        {% if carton.quantity_30 %}
+        <li>Size 30 - {{carton.quantity_30}}</li>
+        {% endif %}
+        {% if carton.quantity_32 %}
+        <li>Size 32 - {{carton.quantity_32}}</li>
+        {% endif %}
+        {% if carton.quantity_34 %}
+        <li>Size 34 - {{carton.quantity_34}}</li>
+        {% endif %}
+        {% if carton.quantity_36 %}
+        <li>Size 36 - {{carton.quantity_36}}</li>
+        {% endif %}
+        {% if carton.quantity_38 %}
+        <li>Size 38 - {{carton.quantity_38}}</li>
+        {% endif %}
+        {% if carton.quantity_40 %}
+        <li>Size 40 - {{carton.quantity_40}}</li>
+        {% endif %}
+        {% if carton.quantity_42 %}
+        <li>Size 42 - {{carton.quantity_42}}</li>
+        {% endif %}
+        {% if carton.quantity_44 %}
+        <li>Size 44 - {{carton.quantity_44}}</li>
+        {% endif %}
+        {% if carton.quantity_46 %}
+        <li>Size 46 - {{carton.quantity_46}}</li>
+        {% endif %}
+        {% if carton.quantity_48 %}
+        <li>Size 48 - {{carton.quantity_48}}</li>
+        {% endif %}
+        {% if carton.quantity_50 %}
+        <li>Size 50 - {{carton.quantity_50}}</li>
+        {% endif %}
+        {% if carton.quantity_52 %}
+        <li>Size 52 - {{carton.quantity_52}}</li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+    <script type="text/javascript">
+      window.print();
+    </script>
+
+  </body>
+</html>

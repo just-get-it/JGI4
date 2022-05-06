@@ -1,0 +1,100 @@
+{% extends 'basecut.html' %}
+
+{% block content %}
+    <div class="container" style="margin-bottom: 100px;">
+        <div class="contact-form medium-padding120" style="background-color: #cfc;
+                                                           padding:50px;
+                                                           border-radius:25px;
+                                                           box-shadow:0 14px 18px 0 rgba(0,0,0,0.2),
+                                                                      0 16px 50px 0 rgba(0,0,0,0.19)">
+            <h3 style="text-align:center">Roll Order</h3><br><br>
+
+            <form class="contact-form" method="post" action="/Data_Submission_Form/">
+                {% csrf_token %}
+                <!--<div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Fabric_Required" class="form-control input-standard-grey" placeholder="Fabric Required (from Form 4)" required>
+                    </div>
+                </div><br><br>-->
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Roll_No" class="form-control input-standard-grey" placeholder="Roll No" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Roll_Length" class="form-control input-standard-grey" placeholder="Roll Length" required>
+                    </div>
+                </div><br><br>
+                <!--<div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <select name="Style" class="form-control" required>
+                            <option value="">Select Style</option>
+                            <option value="Shirt">Shirt</option>
+                            <option value="Jackat">Jacket</option>
+                            <option value="Trouser">Trouser</option>
+                            <option value="Vest Coat">Vest Coat</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <select name="Fit" class="form-control" required>
+                            <option value="">Select Fit</option>
+                            <option value="Slim">Slim</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Extra Slim">Extra Slim</option>
+                            <option value="Contemporary">Contemporary</option>
+                        </select>
+                    </div>
+                </div><br><br>-->
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Fabric_Width" class="form-control input-standard-grey" placeholder="Fabric Width" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <select name="CSV" class="form-control" required>
+                            <option value="">CSV</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div><br><br>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Shade_Grade" class="form-control input-standard-grey" placeholder="Shade Grade" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Shrinkage" class="form-control input-standard-grey" placeholder="Shrinkage (%)" required>
+                    </div>
+                </div><br><br>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Lay_Length" class="form-control input-standard-grey" placeholder="Lay Length" required>
+                    </div><!--
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Lay_Height" class="form-control input-standard-grey" placeholder="Lay Height" required>
+                    </div>-->
+                </div><br><br>
+                <!--<div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Used_Length" class="form-control input-standard-grey" placeholder="Used Length" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Fabric_Consumption" class="form-control input-standard-grey" placeholder="Fabric Consumption" required>
+                    </div>
+                </div><br><br>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input name="Roll_Length" class="form-control input-standard-grey" placeholder="Roll Length" required>
+                    </div>
+                </div><br><br>--><br>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="text-align: center;">
+                        <button class="btn btn-success" type="submit">SUBMIT</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="text-align: center;">
+                        <a href="/cut/rollallocation/" class="btn btn-primary" role="button">SEE DATA</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

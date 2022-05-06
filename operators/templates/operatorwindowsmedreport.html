@@ -1,0 +1,263 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+  <style type="text/css">
+    td,th{
+      border: 1px solid white;
+    }
+  </style>
+  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+  <div class="container text-center">
+    <h1>OPERATOR WINDOW SMED REPORT</h1>
+  </div><br>
+   <div class="container">
+    <form enctype="multipart/form-data" method="POST" action="smedreport">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Operator ID</label>
+        <div class="col-sm-10">
+            <input type="text" name="opid" id="opid" required>
+        </div>
+      </div>
+      <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Select Operation</label>
+            <div class="col-sm-10 op">
+              <select id="operation" name="operation" required>
+                <option value="dart stitch">Dart Stitch</option>
+                <option value="panel attach">Panel Attach</option>
+                <option value="chest welt attach">Chest Welt Attach</option>
+                <option value="facing att">Facing Att</option>
+                <option value="chest canvas attach">Chest Canvas Attach</option>
+                <option value="side seam">Side Seam</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Select date</label>
+        <div class="col-sm-10">
+            <input type="text" name="date" id="tbDate" required>
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary">
+    </form>
+  </div><br>
+  <div class="container">
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Line no:</label>
+        <div class="col-sm-10">
+            {% for i in userp %}
+              <p>{{ i.line_no }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Product:</label>
+        <div class="col-sm-10">
+            {% for i in userp %}
+              <p>{{ i.product_category }}</p>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+        <br>
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead style="background-color: #2E2D2D;color: white">
+                    <tr>
+                      <th>Operator ID</th>
+                      <th>Operator Name</th>
+                      <th>Operation</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody style="background-color: green;color: white">
+                    {% for i in reports %}
+                        {% if forloop.counter == 1 %}
+                          <tr>
+                            <td>{{i.operator_id }}</td>
+                            <td>{{i.operator_name }}</td>
+                            <td>{{ i.operation }}</td>
+                            <td>{{ i.date}}</td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Machine Issue</th>
+                    <td style="background-color: #337ab7;color: white">{{machineissue}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Quality Issue</th>
+                    <td style="background-color: #337ab7;color: white">{{qualityissue}}</td>  
+                  </tr>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Trims Issue</th>
+                    <td style="background-color: #337ab7;color: white">{{trimsissue}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Others</th>
+                    <td style="background-color: #337ab7;color: white">{{others}}</td>  
+                  </tr>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Delay start</th>
+                    <td style="background-color: #337ab7;color: white">{{delaystart}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Demo</th>
+                    <td style="background-color: #337ab7;color: white">{{demo}}</td>
+                  </tr>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Learing</th>
+                    <td style="background-color: #337ab7;color: white">{{learing}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Full Swing</th>
+                    <td style="background-color: #337ab7;color: white">{{fullswing}}</td>
+                  </tr>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">CO Loss Time</th>
+                    <td style="background-color: #b77633;color: white">{{colosstime}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead style="background-color: #2E2D2D;color: white">
+                    <tr>
+                      <th>H.R</th>
+                      <th>Machine Issue</th>
+                      <th>Quality Issue</th>
+                      <th>Trims Issue</th>
+                      <th>Others</th>
+                      <th>Delay Start</th>
+                      <th>Demo</th>
+                      <th>Learing</th>
+                      <th>Full Swing</th>
+                      <th>Smed Start</th>
+                      <th>Smed Stop</th>
+                    </tr>   
+                  </thead>
+                  <tbody style="background-color: green;color: white">
+                    {% for i in reports %}
+                         {% if i.smed_name == "" %}
+                         
+                         {% else %}
+                            <tr>
+                            <td>{{forloop.counter}}</td>
+                            {% if i.smed_name == 'Machine Issue' %}
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Quality Issue' %}
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Trims Issue' %}
+                              <td></td>
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Others' %}
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Delay Start' %}
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Demo' %}
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Learing' %}
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                            {% if i.smed_name == 'Full Swing' %}
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>{{ i.smed_value }}</td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
+                            {% endif %}
+                          </tr>  
+                         {% endif %}
+                          
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+    </div>
+  <script>
+    $(document).ready(function () {
+        $('input[id$=tbDate]').datepicker({
+           dateFormat: 'dd/mm/yy'
+        });
+    });
+</script>
+{% endblock %}

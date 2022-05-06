@@ -1,0 +1,132 @@
+body{
+	top:100;
+    /*background-image: url('../images/9.jpg');*/
+}
+
+header{
+    
+    height: 100vh;
+    width: 100%;
+    float: right;
+    background-size: cover;
+    background-position: center;
+	/*overflow-y: scroll;*/
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    
+}
+.maindiv{
+    width: 100%;
+    float: right;
+    position:relative;
+}
+.container{
+    
+    width: 100%;
+    height: 100%;
+    float: right;
+/*     
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory; */
+}
+
+ul{
+    display: flex;
+    list-style-type: none;
+    float: right;
+    margin-top: 25px;
+    
+}
+ul li{
+    
+    display: inline-block;
+    margin-inline-end: 1cm;
+
+}
+
+ul li a{
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 20px;
+    border: 1px solid transparent;
+    transition: 0.6s ease;
+}
+ul li a:hover{
+
+    background-color: #fff;
+    color: black;
+
+}
+ul li.reports_btn a{
+
+    background-color: #fff;
+    color: black;
+
+}
+
+table,td,th{
+	top:10;
+	table-layout:fixed;
+	border:1px solid black;
+	border-collapse:collapse;
+	background-color:silver;
+	height:1px;
+	width:80%;
+	
+}
+input{
+	width: 100%;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.blankrow{
+	height: 20px;
+}
+
+#canvas-holder{
+    top: 50px;
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+    position:initial;
+    width: 80%;
+    height: 85%;
+    padding: 30px;
+    border:2px solid red;
+
+}
+
+#first_myChart{
+    width: 100%;
+} 
+
+#second_myChart{
+    width: 100%;
+    
+} 
+
+#all_canvas_holder{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px;
+    padding-left: 100px;
+    padding-bottom: 100px;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    scroll-snap-align: center;
+}

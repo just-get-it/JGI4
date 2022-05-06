@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<style type="text/css">
+  .box-element{
+  box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+}
+.cart-row{
+  display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+
+.chg-quantity{
+  width: 12px;
+  cursor: pointer;
+  display: block;
+  margin-top: 5px;
+  transition:.1s;
+}
+.row-image{
+  height:120px;
+  width:auto;
+}
+
+</style>
+  {% endblock %}
+{% block content %}
+<br><br>
+<h2 style="text-align: center;"> Order Details id : #{{id}}</h2>
+
+
+<div class="col mt-4" id="detail">
+
+</div>
+<div class="container mt-4">
+<div class="row my-4">
+  <div class="col-lg-12">
+      
+      <br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Quantity</strong></div>
+                            <div style="flex:1"><strong>Total</strong></div>
+                        </div>
+      {% if items %}
+            {% for item in items %}
+        <div class="cart-row">
+          <div style="flex:2 "><img class="row-image" src="{{item.product.image1.url}}"></div>
+          <div style="flex:2"><p>{{item.product.title}}</p></div>
+          <div style="flex:1"><p>Rs. {{item.product.price}}</p></div>
+          <div style="flex:1">
+            <div style="display:inline">
+            <p type="text" class="quantity" id={{item.id}} name={{item.id}} value="{{item.quantity}}" style="width: 50px;display: inline;">{{item.quantity}}</p>
+            </div><br>
+          </div>
+          <div style="flex:1"><p>Rs. {{item.get_total}}</p></div>
+        </div>
+        {% endfor %}
+        {% else %}
+      <div id="anonymousitems"></div>
+        {% endif %}
+
+        </div>
+</div>
+</div>
+</div>
+{% if product_exist %}
+<div id="product">
+  <div class="container">
+    <h1>Product</h1>
+<div class="row">
+  <div class="col-lg-12">
+      <div class="box-element">
+
+        <br>
+        <br>
+        <table class="table">
+          <tr>
+            <th><h5>Items: <strong>{{product_count}}</strong></h5></th>
+            <th><h5>Total:<strong> Rs. {{sums}}</strong></h5></th>
+            <th>
+                        <a href='/checkoutquick' class='mx-2 my-2'>
+                            <button class='btn btn-success float-right' id ='checkout'>Checkout</button>
+                        </a>
+            </th>
+          </tr>
+        </table>
+
+      </div>
+
+      <br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Quantity</strong></div>
+                            <div style="flex:1"><strong>Total</strong></div>
+                        </div>
+            {% for product in product %}
+        <div class="cart-row">
+          <div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+          <div style="flex:2"><p>{{product.product_name}}</p></div>
+          <div style="flex:1"><p>Rs. {{product.price}}</p></div>
+          <div style="flex:1">
+            <p class="quantity">{{product.no_of_quantity}}</p>
+<!--            <div class="quantity">-->
+<!--              <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">-->
+
+<!--              <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">-->
+<!--            </div>-->
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_product?id={{product.id}}">Delete</a></button>
+                        </div>
+          </div>
+          <div style="flex:1"><p>Rs. {{product.get_total}}</p></div>
+        </div>
+        {% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+  </div>
+  {% endif %}
+  {% if service_exist %}
+  <div id="service">
+  <div class="container">
+    <h1>Service</h1>
+<div class="row">
+  <div class="col-lg-12">
+      <div class="box-element">
+
+        <br>
+        <br>
+        <table class="table">
+          <tr>
+            <th><h5>Items: <strong>{{service_count}}</strong></h5></th>
+            <th><h5>Total:<strong> Rs. {{order.get_cart_total}}</strong></h5></th>
+            <th>
+                        <a href='/checkout' class='mx-2 my-2'>
+                            <button class='btn btn-success float-right' id ='checkout'>Checkout</button>
+                        </a>
+            </th>
+          </tr>
+        </table>
+
+      </div>
+
+      <br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Date</strong></div>
+                            <div style="flex:1"><strong>Time</strong></div>
+                        </div>
+            {% for service in service %}
+        <div class="cart-row">
+          <div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+          <div style="flex:2"><p>{{service.service_name}}</p></div>
+          <div style="flex:1"><p>Rs. {{service.price_range}}</p></div>
+          <div style="flex:1">
+            <p class="quantity">{{service.service_date}}</p>
+<!--            <div class="quantity">-->
+<!--              <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">-->
+
+<!--              <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">-->
+<!--            </div>-->
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_service?id={{service.id}}">Delete</a></button>
+                        </div>
+          </div>
+          <div style="flex:1"><p>{{service.service_time}}</p></div>
+        </div>
+        {% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+  </div>
+  {% endif %}
+  {% if pick_exist %}
+  <div id="pick_and_drop">
+  <div class="container">
+    <h1>Pick and Drop</h1>
+<div class="row">
+  <div class="col-lg-12">
+      <div class="box-element">
+
+        <br>
+        <br>
+        <table class="table">
+          <tr>
+            <th><h5>Items: <strong>{{pick_count}}</strong></h5></th>
+            <th><h5>Total:<strong> Rs. {{order.get_cart_total}}</strong></h5></th>
+            <th>
+                        <a href='/checkout' class='mx-2 my-2'>
+                            <button class='btn btn-success float-right' id ='checkout'>Checkout</button>
+                        </a>
+            </th>
+          </tr>
+        </table>
+
+      </div>
+
+      <br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Pick Location</strong></div>
+                            <div style="flex:1"><strong>Drop Location</strong></div>
+                            <div style="flex:1"><strong>Date</strong></div>
+                        </div>
+            {% for pick in pick %}
+        <div class="cart-row">
+          <div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+          <div style="flex:2"><p>{{pick.product_name}}</p></div>
+          <div style="flex:1"><p>Rs. {{pick.pickup_address}}</p></div>
+          <div style="flex:1">
+            <p class="quantity">{{pick.delivery_address}}</p>
+<!--            <div class="quantity">-->
+<!--              <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">-->
+
+<!--              <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">-->
+<!--            </div>-->
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_pick?id={{pick.id}}">Delete</a></button>
+                        </div>
+          </div>
+          <div style="flex:1"><p>{{pick.pickup_date}}</p></div>
+        </div>
+        {% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+  </div>
+  {% endif %}
+
+
+{% endblock %}
+
+
+<!--{% block js %}-->
+<!--<script>-->
+<!--if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--}-->
+
+
+<!--function updateview(){-->
+<!--    if ($.isEmptyObject(cart)){-->
+<!--        mystr='<p><h5 style="text-align:center">Your cart is empty! Please add some items</h5></p>'-->
+
+<!--        $('#card').append(mystr);-->
+<!--    }-->
+<!--    else {-->
+<!--        for (var item in cart){-->
+<!--        var name=cart[item][1];-->
+<!--        var price=cart[item][2];-->
+<!--        var qty=cart[item][0];-->
+<!--        var c=`<div class="row mt-2">-->
+<!--            <div class="col md-4">-->
+<!--                <img src="#" width="320px">-->
+<!--            </div>-->
+<!--            <div class="col md-8 mt-4">-->
+<!--                <h4 id='name'+item>${name}</h4>-->
+<!--                <p>-->
+<!--                <b>Price: Rs.</b><b>${price}</b><b>.00</b>-->
+<!--                </p>-->
+<!--                <div class="row"><p>Quantity: <b>${qty}</b></p>-->
+<!--                <span id="div"+item class="divpr mx-2"><button type="button" class="btn-sm btn-outline-danger dlt mx-4" id=${item}>Delete</button></span>-->
+<!--            </div>-->
+<!--            </div>`-->
+<!--        $('#detail').append(c);-->
+
+<!--         }-->
+<!--      }-->
+<!--}-->
+<!--updateview();-->
+<!--   $('.divpr').on('click', 'button.dlt', function(){-->
+<!--        cart = JSON.parse(localStorage.getItem('cart'));-->
+<!--        var idstr=this.id.toString();-->
+<!--        console.log(idstr);-->
+<!--        delete cart[idstr];-->
+<!--        document.getElementById("detail").innerHTML="";-->
+<!--        localStorage.setItem('cart',JSON.stringify(cart));-->
+<!--        updateview();-->
+
+<!--    });-->
+<!--</script>-->
+<!--{% endblock %}-->

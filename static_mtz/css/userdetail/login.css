@@ -1,0 +1,115 @@
+
+
+
+
+
+.fontcabin{
+	font-family: 'Cabin', sans-serif;
+}
+
+.fontpacifico{
+	font-family: 'Pacifico', cursive;
+}
+
+.centered{
+	display: grid;
+	justify-content: center;
+}
+
+
+.loginrow{
+	height: 91vh;
+	background-image: linear-gradient(rgba(48,197,255,.7),rgba(37,48,49,1));
+}
+
+
+
+.logincol{
+	background: white;
+	margin: auto;
+	width: 100%;
+	height: 55vh;
+	box-shadow: 0 0 4px black;
+}
+
+
+.loginheading{
+	margin-top: 2vh;
+}
+
+.loginheading h4{
+	font-size: 1.4em;
+}
+
+
+.logincol1{
+	background: white;
+	margin: auto;
+	width: 100%;
+	height: 25vh;
+	box-shadow: 0 0 1.5px black;
+	margin-top: 2vh;
+}
+
+.logincol2{
+	background: white;
+	margin: auto;
+	width: 100%;
+	margin-top: 3vh;
+}
+.loginbutton{
+	width: 100%;
+	background: #30c5ff;
+	color: black;
+	margin: auto;
+	border:none;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: all .3s ease-out;
+}
+
+.loginbutton:hover{
+	background: white;
+	border: 1px solid #30c5ff;
+}
+
+
+.loginemail{
+	width: 100%;
+	border:none;
+	margin: auto;
+	border-bottom: 2px solid rgba(37,48,49,.6);
+	margin-top: 5vh;
+	padding-left: .5vw;
+}
+
+.loginemail:focus{
+	border-bottom: 2px solid #30c5ff;
+}
+
+
+.logincol1{
+	box-shadow: 0 0 2px #30c5ff;
+}
+.loginpassword{
+	width: 100%;
+	border:none;
+	margin: auto;
+	border-bottom: 2px solid rgba(37,48,49,.6);
+	margin-top: 5vh;
+	padding-left: .5vw;
+}
+
+.loginpassword:focus{
+	border-bottom: 2px solid #30c5ff;
+}
+
+@media screen and (max-width: 575px){
+	.loginrow{
+		background: white;
+	}
+
+	.logincol{
+		box-shadow: none;
+	}
+}

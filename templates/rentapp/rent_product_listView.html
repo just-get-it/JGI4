@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block customcss %}
+<style>
+  .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+</style>
+{% endblock %}
+{% block content %}
+    {% if messages %}
+                <div class="mt-0 pt-4">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                </div>
+           {% endif %}
+{% load static %}
+<div class="container-fluid  my-2 col-2" style=" margin-left:120px;">
+<div class="form-group has-search">
+    <span class="fa fa-search form-control-feedback"></span>
+    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Search Products" onkeyup="searchFunc()" id="productSearch">
+  </div>
+
+
+</div>
+
+<div class="container-fluid row" style="justify-content: center;">
+<div>
+  <h1 id="help-text" style="display: none;">Try searching different product or make a request for your product.</h1>
+</div>
+{% for obj in objects %}
+  <div class="card" style=" display: inline-block; margin: 4px 4px 4px 4px; width: 350px; height: 400px; text-align: center;" id="product-{{obj.slug}}">
+    <a href="#">
+      <img class="card-img-top" src="{{obj.image1.url}}" alt="Not Found" onerror=this.src="{% static 'img/noimage.png' %}" style="object-fit: cover; width: 300px; height: 200px;">
+    </a>
+    <div class="card-body">
+      <h5 class="card-title" style="overflow: visible; width: 300px;"><a href="{% url 'rent_product_detail' obj.slug %}">{{obj.title}}</a></h5>
+      <p class="card-text">{{obj.manufacturer}}</p>
+      <p class="card-text">Rs. {{obj.price}}</p>
+      <a href="{% url 'rent_product_detail' obj.slug %}" class="btn btn-outline-info">Rent</a>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+<script>
+    function searchFunc(){
+
+let flag = false
+let filter = document.getElementById('productSearch').value.toUpperCase()
+
+{% for obj in objects %}
+
+abc = document.getElementById("product-{{obj.slug}}")
+  if("{{obj.title}}".toUpperCase().indexOf(filter) > -1)
+    {
+      flag = true
+      abc.style.display = ""
+    }
+  else{
+    abc.style.display = "None"
+  }
+
+{% endfor %}
+
+if (flag == false){
+  document.getElementById("help-text").style.display = ""
+} else {
+  document.getElementById("help-text").style.display = "None"
+}
+
+}
+</script>
+
+{% endblock %}

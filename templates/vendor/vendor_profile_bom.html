@@ -1,0 +1,742 @@
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<style type="text/css">
+	.input_attribute{
+		border:none;
+		border-bottom: 1px solid rgba(0,0,0,.5);
+		margin-left: 1vw;
+		width: 80%;
+		transition: all .3s ease;
+	}
+	.input_attribute:focus{
+		border-bottom: 1px solid #30c5ff;
+	}
+	.new_content{
+		animation-name: back_chnage;
+		animation-duration: .5s;
+		animation-fill-mode: forwards;
+	}
+	@keyframes back_chnage{
+		0%{
+			background: rgba(48,197,255,.3);
+		}
+		100%{
+			background: rgba(48,197,255,0)
+		}
+	}
+	.but_submit{
+		padding-left: 3vw;
+		padding-right: 3vw;
+		padding-top: .5vw;
+		padding-bottom: .5vw;
+		font-weight: bold;
+		background: #30c5ff;
+		color: #253031;
+		transition: all .3s ease-out;
+		border:none;
+		border-radius: 25vw;
+
+	}
+	.but_submit:hover{
+		background: #253031;
+		color: #30c5ff;
+	}
+	.bom-info{
+		background-color: #30c5ff ;
+	}
+	.bom-info button:hover{
+		background: #253031;
+		color: #30c5ff;
+	}
+	.bom-info button.active {
+  		background: #253031;
+		color: #30c5ff;
+	}
+	.bom-link{
+		background-color: #30c5ff;
+		color: white;
+		padding: 10px 8.8px;
+		text-align: center;
+		border: none;
+		font-size: 15px;
+	}
+	.bom-content{
+		display: none;
+		-webkit-animation: fadeEffect 1s;
+  		animation: fadeEffect 1s;
+	}
+	@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="background: linear-gradient(to bottom,rgba(48,197,255,.5),rgba(37,48,49,.8));padding-top: 5vh;padding-bottom: 5vh;">
+	<div class="py-4 px-5 pt-0" style="width: 50vw;margin-left: auto;margin-right: auto;background: white;box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);">
+		<form method="POST">{% csrf_token %}
+			<div class="container-fluid">
+				<div class="row mt-1 mb-3" style="border-bottom: 1px solid rgba(0,0,0,.5)">
+					<h4 style="font-family: 'Cabin', sans-serif;">Bill of Materials Form</h4>
+				</div>
+				<div class="bom-info">
+					<button class="bom-link" onclick="openform(event ,'Fabrics')">Fabrics</button>
+					<button class="bom-link" onclick="openform(event ,'Sewing_trims')">Sewing Trims</button>
+					<button class="bom-link" onclick="openform(event ,'Fin_trims')">Finishing Trims</button>
+					<button class="bom-link" onclick="openform(event ,'Pack_trims')">Packing Trims</button>
+					<button class="bom-link" onclick="openform(event ,'Std_items')">Standard Items</button>
+					<button class="bom-link" onclick="openform(event ,'cut_make')">CM (cut-make)</button>
+				</div>
+			<div id="Std_items" class="bom-content">
+				{% if std_items.0 %}
+				<div class="row mb-3">
+					<h6 style="font-family: 'Cabin', sans-serif;margin-top: 20px;">Standard Items</h6>
+				</div>
+				{% endif %}
+				{% for i in std_items %}
+				<div class="container-fluid" id="standard_item{{i.id}}">
+				<div class="row mb-3 mt-3" id="fabric_row">
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Select Fabric</label>
+						<select name="fabric1" class="input_attribute" required>
+							<option disabled selected>----------</option>
+							{% for j in std_items %}
+							<option value="{{j.id}}" {% if j.id == i.id %}selected{% endif %}>{{j.title}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Units of Measurement</label>
+						<input type="text" name="uom_fabric1" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+					</div>
+					<div class="col-12 mt-4">
+						<label style="font-size: .9em;">Description</label>
+						<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_fabric1" required>{% if i.notes %}{{i.comments}}{% endif %}</textarea>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Specification</label>
+						<input type="text" name="specification_fabric1" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Consumption</label>
+						<input type="number" name="consumption_fabric1" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Wastage</label>
+						<input type="number" name="wastage_fabric1" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+					</div>
+
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Rate</label>
+						<input type="number" name="rate_fabric1" class="input_attribute" placeholder="Rate" style="width: 70%;" required>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<button type="button" style="border: none;background: transparent;margin-left: auto;" class="hov-a" onclick="deleteitem('standard_item{{i.id}}')" id="addfabric_but">Delete Standard Item</button>
+				</div>
+				</div>
+				{% endfor %}
+			</div>
+			<div id="Fabrics" class="bom-content">
+				<div class="row mb-3">
+					<h6 style="font-family: 'Cabin', sans-serif;margin-top: 20px;">Fabrics</h6>
+					
+				</div>
+				<div class="row mb-3 mt-3" id="fabric_row">
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Select Fabric</label>
+						<select name="fabric1" class="input_attribute" required>
+							<option disabled selected>----------</option>
+							{% for o in fabric %}
+							<option value="{{o.id}}">{{o.title}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Units of Measurement</label>
+						<input type="text" name="uom_fabric1" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+					</div>
+					<div class="col-12 mt-4">
+						<label style="font-size: .9em;">Description</label>
+						<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_fabric1" required>
+							
+						</textarea>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Specification</label>
+						<input type="text" name="specification_fabric1" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Consumption</label>
+						<input type="number" name="consumption_fabric1" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Wastage</label>
+						<input type="number" name="wastage_fabric1" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+					</div>
+
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Rate</label>
+						<input type="number" name="rate_fabric1" class="input_attribute" placeholder="Rate" style="width: 70%;" required>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric2"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric3"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric4"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric5"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric6"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric7"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric8"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric9"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="fabric10"></div>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<button type="button" style="border: none;background: transparent;margin-left: auto;" class="hov-a" onclick="addfabric()" id="addfabric_but">Add more Fabric</button>
+				</div>
+			</div>
+			<div id="Pack_trims" class="bom-content">	
+				<div class="row mb-3">
+					<h6 style="font-family: 'Cabin', sans-serif;margin-top: 20px;">Packing Trims</h6>
+					
+				</div>
+				<div class="row mb-3 mt-3" id="packing_row">
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Select Packing Trims</label>
+						<select name="packing1" class="input_attribute" style="width: 60%;" required>
+							<option disabled selected>----------</option>
+							{% for o in packing %}
+							<option value="{{o.id}}">{{o.title}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Units of Measurement</label>
+						<input type="text" name="uom_packing1" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+					</div>
+					<div class="col-12 mt-4">
+						<label style="font-size: .9em;">Description</label>
+						<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_packing1" required>
+							
+						</textarea>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Specification</label>
+						<input type="text" name="specification_packing1" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Consumption</label>
+						<input type="number" name="consumption_packing1" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Wastage</label>
+						<input type="number" name="wastage_packing1" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Rate</label>
+						<input type="number" name="rate_packing1" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing2"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing3"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing4"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing5"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing6"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing7"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing8"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing9"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="packing10"></div>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<button type="button" style="border: none;background: transparent;margin-left: auto;" class="hov-a" onclick="addpacking()" id="addpacking_but">Add more Packing Trims</button>
+				</div>
+			</div>
+
+			<div id="Sewing_trims" class="bom-content">
+				<div class="row mb-3">
+					<h6 style="font-family: 'Cabin', sans-serif;margin-top: 20px;">Sewing Trims</h6>
+					
+				</div>
+
+
+				<div class="row mb-3 mt-3" id="sewing_row">
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Select Sewing Trims</label>
+						<select name="sewing1" class="input_attribute" style="width: 60%;" required>
+							<option disabled selected>----------</option>
+							{% for o in sewing %}
+							<option value="{{o.id}}">{{o.title}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Units of Measurement</label>
+						<input type="text" name="uom_sewing1" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+					</div>
+					<div class="col-12 mt-4">
+						<label style="font-size: .9em;">Description</label>
+						<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_sewing1" required>
+							
+						</textarea>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Specification</label>
+						<input type="text" name="specification_sewing1" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Consumption</label>
+						<input type="number" name="consumption_sewing1" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Wastage</label>
+						<input type="number" name="wastage_sewing1" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Rate</label>
+						<input type="number" name="rate_sewing1" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing2"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing3"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing4"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing5"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing6"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing7"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing8"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing9"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="sewing10"></div>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<button type="button" style="border: none;background: transparent;margin-left: auto;" class="hov-a" onclick="addsewing()" id="addsewing_but">Add more Sewing Trims</button>
+				</div>
+			</div>	
+
+
+
+
+			<div id="Fin_trims" class="bom-content">
+				<div class="row mb-3">
+					<h6 style="font-family: 'Cabin', sans-serif;margin-top: 20px;">Finishing Trims</h6>
+					
+				</div>
+
+
+
+
+
+				<div class="row mb-3 mt-3" id="finishing_row">
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Select Finishing Trims</label>
+						<select name="finishing1" class="input_attribute" style="width: 60%;" required>
+							<option disabled selected>----------</option>
+							{% for o in finishing %}
+							<option value="{{o.id}}">{{o.title}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-6 mt-2">
+						<label style="font-size: .9em;">Units of Measurement</label>
+						<input type="text" name="uom_finishing1" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+					</div>
+					<div class="col-12 mt-4">
+						<label style="font-size: .9em;">Description</label>
+						<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_finishing1" required>
+							
+						</textarea>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Specification</label>
+						<input type="text" name="specification_finishing1" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Consumption</label>
+						<input type="number" name="consumption_finishing1" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Wastage</label>
+						<input type="number" name="wastage_finishing1" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+					</div>
+					<div class="col-3 mt-4">
+						<label style="font-size: .9em;">Rate</label>
+						<input type="number" name="rate_finishing1" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing2"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing3"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing4"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing5"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing6"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing7"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing8"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing9"></div>
+					</div>
+					<div class="container-fluid">
+						<div class="row" id="finishing10"></div>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<button type="button" style="border: none;background: transparent;margin-left: auto;" class="hov-a" onclick="addfinishing()" id="addfinishing_but">Add more Finishing Trims</button>
+				</div>
+			</div>
+			<div id="cut_make" class="bom-content">
+				<div class="row mb-3">
+					<h6 style="font-family: 'Cabin', sans-serif;margin-top: 20px;">Cut-Make</h6>
+				</div>
+				<div class="row mt-5 mb-3">
+					<div class="col-4">
+						<input type="number" name="cutmake_cosum" placeholder="Cut-Make Consumption" class="input_attribute" required>
+					</div>
+					<div class="col-4">
+						<input type="number" name="cutmake_rate" placeholder="Cut-Make Rate" class="input_attribute" required>
+					</div>
+					<div class="col-4">
+						<input type="number" name="profit" placeholder="Profit(%)" class="input_attribute" required>
+					</div>
+				</div>
+			</div>
+
+				<div class="row mt-5 mb-5 centered">
+					<button class="but_submit" type="submit">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+	function openform(evt, formcontent) {
+  		var i, bomcontent, bomlinks;
+  		bomcontent = document.getElementsByClassName("bom-content");
+  		for (i = 0; i < bomcontent.length; i++) {
+  		  bomcontent[i].style.display = "none";
+  		}
+  		bomlinks = document.getElementsByClassName("bom-link");
+  		for (i = 0; i < bomlinks.length; i++) {
+  		  bomlinks[i].className = bomlinks[i].className.replace(" active", "");
+  		}
+  		document.getElementById(formcontent).style.display = "block";
+  		evt.currentTarget.className += " active";
+	}
+	function deleteitem(val){
+		var anum=document.getElementById(val);
+		anum.style.display="none";
+	}
+	var fabric_count=2;
+	var sewing_count=2;
+	var packing_count=2;
+	var finishing_count=2;
+	function addfabric(){
+		var fabric_row=document.getElementById('fabric'+fabric_count.toString());
+		if (fabric_count<=10){
+		fabric_row.innerHTML=`<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Select Fabric</label>
+				<select name="fabric`+fabric_count.toString()+`" class="input_attribute" required>
+					<option disabled selected>----------</option>
+					{% for o in fabric %}
+					<option value="{{o.id}}">{{o.title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Units of Measurement</label>
+				<input type="text" name="uom_fabric`+fabric_count.toString()+`" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+			</div>
+			<div class="col-12 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Description</label>
+				<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_fabric`+fabric_count.toString()+`" required>
+					
+				</textarea>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Specification</label>
+				<input type="text" name="specification_fabric`+fabric_count.toString()+`" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Consumption</label>
+				<input type="number" name="consumption_fabric`+fabric_count.toString()+`" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Wastage</label>
+				<input type="number" name="wastage_fabric`+fabric_count.toString()+`" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Rate</label>
+				<input type="number" name="rate_fabric`+fabric_count.toString()+`" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+			</div>`;
+			
+			var to_anm=document.getElementById('fabric'+fabric_count.toString());
+			// alert(to_anm);
+			to_anm.classList.add('new_content');
+			setTimeout(function(){
+				to_anm.classList.remove('new_content');
+			},500);
+			window.location.href="#fabric"+fabric_count.toString();
+			fabric_count=fabric_count+1;
+		}
+		else{
+			var addfabric_but=document.getElementById('addfabric_but');
+			addfabric_but.style.display="none";
+		}
+	}
+	function addpacking(){
+		var packing_row=document.getElementById('packing'+packing_count.toString());
+		if (packing_count<=10){
+		packing_row.innerHTML=`<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Select Packing Trims</label>
+				<select name="packing`+packing_count.toString()+`" class="input_attribute" required style="width:60%;">
+					<option disabled selected>----------</option>
+					{% for o in packing %}
+					<option value="{{o.id}}">{{o.title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Units of Measurement</label>
+				<input type="text" name="uom_packing`+packing_count.toString()+`" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+			</div>
+			<div class="col-12 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Description</label>
+				<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_packing`+packing_count.toString()+`" required>
+					
+				</textarea>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Specification</label>
+				<input type="text" name="specification_packing`+packing_count.toString()+`" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Consumption</label>
+				<input type="number" name="consumption_packing`+packing_count.toString()+`" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Wastage</label>
+				<input type="number" name="wastage_packing`+packing_count.toString()+`" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Rate</label>
+				<input type="number" name="rate_packing`+packing_count.toString()+`" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+			</div>`;
+			
+			var to_anm=document.getElementById('packing'+packing_count.toString());
+			// alert(to_anm);
+			to_anm.classList.add('new_content');
+			setTimeout(function(){
+				to_anm.classList.remove('new_content');
+			},500);
+			window.location.href="#packing"+packing_count.toString();
+			packing_count=packing_count+1;
+		}
+		else{
+			var addpacking_but=document.getElementById('addpacking_but');
+			addpacking_but.style.display="none";
+		}
+	}
+
+
+
+
+
+	function addsewing(){
+		var sewing_row=document.getElementById('sewing'+sewing_count.toString());
+		if (sewing_count<=10){
+		sewing_row.innerHTML=`<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Select Sewing Trims</label>
+				<select name="sewing`+sewing_count.toString()+`" class="input_attribute" required style="width:60%;">
+					<option disabled selected>----------</option>
+					{% for o in sewing %}
+					<option value="{{o.id}}">{{o.title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Units of Measurement</label>
+				<input type="text" name="uom_sewing`+sewing_count.toString()+`" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+			</div>
+			<div class="col-12 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Description</label>
+				<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_sewing`+sewing_count.toString()+`" required>
+					
+				</textarea>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Specification</label>
+				<input type="text" name="specification_sewing`+sewing_count.toString()+`" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Consumption</label>
+				<input type="number" name="consumption_sewing`+sewing_count.toString()+`" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Wastage</label>
+				<input type="number" name="wastage_sewing`+sewing_count.toString()+`" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Rate</label>
+				<input type="number" name="rate_sewing`+sewing_count.toString()+`" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+			</div>`;
+			
+			var to_anm=document.getElementById('sewing'+sewing_count.toString());
+			// alert(to_anm);
+			to_anm.classList.add('new_content');
+			setTimeout(function(){
+				to_anm.classList.remove('new_content');
+			},500);
+			window.location.href="#sewing"+sewing_count.toString();
+			sewing_count=sewing_count+1;
+		}
+		else{
+			var addsewing_but=document.getElementById('addsewing_but');
+			addsewing_but.style.display="none";
+		}
+	}
+
+
+
+
+
+
+
+
+	function addfinishing(){
+		var finishing_row=document.getElementById('finishing'+finishing_count.toString());
+		if (finishing_count<=10){
+		finishing_row.innerHTML=`<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Select finishing Trims</label>
+				<select name="finishing`+finishing_count.toString()+`" class="input_attribute" style="width:60%;" required>
+					<option disabled selected>----------</option>
+					{% for o in finishing %}
+					<option value="{{o.id}}">{{o.title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-6 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Units of Measurement</label>
+				<input type="text" name="uom_finishing`+finishing_count.toString()+`" class="input_attribute" placeholder="Units of Measurment" style="width: 60%;" required>
+			</div>
+			<div class="col-12 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Description</label>
+				<textarea class="input_attribute" style="border:1px solid #30c5ff;padding: .5vw; width: 90%;" name="description_finishing`+finishing_count.toString()+`" required>
+					
+				</textarea>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Specification</label>
+				<input type="text" name="specification_finishing`+finishing_count.toString()+`" class="input_attribute" placeholder="Specification" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Consumption</label>
+				<input type="number" name="consumption_finishing`+finishing_count.toString()+`" class="input_attribute" placeholder="Consumption" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Wastage</label>
+				<input type="number" name="wastage_finishing`+finishing_count.toString()+`" class="input_attribute" placeholder="Wastage" style="width: 60%;" required>
+			</div>
+			<div class="col-3 mt-4 to_have_anim">
+				<label style="font-size: .9em;">Rate</label>
+				<input type="number" name="rate_finishing`+finishing_count.toString()+`" class="input_attribute" placeholder="Rate" style="width: 60%;" required>
+			</div>`;
+			
+			var to_anm=document.getElementById('finishing'+finishing_count.toString());
+			// alert(to_anm);
+			to_anm.classList.add('new_content');
+			setTimeout(function(){
+				to_anm.classList.remove('new_content');
+			},500);
+			window.location.href="#finishing"+finishing_count.toString();
+			finishing_count=finishing_count+1;
+		}
+		else{
+			var addfinishing_but=document.getElementById('addfinishing_but');
+			addfinishing_but.style.display="none";
+		}
+	}
+
+
+</script>
+{% endblock %}

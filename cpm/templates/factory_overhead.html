@@ -1,0 +1,135 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>FACTORY OVERHEAD</h1>
+    </div>
+    <form action="factory_overhead" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" >Month</label>
+            <div class="col-sm-10">
+              <input style="width:120px;" type="month"  name="month" required="required" id="orderno">
+            </div>
+        </div>
+        <table class="table table-hover table-striped table-bordered" style="width: 40%; margin-left: 20px">
+            <thead class="thead-dark">
+              <tr>
+                <th class="col">Fields</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bonus Incentives and Others</td>
+                    <td><input style="width:110px;" type="number" name="bonus" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Carrying (In Words)</td>
+                    <td><input style="width:110px;" type="number" name="carry" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Earn Leave Allowances</td>
+                    <td><input style="width:110px;" type="number" name="leave" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Electricity Bill</td>
+                    <td><input style="width:110px;" type="number" name="bill" required="required"></td>
+                </tr>
+                <tr>
+                    <td>EPF Expenses (Employer)</td>
+                    <td><input style="width:110px;" type="number" name="epf" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Factory Rent</td>
+                    <td><input style="width:110px;" type="number" name="rent" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Factory Supplies</td>
+                    <td><input style="width:110px;" type="number" name="supply" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Food Expenses</td>
+                    <td><input style="width:110px;" type="number" name="food" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Fuel for Generator</td>
+                    <td><input style="width:110px;" type="number" name="fuel" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Import (C&F) Charges</td>
+                    <td><input style="width:110px;" type="number" name="cf" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Import Freight Charges</td>
+                    <td><input style="width:110px;" type="number" name="freight" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Insurance Premium</td>
+                    <td><input style="width:110px;" type="number" name="insurance" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Labour Charges</td>
+                    <td><input style="width:110px;" type="number" name="labour" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Land Rent</td>
+                    <td><input style="width:110px;" type="number" name="land" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Medical Expenses</td>
+                    <td><input style="width:110px;" type="number" name="medical" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Miscellaneous Expenses</td>
+                    <td><input style="width:110px;" type="number" name="misc" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Repair and Maintenance</td>
+                    <td><input style="width:110px;" type="number" name="repair" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Small Tolls and Spares</td>
+                    <td><input style="width:110px;" type="number" name="spare" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Transportation Allowance</td>
+                    <td><input style="width:110px;" type="number" name="transport" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Travel & Conveyance</td>
+                    <td><input style="width:110px;" type="number" name="travel" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Water Bill</td>
+                    <td><input style="width:110px;" type="number" name="water" required="required"></td>
+                </tr>
+                <tr>
+                    <td>Welfare Fund</td>
+                    <td><input style="width:110px;" type="number" name="welfare" required="required"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container text-center">
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+
+    </form>
+
+    <script language="javascript">
+        function calcltf()
+    {
+        var ocd = new Date(document.getElementById("ocd").value);
+	
+        var plancd = new Date(document.getElementById("plancd").value);	
+        
+        var timeDiff = Math.abs(ocd.getTime() - plancd.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+         //alert(diffDays);
+         var ltf = document.getElementById("ltf");
+         ltf.value = diffDays;
+
+    }
+    </script>
+{% endblock %}

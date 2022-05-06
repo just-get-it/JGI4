@@ -1,0 +1,291 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<style>
+
+td,th{
+    text-align: center;
+}
+
+.strike-through-order {
+    position: relative;  
+}
+
+.strike-through-order:after {
+    font-size:50px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 50%;
+    background: #c00;
+    content: "YOUR Item WAS CANCELLED";
+    width: 100%;
+    display: block;
+    
+}
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    
+    .dot {
+        border: 1px solid grey;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+{% endblock %} {% block content %}
+
+<br>
+<br>
+<div class="container">
+    {% if orderdata %}{% for data in orderdata %}
+    <div class="row">
+        <div class="col text-left">
+            <h3>Subscription Id: {{data.0.id}}</h3>
+        </div>
+        <div class="col text-right" id="total">
+            <h5>Total: ₹{{data.0.total}}/-</h5>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col text-left">
+            <h6>Payment Info:</h6>
+            <p>{{data.0.payment_method}}</p>
+            <p>{% if data.0.payment_method == 'razorpay' %} Payment Status: {{data.0.payment_status}} {% endif %}</p>
+            <h6>Shipping Address:</h6>
+            <p>{{data.1.0.shipping_address.name}}, {{data.1.0.shipping_address.phone}}</p>
+            <p>{{data.1.0.shipping_address.shipping_address}}, {{data.1.0.shipping_address.city}}-{{data.1.0.shipping_address.pin_code}} , {{data.1.0.shipping_address.state}}.
+            </p>
+        </div>
+        <div class="col text-right">
+            {% if data.0.last_updated %}
+            <h6>Last Updated on:</h6>
+            <p>{{data.0.last_updated}}</p>
+            {% endif %}
+        </div>
+        <div class="col text-right">
+            <p class="text-muted ">*Don't forget to Save Changes</p> 
+                <a href="{% url 'mysubscriptions'  %}" class="btn btn-primary btn-sm" >Back to My Subscriptions</a> 
+        </div>
+        
+    </div>
+    {% for cate in categories %}
+    {% for odItem in data.1 %}
+    {% if cate == odItem.product.product_Category.first %}
+    <div class="card {% if odItem.is_Cancelled == True %} strike-through-order {% endif %}">
+        <h6 class="card-header">
+        {{ odItem.product.product_Category.all|join:", "}} -
+        {{odItem.product_name}}
+        </h6>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <img height="75" width="75" src="/media/{{odItem.product.image1}}">
+                </div>
+                <div class="col-2">
+                    <p>Quantity: {{odItem.quantity}}</p>
+                    <p>Sold by: {{odItem.product.seller.name}}</p>
+                </div>
+                <div class="col-2">
+                    <h6 id="{{odItem.id}}-total">₹{{odItem.amount}}</h6>
+                    <h6 id="{{odItem.id}}-startdate">Start Date: {{odItem.start_date|date:"d/m/y"}}</h6>
+                    <h6 id="{{odItem.id}}-enddate">End Date {{odItem.end_date|date:"d/m/y"}}</h6>
+                    
+                    
+                </div>
+                
+                <!-- <div class="col-2">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-danger" onclick="decreaseQuant('{{odItem.id}}', 'quant-{{odItem.size_color.color}}-{{odItem.size_color.size}}');">
+                      <span class="fas fa-minus"></span>
+                    </button>
+                    </span>
+                    <input type="number" id="quant-{{odItem.size_color.color}}-{{odItem.size_color.size}}" value={{odItem.quantity}} class="form-control input-number" onchange="cartUpdate('{{odItem.id}}', this.value);">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-success" onclick="increaseQuant('{{odItem.id}}', 'quant-{{odItem.size_color.color}}-{{odItem.size_color.size}}');">
+                      <span class="fas fa-plus"></span>
+                    </button>
+                    </span>
+
+                </div>
+                
+
+                <div class="text-muted text-sm" id="{{odItem.id}}-message">
+
+                </div>
+
+            </div> -->
+            <div class="col-2 text-right">
+                    {% if odItem.next_delivery_date %}
+                    <h6>Next Delivery:</h6>
+                    <p>{{odItem.next_delivery_date}}</p>
+                    {% else %}
+                    <p class=" small font-weight-bold">Delivery Currently Stopped</p>
+                    {% endif %}
+                    <h6>Frequency:</h6>
+                    <p>{{odItem.interval}}</p>
+                </div>
+            <div class="col-2 text-center">
+                    <a href='#' onclick="deleteSubscriptionItem('{{odItem.id}}');" class="btn btn-sm btn-danger">Cancel</a>
+                    <br>
+                    <small class="text-muted text-small">Remove item from subscription.</small>
+                    <br>
+                    {% if odItem.stop_next %}
+                    <a href='#' onclick="stopSubscriptionItem('{{odItem.id}}');" class="mt-2 btn btn-sm btn-success"> Start Next</a>
+                    <br>
+                    <small class="text-muted text-small">Stop subscription from now, it won't start again if you don't start it.</small>
+                    {% else %}
+                    <a href='#' onclick="stopSubscriptionItem('{{odItem.id}}');" class="mt-2 btn btn-sm btn-danger"> Stop Next</a>
+                    <br>
+                    <small class="text-muted text-small">Start subscription again, it would be delivered from tommorow.</small>
+                    {% endif %}
+                </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-{{odItem.id}}">
+                    Edit
+                  </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-{{odItem.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ odItem.product.product_Category.all|join:", "}} - {{odItem.product.title}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="itemID" value="{{odItem.id}}">
+                                <input type="hidden" name="action" value="update">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                Attribute
+                                            </th>
+                                            <th scope="col">
+                                                Current
+                                            </th>
+                                            <th scope="col">
+                                                Updated value
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Quantity
+                                            </td>
+                                            <td>
+                                                {{odItem.quantity}}
+                                            </td>
+                                            <td>
+                                                <input type="number" name="quantity" id="qty" min=1 value="{{odItem.quantity}}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                End Date
+                                            </td>
+                                            <td>
+                                                {{odItem.end_date|date:'d-m-Y'}}
+                                            </td>
+                                            <td>
+                                                <input type="date" name="end_date" id="endDate" min="{{odItem.end_date|date:'Y-m-d'}}" value="{{odItem.end_date|date:'Y-m-d'}}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Frequency
+                                            </td>
+                                            <td>
+                                                {{odItem.interval}}
+                                            </td>
+                                            <td>
+                                                <input type="number" name="interval" id="freq" min=1 value="{{odItem.interval}}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-success">Update Subscription</button>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                            <p class="small text-muted">
+                                *Click Update to save latest changes
+                            </p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br> 
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+
+
+    <br> {% endfor %} {% else %}
+    <br>
+    <h4> Looks like you have nothing!</h4>
+    <br> {% endif %}
+</div>
+
+
+  
+
+
+<script>
+
+    function increaseQuant(Oid, Id) {
+        var quant_div = document.getElementById(Id);
+        prev_val = quant_div.value;
+        if (prev_val == "") {
+            prev_val = 1;
+        } else {
+            prev_val = parseInt(prev_val);
+            prev_val++;
+        }
+        quant_div.value = prev_val;
+        orderUpdate(Oid, prev_val);
+    }
+
+    function decreaseQuant(Oid, Id) {
+        var quant_div = document.getElementById(Id);
+        prev_val = quant_div.value;
+        if (prev_val == "") {
+            prev_val = 1;
+        }
+        prev_val = parseInt(prev_val);
+        if (prev_val > 1) {
+            prev_val--;
+        }
+        quant_div.value = prev_val;
+        orderUpdate(Oid, prev_val);
+    }
+
+    getCartItems(function(d) {
+        console.log("GETTING CART ITEMS! total_cart_items");
+        console.log("Cart Items: " + d);
+        $('#total_cart_items').text(d);
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/cartnew/edit_subscription.js' %}"></script>
+
+{% endblock %}

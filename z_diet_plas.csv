@@ -1,0 +1,260 @@
+Diet Day time,uit,item,type
+1,1,1,2,toast,slice
+1,1,1,1,Omelet,
+1,1,1,1,Apple,juice
+1,3,1,2,toast,slice
+1,3,1,1,Omelet,
+1,3,1,1,Apple,juice
+1,2,1,2,bread,slice
+1,2,1,1,Omelet,
+1,2,1,1,Apple,juice
+1,4,1,2,bread,slice
+1,4,1,1,Omelet,
+1,4,1,1,Apple,juice
+1,6,1,2,bread,soft slice
+1,6,1,1,Omelet,
+1,6,1,1,Apple,juice
+1,5,1,2,bread,white slice
+1,5,1,1,Omelet,
+1,5,1,1,Milk,
+1,7,1,2,bread,white slice
+1,7,1,1,Omelet,
+1,7,1,1,Milk,
+1,1,2,1,Steak,fries
+1,1,2,1,chicken,Canned 
+1,1,2,1,meat,Noodles sauce
+1,3,2,1,Steak,fries
+1,3,2,1,chicken,Canned 
+1,3,2,1,meat,Noodles sauce
+1,2,2,1,meat,Soft moist
+1,2,2,1,gravy,veg 
+1,2,2,1,chapatti,soft
+1,4,2,1,meat,Soft moist
+1,4,2,1,gravy,veg 
+1,4,2,1,chapatti,soft
+1,6,2,1,meat,Soft moist
+1,6,2,1,gravy,veg 
+1,6,2,1,chapatti,soft
+1,5,2,1,vegetables,soft cooked
+1,5,2,1,bread,soft
+1,7,2,1,vegetables,soft cooked
+1,7,2,1,bread,soft
+1,1,3,1,cereals,cold dry
+1,1,3,1,Hamburger,canned fruit
+1,1,3,1,Milk,with Ispaghol
+1,3,3,1,cereals,cold dry
+1,3,3,1,Hamburger,canned fruit
+1,3,3,1,Milk,with Ispaghol
+1,2,3,1,Orange,juice
+1,2,3,1,potatoes,mashed
+1,2,3,1,chicken,sandwich
+1,2,3,1,milk,with Ispaghol
+1,4,3,1,Orange,juice
+1,4,3,1,potatoes,mashed
+1,4,3,1,chicken,sandwich
+1,4,3,1,milk,with Ispaghol
+1,6,3,1,Orange,juice
+1,6,3,1,potatoes,mashed
+1,6,3,1,chicken,sandwich
+1,6,3,1,Milk,with Ispaghol
+1,5,3,1,meat,Noodles sauce
+1,5,3,1,steak,fries
+1,5,3,1,crackers,Saltin
+1,5,3,1,Milk,with Ispaghol
+1,7,3,1,meat,Noodles sauce
+1,7,3,1,steak,fries
+1,7,3,1,crackers,Saltin
+1,7,3,1,Milk,with Ispaghol
+2,1,1,1,Chapatti,
+2,1,1,1,Cabbage,meat
+2,1,1,0.75,yogurt,
+2,1,1,1,salad,
+2,3,1,1,Chapatti,
+2,3,1,1,Cabbage,meat
+2,3,1,0.75,yogurt,
+2,3,1,1,salad,
+2,2,1,1,salad,
+2,2,1,1,kabab,Shami
+2,2,1,1,Bread,
+2,5,1,1,salad,
+2,5,1,1,kabab,Shami
+2,5,1,1,Bread,
+2,4,1,1,rice,Bran
+2,4,1,1,Raita,
+2,4,1,1,Meat,gravy
+2,6,1,1,rice,Bran
+2,6,1,1,Raita,
+2,6,1,1,Meat,gravy
+2,7,1,1,Chicken,sandwich
+2,7,1,1,salad,
+2,7,1,1,Yoghurt,
+2,1,2,1,Chapatti,
+2,1,2,1,Chicken,gravy
+2,3,2,1,Chapatti,
+2,3,2,1,Chicken,gravy
+2,2,2,1,Chapatti,
+2,2,2,1,Potatoes,meat
+2,5,2,1,Chapatti,
+2,5,2,1,Potatoes,meat
+2,4,2,1,Chapatti,
+2,4,2,1,Potatoes,gravy
+2,6,2,1,Chapatti,
+2,6,2,1,Potatoes,gravy
+2,7,2,1,rice,Brown
+2,7,2,1,chicken,Roasted
+2,7,2,1,Salad,
+2,1,3,1,Apple,juice
+2,1,3,1,Crackers,
+2,1,3,1,Prune,juice
+2,1,3,1,Milk,with Ispaghol
+2,3,3,1,Apple,juice
+2,3,3,1,Crackers,
+2,3,3,1,Prune,juice
+2,3,3,1,Milk,with Ispaghol
+2,2,3,1,Prune,juice
+2,2,3,1,Grape,juice
+2,2,3,1,Sandwich,
+2,2,3,1,Biscuit,Milk
+2,5,3,1,Prune,juice
+2,5,3,1,Grape,juice
+2,5,3,1,Sandwich,
+2,5,3,1,Biscuit,Milk
+2,4,3,1,Prune,juice
+2,4,3,1,Kabab,
+2,4,3,1,Crackers,
+2,4,3,1,Milk,with Ispaghol
+2,6,3,1,Prune,juice
+2,6,3,1,Kabab,
+2,6,3,1,Crackers,
+2,6,3,1,Milk,with Ispaghol
+2,7,3,1,Crackers,saltine
+2,7,3,1,Watermelon,
+2,7,3,1,Biscuit,milk
+3,1,1,1,Rice,
+3,1,1,1,Vegetables,gravy
+3,1,1,1,Salad,
+3,3,1,1,Rice,
+3,3,1,1,Vegetables,gravy
+3,3,1,1,Salad,
+3,2,1,2,Rice, oiled
+3,2,1,2,Pulses,
+3,2,1,1,Salad,
+3,5,1,2,Rice, oiled
+3,5,1,2,Pulses,
+3,5,1,1,Salad,
+3,4,1,1,egg, mix with vegetables
+3,4,1,1.5,Chapatti,
+3,4,1,1,Fish,
+3,6,1,1,egg, mix with vegetables
+3,6,1,1.5,Chapatti,
+3,6,1,1,Fish,
+3,7,1,2,Chapatti,
+3,7,1,1,Vegetables,
+3,7,1,0.5,Raita,
+3,1,2,1,Chicken,Sandwich
+3,1,2,1,Ketchup,
+3,3,2,1,Chicken,Sandwich
+3,3,2,1,Ketchup,
+3,2,2,2,Chapatti,
+3,2,2,1,Chicken,Gravy
+3,2,2,1,Custard,
+3,5,2,2,Chapatti,
+3,5,2,1,Chicken,Gravy
+3,5,2,1,Custard,
+3,4,2,1,Fruit,juice
+3,4,2,2,Chapatti,
+3,4,2,1,vegetables,steamed
+3,6,2,1,Fruit,juice
+3,6,2,2,Chapatti,
+3,6,2,1,vegetables,steamed
+3,7,2,2,rice,oiled
+3,7,2,1,Pulses,bowl
+3,7,2,1,Fruit,juice
+3,1,3,1,Sweet potatoes,
+3,1,3,1,Dates,
+3,1,3,1,Pineapple,juice
+3,1,3,1,Milk,
+3,3,3,1,Sweet potatoes,
+3,3,3,1,Dates,
+3,3,3,1,Pineapple,juice
+3,3,3,1,Milk,
+3,2,3,1,Fruit,juice
+3,2,3,1,Chicken,Sandwich
+3,2,3,1,Pear,
+3,2,3,1,Milk,
+3,5,3,1,Fruit,juice
+3,5,3,1,Chicken,Sandwich
+3,5,3,1,Pear,
+3,5,3,1,Milk,
+3,4,3,1,Mousse,
+3,4,3,1,banana,Medium
+3,4,3,1,custard,
+3,6,3,1,Mousse,
+3,6,3,1,banana,Medium
+3,6,3,1,custard,
+3,7,3,1,Fruit,chaat
+3,7,3,1,Mousse,
+3,7,3,1,Mango,shake
+4,1,1,2,chapatti,
+4,1,1,1,kabab,Shami
+4,3,1,2,chapatti,
+4,3,1,1,kabab,Shami
+4,2,1,2,cereal,bowl
+4,2,1,1,Chicken,steamed
+4,2,1,0.5,Yogurt,
+4,5,1,2,cereal,bowl
+4,5,1,1,Chicken,steamed
+4,5,1,0.5,Yogurt,
+4,4,1,2,Pasta,
+4,4,1,2,Meat,Lean
+4,4,1,1,Fruit,juice
+4,4,1,1,Vegetables,tender
+4,6,1,2,Pasta,
+4,6,1,2,Meat,Lean
+4,6,1,1,Fruit,juice
+4,6,1,1,Vegetables,tender
+4,7,1,2,Meat,Lean gravy
+4,7,1,1.5,Roti,
+4,1,2,1,Pasta,
+4,1,2,1,Apple,juice
+4,3,2,1,Pasta,
+4,3,2,1,Apple,juice
+4,2,2,2,Bread,soft
+4,2,2,1,Chicken,gravy
+4,2,2,1,Apple,sauce
+4,5,2,2,Bread,soft
+4,5,2,1,Chicken,gravy
+4,5,2,1,Apple,sauce
+4,4,2,1,Hamburger,
+4,4,2,1,Salad,meat
+4,4,2,0.5,Potatoes,baked by cup
+4,6,2,1,Hamburger,
+4,6,2,1,Salad,meat
+4,6,2,0.5,Potatoes,baked by cup
+4,7,2,3,Roti,
+4,7,2,1,Vegetables,
+4,7,2,3,Meat,grilled
+4,1,3,1,Banana,Crackers
+4,1,3,1,Noodles,meat sauce
+4,1,3,1,Fruit,canned
+4,1,3,1,Milk,
+4,3,3,1,Banana,Crackers
+4,3,3,1,Noodles,meat sauce
+4,3,3,1,Fruit,canned
+4,3,3,1,Milk,
+4,2,3,1,melon,cutted
+4,2,3,1,yogurt,Strawberry flavoured
+4,2,3,1,Milk,with Biscuit
+4,5,3,1,melon,cutted
+4,5,3,1,yogurt,Strawberry flavoured
+4,5,3,1,Milk,with Biscuit
+4,4,3,1,Mousse,
+4,4,3,1,Tea,with Biscuit
+4,4,3,1,Yogurt,cup
+4,6,3,1,Mousse,
+4,6,3,1,Tea,with Biscuit
+4,6,3,1,Yogurt,cup
+4,7,3,1,Peach,Medium
+4,7,3,2,mayonnaise,tbs
+4,7,3,1,Apple,
+4,7,3,1,Milk,Fat free,from diarrhea left

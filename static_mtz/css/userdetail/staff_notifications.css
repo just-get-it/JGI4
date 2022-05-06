@@ -1,0 +1,34 @@
+
+
+
+
+
+
+
+.noti_detail_head::after{
+	content: '20';
+	font-size: .8em;
+	width: 20px;
+	height: 20px;
+	border-radius: 80%;
+	background: red;
+	padding: 30%;
+	padding-top: 20%;
+	padding-bottom: 20%;
+	margin-left: 10px;
+}
+
+
+.noti_detail_tit{
+	content: 'Seen';
+	font-size: .8em;
+	height: 23px;
+	border-radius: 5px;
+	background: #30c5ff;
+	padding: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-left: 10px;
+	color: white;
+	font-weight: bold;
+}

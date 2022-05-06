@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% block topcontent %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/styles_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/profile_style.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="container-fluid">
+	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+    <ul class="navbar-nav m-auto" >
+      <li class="nav-item"><a  class="nav-link" href="/userdetail/academic_profile?email={{email}}"   style="color: white;">Profile</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/upload_product"   style="color: white;">Product Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/staff_profile/message"   style="color: white;">Service Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/products"   style="color: white;">Suscribe</a></li>	
+	  <li class="nav-item"><a  class="nav-link" href="/cal"   style="color: white;">Diet Plan</a>
+		</li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/store"   style="color: white;">Whislist</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Cart</a>
+		</li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Order Placement</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Payment</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/generate"   style="color: white;">Generate Link For Form</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/display_report_user"   style="color: white;">Display Report</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<!--<div class="container-fluid">
+    <div class="row">
+        <div class="col py-2 centered noti_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/professional_profile?email={{email}}" class="hov-a" style="color: white;">Profile</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/upload_product" class="hov-a" style="color: white;">Product Upload</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/message" class="hov-a" style="color: white;">Service Upload</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/products" class="hov-a" style="color: white;">Suscribe</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Whislist</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Cart</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Order Placement</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Payment</a>
+        </div>
+
+    </div>
+
+
+
+</div>-->
+
+
+
+<div class="container">
+    <br><br><br><br>
+    <h1>Profile</h1><br>
+
+    <div class="container">
+        <div class="tab row">
+            <div class="col-3 items">
+                <div class="row men"><a href="/userdetail/academic_profile?email={{email}}"><b>Academic Profile</b></a>
+                </div>
+                <a href="/userdetail/professional_profile?email={{email}}" style="color: black;">
+                    <div class="row men"><b>Professional Profile</b></div>
+                </a>
+                <div class="row men"><a href="/userdetail/social_profile?email={{email}}"><b>Social Profile</b></a>
+                </div>
+                <div class="row men"><a href="/userdetail/medical_profile?email={{email}}"><b>Medical Profile</b></a>
+                </div>
+            </div>
+            <div class="col-9 display ">
+
+                <p class="col-sm-2 col-form-label" onclick="add_experience()">+ADD EXPERIENCE</p>
+
+                <div class="form-group">
+                    {% for i in pro_obj %}
+                    <ul>
+                        <li>
+                            <p>{{i.title}}</p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <div class="form-group" id="mydiv_ex">
+                    <hr>
+                    <form method="POST" action="professional_profile?email={{email}}">
+                        {% csrf_token %}
+                        <label class="col-sm-2 col-form-label">Name as per documents</label>
+                        <div class="col-sm-4">
+                            {{form.name}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-4">
+
+                            {{form.title}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Employemny Type</label>
+                        <div class="col-sm-4">
+                            {{form.employment_type}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Company</label>
+                        <div class="col-sm-4">
+                            {{form.company}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">I currently working in this Company</label>
+                        <div class="col-sm-4">
+                            {{form.current_company}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Location</label>
+                        <div class="col-sm-4">
+                            {{form.location}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Start Date</label>
+                        <div class="col-sm-4">
+                            {{form.start_date}}
+                        </div>
+                        <div id="endcheck">
+                            <label class="col-sm-2 col-form-label">End Date</label>
+                            <div class="col-sm-4">
+                                {{form.end_date}}
+                            </div>
+                        </div>
+                        <label class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-4">
+                            {{form.description}}
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit_exp" class="btn btn-success">
+                        </div>
+
+                        <hr>
+                    </form>
+                </div>
+
+                <p class="col-sm-2 col-form-label" onclick="add_project()">+ADD Projects</p>
+                <div class="form-group">
+                    {% for i in project_obj %}
+                    <ul>
+                        <li>
+                            <p>{{i.project_name}}</p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <div class="form-group" id="mydiv_project">
+                    <hr>
+                    <form method="post" action="professional_profile?email={{email}}">
+                        {% csrf_token %}
+                        <label class="col-sm-2 col-form-label">Project Name</label>
+                        <div class="col-sm-4">
+
+                            {{pro_form.project_name}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Start Date</label>
+                        <div class="col-sm-4">
+                            {{pro_form.start_date}}
+                        </div>
+                        <div id="endcheck">
+                            <label class="col-sm-2 col-form-label">End Date</label>
+                            <div class="col-sm-4">
+                                {{pro_form.end_date}}
+                            </div>
+                        </div>
+                        <label class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-4">
+                            {{pro_form.description}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Project Url</label>
+                        <div class="col-sm-4">
+                             {{pro_form.project_url}}
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit_project" class="btn btn-success">
+                        </div>
+
+                        <hr>
+                    </form>
+                </div>
+
+                <p class="col-sm-2 col-form-label" onclick="add_skill()">+ADD SKILLS</p>
+                <div class="form-group">
+                    {% for i in skill_obj %}
+                    <ul>
+                        <li>
+                            <p>{{i.name}}</p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <div class="form-group" id="mydiv_skill">
+                    <hr>
+                    <form method="post" action="professional_profile?email={{email}}">
+                        {% csrf_token %}
+                        <label class="col-sm-2 col-form-label">Skill Name</label>
+                        <div class="col-sm-4">
+
+                            {{skill_form.name}}
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit_skill" class="btn btn-success">
+                        </div>
+
+                        <hr>
+                    </form>
+                </div>
+
+                <p class="col-sm-2 col-form-label" onclick="add_certi()">+ADD CERTIFICATIONS</p>
+                <div class="form-group">
+                    {% for i in certi_obj %}
+                    <ul>
+                        <li>
+                            <p>{{i.title}}</p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <div class="form-group" id="mydiv_certi">
+                    <hr>
+                    <form method="post" action="professional_profile?email={{email}}">
+                        {% csrf_token %}
+                        <label class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-4">
+
+                            {{cert_form.title}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Organization</label>
+                        <div class="col-sm-4">
+
+                            {{cert_form.organization}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Issue Date</label>
+                        <div class="col-sm-4">
+
+                            {{cert_form.issued_date}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Credintial ID</label>
+                        <div class="col-sm-4">
+
+                            {{cert_form.issued_id}}
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit_cert" class="btn btn-success">
+                        </div>
+
+                        <hr>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+<div class="container-0">
+{% endblock %}
+{% block content %}
+
+    <br><br><br><br>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+    var my;
+
+    ex = document.getElementById('mydiv_ex');
+
+    pro = document.getElementById('mydiv_project');
+    skill = document.getElementById('mydiv_skill');
+    certi = document.getElementById('mydiv_certi');
+    ex.style.display = "none";
+    pro.style.display = "none"
+    skill.style.display = "none"
+    certi.style.display = "none"
+    function add_experience() {
+        ex.style.display = "block";
+    }
+    function add_project() {
+        pro.style.display = "block";
+    }
+    function add_skill() {
+        skill.style.display = "block";
+    }
+    function add_certi() {
+        certi.style.display = "block";
+    }
+
+
+    function disend() {
+        var dis = document.getElementById('check');
+        var end = document.getElementById('endcheck');
+        if (dis.checked == true) {
+            end.style.display = "none";
+        }
+
+    }
+
+</script>
+
+{% endblock %}

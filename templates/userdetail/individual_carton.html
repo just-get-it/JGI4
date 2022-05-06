@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load qr_code %}
+{% block content %}
+<div>
+    <h3>Order:- {{ Carton.order }}</h3>
+    <h3>Carton id:- {{Carton.id}}</h3>
+    <h3>Address:- {{Carton.address}}</h3>
+
+
+
+					<div>Brand name:-	{{detail.Brand_Name}} </div>
+
+					<div> Label name:-	{{detail.Label_Name}} </div>
+
+					<div> category:-	{{detail.Category}} </div>
+
+
+
+						<div> Style:- {{detail.Style}} </div>
+                        <div>Sizes:- {{detail.Size}} </div>
+
+						<div>Colours:-{{detail.Colour}} </div>
+
+						<div>Net Qty:-{{detail.Net_Qty}} </div>
+
+						<div>Pkd Date:-{{detail.pkd_date}} </div>
+
+						<div>Blend:-{{detail.Blend}}</div>
+
+						<div>MRP:-{{detail.MRP}} </div>
+
+						<div>Address:- {{detail.address}} </div>
+
+						<div>Contact:- {{detail.contact}}</div>
+
+					<div>Email:- {{detail.Email}} </div>
+
+					<div>Website:- {{detail.Website }}</div>
+
+    <div>Terms & conditions:-	{{detail.TandC}}</div>
+
+
+
+
+    <div class="row" style="height: Layout.height ; width:Layout.width ;" > {% qr_from_text Carton %} </div>
+
+
+    <script>
+
+        window.print()
+    </script>
+
+</div>
+
+{% endblock %}

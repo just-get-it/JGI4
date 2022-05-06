@@ -1,0 +1,54 @@
+{% extends 'base_connect.html' %}
+{% load static %}
+{%load crispy_forms_tags%}
+{% block content %}
+
+<main id="page" role="main">
+    <div id="content" class="main-content" data-content-field="main-content"
+        data-collection-id="5f4f1eccca1e2c277194f1a0">
+
+        <a href="{% url 'connect-event-manage' %}"> Go to manage form</a>
+        <div class="container -sm">
+
+            <h2> {{event.name}}</h2>
+            <p>
+                Hosted by {{event.hosted_by}}
+            </p>
+             {% if event.pic %}
+                    <p>
+                         <img class="card-img-top img-fluid" src={{event.pic.url}} alt="">
+                    </p>
+            {% endif %}
+            <p>
+                <h3> {{event.name}}</h3>
+            </p>
+            <p>
+                event type by {{event.event_type}}
+            </p>
+            <p>
+                {{event.event_description}}
+            </p>
+
+            <p>
+                Location :- {{event.location}}
+            </p>
+
+            <p> {{event.start_time}}
+            </p>
+            <p>
+                {{event.durations}}</p>
+            <p> {{event.end_time}}
+            </p>
+            <p>
+                Any on can joint {{event.any_one_can_joint}}
+            </p>
+            <p>No of spot {{event.no_of_spot}}</p>
+
+
+        </div>
+
+
+    </div>
+</main>
+
+{% endblock %}

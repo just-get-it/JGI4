@@ -1,0 +1,53 @@
+
+
+{% extends "admin/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block extrastyle %}
+	<!-- <link href="{{ STATIC_URL }}css/adminextra.css" rel="stylesheet" type="text/css" media="screen,projection" /> -->
+	<style type="text/css">
+		th a, td a{
+		    color:#253031 !important;
+		    font-weight: bold;
+		    transition: all ease 0.1s;
+		}
+		th	a:hover, td a:hover{
+			color: #30c5ff !important;
+			font-weight: bold;
+			/*font-size: 1.05em !important;*/
+		}
+		.sidebar-link-label {
+		    color: #30c5ff;
+		}
+		.sidebar-section {
+		    background: #253031;
+		}
+		#branding {
+		    background: #253031;
+		}
+		.site-name img {
+		    height: 50px !important;
+		}
+		.module caption a {
+		    color: #253031;
+		}
+		#container {
+		    background: rgba(48,197,255,0.01);
+		}
+		.module ul.actionlist a {
+		    color: #253031;
+		}
+
+	</style>
+{% endblock %}
+{% block branding %}
+<h1 id="site-name" style="margin-top:0px;">
+    <a href="{% url 'admin:index' %}">
+        <img src="{% static 'img/logo1.png' %}" height="20px" />
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

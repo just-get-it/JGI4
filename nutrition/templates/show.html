@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="row">
+  <div class="column">
+    <table>
+      <tr>
+        <th>Gender</th>
+        <th>{{ data.gen }}</th>
+      </tr>
+        <tr>
+        <th>Age</th>
+        <th>{{ data.age }}</th>
+      </tr>
+         <tr>
+        <th>Height</th>
+        <th>{{ data.height }}</th>
+      </tr>
+         <tr>
+        <th>Weight</th>
+        <th>{{ data.weight }}</th>
+      </tr>
+         <tr>
+        <th>Body Fat</th>
+        <th>{{ data.bodyfat }}</th>
+      </tr>
+         <tr>
+        <th>Body Physics Type</th>
+        <th>{{ data.bodyphy }}</th>
+      </tr> <tr>
+        <th>Exercise</th>
+        <th>{{ data.exercise }}</th>
+      </tr>
+         <tr>
+        <th>Activity Level</th>
+        <th>{{ data.activity }}</th>
+      </tr> <tr>
+        <th>Blood Pressure</th>
+        <th>{{ data.blood_pressure }}</th>
+      </tr> <tr>
+        <th>Sugar</th>
+        <th>{{ data.sugar }}</th>
+      </tr>
+         <tr>
+{#        <th>Vitamin Required</th>#}
+{#        <th>{{ data.vitamin }}</th>#}
+{#      </tr>#}
+{#         <tr>#}
+{#        <th>Mineral Required</th>#}
+{#        <th>{{ data.mineral }}</th>#}
+{#      </tr>#}
+         <tr>
+        <th>Blood Group</th>
+        <th>{{ data.blood_group }}</th>
+      </tr> <tr>
+{#        <th>Meals You Eat Per Day</th>#}
+{#        <th>{{ data.meal }}</th>#}
+{#      </tr> <tr>#}
+        <th>Food Habbit</th>
+        <th>{{ data.food_habbit }}</th>
+      </tr> <tr>
+        <th>FOOD Preference</th>
+        <th>{{ data.food_preference }}</th>
+      </tr>
+         <tr>
+        <th>Disability</th>
+        <th>{{ data.disability }}</th>
+      </tr>
+         <tr>
+        <th>Other Medical Issues</th>
+        <th>{{ data.medical_issues}}</th>
+      </tr>
+         <tr>
+        <th>Diseases</th>
+        <th>{{ data.diseases }}</th>
+         </tr>
+
+
+    </table>
+
+  </div>
+  <div class="column">
+       <h2 style="text-align: right;padding-bottom: 50px"> Back </h2>
+    <table >
+      <tr>
+        <th>Body Mass Index</th>
+        <th>{{ data1.bmi|floatformat:2 }}   kg/m2 </th>
+      </tr>
+        <tr>
+        <th> Lean Body Mass </th>
+        <th>{{ data1.lean_body_mass|floatformat:2 }}   kg </th>
+      </tr>
+        <tr>
+        <th> Lean Body Mass Index</th>
+        <th>{{ data1.lean_bmi|floatformat:2 }}   kg/m2 </th>
+      </tr>
+        <tr>
+        <th>Basal Metabolic Rate</th>
+        <th>{{ data1.basal_metabolic_rate|floatformat:2 }}   kcal/day </th>
+      </tr>
+        <tr>
+        <th>Maintenance</th>
+        <th>{{ data1.maintaince|floatformat:2 }}   kcal/day </th>
+      </tr>
+        <tr>
+        <th>Protein</th>
+        <th>{{ data2.protein_in_gr|floatformat:2 }}  gr</th>
+      </tr>
+<tr>
+        <th>Carbs</th>
+        <th>{{ data2.carbs_in_gr|floatformat:2 }}  gr</th>
+      </tr>
+<tr>
+        <th>Fat</th>
+        <th>{{ data2.fat_in_gr|floatformat:2 }}  gr</th>
+      </tr>
+
+    </table>
+  </div>
+<div>
+
+
+<div class="column">
+<h1> These are some diet products according to your Protein Required</h1>
+<form method="post" action="{% url 'diet_plan' %}">
+{% csrf_token %}
+   <table>        <h2>Please select multiple</h2>
+{% for x in a %}
+       <tr>
+           <td><a><input type="checkbox" name="id" value="{{ x.product_id }} "></a></td>
+           <td> <a> {{ forloop.counter }}. </a>{{ x.product_id }}<br>{{ x.product_name}}</td>
+       </tr>
+    {% endfor %}
+<tr><th>    <h1><button type="submit"> Select</button></h1>
+</th></tr>
+
+</table>
+</form>
+
+</div>
+</div>
+
+<div class="column">
+
+{#{% for y in a %}#}
+{#            <th>   <th><a><input type="checkbox" name="id" value="{{ y.product_id}} "></a></th>#}
+{##}
+{#              <th>  {{ forloop.counter }}.{{ y.product_name}}<br><br></th></tr>#}
+{#{% endfor %}#}
+
+</div>
+</div>
+</body>
+</html>

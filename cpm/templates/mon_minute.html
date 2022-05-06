@@ -1,0 +1,28 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>Monthly Linewise Available Minutes Table</h1>
+    </div>
+    <table class="table table-hover table-striped table-bordered" style="width: 97%; margin-left: 20px">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Month</th>
+            <th scope="col">Line Number</th>
+            <th scope="col">Available Minutes</th>
+
+          </tr>
+        </thead>
+    {% for m in minutes %}
+        <tbody>
+          <tr>
+            <td>{{m.month}}</td>
+            <td>{{m.line}}</td>
+            <td>{{m.minutes}}</td>
+          </tr>
+        </tbody>
+    {% endfor %}
+      </table>
+
+    
+{% endblock %}

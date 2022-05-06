@@ -1,0 +1,81 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>OTHER EXPENSES RECORD</h1>
+    </div>
+    <table class="table table-hover table-striped table-bordered" style="width: 97%; margin-left: 20px">
+         <tr>
+	     <td>
+	      <table>
+	        <thead>
+	            <tr>
+	                <th>Factory Overhead</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        	<tr><td>Bonus, Incentive and Others</td></tr>
+				<tr><td>Carrying (In Word)</td></tr>
+				<tr><td>Earn Leave Allowance</td></tr>
+				<tr><td>Electricity Bill</td></tr>
+                <tr><td>EPF Expenses (Employer)</td></tr>
+				<tr><td>Factory Rent</td></tr>
+				<tr><td>Factory Supplies</td></tr>
+				<tr><td>Food Expenses</td></tr>
+				<tr><td>Fuel for Generator</td></tr>
+				<tr><td>Import (C&F) Charges</td></tr>
+				<tr><td>Import Freight Charges</td></tr>
+				<tr><td>Insurance Premium</td></tr>
+				<tr><td>Labor Charges</td></tr>
+				<tr><td>Land Rent</td></tr>
+				<tr><td>Medical Expenses</td></tr>
+				<tr><td>Miscellaneous Expenses</td></tr>
+				<tr><td>Repair & Maintenance</td></tr>
+				<tr><td>Small Tolls and Spares</td></tr>
+				<tr><td>Transportation Allowance</td></tr>
+				<tr><td>Travel & Conveyance</td></tr>
+				<tr><td>Water Bill</td></tr>
+				<tr><td>Welfare Fund</td></tr>
+				<tr><th>Total</th></tr>
+            </tbody>
+	      </table>
+         </td>
+         {%for x in overhead%}
+         <td>
+	      <table>
+	         <thead>
+	            <tr>
+	                <th>{{x.month}}</th>
+	            </tr>
+             </thead>
+	         <tbody>
+	             <tr><td>{{x.bonus_incentives_others}}</td></tr>
+                 <tr><td>{{x.carrying}}</td></tr>
+                 <tr><td>{{x.earn_leave_allowances}}</td></tr>
+                 <tr><td>{{x.electricity_bill}}</td></tr>
+                 <tr><td>{{x.epf_expenses}}</td></tr>
+                 <tr><td>{{x.factory_rent}}</td></tr>
+                 <tr><td>{{x.factory_supply}}</td></tr>
+                 <tr><td>{{x.food_expenses}}</td></tr>
+                 <tr><td>{{x.generator_fuel}}</td></tr>
+                 <tr><td>{{x.import_charges}}</td></tr>
+                 <tr><td>{{x.import_freight_charges}}</td></tr>
+                 <tr><td>{{x.insurance_premium}}</td></tr>
+                 <tr><td>{{x.labour_charge}}</td></tr>
+                 <tr><td>{{x.land_rent}}</td></tr>
+                 <tr><td>{{x.medical_expenses}}</td></tr>
+                 <tr><td>{{x.misc_expenses}}</td></tr>
+                 <tr><td>{{x.repair_nd_main}}</td></tr>
+                 <tr><td>{{x.small_tools_spares}}</td></tr>
+                 <tr><td>{{x.transport}}</td></tr>
+                 <tr><td>{{x.travel_conveyance}}</td></tr>
+                 <tr><td>{{x.water_bill}}</td></tr>
+                 <tr><td>{{x.welfare_fund}}</td></tr>
+                 <tr><td>{{x.total}}</td></tr>
+             </tbody>
+          </table>
+         </td>
+         {%endfor%}
+	</tr>
+	</table>
+{% endblock %}

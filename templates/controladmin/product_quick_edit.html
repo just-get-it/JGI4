@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>#wrapper {width:max-content;}
+#wrapper .container {max-width: 100%; display: block;}
+
+</style>
+<body>
+<div id="wrapper">
+	<div class="container mt-5 justify-content-center">
+      <div class="row hide to_be_hidden">
+    <div class="container mb-4 ml-4" >
+      <div class="row justify-content-center">
+           <h1>Quick Edit<h1>
+      </div>
+    </div>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="product-content" id="independent-attributes">
+      <div class="row hide to_be_hidden">
+        <div class="container" style="margin-left:2vw;">
+          <br>
+
+
+          <div class="row">
+            <div class="col">
+              {{ form.price | as_crispy_field }}
+            </div>
+            <div class="col">
+              {{ form.offer | as_crispy_field }}
+            </div>
+            <div class="col">
+              {{ form.B2Boffer | as_crispy_field }}
+            </div>
+             <div class="col">
+                {{ form.sold_quantity | as_crispy_field }}
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+        <div class="container ml-4 justify-content-center">
+      <div class="row mt-3 mb-3 hide upload_row_but to_be_hidden justify-content-center">
+        <input class="btn btn-primary" name="Save" type="submit" id='submit_Changes' value="Save"/>
+      </div>
+    </div>
+  </form>
+
+
+
+
+
+
+
+
+</div>
+</div>
+</body>
+<!--Subscription-->
+
+
+<script>
+  "{% if messages %}"
+    "{% for i in messages %}"
+      alert("{{i}}")
+    "{% endfor %}"
+  "{% endif %}"
+
+  document.getElementById('id_prod').value = "{{ prod.pk }}";
+  document.getElementById('id_seller').value = "{{ prod.seller.pk }}";
+  document.getElementById('id_linked_product').value = "{{ prod.pk }}";
+
+  $(function () {
+    $("#datetimepicker1").datetimepicker({
+      format: 'DD/MM/YYYY HH:mm',
+    });
+  });
+
+  function openform(evt, formcontent) {
+  		var i, procontent, prolinks;
+  		procontent = document.getElementsByClassName("product-content");
+      for (i = 0; i < procontent.length; i++) {
+  		  procontent[i].style.display = "none";
+  		}
+  		prolinks = document.getElementsByClassName("btn btn-outline-secondary");
+  		for (i = 0; i < prolinks.length; i++) {
+  		  prolinks[i].className = prolinks[i].className.replace(" active", "");
+  		}
+  		document.getElementById(formcontent).style.display = "block";
+  		evt.currentTarget.className += " active";
+	}
+
+</script>
+
+
+{% endblock %}
+    <div>
+<!--  <div class="product-content" id="dependent-common" style="display: none;">-->
+<!--      <div class="row hide to_be_hidden">-->
+<!--        <div class="container" style="margin-left:2vw;">-->
+<!--          <br>-->
+
+<!--           <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.b2b_product|as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.b2c_product|as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.sample_product|as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <br>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--            {{ form.product_Category | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--            {{ form.product_Subcategory | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--            {{ form.product_Supercategory | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--            {{ form.title | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--            {{ form.slug | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.brand | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.label | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.seller | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <br>-->
+<!--             <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.image1 | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col-3">-->
+<!--              {{ form.barcode | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col-3">-->
+<!--              {{ form.gst | as_crispy_field }}-->
+<!--            </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.product_cate | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.privacy | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.product_tags | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.safe_stock | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.keywords | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.sale | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.salediscount | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.salestartdate | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.saleenddate | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.notes | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.description | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.manufacturername | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.manufacturerno | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.length | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.width | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.height | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          {% if form.product_Category.value == 12 %}-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.batteriesincluded | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.batteriesno | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.wattage | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ form.features | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.graphics | as_crispy_field }}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              {{ form.powersource | as_crispy_field }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          {% endif %}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+<!--    <div class="product-content" id="dependent-notcommon" style="display: none;">-->
+<!--      <div class="row hide to_be_hidden">-->
+<!--        <div class="container" style="margin-left:2vw;">-->
+<!--          <br>-->
+<!--          {% comment %} <div style="display: none;">{{ extraForm.prod | as_crispy_field }}</div> {% endcomment %}-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              <label for="a1">-->
+<!--                {{ extraForm.attribute1 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value1 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              <label for="a2">-->
+<!--                {{ extraForm.attribute2 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value2 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              <label for="a3">-->
+<!--                {{ extraForm.attribute3 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value3 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              <label for="a4">-->
+<!--                {{ extraForm.attribute4 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value4 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              <label for="a5">-->
+<!--                {{ extraForm.attribute5 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value5 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              <label for="a6">-->
+<!--                {{ extraForm.attribute6 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value6 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              <label for="a7">-->
+<!--                {{ extraForm.attribute7 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value7 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              <label for="a8">-->
+<!--                {{ extraForm.attribute8 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value8 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--              <label for="a9">-->
+<!--                {{ extraForm.attribute9 }}-->
+<!--              </label>-->
+<!--              {% comment %} {{ extraForm.value9 | as_crispy_field }} {% endcomment %}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="product-content" id="Uploads" style="display: none;">-->
+<!--      <div class="row hide to_be_hidden">-->
+<!--        <div class="container" style="margin-left:2vw;">-->
+<!--          <br>-->
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--                {{ imgForm | crispy }}-->
+<!--            </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+<!--    <div class="product-content" id="Variations" style="display: none;">-->
+<!--      <div class="row hide to_be_hidden">-->
+<!--        <div class="container" style="margin-left:2vw;">-->
+<!--          <br>-->
+
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--              {{ varForm | crispy }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+               </div>

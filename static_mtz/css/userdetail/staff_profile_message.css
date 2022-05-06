@@ -1,0 +1,40 @@
+
+
+
+
+
+
+.start_new_chat{
+	border: 1px solid #30c5ff;
+	border-radius: 50px;
+	color: black;
+	background: transparent;
+	font-weight: bold;
+	padding-left: 200px;
+	padding-right: 200px;
+	height: 40px;
+	transition: all .5s ease-out;
+	width: 600px;
+}
+
+
+.start_new_chat:hover{
+	background: #253031;
+	border: #253031;
+	color: #30c5ff;
+}
+
+.hide_row{
+	display: none;
+}
+
+
+.addchat{
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.4);
+	width: 100vw;
+	height: 100vh;
+	z-index: 105;
+}

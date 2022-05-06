@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/customadmin/customadmin.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="margin-bottom: 50vh;">
+	<div class="container mt-2">
+		<h5 class="mb-5">Add {{head}}</h5>
+		<form method="POST">{% csrf_token %}
+		{% for fo in form %}
+			{{fo.label}}
+			{{fo}}<br><br>
+		{% endfor %}
+		<div class="row mt-2">
+			<button style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="mt-3 ml-auto py-1 px-4 but-subs" type="submit">Save</button>
+		</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

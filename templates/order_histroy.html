@@ -1,0 +1,349 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<style type="text/css">
+  table,
+  th,
+  td {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+
+
+
+
+
+
+
+
+
+
+  #progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #455A64;
+    padding-left: 0px;
+    margin-top: 30px
+  }
+
+  #progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    color: #455A64 !important
+  }
+
+  #progressbar #step1:before {
+    content: "1";
+    color: #fff;
+    width: 29px;
+    margin-left: 15px !important;
+    padding-left: 11px !important
+  }
+
+  #progressbar #step2:before {
+    content: "2";
+    color: #fff;
+    width: 29px
+  }
+
+  #progressbar #step3:before {
+    content: "3";
+    color: #fff;
+    width: 29px;
+    margin-right: 15px !important;
+    padding-right: 11px !important
+  }
+
+  #progressbar li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: #455A64;
+    border-radius: 50%;
+    margin: auto
+  }
+
+  #progressbar li:after {
+    content: '';
+    width: 121%;
+    height: 2px;
+    background: #455A64;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 15px;
+    z-index: -1
+  }
+
+  #progressbar li:nth-child(2):after {
+    left: 50%
+  }
+
+  #progressbar li:nth-child(1):after {
+    left: 25%;
+    width: 121%
+  }
+
+  #progressbar li:nth-child(3):after {
+    left: 25% !important;
+    width: 50% !important
+  }
+
+  #progressbar li.active:before,
+  #progressbar li.active:after {
+    background: #4bb8a9
+  }
+
+  .card {
+    background-color: #fff;
+    box-shadow: 2px 4px 15px 0px rgb(0, 108, 170);
+    z-index: 0
+  }
+
+  small {
+    font-size: 12px !important
+  }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 style="text-align:center">Order History</h2>
+  <br><br>
+  <div style="display: inline-flex;">
+
+
+    <div style="margin-left: 50px;display: inline-table;">
+
+
+      <ul class="list-group" style="width: 800px;" id="items">
+        <table>
+          <tr>
+            <th>
+              <div style="margin-left: 20px;font-size: 18px;"><strong>Order Type</strong></div>
+            </th>
+            <th>
+              <div style="font-size:18px;"><strong>Order Id</strong></div>
+            </th>
+            <th>
+              <div style="font-size: 18px;"><strong>Order Date</strong></div>
+            </th>
+            <th>
+              <div style="font-size: 18px;"><strong>Order Status</strong></div>
+            </th>
+            <th>
+              <div style="font-size: 18px;"><strong>Live Track</strong></div>
+            </th>
+          </tr>
+          {% for his in history %}
+
+          <!--<li class="list-group-item d-flex align-items-center" style="font-size: 15px;">-->
+
+          <tr>
+            <td>
+              {% if his.ordertype == "Add" or  his.ordertype == "Recieved" %}
+              <span style="font-size: 18px;color:green; float: left;">{{his.ordertype}} &nbsp;</span>
+              <span style="float: right;font-size: 18px;color:green;">+&nbsp;{{his.total_amount}}</span>
+              {%elif  his.ordertype == "Send" %}
+              <span style="font-size: 18px;color: red;float: left;">{{his.ordertype}} &nbsp;</span>
+              <span style="float: right;font-size: 18px;color: red;">-&nbsp;{{his.total_amount}}</span>
+              {%else%}
+              <span style="font-size: 18px;"><b>{{his.ordertype}}</b></span>
+              {% endif %}
+            </td>
+            <td>
+              {% if his.ordertype == "Add" or  his.ordertype == "Recieved" %}
+              <a href="/wallet/transactions/{{his.order_id}}" style="font-size: 18px;color: blue;">{{his.order_id}}
+                (order details)
+              </a>
+              {%elif  his.ordertype == "Send" %}
+              <a href="/wallet/transactions/{{his.order_id}}" style="font-size: 18px;color: blue;">{{his.order_id}}
+                (order details)
+              </a>
+              {%else%}
+              <a href="/wallet/orders/{{his.order_id}}" style="font-size: 18px;color: blue;">{{his.order_id}} (order
+                details)
+              </a>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge badge-primary badge-pill" style="font-size: 18px;">{{his.date}}</span>
+            </td>
+            <td>
+              <!-- Button trigger modal -->
+              {% if his.order_status == "deliverd" %}
+              <h5 style="color: green;">Deliverd</h5>
+              {%elif  his.order_status == "packed"%}
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Status
+              </button>
+              <!-- Modal -->
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Order Progress</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card px-2">
+                        <div class="row px-3">
+                          <div class="col">
+
+                            <ul id="progressbar">
+                              <li class="step0 active " id="step1">PLACED</li>
+                              <li class="step0 text-center" id="step2">SHIPPED</li>
+                              <li class="step0 text-muted text-right" id="step3">DELIVERED</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {%else%}
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+                Status
+              </button>
+              <!-- Modal -->
+
+              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Order Progress</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card px-2">
+                        <div class="row px-3">
+                          <div class="col">
+                            <ul id="progressbar">
+                              <li class="step0 active " id="step1">PLACED</li>
+                              <li class="step0 active text-center" id="step2">SHIPPED</li>
+                              <li class="step0 text-muted text-right" id="step3">DELIVERED</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {%endif%}
+            </td>
+            <td>
+              {% if his.order_status != "deliverd" %}
+              <h5 style="color: red;"><a href="/wallet/track_order">Track</a></h5>
+              {%endif%}
+            </td>
+
+
+
+          </tr>
+
+
+
+
+
+          {% endfor %}
+        </table>
+      </ul>
+      <nav aria-label="breadcrumb" style="width: 800px;">
+        <ol class="breadcrumb">
+          <!--                <li class="breadcrumb-item active" aria-current="page"> Your Cart Total is Rs. <b><span id="totalPrice" ></span>.00</b>. Place your order by filling the details below!</li>-->
+          <li class="breadcrumb-item active" aria-current="page" style="font-size: 20px;width: 800px;">End of all
+            Transactions!</li>
+        </ol>
+      </nav>
+    </div>
+
+  </div>
+  <br><br>
+
+</div>
+
+
+
+
+<br><br><br>
+{% endblock %}
+
+{% block js %}
+
+
+
+<!--<script>-->
+<!--if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--    console.log(cart);-->
+<!--    }-->
+<!--    var sum=0;-->
+<!--    var totalPrice=0;-->
+<!--    if ($.isEmptyObject(cart)){-->
+<!--        mystr='<p><h5 style="text-align:center">Your cart is empty! Please add some items</h5></p>'-->
+
+<!--        $('#items').append(mystr);-->
+<!--    }-->
+<!--    else {-->
+<!--    for (var item in cart){-->
+<!--        let qty= cart[item][0];-->
+<!--        let name= cart[item][1];-->
+<!--        let itemPrice= cart[item][2];-->
+<!--        sum+=qty;-->
+<!--        totalPrice = totalPrice + qty*itemPrice;-->
+
+<!--        mystr=`<li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                ${name}-->
+<!--                <span class="badge badge-primary badge-pill">${qty}</span>-->
+<!--              </li>`-->
+<!--        $('#items').append(mystr);-->
+<!--    }-->
+<!--    }-->
+<!--    document.getElementById('cart').innerHTML = sum;-->
+<!--    document.getElementById('totalPrice').innerHTML = totalPrice;-->
+
+<!--    $('#itemsJson').val(JSON.stringify(cart));-->
+<!--     {% if doneorder %}-->
+<!--        if (totalPrice!=0){-->
+<!--            alert('Thanks for ordering. Your Order id is: {{id}}');-->
+<!--            localStorage.clear();-->
+<!--            document.location='/';-->
+<!--        }-->
+<!--    {% endif %}-->
+
+<!--</script>-->
+{% endblock %}

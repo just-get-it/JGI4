@@ -1,0 +1,844 @@
+
+
+
+
+{% extends 'base.html' %}
+{% load qr_code %}
+{% load static %}
+
+
+
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/detailview.css' %}">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/css/bootstrap-markdown.min.css' %}">
+
+<!-- Slick -->
+<link type="text/css" rel="stylesheet" href="{% static 'css/products/slick.css' %}"/>
+<link type="text/css" rel="stylesheet" href="{% static 'css/products/slick-theme.css' %}"/>
+
+
+<link rel="stylesheet" href="{% static 'css/products/font-awesome.min.css' %}">
+<!-- nouislider -->
+<link type="text/css" rel="stylesheet" href="{% static 'css/products/nouislider.min.css' %}"/>
+
+<script type="text/javascript">
+	var sizeselected=false;
+	function selectcolor(){
+		var a,ele;
+		for(a=0;a<arguments.length;a++){
+			ele=document.getElementById(arguments[a]);
+			if(a==0){
+				ele.style.borderColor="#253031";
+				ele.classList.add("removehover");
+			}
+			else{
+				ele.style.borderColor="#30c5ff";
+			}
+		}
+	}
+	function selectsize(){
+		sizeselected=true;
+		var a;
+		var ele;
+		 //console.log(arguments[0]);
+		for(a=0;a<arguments.length;a++){
+			ele=document.getElementById(arguments[a])
+			if (a==0){
+				ele.style.backgroundColor="#30c5ff";
+				ele.style.borderColor="#30c5ff";
+				ele.classList.add("removehover");
+			}
+			else{
+				ele.style.backgroundColor="white";
+			}
+		}
+		$.ajax({
+			type:'POST',
+			url:'/products/{{obj.slug}}/',
+			data:{
+				sizes_ajax:arguments[0],
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+			cache:false,
+			dataType: "json",
+			success:function(data){
+				var ht=`<div class="container-fluid">
+							<div class="row mt-2">
+								<h6><b>SELECT COLOR</b></h6>
+							</div>
+							<div class="row">`;
+				if (data.data){
+					$.each(data.data,function(index,value){
+						var hr=``;
+						$.each(data.data,function(i,v){
+							if(v!=value){
+								hr=hr+`'`+v+`',`
+							}
+						});
+						ht=ht+`<div class="col-1 centered fontcabin size" id="`+value+`" onclick="selectcolor('`+value+`',`+hr+`);" style="background:`+value+`;height:20px;">
+						</div>`;
+					});
+					ht=ht+'</div></div>'
+					$('#colors').html(ht);
+				}
+				var a=document.getElementById('colors');
+				a.style.display="";
+			}
+		});
+
+	}
+/*	function addtocart(){
+		if (sizeselected){
+			window.location="/cart/addtocart?slug={{obj.slug}}";
+		}
+		else{
+			var fd=document.getElementById('tovib');
+			fd.classList.add('vibrate');
+			setTimeout(function(){
+				fd.classList.remove('vibrate');
+			},1000);
+		}
+	}
+	function addtocart(){
+		var action="add";
+		var idstr="{{product_code}}";
+		console.log(idstr);
+		updateuserorder(idstr,action);
+		var quant="quant"+"{{product_code}}";
+		quantity=document.getElementById(quant);
+		quantity.value=1;
+	}*/
+
+	function wishlist(){
+		var idstr="{{product_code}}";
+		var sdd=document.getElementById('wish');
+		sdd.classList.add('visi');
+		setTimeout(function(){
+			sdd.classList.remove('visi');
+		},1000);
+		console.log(addwishlist(idstr));
+
+	}
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+<br>
+
+
+<div class="wish" id="wish">
+	<img src="{% static 'img/heart.gif' %}" onerror="this.src='{% static 'img/noimage.png' %}'" />
+	<img src="{% static 'img/heart1.gif' %}" />
+</div>
+
+
+{% csrf_token %}
+<div class="row">
+	<div class="container-fluid">
+		<div class="row mt-2 ml-2" style="border-bottom: 1px solid grey;">
+			<h6 style="color: grey; cursor: pointer;" class="fontcabin">{{obj.product_Category}} / {{obj.product_Subcategory}} / {{obj.product_Supercategory}} / </h6><h6 class="fontcabin" style="cursor: pointer;"><b>{{obj.title}}</b></h6>
+
+			{% if obj.seller.email == request.user.email %}
+			<a href="/products/{{obj.slug}}/edit" class="hov-a" style="margin-left: auto;margin-right: 5vw">Edit Product</a>
+			{% endif %}
+		</div>
+				<!-- SECTION -->
+				<div class="section" style="margin-top: 10px;">
+					<!-- container -->
+					<div class="container-fluid">
+						<!-- row -->
+						<div class="row">
+							<!-- Product main img -->
+							<div class="col-md-4 col-md-push-2">
+								<div id="product-main-img">
+									<div class="product-preview zoom ">
+										{% if obj.image1 %}
+										<img src="{{obj.image1.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" style="height:600px;" alt="">
+										{% endif %}
+
+									</div>
+										{% for i in images %}
+										<div class="product-preview zoom">
+										<img src="{{i.image.url}" onerror="this.src='{% static 'img/noimage.png' %}'" style="height:600px;" alt="">
+										</div>
+										{% endfor %}
+									<!--<div class="product-preview zoom ">
+										{%for i in images%}
+										<img src="{{i.image.url}}" alt="">
+										{%endfor%}
+									</div>-->
+
+
+									<!--
+									<div class="product-preview zoom ">
+										{% if obj.image2 %}
+										<img src="{{obj.image2.url}}" alt="">
+										{%endif%}
+									</div>
+		
+									<div class="product-preview zoom">
+										{% if obj.image3 %}
+										<img src="{{obj.image3.url}}" alt="">
+										{%endif%}
+									</div>
+		
+									<div class="product-preview zoom">
+										{% if obj.image4 %}
+										<img src="{{obj.image4.url}}" alt="">
+										{%endif%}
+									</div>
+		
+									<div class="product-preview zoom">
+										{% if obj.image5 %}
+										<img src="{{obj.image5.url}}" alt="">
+										{%endif%}
+									</div>
+								-->
+								</div>
+							</div>
+							<!-- /Product main img -->
+		
+							<!-- Product thumb imgs -->
+							<div class="col-md-1 thumb-img">
+								<div id="product-imgs">
+									<div class="product-preview thumbb-img">
+										{% if obj.image1 %}
+										<img src="{{obj.image1.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" style="height:100px;" alt="">
+										{%endif%}
+									</div>
+								{%for i in images%}
+								<div class="product-preview thumbb-img">
+										<img src="{{i.image.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" style="height:100px;" alt="">
+										
+									</div>
+								{%endfor%}
+								</div>
+							</div>
+							<!-- /Product thumb imgs -->
+							
+							<!-- Product details -->
+							<div class="col-md-6 productdet">
+								<div class="row fontcabin" id="name{{obj.product_code}}">
+									<h2>{{obj.title}}</h2>
+				
+								</div>
+								<div class="row fontcabin" style="border-bottom: 1px solid #c0bdba;">
+									<h4 style="color: grey">{{obj.notes}}</h4>
+								</div>
+								<div class="row mt-2 fontcabin">
+									<h4 id="offer_price" style="color: #27ae60;"></h4><h5 style="color: grey; text-decoration: line-through; margin-top: 5px; margin-left: 10px;" id="price{{obj.product_code}}">MRP. {{obj.price}}</h5>
+									<h4 style="color: #30c5ff;">({{discount}}% Off)</h4>
+									<p class="fontcabin" style="color: grey">*</p>
+									<script type="text/javascript">
+										var	tet="{{obj.price}}";
+										var tr="{{discount}}";
+										tet=parseInt(tet,10);
+										tr=parseInt(tr,10);
+										var res=(tet * (100 - tr))/100;
+				
+										console.log(res);
+										var hj=document.getElementById('offer_price').innerHTML="Rs. "+res.toString();
+									</script>
+								</div>
+								<div class="row mt-3">
+									<div class="col-6 ml-auto mr-auto" name="before" id="before">
+                                        <form method='GET' action="{% url 'cart' %}">
+											 {% comment %} QUANTITY {% endcomment %}
+											<div class="form-group row" style="width: 600px;">
+												<label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+												{% if unit_of_measurement == 'K' %}
+													<div class="col-sm-8">
+														<input type="number" min="0.25" step="0.25" name="quantity" value="{{quantity}}" class="form-control" >
+													</div>
+													<h6>Kg(s)</h6>
+												{% elif unit_of_measurement == 'L' %}
+													<div class="col-sm-4">
+														<input type="number" min="0.5" step="0.5" name="quantity" value="{{quantity}}" class="form-control" >
+													</div>
+													<h6>litre(s)</h6>
+												{% else %}
+													<div class="col-sm-4">
+														<input type="number" min="1" name="quantity" value="{{quantity}}" class="form-control" >
+													</div>
+													<h6>Piece(s)</h6>
+												{% endif %}
+											</div>
+											 {% comment %} AMOUNT {% endcomment %}
+											<div class="form-group row" style="width: 500px;">
+												<div class="form-group-row">
+													<div class="col-sm-12">
+														<h6> Price = Rs.<span id="amount">{{amount}}</span></h6>
+													</div>
+													<input type="number" step="0.25" name="amount" value="{{amount}}" style="display: none;">
+												</div>
+											</div>
+											<input type="number" name="base_price" value="{{base_price}}" style="display: none;">
+											 {% comment %} START DATE {% endcomment %}
+                                            <div class="form-row" style="width: 500px;">
+												<label for="date" class="col-sm-2 col-form-label">Start Date</label>
+												<div class="col-sm-8">
+													<input type="date" name="start_date" class="form-control"   id="datefield">
+												</div>
+                                            </div>
+											 {% comment %} END DATE {% endcomment %}
+											<div class="form-row" style="width: 500px;">
+												<label for="date" class="col-sm-2 col-form-label">End Date</label>
+												<div class="col-sm-8">
+													<input type="date" name="end_date" class="form-control" >
+												</div>
+                                            </div>
+											 {% comment %} FREQUENCY {% endcomment %}
+											<div class="form-group row" style="width: 500px;">
+												<label for="interval" class="col-sm-2 col-form-label">Frequency</label>
+												<div class="col-sm-4">
+													<input type="number" min="1" name="interval" class="form-control" >
+												</div>
+												<br>
+												<div>
+													<strong>Note:</strong> <span>frequency=2 means you will get delivery every 2 days. So for weekly delivery enter 7 which means you will recieve delivery every 7 days.</span>
+												</div>
+											</div>
+											 {% comment %} TIME {% endcomment %}
+											<div class="form-row" style="width: 500px;">
+												<label for="shift" class="col-sm-2 col-form-label">Time for delivery: </label>
+												<div class="col-sm-4">
+													<select id="shift" class="form-control" name="shift">
+														<option value='07:00'> Morning </option>
+														<option value='13:00'> Afternoon </option>
+														<option value='19:00'> Evening </option>
+													</select>
+												</div>
+											</div>
+											 {% comment %} REMARKS {% endcomment %}
+											<div class="form-row" style="width: 500px;">
+												<label for="remark" class="col-sm-2 col-form-label">Remarks</label>
+												<div class="col-sm-8">
+													<input type="text" min="1" name="remark" class="form-control" >
+												</div>
+                                            </div>
+											{% comment %} AJAXIFY {% endcomment %}
+											<div id="finalSubscription" style="display: none;">
+												<h4> Shipping address </h4>
+												<div class="row">
+												<label for="name">Full name</label>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="name" name="fullname" value="{{full_name}}" readonly>
+													</div>
+													
+												</div>
+												<br>    
+												<div class="row">
+												<label for="address">Address</label>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Address" name="address" value="{{address}}" readonly>
+													</div>
+												</div>
+											</div>
+												<br>
+                                                <input type='text' value="{{obj.slug}}" name="slug" style="display: none" />
+												<a class="btn btn-primary" id="proceedToPayFinal" style="display: none;" href="{% url 'subscription' %}" role="button">Subscribe Other Products</a>
+                                        </form>
+
+										<input type="text" value="" name="transaction_id" style="display: none">
+										<br>
+											<button type="submit" id="subscribe_cart" class="btn btn-primary btn-action" data-target="#exampleModalCenter"> Add to subscribe cart </button>
+										
+										<div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLongTitle">Subscription</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>
+                                    </div>
+									<div class="col-6 ml-auto mr-auto row" id="after" name="after" hidden="true">
+				
+										<button style="width: 150px;background-color:white;border-color:#F08080;color: black;"  id="delete{{obj.product_code}}" data-action="delete" onclick="updatecart(2,{{obj.product_code}})"  class="btn-sm btn-dark cart"><b>Remove</b></button>
+				
+										<div style="margin-left: 10px;font-size: 15px;width: 150px;" >
+										
+										<div style="margin-left: 10px;border-color: gray;border-width: 0.3px;border-style: solid;height: 50px;" >
+								 <img data-product="{{obj.product_code}}" data-action="add" id="add{{obj.product_code}}" class="chg-quantity cart" onclick="updatecart(0,{{obj.product_code}})" style="display: inline; width: 30px;height: 30px;" alt="up"   src="https://img.icons8.com/ios/50/000000/plus.png"/>
+									<b>QTY:</b>
+									<input type="text" class="quantity" id="quant{{obj.product_code}}" name="quant{{obj.product_code}}" style="width: 30px;display: inline;height: 40px;font-size: 20px;margin-top: 3px;" disabled="true">
+									<img data-product="{{obj.product_code}}" data-action="remove" id="remove{{obj.product_code}}" class="chg-quantity updatethecart" onclick="updatecart(1,{{obj.product_code}})" style="display: inline;width: 30px;height: 30px;" alt="down" src="https://img.icons8.com/pastel-glyph/100/000000/minus.png"/>
+									</div>
+										
+									</div>
+									</div>
+								</div>
+								
+				
+								<div class="row mt-3">
+									<h6><b>BEST OFFERS</b></h6>
+								</div>
+								<div class="container-fluid" style="border-bottom: 1px solid #c0bdba;">
+								{% for o in obj.bestoffers.all %}
+								<a href="/products/offers/{{o.slug}}" class="hov-a"><div class="container-fluid my-3" style="box-shadow: 0 0 3px solid black; cursor: pointer;">
+									<div class="row">
+										<h6><b>{{o.title}}</b></h6>
+									</div>
+									<div class="row">
+										<h6>{{o.note}}</h6>
+									</div>
+								</div></a>
+								{% endfor %}
+								</div>
+								{% if attributes %}
+								<div class="row mt-4">
+									<h6><b>Product Attributes</b></h6>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										{% for attr in attributes %}
+										<div class="row">
+											<p style="color: grey; margin-bottom: 0;"><b>{{ attr.0 }}</b> : {{attr.1 }}</p>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								{% endif %}
+								<div class="row mt-4">
+									<h6><b>Product Description</b></h6>
+								</div>
+								<div class="row mt-2" id="final_description">
+									{{obj.description|safe}}
+								</div>
+								<div class=" sec_img" style="margin-left: 5px; text-align:center;">
+									{% qr_from_text 'http://retail.justgetit.in/products/'|add:obj.slug %}
+									{{ obj.product_code }}
+								</div>
+							</div>
+							<!-- /Product details -->
+		
+							
+						</div>
+						<!-- /row -->
+					</div>
+					<!-- /container -->
+				</div>
+				<!-- /SECTION -->
+		<div class="row mt-4 mb-4 ml-2">
+			<h5><b>Similiar Products</b></h5>
+		</div>
+		<div class="row">
+			{% for ob in similiar %}
+			<div class="col-6 col-xs-6 col-sm-4 col-md-2 col-lg-2 product_card">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="product_image">
+							<a href="/products/{{ob.slug}}">
+							{% if obj.image1 %}
+								<img src="/media/{{ob.image1}}" onerror="this.src='{% static 'img/noimage.png' %}'" id="{{ob.slug}}" onclick="detailpage();"></a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h6 class="ml-4 mt-2 fontcabin"><b>{{ob.title}}</b></h6><br><br>
+
+				</div>
+				<div class="row">
+					<h6 class="ml-4 fontcabin" style="color: grey">Price: <b>{{ob.price}}</b></h6>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+
+
+		{% if recent.0 %}
+		<div class="row mt-4 mb-4 ml-2">
+			<h5><b>Recently Viewed Products</b></h5>
+		</div>
+		<div class="row">
+			{% for ob in recent %}
+			<div class="col-6 col-xs-6 col-sm-4 col-md-2 col-lg-2 product_card">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="product_image">
+							<a href="/products/{{ob.prod.slug}}">
+							{% if ob.prod.image1 %}
+							<img src="/media/{{ob.prod.image1}}" onerror="this.src='{% static 'img/noimage.png' %}'" id="{{ob.prod.slug}}" onclick="detailpage();"></a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h6 class="ml-4 mt-2 fontcabin"><b>{{ob.prod.title}}</b></h6><br><br>
+
+				</div>
+				<div class="row">
+					<h6 class="ml-4 fontcabin" style="color: grey">Price: <b>{{ob.prod.price}}</b></h6>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		{% endif %}
+
+
+		{% if tred.0 %}
+		<div class="row mt-4 mb-4 ml-2">
+			<h5><b>Trending Products</b></h5>
+		</div>
+		<div class="row">
+			{% for ob in tred %}
+			<div class="col-6 col-xs-6 col-sm-4 col-md-2 col-lg-2 product_card">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="product_image">
+							<a href="/products/{{ob.slug}}">
+							{% if ob.image1 %}
+							<img src="{{ob.image1.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" id="{{ob.slug}}" onclick="detailpage();"></a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h6 class="ml-4 mt-2 fontcabin"><b>{{ob.title}}</b></h6><br><br>
+
+				</div>
+				<div class="row">
+					<h6 class="ml-4 fontcabin" style="color: grey">Price: <b>{{ob.price}}</b></h6>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+<script type="text/javascript" src="{% static 'bootstrap-markdown/js/bootstrap-markdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-markdown/locale/bootstrap-markdown.fr.js' %}"></script>
+<script src="{% static 'css/products/jquery.min.js'%}"></script>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script src="{% static 'css/products/slick.min.js' %}"></script>
+<script src="{% static 'css/products/nouislider.min.js'%}"></script>
+<script src="{% static 'css/products/main.js'%}"></script>
+
+<script src="{% static 'css/products/jquery.zoom.min.js' %}"></script>
+
+<script type="text/javascript">
+	
+	$('#final_description').html(`{{obj.description}}`);
+</script>
+
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.13/dist/sweetalert2.all.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script data-require="marked@*" data-semver="0.3.1" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.1/marked.js"></script>
+<script type="text/javascript" src="{% static 'js/products/upload_product.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+		function added(id){
+		console.log(id);	
+		var pressed=id.toString();
+		localStorage.setItem("pressed_pro", pressed);
+		localStorage.setItem("flag_pro","1");
+		var x="quantity";
+		var quan=document.getElementsByClassName(x);
+		console.log(quan[0]);
+		var flag=localStorage.getItem("flag_pro");
+		quan[0].value=flag;
+	//	localStorage.removeItem("flag");
+		//console.log(quan.value);
+		//alert('done');
+		
+Swal.fire({
+  position: 'top-end',
+
+  html: '<b>Item has been added to your cart!</b><br>',
+  showConfirmButton: false,
+  width: '400px',
+  timer: 3500
+});
+
+	}
+
+
+
+	function removepro(){
+		localStorage.setItem("flag_pro","0");
+		location.reload();
+	}
+
+	var pressed = localStorage.getItem("pressed_pro");
+	var flag=localStorage.getItem("flag_pro");
+	if (pressed!=null && flag!=0 && pressed=="{{product_code}}"){
+		console.log('called');
+		strid="before";
+		x=document.getElementById(strid);
+		//console.log(x);
+		x.hidden=true;
+		newid="after";
+		y=document.getElementById(newid);
+		y.hidden=false;
+	}
+	if(flag!=null){
+		//console.log('in flag');
+		var x="quant"+pressed.toString();
+		var quan=document.getElementById(x);
+		var flag=localStorage.getItem("flag_pro");
+		quan.value=flag;
+		//localStorage.removeItem("flag_pro");
+		//console.log(quan);
+	}
+	
+	if (flag=="0"){
+				strid="before";
+				x=document.getElementById(strid);
+				x.hidden=false;
+				newid="after";
+				y=document.getElementById(newid);
+				y.hidden=true;
+			}
+
+
+	function updatecart(act,idstr){
+		console.log(idstr.id);
+		idstr=idstr.id;
+		var action;
+	if (act==0){
+		ids="add"+idstr;
+		var flag=localStorage.getItem("flag_pro");
+        	var str=Number(flag)+1;
+        	localStorage.setItem("flag_pro", str.toString());
+        	action="add"
+
+	}
+	if (act==1){
+		ids="remove"+idstr;
+			var flag=localStorage.getItem("flag_pro");
+        	if(flag>0){
+        	var rem=Number(flag)-1;
+        	localStorage.setItem("flag_pro", rem.toString());
+        	action="remove"
+	}
+	}
+	if (act==2){
+		ids="delete"+idstr;
+			//var flag=localStorage.getItem("flag");
+        	localStorage.setItem("flag_pro", "0");
+        	action="delete"
+	}     
+	if (act==3){
+		ids="add"+idstr;
+		var flag=localStorage.getItem("flag_pro");
+        	var str=Number(flag)+1;
+        	localStorage.setItem("flag_pro", str.toString());
+        	added(idstr);
+        	action="add"
+	}
+	//var x=document.getElementById(ids);
+    //var action=x.dataset.action;
+        if (user=='AnonymousUser'){
+            console.log("user:",user);
+             if (cart[idstr] != undefined){
+                cart[idstr][0]+=1;                                 // if cart has item then +1
+
+             }
+            else {
+                qty = document.getElementById('quantity'+idstr).innerHTML;
+                name = document.getElementById('name'+idstr).innerHTML;          //namepr1 id given to card title
+                price = document.getElementById('price'+idstr).innerHTML;
+                cart[idstr]=[qty, name, parseInt(price.slice(3, ))];
+
+            }
+            updateCart(cart);
+
+        }
+        else{
+            updateuserorder(idstr,action);
+        }
+		 
+
+        }
+</script>
+
+{% comment %} /***************************************
+					START DATE
+***************************************/ {% endcomment %}
+<script>
+	$("input[name=start_date]").change(function(e) {
+		e.preventDefault();
+		start_date = $(this).val();
+		end_date = new Date(start_date);
+		end_date.setDate(end_date.getDate() + 10);
+		month = String(end_date.getMonth() + 1);
+		day = String(end_date.getDate());
+		year = String(end_date.getFullYear());
+
+		if(month.length < 2)
+			month = '0' + month;
+		if(day.length < 2)
+			day = '0' + day;
+
+		end_date = [year, month, day].join('-')
+		$("input[name=end_date]").attr("min", end_date);
+	})
+</script>
+
+{% comment %} /*******************************
+		PRICE
+*******************************/ {% endcomment %}
+<script>
+	var base_price = $("input[name=base_price]").val()
+	$("input[name=quantity]").change(function(e) {
+		var quantity = $("input[name=quantity]").val();
+		var price = quantity*base_price;
+		$("#amount").text(price);
+		$("input[name=amount]").val(price);
+	})
+</script>
+
+{% comment %} /******************************
+		SUBSCRIPTION CART
+******************************/ {% endcomment %}
+<script>
+	$("#subscribe_cart").click(function(e) {
+		e.preventDefault();
+		var quantity = $("input[name=quantity]").val();
+		var amount = $("input[name=amount]").val();
+		var start_date = $("input[name=start_date]").val();
+		var end_date = $("input[name=end_date]").val();
+		var interval = $("input[name=interval]").val();
+		var shift = $("#shift").val();
+		var remark = $("input[name=remark]").val();
+		var slug = $("input[name=slug]").val();
+
+		if(quantity == "" || amount == "" || start_date == "" || end_date == "" || interval == "" || shift == "") {
+			alert("Please fill the form")
+		} else {
+		$.ajax({
+			type: 'POST',
+			url: "{% url 'subscriptionCart' %}",
+			data: {
+				'action': 'add',
+				'quantity': quantity,
+				'amount': amount,
+				'start_date': start_date,
+				'end_date': end_date,
+				'interval': interval,
+				'shift': shift,
+				'remark': remark,
+				'slug': slug,
+				csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+			},
+			success: function(data) {
+				$("input[name=transaction_id").val(data.transaction_id);
+				jQuery.noConflict();
+				$(".modal-body").html(
+					"<h5> Product: " + data.product_name + "</h5>" +
+					"<h5> Quantity: " + data.quantity + "</h5>" +
+					"<h5> Amount: " + data.amount + "</h5>" +
+					"<h5> Frequency: " + data.interval + "</h5>" +
+					"<h5> start date: " + data.start_date + " end date: " + data.end_date + "</h5>" +
+					"<h5> Delivery time: " + data.shifts + "</h5>" +
+					"<input type='number' value='" + data.quantity +"' name='quantity' style='display: none;'>"
+				);
+				$("#exampleModalCenter").modal("show");
+				$("#subscribe_cart").css("display", "none");
+				$("#proceedToPayFinal").css("display", "block");
+			}
+		});
+		}
+	});
+	// Clicking "Proceed to Pay" on modal
+	{% comment %} $("#proceedToPaySubscription").click(function(e) {
+		e.preventDefault();
+		jQuery.noConflict();
+		$("#exampleModalCenter").modal('hide');
+		var quantity = $("input[name=quantity]").val();
+		var start_date = $("input[name=start_date]").val();
+		var end_date = $("input[name=end_date]").val();
+		var interval = $("input[name=interval]").val();
+		var shift = $("#shift").val();
+		var remark = $("input[name=remark]").val();
+		var slug = $("input[name=slug]").val();
+		var transaction_id = $("input[name=transaction_id]").val()
+
+		$.ajax({
+			url: "{% url 'finalSubscribe' %}",
+			data: {
+				'src': 'SUBSCRIBE_CART',
+				'transaction_id': transaction_id
+			},
+			success: function(data) {
+				$("#finalSubscription").css("display","block");
+				$("input[name=fullname]").val(data.full_name);
+				$("input[name=address]").val(data.address);
+
+				$("#subscribeBtn").css("display", "none");
+				$("#subscribe_cart").css("display", "none");
+				$("#proceedToPayFinal").css("display", "block");
+			}
+		});
+	}) {% endcomment %}
+</script>
+{% comment %} /*******************************
+				SUBSCRIPTION BUY
+*******************************/ {% endcomment %}
+{% comment %} <script>
+	$("#subscribeBtn").click(function(e) {
+		e.preventDefault();
+		var quantity = $("input[name=quantity]").val();
+		var start_date = $("input[name=start_date]").val();
+		var end_date = $("input[name=end_date]").val();
+		var interval = $("input[name=interval]").val();
+		var shift = $("#shift").val();
+		var remark = $("input[name=remark]").val();
+		var slug = $("input[name=slug]").val();
+		$.ajax({
+			url: "{% url 'finalSubscribe' %}",
+			data: {
+			},
+			success: function(data) {
+				$("#finalSubscription").css("display","block");
+				$("input[name=fullname]").val(data.full_name);
+				$("input[name=address]").val(data.address);
+
+				$("#subscribeBtn").css("display", "none");
+				$("#subscribe_cart").css("display", "none");
+				$("#proceedToPayFinal").css("display", "block");
+			}
+		})
+	})
+</script> {% endcomment %}
+<script>
+var today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+var yyyy = today.getFullYear();
+if(dd<10){
+  dd='0'+dd
+} 
+if(mm<10){
+  mm='0'+mm
+} 
+
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("datefield").setAttribute("min", today);
+</script>
+
+{% endblock %}
+

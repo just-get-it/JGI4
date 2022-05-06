@@ -1,0 +1,87 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+  <div class="container text-center">
+    <h1>ATTENDENCE REPORT</h1>
+  </div>
+  <div>
+    <form enctype="multipart/form-data" method="POST" action="attendencereport">
+      {% csrf_token %}
+      <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Line no</label>
+            <div class="col-sm-10">
+              <select id="lineno" name="lineno" required>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Product</label>
+            <div class="col-sm-10">
+              <input type="text" name="product_category" id="product_category" required>
+            </div>
+        </div>
+      <input type="Submit" name="linesubmit" class="btn btn-primary">
+    </form>
+  </div><br>
+  <div class="container">
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Line no:</label>
+        <div class="col-sm-10">
+            <p>{{ lineno }}</p>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Product:</label>
+        <div class="col-sm-10">
+            <p>{{ product }}</p>
+        </div>
+    </div>
+  </div>  
+  <br>
+  <div class="container">
+    <div class="jumbotron">
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Date</th>
+                      <th>Operator ID</th>
+                      <th>Operator Name</th>
+                      <th>Attendence</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {% for i in reports %}
+                      {% if i.attendence == 'present' %}
+                        <tr style="background-color: green; color: white;">
+                          <td>{{forloop.counter}}</td>
+                          <td>{{i.date|slugify}}</td>
+                          <td>{{i.operator_id|slugify}}</td>
+                          <td>{{i.operator_name|slugify}}</td>
+                          <td>{{i.attendence|slugify}}</td>
+                        </tr>
+                      {% elif i.attendence == 'absent' %}
+                        <tr style="background-color: red; color: white;">
+                          <td>{{forloop.counter}}</td>
+                          <td>{{i.date|slugify}}</td>
+                          <td>{{i.operator_id|slugify}}</td>
+                          <td>{{i.operator_name|slugify}}</td>
+                          <td>{{i.attendence|slugify}}</td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  </tbody>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+{% endblock %}

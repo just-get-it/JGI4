@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="background: rgba(97,148,255,.2);">
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Create Notifications (Vendor)</h3>
+		</div>
+	</div>
+	<div class="container mt-2 mb-4" style="margin-left: 35vw;margin-right: 35vw;width: 30vw;background: white;padding-top: 2vh;padding-bottom: 2vh;padding-left: 5vw;">
+		<div class="row">
+
+			<label><b>Vendor Category</b></label>
+		</div>
+		<div class="row">
+			<select name="vendor_cate">
+				<option disabled selected>----------------</option>
+				{% for o in cate %}
+				<option value="{{o}}">{{o}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="row">
+			<label><b>Vendor Position</b></label>
+		</div>
+		<div class="row">
+			<select name="vendor_pos">
+				<option disabled selected>----------------</option>
+				<option value="H">Head</option>
+				<option value="M">Manager</option>
+				<option value="C">Staff</option>
+			</select>
+		</div>
+		<div class="row">
+			<label><b>Vendors</b></label>
+		</div>
+		<div class="row">
+			<select name="vendor" id="vendor">
+				<option disabled selected>----------------</option>
+			</select>
+
+		</div>
+	</div>
+	
+</div>
+
+{% endblock %}

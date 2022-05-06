@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if messages %}
+                <div class="mt-0 pt-4">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                </div>
+           {% endif %}
+
+    <div class="container">
+        <h2>Rent a product now!</h2>
+        <br>
+        <h2 id="variant">{{ object.title }}</h2>
+
+        MRP.<h4 style="color: grey; text-decoration: line-through; margin-top: 5px; margin-left: 10px;" id="price{{object.product_code}}"><span id='price_val'>{{object.price}}</span></h4>
+        <h4 id="offer_price" style="color: #27ae60;">{{ object.final_price }}</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for i in object.size_color_quantity_set.all %}
+                <label for="{{i}}" class="mr-5">
+                    <h6>
+                        Size : {{ i.size }} | Color : 
+                        <p class="col-3 centered fontcabin size removehover ml-2" id="{{i.color}}" 
+                            style="background: {{i.color}}; height: 20px; border: 2px solid black; border-radius:25px; width:25px; display:inline;">
+                        </p>
+                    </h6>
+                </label>
+                <input required type="radio" name="size-color" id="{{i}}" value="{{i.id}}" onclick="changeVariant(['{{i}}','{{i.price}}','{{i.final_price}}'])"> <br>
+            {% endfor %}
+            
+            <label for="qty"><h6>Quantity: </h6></label>
+            <input required type="number" name="quantity" id="qty" min=1>
+            <h6 style="display: inline;" class="ml-5">Piece(s)</h6> <br>
+            
+            <label for="amount"><h6>Estimated Renting Amount: </h6></label>
+            <input type="number" name="amount" id="amount" step="0.01" readonly>
+            <h6 style="display: inline;" class="ml-5">For <span id="pieces"></span> Piece(s) per day</h6> <br>
+
+            <label for="start_date"><h6>Start Date: </h6></label>
+            <input required type="date" name="start_date" id="datefield"> <br>
+            
+            <label for="end_date"><h6>End Date: </h6></label>
+            <input required type="date" name="end_date" id="datefield"> <br>
+
+            <input type="submit" value="Add to Rent Cart" class="btn btn-success mb-5">
+        </form>
+
+    </div>
+
+<script>
+     $(document).ready(function() {
+                $('input[type="radio"]').click(function() {
+                    
+                    var inputValue = $(this).attr("value");
+                    console.log($(this))
+                    
+                    document.getElementById("qty").value = 0;
+                    document.getElementById("amount").value = 0;
+                    document.getElementById("pieces").innerHTML = ""
+                    
+                });
+            });
+</script>
+
+<script>
+	
+	$("input[name=quantity]").change(function(e) {
+        var base_price = document.getElementById("offer_price").innerText
+		var quantity = $("input[name=quantity]").val();
+		var price = quantity*base_price*0.05;
+		$("input[name=amount]").val(price);
+        document.getElementById("pieces").innerHTML = quantity
+	})
+</script>
+
+<script>
+
+var today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+var yyyy = today.getFullYear();
+if(dd<10){
+  dd='0'+dd
+} 
+if(mm<10){
+  mm='0'+mm
+} 
+
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("datefield").setAttribute("min", today);
+
+    $("input[name=start_date]").change(function(e) {
+		e.preventDefault();
+		start_date = $(this).val();
+		end_date = new Date(start_date);
+		end_date.setDate(end_date.getDate() + 2);
+		month = String(end_date.getMonth() + 1);
+		day = String(end_date.getDate());
+		year = String(end_date.getFullYear());
+
+		if(month.length < 2)
+			month = '0' + month;
+		if(day.length < 2)
+			day = '0' + day;
+
+		end_date = [year, month, day].join('-')
+		$("input[name=end_date]").attr("min", end_date);
+	})
+</script>
+
+<script>
+    function changeVariant(a){
+        str = a[0]
+        res = str.split(" ")
+        color = res.pop()
+        res = res.join(" ")
+        var variant = res + `
+        <p class="col-3 centered fontcabin size removehover ml-2" id=`+color+` 
+                            style="
+                            background:`+color+`; 
+                            height: 20px;
+                            border: 2px solid black;
+                            border-radius:25px;
+                            width:25px;
+                            display:inline;
+        ">
+        </p>
+        `
+        var element = document.getElementById("variant")
+        element.innerHTML = variant
+        var ele = document.getElementById("price_val")
+        ele.innerText = a[1];
+        var offer = document.getElementById("offer_price")
+        offer.innerText = a[2];
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,273 @@
+{% extends "archplan/base.html" %} {% block title %}
+<title>Just Get It | Blogs | {{ post.title }}</title> {% endblock title %} 
+{% block content %}
+
+<body
+  class="
+    post-template-default
+    single single-post
+    postid-27
+    single-format-standard
+  "
+>
+  <section class="post-page section-padding">
+    <div class="container">
+      <div class="row">
+        <!-- Content -->
+        <div class="col-md-8 mb-30 animate-box" data-animate-effect="fadeInUp">
+          <div class="single-content">
+            <img
+              class="mb-30 img-fluid"
+              src="/media/{{ post.thumbnail }}"
+              alt=""
+            />
+            <h4>{{ post.title }}</h4>
+            <p>{{ post.content }}</p>
+          </div>
+
+          <h3 class="comment-title">{{comments.count}} Comments</h3>
+          <ul class="next-form-block">
+            <li class="next-form-block-item clearfix">
+              <div class="img-wrapper">
+                <img
+                  alt=""
+                  src="https://secure.gravatar.com/avatar/9ed0660bf8be17e64ab4f55d07938eb2?s=100&#038;d=mm&#038;r=g"
+                  srcset="
+                    https://secure.gravatar.com/avatar/9ed0660bf8be17e64ab4f55d07938eb2?s=200&#038;d=mm&#038;r=g 2x
+                  "
+                  class="avatar avatar-100 photo"
+                  height="100"
+                  width="100"
+                  loading="lazy"
+                />
+              </div>
+              <div class="next-form-wrapper">
+                <h4>
+                  <a
+                    href=""
+                    rel="external nofollow ugc"
+                    class="url"
+                    >Admin</a
+                  >
+                </h4>
+                <p>
+                  Quisque gravida eros ut turpis interdumion ornary.
+                  Interdumetions malesu they faucibus.
+                </p>
+                <div class="next-form-icons">
+                  <a
+                    rel="nofollow"
+                    class="comment-reply-link"
+                    href=""
+                    data-commentid="7"
+                    data-postid="27"
+                    data-belowelement="comment-7"
+                    data-respondelement="respond"
+                    data-replyto="Reply to admin"
+                    aria-label="Reply to admin"
+                    >Reply</a
+                  >
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <div id="respond" class="comment-respond">
+            <h3 id="reply-title" class="comment-reply-title">
+              Leave a comment
+              <small
+                ><a
+                  rel="nofollow"
+                  id="cancel-comment-reply-link"
+                  href=""
+                  style="display: none"
+                  >Cancel reply</a
+                ></small
+              >
+            </h3>
+            <form
+              action="/space/postComment"
+              method="post"
+              class="row"
+              novalidate
+            >
+            {% csrf_token %}
+              <div class="col-sm-12">
+                <div class="next-form-component">
+                  <textarea
+                    name="comment"
+                    id="message"
+                    cols="40"
+                    rows="4"
+                    placeholder="Comment"
+                  ></textarea>
+                </div>
+              </div>
+              <p class="form-submit">
+                <input
+                  name="submit"
+                  type="submit"
+                  id="submit"
+                  class="submit"
+                  value="Post A Comment"
+                />
+                <input type="hidden" name="postID" value="{{post.id}}">
+                <input type="hidden" name="parentID" value="">
+              </p>
+            </form>
+          </div>
+          <!-- #respond -->
+        </div>
+        <!-- Sidebar -->
+        <div class="col-md-4 animate-box" data-animate-effect="fadeInUp">
+          <div class="nextarch-sidebar-part">
+            <div id="search-2" class="single-widget mb-45 widget_search">
+              <form
+                class="nextarch-sidebar-search-form"
+                action="https://shtheme.org/demosd/nextarchwp/"
+              >
+                <input type="search" placeholder="Search..." name="s" />
+                <button type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+
+            <div class="single-widget recent-posts">
+              <div class="widget-title">
+                <h3 class="widget-title">Recent Posts</h3>
+              </div>
+              <ul class="recent">
+                <li>
+                  <div class="thum">
+                    <img
+                      src="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/08/3.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <a href="https://shtheme.org/demosd/nextarchwp/?p=27"
+                    >Trending in Interior 2021</a
+                  >
+                </li>
+                <li>
+                  <div class="thum">
+                    <img
+                      src="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/08/2.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <a href="https://shtheme.org/demosd/nextarchwp/?p=24"
+                    >Renovation Design</a
+                  >
+                </li>
+                <li>
+                  <div class="thum">
+                    <img
+                      src="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/08/1-1.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <a href="https://shtheme.org/demosd/nextarchwp/?p=21"
+                    >Architecture and Design</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div
+              id="categories-2"
+              class="single-widget mb-45 widget_categories"
+            >
+              <h3 class="widget-title">Categories</h3>
+              <ul>
+                <li class="cat-item cat-item-2">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=2"
+                    >Architecture</a
+                  >
+                </li>
+                <li class="cat-item cat-item-4">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=4"
+                    >Exterior Design</a
+                  >
+                </li>
+                <li class="cat-item cat-item-3">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=3"
+                    >Interior Design</a
+                  >
+                </li>
+                <li class="cat-item cat-item-5">
+                  <a href="https://shtheme.org/demosd/nextarchwp/?cat=5"
+                    >Urban Design</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div id="tag_cloud-2" class="single-widget mb-45 widget_tag_cloud">
+              <h3 class="widget-title">Tags</h3>
+              <div class="tagcloud">
+                <ul class="wp-tag-cloud">
+                  <li>
+                    <a
+                      href="https://shtheme.org/demosd/nextarchwp/?tag=architecture"
+                      class="tag-cloud-link tag-link-6 tag-link-position-1"
+                      style="font-size: 15.2px"
+                      aria-label="Architecture (2 items)"
+                      >Architecture</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://shtheme.org/demosd/nextarchwp/?tag=design"
+                      class="tag-cloud-link tag-link-7 tag-link-position-2"
+                      style="font-size: 18px"
+                      aria-label="Design (3 items)"
+                      >Design</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://shtheme.org/demosd/nextarchwp/?tag=exterior"
+                      class="tag-cloud-link tag-link-8 tag-link-position-3"
+                      style="font-size: 11px"
+                      aria-label="Exterior (1 item)"
+                      >Exterior</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://shtheme.org/demosd/nextarchwp/?tag=interior"
+                      class="tag-cloud-link tag-link-9 tag-link-position-4"
+                      style="font-size: 18px"
+                      aria-label="Interior (3 items)"
+                      >Interior</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://shtheme.org/demosd/nextarchwp/?tag=residental"
+                      class="tag-cloud-link tag-link-10 tag-link-position-5"
+                      style="font-size: 15.2px"
+                      aria-label="Residental (2 items)"
+                      >Residental</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://shtheme.org/demosd/nextarchwp/?tag=urban"
+                      class="tag-cloud-link tag-link-11 tag-link-position-6"
+                      style="font-size: 11px"
+                      aria-label="Urban (1 item)"
+                      >Urban</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+  {% endblock content %}

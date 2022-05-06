@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container-fluid">
+		<div class="row" style="background:black;height: 91vh;">
+			<div class="col-3" style="border-right: 1px solid rgba(255,255,255,.1)">
+				<div class="container-fluid">
+					<div class="row" style="border-bottom: 1px solid rgba(255,255,255,.1);cursor: pointer;overflow: auto;" onclick="addmystatus();">
+						<div class="col-2 py-2">
+							<img src="https://cdn2.iconfinder.com/data/icons/web-and-seo-43/64/47-512.png" style="width: 40px;height: 40px;border-radius: 50%;">
+						</div>
+						<div class="col py-3">
+							<h6 style="color:white">My Profile Status</h6>
+						</div>
+					</div>
+					<div class="row display-block" style="border-bottom: 1px solid rgba(255,255,255,.1);cursor: pointer;overflow: auto;">
+						<div class="col-2 py-2">
+							<img src="https://cdn2.iconfinder.com/data/icons/web-and-seo-43/64/47-512.png" style="width: 40px;height: 40px;border-radius: 50%;">
+						</div>
+						<div class="col py-3">
+							<a href="/userdetail/staff_profile/profile_status/viewstatuses" style="color:white;text-decoration:none;font-size:15px">View Other's Status</a>
+						</div>
+					</div>
+					{% if details.position == 'H' %}
+						{% for head in heads %}
+							{% if head.user.email == details.email %}
+							{% else %}
+							<div class="row" style="border-bottom: 1px solid rgba(255,255,255,.1);cursor: pointer;overflow: auto;" onclick="showStatus('{{head.user.email}}')">
+								<div class="col-2 py-2">
+									{% if head.user.image %}
+									<img src="{{head.user.image.url}}" style="width: 40px;height: 40px;border-radius: 50%;">
+									{% else %}
+									<img src="https://cdn2.iconfinder.com/data/icons/web-and-seo-43/64/47-512.png" style="width: 40px;height: 40px;border-radius: 50%;">
+									{% endif %}
+								</div>
+								<div class="col py-3">
+									<h6 style="color:white">{{head.user.name}}</h6>
+								</div>
+							</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					{% if details.position == 'H' or details.position == 'M' %}
+						{% for manager in managers %}
+							{% if manager.user.email == details.email %}{% else %}
+							<div class="row" style="border-bottom: 1px solid rgba(255,255,255,.1);cursor: pointer;overflow: auto;" onclick="showStatus('{{manager.user.email}}')">
+								<div class="col-2 py-2">
+									{% if manager.user.image %}
+									<img src="{{manager.user.image.url}}" style="width: 40px;height: 40px;border-radius: 50%;">
+									{% else %}
+									<img src="https://cdn2.iconfinder.com/data/icons/web-and-seo-43/64/47-512.png" style="width: 40px;height: 40px;border-radius: 50%;">
+									{% endif %}
+								</div>
+								<div class="col py-3">
+									<h6 style="color:white">{{manager.user.name}}</h6>
+								</div>
+							</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					{% if details.position == 'M' or details.position == 'C' or details.position == 'H' %}
+						{% for staff in staffs %}
+							{% if staff.user.email == details.email %}{% else %}
+							<div class="row" style="border-bottom: 1px solid rgba(255,255,255,.1);cursor: pointer;overflow: auto;" onclick="showStatus('{{staff.user.email}}')">
+								<div class="col-2 py-2">
+									{% if staff.user.image %}
+									<img src="{{staff.user.image.url}}" style="width: 40px;height: 40px;border-radius: 50%;">
+									{% else %}
+									<img src="https://cdn2.iconfinder.com/data/icons/web-and-seo-43/64/47-512.png" style="width: 40px;height: 40px;border-radius: 50%;">
+									{% endif %}
+								</div>
+								<div class="col py-3">
+									<h6 style="color:white">{{staff.user.name}}</h6>
+								</div>
+							</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-9" id="status">
+				<div class="container-fluid">
+					<div class="row" id="no_view">
+						<h3 style="margin-top: 40vh;margin-left: 25vw;color:rgba(255,255,255,.5);font-family: 'Cabin',sans-serif;">Click to View Status</h3>
+					</div>
+					<div class="row" id="my_status" style="display: none;">
+						<div class="container">
+							<div class="row my-3">
+								<div class="col-12">
+									<div class="row">
+										<h6 style="color:white">Tags</h6>
+										<button style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;background: transparent;color: white" onclick="addDailyAchi();" id="daily_achi_button" name="daily_achievement">Daily Achievement</button>
+										<button style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;background: transparent;color: white" onclick="addDailyHurdle()" id="daily_hurd_button" name="daily_hurdle">Daily Hurdle</button>
+										<input style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;" type="date" onclick="" id="dateON" name="date_update" value="{% now "Y-m-d" %}"/>
+										<input style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;" type="time" onclick="" id="timeON" name="time_update" value="{{current_time}}"/>
+										<input type="hidden" id="daily_achi_inp" value="False">
+										<input type="hidden" id="daily_hurd_inp" value="False">
+										<select  id="order_input" list="orders_list" name="order_no" style="margin-left: 1vw;background: black;border:none;color: white;height: 25px" placeholder="Order No">
+											<option value="">Select Order No.</option>
+											{% for x in co %}
+											<option value="{{x.order_no}}">{{x.order_no}}</option>
+											{% endfor %}
+										</select>
+										<select style="margin-left: 1vw;border:none;border-radius: 10px;border:1px solid #30c5ff;background: transparent;color: white" onclick="" id="activities" name="activities">Activities
+											<option value="">Activity</option>										
+											
+										</select>										
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="row">
+										<h6 style="color:white">Color</h6>
+										<input type="color" id="mystatus_color" value="#30c5ff" style="margin-left: 1vw;background: black;border:none;">
+									</div>
+								</div>
+							</div>
+							<div class="row mx-2 mt-3 mb-1" style="background: #30c5ff;border-radius: 50px;height: 70vh;width: 70vw;" id="mystatus_card">
+								<div class="container my-3 ml-3">
+									<div class="row">
+										<div class="col-3" id="daily_achi" style="display:none;">
+											<div class="row">
+												<i class="fas fa-tag"></i>
+												<h6 style="color: black;margin-left: 1vw">Daily Achievement</h6>
+											</div>
+										</div>
+										<div class="col-3" id="daily_hurd" style="display: none;">
+											<div class="row">
+												<i class="fas fa-tag"></i>
+												<h6 style="color: black;margin-left: 1vw">Daily Hurdle</h6>
+											</div>
+										</div>
+										<div class="col-3">
+											<div class="row">
+												<h6 style="color: black">Order No -</h6>
+												<h6 style="color: black" id="my_status_order_no"></h6>
+											</div>
+										</div>
+									</div>
+									<div class="row mt-1">
+										<textarea style="width: 98%;max-height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status"></textarea>
+									</div>
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="p-2 save" id="my_status_save" style="margin-left: auto;background: #30c5ff;width: 50px;height: 50px;border-radius: 50%;cursor: pointer;" onclick="saveStatus()">
+									<i class="fas fa-share fa-3x"></i>{% csrf_token %}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" id="user_status">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'include/loader.html' %}
+<script type="text/javascript" src="{% static 'jQuery/jQuery.js' %}"></script>
+
+<script type="text/javascript">
+	$.fn.autoResize = function(obj) {
+		if($(this).prop('tagName') == 'TEXTAREA') {
+			
+			$(this).css("overflow-y", "hidden");
+			$(this).css("resize", "none");
+
+			$(this).keyup(function(){
+				arr = $(this).val().split("\n");
+				$(this).attr("rows", arr.length);	
+			
+				if(obj && "step" in obj) {
+					obj.step({count: arr.length-1});
+				}
+			});
+
+		}
+	}
+	$('textarea').autoResize();
+	function addDailyAchi(){
+		document.getElementById('daily_achi').style.display="";
+		document.getElementById('daily_achi_button').style.background=$('#mystatus_color').val();
+		document.getElementById('daily_achi_button').style.color="black";
+		document.getElementById('daily_achi_inp').value="Daily Achievement";
+		document.getElementById('daily_hurd').style.display="none";
+		document.getElementById('daily_hurd_button').style.background="transparent";
+		document.getElementById('daily_hurd_button').style.color="white";
+		document.getElementById('daily_hurd_inp').value="";
+
+	}
+	function addDailyHurdle(){
+		document.getElementById('daily_hurd').style.display="";
+		document.getElementById('daily_hurd_button').style.background=$('#mystatus_color').val();
+		document.getElementById('daily_hurd_button').style.color="black";
+		document.getElementById('daily_hurd_inp').value="Daily Hurdle";
+		document.getElementById('daily_achi').style.display="none";
+		document.getElementById('daily_achi_button').style.background="transparent";
+		document.getElementById('daily_achi_button').style.color="white";
+		document.getElementById('daily_achi_inp').value="";
+	}
+	$('#order_input').on("input",function(){
+		document.getElementById('my_status_order_no').innerHTML=$('#order_input').val();
+	});
+	$('#mystatus_color').on("change",function(){
+		document.getElementById('mystatus_card').style.background=$('#mystatus_color').val();
+		if (document.getElementById('daily_achi_inp').value=="True"){
+			document.getElementById('daily_achi_button').style.background=$('#mystatus_color').val();
+		}
+		if (document.getElementById('daily_hurd_inp').value=="True"){
+			document.getElementById('daily_hurd_button').style.background=$('#mystatus_color').val();
+		}
+		document.getElementById('my_status_save').style.background=$('#mystatus_color').val();
+
+	});
+	function saveStatus(){
+		showLoader();
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/staff_profile/profile_status',
+			data:{
+				color_my_status_ajax:$('#mystatus_color').val(),
+				my_status_text_ajax:document.getElementById('my_status_text').value,
+				my_status_achi_ajax:$('#daily_achi_inp').val(),
+				my_status_hurd_ajax:$('#daily_hurd_inp').val(),
+				my_status_order_ajax:$('#order_input').val(),
+				my_status_date_ajax:document.getElementById('dateON').value,
+				my_status_time_ajax:document.getElementById('timeON').value,
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+		  	cache:false,
+		  	dataType: "json",
+			success:function(data){
+				alert("Status Updated !");
+				hideLoader();
+				document.getElementById('my_status').style.display="none";
+				document.getElementById('no_view').style.display="";
+			}
+		});
+	}
+	function addmystatus(){
+		showLoader();
+		document.getElementById('my_status').style.display="";
+		document.getElementById('no_view').style.display="none";
+		hideLoader();
+	}
+	function showStatus(email){
+		showLoader();
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/staff_profile/profile_status',
+			data:{
+				user_email_ajax:email,
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+		  	cache:false,
+		  	dataType: "json",
+			success:function(data){
+				var a=document.getElementById('user_status');
+				document.getElementById('my_status').style.display="none";
+				document.getElementById('no_view').style.display="none";
+				if (data.achi == "True" && data.hurd == "True" && data.order){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3" id="daily_achi">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Achievement</h6>
+												</div>
+											</div>
+											<div class="col-3" id="daily_hurd">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Hurdle</h6>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="row">
+													<h6 style="color: black">Order No -</h6>
+													<h6 style="color: black" id="my_status_order_no">`+data.order+`</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				else if (data.achi == "True" && data.hurd == "True"){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3" id="daily_achi">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Achievement</h6>
+												</div>
+											</div>
+											<div class="col-3" id="daily_hurd">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Hurdle</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				else if (data.achi == "True" && data.order){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3" id="daily_achi">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Achievement</h6>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="row">
+													<h6 style="color: black">Order No -</h6>
+													<h6 style="color: black" id="my_status_order_no">`+data.order+`</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				else if (data.hurd == "True" && data.order){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3" id="daily_hurd">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Hurdle</h6>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="row">
+													<h6 style="color: black">Order No -</h6>
+													<h6 style="color: black" id="my_status_order_no">`+data.order+`</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				else if (data.achi == "True"){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3" id="daily_achi">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Achievement</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				else if (data.hurd == "True"){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3" id="daily_hurd">
+												<div class="row">
+													<i class="fas fa-tag"></i>
+													<h6 style="color: black;margin-left: 1vw">Daily Hurdle</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				else if (data.order){
+					a.innerHTML=`<div class="container">
+								<div class="row my-5" style="background: `+data.color+`;border-radius: 50px;height: 70vh;width: 70vw;" id="user_status_card">
+									<div class="container my-3 ml-3">
+										<div class="row">
+											<div class="col-3">
+												<div class="row">
+													<h6 style="color: black">Order No -</h6>
+													<h6 style="color: black" id="my_status_order_no">`+data.order+`</h6>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<textarea style="width: 98%;height: 60vh;font-size: 1.8em;text-align: center;background: transparent;border:none;" id="my_status_text" placeholder="Your Status" readonly>`+data.status_text+`</textarea>
+										</div>
+									</div>
+								</div>
+							</div>`;
+				}
+				hideLoader();
+				$('textarea').autoResize();
+			}
+		})
+	}
+</script>
+{% endblock %}

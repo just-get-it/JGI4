@@ -1,0 +1,13 @@
+.card-body .checked {
+  color: orange;
+}
+
+.cate {
+    font-size: larger;
+    font: bold;
+}
+
+.user_review{
+    font-size: 16px;
+    text-decoration: underline;
+}

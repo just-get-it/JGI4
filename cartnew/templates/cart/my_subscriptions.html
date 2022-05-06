@@ -1,0 +1,190 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<style>
+html {
+  scroll-behavior: smooth;
+}
+.strike-through {
+    position: relative;  
+}
+
+.strike-through:after {
+    font-size:50px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 10px;
+    background: #c00;
+    content: "YOUR ITEM WAS CANCELLED";
+    width: 100%;
+    display: block;
+    
+}
+.strike-through-order {
+    position: relative;  
+}
+
+.strike-through-order:after {
+    font-size:50px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 50%;
+    background: #c00;
+    content: "YOUR ORDER WAS CANCELLED";
+    width: 100%;
+    display: block;
+    
+}
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    
+    .dot {
+        border: 1px solid grey;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+{% endblock %} {% block content %}
+<br>
+<br>
+<div class="container">
+{% if orderdata %}
+    <div class="mt-5">
+        <h3 class="float-left col-10">My Subscriptions:</h3>
+        <a href="{% url 'my_subscription_bills' %}" class="btn btn-primary col-2 text-center">Check Bills</a>
+    </div>
+      {% for data in orderdata %}
+     <br>
+    <div class="card" id="sub-{{data.0.id}}">
+        <div class="row {% if data.0.is_Cancelled == True %} strike-through-order {% endif %}">
+            <h5 class="card-header">Subscription Id: {{data.0.id}} {% if data.0.payment_method == 'razorpay' %} (Payment Status: {{data.0.payment_status}}) {% endif %}</h5>
+            <h5 class="col text-right card-header">One Time Payment: ₹{{data.0.total}}/-</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col text-left">
+                    <h6>Shipping Address:</h6>
+                    <p>{{data.1.0.shipping_address.name}}, {{data.1.0.shipping_address.phone}}</p>
+                    <p>{{data.1.0.shipping_address.shipping_address}}, {{data.1.0.shipping_address.city}}-{{data.1.0.shipping_address.pin_code}} , {{data.1.0.shipping_address.state}}.
+                    </p>
+                </div>
+                {% if data.0.total < 10000 %}
+                <div class="col text-left">
+                    <h6>Delivery Charges of ₹101 are applied.</h6>
+                </div>
+                {% endif %}
+                <div class="col text-right">
+                 <h6>Placed On:</h6>
+                    <p> {{data.0.date_sub_placed}} </p>
+                </div>
+                <div class="col text-right">
+                    <a href="{% url 'edit_subscription' sub_orderID=data.0.id %}" class="btn btn-primary btn-sm">Edit Subscription</a>
+                    <p class="small text-muted">Frequency, End Date, Qty. etc can be changed.</p>
+                </div>
+                {% comment %} {% if data.0.is_Cancelled != True %}
+                <div class="col-2 text-right">
+                    {% if data.0.status == "Accepted" %}
+                    <small class="text-muted ">* Order can only be edited until it is packed</small> <br>
+                        <a href="{% url 'edit_order' order_id=data.0.id %}" class="btn btn-primary btn-sm" >Edit Order</a> 
+                        
+                    {% endif %}
+                </div>
+                {% endif %} {% endcomment %}
+            </div>
+            <div class="row">
+                <div class="col text-left">
+                    <h6>Billing Frequency:</h6>
+                    <p>{{data.0.billing_freq}}</p>
+                </div>
+                <div class="col text-left">
+                    <h6>Last Updated at:</h6>
+                    <p>{{data.0.last_updated}}</p>
+                </div>
+                <div class="col text-right">
+                    <h6>Next Bill Date:</h6>
+                    <p> {{data.0.next_billing_date}} </p>
+                    {% comment %} <a href="{% url 'order' order_id=data.0.id %}" class="btn btn-primary btn-sm">View Order</a> {% endcomment %}
+                </div>
+                <div class="col text-right">
+                    <h6>Payment Method:</h6>
+                    <p> {{data.0.payment_method}} </p>
+                    {% comment %} <a href="{% url 'order' order_id=data.0.id %}" class="btn btn-primary btn-sm">View Order</a> {% endcomment %}
+                </div>
+                {% comment %} {% if data.0.is_Cancelled != True %}
+                <div class="col-2 text-right">
+                    {% if data.0.status == "Accepted" %}
+                    <small class="text-muted ">* Order can only be edited until it is packed</small> <br>
+                        <a href="{% url 'edit_order' order_id=data.0.id %}" class="btn btn-primary btn-sm" >Edit Order</a> 
+                        
+                    {% endif %}
+                </div>
+                {% endif %} {% endcomment %}
+            </div>
+            
+            {% for cate in categories %}
+
+            {% for odItem in data.1 %}
+            {% if cate == odItem.product.product_Category.first %}
+            <div class="card {% if odItem.is_Cancelled %} strike-through {% endif %}">
+                <h6 class="card-header">
+                    {{ odItem.product.product_Category.all|join:", "}} - 
+                    {{odItem.product_name}}
+                </h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <img height="75" width="75" src="/media/{{odItem.product.image1}}">
+                        </div>
+                        <div class="col-3">
+                            <p>Quantity: {{odItem.quantity}} Size: {{odItem.size_name}}</p>
+                            <p>Sold by: {{odItem.product.seller.name}}</p>
+                        </div>
+                        <div class="col-3">
+                            <h6>Start Date: {{odItem.start_date|date:"d/m/y"}}</h6>
+                            <h6>End Date: {{odItem.end_date|date:"d/m/y"}}</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6>Next Delivery Date:</h6>
+                            <h6>{{odItem.next_delivery_date|date:"d/m/y"}}</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6>Amount: ₹{{odItem.get_price}}</h6>
+                            <h6>Frequency: {{odItem.interval}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% endif %}
+             {% endfor %}
+             {% endfor %}
+        </div>
+    </div>
+    <br> {% endfor %} {% else %}
+    <br>
+    <h4> Looks like you have no Subscriptions!</h4>
+    <br> {% endif %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/cartnew/cartnew.js' %}"></script>
+<script>
+    getCartItems(function(d) {
+        console.log("GETTING CART ITEMS! total_cart_items");
+        console.log("Cart Items: " + d);
+        $('#total_cart_items').text(d);
+    });
+</script>
+
+{% endblock %}

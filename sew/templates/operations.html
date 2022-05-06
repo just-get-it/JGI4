@@ -1,0 +1,791 @@
+{% extends 'base2.html' %}
+    {% block content %}
+      {% csrf_token %}
+
+<div class="container text-center">
+    <h1>Add Operations</h1>
+</div>
+<div class="container">
+  <form class= "" action="home" method="POST" id="myForm">
+  {% csrf_token %}
+
+       <!--  <p>
+          <label for="id_pfmno">PFM No.:</label> 
+          <select name="pfmno" required id="id_pfmno">
+              <option value="" selected>---------</option>
+              {% for i in pfmnos %}
+                <option value="{{ i.pfmno }}">{{ i.pfmno }}</option>
+              {% endfor %}
+          </select>
+        </p>
+        <p>
+          <label for="id_comp">Components:</label> 
+            <select name="comp" required id="id_comp">
+              <option value="" selected>---------</option>
+                <-- {% for item in pfmcomponents %}
+              <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endfor %} --
+          </select>
+        </p>
+
+        <p>
+          <label for="id_attribute">Component Type:</label>
+           <select name="attribute" required id="id_attribute">
+           <option value="" selected>---------</option>
+            <-- {% for i in data %}
+              {% csrf_token %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %} --
+            </select>
+        </p>
+        <p>
+          <label for="id_department">Department:</label>
+             <select name="department" required id="id_department">
+              <option value="" selected>---------</option>
+                {% for item in department %}
+              <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endfor %}
+          </select>
+        </p>
+        <p>
+          <label for="id_section">Section:</label>
+
+           <select name="section" required id="id_section">
+              <option value="" selected>---------</option>
+            {% for i in data %}
+              <option value="{{ i.name }}">{{i.name}}</option>
+            {% endfor %}
+            </select>
+
+        </p>
+        <p>
+          <label for="id_subsection">Sub-Section:</label>
+            <select name="subsection" required id="id_subsection">
+            {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+        </p>
+        <p><label for="id_operations">Operations:</label> <input type="text" name="operations" maxlength="100" required id="id_operations"></p>
+
+        <p><label for="id_complexity">Complexity:</label> <input type="number" name="complexity" value="1" required id="id_complexity"></p>
+        <p><label for="id_spi">Spi:</label> <input type="number" name="spi" value="12" required id="id_spi"></p>
+        <p><label for="id_stitch_length">Stitch length:</label> <input type="number" name="stitch_length" value="3" required id="id_stitch_length"></p>
+        <p>
+          <label for="id_machine_auto">Machine auto:</label>
+          <select name="machine_auto" required id="id_machine_auto" onclick="threadvalue()">
+              <option value=""  selected>---------</option>
+              {% for i in machine_type %}
+                <option value="{{ i.thread_consumption_factor}}">{{ i.machine_name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+          <label for="id_thread_consumption">Thread consumption:</label>
+           <input type="number" name="thread_consumption" required step="0.00001" value="" id="id_thread_consumption" readonly>
+        </p>
+
+        <p><label for="id_work_aid">Work aid:</label> <input type="text" name="work_aid" value="BINDER" maxlength="100" required id="id_work_aid"></p>
+        <p><label for="id_smv">Smv:</label> <input type="number" name="smv" value="0.33" step="0.00001" required id="id_smv"></p>
+        <p><label for="id_allowance">Allowance:</label> <input type="number" name="allowance" step="0.00001" required id="id_allowance"></p>
+        <p><label for="id_sam">Sam:</label> <input type="number" name="sam" value="0.53" step="0.00001" required id="id_sam"></p>
+        <p><label for="id_ct">Ct:</label> <input type="number" name="ct" value="0.88" step="0.00001" required id="id_ct"></p>
+        <p><label for="id_grade">Grade:</label> <input type="text" name="grade" maxlength="100" required id="id_grade"></p>
+      <br> -->
+      <table id="tableid2" border="1"  class="table">
+
+     <tr>
+        <th>PFM No</th>
+        <th>Component</th>
+        <th>Component Type</th>
+        <th>Department</th>
+        <th>Section</th>
+        <th>Sub-Section</th>
+        <th>Operations</th>
+        <th>Machine</th>
+        <th>Machine Automation</th>
+        <th>Work Aid</th>
+        <th>SPI</th>
+        <th>SPI Factor</th>
+
+
+    </tr>
+     <tr>
+        <td>
+          <select name="pfmno" required id="id_pfmno">
+              <option value="" selected>---------</option>
+              {% for i in pfmnos %}
+                <option value="{{ i.pfmno }}">{{ i.pfmno }}</option>
+              {% endfor %}
+          </select>
+        </td>
+        <td>
+          <select name="comp" required id="id_comp">
+              <option value="" selected>---------</option>
+                <!-- {% for item in pfmcomponents %}
+              <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endfor %} -->
+          </select>
+        </td>
+        <td>
+           <select name="attribute" required id="id_attribute">
+           <option value="" selected>---------</option>
+            <!-- {% for i in data %}
+              {% csrf_token %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %} -->
+            </select>
+
+        </td>
+        <td>
+             <select name="department" required id="id_department">
+              <option value="" selected>---------</option>
+                {% for item in department %}
+              <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endfor %}
+          </select>
+        </td>
+        <td>
+            <select name="section" required id="id_section">
+              <option value="" selected>---------</option>
+            {% for i in data %}
+              <option value="{{ i.name }}">{{i.name}}</option>
+            {% endfor %}
+            </select>
+
+        </td>
+        <td>
+          <select name="subsection" required id="id_subsection">
+            {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+        </td>
+        <td><input type="text" name="operations" maxlength="100" required id="id_operations"></td>
+        <td><select name="machine_auto" required id="id_machine_auto" onclick="threadvalue()">
+              <option value=""  selected>---------</option>
+              {% for i in machine_type %}
+                <option value="{{ i.thread_consumption_factor}}">{{ i.machine_name }}</option>
+                {% endfor %}
+            </select>
+          </td>
+          <td><input type="text" name=""></td>
+          <td><input type="text" name="work_aid" value="BINDER" maxlength="100" required id="id_work_aid"></td>
+        <td><input type="number" name="spi" value="12" required id="id_spi"></td>
+        <td><input type="number" name="spi_factor" value="2.5" id="id_spifactor"></td>
+       <!--  <td><input type="number" name="stitch_length" value="3" required id="id_stitch_length"></td>
+        -->
+
+     </tr>
+   </table>
+   <table class="table" border="1">
+     <tr>
+       <th>Stitch Length</th>
+        <th>Thread Consumption</th>
+        <th>Thread Shade</th>
+        <th>Thread Specification</th>
+        <td>Pick Time</td>
+      <td>Main Process Time</td>
+      <td>Turn Rotate Time</td>
+      <td>Dispose Time</td>
+      <td>Planned SMV</td>
+
+        <!-- <th>SMV</th>
+        <th>Allowance</th>
+        <th>SAM</th>
+        <th>CT</th>
+
+         -->
+
+     </tr>
+     <tr>
+      <td><input type="number" name="stitch_length" value="20" required id="id_stitch_length"></td>
+        <td><input type="number" value="" id="id_thread_consumption" readonly name="thread_consumption_factor"></td>
+       <!-- <td><input type="number" name="complexity" value="1" required id="id_complexity">
+          </td> -->
+        <td><input type="text" name="shade" value="white" id="shade"></td>
+        <td><input type="text" name="tspec" id="tspec" value="120 tkt"></td>
+
+        <td><input type="number" value="0" id="picktime" name="picktime"></td>
+      <td><input type="number" id="mainpt" value="0" name="mainpt"></td>
+      <td><input type="number" id="turnt" value="0" name="turnt"></td>
+      <td><input type="number" name="disposet" value="0" id="disposet"></td>
+      <td><input type="number" value="" name="smvt" id="smvt" onclick="smvtime()"></td>
+
+        <!-- <td><input type="number" name="smv" value="0.33" step="0.00001" required id="id_smv"></td>
+        <td><input type="number" name="allowance" step="0.00001" required id="id_allowance"></td>
+        <td><input type="number" name="sam" value="0.53" step="0.00001" required id="id_sam"></td>
+        <td> <input type="number" name="ct" value="0.88" step="0.00001" required id="id_ct"></td>
+        <td><input type="text" name="grade" maxlength="100" required id="id_grade"></td>
+         -->
+     </tr>
+   </table>
+    </form>
+  </div>
+  <br>
+   <table class="table" style="width: 100%" border="1">
+
+    <tr>
+      <td>Operation Complexity</td>
+      <td>SPI Complexity</td>
+      <td>Stitch Complexcity</td>
+      <td>Actual SMV</td>
+      <td>Personal</td>
+      <td>Fatique</td>
+      <td>Delay</td>
+      <td>Planned SAM</td>
+      <td>Grade</th>
+    </tr>
+    <tr>
+
+      <td><input type="number" value="1.1" id="oc" name="oc"></td>
+      <td><input type="number" value="1.2" id="spic" name="spic"></td>
+      <td><input type="number" value="1.3" id="stitchc" name="stitchc"></td>
+      <td><input type="number" id="samc" onclick="samc()" name="samc"></td>
+      <td><input type="number" value="5" name="personalc" id="personalc"></td>
+      <td><input type="number" value="4" name="fatiguec" id="fatiguec"></td>
+      <td><input type="number" min="1" max="100" value="7" name="delayc" id="delayc"></td>
+      <td><input type="number" name="psam" onclick="plansam()" id="psam" ></td>
+      <td><input type="text" name="grade" maxlength="100" required id="id_grade"></td>
+    </tr>
+    <tr>
+
+        <td>Type</td>
+      <td>Planned CT</td>
+      <td>Actual CT</td>
+      <td>M/P Nos</td>
+      <td>MP Allocation</td>
+      <td>Name</td>
+      <td>Machine Allocation</td>
+      <td>OPH</td>
+      <td>Planned Cost</td>
+      <td>Actual Cost</td>
+    </tr>
+    <tr>
+      <td><input type="text" name="type" id="id_type"></td>
+      <td><input type="number" name="ctc" id="ctc" onclick="ctc()"></td>
+      <td><input type="number" value="2.5" name="actualct" id="actualct"></td>
+      <td><input type="number" name="mpnos" id="id_mpnos"></td>
+      <td><input type="number" name="mpall" id="id_mpall"></td>
+      <td><input type="text" name="names" id="names"></td>
+      <td><input type="text" name="macall"></td>
+      <td><input type="text" name="oph" id="id_oph" onclick="ophcal()"></td>
+      <td><input type="text" name="pcost"></td>
+      <td><input type="text" name="acost"></td>
+    </tr>
+  </table>
+      <button class="btn btn-primary" id="id_submit" type="submit" href="/" value="Submit" name="submit">Submit</button>
+      <button class="btn btn-primary" id="id_summary" onclick="myFunc()">Summary</button>
+      <br>
+<div class="container">
+  <br>
+  <input type="text" value="CT-" id="pfmn" name="pfmno"  style="float: right; width: 70px">
+  <label style="float: right;">PFM No</label>
+  <label for="fil_department">Department: </label>
+        <select name="fildepartment"  id="fil_department">
+          <option value="" selected>---------</option>
+
+          {% for item in department %}
+        <option value="{{ item.pk }}">{{ item.name }}</option>
+        {% endfor %}
+
+        </select>
+        <label for="fil_section">Section:</label>
+        <select name="fil_section"  id="fil_section">
+          <option value="" selected>---------</option>
+
+        {% for item in data %}
+          <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}
+      </select>
+        <label for="fil_subsection">Sub Section:</label>
+        <select name="filsubsection"  id="fil_subsection" onclick="subc()">
+        <option value="" selected>---------</option>
+         {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+            <label for="fil_operations" >Operation</label>
+      <input type="text"  id="fil_operations" name="filoperations"  >
+            <label for="fil_complexity" >Complexity</label>
+      <input type="text"  id="fil_complexity" name="filcomplexity"  >
+            <label for="fil_grade" >Grade</label>
+      <input type="text"  id="fil_grade" name="filgrade" style="width:40px;">
+
+
+  <button class="btn btn-primary" onclick="filter()" >Filter</button>
+
+
+
+  <table id="tableid" border="1" align="center" class="table">
+
+     <tr>
+        <th>PFM No</th>
+        <th>Components</th>
+        <th>Component Types</th>
+        <th>Department</th>
+        <th>Section</th>
+        <th>Sub-Section</th>
+        <th>Operations</th>
+        <th>Complexity</th>
+        <th>SPI</th>
+        <th>Stitch Length</th>
+        <th>Thread Consumption</th>
+        <th>Machine auto</th>
+        <th>Work Aid</th>
+        <th>SMV</th>
+        <th>Allowance</th>
+        <th>SAM</th>
+        <th>CT</th>
+        <th>Grade</th>
+    </tr>
+
+    {% for item in styledetailsobjects %}
+    <tr class="tr-rem" id="{{ item.id}}">
+        <td>{{ item.pfmno }}</td>
+        <td>{{ item.component }}</td>
+        <td>{{ item.component_type }}</td>
+        <td>{{ item.department }}</td>
+        <td>{{ item.section }}</td>
+        <td>{{ item.sub_section }}</td>
+        <td>{{ item.operations }}</td>
+        <td>{{ item.complexity }}</td>
+        <td>{{ item.spi }}</td>
+        <td>{{ item.stitch_length }}</td>
+        <td>{{ item.thread_consumption }}</td>
+        <td>{{ item.machine_auto }}</td>
+        <td>{{ item.work_aid }}</td>
+        <td>{{ item.smv }}</td>
+        <td>{{ item.allowance }}</td>
+        <td>{{ item.sam }}</td>
+        <td>{{ item.ct }}</td>
+        <td>{{ item.grade }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+    function ophcal(){
+      console.log(parseInt($("#psam").val()))
+    $("#id_oph").val(parseInt(60/parseFloat($("#psam").val())));
+    }
+    function plansam(){
+    var personalc=parseInt($("#personalc").val());
+    var fatiguec = parseInt($("#fatiguec").val());
+    var delayc = parseInt($("#delayc").val());
+
+   var sam=$("#samc").val();
+   $("#psam").val((sam*(100+personalc+fatiguec+delayc))/100)
+  }
+  function smvtime(){
+    var picktime = $("#picktime").val();
+    var maintime = $("#mainpt").val();
+    var turntime = $("#turnt").val();
+    var disposetime = $("#disposet").val();
+    console.log(picktime)
+    var time=parseInt(picktime)+parseInt(maintime)+parseInt(turntime)+parseInt(disposetime)
+    $("#smvt").val(time/60);
+  }
+  function samc(){
+    var smvtime=parseFloat($("#smvt").val());
+    console.log(smvtime)
+    var oc = parseFloat($("#oc").val());
+    var spic = parseFloat($("#spic").val());
+    var stitchc = parseFloat($("#stitchc").val());
+
+    $("#samc").val((smvtime)*oc*spic*stitchc)
+  }
+  function ctc(){
+    var personalc=parseInt($("#personalc").val());
+    var fatiguec = parseInt($("#fatiguec").val());
+    var delayc = parseInt($("#delayc").val());
+
+   var sam=$("#samc").val();
+   $("#ctc").val(parseFloat($("#psam").val())/0.9/0.9)
+  }
+    function filter(){
+      var operations = $("#fil_operations").val();
+      var complexity = $("#fil_complexity").val();
+      var grade = $("#fil_grade").val();
+      var pfmno = $("#pfmn").val();
+
+      $.ajax({
+        type: "POST",
+        url: '/sew/operations',
+        data: {
+          'o':operations,
+          'c':complexity,
+          'g':grade,
+          'p':pfmno,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+
+          }
+
+        }
+      });
+
+
+    }
+    function threadvalue(){
+      //var z=;
+      //console.log(z);
+     var x= $("#id_stitch_length").val()
+      $("#id_thread_consumption").val($("#id_machine_auto").val()*x);
+
+    }
+
+
+    $("#id_pfmno").change(function () {
+      var p = $("#id_pfmno").val();
+      console.log(p)
+      $.ajax({
+        type: "POST",
+        url: "/sew/obgenerateform3",
+        data: {
+          'pfmno': p,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+            var count=0;
+            var a=[];
+            var b=0;
+            globe=data;
+           for(var i=0; i < data['component'].length; i++){
+
+                  $("#id_comp").append(`<option  id="component_add" name="${data['component'][i]}" value="${data['component'][i]}">${data['component'][i]}</option>`)
+
+                 for(var j=count;j<data['type'].length;j++){
+                    if(data['type'][j]=="o"){
+                        b=1;
+                        count++;
+                        break;
+                    }
+                    else{
+                     $("#id_attribute" ).append(`<option
+                       id="a${i}"
+                      name="${data['type'][i]}" value="${data['type'][j]}">${data['type'][j]}</option> `)
+                    count++;
+                  }
+                }
+
+
+        }
+
+          }
+        });
+    });
+
+    function myFunc(){
+    var x = document.getElementById("tableid");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+   $("#id_comp").change(function () {
+      var comp = $("#id_comp").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/operations",
+        data: {
+          'component': comp,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          $("#id_attribute").find('.components_type_ops').remove()
+          for(var i=0; i < data["sub"].length; i++){
+            $("#id_attribute").append(`<option value="${data['sub'][i]}" class="components_type_ops">${data['sub'][i]}</option>`)
+          }
+
+        }
+      });
+    });
+   $("#id_department").change(function () {
+      var depart = $("#id_department").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/operations",
+        data: {
+          'department': depart,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+
+          $("#id_section").find('.section_type_ops').remove()
+          for(var i=0; i < data["section_res"].length; i++){
+
+            $("#id_section").append(`<option value="${data['section_res'][i]}" class="section_type_ops">${data['section_res'][i]}</option>`)
+          }
+
+        }
+      });
+    });
+   var depp;
+   $("#fil_department").change(function () {
+      var depart = $("#fil_department").val();
+              depp   = $(this).find(':selected').text();
+      $.ajax({
+        type: "POST",
+        url: "/sew/operations",
+        data: {
+          'department': depart,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+
+          $("#fil_section").find('.section_type_ops').remove()
+          for(var i=0; i < data["section_res"].length; i++){
+
+            $("#fil_section").append(`<option value="${data['section_res'][i]}" class="section_type_ops">${data['section_res'][i]}</option>`)
+          }
+          departt(depp)
+        }
+      });
+    });
+   function subc(){
+      var section = $("#fil_section").val();
+      var subsection = $("#fil_subsection").val();
+      console.log(depp)
+      console.log(subsection)
+
+      $.ajax({
+        type: "POST",
+        url: '/sew/operations',
+        data: {
+          'subse':subsection,
+          'de':depp,
+          'seca':section,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+
+          }
+
+        }
+      });
+
+
+    }
+   function departt(d){
+console.log(d)
+    $.ajax({
+        type: "POST",
+        url: '/sew/operations',
+        data: {
+
+          'dep':d,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+
+          }
+
+        }
+      });
+
+   }
+   $("#fil_section").change(function () {
+      var section = $("#fil_section").val();
+      console.log(section)
+      $.ajax({
+        type: "POST",
+        url: "/sew/operations",
+        data: {
+          'section': section,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          $("#fil_subsection").find('.sub_section_type_ops').remove()
+
+          for(var i=0; i < data['sub_section_res'].length; i++){
+
+            $("#fil_subsection").append(`<option value="${data['sub_section_res'][i]}" class="sub_section_type_ops">${data['sub_section_res'][i]}</option>`);
+          }
+          console.log('Hell')
+          secio(section);
+
+        }
+      });
+    });
+   function secio(d){
+      console.log(depp)
+      $.ajax({
+        type: "POST",
+        url: '/sew/operations',
+        data: {
+          'depa':depp,
+          'sec':d,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          console.log(data["ids"])
+          $("#tableid").find('.tr-rem').css('display','none')
+          for(var i=0;i<data["ids"].length;i++){
+            console.log(data['ids'][i])
+            $("#tableid").find('#'+data['ids'][i]).css('display','table-row')
+
+          }
+
+        }
+      });
+   }
+   $("#id_section").change(function () {
+      var section = $("#id_section").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/operations",
+        data: {
+          'section': section,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          $("#id_subsection").find('.sub_section_type_ops').remove()
+
+          for(var i=0; i < data['sub_section_res'].length; i++){
+
+            $("#id_subsection").append(`<option value="${data['sub_section_res'][i]}" class="sub_section_type_ops">${data['sub_section_res'][i]}</option>`)
+          }
+
+        }
+      });
+    });
+   $("#id_submit").click(function () {
+      var pf = $('#id_pfmno').find(":selected").text();
+      var comp = $('#id_comp').find(":selected").text();
+      var comptype = $('#id_attribute').find(":selected").text();
+      var dep = $('#id_department').find(":selected").text();
+      var sec = $('#id_section').find(":selected").text();
+      var subsec = $('#id_subsection').find(":selected").text();
+      var operations = $('#id_operations').val();
+      //var complexity = $('#id_complexity').val();
+      var machine_auto = $('#id_machine_auto').find(":selected").text();
+      var work_aid = $('#id_work_aid').val();
+      var spi = $('#id_spi').val();
+      var spifactor = $('#id_spifactor').val();
+      console.log(spifactor)
+      var stitch_length = $('#id_stitch_length').val();
+      var thread_consumption = $('#id_thread_consumption').val();
+      var thread_shade= $('#shade').val();
+      console.log(thread_shade);
+      var tspec = $('#tspec').val();
+      console.log(tspec);
+      var picktime= $('#picktime').val();
+      var maintime= $('#mainpt').val();
+      var turntime= $('#turnt').val();
+      var distime = $('#disposet').val();
+      var psmv = $('#smvt').val();
+      var oc = $('#oc').val();
+      var spic = $('#spic').val();
+      var stitchc = $('#stitchc').val();
+      var asmv = $('#samc').val();
+      var personal = $('#personalc').val();
+      var fatiguec = $('#fatiguec').val();
+      var delayc = $('#delayc').val();
+      var psam = $('#psam').val();
+      var grade = $('#id_grade').val();
+      var t = $('#id_type').val();
+      var pct = $('#ctc').val();
+      var act = $('#actualct').val();
+      var mpall = $('#id_mpall').val();
+      var name = $('#names').val();
+      var oph = $('#id_oph').val();
+
+      var send=[];
+      send[0]=asmv;
+      send[1]=personal;
+      send[2]=fatiguec;
+      send[3]=delayc;
+      send[4]=psam;
+      send[5]=grade;
+      send[6]=t;
+      send[7]=pct;
+      send[8]=act;
+      send[9]=mpall;
+      send[10]=name;
+      send[11]=oph;
+
+      console.log(send)
+      /*var smv = $('#id_smv').val();
+      var allowance = $('#id_allowance').val();
+      var sam = $('#id_sam').val();
+      var ct = $('#id_ct').val();
+
+ */
+  $.ajax({
+        url: '/sew/operations',
+        type: "GET",
+
+        data: {
+          'pfmno': pf,
+          'comp': comp,
+          'attribute':comptype,
+          'department':dep,
+          'section':sec,
+          'subsection':subsec,
+          'operations':operations,
+          'spi':spi,
+          'stitch_length': stitch_length,
+          'spifactor': spifactor,
+          'shade':thread_shade,
+          'tspec':tspec,
+          'picktime':picktime,
+          'maintime':maintime,
+          'turntime':turntime,
+          'distime':distime,
+         'machine_auto': machine_auto,
+          'thread_consumption': thread_consumption,
+          'work_aid': work_aid,
+          'psmv':psmv,
+          'oc':oc,
+          'spic':spic,
+          'stitchc':stitchc,
+          'send': send,
+         /* 'personal': personalc,
+          'fatigue':fatiguec,
+          'delay':delayc,
+          'psam':psam,
+          'grade':grade,
+          't':t,
+          'pct':pct,
+          'act':act,
+          'mpall':mpall,
+          'name': name,
+          "oph": oph,
+         */ 'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function () {
+        console.log("Done")
+
+        },
+        failure: function(data) {
+        alert('Got an error dude');
+    }
+      });
+  });
+</script> 
+{% endblock %}

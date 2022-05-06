@@ -1,0 +1,1977 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mydesign/mydesign_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/seller_info/seller_profile_store.css' %}">
+
+{% endblock %}
+
+
+{% block topcontent %}
+{% include 'include/brand_topcontent.html' %}
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid processing" id="processing">
+  <div class="row design_spinner">
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="row">
+	{% csrf_token %}
+	<div class="col-2" style="padding: 50px 20px; background-color:#253031; width:240px;">
+		<div class="row mt-2 p-2 menu_item" onclick="showlabels();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Labels</h6>
+        </div>
+        <div class="row mt-2 p-2 menu_item" onclick="showtrim();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+            <h6>Trim Card</h6>
+		</div>
+		<div class="row mt-2 p-2 menu_item" onclick="showmanualdocs();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+            <h6>Manual Documents</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showfits();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Fits</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showseasons();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Seasons</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="location.href='/userdetail/seller_profile/measurements'">
+			<h6>Measurement Chart</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showhtm();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>How To Measure</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showwashcare();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Washcare</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showbarcode();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Barcode</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showdiscounts();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Discounts</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showtandc();document.getElementById('carton').style.display='none';">
+			<h6>Terms & Conditions</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showaddress();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Address</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showproducts();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Products</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showsafety();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Safety Stock</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showgarment_weight();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Garment Weight</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showcarton();document.getElementById('tandc').style.display='none';">
+			<h6>Carton</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showinventory();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Inventory Reports</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showinventory_noti();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Inventory Notifications</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showgarment_weight();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Order Received</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showgarment_weight();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Packed</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showgarment_weight();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Dispatched</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showgarment_weight();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Delivered</h6>
+		</div>
+		<div class="row p-2 menu_item" onclick="showgarment_weight();document.getElementById('tandc').style.display='none';document.getElementById('carton').style.display='none';">
+			<h6>Returned</h6>
+		</div>
+	</div>
+
+	<div class="col-10 right_menu" id="garment_weight">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Garment Weight</h4>
+			<!-- <a class="hov-a" onclick="addhtm();" style="margin-left: auto; cursor: pointer;">Add HTM</a> -->
+			<a class="hov-a" onclick="addgarment_weight();" style="margin-left:auto ; cursor: pointer;">Add Garment Weight</a>
+
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Product Category
+			</div>
+			<div class="col">
+				Product Super-Category
+			</div>
+			<div class="col">
+				Size
+			</div>
+			<div class="col">
+				Weight
+			</div>
+		</div>
+		<div class="container-fluid" id="garment_weight_content">
+
+		</div>
+	</div>
+
+
+
+	<div class="col-10 right_menu" id="labels">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Labels</h4>
+			<!-- <a class="hov-a" onclick="addhtm();" style="margin-left: auto; cursor: pointer;">Add HTM</a> -->
+			<a class="hov-a" onclick="addlabel();" style="margin-left: auto; cursor: pointer;">Add Label</a>
+
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Name
+			</div>
+			<div class="col">
+				Slug
+			</div>
+		</div>
+		<div class="container-fluid" id="labels_content">
+			{% for i in label %}
+			<div class="row mt-3 pb-2 contents">
+				<div class="col-1">
+					{{forloop.counter}}
+				</div>
+				<div class="col-3">
+					{{i.name}}
+				</div>
+				<div class="col">
+					{{i.slug}}
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="col-10 right_menu" id="fits">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Fits</h4>
+			<!-- <a class="hov-a" onclick="addhtm();" style="margin-left: auto; cursor: pointer;">Add HTM</a> -->
+			<a class="hov-a" onclick="addfit();" style="margin-left: auto; cursor: pointer;">Add Fit</a>
+
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Name
+			</div>
+			<div class="col-3">
+				Label
+			</div>
+			<div class="col">
+				Slug
+			</div>
+		</div>
+		<div class="container-fluid" id="fits_content">
+
+		</div>
+	</div>
+
+	<div class="col-10 right_menu" id="seasons">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Seasons</h4>
+			<!-- <a class="hov-a" onclick="addhtm();" style="margin-left: auto; cursor: pointer;">Add HTM</a> -->
+			<a class="hov-a" onclick="addseason();" style="margin-left: auto; cursor: pointer;">Add Season</a>
+
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Name
+			</div>
+			<div class="col-3">
+				Label
+			</div>
+			<div class="col-3">
+				Fit
+			</div>
+			<div class="col">
+
+			</div>
+		</div>
+		<div class="container-fluid" id="seasons_content">
+
+		</div>
+	</div>
+	<div class="col-10 right_menu" id="washcare">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Washcare</h4>
+			<!-- <a class="hov-a" onclick="addhtm();" style="margin-left: auto; cursor: pointer;">Add HTM</a> -->
+			<a class="hov-a" onclick="addwashcare();" style="margin-left: auto; cursor: pointer;">Add Washcare</a>
+
+		</div>
+		<div class="row addwashcare_manual" id="addwashcare_manual" style="display: none;">
+			<div class="container mx-4 mt-2 mb-4">
+				<div class="row">
+					<h6>Add Wash-care</h6>
+				</div>
+				<form method="POST">{% csrf_token %}
+
+				<div class="row">
+					<div class="col-6">
+						<center><h6>Form Fields</h6></center>
+					</div>
+					<div class="col-6">
+						<center><h6>Preview</h6></center>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<div class="container">
+							<div class="row my-1">
+
+								<div class="col"><label>Product Category</label></div>
+								<div class="col"><select name="htm_category" class="inputfield" id="htm_category" required style="width: 12vw;">
+									<option value="" disabled selected>------</option>
+									{% for l in product_category %}
+									<option value="{{l.id}}">{{l.name}}</option>
+									{% endfor %}
+								</select></div>
+							</div>
+							<div class="row my-1">
+								<div class="col"><label>Product Sub-Category</label></div>
+								<div class="col"><select name="htm_subcategory" class="inputfield" id="htm_subcategory" required style="width: 12vw;">
+										<option value="" disabled selected>------</option>
+
+								</select></div>
+							</div>
+							<div class="row my-1">
+								<div class="col"><label>Product Super-Category</label></div>
+								<div class="col"><select name="htm_supercategory" class="inputfield" id="htm_supercategory" required style="width: 12vw;">
+										<option value="" disabled selected>------</option>
+
+								</select></div>
+							</div>
+							<div class="row my-1">
+								<div class="col">
+									<label style="">Fabric Blend</label>
+								</div>
+								<div class="col">
+									<input type="text" name="fabric_blend" id="fabric_blend" list="fabric_blend_datalist" required style="width: 12vw;height:18px !important;padding: 2px;">
+									<datalist id="fabric_blend_datalist" style="background: white;"></datalist>
+								</div>
+							</div>
+							<div class="row my-2">
+								<div class="col">
+									<label>Width</label>
+								</div>
+								<div class="col">
+									<input type="number" name="width" id="washcare_width" required>
+								</div>
+								<div class="col">
+									<label>Height</label>
+								</div>
+								<div class="col">
+									<input type="number" name="height" max="450" id="washcare_height" required>
+								</div>
+							</div>
+							<div class="row my-2">
+								<div class="col">
+									<label>Margin-top</label>
+								</div>
+								<div class="col">
+									<input type="number" name="margin_top" required id="washcare_margintop">
+								</div>
+								<div class="col">
+									<label>Margin-bottom</label>
+								</div>
+								<div class="col">
+									<input type="number" name="margin_bottom" required id="washcare_marginbottom">
+								</div>
+							</div>
+							<div class="row my-2">
+								<div class="col">
+									<label>Washcare Heading</label>
+								</div>
+								<div class="col">
+									<input type="checkbox" name="washcare_label_heading" id="washcare_label_heading" value="true">
+								</div>
+							</div>
+							<div class="row" id="selected_heads">
+
+							</div>
+							<div class="row my-2">
+								<div class="col-4">
+									<label>Top Instructions</label>
+								</div>
+								<div class="col">
+									<input type="hidden" name="top_heads" id="top_heads_input">
+									<input type="text" id="washcare_head" style="width: 100%;" placeholder="Enter Instructions seprated by comma">
+								</div>
+							</div>
+							<div class="row" id="selected_bottoms">
+
+							</div>
+							<div class="row my-2">
+								<div class="col-4">
+									<label>Bottom Instructions</label>
+								</div>
+								<div class="col">
+									<input type="hidden" name="bottom_heads" id="bottom_heads_input">
+									<input type="text" id="washcare_bottom" style="width: 100%;"placeholder="Enter Instructions seprated by comma">
+								</div>
+							</div>
+							<div class="row my-2">
+								<div class="col-4">
+									<label>Wash-Care Icons</label>
+								</div>
+								<div class="col">
+									<select multiple id="washcare_icons" name="washcare_icons">
+										{% for i in icons %}
+											<option value="{{i.image.url}}">{{i.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="row centered mt-3">
+								<button type="submit">Save</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-6" style="background: #DCDCDC;height: 80vh;overflow: hidden;">
+						<div class="container" style="margin-top: 5vh;margin-bottom:5vh;margin-left: auto;margin-bottom: auto;border:1px solid black;background: white;" id="washcare_obj">
+
+						</div>
+					</div>
+				</div>
+
+				</form>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+			var wash_obj=document.getElementById('washcare_obj');
+			var top_heads=[];
+			var bottom_heads=[];
+			function updatePreview(){
+				var top_heads_input=document.getElementById('top_heads_input');
+				var bottom_heads_input=document.getElementById('bottom_heads_input');
+				wash_obj.innerHTML="";
+				if ($('#washcare_label_heading').prop("checked")){
+					wash_obj.innerHTML=`<div class="row centered mt-1"><h6><b>Washcare</b></h6></div>
+						<div class="row centered mt-1"><h6>`+$('#fabric_blend').val()+`</h6></div>`;
+				}
+				else{
+					wash_obj.innerHTML=`<div class="row centered mt-1"><h6>`+$('#fabric_blend').val()+`</h6></div>`;
+				}
+				wash_obj.innerHTML+=`<div class="row my-2"></div>`;
+				top_heads_input.value="";
+				for(i=0;i<top_heads.length;i++){
+					wash_obj.innerHTML+=`<div class="row centered"><p style="margin:0;">`+top_heads[i]+`</p></div>`
+					top_heads_input.value+=top_heads[i]+","
+				}
+				wash_obj.innerHTML+=`<div class="row my-2"></div>`;
+				bottom_heads_input.value="";
+				for(i=0;i<bottom_heads.length;i++){
+					wash_obj.innerHTML+=`<div class="row centered"><p style="margin:0;">`+bottom_heads[i]+`</p></div>`
+					bottom_heads_input.value+=bottom_heads[i]+","
+				}
+				var a=document.getElementById('washcare_icons').options;
+				// alert(a[0])
+				wash_obj.innerHTML+=`<div class="row mt-1 icons" id="icons"></div>`;
+				var icons=document.getElementById('icons');
+				for(i=0;i<a.length;i++){
+
+					if (a[i].selected){
+						icons.innerHTML+=`<div class="col my-1 centered"><img src="`+a[i].value+`" width="20" height="20"></div>`;
+					}
+
+				}
+			}
+			$('#washcare_icons').on('change',function(){
+				var i;
+				updatePreview();
+			});
+			function add_element_bottom(ele){
+				var temp=document.getElementById('selected_bottoms');
+				temp.innerHTML=temp.innerHTML+`<div class="col-3 centered ml-2 mt-1" style="background: rgba(0,0,0,.2);border:1px solid rgba(0,0,0,.3);border-radius:10px;cursor: pointer;" onclick="remove_element_bottom(event);">
+									`+ele+`
+								</div>`;
+				bottom_heads.push(ele);
+				var i;
+				updatePreview();
+
+			}
+			$('#washcare_bottom').on('input',function(){
+				var inp=$('#washcare_bottom').val();
+				if (inp[inp.length-1]==","){
+					var ele=inp.slice(0,inp.length-1);
+					add_element_bottom(ele);
+					$('#washcare_bottom').val("");
+				}
+			});
+			function remove_element_bottom(e){
+				var temp=$(e.target).text().trim();
+				var i;
+				bottom_heads.splice( bottom_heads.indexOf(temp), 1 );
+				var temp=document.getElementById('selected_bottoms');
+				temp.innerHTML='';
+				for(i=0;i<bottom_heads.length;i++){
+					temp.innerHTML+=`<div class="col-3 centered ml-2 mt-1" style="background: rgba(0,0,0,.2);border:1px solid rgba(0,0,0,.3);border-radius:10px;cursor: pointer;" onclick="remove_element_bottom(event);">
+									`+bottom_heads[i]+`
+								</div>`;
+				}
+				updatePreview();
+
+			}
+			function add_element(ele){
+				var temp=document.getElementById('selected_heads');
+				temp.innerHTML=temp.innerHTML+`<div class="col-3 centered ml-2 mt-1" style="background: rgba(0,0,0,.2);border:1px solid rgba(0,0,0,.3);border-radius:10px;cursor: pointer;" onclick="remove_element(event);">
+									`+ele+`
+								</div>`;
+				top_heads.push(ele);
+				var i;
+				updatePreview();
+
+			}
+			$('#washcare_head').on('input',function(){
+				var inp=$('#washcare_head').val();
+				if (inp[inp.length-1]==","){
+					var ele=inp.slice(0,inp.length-1);
+					add_element(ele);
+					$('#washcare_head').val("");
+				}
+			});
+			function remove_element(e){
+				var temp=$(e.target).text().trim();
+				var i;
+				top_heads.splice( top_heads.indexOf(temp), 1 );
+				var temp=document.getElementById('selected_heads');
+				temp.innerHTML='';
+				for(i=0;i<top_heads.length;i++){
+					temp.innerHTML+=`<div class="col-3 centered ml-2 mt-1" style="background: rgba(0,0,0,.2);border:1px solid rgba(0,0,0,.3);border-radius:10px;cursor: pointer;" onclick="remove_element(event);">
+									`+top_heads[i]+`
+								</div>`;
+				}
+				updatePreview();
+
+			}
+			$('#washcare_label_heading').on('change',function(){
+				updatePreview();
+
+			});
+			$('#washcare_margintop').on('input',function(){
+				wash_obj.style.paddingTop=$('#washcare_margintop').val()+"px";
+			});
+			$('#washcare_marginbottom').on('input',function(){
+				wash_obj.style.paddingBottom=$('#washcare_marginbottom').val()+"px";
+			});
+			$('#washcare_width').on('input',function(){
+				console.log("chnagong")
+				wash_obj.style.width=$('#washcare_width').val()+"px";
+			});
+			$('#washcare_height').on('input',function(){
+				console.log("chnagong")
+				wash_obj.style.height=$('#washcare_height').val()+"px";
+			});
+			$('#fabric_blend').on('input',function(){
+				$.ajax({
+					type:'POST',
+					url:'/userdetail/seller_profile/store',
+					data:{
+						fabric_blend_ajax:$('#fabric_blend').val(),
+						csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+					},
+					cache:false,
+					dataType: "json",
+					success:function(data){
+						var ht='';
+
+						if (data){
+							$.each(data.data,function(index,value){
+								console.log(value.name);
+								ht=ht+`<option value="`+value.name+`">`+value.name+`</option>`;
+							});
+							$('#fabric_blend_datalist').html(ht);
+						}
+					}
+				});
+			});
+		</script>
+		<div class="row p-2 top_heading" id="washcare_top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Name
+			</div>
+			<div class="col-3">
+				Category
+			</div>
+			<div class="col-3">
+				Super-Category
+			</div>
+			<div class="col">
+				Blend
+			</div>
+		</div>
+		<div class="container-fluid" id="washcare_content">
+
+		</div>
+	</div>
+    <div class="col-10 right_menu" id="trimcard"  style="display:none;">
+        <div class="row mt-3 pl-4 pr-0">
+            <h4>Trim</h4>
+            <a class="hov-a" onclick="addtrimcard();" style="margin-left: auto; cursor: pointer;">Add Trim Card</a>
+        </div>
+        <div class="row addtrimcard_manual" id="addtrimcard_manual" style="display: none;">
+            <div class="container mx-4 mt-2 mb-4">
+                <div class="row">
+                    <h6>Add Trims Card</h6>
+                </div>
+                <form method="POST">{% csrf_token %}
+                    <div class="row">
+                        {{trim_form.as_p}}
+                    </div>
+                    <div class="row">
+                        <button type="submit" name="trims_form" value="true" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row p-2 top_heading" id="addtrimcard_top_heading">
+            <div class="col-1">
+                S.No.
+            </div>
+            <div class="col-3">
+                Name
+            </div>
+            <div class="col-3">
+                Category
+            </div>
+            <div class="col-3">
+                Sub-Category
+            </div>
+            <div class="col">
+                Super-Category
+            </div>
+        </div>
+        <div class="container-fluid" id="addtrimcard_content">
+            {% for trim in trims %}
+            <div class="row">
+                <div class="col-1">
+                    {{forloop.counter}}
+                </div>
+                <div class="col-3">
+                    <a href='{% url "trim_edit" trim_section_id=trim.id %}'>{{trim.name}}</a>
+                </div>
+                <div class="col-3">
+                    {{trim.product_Category}}
+                </div>
+                <div class="col-3">
+                    {{trim.product_Subcategory}}
+                </div>
+                <div class="col">
+                    {{trim.product_Supercategory}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-10 right_menu" id="manual_docs" style="display:none;">
+        <div class="row mt-3 pl-4 pr-0">
+            <h4>Manual Docs</h4>
+            <a class="hov-a" onclick="addmanualdocs();" style="margin-left: auto; cursor: pointer;">Add Manual Documents</a>
+        </div>
+        <div class="row addmanualdocs_manual" id="addmanualdocs_manual" style="display: none;">
+            <div class="container mx-4 mt-2 mb-4">
+                <div class="row">
+                    <h6>Add Manual Documents</h6>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                	{% csrf_token %}
+                    <div class="row">
+                        {{manual_form.as_p}}
+                    </div>
+                    <div class="row">
+                        <button type="submit" name="manual_doc_form" value="true" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row p-2 top_heading" id="addmanualdocs_top_heading">
+            <div class="col-1">
+                S.No.
+            </div>
+            <div class="col-2">
+                Name
+            </div>
+            <div class="col-2">
+                Category
+            </div>
+            <div class="col-2">
+                Sub-Category
+            </div>
+            <div class="col-2">
+                Super-Category
+            </div>
+            <div class="col">
+            	Order No
+            </div>
+        </div>
+        <div class="container-fluid" id="addmanualdocs_content">
+            {% for doc in manual_docs %}
+            <div class="row">
+                <div class="col-1">
+                    {{forloop.counter}}
+                </div>
+                <div class="col-2">
+                    <a href="{% url 'manual_docs_edit' manual_docs_id=doc.id %}">{{doc.name}}</a>
+                </div>
+                <div class="col-2">
+                    {{doc.product_Category}}
+                </div>
+                <div class="col-2">
+                    {{doc.product_Subcategory}}
+                </div>
+                <div class="col-2">
+                    {{doc.product_Supercategory}}
+                </div>
+                <div class="col">
+                	{{doc.order}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+	<div class="col-10 right_menu" id="inventory_noti">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Inventory Notifications</h4>
+		</div>
+		<div class="row p-2 top_heading">
+
+		</div>
+		<div class="container-fluid" id="seasons_content">
+			Sorry No Notifications here !
+		</div>
+	</div>
+	<div class="col-10 right_menu" id="htm">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>How To Measure</h4>
+			<a class="hov-a" onclick="addhtm();" style="margin-left: auto; cursor: pointer;">Add HTM</a>
+
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-2">
+				Name
+			</div>
+			<div class="col-2">
+				Category
+			</div>
+			<div class="col-3">
+				Sub-Category
+			</div>
+			<div class="col-3">
+				Super-Category
+			</div>
+			<div class="col">
+				File
+			</div>
+		</div>
+		<div class="container-fluid" id="htm_content">
+
+		</div>
+	</div>
+	<div class="col-10 right_menu" id="barcode">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Layouts</h4>
+			<a class="hov-a" onclick="addbarcode();" style="margin-left: auto; cursor: pointer;">Add Barcode</a>
+		</div>
+
+{% if Layouts %}
+		<div class="row p-2 top_heading"  >
+
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-4">
+				Name
+			</div>
+			<div class="col-3">
+				Width
+			</div>
+			<div class="col-3">
+				Height
+			</div>
+
+		</div>
+<div class="container-fluid">
+			{% for layout in Layouts %}
+	<a href="/userdetail/seller_profile/show_layout_details/{{layout.id}}"><div class="row pt-3 pb-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<div class="col-1">
+				{{forloop.counter}}</div>
+		<div class="col-4">	Layout- {{layout.id}} </div>
+		<div class="col-3">	{{layout.width}}</div>
+		<div class="col-3">	{{layout.height}} </div>
+	</div> </a>
+
+			{% endfor %}
+</div>
+
+
+		{% endif %}
+
+
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Barcode</h4>
+			<a class="hov-a" onclick="addbarcode();" style="margin-left: auto; cursor: pointer;">Add Barcode</a>
+		</div>
+		<div class="row addbarcode_manual" id="addbarcode_manual" style="display: none;">
+			<div class="container mx-4 mt-2 mb-4">
+				<div class="row">
+					<h6>Add Barcode</h6>
+				</div>
+				<form method="POST">{% csrf_token %}
+
+				<div class="row">
+					<div class="col-6">
+						<center><h6>Form Fields</h6></center>
+					</div>
+					<div class="col-6">
+						<center><h6>Preview</h6></center>
+					</div>
+				</div>
+				<div class="row">
+                    <div class="col-6">
+                        <div class="container">
+                            <div class="row my-1">
+
+                                <div class="col"><label>Layout</label></div>
+                                <div class="col"><select name="layout" class="inputfield" id="layout" required style="width: 12vw;"
+                                    onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value); Fun();">
+                                    <option value="none">----</option>
+                                    <option value="Portrait" id="portrait">Portrait</option>
+                                    <option value="Landscape" id="landscape">Landscape</option>
+                                </select></div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <label>Width</label>
+                                </div>
+                                <div class="col">
+                                    <input type="number" name="width" max="450" id="barcode_width" required>
+                                </div>
+                                <div class="col">
+                                    <label>Height</label>
+                                </div>
+                                <div class="col">
+                                    <input type="number" name="height" max="450" id="barcode_height" required>
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col"><label>Code</label></div>
+                                <div class="col"><select name="code" class="inputfield" id="code" required style="width: 12vw;">
+                                    <option value="" selected>------</option>
+                                    <option value="qrcode">QRCode</option>
+                                    <option value="barcode">BarCode</option>
+                                </select></div>
+                            </div>
+                            <div class="row my-1">
+								<div class="col"><label>Alignment:</label></div>
+								<div class="col">
+                                <script type="text/javascript" language="JavaScript">
+                                     document.write('<select name="allignment" id="allignment" onchange="javascript: dynamicdropdownone(this.options[this.selectedIndex].value);"><option value="none" selected>------</option></select>')
+                                </script>
+                                <noscript>
+                                    <select name="allignment" id="allignment" >
+                                        <option value="">Alignment</option>
+                                    </select>
+								</noscript></div>
+                            </div>
+							<script type="text/javascript" language="JavaScript">
+    						function dynamicdropdown(listindex)
+            					{
+                					document.getElementById("allignment").length = 0;
+                					switch (listindex)
+                						{
+                    						case "Portrait" :
+                    							document.getElementById("allignment").options[0]=new Option("-----","");
+                        						document.getElementById("allignment").options[1]=new Option("Top","Top");
+                        						document.getElementById("allignment").options[2]=new Option("Middle","Middle");
+                        						document.getElementById("allignment").options[3]=new Option("Bottom","Bottom");
+                        						break;
+
+                    						case "Landscape" :
+                    							document.getElementById("allignment").options[0]=new Option("-----","");
+                        						document.getElementById("allignment").options[1]=new Option("Left","Left");
+                        						document.getElementById("allignment").options[2]=new Option("Middle","Middle");
+                        						document.getElementById("allignment").options[3]=new Option("Right","Right");
+                        						break;
+                    						default:
+                        						document.getElementById("allignment").options[0]=new Option("-----","none");
+                        						break;
+                						}
+                					return true;
+           						 }
+    						</script>
+                            <div class="row my-2">
+                                <div class="col-4">
+                                    <label>Code-Dependent Attributes</label>
+                                </div>
+                                <div class="col">
+                                    <select disabled multiple id="code_dependent" name="code_dependent">
+											{% for ats in dependent_ats %}
+                                            <option value="{{ats.name}}">{{ats.name}}</option>
+											{% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-4">
+                                    <label>Code-Independent Attributes</label>
+                                </div>
+                                <div class="col">
+
+                                    <select multiple id="code_independent" name="code_independent">
+										<option value="none" name="-----">------</option>
+										{% for ats in independent_ats %}
+										<option value="{{ats.name}}" >{{ats.name}}</option>
+										{% endfor %}
+									</select>
+                                </div>
+                            </div>
+							<div class="row my-2">
+								<div class="col">
+									<label>Attributes-Name Visible</label>
+								</div>
+								<div class="col">
+									<input type="checkbox" name="name_visible" id="name_visible" value="true">
+								</div>
+							</div>
+							<div class="row" id="selected_name_visible">
+
+							</div>
+							<div class="row centered mt-3">
+								<button type="submit">Save</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-6" style="background: #DCDCDC;height: 80vh;overflow: hidden;">
+						<div class="container" style="margin-top: 5vh;margin-bottom:5vh;margin-left: auto;margin-bottom: auto;border:1px solid black;background: white;" id="barcode_obj">
+
+
+						</div>
+					</div>
+				</div>
+
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var code_obj = document.getElementById('barcode_obj');
+			code_obj.innerHTML="";
+			var d=code_obj;
+
+			d.innerHTML=`<div class="row centered mt-1" id="code1"><h6><b>brand</b></h6></div>`;
+			d.innerHTML+=`<div class="col my-1 centered" id="code0" style="position: absolute; text-align: center;"></div>`;
+			function updatepreview(){
+				var b=document.getElementById('code').options;
+				var c=document.getElementById('allignment').options;
+				var a=document.getElementById('layout').options;
+				var y=document.getElementById('code1');
+                var x=document.getElementById('code0');
+				for(i=0;i<=b.length;i++){
+					if(b[i].selected){
+                		x.innerHTML=b[i].value;
+
+            		 }
+				}
+			}
+
+
+			d.innerHTML+=`<div class="col my-1 centered" id="code2" style="position: relative;text-align: center;"></div>`;
+			d.innerHTML+=`<div class="col my-1 centered" id="code3" style="position: relative;text-align: center;"></div>`;
+
+			function getSelectedOptions(sel, fn1,fn2) {
+    			var opts1 = [], opt;
+    			var opts2 = [];
+    			var len=sel.options.length;
+    			for (var i=0; i<len/2; i++) {
+        			opt = sel.options[i];
+        			if ( opt.selected ) {
+            			opts1.push(opt);
+            			if (fn1) {
+                			fn1(opt);
+            			 }
+        			}
+    			}
+    			for (var i=len/2; i<len; i++) {
+        			opt = sel.options[i];
+        			if ( opt.selected ) {
+            			opts2.push(opt);
+            			if (fn2) {
+                			fn2(opt);
+            			 }
+        			}
+    			}
+    			return opts1,opts2;
+			}
+
+
+			function callback1(opt) {
+    		var display = document.getElementById('code2');
+    		if(document.getElementById('name_visible').checked==true){
+    			display.innerHTML +='<div class="row centered" ><p style="margin:0;">'+opt.text+':' +opt.value + '</p></div>';}
+    		else{display.innerHTML +='<div class="row centered"><p style="margin:0;">' +opt.value + '</p></div>';}
+
+			}
+			function callback2(opt) {
+    		var yo = document.getElementById('code3');
+    		if(document.getElementById('name_visible').checked==true){
+    			yo.innerHTML +='<div class="row centered" ><p style="margin:0;">'+opt.text+':' +opt.value + '</p></div>';}
+    		else{yo.innerHTML +='<div class="row centered"><p style="margin:0;">' +opt.value + '</p></div>';}
+
+			}
+
+			document.getElementById('code_independent').onchange = function(e) {
+    			var display = document.getElementById('code2');
+    			var yo = document.getElementById('code3');
+    			display.innerHTML = '';
+    			yo.innerHTML='';
+    			getSelectedOptions(this, callback1, callback2);
+    			var str1 = display.innerHTML.slice(0, -2);
+    			display.innerHTML = str1;
+    			var str2 = yo.innerHTML.slice(0, -2);
+    			yo.innerHTML = str2;
+			};
+			var h = $('#barcode_height').val();
+			var w =$('#barcode_width').val();
+			function updatepre(){
+				var a=document.getElementById('layout').options;
+				var c=document.getElementById('allignment').options;
+				var h = $('#barcode_height').val();
+				var w =$('#barcode_width').val();
+				if(a[1].selected && c[1].selected)
+				{document.getElementById('code0').style.paddingTop="0px";
+				document.getElementById('code2').style.paddingTop="20px";
+				document.getElementById('code3').style.paddingTop="0px";}
+				if(a[1].selected && c[2].selected)
+				{
+				document.getElementById('code0').style.paddingTop=((h/2)-54.4)+"px";
+				document.getElementById('code2').style.paddingTop="0px";
+				if(document.getElementById('code2').innerHTML == ""){
+				document.getElementById('code3').style.paddingTop="0px";}
+				else{
+				document.getElementById('code3').style.paddingTop=((h/2)-74.4)+"px";}}
+				if(a[1].selected && c[3].selected)
+				{
+				document.getElementById('code0').style.paddingTop= (h-54.4) + "px";
+				document.getElementById('code2').style.paddingTop="0px";
+				document.getElementById('code3').style.paddingTop="0px";}
+				if(a[2].selected && c[1].selected)
+				{document.getElementById('code0').style.width="50px";
+				document.getElementById('code2').style.width=((w/2)+50)+"px";
+				document.getElementById('code3').style.width=w+"px";
+				document.getElementById('code2').style.position="absolute";
+				document.getElementById('code0').style.paddingTop=((h/2)-54.4)+"px";
+				document.getElementById('code0').style.paddingLeft="0px";
+				document.getElementById('code2').style.paddingLeft=(w/3) + "px";
+				document.getElementById('code3').style.paddingLeft=(2*w/3) + "px";
+				document.getElementById('code2').style.paddingTop="0px";
+				document.getElementById('code3').style.paddingTop="0px";
+				}
+				if(a[2].selected && c[2].selected)
+				{document.getElementById('code0').style.width=((w/2)+50)+"px";
+				document.getElementById('code2').style.width="55px";
+				document.getElementById('code3').style.width=w+"px";
+				document.getElementById('code2').style.position="absolute";
+				document.getElementById('code0').style.paddingTop=((h/2)-54.4)+"px";
+				document.getElementById('code0').style.paddingLeft=(w/3)+"px";
+				document.getElementById('code2').style.paddingLeft="25px";
+				document.getElementById('code3').style.paddingLeft=(2*w/3) + "px";
+				document.getElementById('code2').style.paddingTop="0px";
+				document.getElementById('code3').style.paddingTop="0px";}
+				if(a[2].selected && c[3].selected)
+				{document.getElementById('code0').style.width=w+"px";
+				document.getElementById('code2').style.width="50px";
+				document.getElementById('code3').style.width=((w/2)+50)+"px";
+				document.getElementById('code2').style.position="absolute";
+				document.getElementById('code0').style.paddingTop=((h/2)-54.4)+"px";
+				document.getElementById('code0').style.paddingLeft=(2*w/3)+"px";
+				document.getElementById('code2').style.paddingLeft="25px";
+				document.getElementById('code3').style.paddingLeft=(w/3) + "px";
+				document.getElementById('code2').style.paddingTop="0px";
+				document.getElementById('code3').style.paddingTop="0px";}
+            }
+            $('#code').on('change',function(){
+				var i;
+				updatepreview();
+			});
+			$('#layout').on('change',function(){
+			$('#allignment').on('change',function(){
+				var j;
+				updatepre();
+			});
+			});
+			$('#code_independent').on('change',function(){
+			$('#name_visible').on('change',function(){
+				var p;
+				update();
+			});
+			});
+
+
+            $('#barcode_width').on('input',function(){
+                code_obj.style.width=$('#barcode_width').val()+"px";
+                var w =$('#barcode_width').val();
+                document.getElementById('code0').style.width=(w-20)+"px";
+            });
+            $('#barcode_height').on('input',function(){
+                code_obj.style.height=$('#barcode_height').val()+"px";
+            });
+
+			function Fun(){
+                var x = document.getElementById("layout");
+                var m = document.getElementById("barcode_width");
+                var n = document.getElementById("barcode_height");
+                var i = x.selectedIndex;
+                if(i==1)
+                {alert("input width<height")}
+                if(i==2)
+                {alert("width>height");}
+            }
+
+
+
+
+
+
+		</script>
+		<div class="row p-2 top_heading" id="barcode_top_heading" >
+
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Name
+			</div>
+			<div class="col-3">
+				Label
+			</div>
+			<div class="col-3">
+				Fit
+			</div>
+			<div class="col">
+				Season
+			</div>
+		</div>
+		<div class="container-fluid" id="barcode_content">
+
+		</div>
+	</div>
+	<div class="col-10 right_menu" id="products">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Products</h4>
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				<b>S.No.</b>
+			</div>
+			<div class="col-1">
+				<b>Image</b>
+			</div>
+			<div class="col-1">
+				<b>Title</b>
+			</div>
+			<div class="col-1">
+				<b>Price</b>
+			</div>
+			<div class="col-1">
+				<b>Quantity</b>
+			</div>
+
+			<div class="col-1">
+				<b>Sold</b>
+			</div>
+			<div class="col-2">
+				<b>Safe Stock</b>
+			</div>
+			<div class="col-2">
+				<b>Colors</b>
+			</div>
+			<div class="col-2">
+				<b>Sizes</b>
+			</div>
+		</div>
+		<div class="container-fluid" id="products_content">
+			{% for ob in prod %}
+				<div class="row pt-3 pb-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+					<div class="col-1">
+						{{forloop.counter}}
+					</div>
+					<div class="col-1">
+						<img src="{{ob.image1.url}}" style="width: 20px;height: 20px;">
+					</div>
+					<div class="col-1">
+						<a href="/userdetail/staff_profile/products/{{ob.slug}}" class="hov-a">{{ob.title}}</a>
+					</div>
+					<div class="col-1">
+						{{ob.price}}
+					</div>
+					<div class="col-1">
+						<p id="quantity{{ob.id}}"></p>
+						<script type="text/javascript">
+							var a=document.getElementById('quantity{{ob.id}}');
+							var val=0
+							{% for i in ob.size_color_quantity_set.all %}
+								val+=parseInt('{{i.quantity}}');
+							{% endfor %}
+							a.innerHTML=val;
+						</script>
+					</div>
+					<div class="col-1">
+						{{ob.sold_quantity}}
+					</div>
+					<div class="col-2">
+						{{ob.safe_stock}}
+					</div>
+					<div class="col-2">
+						{% for i in ob.size_color_quantity_set.all %}
+							{{i.color}},
+						{% endfor %}
+					</div>
+					<div class="col-2">
+						{% for i in ob.size_color_quantity_set.all %}
+							{{i.size}},
+						{% endfor %}
+					</div>
+
+				</div>
+				{% endfor %}
+		</div>
+	</div>
+	<div class="col-10 right_menu" id="inventory">
+
+		<div class="row mt-2 pb-4">
+			<div class="col-8" style="border-right: 1px solid rgba(0,0,0,.3);">
+				<div class="container-fluid">
+					<div class="row mt-3 pl-2 pr-0">
+						<h4>Inventory Reports</h4>
+					</div>
+					<div class="row mt-3">
+						<div class="col-2 mx-2 no_of_sales">
+							<h1>25</h1>
+							<p style="font-size:1em;">Sales This Month</p>
+						</div>
+						<div class="col-2 mx-2 low_stock">
+							<h1>2</h1>
+							<p style="font-size:1em;">Products Low Stock</p>
+						</div>
+						<div class="col-2 mx-2 to_be_packed">
+							<h1>5</h1>
+							<p style="font-size:1em;">To be Packed</p>
+						</div>
+						<div class="col-2 mx-2 to_be_shipped">
+							<h1>10</h1>
+							<p style="font-size:1em;">To be Shipped</p>
+						</div>
+						<div class="col-2 mx-2 to_be_delivered">
+							<h1>1</h1>
+							<p style="font-size:1em;">To be Delivered</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="container-fluid">
+					<div class="row mt-3 pl-2 pr-0">
+						<h4>Inventory Summary</h4>
+					</div>
+					<div class="row mt-3 mr-2 quantity_in_hand">
+						<div class="col-2 p-2 centered" style="background: rgba(48,197,255,.1);">
+							<h6>5</h6>
+						</div>
+						<div class="col-8 p-2">
+							<h6>Quantity in Hand</h6>
+						</div>
+					</div>
+					<div class="row mt-2 mr-2 quantity_to_recieved">
+						<div class="col-2 p-2 centered" style="background: rgba(48,197,255,.1);">
+							<h6>10</h6>
+						</div>
+						<div class="col-8 p-2">
+							<h6>Quantity to be Recieved</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-5 mx-4 fontcabin" style="border: 1px solid rgba(0,0,0,.1);">
+				<div class="container-fluid">
+					<div class="row mt-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+						<h6>PRODUCT DETAILS</h6>
+					</div>
+					<div class="row my-2">
+						<div class="col-7 mr-2" style="border-right:1px solid rgba(0,0,0,.1);">
+							<div class="container-fluid">
+								<div class="row mt-2">
+									<h6 style="color:red;">Low Stock Products</h6>
+									<p style="margin-left: auto;">3</p>
+								</div>
+								<div class="row mt-2">
+									<h6 style="">Products By Category</h6>
+									<p style="margin-left: auto;">10</p>
+								</div>
+								<div class="row mt-2">
+									<h6 style="">All Products</h6>
+									<p style="margin-left: auto;">100</p>
+								</div>
+								<div class="row mt-2">
+									<h6 style="color:red;">Unconfirmed Products</h6>
+									<p style="margin-left: auto;">7</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-4 ml-2">
+							<div id="chartContainer"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-5 mx-4 fontcabin" style="border: 1px solid rgba(0,0,0,.1);">
+				<div class="container-fluid">
+					<div class="row mt-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+						<h6>TOP SELLING ITEMS</h6>
+						<select style="background: none;margin-left: auto;border:none;">
+							<option value="val">Jun</option>
+							<option value="val">Jul</option>
+							<option value="val">Aug</option>
+						</select>
+					</div>
+					<div class="row my-2">
+						{% for i in prod1 %}
+							<div class="col-3 mx-1 p-2" style="border: 1px solid rgba(0,0,0,.1);">
+								<div class="container-fluid">
+									<div class="row">
+										<img src="{{i.image1.url}}" style="width: 100%;height: 100px;">
+									</div>
+									<div class="row centered">
+										<p>{{i.title}}</p>
+										<p id="quantity_prod_te{{i.id}}"></p>
+										<script type="text/javascript">
+											var a=document.getElementById('quantity_prod_te{{i.id}}');
+											var val=0;
+											{% for j in i.size_color_quantity_set.all %}
+												val+=parseInt('{{j.quantity}}');
+											{% endfor %}
+											a.innerHTML="Left - "+val.toString();
+										</script>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col-3 mx-4" style="border: 1px solid rgba(0,0,0,.1); height: 150px;">
+				<div class="container-fluid">
+					<div class="row mt-2 centered fontcabin" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+						<h6>PURCHASE ORDERS</h6>
+					</div>
+					<div class="row my-4 fontcabin centered">
+						<div class="centered">
+							<h6>Quantity Ordered</h6>
+							<h3 style="color:#30c5ff;margin-left: auto;margin-right: auto">25</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-7 mx-4" style="border: 1px solid rgba(0,0,0,.1);">
+				<div class="container-fluid">
+					<div class="row mt-2 fontcabin" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+						<h6>Orders Progress</h6>
+						<select style="background: none;margin-left: auto;border:none;">
+							<option value="val">Jun</option>
+							<option value="val">Jul</option>
+							<option value="val">Aug</option>
+						</select>
+					</div>
+					<div class="row my-1 py-2 fontcabin" style="background: rgba(48,197,255,.2);">
+						<div class="col-2">
+							Title
+						</div>
+						<div class="col-2">
+							Wishlist
+						</div>
+						<div class="col-2">
+							Confirmed
+						</div>
+						<div class="col-2">
+							Packed
+						</div>
+						<div class="col-2">
+							Shipped
+						</div>
+						<div class="col-2">
+							Delivered
+						</div>
+					</div>
+					{% for i in prod1 %}
+					<div class="row my-1 py-2 fontcabin" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+						<div class="col-2">
+							{{i.title}}
+						</div>
+						<div class="col-2">
+							0
+						</div>
+						<div class="col-2">
+							0
+						</div>
+						<div class="col-2">
+							0
+						</div>
+						<div class="col-2">
+							0
+						</div>
+						<div class="col-2">
+							0
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="col-10 right_menu" id="safety">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Safety Stock</h4>
+			<a class="hov-a" onclick="addsafety();" style="margin-left: auto; cursor: pointer;">Add Safety Stock</a>
+
+		</div>
+		<div class="row p-2 top_heading">
+			<div class="col-1">
+				S.No.
+			</div>
+			<div class="col-3">
+				Name
+			</div>
+			<div class="col">
+				Product Category
+			</div>
+			<div class="col">
+				Product Sub-Category
+			</div>
+			<div class="col">
+				Product Super-Category
+			</div>
+			<div class="col">
+				Limit
+			</div>
+		</div>
+		<div class="container-fluid" id="safety_content">
+
+		</div>
+	</div>
+
+	<div class="col-10 right_menu" id="address" style = "display: none;">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>Address</h4>
+			<div>
+                <table id="maintable1" width="30%" cellpadding="0" cellspacing="0" class="pdzn_tbl1" border="#729111 5px solid " style="padding-top: 30px;padding-left:30px; margin-top: 100px; ">
+                    <tr style="background-color: deepskyblue;" >
+                        <th align="center"><label style="padding-left: 35%;font-size: 1.3em;"><b>Dispatch<p style="color: red;margin-bottom: 0;display: inline-block;">*
+                        </p></b></label></th>
+                    </tr>
+                    <tr id="rows1" >
+                        <div style="padding-left: 5px">
+                            <td style="padding: 10px;" >
+                                <label style="font-size: 15px;font-family: Arial, Helvetica, sans-serif;">Address</label>
+                                <textarea class="loginpassword" onkeyup="my(this)" name="dispatch" placeholder="Dispatch Address" id="dis" required style="width: 20vw;box-shadow: 0 0 1px black;background-color: white ;padding: 1.3vw;margin-top: 1vh;"></textarea>
+                                <button class="py-2 loginbutton" type="submit" style="border-radius: 8px; background-color: deepskyblue;">SUBMIT</button>
+
+                            </td>
+
+                        </div>
+
+                    </tr>
+
+                </table>
+                <br>
+                        <button type="button" onclick="myFunction()" name="add" value="Add+" id="add_new" style="color:white;border-radius: 100%;background-color: deepskyblue; font-size:20px; position: relative;" class="Add1" disabled>+</button>
+            </div>
+            <div>
+                <table id="maintable2"  width="30%" cellpadding="0" cellspacing="0" class="pdzn_tbl1" border="#729111 5px solid" align="center" style="padding-top: 30px;padding-left:300px;margin-top: 100px; ">
+                    <tr style= "background-color: deepskyblue;">
+                        <th align="center"><label style="padding-left: 40%;font-size: 1.3em;"><b>Billing<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></th>
+                    </tr>
+                    <tr id="rows2" >
+                        <div style="padding-left: 5px">
+                            <td style="padding:10px;">
+                                <label style="font-size: 15px;font-family: Arial, Helvetica, sans-serif;">Address</label>
+                                <textarea  class="loginpassword" name="billing" onkeyup="my1(this)" placeholder="Billing Address" id="bil" required style="width: 20vw;box-shadow: 0 0 1px black;background-color: white ;padding: 1.3vw;margin-top: 1vh;"></textarea>
+                                <button class="py-2 loginbutton" type="submit" style="border-radius: 8px;background-color: deepskyblue;">SUBMIT</button>
+                            </td>
+                        </div>
+                    </tr>
+                </table>
+                <br>
+                <button type="button" name="add" value="Add+" id="add_new1" onclick="myFunction1()" class='Add2'style="color:white;border-radius: 80%;background-color: deepskyblue; font-size:20px;position: relative; margin-left: 62px " disabled>+</button>
+            </div>
+		</div>
+
+		<div class="container-fluid">
+
+		</div>
+	</div>
+
+	<div class="col-10 right_menu" id="tandc" style= "display: none;">
+		<div class="row mt-3 pl-4 pr-0">
+			<h4>TERMS AND CONDITION</h4>
+		</div>
+		<div>
+				<p><br>USE ENTER FOR NEW TERM AND CONDITION</p>
+				<textarea name="terms&condition" placeholder="Terms & Condition" id="textArea" required style="width: 500px;height: 150px;box-shadow: 0 0 1px black;background-color: white ;padding: 1.3vw;margin-top: 1vh;"></textarea>
+				<button class="py-2 loginbutton" type="submit" onclick="splitval()" style="border-radius: 8px;background-color: deepskyblue;width: 100px;">SAVE</button>
+
+		</div>
+		<div class="container-fluid">
+
+		</div>
+	</div>
+
+	<div class="col-10 right_menu" id="carton" style= "display: none;">
+		<div class="row mt-3 pl-4 pr-0">
+			<h3>Carton</h3>
+		</div>
+		<div style="font-size:15px;">
+			<form>
+			<label>Product Category</label>
+             <select name="category" class="drop_third1" id="category" required style="width:150px;margin-left:100px;box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+				 <option value="" selected>------</option>
+				 {% if depend.product_Category %}
+				 <option value="{{depend.product_Category.name}}" selected>{{depend.product_Category.name}}</option>
+				 {% endif %}
+				 {% for b in cate %}
+				 <option value="{{b.name}}">{{b.name}}</option>
+				 {% endfor %}
+			 </select><br>
+			<label> Product Sub-Category</label>
+            <select name="sub_category" class="drop_third2" id="sub_category" required style="width:150px;margin-left:68px;box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+				<option value="" selected>------</option>
+				{% if depend.product_Subcategory %}
+				<option value="{{depend.product_Subcategory.name}}" selected>{{depend.product_Subcategory.name}}</option>
+				{% endif %}
+			</select><br>
+			<label>Product Super-Category</label>
+			<select name="super_category" class="drop_third3" id="super_category" required style="width:150px;margin-left:55px;box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+				<option value="" selected>------</option>
+				{% if depend.product_Supercategory %}
+				<option value="{{depend.product_Supercategory.name}}" selected>{{depend.product_Supercategory.name}}</option>
+				{% endif %}
+			</select><br>
+			<p style="font-size:20px"><br><b>Carton Dimensions</b><br></p>
+			<div style="display: flex;">
+			<label>Length*</label>
+			<input type="number" name="length"  style="width: 60px;margin-bottom:20px;margin-left:10px;" required><br>
+			<label style="margin-left: 50px;">Breadth*</label>
+			<input type="number" name="breadth" style="width: 60px;margin-bottom:20px; margin-left:10px;" required><br>
+			<label style="margin-left: 50px">Height*</label>
+			<input type="number" name="height"  style="width: 60px;margin-bottom:20px; margin-left:10px;" required><br>
+			</div>
+			<label>Specification:</label>
+			<input type="text" name="specification" placeholder="Specification" required style="height:50px;margin-left:15px;"><br><br>
+			<label>Ply</label>
+			<input type="number" name="ply" style="width: 60px;margin-left:80px;" required><br>
+			<label>Composition</label>
+			<input type="number" name="compo" style="width: 60px;margin-left:15px;" required><br>
+			<label>Weight</label>
+			<input type="number" name="weight" style="width: 60px;margin-left:53px;" required><br>
+			<label>Cost</label>
+			<input type="number" name="cost" style="width: 60px;margin-left:70px;" required><br>
+			<button class="py-2 loginbutton" style="border-radius: 8px;background-color: deepskyblue;width: 100px;margin-top:20px;">EDIT</button>
+			<button class="py-2 loginbutton" type="submit" id="submit1" style="border-radius: 8px;background-color: deepskyblue;width: 100px;margin-left:15%;" onclick="document.getElementById('Next1').style.visibility='visible'">SUBMIT</button>
+			<button class="py-2 loginbutton" type="reset" style="border-radius: 8px;background-color: deepskyblue;width: 100px;margin-left:15%;" >DELETE</button>
+			</form>
+		</div>
+		<div class="container-fluid">
+
+		</div>
+	</div>
+</div>
+
+{% include 'include/add_store_items.html' %}
+
+<script type="text/javascript">
+
+function splitval(){
+		var myText = document.getElementById("textArea").value;
+    	var myArray = myText.split("\n");
+    	}
+function showcarton(){
+	var carton_obj=document.getElementById('carton');
+    showLoader();
+    checkOff();
+    hideLoader();
+    carton_obj.style.display="block";
+    carton=true;
+}
+		function showtandc(){
+		var tandc_obj=document.getElementById('tandc');
+			showLoader();
+			checkOff();
+			hideLoader();
+			tandc_obj.style.display="block";
+			tandc=true;
+		}
+
+		function my(txt){
+		  var bt = document.getElementById('add_new');
+		  if (txt.value.length != '') {
+		     bt.disabled = false;
+		  }
+		  else {
+		      bt.disabled = true;
+
+		  }
+		}
+
+		function myFunction() {
+		  var table = document.getElementById("maintable1");
+		  var row = table.insertRow(-1);
+		  var cell1 = row.insertCell(0);
+		  cell1.innerHTML = '<tr id="rows1" ><div style="padding-left: 5px"><td style="padding: 10px;" ><label style="font-size: 15px;font-family: Arial, Helvetica, sans-serif;">Address</label><textarea class="loginpassword" onkeyup="my(this)" name="dispatch" placeholder="Dispatch Address" id="dis" required style="width: 20vw;box-shadow: 0 0 1px black;background-color: white;padding: 1.3vw;margin-top: 1vh;"></textarea><button class="py-2 loginbutton" type="submit" style="border-radius: 8px; background-color: deepskyblue;">SUBMIT</button></td></div></tr>';
+		document.getElementById('add_new').disabled = true;
+
+		}
+
+		function my1(txt1){
+		var bt = document.getElementById('add_new1');
+		        if (txt1.value === '') {
+		            bt.disabled = true;
+		        }
+		        else {
+		            bt.disabled = false;
+		        }
+		}
+		function myFunction1() {
+		  var table = document.getElementById("maintable2");
+		  var row = table.insertRow(-1);
+		  var cell1 = row.insertCell(0);
+		  cell1.innerHTML = '<tr id="rows2" ><div style="padding-left: 5px"><td style="padding:10px;"><label style="font-size: 15px;font-family: Arial, Helvetica, sans-serif;">Address</label><textarea class="loginpassword" name="billing" onkeyup="my1(this)" placeholder="Billing Address" id="bil" required style="width: 20vw;box-shadow: 0 0 1px black;background-color: white;padding: 1.3vw;margin-top: 1vh;"></textarea><button class="py-2 loginbutton" type="submit" style="border-radius: 8px; background-color: deepskyblue;">SUBMIT</button></td></div></tr>';
+		  document.getElementById('add_new1').disabled = true;
+		}
+function crosswashcare(){
+	lab=document.getElementById('addwashcare');
+	lab.style.display="none"
+}
+
+
+    function addwashcare() {
+        lab = document.getElementById('addwashcare_manual');
+        lab.style.display = "";
+        lab1 = document.getElementById('washcare_top_heading');
+        lab1.style.display = "none";
+        lab1 = document.getElementById('washcare_content');
+        lab1.style.display = "none";
+    }
+
+    function addtrimcard() {
+        lab = document.getElementById('addtrimcard_manual');
+        lab.style.display = "";
+        lab1 = document.getElementById('addtrimcard_top_heading');
+        lab1.style.display = "none";
+        lab1 = document.getElementById('addtrimcard_content');
+        lab1.style.display = "none";
+    }
+
+    function addmanualdocs() {
+        lab = document.getElementById('addmanualdocs_manual');
+        lab.style.display = "";
+        lab1 = document.getElementById('addmanualdocs_top_heading');
+        lab1.style.display = "none";
+        lab1 = document.getElementById('addmanualdocs_content');
+        lab1.style.display = "none";
+    }
+
+
+function crosssafety(){
+	lab=document.getElementById('addsafety');
+	lab.style.display="none"
+}
+
+
+function addsafety(){
+	lab=document.getElementById('addsafety');
+	lab.style.display="block";
+}
+
+
+function crosshtm(){
+	lab=document.getElementById('addhtm');
+	lab.style.display="none"
+}
+
+
+function addhtm(){
+	lab=document.getElementById('addhtm');
+	lab.style.display="block";
+}
+
+function crossbarcode(){
+	lab=document.getElementById('addbarcode');
+	lab.style.display="none"
+}
+
+
+function addbarcode(){
+	lab=document.getElementById('addbarcode_manual');
+	lab.style.display="";
+	lab1=document.getElementById('barcode_top_heading');
+	lab1.style.display="none";
+	lab1=document.getElementById('barcode_content');
+	lab1.style.display="none";
+}
+
+
+
+function crossgarment_weight(){
+	lab=document.getElementById('addgarment_weight');
+	lab.style.display="none"
+}
+
+
+function addgarment_weight(){
+	lab=document.getElementById('addgarment_weight');
+	lab.style.display="block";
+}
+
+
+
+
+$('#garment_weight_category').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			htm_category_ajax:$('#garment_weight_category').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+  	cache:false,
+  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#garment_weight_subcategory').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#garment_weight_subcategory').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			htm_subcategory_ajax:$('#garment_weight_subcategory').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+	  	cache:false,
+	  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#garment_weight_supcategory').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#garment_weight_supcategory').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/store',
+		data:{
+			garment_weight_supcategory_ajax:$('#garment_weight_supcategory').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+	  	cache:false,
+	  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.data){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#garment_weight_measurement').html(ht);
+			}
+		}
+	});
+});
+
+$('#garment_weight_measurement').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/store',
+		data:{
+			garment_weight_measurement_ajax:$('#garment_weight_measurement').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+	  	cache:false,
+	  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.data){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.size+`">`+value.size+`</option>`;
+				});
+				$('#garment_weight_size').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#htm_category').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			htm_category_ajax:$('#htm_category').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+  	cache:false,
+  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#htm_subcategory').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#htm_subcategory').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			htm_subcategory_ajax:$('#htm_subcategory').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+  	cache:false,
+  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#htm_supercategory').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#washcare_label').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			season_ajax_label:$('#washcare_label').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#washcare_fit').html(ht);
+			}
+			else{
+
+				$('#washcare_fit').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#barcode_label').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			season_ajax_label:$('#barcode_label').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#barcode_fit').html(ht);
+			}
+			else{
+
+				$('#barcode_fit').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#barcode_fit').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			barcode_ajax_fit:$('#barcode_fit').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#barcode_season').html(ht);
+			}
+			else{
+
+				$('#barcode_season').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#washcare_fit').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			barcode_ajax_fit:$('#washcare_fit').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#washcare_season').html(ht);
+			}
+			else{
+
+				$('#washcare_season').html(ht);
+			}
+		}
+	});
+});
+
+</script>
+
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">
+</script>
+<script type="text/javascript" src="{% static 'js/seller_info/seller_profile_store.js' %}"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+	function call(){
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title:{
+		text: "Active Items",
+		horizontalAlign: "left",
+		fontSize:13
+	},
+	data: [{
+		type: "doughnut",
+		startAngle: 120,
+		//innerRadius: 60,
+		indexLabelFontSize: 8,
+		indexLabel: "{label} - #percent%",
+		toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+		dataPoints: [
+			{ y: 75, label: "Active" },
+			{ y: 25, label: "InActive" }
+		]
+	}],
+	height:180,
+	width:130
+});
+chart.render();
+
+}
+call();
+</script>
+{% endblock %}

@@ -1,0 +1,69 @@
+
+
+
+
+{% load static %}
+
+
+
+
+<script src="{% static 'canvas_js/canvas_js.min.js' %}"></script>
+
+
+<div id="chartContainer9" style="height: 300px; width: 100%;"></div>
+
+
+<script type="text/javascript" id="async_code">
+    {% comment %} alert("hey"); {% endcomment %}
+    var chart9 = new CanvasJS.Chart("chartContainer9", {
+        animationEnabled: true,
+        title: {
+            text: "Budget Run-Rate Analysis"
+        },
+        axisX: {
+            valueFormatString: "{{format}}",
+            minimum: new Date(parseInt('{{min_year}}'),parseInt('{{min_month}}'),parseInt('{{min_day}}')),
+            maximum: new Date(parseInt('{{max_year}}'),parseInt('{{max_month}}'),parseInt('{{max_day}}'))
+        },
+        axisY: {
+            title: "Budget"
+        },
+        legend: {
+            verticalAlign: "top",
+            horizontalAlign: "right",
+            dockInsidePlotArea: true
+        },
+        toolTip: {
+            shared: true
+        },
+        data: [{
+            name: "Expected",
+            showInLegend: true,
+            legendMarkerType: "square",
+            type: "area",
+            color: "rgba(40,175,101,0.6)",
+            markerSize: 0,
+            dataPoints: [
+                {% for i in expected_run %}
+                    { x: new Date(parseInt('{{i.year}}'),parseInt('{{i.month}}'),parseInt('{{i.day}}')), y: parseInt('{{i.val}}') },
+                {% endfor %}
+            ]
+        },
+        {
+            name: "Actual",
+            showInLegend: true,
+            legendMarkerType: "square",
+            type: "area",
+            color: "rgba(0,75,141,0.7)",
+            markerSize: 0,
+            dataPoints: [
+                {% for i in actual_run %}
+                    { x: new Date(parseInt('{{i.year}}'),parseInt('{{i.month}}'),parseInt('{{i.day}}')), y: parseInt('{{i.val}}') },
+                {% endfor %}
+            ]
+        }]
+    });
+    chart9.render();
+</script>
+
+

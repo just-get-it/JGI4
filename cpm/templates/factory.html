@@ -1,0 +1,142 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>FACTORY OVERHEAD</h1>
+    </div>
+    <form action="factory_overhead" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Month</label>
+            <div class="col-sm-10">
+              <input type="month"  name="month" value="{{month}}" id="orderno">
+            </div>
+        </div>
+        <table class="table table-hover table-striped table-bordered" style="width: 40%; margin-left: 20px">
+            <thead class="thead-dark">
+              <tr>
+                <th class="col">Fields</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bonus Incentives and Others</td>
+                    <td><input style="width:110px;" type="number" value="{{bonus}}" name="bonus"></td>
+                </tr>
+                <tr>
+                    <td>Carrying (In Words)</td>
+                    <td><input style="width:110px;" type="number" value="{{carry}}" name="carry"></td>
+                </tr>
+                <tr>
+                    <td>Earn Leave Allowances</td>
+                    <td><input style="width:110px;" type="number" value="{{leave}}" name="leave"></td>
+                </tr>
+                <tr>
+                    <td>Electricity Bill</td>
+                    <td><input style="width:110px;" type="number" value="{{bill}}" name="bill"></td>
+                </tr>
+                <tr>
+                    <td>EPF Expenses (Employer)</td>
+                    <td><input style="width:110px;" type="number" value="{{epf}}" name="epf"></td>
+                </tr>
+                <tr>
+                    <td>Factory Rent</td>
+                    <td><input style="width:110px;" type="number" value="{{rent}}" name="rent"></td>
+                </tr>
+                <tr>
+                    <td>Factory Supplies</td>
+                    <td><input style="width:110px;" type="number" value="{{supply}}" name="supply"></td>
+                </tr>
+                <tr>
+                    <td>Food Expenses</td>
+                    <td><input style="width:110px;" type="number" value="{{food}}" name="food"></td>
+                </tr>
+                <tr>
+                    <td>Fuel for Generator</td>
+                    <td><input style="width:110px;" type="number" value="{{fuel}}" name="fuel"></td>
+                </tr>
+                <tr>
+                    <td>Import (C&F) Charges</td>
+                    <td><input style="width:110px;" type="number" value="{{cf}}" name="cf"></td>
+                </tr>
+                <tr>
+                    <td>Import Freight Charges</td>
+                    <td><input style="width:110px;" type="number" value="{{freight}}" name="freight"></td>
+                </tr>
+                <tr>
+                    <td>Insurance Premium</td>
+                    <td><input style="width:110px;" type="number" value="{{insurance}}" name="insurance"></td>
+                </tr>
+                <tr>
+                    <td>Labour Charges</td>
+                    <td><input style="width:110px;" type="number" value="{{labour}}" name="labour"></td>
+                </tr>
+                <tr>
+                    <td>Land Rent</td>
+                    <td><input style="width:110px;" type="number" value="{{land}}" name="land"></td>
+                </tr>
+                <tr>
+                    <td>Medical Expenses</td>
+                    <td><input style="width:110px;" type="number" value="{{medical}}" name="medical"></td>
+                </tr>
+                <tr>
+                    <td>Miscellaneous Expenses</td>
+                    <td><input style="width:110px;" type="number" value="{{misc}}" name="misc"></td>
+                </tr>
+                <tr>
+                    <td>Repair and Maintenance</td>
+                    <td><input style="width:110px;" type="number" value="{{repair}}" name="repair"></td>
+                </tr>
+                <tr>
+                    <td>Small Tolls and Spares</td>
+                    <td><input style="width:110px;" type="number" value="{{spare}}" name="spare"></td>
+                </tr>
+                <tr>
+                    <td>Transportation Allowance</td>
+                    <td><input style="width:110px;" type="number" value="{{transport}}" name="transport"></td>
+                </tr>
+                <tr>
+                    <td>Travel & Conveyance</td>
+                    <td><input style="width:110px;" type="number" value="{{travel}}" name="travel"></td>
+                </tr>
+                <tr>
+                    <td>Water Bill</td>
+                    <td><input style="width:110px;" type="number" value="{{water}}" name="water"></td>
+                </tr>
+                <tr>
+                    <td>Welfare Fund</td>
+                    <td><input style="width:110px;" type="number" value="{{welfare}}" name="welfare"></td>
+                </tr>
+            </tbody>
+            <thead class="thead-dark">
+              <tr>
+                <th>Total</th>
+                <th ><input style="width:110px;" type="number" name="total" value="{{total}}"></th>
+              </tr>
+            </thead>
+
+        </table>
+        <div class="container text-center">
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+
+    </form>
+
+    <script language="javascript">
+        function calcltf()
+    {
+        var ocd = new Date(document.getElementById("ocd").value);
+	
+        var plancd = new Date(document.getElementById("plancd").value);	
+        
+        var timeDiff = Math.abs(ocd.getTime() - plancd.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+         //alert(diffDays);
+         var ltf = document.getElementById("ltf");
+         ltf.value = diffDays;
+
+    }
+    </script>
+{% endblock %}

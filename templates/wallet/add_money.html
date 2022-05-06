@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<div class="container mt-4" >
+    <h2 style="text-align:center" > Add Money </h2>
+        <br><br>
+        <div style="display: inline-block;align-self: center;" class=" container" >
+
+{%  if messages %}
+<div class="alert alert-danger" role="alert">
+  {% for message in messages %}
+  {{message}}
+  {% endfor %}
+</div>
+{%endif%}
+<form method="POST" action="/wallet/add/">
+            Add Amount<input type="number"  class="form-control" style="width: 300px;"name="amount">
+            Mobile Number<input type="text"  class="form-control" style="width: 300px;" name="phonenumber">
+<br><br><br>
+  <button type="submit" class="btn btn-success mx-2" name="razorbutton">Pay using RazorPay</button>
+  <button type="submit" class="btn btn-success mx-2" name="paytmbutton">Pay Using Paytm</button>
+
+</form>
+<br><br>
+
+</div>
+</div>
+
+<br><br><br>
+{% endblock %}
+
+{% block js %}
+
+
+
+<!--<script>-->
+<!--if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--    console.log(cart);-->
+<!--    }-->
+<!--    var sum=0;-->
+<!--    var totalPrice=0;-->
+<!--    if ($.isEmptyObject(cart)){-->
+<!--        mystr='<p><h5 style="text-align:center">Your cart is empty! Please add some items</h5></p>'-->
+
+<!--        $('#items').append(mystr);-->
+<!--    }-->
+<!--    else {-->
+<!--    for (var item in cart){-->
+<!--        let qty= cart[item][0];-->
+<!--        let name= cart[item][1];-->
+<!--        let itemPrice= cart[item][2];-->
+<!--        sum+=qty;-->
+<!--        totalPrice = totalPrice + qty*itemPrice;-->
+
+<!--        mystr=`<li class="list-group-item d-flex justify-content-between align-items-center">-->
+<!--                ${name}-->
+<!--                <span class="badge badge-primary badge-pill">${qty}</span>-->
+<!--              </li>`-->
+<!--        $('#items').append(mystr);-->
+<!--    }-->
+<!--    }-->
+<!--    document.getElementById('cart').innerHTML = sum;-->
+<!--    document.getElementById('totalPrice').innerHTML = totalPrice;-->
+
+<!--    $('#itemsJson').val(JSON.stringify(cart));-->
+<!--     {% if doneorder %}-->
+<!--        if (totalPrice!=0){-->
+<!--            alert('Thanks for ordering. Your Order id is: {{id}}');-->
+<!--            localStorage.clear();-->
+<!--            document.location='/';-->
+<!--        }-->
+<!--    {% endif %}-->
+
+<!--</script>-->
+{% endblock %}

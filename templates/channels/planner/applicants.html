@@ -1,0 +1,78 @@
+{% extends 'channels/planner/student_base.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    .app > .row {
+        display: block;
+        width: 100%;
+        float:left;
+    }
+    .app .card {
+        box-shadow: 5px 5px 20px 7px rgba(183,183,200,0.25), -5px -5px 20px 7px rgba(183,183,200,0.22);
+        transition: 0.4s;
+        border: 1px solid gray;
+        border-radius: 20px;
+        width: 90%;
+        margin-left: 25px;
+    }
+    .app .card strong {
+        color: #833499;
+        font-weight:500;
+    }
+    .details {
+        margin-top: 20px;
+    }
+</style>
+<div class="conatiner app">
+    {% if applications %} {% for application in applications %}
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{application.applied_by.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Mail: {{application.applied_by.email}} Phone: {{application.applied_by.phone}}</h6>
+                <button class="btn btn-primary" id="show">Show Details</button>
+                <div class="details" style="display: none;">
+                    <p class="card-text">Ques: <strong>{{application.question1}}</strong></p>
+                    <p>Ans: {{application.answer1}}</p>
+                    <p class="card-text">Ques: <strong>{{application.question2}}</strong></p>
+                    <p>Ans: {{application.answer2}}</p>
+                    <p class="card-text">Ques: <strong>{{application.question3}}</strong></p>
+                    <p>Ans: {{application.answer3}}</p>
+                    <p class="card-text">Ques: <strong>{{application.question4}}</strong></p>
+                    <p>Ans: {{application.answer4}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %} {% else %}
+    <div class="row">
+        <h3> You have no applicants yet! </h3>
+    </div>
+</div>
+
+{% endif %}
+<script>
+    $(document).ready(function(){
+        var cnt = 0;
+        $("#show").click(function(){
+            $(".details").toggle();
+            if(cnt==0)
+            {
+                $("#show").text("Hide Details")
+                cnt = 1;
+            }
+            else
+            {
+                $("#show").text("Show Details")
+                cnt = 0;
+            }
+        })
+    })
+</script>
+<script>
+$(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(4)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(4) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+{% endblock %}

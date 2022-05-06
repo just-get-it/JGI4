@@ -1,0 +1,174 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+
+<style type="text/css">
+ 
+.row1,.row2,.row3,.row4,.row5,.row6,.row7,.row8,.row9{
+  margin: 1%;
+  height: 40px;
+  box-sizing: border-box;
+  text-align: justify;
+}
+.row1 h2,.row2 h2,.row3 h2,.row4 h2,.row5 h2,.row6 h2,.row7 h2,.row8 h2,.row9 h4{
+    display: inline-block;
+    text-align: center;
+    margin: 0px;
+    padding: 2px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.row1 h3,.row2 h3,.row3 h3{
+  color: green;
+  padding: 6px;
+  margin: 0px;
+  margin-top: -2px;
+  display: inline-block;
+}
+.row2 input{
+  height: 40px;
+  color:green;
+}
+.row4 select,.row5 select{
+  color: green;
+  padding: 6px;
+  margin: 0px;
+  margin-top: -2px;
+  height: 40px;
+  display: inline-block;
+}
+
+.row7 input[name=ticketnostart],.row7 input[name=ticketnoend]
+,.row8 input[name=ticketnostitched],.row8 input[name=reworkticketno]
+,.row9 input[name=stitchedpieces],.row9 input[name=reworkpieces]{
+  width: 15%;
+  height: 40px;
+  padding: 2%;
+}
+.absent{
+  color: red;
+  background-color: red !important;
+}
+</style>
+
+  <div class="container text-center">
+        <h1>OPERATOR WINDOW</h1>
+  </div><br><br>
+  <div class="container">
+    <div class="op-box">
+        <div class="container">
+            <div class="row">
+              <form action="operator_window" method="post">
+                {% csrf_token %}
+                <div class="col-sm-2">
+                    <div class="logoutbt">
+                        <a class="btn btn-primary" href="logout" role="button">Logout</a>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row1">
+                        <label  class="col-sm-2 col-form-label">TIME:</label>
+                      <input type="text" name="optime" value='{{ time }}' class="col-sm-3 "readonly>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row1">
+                        <label  class="col-sm-2 col-form-label">DATE:</label>
+                      <input type="text" class="col-sm-3" name="opdate" value='{{ date }}' readonly>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row2">
+                        <label  class="col-sm-2 col-form-label">Operator Name:</label>
+                        <input type="text" name="opname" value='{{ name }}' readonly>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row2">
+                        <label  class="col-sm-2 col-form-label">Operator ID:</label>
+                        <input type="text" name="opid" value='{{ id }}' readonly>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row3">
+                        <label  class="col-sm-2 col-form-label">Product:</label>
+                        <label  class="col-sm-2 col-form-label" style="color: green; font-weight: bold;">{{ product }}</label>
+                        <label  class="col-sm-2 col-form-label">Line no:</label>
+                        <label  class="col-sm-2 col-form-label" style="color: green; font-weight: bold;">{{ lineno }}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row4">
+                        <label  class="col-sm-3">Operator Current Status:</label>
+                        <select id="opcurrentstatus" name="opcurrentstatus">
+                        <option value="sewing">Sewing</option>
+                        <option value="helpping to other">Helping to Other</option>
+                        <option value="drinking water">Drinking Water</option>
+                        <option value="washroom">Washroom</option>
+                        <option value="personal">Personal</option>
+                        <option value="pressing">Pressing</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row5">
+                        <label  class="col-sm-2 col-form-label">Operation:</label>
+                        <select id="operation" name="operation">
+                        <option value="dart stitch">Dart Stitch</option>
+                        <option value="panel attach">Panel Attach</option>
+                        <option value="dart and panel pressing">Dart And Panel Pressing</option>
+                        <option value="centre back stitch">Centre Back Stitch</option>
+                        <option value="diamond stitch">Diamond Stitch</option>
+                        <option value="chest welt iron">Chest Welt Iron</option>
+                        <option value="chest welt attach">Chest Welt Attach</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row6">
+                        <label  class="col-sm-2 col-form-label">MACHINE STATUS</label>
+                        <input type="submit" class="btn btn-success col-sm-1" value="Start" name="start" >
+                        <input type="submit" class="btn btn-danger col-sm-1" value="Stop" name="stop" >
+                    </div>
+                </div>
+                <div  class="col-sm-12">
+                    <div class="row7">
+                        <label  class="col-sm-2 col-form-label">TICKET NO START</label>
+                        <input type="number" step="1" name="ticketnostart">
+                    </div>
+                </div>
+                <div  class="col-sm-12">
+                    <div class="row7">
+                        <label  class="col-sm-2 col-form-label">TICKET NO END</label>
+                        <input type="number" step="1" name="ticketnoend">
+                        <input type="submit" class="btn btn-primary" value="Save" name="saveticket">
+                    </div>
+                </div>
+                <div  class="col-sm-12">
+                    <div class="row8">
+                        <label  class="col-sm-2 col-form-label">REWORK TICKET NO</label>
+                        <input type="number" step="1" name="reworkticketno">
+                        <input type="number" step="1" name="reworkticketno">
+                        <input type="number" step="1" name="reworkticketno">
+                        <input type="number" step="1" name="reworkticketno">
+                        <input type="submit" class="btn btn-primary" value="Save" name="saverework">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row9">
+                        <h4>STITCHED PIECES</h4>
+                        <input type="number" min="0" value="{{total_pieces}}" name="stitchedpieces" readonly>
+                        <h4>REWORK PIECES</h4>
+                        <input type="number" min="0" value="{{rework_pieces}}" name="reworkpieces" readonly>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <br>
+        <br>
+        
+        <br>
+        <br>
+    </div>
+  </div>
+{% endblock %}

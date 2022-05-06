@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/listview.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+{% csrf_token %}
+
+<div class="row">
+	{% if empty %}
+		<div class="container">
+			<div class="row centered empty-row">
+				<h3 class="fontpacifico">Sorry No Products added here</h3>
+			</div>
+		</div>
+	{% else %}
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="row mb-3 pt-2 fontcabin ml-2" style="border-bottom: 1px solid rgba(0,0,0,0.3);">
+					<h5 style="color: grey;cursor: pointer;" class="fontcabin"><!--{{cate}}/{% if sub %}{{sub}}{% endif %}-->Products</h5>
+          <!-- <h5 class="fontcabin" style="cursor: pointer"><b>{% if sub %}/{{sup}}{% endif %}</b></h5> -->
+        </div>
+				<div class="container-fluid">
+					<div class="row">
+						{% for ob in obj %}
+						<div class="col-6 col-xs-6 col-sm-3 col-md-2 col-lg-2 mb-4 product_card">
+							<div>
+							<div class="container-fluid">
+								<div class="row">
+									<div class="product_image">
+										<img src="{{ob.image1.url}}" id="" onclick="detailpage(prod_id='{{ob.id}}');">
+
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<h6 class="ml-4 mt-2 fontcabin"><b>{{ob.title}}</b></h6><br><br>
+
+							</div>
+							<div class="row">
+								<h6 class="ml-4 fontcabin" style="color: grey">Price: <b>{{ob.price}}</b></h6>
+							</div>
+						</div>
+						</div>
+						 {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+
+<script type="text/javascript">
+  function detailpage(prod_id){
+    var a=prompt("Please Enter Availiable Quantity","0");
+    if (a!=null || a!="0"){
+      alert(prod_id);
+      $.ajax({
+        type:'POST',
+        url:'/userdetail/vendor_profile/update_availiable_products',
+        data:{
+          prod_ajax_id:prod_id,
+          prod_ajax_quantity:a,
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        cache:false,
+        dataType:"json",
+        success:function(data){
+          // window.location="/userdetail/staff_profile/activities";
+          // alert("Well Done")
+          // window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+          if (data.bol){
+            window.location="/userdetail/vendor_profile";
+          }
+          else{
+            alert("Please Input a valid value");
+          }
+        }
+      });
+    }
+  }
+</script>
+
+{% endblock %}

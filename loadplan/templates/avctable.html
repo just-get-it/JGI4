@@ -1,0 +1,35 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>Available Capacity Table</h1>
+    </div>
+    <table class="table table-hover table-striped table-bordered" style="width: 97%; margin-left: 20px">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Line No.</th>
+            <th scope="col">No. of Operators</th>
+            <th scope="col">Working Days</th>
+            <th scope="col">Daily Working Hours</th>
+            <th scope="col">Absenteeism</th>
+            <th scope="col">Efficiency</th>
+            <th scope="col">Available Capacity</th>
+          </tr>
+        </thead>
+    {% for a in allavc %}
+        <tbody>
+          <tr>
+            <td>{{a.lineno}}</td>
+            <td>{{a.noo}}</td>
+            <td>{{a.workdays}}</td>
+            <td>{{a.dwh}}</td>
+            <td>{{a.absent}}</td>
+            <td>{{a.efficiency}}</td>
+            <td>{{a.mac}}</td>
+          </tr>
+        </tbody>
+    {% endfor %}
+      </table>
+
+    
+{% endblock %}

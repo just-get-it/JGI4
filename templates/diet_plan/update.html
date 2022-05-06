@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>View List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/css/style.css">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>Update Meal</h1>
+                </div>
+                <div class="col-lg-6 float-right">
+                    <div class="row">
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- // top -->
+            <!-- Grocery Cards -->
+            
+            <form method="POST" class="post-form">  
+                {% csrf_token %}  
+                {{ form.as_p }}  
+                <button type="submit" class="save btn btn-default">Update</button>  
+        </form>  
+        </div>
+        <h4 style="margin-left: 47%;">Items Available</h4>
+    <div style="margin-left: 10%;">
+        To sort click column-top 
+        <br>
+        <br>
+        <table>
+            <tr><th>Item</th><th>energy (Kcal)</th><th>fat (g)</th><th>protein (g)</th><th>water (g)</th><th>Vitamin_A (µg)</th><th>Vitamin_C (mg)</th><th>Vitamin_D (mg)</th><th>Sodium (mg)</th><th>Iron (mg)</th><th>Potassium (mg)</th><th>Calcium (mg)</th><th>Magnesium (mg)</th><th>Zinc (mg)</th><th>Phosphorus (mg)</th></tr>
+            {%for i in retr%}
+            <tr><td>{{i.Product}}</td><td>{{i.Kcal}}</td><td>{{i.Fat}}</td><td>{{i.Protein}}</td><td>{{i.Water}}</td><td>{{i.Vit_A_IU}}</td><td>{{i.Vit_C}}</td><td>{{i.Vit_D}}</td><td>{{i.sodium}}</td><td>{{i.Iron}}</td><td>{{i.Potassium}}</td><td>{{i.Calcium}}</td><td>{{i.Magnesium}}</td><td>{{i.Zinc}}</td><td>{{i.Phosphorus}}</td>
+                {%endfor%}
+        </table>
+    </div>
+
+        <style>
+            table, th, td {
+        border: 1px solid black;
+            }
+        th {
+            cursor: pointer;
+            }
+
+        </style>
+
+        <script>
+            const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+// do the work...
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+})));
+        </script>
+        
+    </body>
+</html>

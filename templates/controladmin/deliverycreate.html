@@ -1,0 +1,491 @@
+{% extends 'base.html' %}
+{% block pick %}
+
+{% endblock %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+{% block content %}
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet"
+  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css" />
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<style>
+  .geocoder {
+    position: absolute;
+    z-index: 1;
+    width: 50%;
+    left: 50%;
+    margin-left: -25%;
+    top: 700px;
+  }
+
+  .mapboxgl-ctrl-geocoder {
+    min-width: 100%;
+  }
+
+  #map {
+    margin-top: 75px;
+  }
+
+  .mapboxgl-ctrl-geocoder--input {
+    padding-left: 40px;
+    margin-left: 20px !important;
+  }
+
+  .mapboxgl-ctrl-geocoder input[type='text'] {
+
+    font-size: 16px;
+
+  }
+
+  .geocoder1 {
+    width: fit-content;
+    padding-left: 50px;
+    margin-bottom: 20px;
+  }
+
+  .pick_old_address {
+    margin-top: 20px !important;
+  }
+
+  .mapsss {
+    margin-bottom: 20px !important;
+  }
+
+  .selectbtn {
+    margin-bottom: 20px !important;
+  }
+</style>
+<section class="pickdel">
+  <div class="container">
+    <form class=""  onsubmit="DoSubmit()" method="post"> {% csrf_token %}
+      <div class="row container">
+        <div class="col-md-6 pickup">
+          <h3>Pickup information</h3>
+          <hr>
+          <div class="form-group row">
+            <label for="product" class="col-sm-2 col-form-label col-form-label-sm">PRODUCT NAME</label>
+            <div class="col-sm-10">
+              <select class="form-control form-control-sm" name="product" onchange="checkother()" id="other">
+                <option selected value="{{prod}}" >{{prod}}</option>
+
+                {% for i in super_cat %}
+
+                <option value="{{i}}">{{i}}</option>
+
+                {% endfor %}
+                <option value="Other">Other</option>
+
+              </select>
+            </div>
+          </div>
+          <div class="form-group row" id="mydiv">
+            <label for="pick_contact" class="col-sm-2 col-form-label col-form-label-sm">Please mention</label>
+            <div class="col-sm-10">
+              <input type="text" name="other" class="form-control form-control-sm">
+            </div>
+          </div>
+
+
+
+          <div class="form-group row">
+            <label for="pack" class="col-sm-2 col-form-label col-form-label-sm">Packaging Instruction</label>
+            <div class="col-sm-10">
+              <select class="form-control form-control-sm" name="instruction">
+
+                <option>Packed</option>
+                <option>Packed in your packing</option>
+                <option>No packing required</option>
+
+              </select>
+
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_contact" class="col-sm-2 col-form-label col-form-label-sm">Pick Up Contact No</label>
+            <div class="col-sm-10">
+              <input type="text" name="pick_contact_number" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_person" class="col-sm-2 col-form-label col-form-label-sm">Pick Up Contact Person</label>
+            <div class="col-sm-10">
+              <select class="form-control form-control-sm" name="pick_person" onchange="checkother()" id="other">
+
+                {% for i in deliveryboy %}
+
+                <option value="{{i}}">{{i}}</option>
+
+                {% endfor %}
+
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="date" class="col-sm-2 col-form-label col-form-label-sm">Pick Up Date</label>
+            <div class="col-sm-10">
+              <input type="date" name="date" class="form-control form-control-sm">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="time" class="col-sm-2 col-form-label col-form-label-sm">Pick Up Time</label>
+            <div class="col-sm-10">
+              <input type="time" name="time" class="form-control form-control-sm">
+            </div>
+          </div>
+          <hr>
+          <h4> Select Pickup Address</h4>
+          <hr>
+          <div class="selectbtn">
+            <button type="button" onclick="pickmap()" class="btn btn-info"><i class="fa fa-map-marker"
+                style="font-size:20px;color:red;"></i>
+              select from map
+            </button>
+            <button type="button" onclick="savepickadd()" class="btn btn-info">Select Save Address</button>
+          </div>
+
+          <div class="form-group row" id="pick_old_address" style="display: none;">
+            <label for="pick_address" class="col-sm-2 col-form-label col-form-label-sm">Pick Up Address</label>
+            <div class="col-sm-10">
+              <select name=pick_address class="form-control form-control-sm" onchange="checkother()" id="other">
+                {% for i in cus_address %}
+                <option value="{{i.address}},{{i.city}},{{i.state}},{{i.zipcode}}">{{i.address}},{{i.city}},{{i.state}},{{i.zipcode}}</option>
+                {% endfor %}
+              </select>
+              <p onclick="pick_address()">CLICK TO CHOOSE DIFFERENT ADDRESS</p>
+            </div>
+          </div>
+          <div id="pick_mydiv">
+            <div class="form-group row">
+
+              <label class="col-sm-2 col-form-label col-form-label-sm">CHOOSE ADDRESS</label>
+              <div class="col-sm-10">
+                <select name="pick_address" class="form-control form-control-sm">
+                  {% for i in cus_address %}
+                  <option value="{{i.address}}">{{i.address}}</option>
+                  {% endfor %}
+                </select>
+                <a href="{% url 'add_address' %}">ADD MORE ADDRESS</a>
+              </div>
+            </div>
+          </div>
+          <!-- map address -->
+          <input type="hidden" id="pickaddressmap" name="pick_address" value="" class="form-control form-control-sm">
+          <!-- map -->
+          <div class="mapsss" id="pickmap" style="display: none;">
+            <input type="text" id="pickfulladd" name="" class="form-control form-control-sm"
+              placeholder="Bulding Name, flat no etc">
+            <div id="geocoder" class="geocoder"></div>
+            <div id='map' style=' height: 300px;'></div>
+          </div>
+          <!-- /map -->
+          <div class="form-group row">
+            <label for="pick_landmark" class="col-sm-2 col-form-label col-form-label-sm">Pick Landmark</label>
+            <div class="col-sm-10">
+              <input type="text" name="pick_landmark" class="form-control form-control-sm">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 delivery">
+          <h3>Delivery information</h3>
+          <hr>
+          <div class="form-group row">
+            <label for="delivery_contact" class="col-sm-2 col-form-label col-form-label-sm">Delivery Contact No</label>
+            <div class="col-sm-10">
+              <input type="text" name="delivery_contact_number" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="person" class="col-sm-2 col-form-label col-form-label-sm">Delivery Contact Person</label>
+            <div class="col-sm-10">
+          <select class="form-control form-control-sm" name="delivery_contact_person" onchange="checkother()" id="other">
+
+                {% for i in deliveryboy %}
+
+                <option value="{{i}}">{{i}}</option>
+
+                {% endfor %}
+
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="da" class="col-sm-2 col-form-label col-form-label-sm">Delivery Date</label>
+            <div class="col-sm-10">
+              <input type="date" name="delivery_date" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="time" class="col-sm-2 col-form-label col-form-label-sm">Delivery Time</label>
+            <div class="col-sm-10">
+              <input type="time" name="delivery_time" class="form-control form-control-sm">
+            </div>
+          </div>
+          <hr>
+          <h4>Delivery Address</h4>
+          <hr>
+          <div class="selectbtn">
+            <button type="button" onclick="deliverymapshow()" id="del-map-btn" class="btn btn-info"><i
+                class="fa fa-map-marker" style="font-size:20px;color:red;"></i>
+              select Address from map</button>
+            <button type="button" id="del-save-add" onclick="deliverysaveaddress()" class="btn btn-info">Select Save
+              Address</button>
+          </div>
+
+          <div class="form-group row" id="delivery_old_address" style="display: none;">
+            <label for="d_address" class="col-sm-2 col-form-label col-form-label-sm">Delivery Address</label>
+            <div class="col-sm-10">
+              <select name=delivery_address class="form-control form-control-sm">
+                {% for i in cus_address %}
+                <option value="{{i.address}}">{{i.address}}</option>
+                {% endfor %}
+              </select>
+              <p onclick="delivery_address()">CLICK TO CHOOSE DIFFERENT ADDRESS</p>
+            </div>
+          </div>
+          <div id="delivery_mydiv">
+            <div class="form-group row">
+
+              <label class="col-sm-2 col-form-label col-form-label-sm">CHOOSE ADDRESS</label>
+              <div class="col-sm-10">
+                <select name="delivery_address" class="form-control form-control-sm">
+                  {% for i in cus_address %}
+                  <option value="{{i.address}}">{{i.address}}</option>
+                  {% endfor %}
+                </select>
+                <a href="{% url 'add_address' %}">ADD MORE ADDRESS</a>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="deliverybuldinginput" name="delivery_address" value=""
+            class="form-control form-control-sm">
+          <div class="mapsss" id="del-map" style="display: none;">
+            <input type="text" id="deliveryfulladd" name="" class="form-control form-control-sm"
+              placeholder="Bulding Name, flat no etc">
+            <div id="geocoder1" class="geocoder1"></div>
+            <div id='map1' style=' height: 300px;'></div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_landmark" class="col-sm-2 col-form-label col-form-label-sm">Delivery Landmark</label>
+            <div class="col-sm-10">
+              <input type="text" name="delivery_landmark" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_landmark" class="col-sm-2 col-form-label col-form-label-sm">Distance</label>
+            <div class="col-sm-10">
+              <input type="number" name="distance" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_landmark" class="col-sm-2 col-form-label col-form-label-sm">Minimum_order_quantity</label>
+            <div class="col-sm-10">
+              <input type="number" name="moq" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_landmark" class="col-sm-2 col-form-label col-form-label-sm">Service Charge Paid At</label>
+            <div class="col-sm-10">
+              <select class="form-control form-control-sm" name="charge_paid">
+                <option value="Pick">Pick</option>
+                <option value="Drop">Drop</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pick_contact" class="col-sm-2 col-form-label col-form-label-sm">If Other please mention </label>
+            <div class="col-sm-10">
+              <input type="text" name="other_charge" class="form-control form-control-sm">
+            </div>
+          </div>
+
+          <input type="text" name="customer_id" value="{{email}}" style="display: none;">
+
+
+
+
+
+          <br><input type="submit" name="submit" class="btn btn-success">
+
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+
+
+
+
+
+<!--<script type="text/javascript">
+    var other;
+    var boxName;
+    var mydiv;
+    function checkother(){
+        document.getElementById('response').style.display="none";
+        boxName="h1"
+        alert('h1');
+        other=document.getElementById('other').value;
+        alert(other);
+        mydiv=document.getElementById('response')
+        if(other=='Other'){
+            if(mydiv.style.visibility==='hidden'){
+              mydiv.style.visibility="visible";   
+            }
+           
+           
+        }
+       
+
+    }
+</script>-->
+<script type="text/javascript">
+  var my;
+  my = document.getElementById('mydiv');
+  my.style.display = "none";
+
+  function checkother() {
+    other = document.getElementById('other').value;
+
+    if (other == 'Other') {
+      my.style.display = "block";
+    } else {
+      my.style.display = "none";
+
+    }
+
+  }
+  var pick_dv;
+  var pick_old;
+  var delivery_dv;
+  var delivery_old;
+  pick_dv = document.getElementById('pick_mydiv');
+  pick_old = document.getElementById('pick_old_address');
+  pick_dv.style.display = "none";
+  delivery_dv = document.getElementById('delivery_mydiv');
+  delivery_old = document.getElementById('delivery_old_address');
+  delivery_dv.style.display = "none";
+
+  function pick_address() {
+    pick_dv.style.display = "block";
+    pick_old.style.display = "none";
+  }
+
+  function delivery_address() {
+    delivery_dv.style.display = "block";
+    delivery_old.style.display = "none";
+  }
+</script>
+
+<script>
+  mapboxgl.accessToken =
+    'pk.eyJ1Ijoic2hpYmRhc2t1bWJoYWthciIsImEiOiJja2NnMXAwNjMwbnN1MnFwY3A5cnppaDAyIn0.sje54XwUhZJuZZSw-X9HaA';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-79.4512, 43.6568],
+    zoom: 13
+  });
+
+  var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+  });
+
+  document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+</script>
+
+<script>
+  mapboxgl.accessToken =
+    'pk.eyJ1Ijoic2hpYmRhc2t1bWJoYWthciIsImEiOiJja2NnMXAwNjMwbnN1MnFwY3A5cnppaDAyIn0.sje54XwUhZJuZZSw-X9HaA';
+  var map1 = new mapboxgl.Map({
+    container: 'map1',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-79.4512, 43.6568],
+    zoom: 13
+  });
+
+  var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+  });
+
+  console.log(geocoder)
+
+  document.getElementById('geocoder1').appendChild(geocoder.onAdd(map1));
+</script>
+<script>
+  del_map_btn = document.getElementById('del-map-btn')
+
+  function deliverymapshow() {
+    document.getElementById('del-map').style.display = 'block'
+    document.getElementById('delivery_old_address').style.display = 'none'
+  }
+
+  function pickmap() {
+    document.getElementById('pickmap').style.display = 'block'
+    document.getElementById('pick_old_address').style.display = 'none'
+  }
+
+  function savepickadd() {
+    document.getElementById('pick_old_address').style.display = 'block'
+    document.getElementById('pickmap').style.display = 'none'
+  }
+
+  function deliverysaveaddress() {
+    document.getElementById('delivery_old_address').style.display = 'block'
+    document.getElementById('del-map').style.display = 'none'
+  }
+
+  function DoSubmit() {
+    var inputs = document.getElementById("geocoder1").getElementsByTagName("input");
+    var inputs2 = document.getElementById("geocoder").getElementsByTagName("input");
+    var i;
+    var j;
+    var length;
+    var length2;
+    var value;
+    var value2;
+
+    for (i = 0, length = inputs.length; i < length; i++) {
+      if (inputs[i].type != "text") {
+        continue;
+      }
+      value = inputs[i].value;
+    }
+    console.log('address is ', value)
+    delvary_extra_add = document.getElementById('deliveryfulladd').value;
+    marge_address_del = "" + delvary_extra_add + " ," + value + "";
+    document.getElementById('deliverybuldinginput').value = marge_address_del;
+
+
+
+    for (j = 0, length2 = inputs2.length; j < length2; j++) {
+      if (inputs2[j].type != "text") {
+        continue;
+      }
+      value2 = inputs2[j].value;
+    }
+    console.log('address is ', value)
+
+    pick_extra_add = document.getElementById('pickfulladd').value;
+    marge_address_pick = "" + pick_extra_add + " ," + value2 + "";
+
+
+    document.getElementById('pickaddressmap').value = marge_address_pick;
+
+  }
+</script>
+{% endblock %}

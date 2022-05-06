@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <br>
+    <br>
+        <h2>Rent Order In Cart </h2>
+        <br>
+        {% for obj in objects %}
+            <br>
+            <h3 class="h3">{{ forloop.counter }}. ]  <a href="{% url 'rent_order_DetailView' obj.id %}">{{ obj.id }}</a></h3>
+            <div>
+                <h4>Start Date -: {{ obj.get_start_date| date:"D d M Y" }} End Date -: {{ obj.get_end_date }}</h4>
+            <h5>Number Of Day -: {{ obj.get_number_of_days }} Days</h5>
+            </div>
+            <br>
+        {% empty %}
+            <h2>Your Cart Is Empty</h2>
+        {% endfor %}
+    <br>
+    </div>
+{% endblock %}

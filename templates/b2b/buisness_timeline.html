@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_timeline.css' %}">
+<style type="text/css">
+	.loginrow{
+		height: 115vh;
+	}
+	.logincol{
+		height: 95vh;
+	}
+	.logincol1{
+		height: 75vh;
+	}
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+				<h4>Buisness Details</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1">
+					<input type="text" name="name" placeholder="Your Company Name" class="loginemail" {% if buis.name %}value="{{buis.name}}"{% endif %} required>
+					<textarea name="desc" class="loginpassword" placeholder="Your Company Description" required>{% if buis.company_Description %}{{buis.company_Description}}{% endif %}</textarea>
+					<textarea name="address" class="loginpassword" placeholder="Your Company Address" required> {% if user.address %}{{user.address}}{% endif %}</textarea>
+					<input type="text" name="mission" {% if buis.company_Mission %}value="{{buis.company_Mission}}"{% endif %} placeholder="Your Company Mission" class="loginpassword" required>
+					<input type="text" name="gstin" {% if buis.gstin %}value="{{buis.gstin}}"{% endif %} placeholder="GST Identification No." class="loginpassword" required>
+					<input type="file" name="logo" placeholder="Your Company Logo" class="loginfile">
+					{% if buis.logo %}<a href="{{buis.logo.url}}">File</a>{% endif %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">SUBMIT</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

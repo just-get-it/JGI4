@@ -1,0 +1,130 @@
+{% extends 'channels/planner/student_base.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    .apply .row > h2 {
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        display: block;
+        width: 100%;
+        color: #833499
+    }
+    .apply form > .row {
+        display: block!important;
+        width: 100%!important;
+        float:left!important;
+    }
+    .apply .col-12 {
+        display: block;
+        width: 95%;
+        float: left;
+        margin-top: 50px;
+        margin-left: 25px;
+        margin-right: 25px;
+        border: 1px solid gray;
+        border-radius: 20px;
+        box-shadow: 5px 5px 20px 7px rgba(183,183,200,0.25), -5px -5px 20px 7px rgba(183,183,200,0.25);
+        cursor: pointer;
+        transition: 0.4s;
+    }
+    .apply .col-12 > div {
+        margin: 25px
+    }
+    .apply .col-12 > .row > div {
+        display: block;
+        width: 100%;
+    }
+    .apply .form-group {
+        display: block;
+        width: 100%;
+    }
+    .apply .col-12 h5 {
+        color: #833499;
+        font-weight: 500;
+        font-size: 20px;
+    }
+    .apply .form-group textarea {
+        height: 100px;
+        border: 1px solid #AAADB5;
+        margin-top: 15px;
+        border-radius: 10px;
+    }
+    .apply .text-center {
+        float: left;
+        width: 100%;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        display: block;
+    }
+    .apply .text-center button {
+        width: 25%;
+    }
+    @media only screen and (max-width:768px){
+        .apply form > .row:not(:last-child) {
+            width: 100%!important;
+            margin: 0px;
+        }
+    }
+    
+</style>
+<div class="conatiner apply">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <h2>Answer to following Questions correctly</h2>
+            <div class="col-12">
+                <div class="row">
+                    <label>Questions 1</label><br>
+                    <div><h5>{{questions_list.0}}</h5></div>
+                </div>
+                <div class="row">
+                    {{app_form.answer1 | as_crispy_field}}
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <label>Questions 2</label><br>
+                    <div><h5>{{questions_list.1}}</h5></div>
+                </div>
+                <div class="row">
+                    {{app_form.answer2 | as_crispy_field}}
+                </div>
+            </div>            
+            {% if totalQuest >= 3 %}
+            <div class="col-12">
+                <div class="row">
+                    <label>Questions 3</label><br>
+                    <div><h5>{{questions_list.3}}</h5></div>
+                </div>
+                <div class="row">
+                    {{app_form.answer3 | as_crispy_field}}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if totalQuest >= 4 %}
+            <div class="col-12">
+                <div class="row">
+                    <label>Questions 4</label><br>
+                    <div><h5>{{questions_list.4}}</h5></div>
+                </div>
+                <div class="row">
+                    {{app_form.answer4 | as_crispy_field}}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(2)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(2) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+
+{% endblock %}

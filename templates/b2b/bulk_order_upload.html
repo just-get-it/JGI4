@@ -1,0 +1,382 @@
+ {% extends 'base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<style>
+    .other_fields {
+        display: none;
+    }
+    
+    .ele {
+        margin-left: .5vw;
+        margin-right: .5vw;
+        padding: .5vw;
+        background: rgba(48, 195, 255, .5);
+        border-radius: 5px;
+        margin-top: 1vh;
+    }
+</style>{% endblock %} {% block content %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <div class="row">
+
+        <div class="container">
+            <div class="row my-3" style="border-bottom:1px solid black;">
+                <h4>Bulk Orders Upload</h4>
+            </div>
+            {% if prev %}
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Order No">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.order_no}}" name="order_no">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Product Category">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.product_Category}}" name="p_c">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Product Sub-Category">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.product_Subcategory}}" name="p_subc">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Product Super-Category">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.product_Supercategory}}" name="p_supc">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Label">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.label}}" name="label">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Fit">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.fit}}" name="fit">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Season">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.season}}" name="season">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Quantity">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.quantity}}" name="quantity">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Dispatch">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.dispatch}}" name="dispatch">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Billing">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.billing}}" name="billing">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Target Lead Time">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.target_lead}}" name="target_lead">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Target Price">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.target_price}}" name="target_price">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Colors">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.colors}}" name="colors">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Logo Placement">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.logo_placement}}" name="logo_placement">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Max Quantity">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.max_quantity}}" name="max_quantity">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Sales">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.sales}}" name="sales">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Merchandiser">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.merchandiser}}" name="merchandiser">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Garment Vendor">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="{{prev.garment_vendor}}" name="garment_vendor">
+                </div>
+            </div>
+            {% else %}
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Order No">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Order No" name="order_no">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Product Category">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Product Category" name="p_c">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Product Sub-Category">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Product Sub-Category" name="p_subc">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Product Super-Category">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Product Super-Category" name="p_supc">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Label">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Label" name="label">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Fit">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Fit" name="fit">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Season">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Season" name="season">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Quantity">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Quantity" name="quantity">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Dispatch">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Dispatch" name="dispatch">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Billing">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Billing" name="billing">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Target Lead Time">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Target Lead Time" name="target_lead">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Target Price">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Target Price" name="target_price">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Colors">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Colors" name="colors">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Logo Placement">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Logo Placement" name="logo_placement">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Max Quantity">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Max Quantity" name="max_quantity">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Sales">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Sales" name="sales">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Merchandiser">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Merchandiser" name="merchandiser">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <input type="text" disabled value="Garment Vendor">
+                </div>
+                <div class="col-6">
+                    <input type="text" value="Garment Vendor" name="garment_vendor">
+                </div>
+            </div>
+            {% endif %}
+            <div class="row my-3" id="other_fields_visual">
+
+            </div>
+            <div class="row my-3">
+                <textarea name="other_fields" class="other_fields" id="other_field_post"></textarea>
+                <input type="text" style="width: 100%;" id="other_fields_input">
+            </div>
+            <div class="row my-5">
+
+                <input type="file" name="bulk_order" required>
+
+            </div>
+            <div class="row my-5">
+
+                <button type="submit" style="border:none;background:#30c5ff;border-radius: 25vw;margin-left:10vw" class="py-1 px-5">Upload</button>
+
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<script>
+    {% if prev %}
+    var some = '{{prev.other_fields}}'.split(",");
+    addEle(some); 
+    {% endif %}
+    $('#other_fields_input').on('input', function() {
+        var v = $('#other_fields_input').val();
+        if (v[v.length - 1] == ',') {
+            var post_field = document.getElementById('other_field_post');
+            post_field.value += v;
+            var out = v.slice(0, -1);
+            var ot_field = document.getElementById('other_fields_visual');
+            var inner = ot_field.innerHTML;
+            inner += `<span class="ele">` + out + `<button type="button" style="background:transparent;border:none;" onclick="removeEle('` + out + `')">x</button></span>`;
+            ot_field.innerHTML = inner;
+            $('#other_fields_input').val('');
+        }
+    });
+
+    function removeEle(ele) {
+        var a = document.getElementById('other_field_post');
+        var out = a.value.split(",");
+        if (!(out[-1])) {
+            out.slice(0, -1);
+        }
+        out.splice(out.indexOf(ele), 1);
+        var final = out.join(",");
+        a.value = final;
+        addEle(out);
+
+    }
+
+    function addEle(out) {
+        var i;
+        var b = ``;
+        for (i = 0; i < out.length; i++) {
+            if (out[i]) {
+                var o = out[i];
+                b += `<span class="ele">` + o + `<button type="button" style="background:transparent;border:none;" onclick="removeEle('` + o + `')">x</button></span>`;
+            }
+        }
+        var doc = document.getElementById('other_fields_visual');
+        doc.innerHTML = b;
+    }
+</script>
+{% endblock %}

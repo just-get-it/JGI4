@@ -1,0 +1,389 @@
+
+	
+
+
+
+
+
+	<div class="container-fluid addlabel" id="addlabel">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Label</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="cross();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form action="/userdetail/seller_profile/" method="POST" id="addlabel_form">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<input type="text" name="label" placeholder="Label Name" class="inputfield" id="label_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Label</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<div class="container-fluid addlabel mt-5" id="addsafety">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Safety Stock</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="crosssafety();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<select name="safety_category" class="inputfield" id="htm_category" required>
+							<option value="" disabled selected>------</option>
+							{% for l in product_category %}
+
+							<option value="{{l.id}}">{{l.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<select name="safety_subcategory" class="inputfield" id="htm_subcategory" required>
+							<option value="" disabled selected>------</option>
+
+						</select>
+					</div>
+
+					<div class="row mt-5 mb-2">
+						<select name="safety_supercategory" class="inputfield" id="htm_supercategory" required>
+							<option value="" disabled selected>------</option>
+
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="text" name="safety_name" placeholder="Safety Stock Name" class="inputfield" required id="htm_input_field">
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="number" name="safety_limit" placeholder="Safety Stock Limit" class="inputfield" required id="htm_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Safety Stock</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="container-fluid addlabel" id="addfit">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Fit</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="crossfit();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form action="/userdetail/seller_profile/" method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<select name="fit_label" class="inputfield" required>
+							<option value="" disabled selected>------</option>
+							{% for l in label %}
+							<option value="{{l.slug}}">{{l.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="text" name="fit" placeholder="Fit Name" class="inputfield" id="fit_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Fit</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="container-fluid addlabel" id="addseason">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Season</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="crossseason();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form action="/userdetail/seller_profile/" method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<select name="season_label" class="inputfield" id="season_label" required>
+							<option value="" disabled selected>------</option>
+							{% for l in label %}
+
+							<option value="{{l.slug}}">{{l.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<select name="season_fit" class="inputfield" id="season_fit" required>
+							<option value="" disabled selected>------</option>
+
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="text" name="season" placeholder="Season Name" class="inputfield" id="fit_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Seasons</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+		<div class="container-fluid addlabel mt-5" id="addwashcare">
+			<div class="row centered addlabel_row">
+				<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+					<div class="container-fluid">
+						<div class="row mt-3">
+							<div class="col-11 centered">
+								<h4 class="fontcabin"><b>Add Washcare</b></h4>
+							</div>
+							<div class="col-1 cross centered" onclick="crosswashcare();">
+								<i class="fas fa-times-circle fa-lg"></i>
+							</div>
+						</div>
+						<form action="/userdetail/seller_profile/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						<div class="row mt-5 mb-2">
+							<select name="washcare_label" class="inputfield" id="washcare_label" required>
+								<option value="" disabled selected>------</option>
+								{% for l in label %}
+
+								<option value="{{l.slug}}">{{l.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="washcare_fit" class="inputfield" id="washcare_fit" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<select name="washcare_season" class="inputfield" id="washcare_season" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<input type="text" name="washcare" placeholder="Washcare Name" class="inputfield" required id="washcare_input_field">
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<input type="file" name="washcare_file" class="inputfield" required id="washcare_file_input_field">
+						</div>
+						<div class="row mt-5 mb-3 centered start_order1">
+							<button type="submit" class="px-5 py-2"><b>Add Washcare</b></button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="container-fluid addlabel mt-5" id="addhtm">
+			<div class="row centered addlabel_row">
+				<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+					<div class="container-fluid">
+						<div class="row mt-3">
+							<div class="col-11 centered">
+								<h4 class="fontcabin"><b>Add How To Measure</b></h4>
+							</div>
+							<div class="col-1 cross centered" onclick="crosshtm();">
+								<i class="fas fa-times-circle fa-lg"></i>
+							</div>
+						</div>
+						<form action="/userdetail/seller_profile/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						<div class="row mt-5 mb-2">
+							<select name="htm_category" class="inputfield" id="htm_category" required>
+								<option value="" disabled selected>------</option>
+								{% for l in product_category %}
+
+								<option value="{{l.id}}">{{l.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="htm_subcategory" class="inputfield" id="htm_subcategory" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<select name="htm_supercategory" class="inputfield" id="htm_supercategory" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<input type="text" name="htm" placeholder="How to Measure Name" class="inputfield" required id="htm_input_field">
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<input type="file" name="htm_file" class="inputfield" required id="htm_file_input_field">
+						</div>
+						<div class="row mt-5 mb-3 centered start_order1">
+							<button type="submit" class="px-5 py-2"><b>Add HTM</b></button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="container-fluid addlabel mt-5" id="addgarment_weight">
+			<div class="row centered addlabel_row">
+				<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+					<div class="container-fluid">
+						<div class="row mt-3">
+							<div class="col-11 centered">
+								<h4 class="fontcabin"><b>Add Garment Weight</b></h4>
+							</div>
+							<div class="col-1 cross centered" onclick="crossgarment_weight();">
+								<i class="fas fa-times-circle fa-lg"></i>
+							</div>
+						</div>
+						<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+						<div class="row mt-5 mb-2">
+							<select name="garment_weight_category" class="inputfield" id="garment_weight_category" required>
+								<option value="" disabled selected>------</option>
+								{% for l in product_category %}
+
+								<option value="{{l.id}}">{{l.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="garment_weight_subcategory" class="inputfield" id="garment_weight_subcategory" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<select name="garment_weight_supcategory" class="inputfield" id="garment_weight_supcategory" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="garment_weight_measurement" class="inputfield" id="garment_weight_measurement" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="garment_weight_size" class="inputfield" id="garment_weight_size" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<input type="number" step="0.01" name="garment_weight" class="inputfield" required id="htm_file_input_field">
+						</div>
+						<div class="row mt-5 mb-3 centered start_order1">
+							<button type="submit" class="px-5 py-2"><b>Add Garment Weight</b></button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+				<div class="container-fluid addlabel mt-5" id="addbarcode">
+					<div class="row centered addlabel_row">
+						<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+							<div class="container-fluid">
+								<div class="row mt-3">
+									<div class="col-11 centered">
+										<h4 class="fontcabin"><b>Add Barcode</b></h4>
+									</div>
+									<div class="col-1 cross centered" onclick="crossbarcode();">
+										<i class="fas fa-times-circle fa-lg"></i>
+									</div>
+								</div>
+								<form action="/userdetail/seller_profile/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+								<div class="row mt-5 mb-2">
+									<select name="barcode_label" class="inputfield" id="barcode_label" required>
+										<option value="" disabled selected>------</option>
+										{% for l in label %}
+
+										<option value="{{l.slug}}">{{l.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="row mt-5 mb-2">
+									<select name="barcode_fit" class="inputfield" id="barcode_fit" required>
+										<option value="" disabled selected>------</option>
+
+									</select>
+								</div>
+
+								<div class="row mt-5 mb-2">
+									<select name="barcode_season" class="inputfield" id="barcode_season" required>
+										<option value="" disabled selected>------</option>
+
+									</select>
+								</div>
+								<div class="row mt-5 mb-2">
+									<input type="text" name="barcode" placeholder="Barcode Name" class="inputfield" required id="barcode_input_field">
+								</div>
+
+								<div class="row mt-5 mb-2">
+									<input type="file" name="barcode_file" class="inputfield" required id="barcode_file_input_field">
+								</div>
+								<div class="row mt-5 mb-3 centered start_order1">
+									<button type="submit" class="px-5 py-2"><b>Add Barcode</b></button>
+								</div>
+							</form>
+							</div>
+						</div>
+					</div>
+				</div>
+

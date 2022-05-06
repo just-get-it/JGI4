@@ -1,0 +1,135 @@
+
+
+<style media="screen">
+  .hide_row{
+    display:none;
+  }
+</style>
+
+
+<div class="row hide_row" id="update_resp">
+		<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+			<div class="row centered" style="z-index: 105; margin-top: 15vh;margin-bottom: auto; ">
+				<div class="container-fluid">
+					<div class="row" style="width: 45vw;height: 73vh;background: white;">
+						<div class="row mt-1" style="height: 2vh;">
+							<button style="border: none;background: transparent;margin-left: 43vw;" onclick="remupresp();"><i class="fas fa-times-circle"></i></button>
+						</div>
+						<div class="row" style="height: 1vh">
+							<h4 class="fontcabin" style="margin-left: 20.5vw;">Filters</h4>
+						</div>
+						<div class="row">
+						<form method="GET">
+							<div class="container mt-2 ml-5">
+							<div class="row">
+							<label><b>Customers</b></label>
+							<select name="b2b" style="margin-left: 10vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in b2b_cust %}
+								<option value="{{i.email}}"{% ifequal request.GET.b2b i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Sales</b></label>
+							<select name="sales" style="margin-left: 13vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in sales %}
+								<option value="{{i.email}}"{% ifequal request.GET.sales i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Merchandiser</b></label>
+							<select name="merchant" style="margin-left: 8.3vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in merchant %}
+								<option value="{{i.email}}"{% ifequal request.GET.merchant i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Garments Vendor</b></label>
+							<select name="gmt" style="margin-left: 6vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in gmt %}
+								<option value="{{i.email}}"{% ifequal request.GET.gmt i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Fabric Vendor </b></label>
+							<select name="fab_vendor" style="margin-left: 7.9vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in fab_vendor %}
+								<option value="{{i.email}}"{% ifequal request.GET.fab_vendor i.email %}selected{% endifequal %}>{{i.email}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Status of Order</b></label>
+							<select name="status" style="margin-left: 7.1vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								<option value="BT"{% ifequal request.GET.status 'BT' %}selected{% endifequal %}>Before Time</option>
+								<option value="IA"{% ifequal request.GET.status 'IA' %}selected{% endifequal %}>Immediate Action Required</option>
+								<option value="IP"{% ifequal request.GET.status 'IP' %}selected{% endifequal %}>In Process</option>
+								<option value="ND"{% ifequal request.GET.status 'ND' %}selected{% endifequal %}>New Delay</option>
+								<option value="OH"{% ifequal request.GET.status 'OH' %}selected{% endifequal %}>On Hold</option>
+								<option value="OT"{% ifequal request.GET.status 'OT' %}selected{% endifequal %}>On Time</option>
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Request Type</b></label>
+							<select name="order_type" style="margin-left: 8.1vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								<option value="E"{% ifequal request.GET.order_type 'E' %}selected{% endifequal %}>Enquiry</option>
+								<option value="D"{% ifequal request.GET.order_type 'D' %}selected{% endifequal %}>Design</option>
+								<option value="S"{% ifequal request.GET.order_type 'S' %}selected{% endifequal %}>Sampling</option>
+								<option value="O"{% ifequal request.GET.order_type 'O' %}selected{% endifequal %}>Order</option>
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row centered">
+							<button type="submit" style="background: #30c5ff;border:none;padding: 1vh;padding-left: 3vw;padding-right: 3vw;border-radius: 25vw;font-weight: bold;">Apply Filters</button>
+							</div>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+          function showupdateresp(){
+          	var up=document.getElementById('update_resp');
+          	up.classList.remove('hide_row');
+          }
+
+
+          function remupresp(){
+
+          	var up=document.getElementById('update_resp');
+          	up.classList.add('hide_row');
+          }
+    </script>

@@ -1,0 +1,294 @@
+{% extends 'basecut.html' %}
+
+{% block content %}
+
+{% csrf_token %}
+
+<style type="text/css">
+  .hidden{
+   visibility:hidden;
+}
+</style>
+
+<div class="container text-center">
+  <h1>Generate Cut Loading Plan</h1>
+</div>
+<br>
+<div class="form-group col">
+
+  <br>
+    <br>
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+<form class= "", action="", method="POST", id="myForm">
+   <p><label for="id_orderno">Order No:</label> <input type="text" name="orderno" maxlength="100" required="" id="id_orderno"></p>
+   <p><label for="id_styleno">Style No:</label> <input type="text" name="styleno" maxlength="100" required="" id="id_styleno"></p>
+   <p><label for="id_totalorderquantity">Total Order Quantity:</label> <input type="number" name="totalorderquantity" required="" id="id_totalorderquantity"></p>
+   <p><label for="id_markerprep">Marker prepared:</label> <select name="markerprep" required="" id="id_markerprep">
+    <option value="" selected="">---------</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select></p>
+
+  <p><label for="id_tabletype">Table Type:</label> 
+    <select name="tabletype" required="" id="id_tabletype">
+    <option value="" selected="">---------</option>
+    <option value="pintable">Pin Table</option>
+    <option value="airfloation">Air Floation</option>
+    <option value="normal">Normal</option>
+  </select></p>
+
+  <p><label for="id_markerno">Marker No:</label> <input type="number" name="markerno" required="" id="id_markerno"></p>
+  <p><label for="id_laylength">Lay Length:</label> <input type="number" name="laylength" step="0.01" required="" id="id_laylength"></p>
+  <p><label for="id_noofplies">No. of Plies:</label> <input type="number" name="noofplies" required="" id="id_noofplies"></p>
+  <p><label for="id_noofpieces">No. of Pieces:</label> <input type="number" name="noofpieces" required="" id="id_noofpieces"></p>
+  <br>
+  <p><h5>Spreading SMV - </h5></p> 
+
+  <p><label for="id_sprsmvmanual">Manual:</label> <input type="number" name="sprsmvmanual" required="" id="id_sprsmvmanual"></p>
+  <p><label for="id_sprsmvautospreader">Auto Spreader:</label> <input type="number" name="sprsmvautospreader" required="" id="id_sprsmvautospreader"></p>
+  <br>
+  <p><h5>Capacity Required/Minute - </h5></p> 
+
+  <p><label for="id_crmanual">Manual:</label> <input type="number" name="crmanual" required="" id="id_crmanual"></p>
+  <p><label for="id_crautospreader">Auto Spreader:</label> <input type="number" name="crautospreader" required="" id="id_crautospreader"></p>
+  <br>
+  <p><h5>Cutting SMV - </h5></p> 
+
+  <p><label for="id_cutsmvstraight">Straight Knife:</label> <input type="number" name="cutsmvstraight" required="" id="id_cutsmvstraight"></p>
+  <p><label for="id_cutsmvband">Band Knife:</label> <input type="number" name="cutsmvband" required="" id="id_cutsmvband"></p>
+  <p><label for="id_cutsmvcnc">CNC:</label> <input type="number" name="cutsmvcnc" required="" id="id_cutsmvcnc"></p>
+  <br>
+
+  <p><h5>Capacity Required/Minute - </h5></p> 
+
+  <p><label for="id_crstraightband">Straight+Band:</label> <input type="number" name="crstraightband" required="" id="id_crstraightband"></p>
+  <p><label for="id_crcnc">CNC:</label> <input type="number" name="crcnc" required="" id="id_crcnc"></p>
+  <br>
+
+  <p><h5>Total Capacity Required (Spreading+Cutting)/Minute - </h5></p> 
+
+  <p><label for="id_totmm">Manual Spreading+Manual Cutting (Straight Knife+Band Knife):</label> <input type="number" name="totmm" required="" id="id_totmm"></p>
+  <p><label for="id_totma">Manual Spreading+Auto Cutting (CNC):</label> <input type="number" name="totma" required="" id="id_totma"></p>
+  <p><label for="id_totam">Auto Spreader+Manual Cutting (Straight Knife+Band Knife):</label> <input type="number" name="totam" required="" id="id_totam"></p>
+  <p><label for="id_totaa">Auto Spreader+Auto Cutting (CNC):</label> <input type="number" name="totaa" required="" id="id_totaa"></p>
+  <br>
+
+  <p><h5>Material Inhouse Status - </h5></p> 
+
+  <p><label for="id_matinhousefabric">Fabric:</label> 
+    <select name="matinhousefabric" required="" id="id_matinhousefabric">
+    <option value="" selected="">---------</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select></p>
+
+  <p><label for="id_matinhousefusing">Fusing:</label> 
+    <select name="matinhousefusing" required="" id="id_matinhousefusing">
+    <option value="" selected="">---------</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+    <option value="no">NA</option>
+  </select></p>
+  
+ <p><label class="hidden" for="id_issuetable">Issue Table:</label> <input type="hidden" name="issuetable" value="0" required="" id="id_issuetable"></p>
+
+  {% csrf_token %}
+  {% csrf_token %}
+  {% csrf_token %}
+
+  <button class="btn btn-primary" id="id_submit" type="submit" href="/" ,="" value="Submit">Submit</button>
+
+  <a href="/cut/issuedetails" class="btn btn-primary" id="id_next">Next</a>
+
+{% csrf_token %}
+
+
+
+</form>
+</div>
+
+  <br>
+  <br>
+
+  <div>
+  <button class="btn btn-primary" id="id_summary" onclick="myFunc()">Summary</button>
+  <br>
+  <br>
+
+  <style type="text/css">
+  table {display: none; border-collapse: collapse;}
+  th, td {
+    border-collapse: collapse;
+    padding: 2px;
+    text-align: center;
+  }
+  </style>
+
+  <table id="tableid" border="1" align="center">
+
+     <tr>
+        <th rowspan="2">Order No</th>
+        <th rowspan="2">Style No</th>
+        <th rowspan="2">Total Order Quantity</th>
+        <th rowspan="2">Marker prepared</th>
+        <th rowspan="2">Table Type</th>
+        <th rowspan="2">Marker No</th>
+        <th rowspan="2">Lay Length</th>
+        <th rowspan="2">No. of Plies</th>
+        <th rowspan="2">No. of Pieces</th>
+
+        <th colspan="2">Spreading SMV</th>
+        <th colspan="2">Capacity Required/ Minute</th>
+        <th colspan="3">Cutting SMV</th>
+        <th colspan="2">Capacity Required/Minute</th>
+        <th colspan="4">Total Capacity Required (Spreading+Cutting)/Minute</th>
+        <th colspan="2">Material Inhouse Status</th>
+    </tr>
+    <tr>
+        <th>Manual</th>
+        <th>Auto Spreader</th>
+
+        <th>Manual</th>
+        <th>Auto Spreader</th>
+
+        <th>Straight Knife</th>
+        <th>Band Knife</th>
+        <th>CNC</th>
+
+        <th>Straight+Band</th>
+        <th>CNC</th>
+
+        <th>Manual Spreading+Manual Cutting (Straight Knife+Band Knife)</th>
+        <th>Manual Spreading+Auto Cutting (CNC)</th>
+        <th>Auto Spreader+Manual Cutting (Straight Knife+Band Knife)</th>
+        <th>Auto Spreader+Auto Cutting (CNC)</th>
+
+        <th>Fabric</th>
+        <th>Fusing</th>
+
+    </tr>
+    {% for item in cutloadplanobject %}
+    <tr> 
+        <td>{{ item.orderno }}</td>
+        <td>{{ item.styleno }}</td>
+        <td>{{ item.totalorderquantity }}</td>
+        <td>{{ item.markerprep }}</td>
+        <td>{{ item.tabletype }}</td>
+        <td>{{ item.markerno }}</td>
+        <td>{{ item.laylength }}</td>
+        <td>{{ item.noofplies }}</td>
+        <td>{{ item.noofpieces }}</td>
+        <td>{{ item.sprsmvmanual }}</td>
+        <td>{{ item.sprsmvautospreader }}</td>
+        <td>{{ item.crmanual }}</td>
+        <td>{{ item.crautospreader }}</td>
+        <td>{{ item.cutsmvstraight }}</td>
+        <td>{{ item.cutsmvband }}</td>
+        <td>{{ item.cutsmvcnc }}</td>
+        <td>{{ item.crstraightband }}</td>
+        <td>{{ item.crcnc }}</td>
+        <td>{{ item.totmm }}</td>
+        <td>{{ item.totma }}</td>
+        <td>{{ item.totam }}</td>
+        <td>{{ item.totaa }}</td>
+        <td>{{ item.matinhousefabric }}</td>
+        <td>{{ item.matinhousefusing }}</td>
+
+       
+    </tr>
+    {% endfor %} 
+  </table>
+
+  </div>
+
+
+
+<br>
+
+</body>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+<script>
+
+  // Capacity Required/Minute - Manual
+
+  $("#id_noofpieces,#id_sprsmvmanual").keyup(function () {
+
+    $('#id_crmanual').val($('#id_noofpieces').val() * $('#id_sprsmvmanual').val());
+  });
+
+  // Capacity Required/Minute - Auto Spreader
+
+  $("#id_noofpieces,#id_sprsmvautospreader").keyup(function () {
+
+    $('#id_crautospreader').val($('#id_noofpieces').val() * $('#id_sprsmvautospreader').val());
+  });
+
+  // Capacity Required/Minute - Straight + Band
+
+  $("#id_noofpieces,#id_cutsmvstraight,#id_cutsmvband").keyup(function () {
+    var sb = Number(Number($('#id_cutsmvstraight').val()) + Number($('#id_cutsmvband').val()));
+    $('#id_crstraightband').val(Number($('#id_noofpieces').val()) * sb); 
+  });
+
+  // Capacity Required/Minute - CNC
+
+  $("#id_noofpieces,#id_cutsmvcnc").keyup(function () {
+    $('#id_crcnc').val(Number($('#id_noofpieces').val()) * Number($('#id_cutsmvcnc').val())); 
+  });
+
+  // Total Capacity Required (Spreading+Cutting)/Minute - MM
+
+  $("#id_cutsmvcnc").keyup(function () {
+
+    $('#id_totmm').val(Number($('#id_crmanual').val()) + Number($('#id_crstraightband').val())); 
+  });
+
+  // Total Capacity Required (Spreading+Cutting)/Minute - MA
+
+  $("#id_cutsmvcnc").keyup(function () {
+
+    $('#id_totma').val(Number($('#id_crmanual').val()) + Number($('#id_crcnc').val())); 
+  });
+
+  // Total Capacity Required (Spreading+Cutting)/Minute - AM
+
+  $("#id_cutsmvcnc").keyup(function () {
+
+    $('#id_totam').val(Number($('#id_crautospreader').val()) + Number($('#id_crstraightband').val())); 
+  });
+
+  // Total Capacity Required (Spreading+Cutting)/Minute - AA
+
+  $("#id_cutsmvcnc").keyup(function () {
+
+    $('#id_totaa').val(Number($('#id_crautospreader').val()) + Number($('#id_crcnc').val())); 
+  });
+
+  function myFunc(){
+    var x = document.getElementById("tableid");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+
+
+</script>
+
+{% endblock %}
+

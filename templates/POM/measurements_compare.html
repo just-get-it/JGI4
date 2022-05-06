@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load filters %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/measurement_detail.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" {% if not meas %} style="margin-bottom: 25vh;" {% endif %}>
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Measurement</h3>
+		</div>
+	</div>
+
+
+	{% if meas %}
+
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-5 m-auto" style="box-shadow: 0 0 3px black;">
+				<div class="row mt-2 mb-2 pr-3">
+
+					<h4 style="margin-left: 2vw;"><b>Base Label - {{meas.name}}</b></h4>
+					<a href="/userdetail/seller_profile/measurements/{{request.GET.first}}" style="color:black;margin-left: auto;"><i class="fas fa-directions fa-lg"></i></a>
+
+				</div>
+				<div class="row mb-2">
+					<div class="col-4 centered">
+						<h6><b>Label -</b> {{meas.label}}</h6>
+					</div>
+					<div class="col-4 centered">
+						<h6><b>Fit -</b> {{meas.fit}}</h6>
+					</div>
+					<div class="col-4 centered">
+						<h6><b>Season -</b> {{meas.season}}</h6>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-4 centered">
+						<h6><b>Product Category -</b> {{meas.product_Category}}</h6>
+					</div>
+					<div class="col-4 centered">
+						<h6><b>Product Sub-Category -</b> {{meas.product_Subcategory}}</h6>
+					</div>
+					<div class="col-4 centered">
+						<h6><b>Product Super-Category -</b> {{meas.product_Supercategory}}</h6>
+					</div>
+				</div>
+					<div class="row my-3 centered">
+						<h4><b>Select First Measurment Chart</b></h4>
+
+					</div>
+					<div class="row my-3 centered">
+					<select id="first_measurement">
+						<option value="---------" selected disabled>-------------</option>
+						{% for i in other_meas %}
+							<option value="{{i.slug}}" {% if request.GET.first == i.slug %}selected{% endif %}>{{i.label}}_{{i.fit}}_{{i.season}}_{{i.product_Category}}_{{i.product_Supercategory}}</option>
+						{% endfor %}
+					</select>
+					</div>
+					<script type="text/javascript">
+						$('#first_measurement').on("change",function (){
+							window.location.href="?first="+$('#first_measurement').val().toString();
+						});
+					</script>
+			</div>
+			<div class="col-5 m-auto" style="box-shadow: 0 0 3px black;">
+				{% if meas1 %}
+					<div class="row mt-2 mb-2 pr-3">
+
+						<h4 style="margin-left: 2vw;"><b>Base Label - {{meas.name}}</b></h4>
+						<a href="/userdetail/seller_profile/measurements/{{request.GET.first}}" style="color:black;margin-left: auto;"><i class="fas fa-directions fa-lg"></i></a>
+					</div>
+					<div class="row mb-2">
+						<div class="col-4 centered">
+							<h6><b>Label -</b> {{meas.label}}</h6>
+						</div>
+						<div class="col-4 centered">
+							<h6><b>Fit -</b> {{meas.fit}}</h6>
+						</div>
+						<div class="col-4 centered">
+							<h6><b>Season -</b> {{meas.season}}</h6>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-4 centered">
+							<h6><b>Product Category -</b> {{meas.product_Category}}</h6>
+						</div>
+						<div class="col-4 centered">
+							<h6><b>Product Sub-Category -</b> {{meas.product_Subcategory}}</h6>
+						</div>
+						<div class="col-4 centered">
+							<h6><b>Product Super-Category -</b> {{meas.product_Supercategory}}</h6>
+						</div>
+					</div>
+				{% endif %}
+					<div class="row my-3 centered">
+						<h4><b>Select Second Measurment Chart</b></h4>
+
+					</div>
+					<div class="row my-3 centered">
+					<select id="second_measurement">
+						<option value="---------" selected disabled>-------------</option>
+						{% for i in other_meas %}
+							<option value="{{i.slug}}" {% if request.GET.second == i.slug %}selected{% endif %}>{{i.label}}_{{i.fit}}_{{i.season}}_{{i.product_Category}}_{{i.product_Supercategory}}</option>
+						{% endfor %}
+					</select>
+					</div>
+					<script type="text/javascript">
+						$('#second_measurement').on("change",function (){
+							window.location.href="?first={{request.GET.first}}&second="+$('#second_measurement').val().toString();
+						});
+					</script>
+			</div>
+		</div>
+		
+	</div>
+	<div class="container mt-4 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Measurement Chart</h3>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+				
+				<button style="background: none;border: none;margin-left: auto;" onclick="unhideRow();"><i class="fas fa-undo"></i></button>
+			</div>
+		</div>
+{% csrf_token %}
+<input type="hidden" value="{{meas.name}}" id="base_size">
+{% if meas1 and meas %}
+	<div class="container mt-3 mb-4">
+		<div class="row">
+			<table style="width: 100%;" class="meas_chart">
+
+				<tr>
+					<th>Points</th>
+					<th>Factory<br> Tolerance</th>
+					<th>Consumer<br> Tolerance</th>
+					{% for i in sizes %}
+					<th class="size_{{i}}">{{i}} <button style="border:none;background: none;" onclick="hideRow('size_{{i}}');"><i class="fas fa-eye-slash"></i></button></th>
+					{% endfor %}
+				</tr>
+				{% for i in chart %}
+				<tr>
+					<th>{{i.0.label}}</th>
+					<td>{{i.1.0.0.tolerance}}</td>
+					<td>{{i.1.0.0.tolerance|doubleTolerance}}</td>
+					{% for j in i.1 %}
+						<td class="size_{{j.0.size}}" style="{% if j.0.value == j.1.value %}{% else %}background: rgba(19,77,100,0.3);{% endif %}">{{j.0.value}}/{{j.1.value}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+
+
+
+			</table>
+		</div>
+	</div>
+{% endif %}
+
+
+
+
+	{% else %}
+	<div class="container">
+		<div class="row mt-2 mb-2 centered">
+			<h3><b>Sorry this Measurement does not exist to your A/c</b></h3>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+
+<script type="text/javascript">
+	
+	$('.ui.floating.dropdown').dropdown();
+	var hides=[];
+
+	function section1(val){
+		window.location.href="{% if request.GET %}?section1="+val.toString()+"&{% if request.GET.section2 %}section2={{request.GET.section2}}&{% else %}{% endif %}{% if request.GET.section3 %}section3={{request.GET.section3}}&{% else %}{% endif %}{% else %}?section1="+val.toString()+"{% endif %}";
+	}
+
+	function section2(val){
+		window.location.href="{% if request.GET %}?{% if request.GET.section1 %}section1={{request.GET.section1}}&{% else %}{% endif %}section2="+val.toString()+"&{% if request.GET.section3 %}section3={{request.GET.section3}}&{% else %}{% endif %}{% else %}?section2="+val.toString()+"{% endif %}";
+	}
+	function section3(val){
+		window.location.href="{% if request.GET %}?{% if request.GET.section1 %}section1={{request.GET.section1}}&{% else %}{% endif %}{% if request.GET.section2 %}section2={{request.GET.section2}}&{% else %}{% endif %}section3="+val.toString()+"&{% else %}?section3="+val.toString()+"{% endif %}";
+	}
+	function hideRow(cl){
+		var a=document.getElementsByClassName(cl);
+		var l=a.length;
+		var i;
+		for(i=0;i<l;i++){
+			a[i].style.display="none";
+		}
+		hides.push(cl);
+	}
+	function unhideRow(){
+		cl=hides.pop();
+		var a=document.getElementsByClassName(cl);
+		var l=a.length;
+		var i;
+		for(i=0;i<l;i++){
+			a[i].style.display="";
+		}
+	}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+
+<!-- <script type="text/javascript" src="{% static 'js/userdetail/measurement_detail.js' %}"></script> -->
+<!-- <script type="text/javascript" src="{% static 'js/userdetail/measurement_detail1.js' %}"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

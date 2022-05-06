@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        function check() {
+            Pass = document.getElementById("pass").value;
+            cPass = document.getElementById("cpass").value;
+            if (pass == cpass)
+                return true;
+            else {
+                document.getElementById("invalid").style.visibility = "hidden";
+                return false;
+            }
+        }
+    </script>
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+*{
+            margin: 0;
+            padding: 0;
+           
+  box-sizing: border-box;
+
+        }
+
+        .rows{
+            
+            border: 2px solid black;
+            width: 130vh;
+            height: 80vh;
+            
+
+        }
+  .main{
+      padding-left: 20vw;
+      padding-top: 8vh;
+  }
+
+  .column{
+    float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px;
+  }
+  .main .rows .column ul li{
+      list-style: none;
+  padding: 20px ;
+  }
+  .main .rows .column{
+      border: 2px solid black;
+background-color: rgb(39, 110, 202);
+height: 80vh;
+  }
+
+
+        /* body {
+            background-image: url('{% static "images/background.png" %}');
+            background-size: cover;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        
+        #register {
+            width: 50vw;
+            height: 70vh;
+        
+            position: absolute;
+            
+        
+            background-color: snow;
+            font-size: 20px;
+      
+            overflow: visible;
+        }*/
+        
+        input[type="text"],
+        input[type="password"] {
+            background: none;
+            font-size: 20px;
+            color: rgb(0, 7, 1);
+            outline: none;
+            border: none;
+            border-bottom: 4px solid #4caf50;
+        }
+        
+        input[type="submit"] {
+            padding: 10px;
+           
+            color: white;
+            background: rgb(47, 34, 231);
+            border: 2px solid rgb(47, 34, 231);
+            border-width: medium;
+            border-radius: 10px;
+            height: 40px;
+            width: 200px;
+            font-size: 20px;
+            size: auto;
+           
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 70px;
+            font-style: italic;
+            color: snow;
+            text-shadow: 2px 2px 8px rgb(47, 34, 231);
+            
+        } 
+    </style>
+
+    <title>Signup</title>
+</head>
+
+<body>
+    <h1>Ignite India</h1>
+    <div class="main">
+
+<div class="rows"> 
+    <div class="column">
+    <h2>Ignite India</h2>
+    <p>Get To Access</p>
+  <ul>
+    <li>Exam Updates & Important dates</li>
+    <li>E-books & Sample Papers</li>
+    <li>College & Course Brochures</li>
+    <li>Ask & get answers from experts & other users</li>
+
+  </ul>
+
+
+    </div>
+    <div id="column2" style="padding-left: 10px; padding-top: 50px;">
+        <p>Already Have Account  <a href="signup">Sign up</a></p>
+        
+        {% for mes in messages %} {{mes}} {% endfor %}
+        <form action="loggin" method="POST">
+            {% csrf_token %}
+            
+          
+            <br><br> Email:<input type="text" name="email" autocomplete="off">
+            <br><br> Password : <input type="password" name="password" id="passord">
+            <br><br><br>
+            <input type="submit" value="create">
+        </form>
+
+
+    </div>
+</div>
+</div>
+</body>
+
+</html>

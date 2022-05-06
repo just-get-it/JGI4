@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style type="text/css">
+	
+.upload_row_but{
+	display: grid;
+	justify-content: center;
+}
+
+.upload_row_but button{
+	background: #30c5ff;
+	color: #253031;
+	transition: all .5s ease-out;
+	font-weight: bold;
+	border:none;
+	border-radius: 5vw;
+}
+
+.upload_row_but button:hover{
+	background: #253031;
+	color: #30c5ff;
+}
+.clear{
+	clear:both;
+}
+</style>
+
+<script type="text/javascript">
+{% if stf_error %}
+	alert("Staff Field have Some Error");
+
+{% endif %}
+{% if sel_error %}
+	alert("Seller Field have some Error");
+{% endif %}
+
+{% if acti_error %}
+	alert("Activity Linking have some Error");
+{% endif %}
+</script>
+
+<div class="row">
+	<div class="container">
+		<div class="row mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5); ">
+			<h4 style="font-family: 'Cabin', sans-serif;">Activities Upload by CSV</h4>
+		</div>
+	</div>
+	<div class="container">
+		<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row mb-2">
+				<label><b>CSV File</b></label>
+			</div>
+			<div class="row mb-4">
+
+					<input type="file" name="csv_file" required>
+
+			</div>
+			<div class="row mt-2 mb-3">
+				<label><b>CSV File Format</b></label>
+				<img src="/media/local/b2b/acti.jpg">
+			</div>
+
+			<div class="row mb-2">
+				<label><b>Details of the File Format</b></label>
+			</div>
+			<div class="mb-3 clear">
+				<p>
+				<b>Title</b> - Max Length for Title is 255 <br>
+				<b>Description</b> - This have not Length Limit <br>
+				<b>Staff Categories - </b>
+				<ul>
+					{% for s in staffs %}
+					<li>{{s}}</li>
+					{% endfor %}
+				</ul>
+				<b>Seller Categories - </b>
+				<ul>
+					{% for s in sellers %}
+					<li>{{s}}</li>
+					{% endfor %}
+				</ul>
+				<b>Position - </b><br>
+				<ul>
+				<li>H (denotes)- Head</li> 
+				<li>M (denotes)- Manager</li> 
+				<li>C (denotes)- Executive</li>
+				</ul>
+				<b>Type Of Order - </b><br>
+				<ul>
+					<li>O (denotes)- Order</li>
+					<li>S (denotes)- Sampling Order</li>
+					<li>D (denotes)- Design Order</li>
+					<li>E (denotes)- Enquiry Order</li>
+				</ul>
+				<b>Linked Activity - </b>Linked Activity will contain the Activity Sequence Number which is defined Above. <br>
+				<b>Sample File</b> <a href="/media/local/b2b/sample1.csv" class="hov-a">File</a>
+				</p>
+
+
+
+			</div>
+
+			<div class="row mt-1 mb-3 upload_row_but">
+				<button type="submit" class="px-5 py-2" name="upload_product">Upload</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

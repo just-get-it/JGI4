@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% load qr_code %}
+{% load static %}
+
+
+
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/detailview.css' %}">
+
+<script type="text/javascript">
+	var sizeselected=false;
+	function selectcolor(){
+		var a,ele;
+		for(a=0;a<arguments.length;a++){
+			ele=document.getElementById(arguments[a]);
+			if(a==0){
+				ele.style.borderColor="#253031";
+				ele.classList.add("removehover");
+			}
+			else{
+				ele.style.borderColor="#30c5ff";
+			}
+		}
+	}
+	function selectsize(){
+		sizeselected=true;
+		var a;
+		var ele;
+		// console.log(arguments);
+		for(a=0;a<arguments.length;a++){
+			ele=document.getElementById(arguments[a])
+			if (a==0){
+				ele.style.backgroundColor="#30c5ff";
+				ele.style.borderColor="#30c5ff";
+				ele.classList.add("removehover");
+			}
+			else{
+				ele.style.backgroundColor="white";
+			}
+		}
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/staff_profile/products/{{obj.slug}}',
+			data:{
+				sizes_ajax:arguments[0],
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+			cache:false,
+			dataType: "json",
+			success:function(data){
+				var ht=`<div class="container-fluid">
+							<div class="row mt-2">
+								<h6><b>SELECT COLOR</b></h6>
+							</div>
+							<div class="row">`;
+				if (data.data){
+					$.each(data.data,function(index,value){
+						var hr=``;
+						$.each(data.data,function(i,v){
+							if(v!=value){
+								hr=hr+`'`+v+`',`
+							}
+						});
+						ht=ht+`<div class="col-1 centered fontcabin size" id="`+value+`" onclick="selectcolor('`+value+`',`+hr+`);" style="background:`+value+`;height:20px;">
+						</div>`;
+					});
+					ht=ht+'</div></div>'
+					$('#colors').html(ht);
+				}
+				var a=document.getElementById('colors');
+				a.style.display="";
+			}
+		});
+
+	}
+	function addtocart(){
+		if (sizeselected){
+			window.location="/cart/addtocart?slug={{obj.slug}}";
+		}
+		else{
+			var fd=document.getElementById('tovib');
+			fd.classList.add('vibrate');
+			setTimeout(function(){
+				fd.classList.remove('vibrate');
+			},1000);
+		}
+	}
+
+
+	function wishlist(){
+		var sdd=document.getElementById('wish');
+		sdd.classList.add('visi');
+		setTimeout(function(){
+			sdd.classList.remove('visi');
+		},1000)
+	}
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="wish" id="wish">
+	<img src="{% static 'img/heart.gif' %}">
+	<!-- <img src="{% static 'img/heart1.gif' %}"> -->
+</div>
+
+
+
+<div class="row">
+	<div class="container-fluid">
+		<div class="row mt-2 ml-2" style="border-bottom: 1px solid grey;">
+			<h6 style="color: grey; cursor: pointer;" class="fontcabin">{{obj.product_Category}} / {{obj.product_Subcategory}} / {{obj.product_Supercategory}} / </h6><h6 class="fontcabin" style="cursor: pointer;"><b>{{obj.title}}</b></h6>
+
+			{% if obj.seller.email == request.user.email %}
+			<a href="/products/{{obj.slug}}/edit" class="hov-a" style="margin-left: auto;margin-right: 5vw">Edit Product</a>
+			{% endif %}
+		</div>
+		<div class="row mt-3">
+			<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="row my-2">
+					<div class="col-5 pri_img" style="margin-left: 5px">
+						<img src="{{obj.image1.url}}">
+					</div>
+					{% if obj.image2 %}
+					<div class="col-5 sec_img" style="margin-left: 5px">
+						<img src="{{obj.image2.url}}" style="width: 20vw; height: 45vh;">
+					</div>
+					{% endif %}
+				</div>
+				<div class="row my-2">
+					{% if obj.image3 %}
+					<div class="col-5 sec_img" style="margin-left: 5px">
+						<img src="{{obj.image3.url}}" style="width: 20vw; height: 45vh;">
+					</div>
+					{% endif %}
+					{% if obj.image4 %}
+					<div class="col-5 sec_img" style="margin-left: 5px">
+						<img src="{{obj.image4.url}}" style="width: 20vw; height: 45vh;">
+					</div>
+					{% endif %}
+				</div>
+
+				<div class="row my-2">
+					{% if obj.image5 %}
+					<div class="col-5 sec_img" style="margin-left: 5px">
+						<img src="{{obj.image5.url}}" style="width: 20vw; height: 45vh;">
+					</div>
+					{% endif %}
+					<div class="col-5 sec_img" style="margin-left: 5px; text-align: center;">
+						{% qr_from_text 'http://raymondinstitutional.justgetit.in/products/'|add:obj.slug %}
+						{{ obj.product_code }}
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="row fontcabin">
+					<h2>{{obj.title}}</h2>
+
+				</div>
+				<div class="row fontcabin" style="border-bottom: 1px solid #c0bdba;">
+					<h4 style="color: grey">{{obj.notes}}</h4>
+				</div>
+				<div class="row mt-2 fontcabin">
+					<h4 id="offer_price"></h4><h5 style="color: grey; text-decoration: line-through; margin-top: 5px; margin-left: 10px;">Rs. {{obj.price}}</h5>
+					<h4 style="color: #30c5ff;">({{obj.offer}}% Off)</h4>
+					<p class="fontcabin" style="color: grey">*</p>
+					<script type="text/javascript">
+						var	tet="{{obj.price}}";
+						var tr="{{obj.offer}}";
+						tet=parseInt(tet,10);
+						tr=parseInt(tr,10);
+						var res=(tet * (100 - tr))/100;
+
+						console.log(res);
+						var hj=document.getElementById('offer_price').innerHTML="Rs. "+res.toString();
+					</script>
+				</div>
+				{% if sizes.0 %}
+				<div class="row mt-2">
+					<h6><b>SELECT SIZE</b></h6>
+				</div>
+				<div class="row mt-2" id="tovib">
+					{% for i in sizes %}
+						<div class="col-1 centered fontcabin size" id="{{i}}" onclick="selectsize('{{i}}',{% for j in sizes %}{% if j == i %}{% else %}'{{j}}',{% endif %}{% endfor %});">
+						{{i}}
+						</div>
+					{% endfor %}
+				</div>
+				{% endif %}
+				<div class="row colors" id="colors" style="display: none;">
+					<div class="container-fluid">
+						<div class="row mt-2">
+							<h6><b>SELECT COLOR</b></h6>
+						</div>
+
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-6 ml-auto mr-auto">
+						<button class="addtocart" onclick="addtocart();">Add to cart</button>
+					</div>
+					<div class="col-6 ml-auto mr-auto">
+						<button class="wishlist" onclick="wishlist();">Wishlist</button>
+					</div>
+				</div>
+
+
+				<div class="row mt-3">
+					<h6><b>BEST OFFERS</b></h6>
+				</div>
+				<div class="container-fluid" style="border-bottom: 1px solid #c0bdba;">
+				{% for o in obj.bestoffers.all %}
+				<a href="/products/offers/{{o.slug}}" class="hov-a"><div class="container-fluid my-3" style="box-shadow: 0 0 3px solid black; cursor: pointer;">
+					<div class="row">
+						<h6><b>{{o.title}}</b></h6>
+					</div>
+					<div class="row">
+						<h6>{{o.note}}</h6>
+					</div>
+				</div></a>
+				{% endfor %}
+				</div>
+				{% if attributes %}
+				<div class="row mt-4">
+					<h6><b>Product Attributes</b></h6>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						{% for attr in attributes %}
+						<div class="row">
+							<p style="color: grey; margin-bottom: 0;"><b>{{ attr.0 }}</b> : {{attr.1}}</p>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% endif %}
+				<div class="row">
+
+					{% for d in data %}
+					{% if d.1 %}
+					<div class="col-6">
+						<div class="row">
+							<p style="color: grey; margin-bottom: 0;font-size: .8em;">{{d.0}}</p>
+						</div>
+						<div class="row">
+							<h6>{{d.1}}</h6>
+						</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+				</div>
+				<div class="row mt-4">
+					<h6><b>Product Description</b></h6>
+				</div>
+				<div class="row mt-2" id="final_description">
+					{{obj.description|safe}}
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4 mb-4 ml-2 centered">
+			<h5><b>Request Products</b></h5>
+		</div>
+    <div class="row">
+      <form method="post" style="width:100%;">{% csrf_token %}
+
+      <div class="container">
+        <div class="row" style="margin-left:35%;">
+          <label><b>From</b></label>
+          <select name="from_user" required style="margin-left:8vw;">
+            <option disabled selected>------------</option>
+            {% for i in from_user %}
+              <option value="{{i.email}}">{{i.email}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="row mt-3" style="margin-left:35%;">
+          <label><b>Size</b></label>
+          <select name="size" required style="margin-left:8.3vw;">
+            <option disabled selected>------------</option>
+            {% for i in size %}
+              <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="row mt-3" style="margin-left:35%;">
+          <label><b>Color</b></label>
+          <select name="color" required style="margin-left:8vw;">
+            <option disabled selected>------------</option>
+            {% for i in colors %}
+              <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="row mt-3" style="margin-left:35%;">
+          <label><b>Price At</b></label>
+          <input type="number" name="price_at" placeholder="Price" style="margin-left:6.5vw;">
+        </div>
+        <div class="row mt-3" style="margin-left:35%;">
+          <label><b>Quantity</b></label>
+          <input type="number" name="quantity" placeholder="Quantity" style="margin-left:6.5vw;">
+        </div>
+        <div class="row mt-3" style="margin-left:35%;">
+          <label><b>Delivery Address</b></label>
+          <textarea name="delivery" rows="3" cols="20" placeholder="Delivery Address" class="ml-3"></textarea>
+        </div>
+        <div class="row centered mt-4 mb-4">
+          <button type="submit" style="background-color:#30c5ff;border:none; font-weight:bold;border-radius:10px;" class="py-2 px-5">Request</button>
+        </div>
+        </form>
+      </div>
+    </div>
+	</div>
+</div>
+
+
+
+
+
+{% endblock %}

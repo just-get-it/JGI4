@@ -1,0 +1,133 @@
+{% extends 'channels/planner/student_base.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    .stf-app > h2 {
+        margin-top: 25px;
+        color: #833499;
+        text-align: center;
+    }
+    .stf-app .colu-3 {
+        width: 30%;
+        margin-top: 25px;
+        float: left;
+        border: 1px solid gray;
+        border-radius: 20px;
+        margin-left: 25px;
+        padding: 0;
+        box-shadow: 5px 5px 20px 7px rgba(183,183,200,0.25), -5px -5px 20px 7px rgba(183,183,200,0.22);
+        cursor: pointer;
+        transition: 0.4s;
+    }
+    .stf-app .colu-3:hover {
+        transform: scale(0.9, 0.9);
+        box-shadow: 5px 5px 30px 15px rgba(183,183,200,0.25), -5px -5px 30px 15px rgba(183,183,200,0.22);
+    }
+    .stf-app .card-header {
+        height: 150px;
+        background-color: #833499!important;
+        color: #FEE8CD;
+        text-align: center;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+    .stf-app .card-header > .row {
+        display: block;
+    }    
+    .stf-app .card-header > .row h5 {
+        padding-top: 25px;
+    }
+    .stf-app .colu-3 .card-body {        
+        padding-left: 20px;
+        padding-right: 20px;
+        color:#AAADB5;
+        height: 450px;
+    }
+
+    .stf-app .colu-3 .card-body .row {
+        display: block;
+        margin: unset;
+    }
+
+    .stf-app .colu-3 .card-body .row > div {
+        padding: 0
+    }
+
+    .stf-app .colu-3 .card-body .row .textright {
+        display: block;
+        text-align: center;
+    }
+    .stf-app .colu-3 .card-body .textright a {
+        text-align: center;
+        background-color: #833499!important;
+        color: #AAADB5;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .stf-app .colu-3 .card-body .textright a:hover {
+        background-color: #F07F03!important;
+        color: white;
+    }
+    @media only screen and (max-width: 768px){
+        .stf-app .colu-3 {
+            width: 85%!important;
+        }
+        .textright a {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+</style>
+<div class="conatiner stf-app">
+    {% if internships %} 
+    <h2>Internship Applications</h2>    
+    {% for internship in internships %}
+    <div class="colu-3 colu-sm-12">
+        <div class="card-header">
+            <div class="row">
+                <h5><strong>{{internship.title}}</strong></h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <p><strong> Type Of Internship: </strong>{{internship.type.type}}</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Location:  </strong>{% for city in internship.cities.all %}{{city}} {% endfor %}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Start Date: </strong>{{internship.start_date_from}} to {{internship.start_date_to}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Duration: </strong>{{internship.duration}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Apply By: </strong>{{internship.apply_by}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Stipend:</strong>{{internship.stipend}}</p>
+                </div>
+            </div>
+            <div class="row textright">
+                <a href="{% url 'single_internship' internship_id=internship.id %}" type="btn-btn primary">View Internship</a>
+                <a href="{% url 'applicants' internship_id=internship.id %}">View Applications</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %} 
+    {% else %}
+    <div class="row">
+        <h3> You have no applications! </h3>
+    </div>
+</div>
+{% endif %}
+<script>
+$(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(4)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(4) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+{% endblock %}

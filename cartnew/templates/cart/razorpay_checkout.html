@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %} {% load crispy_forms_tags %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    
+    .dot {
+        border: 1px solid grey;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <h4 style="color: red;">* DO NOT PRESS BACK OR REFRESH PAGE UNTIL PAYMENT IS DONE</h4>
+                <h4> Order: </h4>
+                <h4 class="col text-right" id="cart_total">Total: ₹{{cartTotal}}/-</h4>
+            </div>
+            <hr> {% if cartdata %} {% for cartItem in cartdata %}
+            <div class="row">
+                <div class="col-2">
+                    <img height="100" width="100">
+                </div>
+                <div class="col-7">
+                    <h5>{{cartItem.product.title}}</h5>
+                    <h6>{{ cartItem.size_color.size }} {{ cartItem.size_color.unit }} <span class="dot" style="background-color: {{cartItem.size_color.color}};"></span></h6>
+                    <br>
+                </div>
+                <div class="col-1">
+                    <p>Qty:</p>
+                    <h6>{{cartItem.quantity}}</h6>
+                </div>
+                <div class="col-1">
+                    <h5>₹{{cartItem.total}}</h5>
+                </div>
+            </div>
+
+            <br> {% endfor %} {% endif %}
+        </div>
+        <div class="col">
+            <div class="row">
+                <!-- <h3><i class="fas fa-shopping-cart"></i> Cart:</h3> -->
+                <h4> Shipping Address: </h4>
+            </div>
+            <hr>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <h6>{{toAddress.name}}</h6>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="height: 75px;">
+                        <p>{{toAddress.shipping_address}}, {{toAddress.city}}-{{toAddress.pin_code}}, {{toAddress.state}}</p>
+                    </div>
+                    <p class="card-text"><strong>Phone No.: {{toAddress.phone}}</strong></p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="{% url 'paymentstatus' %}" method="POST">
+        {% csrf_token %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_9joF0fVvCUMOZC" data-amount="{% widthratio order.total 1 100 %}" data-currency="INR" data-buttontext="Pay with Razorpay" data-name="Just Get It" data-description="Test transaction"
+            data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRpWzPOB8s9WRX7JXZ96x1oPESu-eoN5YUFfDKcebTKFn7piPBS&usqp=CAU" data-prefill.name="{{ order.customer.name }}" data-prefill.email="{{ order.customer.email }}" data-prefill.contact="{{ order.customer.phone }}"
+            data-order_id="{{razorpay_od_id}}" data-theme.color="#F37254"></script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+    </form>
+</div>
+{% endblock %}

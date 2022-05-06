@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %} {% load crispy_forms_tags %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    
+    .dot {
+        border: 1px solid grey;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+{% endblock %} {% block content %}
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <!-- <h3><i class="fas fa-shopping-cart"></i> Cart:</h3> -->
+                <h4> Order: </h4>
+                <h4 class="col text-right" id="cart_total">Total: ₹ {% if cartTotal < 10000 %} {{cartTotal|add:101 }} {% else %}
+                {{cartTotal}}
+                {% endif %}/-</h4>
+            </div>
+            <hr> {% if cartdata %} {% for cartItem in cartdata %}
+            <div class="row">
+                <div class="col-2">
+                    <img height="100" width="100">
+                </div>
+                <div class="col-7">
+                    <h5>{{cartItem.product.title}}</h5>
+                    <h6>{{ cartItem.size_color.size }} {{ cartItem.size_color.unit }} <span class="dot" style="background-color: {{cartItem.size_color.color}};"></span></h6>
+                    <br>
+                </div>
+                <div class="col-1">
+                    <p>Qty:</p>
+                    <h6>{{cartItem.quantity}}</h6>
+                </div>
+                <div class="col-1">
+                    <h5>₹{{cartItem.total}}</h5>
+                </div>
+            </div>
+
+            <br> {% endfor %} {% endif %}
+        </div>
+        <div class="col">
+            <div class="row">
+                <!-- <h3><i class="fas fa-shopping-cart"></i> Cart:</h3> -->
+                <h4> Shipping Address: </h4>
+            </div>
+            <hr>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <h6>{{toAddress.name}}</h6>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="height: 75px;">
+                        <p>{{toAddress.shipping_address}}, {{toAddress.city}}-{{toAddress.pin_code}}, {{toAddress.state}}</p>
+                    </div>
+                    <p class="card-text"><strong>Phone No.: {{toAddress.phone}}</strong></p>
+                    <div class="row text-center">
+                        <div class="col">
+                            <a href="{% url 'selectaddress' %}" class="btn btn-primary btn-block">Change Address</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4>Payment Method: Cash On Delivery</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9 text-center">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="radio" id="cod" name="payment_method" value="cod">
+                    <label for="cod">Cash On Delivery</label><br>
+                    <input type="radio" id="razorpay" name="payment_method" value="razorpay">
+                    <label for="razorpay">RazorPay</label><br>
+                </div>
+                <button type="submit" name="confirm_order" value="{{toAddress.id}}" class="btn btn-primary">Confirm Order</button>
+            </form>
+        </div>
+        <div class="col-3 text-center">
+            {% if cartTotal > 10000 %}
+            <p> You are eligible for free delivery. </p>
+            {% else %}
+            <p> You are not eligible for free delivery. <br> Rs. 101 - Delivery Charges will be applied. </p>
+            {%endif%}
+        </div>
+    </div>
+</div>
+<br>
+<br>{% endblock %}

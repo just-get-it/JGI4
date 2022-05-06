@@ -1,0 +1,419 @@
+{% load static %}
+
+
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+	<link rel='stylesheet' href="{%static 'styles\reports.css' %}">
+
+
+<!----------------------------------->
+  <!-- semantic UI --
+  <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+  Chart js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+  
+
+  
+  
+       <!---------------------------------------------------->
+
+
+
+
+
+</head>
+
+<body background = '{% static "..\static\images\9.jpg" %}'>
+
+  <header>
+    <div class="maindiv">
+      <nav class="navbar">
+        <ul>
+            <li class="home_btn"><a href="../">HOME</a> </li>
+              <li class="reports_btn"><a href="#">REPORTS</a> </li>
+                <li><a href="#charts">CHARTS</a> </li>
+              <li><a href="#">About</a> </li>
+            <li><a href="#">Contact</a> </li>
+          </ul>
+        </nav>
+      </div>
+
+
+
+
+
+
+<center>
+<form method="POST" action ="reports" onsubmit='makechart()'>
+  {% csrf_token %} 
+  <br>
+  <br><br><br><br>
+<table style="border-width: initial;border-color:rgb(135, 0, 189)">
+
+  <tr style="height:50px;">
+    <td colspan=9 align=center style="border-width: initial;border-color:rgb(135, 0, 189); font-weight: bold;">UTILIZATION GAP</td>
+    
+  </tr>
+
+  <tr>
+    
+    <td colspan=0 align=center style="font-weight: bold;">Factory:</td>
+    <td colspan=0 align=center>
+	<select name="factory_name">
+      <option value="Gini & Jony">Gini & Jony</option>
+      <option value="Fact 2">Fact 2</option>
+      <option value="Fact 3">Fact 3</option>
+      <option value="Fact 4">Fact 4</option>
+      <option value="Fact 5">Fact 5</option>
+      <option value="Fact 6">Fact 6</option>
+      <option value="Fact 7">Fact 7</option>
+      <option value="Fact 8">Fact 8</option>
+    </select></td>
+  <td colspan=0 align=center style="font-weight: bold;">Department :
+    </td>
+    <td align=center> 
+      <select style="width: 80px;"  name=selected_floor_no>
+        <option value="A3">A3</option>
+        <option value="A4">A4</option>
+      </select>
+  </td>
+
+	
+	<td colspan=1 align=center style="font-weight: bold;">Section:</td>
+  <td>
+      <select name="section_no" style="width: 80px;font-weight: bold;">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+      </select>
+    </td>
+    
+    
+    
+    <td  align=center colspan="2" style="font-weight: bold;">Date :
+    <input type="date" style="width: 150px;" onchange="xyzab()"  name="selected_date" id="selected_date"></td>
+     <td colspan=1 align=center><input type="submit"   name='submit'></td>
+
+
+  </tr>
+  
+  <tr>
+
+    
+  </tr>
+ <td colspan=9 class="blankrow"></td>
+ 
+ 
+  <tr>
+    <td colspan=2 align=center>By Activity sampling :</td>
+	<td colspan=1 align=center>100 Operators</td>
+	
+    
+  <td colspan=5 align=right style="font-weight: bold;">Duration :</td>
+  <td align=center style="font-weight: bold;">8 Hours</td>
+  </tr>
+  <tr>
+    <td colspan=9 align=left style="height: 30px;color:red;font-weight: bold">{{output_info}}</td>
+        
+  </tr>
+  
+  <tr>
+    <td align=center style="border-width: medium; font-weight: bold;border-left-color:rgb(135, 0, 189);">S.No.</td>
+     
+    <td colspan=1 align=center style="border-width: medium; font-weight: bold;">ACTIVITY</td>
+	<td align=center style="border-width: medium; font-weight: bold;">Task</td>
+    <td align=center style="border-width: medium; font-weight: bold;">Occasions</td>
+	<td align=center style="border-width: medium; font-weight: bold;">Percent</td>
+	<td align=center style="border-width: medium; font-weight: bold;">Percent Sewing Time</td>
+	<td align=center style="border-width: medium; font-weight: bold;">Standard</td>
+	<td align=center style="border-width: medium; font-weight: bold;">Scope of Improvement</td>
+	<td align=center style="border-width: medium; font-weight: bold;border-right-color:rgb(135, 0, 189);">Notes</td>
+	
+  </tr>
+  
+  <tr>
+    <td align=center rowspan='3'>1</td>
+	<td align=center rowspan='3'>Normal Productive Work</td>
+	<td align=center>Sew and Handle</td>	
+	<td align=center id='total_sew_handle_value'>{{object_seperation.total_sew_handle_value}}</td>
+	<td align=center rowspan="3">{{object_calculations.percent_sew_handle}}{{object_calculations.percent_symbol}}</td>
+	<td align=center rowspan="3">{{object_calculations.sew_sewing_time}}{{object_calculations.percent_symbol}}</td>
+	<td align=center rowspan="3">{{object_calculations.total_sewhandle_shears_standard}}{{object_calculations.percent_symbol}}</td> 
+	<td align=center rowspan="3"></td>
+	<td align=center>-</td>
+  </tr>
+  
+  <tr>
+  <td align=center>Shears</td>
+  <td align=center id='total_shears_value'>{{object_seperation.total_shears_value}}</td>
+	<td align=center>-</td>
+	</tr>
+  
+  <tr> 
+	<td align=center>Total</td>
+  <td align=center id='total_sewhandle_shears_value'>{{object_calculations.total_sewhandle_shears_value}}</td>
+	<td align=center>-</td>
+	
+       </tr>
+
+  <tr>
+    <td align=center>2</td>
+	<td align=center>Bundle Handling / Parts layout</td>
+	<td align=center></td>
+	<td align=center>{{object_seperation.total_Bundle_value}}</td>
+	<td align=center>{{object_calculations.percent_Bundle_value}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.Bundle_value_sewing_time}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.Bundle_value_standard}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.Bundle_value_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+	
+    </tr>
+
+  <tr>
+    <td align=center>3</td>
+	<td align=center>Machine Delay</td>
+	<td align=center>TB, TC, BC, NC</td>
+	<td align=center>{{object_seperation.total_machine_delay_value}}</td>
+	<td align=center>{{object_calculations.percent_machine_delay_value}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.machine_delay_value_sewing_time}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.machine_delay_value_standard}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.machine_delay_value_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+	
+	
+  </tr>
+  
+  <tr>
+    <td align=center>4</td>
+	<td align=center>Machine Breakdown</td>
+	<td align=center></td>
+	<td align=center>{{object_seperation.total_machine_breakdown_value}}</td>
+	<td align=center>{{object_calculations.percent_machine_breakdown_value}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.machine_breakdown_value_sewing_time}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.machine_breakdown_value_standard}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.machine_breakdown_value_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+        </tr>
+
+  <tr>
+    <td align=center>5</td>
+	<td align=center>Personal and Fatigue</td>
+    <td align=center></td>
+	<td align=center>{{object_seperation.total_pf_value}}</td>
+	<td align=center>{{object_calculations.percent_pf_value}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.pf_value_sewing_time}}{{object_calculations.percent_symbol}}</td>   
+	<td align=center>{{object_calculations.pf_value_standard}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.pf_value_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+		</tr>
+
+  <tr>
+    <td align=center>6</td>
+	<td align=center>Waiting Time</td>
+	<td align=center></td>
+	<td align=center>{{object_seperation.total_wt_value}}</td>
+	<td align=center>{{object_calculations.percent_wt_value}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.wt_value_sewing_time}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.wt_value_standard}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.wt_value_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+       </tr>
+	   
+	<tr>
+    <td align=center>7</td>
+	<td align=center>Others</td>
+	<td align=center>Repair, talk with supervisor & others, looking around</td>
+	<td align=center>{{object_seperation.total_others_value}}</td>
+	<td align=center>{{object_calculations.percent_others_value}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.others_value_sewing_time}}{{object_calculations.percent_symbol}}</td> 
+	<td align=center>{{object_calculations.others_value_standard}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.others_value_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+       </tr>
+	   
+	 
+	<tr>
+    <td align=center>8</td>
+	<td align=center>Total Occurance</td>
+	<td align=center></td>
+	<td align=center>{{object_calculations.total_occurance}}</td>
+	<td align=center>{{object_calculations.total_percents}}{{object_calculations.percent_symbol}}</td> 
+	<td align=center>{{object_calculations.total_sewing_time_percent}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.total_standard_values}}{{object_calculations.percent_symbol}}</td>
+	<td align=center>{{object_calculations.total_soi}}{{object_calculations.percent_symbol}}</td>
+	<td align=center></td>
+       </tr>
+
+ <tr>
+  
+     <td colspan=9 align=center class="blankrow">  </td>
+  </tr>
+    
+  
+
+  <tr>
+    <td colspan=9>Note : TB- Thread Breakage, TC- Thread Change, BC- Bobbin Change, NC- Needle Change</td>
+        
+  </tr>
+  
+  <tr>
+	<td colspan=1 align=center class="blankrow">  </td>
+     <td colspan=3 align=left style="border-width: none; font-weight: bold;">Total opportunity for improvement</td>
+	 <td colspan=5 align=left >{{object_calculations.total_soi}}{{object_calculations.percent_symbol}}</td>
+  </tr>
+  
+  
+  
+  <tr>
+		<td colspan=1 align=center class="blankrow">  </td>
+     <td colspan=3 align=left style="border-width: none; font-weight: bold;">Acheivable improvement</td>
+	 <td colspan=1 align=left >{{object_calculations.acheivable_imporvement}}{{object_calculations.percent_symbol}}</td>
+	 
+	 <td colspan=2 align=center style="border-width: none; font-weight: bold;">Estimated Efficiency</td>
+	 <td colspan=2 align=left >{{object_calculations.estimated_efficiency}}{{object_calculations.percent_symbol}}</td>
+  </tr>
+
+
+  </table>
+
+  <br><br><br><br><br>
+
+ 
+ 
+</center>
+
+<section id="charts"></section>
+<div id='all_canvas_holder'>
+  <div id="canvas-holder">
+    <h2 align='center' style="color: blanchedalmond;">Utilisation {{selected_floor_no}} assembly</h2>
+      <canvas id="first_myChart"></canvas>
+  </div>
+
+  <div id="canvas-holder">
+    <h2 align='center' style="color: blanchedalmond;">Utilisation Gap -{{selected_floor_no}} assembly</h2>
+    
+    <canvas id="second_myChart"></canvas>
+  </div>
+</div>
+
+
+
+
+</header> 
+
+
+
+</body>
+
+<script type='text/javascript'>
+
+  if ( window.history.replaceState ){
+    window.history.replaceState(null,null,window.location.href);
+  }
+
+
+  window.onload = function makechart(){
+    
+      var ctx = document.getElementById('first_myChart').getContext('2d'); 
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+                  labels: ["Normal Productive Work","Bundle Handling / Parts layout","Machine Delay","Machine Breakdown","Personal and Fatigue","Waiting Time","Others"],
+                  datasets: [{
+                                label: '# of Votes',
+                                data: [{{object_calculations.percent_sew_handle}},{{object_calculations.percent_Bundle_value}},{{object_calculations.percent_machine_breakdown_value}},{{object_calculations.percent_machine_delay_value}},{{object_calculations.percent_others_value}},{{object_calculations.percent_pf_value}},{{object_calculations.percent_wt_value}}],
+                                backgroundColor: [
+                                                  'rgba(255, 99, 132, 0.2)',
+                                                  'rgba(54, 162, 235, 0.2)',
+                                                  'rgba(255, 206, 86, 0.2)',
+                                                  'rgba(75, 192, 192, 0.2)',
+                                                  'rgba(153, 102, 255, 0.2)',
+                                                  'rgba(255, 159, 64, 0.2)'
+                                                ],
+                                  borderColor:  [
+                                                  'rgba(255, 99, 132, 1)',
+                                                  'rgba(54, 162, 235, 1)',
+                                                  'rgba(255, 206, 86, 1)',
+                                                  'rgba(75, 192, 192, 1)',
+                                                  'rgba(153, 102, 255, 1)',
+                                                  'rgba(255, 159, 64, 1)'
+                                                ],
+                                  borderWidth: 1
+                            }]
+                },
+          options: {
+              responsive : true,
+              maintainAspectRatio:false,
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: false
+                      }
+                  }]
+              }
+          }
+      });
+   
+      var ctx = document.getElementById('second_myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: ["Bundle Handling / Parts layout","Machine Delay","Machine Breakdown","Personal and Fatigue","Waiting Time","Others"],
+              datasets: [{
+                  label: '# of Votes',
+                  data: [ {{object_calculations.Bundle_value_soi}},{{object_calculations.machine_breakdown_value_soi}},{{object_calculations.machine_delay_value_soi}},{{object_calculations.others_value_soi}},{{object_calculations.pf_value_soi}},{{object_calculations.wt_value_soi}} ],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              responsive : true,
+              maintainAspectRatio:false,
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: false
+                      }
+                  }]
+              }
+          }
+      });
+    }
+      
+        
+      </script>
+
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Upload</title>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in forms %}
+        <label>{{ field.label }}</label>
+        <div>{{field}} </div>
+
+        {% endfor %}
+        <button type="submit">upload</button>
+
+        <a href="/userdetail/staff_profile/orders/sizeassortment"> viewlist </a>
+
+        <a href="/userdetail/staff_profile/orders/generate">Generate Packing</a>
+        <br>
+        <a href="/userdetail/staff_profile/orders/viewlist">Show Packing</a>
+    </form>
+</head>
+<body>
+
+</body>
+</html>

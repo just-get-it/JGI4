@@ -1,0 +1,147 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+  <style type="text/css">
+    td,th{
+      border: 1px solid white;
+    }
+  </style>
+  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+  <div class="container text-center">
+    <h1>OPERATOR WINDOW TICKET REPORT</h1>
+  </div><br>
+   <div class="container">
+    <form enctype="multipart/form-data" method="POST" action="windowreport">
+      {% csrf_token %}
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Operator ID</label>
+        <div class="col-sm-10">
+            <input type="text" name="opid" id="opid" required>
+        </div>
+      </div>
+      <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Select Operation</label>
+            <div class="col-sm-10 op">
+              <select id="operation" name="operation" required>
+                <option value="dart stitch">Dart Stitch</option>
+                <option value="panel attach">Panel Attach</option>
+                <option value="chest welt attach">Chest Welt Attach</option>
+                <option value="facing att">Facing Att</option>
+                <option value="chest canvas attach">Chest Canvas Attach</option>
+                <option value="side seam">Side Seam</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Select date</label>
+        <div class="col-sm-10">
+            <input type="text" name="date" id="tbDate" required>
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary">
+    </form>
+  </div><br>
+  <div class="container">
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Line no:</label>
+        <div class="col-sm-10">
+            {% for i in userp %}
+              <p>{{ i.line_no }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Product:</label>
+        <div class="col-sm-10">
+            {% for i in userp %}
+              <p>{{ i.product_category }}</p>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+        <br>
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead style="background-color: #2E2D2D;color: white">
+                    <tr>
+                      <th>S.No</th>
+                      <th>Operator ID</th>
+                      <th>Operator Name</th>
+                      <th>Operation</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody style="background-color: green;color: white">
+                    {% for i in reports %}
+                        {% if forloop.counter == 1 %}
+                          <tr>
+                            <td>{{forloop.counter }}</td>
+                            <td>{{i.operator_id }}</td>
+                            <td>{{i.operator_name }}</td>
+                            <td>{{ i.operation }}</td>
+                            <td>{{ i.date}}</td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+                  <th style="background-color: #2E2D2D;color: white">Daily Achieved</th>
+                  <td style="background-color: #337ab7;color: white">{{total}}</td>
+                  <th style="background-color: #2E2D2D;color: white">Efficiency</th>
+                  <td style="background-color: #337ab7;color: white">{{efficiency}}</td>
+                  <th style="background-color: #2E2D2D;color: white">Performance</th>
+                  <td style="background-color: #337ab7;color: white">{{performance}}</td>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Daily Target</th>
+                    <td style="background-color: #337ab7;color: white">562.5</td>
+                    <th style="background-color: #2E2D2D;color: white">Hourly Target</th>
+                    <td style="background-color: #337ab7;color: white">75</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead style="background-color: #2E2D2D;color: white">
+                    <tr>
+                      <th>H.R</th>
+                      <th>Ticket no Start</th>
+                      <th>Ticket no End</th>
+                      <th>Hourly Achieved</th>
+                      <th>WIP</th>
+                    </tr>
+                  </thead>
+                  <tbody style="background-color: green;color: white">
+                    {% for i in reports %}
+                        {% if i.ticket_no_start|slugify != '0' %}
+                          <tr >
+                            <td>{{forloop.counter }}</td>
+                            <td>{{ i.ticket_no_start }}</td>
+                            <td>{{ i.ticket_no_end }}</td>
+                            <td>{{ i.total_pieces }}</td>
+                            <td>{{ i.wip }}</td>
+                          </tr>
+                        {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+    </div>
+  <script>
+    $(document).ready(function () {
+        $('input[id$=tbDate]').datepicker({
+           dateFormat: 'dd/mm/yy'
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% load custom_tags %}
+<!--to load components/style -->
+
+{% if super_cate %}
+{% for s in  super_cate %}
+{% if s.is_component%}
+<span><label for="comp"><b>{{s}}:</b></label><span style="color: #e00;"> </span></span><br>
+{% ifequal s.input_type 'text' %}
+<input type="text" id="comp" class="drop_half1" name='label_atrribute' style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+{% else %}
+<select class="drop_half1" id="comp" name='label_atrribute' style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+    <option value="" selected disabled>-------</option>
+    {% with s.values|split as value %}
+    {% with s.component_fabric_consumption|split as consumption %}
+    {% for i, j in value|zip:consumption%}
+    <option value="{{s}}, {{i}}, {{j}}">{{i}}</option>
+    {% endfor %}
+    {% endwith %}
+    {% endwith %}
+</select>
+{% endifequal %}<br>
+{% endif %}
+{% endfor%}
+{% endif %}
+
+
+{% if pom %}
+<div class="row mb-3">
+    <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">POM's</h5>
+</div>
+{% for p in  pom %}
+{% if p.impactfull_for_sample_or_custom_fabric_consumption%}
+<span><label for="poms"><b>{{p}}:</b></label><span style="color: #e00;"></span></span><br>
+{% ifequal s.input_type 'text' %}
+<input type="text" id="poms" class="drop_half1" name='poms' style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;"><br>
+{% else %}
+<select class="drop_half1" name='poms' id="poms" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+    <option value="" selected disabled>-------</option>
+    {% with p.ranges|newline as value %}
+    {% for i in value %}
+    <option value="{{p}}, {{i}}">{{i}}</option>
+    {% endfor %}
+    {% endwith %}
+</select><br>
+{% endifequal %}
+{% endif %}
+{% endfor%}
+{% endif %}
+
+<!-- to load trims attributes -->
+{% if trims_attr %}
+{% for s in  trims_attr %}
+{% with s|split as value %}
+<span><label><b>{{value.0}}:</b></label><span style="color: #e00;"> </span></span><br>
+<input type="text" class="drop_half1" value="{{value.1}}" name='trims_atrribute' style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;"><br>
+{% endwith %}
+{% endfor%}
+{% endif %}
+
+
+{% ifequal size 'Fill'%}
+<span><label><b>Color</b></label></span>
+<span style="padding-left:21%;"><label><b>Address</b></label></span>
+<span style="padding-left:18%;"><label><b>Size</b></label></span>
+<span style="padding-left:22%;"><label><b>Quantity</b></label></span><br>
+<div id="add_assort">
+    <select name="size_color" class="drop_third1" required style="box-shadow: 0 0 1px black;margin-top: 1vh;width: 24.5%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+        <option value="" disabled selected>----</option>
+        {% for a in color %}
+        <option value="{{a}}">{{a}}</option>
+        {% endfor %}
+    </select>
+    <select name="size_address" class="drop_third2" required style="box-shadow: 0 0 1px black;margin-top: 1vh;width: 25%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+        <option value="" disabled selected>----</option>
+        {% for a in dispatch %}
+        <option value="{{a}}">{{a}}</option>
+        {% endfor %}
+    </select>
+    <select name="size_assort" class="drop_third1" required style="box-shadow: 0 0 1px black;margin-top: 1vh;width: 24.5%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+        <option value="" disabled selected>----</option>
+        {% for a in sizes %}
+        <option value="{{a}}">{{a}}</option>
+        {% endfor %}
+    </select>
+    <input type="number" class="drop_third4" name="size_quantity" placeholder="Quantity" required style="box-shadow: 0 0 1px black;margin-top: 1vh;width: 24.5%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+</div>
+<div class="row mt-2 mb-3">
+    <button type="button" id="size_assor_id" style="border: none;color: #30c5ff;background: transparent;margin-left: auto;" onclick="showAddAssort();">Add Size Assortment</button>
+</div>
+<script type="text/javascript">
+    $('#size_assor_id').click(function(event){
+    var textArea = '<select name="size_color" class="drop_third1" required style="box-shadow: 0 0 1px black;margin-top: 1vh;margin-right:0.4%;width: 24.5%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">'+
+    '<option value="" disabled selected>----</option>'+'{% for a in color %}'+'<option value="{{a}}">{{a}}</option>'+'{% endfor %}'+'</select>'+
+    '<select name="size_address" class="drop_third2" required style="box-shadow: 0 0 1px black;margin-top: 1vh;margin-right:0.4%;width: 25%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">'+
+    '<option value="" disabled selected>----</option>'+'{% for a in dispatch %}'+
+    '<option value="{{a}}">{{a}}</option>'+'{% endfor %}'+'</select>'+
+    '<select name="size_assort" class="drop_third1" required style="box-shadow: 0 0 1px black;margin-top: 1vh;width: 24.5%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">'+
+    '<option value="" disabled selected>----</option>'+'{% for a in sizes %}'+'<option value="{{a}}">{{a}}</option>'+'{% endfor %}'+'</select>'+
+    '<input type="number" class="drop_third4" name="size_quantity" placeholder="Quantity" required style="box-shadow: 0 0 1px black;margin-top: 1vh;width: 24.5%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">';
+    $("#add_assort").append(textArea);
+    $("#add_assort").append("\n<br />");
+});
+</script>
+{% endifequal %}
+
+{% if garment %}
+<!-- garment matching parameters-->
+<option disabled selected>--------</option>
+{% for g in garment_matching %}
+<option value="{{g.id}}">{{g.name}}</option>
+{% endfor %}
+{% endif %}

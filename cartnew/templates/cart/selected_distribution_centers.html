@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+    <h5>Select distribution centers</h5>
+    <form id="formsubmit" method="post">
+		{% csrf_token %}
+        <div class="form-group row">
+            <label for="node5">Pickup location</label>
+            <div class="col-sm-4">
+                <h5>{{order_item.seller_address}}</h5>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="node1">First hub</label>
+            <select required id="node1" class="form-control" name="node1">
+                <option selected disabled value="">Choose...</option>
+                {% for center in centers %}
+                  <option value="{{center.id}}">{{center.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="node2">Second hub</label>
+            <select id="node2" class="form-control" name="node2">
+                <option selected disabled value="">Choose...</option>
+                {% for center in centers %}
+                  <option value="{{center.id}}">{{center.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="node3">Third hub</label>
+            <select id="node3" class="form-control" name="node3">
+                <option selected disabled value="">Choose...</option>
+                {% for center in centers %}
+                  <option value="{{center.id}}">{{center.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="node4">Fourth hub</label>
+            <select id="node4" class="form-control" name="node4">
+                <option selected disabled value="">Choose...</option>
+                {% for center in centers %}
+                  <option value="{{center.id}}">{{center.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="node5">Fifth hub</label>
+            <select id="node5" class="form-control" name="node5">
+                <option selected disabled value="">Choose...</option>
+                {% for center in centers %}
+                  <option value="{{center.id}}">{{center.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="node5">Drop location</label>
+            <div class="col-sm-4">
+                <h5>{{order_item.shipping_address.shipping_address}}</h5>
+            </div>
+        </div>
+        <div class="form-group row">
+            <button
+                  type="submit"
+                  class="btn btn-primary btn-lg shadow-lg mt-2 px-3"
+                >
+                  Submit
+                </button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

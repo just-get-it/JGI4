@@ -1,0 +1,68 @@
+.navbar a{
+    padding: 10px;
+    margin-left: 15px;
+
+
+}
+.navbar-nav .dropdown .dropdown-menu{
+    width: 200px;
+
+}
+
+
+
+
+.navbar ul{
+    margin-right: 100px;
+}
+.navbar h5{
+    margin-left: 25px;
+}
+.container h1{
+    text-align: center;
+    margin-top: 5px;
+}
+.carousel{
+    margin-right: 15px;
+    margin-left: 15px;
+}
+.card1 , .card3 {
+    margin-top: 15px;
+    margin-right: 20px;
+
+}
+.card2{
+    margin-top: 25px;
+    margin-left: 20%;
+}
+.container-fluid{
+    background-color: cornflowerblue;
+
+    height: 500px;
+    position: relative
+
+}
+.container-fluid  .con1{
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+.con1 h5{
+    text-align: center;
+    padding: 5px;
+    font-family: sans-serif;
+    font-size: 25px;
+}
+.con1 button{
+    margin-bottom: 5px;
+}
+
+
+

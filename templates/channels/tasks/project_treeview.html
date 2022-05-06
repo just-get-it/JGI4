@@ -1,0 +1,1090 @@
+{% extends 'channels/planner/student_base.html' %} {% load static %} {% load crispy_forms_tags %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/channels/newtask.css' %}">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js'></script>
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script>
+    $(document).ready(function() {
+        $("#myCarousel").on("slide.bs.carousel", function(e) {
+            var $e = $(e.relatedTarget);
+            var idx = $e.index();
+            var itemsPerSlide = 3;
+            var totalItems = $(".carousel-item").length;
+            alert(totalItems);
+            if (idx >= totalItems - (itemsPerSlide - 1)) {
+                var it = itemsPerSlide - (totalItems - idx);
+                for (var i = 0; i < it; i++) {
+                    // append slides to end
+                    if (e.direction == "left") {
+                        $(".carousel-item")
+                            .eq(i)
+                            .appendTo(".carousel-inner");
+                    } else {
+                        $(".carousel-item")
+                            .eq(0)
+                            .appendTo($(this).find(".carousel-inner"));
+                    }
+                }
+            }
+        });
+    });
+</script>
+<style>
+    @media (min-width: 768px) {
+        /* show 3 items */
+        .carousel-inner .active,
+        .carousel-inner .active+.carousel-item,
+        .carousel-inner .active+.carousel-item+.carousel-item {
+            display: block;
+        }
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item,
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item+.carousel-item {
+            transition: none;
+        }
+        .carousel-inner .carousel-item-next,
+        .carousel-inner .carousel-item-prev {
+            position: relative;
+            transform: translate3d(0, 0, 0);
+        }
+        /*.carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }*/
+        /* left or forward direction */
+        .active.carousel-item-left+.carousel-item-next.carousel-item-left,
+        .carousel-item-next.carousel-item-left+.carousel-item,
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item,
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+        /* farthest right hidden item must be abso position for animations */
+        .carousel-inner .carousel-item-prev.carousel-item-right {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            display: block;
+            visibility: visible;
+        }
+        /* right or prev direction */
+        .active.carousel-item-right+.carousel-item-prev.carousel-item-right,
+        .carousel-item-prev.carousel-item-right+.carousel-item,
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item,
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(100%, 0, 0);
+            visibility: visible;
+            display: block;
+            visibility: visible;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            display: none!important;
+        }
+    }
+</style>
+<style>
+    ul,
+    li {
+        list-style-type: none;
+        list-style-position: inside;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .no-border {
+        padding: 0;
+        border: none;
+        background: none;
+    }
+    
+    #section-div .card-header {
+        background: linear-gradient(60deg, #7b1fa2, #913f9e)!important;
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)!important;
+    }
+    
+    @media only screen and (max-width: 768px) {
+        #buttons>div {
+            display: block!important;
+        }
+    }
+</style>
+<style>
+    ul,
+    #myUL {
+        list-style-type: none;
+    }
+    
+    #myUL {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .caret {
+        cursor: pointer;
+        -webkit-user-select: none;
+        /* Safari 3.1+ */
+        -moz-user-select: none;
+        /* Firefox 2+ */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+    }
+    
+    .caret::before {
+        content: "\25B6";
+        color: black;
+        display: inline-block;
+        margin-right: 6px;
+    }
+    
+    .caret-down::before {
+        transform: rotate(90deg);
+    }
+    
+    .nested {
+        display: none;
+    }
+    
+    .active_list {
+        display: block;
+    }
+</style>
+{% endblock %} {% block content %}<button id="new_project_btn" class="btn btn-primary" data-toggle="modal" data-target="#addProject" data-backdrop="false"> + Add Project</button> {% for pdata in project_data %}
+
+<ul id='myUl'>
+    <li><span class="caret"><button class="no-border" data-toggle="modal" data-target="#project_assign-{{pdata.0.id}}" data-backdrop="false" style="background-color: transparent;border:none;padding: 0px;">{{pdata.0.name}}</button><button class="no-border" data-toggle="modal"
+            data-target="#edit_project-{{pdata.0.id}}" data-backdrop="false" style="background-color: transparent;border:none;padding: 0px;"><i class="material-icons" style="color: white;">edit</i></button></span> {% for sdata in pdata.2 %}
+        <ul class="nested">
+            <li><span class="caret"><button class="no-border" data-toggle="modal" data-target="#sectionmodal-{{sdata.0.id}}" data-backdrop="false" style="background-color: transparent;border:none;padding: 0px;">{{sdata.0.name}}</button><button class="no-border" data-toggle="modal"
+                    data-target="#add-new-task-modal-{{sdata.0.id}}" data-backdrop="false" style="background-color: transparent;border:none;padding: 0px;"><i class="material-icons" style="color: white;">add</i></button></span>
+                <div></div> {% for tdata in sdata.1 %}
+                <ul class="nested">
+                    <li><span class="caret"><button class="no-border" data-toggle="modal" data-target="#taskmodal-{{tdata.0.id}}" data-backdrop="false" style="background-color: transparent;border:none;padding: 0px;">{{tdata.0.name}}</button></span>
+
+                    </li>
+                </ul>
+                {% endfor %}
+            </li>
+        </ul>
+        {% endfor %}
+    </li>
+</ul>
+
+<!-- PROJECT MODAL SECTION -->
+<div class="modal" tabindex="-1" id="edit_project-{{pdata.0.id}}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Project</h5>
+                <button class="btn btn-outline-danger" style="margin-left: 10px;" data-toggle="collapse" data-target="#delete-project-{{pdata.0.id}}" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="collapse text-center" style="margin-left: 10px; margin-bottom: 10px;" id="delete-project-{{pdata.0.id}}"> Are you sure? <button class="btn btn-danger" onclick="delete_project('{{pdata.0.id}}')">Yes</button> <button class="btn btn-primary" data-toggle="collapse" data-target="#delete-project" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4><input type="text" id="project_name-{{pdata.0.id}}" class="form-input" value="{{pdata.0.name}}"></h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Description</h5>
+                        <p class="card-text"><textarea rows="4" cols="40" class="form-input" id="project_desc-{{pdata.0.id}}">{{pdata.0.description}}</textarea></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="edit_project('{{pdata.0.id}}')">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="project_assign-{{pdata.0.id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4>Assigned to:</h4>
+                    </div>
+                    <div class="card-body">
+                        <p style="color: red;">* Please hold 'ctrl' while selecting multiple values</p>
+                        {{ pdata.1.assigned_to | as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="assign_project('{{pdata.0.id}}')">Assign</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PROJECT MODAL SECTION END -->
+
+<!-- TASK MODAL SECTION -->
+{% for data in pdata.2 %}
+<!-- SECTION MODAL SECTION -->
+<div class="modal fade" tabindex="-1" id="sectionmodal-{{data.0.id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title"><input type="text" id="section-name-{{data.0.id}}" value="{{data.0.name}}"></h5>
+                <button class="btn btn-outline-danger" style="margin-left: 10px;" data-toggle="collapse" data-target="#delete-section-{{data.0.id}}" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash-alt"></i></button>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="collapse text-center" style="margin-left: 10px; margin-bottom: 10px;" id="delete-section-{{data.0.id}}"> Are you sure? <button class="btn btn-danger" onclick="delete_section('{{data.0.id}}')">Yes</button> <button class="btn btn-primary" data-toggle="collapse" data-target="#delete-section-{{data.0.id}}" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+                <div class="card border-info">
+                    <div class="card-body">
+                        <p>Description: </p>
+                        <textarea id="section-description-{{data.0.id}}" rows="4" cols="40" class="form-input">{{data.0.description}}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p style="color: red;">* Please hold 'ctrl' while selecting multiple values</p>
+                        {{data.2.assigned_to|as_crispy_field}} <button type="button" class="btn btn-primary" onclick="assign_section('{{data.0.id}}')">Assign</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="edit_section('{{data.0.id}}')">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="add-new-task-modal-{{data.0.id}}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content show">
+            <div class="modal-header">
+                <h4 class="modal-title" style="background: rgba(255, 255, 255, 0.4);">Add a New Project</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label>TASK NAME</label>
+                <input type="text" id="add-new-task-{{data.0.id}}">
+                <button id="add_proj" class="btn btn-primary" onclick="add_new_task('{{data.0.id}}')">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECTION MODAL SECTION END -->
+
+{% for taskdt in data.1 %}
+<div class="modal fade" tabindex="-1" id="taskmodal-{{taskdt.0.id}}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Task </h5>
+                <button class="btn btn-outline-danger" style="margin-left: 10px;" data-toggle="collapse" data-target="#delete-task-{{taskdt.0.id}}" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash-alt"></i></button>
+                <div class="collapse" style="margin-left: 10px;" id="delete-task-{{taskdt.0.id}}"> Are you sure? <button class="btn btn-danger" onclick="delete_task('{{taskdt.0.id}}')">Yes</button> <button class="btn btn-primary" data-toggle="collapse" data-target="#delete-task-{{taskdt.0.id}}" aria-expanded="false" aria-controls="collapseExample"> No</button></div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4><input onkeyup="edit_task_name(event, '{{taskdt.0.id}}')" type="text" value="{{taskdt.0.name}}" id="taskname-{{taskdt.0.id}}"> Completed: {% if taskdt.0.is_complete %}<input type="checkbox" onclick="complete_task('{{taskdt.0.id}}')"
+                                id="taskcomplete-{{taskdt.0.id}}" checked> {% else %}<input type="checkbox" id="taskcomplete-{{taskdt.0.id}}" onclick="complete_task('{{taskdt.0.id}}')"> {% endif %}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <p><strong>Due Date: </strong><span name="taskduedate-value-{{taskdt.0.id}}">{{taskdt.0.due_date}}</span></p>
+                                <p>Update: <input type="datetime-local" id="taskduedate-{{taskdt.0.id}}"> <a href="#" style="font-size: x-large;" onclick="update_due_date('{{taskdt.0.id}}')"><i class="fa fa-floppy-o" aria-hidden="true"></i></a></p>
+                            </div>
+                            <div class="col-6">
+                                <h6>Description: <a href="#" style="font-size: x-large;" onclick="update_task_desc('{{taskdt.0.id}}')"><i class="fa fa-floppy-o" aria-hidden="true"></i></a></h6>
+                                <textarea rows="4" cols="40" class="form-input" id="taskdesc-{{taskdt.0.id}}">{{taskdt.0.description}}</textarea>
+                            </div>
+                            <div class="col-6">
+                                <h6>Check List:</h6>
+                                <ul>
+                                    {% for checklistitem in taskdt.1 %}
+                                    <li id="checklistitem-{{checklistitem.id}}">
+                                        {% if checklistitem.is_checked %}
+                                        <input type="checkbox" onclick="check_item('{{checklistitem.id}}')" id="checkbox-{{checklistitem.id}}" checked> {% else %}<input type="checkbox" id="checkbox-{{checklistitem.id}}" onclick="check_item('{{checklistitem.id}}')">                                        {% endif %}
+                                        <label class="form-check-label" for="checklist{{checklistitem.id}}">{{checklistitem.title}} <a href="#" onclick="delete_checklist('{{checklistitem.id}}')"><i class="fa fa-trash" style="color: red;" aria-hidden="true"></a></i></label>
+                                    </li>
+                                    {% endfor %}
+                                    <div id="new_checklist-{{taskdt.0.id}}">
+
+                                    </div>
+                                    <li>
+                                        <div class="collapse" id="checklistcollapse-{{taskdt.0.id}}">
+                                            <input type="text" id="newchecklist-{{taskdt.0.id}}" />
+                                            <button class="btn btn-primary btn-sm" onclick="add_checklist('{{taskdt.0.id}}')">Add</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="no-border btn-block" data-toggle="collapse" data-target="#checklistcollapse-{{taskdt.0.id}}" aria-expanded="false" aria-controls="collapseExample"><h6><i class="fas fa-plus-circle"></i></h6></button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <h6>Attachments: </h6>
+                                <ul>
+                                    {% for attachment in taskdt.2 %}
+                                    <li id="attachment-{{attachment.id}}">
+                                        <p class="text-dark">{{attachment.name}} <a download href="{{attachment.file.url}}" target="_blank" class="btn btn-sm"><i class="fas fa-download"></i></a><a href="{{attachment.file.url}}" target="_blank" class="btn btn-sm"><i class="fa fa-eye"></i></a>                                            <a href="#" onclick="delete_attachment('{{attachment.id}}')"><i class="fa fa-trash" style="color: red;" aria-hidden="true"></a></i>
+                                        </p>
+                                    </li>
+                                    {% endfor %}
+                                    <div id="new_attachment-section-{{taskdt.0.id}}">
+
+                                    </div>
+                                    <li>
+                                        <div class="collapse" id="attachmentcollapse-{{taskdt.0.id}}">
+                                            <input type="file" id="newattach-file-{{taskdt.0.id}}" />
+                                            <label>Attachment Name: </label>
+                                            <input type="text" id="newattach-name-{{taskdt.0.id}}">
+                                            <button class="btn btn-primary btn-sm" onclick="add_attachment('{{taskdt.0.id}}')">Add</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="no-border btn-block" data-toggle="collapse" data-target="#attachmentcollapse-{{taskdt.0.id}}" data-backdrop="false"><h6><i class="fas fa-plus-circle"></i></h6></button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <h6>Comments: </h6>
+                                <ul>
+                                    <div id="new_comment-section-{{taskdt.0.id}}">
+
+                                    </div>
+                                    {% for comment in taskdt.3 %}
+                                    <li>
+                                        <p><strong>{{comment.text}}</strong></p>
+                                        <p>By {{comment.commentor}} on {{comment.date_created}}</p>
+                                    </li>
+                                    {% endfor %}
+                                    <li>
+                                        <div class="collapse" id="commentcollapse-{{taskdt.0.id}}">
+                                            <input type="text" id="newcomment-{{taskdt.0.id}}" />
+                                            <button class="btn btn-primary btn-sm" onclick="add_comment('{{taskdt.0.id}}')">Add</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="no-border btn-block" data-toggle="collapse" data-target="#commentcollapse-{{taskdt.0.id}}"><h6><i class="fas fa-plus-circle"></i></h6></button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <p style="color: red;">* Please hold 'ctrl' while selecting multiple values</p>
+                                {{taskdt.4.assigned_to | as_crispy_field}} <button type="button" class="btn btn-primary" onclick="assign_task('{{taskdt.0.id}}')">Assign</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endfor %}
+<!-- TASK MODAL SECTION END -->
+<!-- SECTION MODAL SECTION -->
+<div class="modal fade" tabindex="-1" id="new_section_modal-{{pdata.0.id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Section</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card border-info">
+                    <div class="card-header text-center">
+                        <h4>Name: <input type="text" id="new_section_name"></h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Description: </p>
+                        <textarea id="new_section_description" rows="4" cols="40" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="add_section()">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addProject">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content show">
+            <div class="modal-header">
+                <h4 class="modal-title" style="background: rgba(255, 255, 255, 0.4);">Add a New Project</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label>PROJECT NAME</label>
+                <input type="text" id="project_name">
+                <button id="add_proj" class="btn btn-primary" onclick="add_project()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".ui-state-default:first-child").css("margin-top", "15px");
+        $(".ui-state-default:not(first-child)").css("margin-top", "5px");
+        var l = $(window).width()
+        if (l > 768) {
+            $(".carousel-item").slice(0, 4).addClass("active");
+            $(".carousel-item:not(.active)").hide()
+            $(".carousel-control-next").hide()
+            $(".carousel-control-prev").hide()
+            var a = $(".carousel-item").length;
+            if (a >= 4) {
+                var x = 1
+                var y = 4
+                $(".carousel-control-next").show();
+                $(".carousel-control-next").click(function() {
+                    $(".carousel-control-prev").show();
+                    var q = $(".carousel-item.active:first-child").next().next().next().index();
+                    var $f = $(".carousel-item.active:first-child");
+                    $f.index(y)
+                    var $p = $(".carousel-item.active:first-child").next().next().next();
+                    var $n = $p.next();
+                    $f.removeClass("active")
+                    $n.addClass("active")
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (q == a - 2) {
+                        $(".carousel-control-next").hide()
+                    }
+                })
+                $(".carousel-control-prev").click(function() {
+                    var q = $(".carousel-item.active:first-child").index();
+                    var $f = $(".carousel-inner .active:first-child");
+                    alert($f.index())
+                    var $p = $(".carousel-item.active:first-child").next().next().next();
+                    alert($p.html())
+                    var $n = $f.prev();
+                    $p.removeClass("active")
+                    $n.addClass("active")
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (q == 1) {
+                        $(".carousel-control-prev").hide()
+                    }
+                })
+
+            }
+        }
+    })
+    $(document).ready(function() {
+        var l = $(window).width()
+        if (l <= 768) {
+            $(".carousel-item:first-child").addClass("active")
+            $(".carousel-item:not(.active)").hide()
+            $(".carousel-control-prev").hide()
+        }
+        var total = $(".carousel-item").length;
+        $(".carousel-control-next").click(function() {
+            if (l <= 768) {
+                $(".carousel-control-prev").show()
+                var e = $(".carousel-inner > .active").index();
+                var $s = $(".carousel-item.active");
+                if (e < total - 1) {
+                    var $n = $s.next();
+                    $s.removeClass("active");
+                    $n.addClass("active");
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (e == total - 2) {
+                        $(".carousel-control-next").hide()
+                    }
+                }
+            }
+        })
+        $(".carousel-control-prev").click(function() {
+            if (l <= 768) {
+                $(".carousel-control-next").show()
+                var e = $(".carousel-inner > .active").index();
+                var $s = $(".carousel-item.active");
+                if (e >= 1) {
+                    var $n = $s.prev();
+                    $s.removeClass("active");
+                    $n.addClass("active");
+                    $(".carousel-item.active").show();
+                    $(".carousel-item:not(.active)").hide();
+                    if (e == 1) {
+                        $(".carousel-control-prev").hide()
+                    }
+                }
+            }
+        })
+    })
+</script>
+
+<!-- AJAX FUNCTIONS -->
+<script>
+    // currwork
+    function add_project() {
+        var projects_section = document.getElementById('projects_section');
+        var p_name = document.getElementById('project_name').value;
+        console.log(p_name);
+        $.ajax({
+            type: 'POST',
+            url: '{% url "ajax" %}',
+            data: {
+                action: 'add_project',
+                project_name: p_name,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.reload();
+            }
+        });
+
+    }
+
+
+    function delete_task(task_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_task',
+                task_id: task_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.reload();
+            }
+        });
+    }
+
+    function delete_section(section_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_section',
+                section_id: section_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.reload();
+            }
+        });
+    }
+
+    function delete_project(project_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_project',
+                project_id: project_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.reload();
+            }
+        });
+    }
+
+    function add_new_task(section_id) {
+        var name = $('#add-new-task-' + section_id).val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_task',
+                    name: name,
+                    section_id: section_id,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    location.reload();
+                }
+            });
+        }
+    }
+
+    function add_section() {
+        var name = $('#new_section_name').val();
+        var description = $('#new_section_description').val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_section',
+                    project_id: '{{project.id}}',
+                    name: name,
+                    description: description,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    location.reload();
+                }
+            });
+        }
+    }
+
+
+    function edit_section(section_id) {
+        var name = $('#section-name-' + section_id).val();
+        var description = $('#section-description-' + section_id).val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'edit_section',
+                    section_id: section_id,
+                    name: name,
+                    description: description,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    var pname = document.getElementsByName('section-name-' + section_id)
+                    pname.forEach(element => {
+                        element.innerText = name;
+                        console.log(element.innerText);
+                    });
+                }
+            });
+        }
+    }
+
+    function add_comment(task_id) {
+        comment = $('#newcomment-' + task_id).val();
+        comment_div = document.getElementById('new_comment-section-' + task_id);
+        if (comment.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_comment',
+                    task_id: task_id,
+                    comment: comment,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    var element = document.createElement('li');
+                    element.innerHTML = `<p><strong>` + comment + `</strong></p>
+                <p>By ` + data['commentor'] + ` on ` + data['date'] + `</p>`;
+                    comment_div.appendChild(element);
+                    $('#newcomment-' + task_id).val('');
+                }
+            });
+        }
+    }
+
+    function assign_project(project_id) {
+        var selectedValues = $('#id_project-' + project_id + '-assigned_to').val();
+        console.log(selectedValues);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'assign_project',
+                project_id: project_id,
+                assign_to: JSON.stringify(selectedValues),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+            }
+        });
+
+    }
+
+    function assign_task(task_id) {
+        var selectedValues = $('#id_' + task_id + '-task-assigned_to').val();
+        console.log(selectedValues);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'assign_task',
+                task_id: task_id,
+                assign_to: JSON.stringify(selectedValues),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+            }
+        });
+
+    }
+
+
+    function assign_section(section_id) {
+        var selectedValues = $('#id_' + section_id + '-section-assigned_to').val();
+        console.log(selectedValues);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'assign_section',
+                section_id: section_id,
+                assign_to: JSON.stringify(selectedValues),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+            }
+        });
+
+    }
+
+
+
+    function edit_task_name(e, task_id) {
+        console.log('keycode: ' + e.code);
+        console.log('task_id: ' + task_id);
+        if (e.code == "Enter") {
+            var name = $('#taskname-' + task_id).val();
+            if (name.trim() !== "") {
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'ajax' %}",
+                    data: {
+                        action: 'update_taskname',
+                        name: name,
+                        task_id: task_id,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data)
+                        var pname = document.getElementsByName('taskname-' + task_id);
+                        pname.forEach(element => {
+                            element.innerText = name;
+                        });
+                    }
+                });
+            }
+        }
+    }
+
+    function add_attachment(task_id) {
+        name = $('#newattach-name-' + task_id).val();
+        file = $('#newattach-file-' + task_id).val();
+        if (name.trim() !== "" && file.trim() !== "") {
+            var new_attach_div = document.getElementById('new_attachment-section-' + task_id);
+            var file = $('#newattach-file-' + task_id)[0].files[0]
+            var fd = new FormData();
+            fd.append('file', file);
+            fd.append('action', 'add_attachment');
+            fd.append('task_id', task_id);
+            fd.append('name', name);
+            fd.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data);
+                    attachment_id = data['attachment_id'];
+                    url = data['url'];
+                    var element = document.createElement('li');
+                    element.setAttribute('id', "attachment-" + attachment_id);
+                    element.innerHTML = `<p class="text-dark">` + name + ` <a download href="` + url + `" target="_blank" class="btn btn-sm"><i class="fas fa-download"></i></a><a href="` + url + `" target="_blank" class="btn btn-sm"><i class="fa fa-eye"></i></a><a href="#" onclick="delete_attachment('` + attachment_id + `')"><i class="fa fa-trash" style="color: red;" aria-hidden="true"></a></i>
+                                        </p>`;
+                    new_attach_div.appendChild(element);
+                    $('#newattach-file-' + task_id).val('');
+                    $('#newattach-name-' + task_id).val('');
+                }
+            });
+        }
+    }
+
+    function delete_checklist(checklist_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_checklist',
+                checklist_id: checklist_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                document.getElementById('checklistitem-' + checklist_id).remove()
+            }
+        });
+    }
+
+    function delete_attachment(attachment_id) {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'delete_attachment',
+                attachment_id: attachment_id,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                document.getElementById('attachment-' + attachment_id).remove()
+            }
+        });
+    }
+
+    function complete_task(task_id) {
+        if (document.getElementById('taskcomplete-' + task_id).checked) {
+            value = true;
+        } else {
+            value = false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'complete_task',
+                task_id: task_id,
+                value: value,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                var pname = document.getElementsByName('taskname-' + task_id);
+                pname.forEach(element => {
+                    if (value == true) {
+                        element.innerHTML = `<del>` + data['task_name'] + '</del>';
+                    } else {
+                        element.innerText = data['task_name'];
+                    }
+                });
+            }
+        });
+    }
+
+    function update_due_date(task_id) {
+        var date = $("#taskduedate-" + task_id).val();
+        if (date.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'update_due_date',
+                    task_id: task_id,
+                    date: date,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    var pname = document.getElementsByName('taskduedate-value-' + task_id);
+                    pname.forEach(element => {
+                        element.innerText = date;
+                    });
+                }
+            });
+        }
+    }
+
+    function update_task_desc(task_id) {
+        var desc = $("#taskdesc-" + task_id).val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'update_task_desc',
+                task_id: task_id,
+                description: desc,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+
+            }
+        });
+    }
+
+    function check_item(checklist_id) {
+        if (document.getElementById('checkbox-' + checklist_id).checked) {
+            value = true;
+        } else {
+            value = false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'ajax' %}",
+            data: {
+                action: 'check_item',
+                checklist_id: checklist_id,
+                value: value,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function add_checklist(task_id) {
+        checklist_title = $('#newchecklist-' + task_id).val();
+        if (checklist_title.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'add_checklist',
+                    task_id: task_id,
+                    title: checklist_title,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    checklist_id = data['checklist_id']
+                    checklist_section = document.getElementById('new_checklist-' + task_id);
+                    var element = document.createElement('li');
+                    element.setAttribute('id', "checklistitem-" + checklist_id);
+                    element.innerHTML = `<input type="checkbox" id="checkbox-` + checklist_id + `" onclick="check_item('` + checklist_id + `')">                                  
+                             <label class="form-check-label" for="checklist` + checklist_id + `">` + checklist_title + ` <a href="#" onclick="delete_checklist('` + checklist_id + `')"><i class="fa fa-trash" style="color: red;" aria-hidden="true"></a></i></label>`;
+                    checklist_section.appendChild(element);
+                    $('#newchecklist-' + task_id).val('');
+                }
+            });
+        }
+    }
+
+    function edit_project() {
+        var name = $('#project_name').val();
+        var description = $('#project_desc').val();
+        if (name.trim() !== "") {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'ajax' %}",
+                data: {
+                    action: 'edit_project',
+                    project_id: '{{project.id}}',
+                    name: name,
+                    description: description,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    var pname = document.getElementsByName('project_name')
+                    pname.forEach(element => {
+                        element.innerText = name;
+                        console.log(element.innerText);
+                    });
+                    $('#edit_project').modal('toggle');
+                    console.log('HIDING MODAL')
+                }
+            });
+        }
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(5)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(5) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+<script>
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active_list");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>
+{% endblock %}

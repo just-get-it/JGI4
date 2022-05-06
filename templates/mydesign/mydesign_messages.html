@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile_message.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mydesign/mydesign_profile.css' %}">
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+
+
+
+
+</style>
+<style media="screen">
+  .hov_subnav{
+    color:white;
+    transition: all .5s ease;
+  }
+  .hov_subnav:hover{
+    color:#253031;
+  }
+</style>
+{% endblock %}
+
+
+
+{% block topcontent %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/mydesign" class="hov-a hov_subnav" style="{% ifequal page 'design' %}color:#253031;{% endifequal %}">Feeds &nbsp;<i class="fas fa-rss-square"></i></a>
+		</div>
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/mydesign/trending" class="hov-a hov_subnav" style="{% ifequal page 'trending' %}color:#253031;{% endifequal %}">Trending &nbsp;<i class="fas fa-assistive-listening-systems"></i></a>
+
+		</div>
+
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/mydesign/notifications" class="hov-a hov_subnav" style="{% ifequal page 'notification' %}color:#253031;{% endifequal %}">Notifications &nbsp;<i class="fas fa-flag"></i></a>
+		</div>
+		<div class="col py-2 centered staff_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/mydesign/messages" class="hov-a hov_subnav" style="{% ifequal page 'message' %}color:#253031;{% endifequal %}">Messages &nbsp;<i class="fas fa-comment-alt"></i></a>
+		</div>
+		<div class="col py-2 centered b2b_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/mydesign/profile" class="hov-a hov_subnav" style="{% ifequal page 'profile' %}color:#253031;{% endifequal %}">Profile & Settings &nbsp;<i class="fas fa-cogs"></i></a>
+		</div>
+	</div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="row mt-5" style="margin-bottom: 20vh;">
+	<div class="container">
+		<div class="row my-4" style="border-bottom: 1px solid black;">
+			<h4>Messages</h4>
+		</div>
+		{% if chats.0 %}
+		{% for a in chats %}
+		<div class="row py-2 px-3 mb-3 chats" style="border: 1px solid rgba(0,0,0,.4);cursor: pointer;" onclick="showchat('{{a.id}}','{{details.email}}');">
+			<div class="col">
+				<h6 style="font-family: 'Pacifico',cursive;">{% ifequal a.user1.email details.email %}{{a.user2.name}}{% else %}{{a.user1.name}}{% endifequal %}</h6>
+			</div>
+			<div class="col">
+				<h6 style="font-family: 'Cabin', sans-serif;">
+					{% ifequal a.user1.email details.email %}
+						{% if a.user2.staff_category %}
+							{{a.user2.staff_category}}
+						{% endif %}
+						{% if a.user2.seller_category %}
+							{{a.user2.seller_category}}
+						{% endif %}
+						{% if a.user2.buisness_Customer %}
+							Buisness Customer
+						{% endif %}
+					{% else %}
+					{% if a.user1.staff_category %}
+						{{a.user1.staff_category}}
+					{% endif %}
+					{% if a.user1.seller_category %}
+						{{a.user1.seller_category}}
+					{% endif %}
+					{% if a.user1.buisness_Customer %}
+						Buisness Customer
+					{% endif %}
+					{% endifequal %}</h6>
+			</div>
+			<div class="col">
+				<h6 style="font-family: 'Cabin', sans-serif;">
+				{% ifequal a.user1.email details.email %}
+				{% if a.user2.position %}
+					{{a.user2.position}}
+				{% else %}
+					N/A
+				{% endif %}
+				{% else %}
+				{% if a.user1.position %}
+					{{a.user1.position}}
+				{% else %}
+					N/A
+				{% endif %}
+				{% endifequal %}</h6>
+			</div>
+			<div class="col">
+			<p id="{{a.user1.id}}_{{a.user2.id}}" class="centered"></p>
+				{% ifequal a.user1.email details.email %}
+				<script type="text/javascript">
+					var today=new Date();
+					var year1='{{cur.date.year}}';
+					var year2='{{a.user2.last_activity.date.year}}';
+					var month1='{{cur.date.month}}';
+					var month2='{{a.user2.last_activity.date.month}}';
+					var date1='{{cur.date.day}}';
+					var date2='{{a.user2.last_activity.date.day}}';
+					var hours1='{{cur.time.hour}}';
+					var hours2='{{a.user2.last_activity.time.hours}}';
+					var minutes1=parseInt('{{cur.time.minute}}',10);
+					var minutes2=parseInt('{{a.user2.last_activity.time.minutes}}',10);
+					var user_status=document.getElementById('{{a.user1.id}}_{{a.user2.id}}');
+					console.log(year1,year2,month1,month2,date1,date2,hours1,hours2,minutes1,minutes2);
+					if (year1==year2 && month1==month2 && date1==date2 && hours1==hours2){
+						if (minutes1-minutes2 <= 2){
+							user_status.innerHTML="Active Now";
+							user_status.style.color="green";
+						}
+						else{
+							user_status.innerHTML="Active "+(minutes1-minutes2).toString()+" minutes ago";
+							user_status.style.color="black"
+						}
+					}
+					else{
+						user_status.innerHTML="Offline";
+						user_status.style.color="red";
+					}
+					user_status.style.background="rgba(0,0,0,.1)";
+				</script>
+				{% else %}
+				<script type="text/javascript">
+					var today=new Date();
+					var year1='{{cur.date.year}}';
+					var year2='{{a.user1.last_activity.date.year}}';
+					var month1='{{cur.date.month}}';
+					var month2='{{a.user1.last_activity.date.month}}';
+					var date1='{{cur.date.day}}';
+					var date2='{{a.user1.last_activity.date.day}}';
+					var hours1='{{cur.time.hour}}';
+					var hours2='{{a.user1.last_activity.time.hour}}';
+					var minutes1=parseInt('{{cur.time.minute}}',10);
+					var minutes2=parseInt('{{a.user1.last_activity.time.minute}}',10);
+					var user_status=document.getElementById('{{a.user1.id}}_{{a.user2.id}}');
+					console.log(year1,year2,month1,month2,date1,date2,hours1,hours2,minutes1,minutes2);
+					if (year1==year2 && month1==month2 && date1==date2 && hours1==hours2){
+						if (minutes1-minutes2 <= 2){
+							user_status.innerHTML="Active Now";
+							user_status.style.color="green";
+
+						}
+						else{
+							user_status.innerHTML="Active "+(minutes1-minutes2).toString()+" minutes ago";
+							user_status.style.color="black";
+						}
+					}
+					else{
+						user_status.innerHTML="Offline"
+						user_status.style.color="red";
+					}
+					user_status.style.background="rgba(0,0,0,.1)";
+				</script>
+				{% endifequal %}
+			</div>
+		</div>
+		{% endfor %}
+		{% else %}
+		<div class="row centered" style="margin-top: 30vh;margin-bottom: 40vh;">
+			<h2 style="font-family: 'Pacifico', cursive;">Sorry No Chats Here</h2>
+		</div>
+		{% endif %}
+		<input type="hidden" id="success_chat">
+		<div class="row centered hide_row addchat" id="addchat">
+			<div class="container" style="margin-top: 20vh;margin-bottom: 20vh;height: 60vh;width: 50vw; background: white;box-shadow: 0 0 10px black;">
+
+				<div class="row" style="height: 4vh;">
+						<button style="border: none;background: transparent;margin-left: 47vw; margin-top: 2vh;" onclick="closestartchat();"><i class="fas fa-times-circle"></i></button>
+				</div>
+				<div class="row">
+					<h4 class="fontcabin" style="margin-left: 20vw;">Start New Chat</h4>
+				</div>
+				<div class="row">
+					<label style="margin-left: 4vw"><b>Staff Category</b></label>
+					<select  style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" id="staff_cate">
+						<option selected disabled>--------</option>
+						{% for a in staff_cate %}
+						<option value="{{a}}">{{a}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="row">
+					<label style="margin-left: 4vw"><b>Position</b></label>
+					<select  style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" id="staff_position">
+						<option selected disabled>--------</option>
+						<option value="H">Head</option>
+						<option value="M">Manager</option>
+						<option value="C">Staff</option>
+					</select>
+				</div>
+				<form method="POST">{% csrf_token %}
+					<div class="row">
+						<label style="margin-left: 4vw"><b>Staff</b></label>
+						<select  style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" id="staff" name="staff" required>
+							<option selected disabled>--------</option>
+						</select>
+					</div>
+					<div class="row">
+						<label style="margin-left: 4vw"><b>Message</b></label>
+						<input type="text" name="message" style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" required>
+					</div>
+					<div class="row centered">
+						<button type="submit" class="start_new_chat" style="width: 300px;margin-left: 50px;margin-right: 50px;padding-left: 100px;padding-right: 100px;margin-top: 2vh;">Start Chat</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+		<div class="row centered hide_row addchat" id="showchatforid">
+			<div class="container" style="margin-top: 20vh;margin-bottom: 20vh;height: 60vh;width: 50vw; background: white;box-shadow: 0 0 10px black;">
+
+				<div class="row" style="height: 4vh;">
+						<button style="border: none;background: transparent;margin-left: 47vw; margin-top: 2vh;" onclick="hidechatforid();"><i class="fas fa-times-circle"></i></button>
+				</div>
+				<div class="row">
+					<h4 class="fontcabin" style="margin-left: 24vw;">Chat</h4>
+				</div>
+				<div class="row" id="msgcontainer" style="width: 100%;max-height: 42vh;overflow: auto;">
+
+				</div>
+				<style type="text/css">
+					.reply_but{
+						border: none;background: #253031;color: white;font-weight: bold;border-radius: 5vw;
+						transition: all .5s ease-out;
+					}
+					.reply_but:hover{
+						background: #30c5ff;
+						color:black;
+					}
+				</style>
+				<div class="reply_container" style="position: absolute;bottom: 22vh;">
+					<input type="text" name="reply" style="width: 35vw;border: none;border-bottom: 1px solid rgba(0,0,0,.5);" placeholder="Reply !" id="rep_but" class="pl-3">
+					<input type="button" name="rep_but" value="Reply" class="px-5 py-1 ml-4 reply_but" onclick="sendreply()">
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="{% static 'js/mydesign/mydesign_message.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+{% if request.GET.user_to and chat_id %}
+<script type="text/javascript">
+	showchat('{{chat_id}}','{{request.user.email}}');
+</script>
+{% endif %}
+
+{% endblock %}

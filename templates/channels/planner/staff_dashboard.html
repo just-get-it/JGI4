@@ -1,0 +1,162 @@
+{% extends 'channels/planner/student_base.html' %} {% block content %}
+<style>
+    .stf-dsbd h1 {
+        margin-top: 25px;
+        color: #833499;
+        text-align: center;
+        display: block;
+        text-align: center;
+        width: 100%
+    }
+    .stf-dsbd .buttons {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .stf-dsbd .colu-3 {
+        margin-top: 50px;
+        width: 30%;
+        float: left;
+        border: 1px solid gray;
+        border-radius: 20px;
+        margin-left: 25px;
+        padding: 0;
+        box-shadow: 5px 5px 20px 7px rgba(183,183,200,0.25), -5px -5px 20px 7px rgba(183,183,200,0.22);
+        transition: 0.4s;
+    }
+    .stf-dsbd .colu-3:hover {
+        transform: scale(0.9, 0.9);
+        box-shadow: 5px 5px 30px 15px rgba(183,183,200,0.25), -5px -5px 30px 15px rgba(183,183,200,0.22);
+    }
+    .stf-dsbd .card-header {
+        height: 150px;
+        background-color: #833499!important;
+        color: #FEE8CD;
+        text-align: center;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+    }
+    .stf-dsbd .card-header > .row {
+        display: block;
+    }    
+    .stf-dsbd .card-header > .row h5 {
+        padding-top: 25px;
+    }
+    .stf-dsbd .colu-3 .card-body {        
+        padding-left: 20px;
+        padding-right: 20px;
+        color:#AAADB5;
+        height: 450px;
+    }
+    .stf-dsbd .card-body > .row .col {
+        display: block;
+        width: unset;
+    }
+    .stf-dsbd .card-body > .row .text-right {
+        float: right;
+    }
+    .stf-dsbd .colu-3 .card-body .row {
+        display: block;
+        margin: unset;
+    }
+
+    .stf-dsbd .colu-3 .card-body .row > div {
+        padding: 0
+    }
+
+    .stf-dsbd .colu-3 .card-body .row .textright {
+        display: block;
+        text-align: center;
+    }
+    .stf-dsbd .colu-3 .card-body .textright a {
+        text-align: center;
+        background-color: #833499!important;
+        color: #AAADB5;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .stf-dsbd .colu-3 .card-body .textright a:hover {
+        background-color: #F07F03!important;
+        color: white;
+    }
+    @media only screen and (max-width: 768px){
+        .stf-dsbd .colu-3 {
+            width: 85%!important;
+        }
+        .stf-dsbd .textright a {
+            display: block;
+            width: 100%;
+        } 
+        .stf-dsbd > div > h1 {
+            font-size: 2rem;
+        }
+        .stf-dsbd > div .buttons a {
+            margin-bottom: 10px;
+            width: 60%;
+            text-align: center;
+        } 
+    }
+</style>
+<div class="conatiner stf-dsbd">
+    <div class="row">
+        <h1>MY INTERNSHIPS</h1>
+        <div class="buttons">
+            <a class="btn btn-primary" href="{% url 'add_internship' %}">Add New Internship</a>
+            <a class="btn btn-primary" href="{% url 'add_details' %}">Edit Profile</a>
+        </div>
+    </div>
+
+    
+    {% for internship in posted_internships %}
+    <div class="colu-3">
+        <div class="card-header">
+            <div class="row">
+                <h5><strong>{{internship.title}}</strong> </h5>
+                <p>Posted By: {{internship.poster}}</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <p><strong>Company: </strong>{{internship.organization.name}}</p>
+                </div>
+                <div class="col text-right">
+                    <img src="{{internship.organization.logo.url}}" height="50" width="50">
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <p><strong> Type Of Internship: </strong>{{internship.type.type}}</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Location:  </strong>{% for city in internship.cities.all %}{{city}} {% endfor %}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Start Date: </strong>{{internship.start_date_from}} to {{internship.start_date_to}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Duration: </strong>{{internship.duration}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Apply By: </strong>{{internship.apply_by}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Stipend:</strong> {{internship.stipend}}</p>
+                </div>
+            </div>
+            <div class="row textright">
+                <a href="{% url 'edit_internship' internship_id=internship.id %}" type="btn-btn primary">Edit</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    $(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(2)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(2) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+{% endblock %}

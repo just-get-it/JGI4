@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+<style type="text/css">
+	.table_activity tr,.table_activity th,.table_activity td{
+		border: 1px solid black;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 5px
+	}
+</style>
+
+
+	<div class="container">
+		<div class="row mt-3 mb-5">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+				<img src="{{logo_img.url}}">
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+				<h1><b>{{name}}</b></h1>
+				<h6> <b>Email</b> - {{email}}</h6>
+				<h6> <b>Mission</b> - {{mission}}</h6>
+				<h6><b>GST Identification No.</b> - {{gstin}}</h6>
+			</div>
+		</div>
+		<div class="row mt-2 mb-5 buis_desc_row">
+			<h6 align="justify"><b>Description</b> : - {{desc}}</h6>
+			
+		</div>
+
+{% if enquiry.0 %}
+		<div class="row mb-5">
+			<div class="container-fluid">
+				<div class="row">
+					<h5><b>Customer Enquiry's</b></h5>
+				</div>
+			</div>
+			{% if enquiry_bool %}
+			<div class="container-fluid">
+				<div class="row orders_row">
+					
+						{% for ord in enquiry %}
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+								{% if ord.image %}
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="{{ord.image.url}}"></a>
+								{% else %}
+
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2"></a>
+								{% endif %}
+								<div class="container-fluid mt-2">
+									<div class="row">
+										<h6 class=""><b>{{ord.label}}</b></h6>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					
+				</div>
+			</div>
+			{% else %}
+						<h6>You didn't have any enquiry yet</h6>
+					{% endif %}
+		</div>
+
+{% endif %}
+
+
+{% if design.0 %}
+
+		<div class="row mb-5">
+			<div class="container-fluid">
+				<div class="row">
+					<h5><b>Customer Design's</b></h5>
+				</div>
+			</div>
+			{% if design_bool %}
+			<div class="container-fluid">
+				<div class="row orders_row">
+					
+						{% for ord in design %}
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+								{% if ord.image %}
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="{{ord.image.url}}"></a>
+								{% else %}
+
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2"></a>
+								{% endif %}
+								<div class="container-fluid mt-2">
+									<div class="row">
+										<h6 class=""><b>{{ord.label}}</b></h6>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					
+						
+				</div>
+			</div>
+			{% else %}
+			<h6>You didn't have any design yet</h6>
+					{% endif %}
+		</div>
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+{% if sample.0 %}
+		<div class="row mb-5">
+			<div class="container-fluid">
+				<div class="row">
+					<h5><b>Customer Sampling Orders</b></h5>
+				</div>
+			</div>
+			{% if sample_bool %}
+			<div class="container-fluid">
+				<div class="row orders_row">
+					
+						{% for ord in sample %}
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+								{% if ord.image %}
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="{{ord.image.url}}"></a>
+								{% else %}
+
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2"></a>
+								{% endif %}
+								<div class="container-fluid mt-2">
+									<div class="row">
+										<h6 class=""><b>{{ord.label}}</b></h6>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+				</div>
+			</div>
+					{% else %}
+						<h6>You didn't have any sampling orders yet</h6>
+					{% endif %}
+		</div>
+
+{% endif %}
+
+{% if orders.0 %}
+
+		<div class="row mb-5">
+			<div class="container-fluid">
+				<div class="row">
+					<h5><b>Customer Orders</b></h5>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row orders_row">
+					{% if order_bool %}
+						{% for ord in orders %}
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+								<a href="/buisness/buisness_order/{{ord.order_no}}"><img src="{{ord.image.url}}"></a>
+								<div class="container-fluid mt-2">
+									<div class="row">
+										<h6 class=""><b>{{ord.label}}</b></h6>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						<h6>You didn't placed any orders yet</h6>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+{% endif %}
+
+{% if activate %}
+	<form method="POST">{% csrf_token %}
+		<div class="row">
+			
+			<input type="checkbox" name="activate" class="ml-3">
+			<label class="ml-2">Activate</label>
+		</div>
+		<div class="row mt-2 mb-2 centered">
+			<button type="submit" style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="py-1 px-4">Save</button>
+		</div>
+		</form>
+	
+
+
+{% endif %}
+</div>
+
+
+{% endblock %}

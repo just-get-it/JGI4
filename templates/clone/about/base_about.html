@@ -1,0 +1,1511 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+	<meta charset = "utf-8">
+    <link href = "{% static 'css/about/jquery-ui.css' %}"     rel = "stylesheet">
+    <!-- Stylesheets
+	============================================= -->
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/bootstrap.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/style1.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/style.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/dark.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/font-icons.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/animate.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/about/magnific-popup.css' %}" type="text/css" />	
+    <link rel="stylesheet" href="{% static 'css/about/responsive.css' %}" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/about/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/about/blog-post.css' %}" rel="stylesheet">
+	
+    <!-- External JavaScripts
+	============================================= -->
+    <script type="text/javascript" src="{% static 'js/about/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/about/plugins.js' %}"></script>
+
+    <!-- Document Title
+	============================================= -->
+    <title>JustGetIt</title>
+    <link rel="icon" type="logo/png" href="{% static 'img/logo.png' %}" />
+    <style>
+        section {
+            width: 100%!important;
+        }
+        #primary-menu > ul  {
+            position: relative;
+        }
+        #primary-menu > ul > li > ul > li > ul {
+            position: absolute;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        #primary-menu ul:first-child ul:first-child {
+            position: absolute;
+            max-height: 400px;
+            max-width: 440px;
+            overflow-y: auto;
+        }
+        @media only screen and (min-width: 768px){
+            .footer-widgets-wrap .col-sm-6 {
+                padding-right: 15%;
+            }
+        }
+    </style>
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+	============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        <!-- Header
+		============================================= -->
+        <header id="header" class="full-header">
+
+            <div id="header-wrap" style="">
+
+                <div class="container clearfix">
+
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i>
+                    </div>
+
+                    <!-- Logo
+					============================================= -->
+                    <div id="logo">
+                        <a href="/about-jgi" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="{% static 'img/logo.png' %}" alt="Canvas Logo">
+                        </a>
+                        <a href="/about-jgi" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="{% static 'img/about/logo@2x.png' %}" alt="Canvas Logo">
+                        </a>
+						
+                    </div>
+                    <!-- #logo end -->
+					<!-- sign in button -->
+						
+					
+                    <!-- Primary Navigation
+					============================================= -->
+                    <nav id="primary-menu">
+                        <ul>
+                            <li>
+								 <a href="#">
+									<div>
+										Retail
+									</div>
+								</a>
+								<ul>
+                                    <li>
+                                        <a href="/b2c">
+                                        <div>B2C</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/b2b">
+                                        <div>B2B</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Personalise</div>
+                                        </a>
+                                    </li> -->
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Customise</div>
+                                        </a>
+                                    </li> -->
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Visualise</div>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="/just-connect">
+                                        <div>Socialise</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>RTW</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/b2b">
+                                        <div>Designer Wear</div>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="/gown">
+                                        <div>Gowns</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Uniforms</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/b2b">
+                                        <div>Home Furnishing</div>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="/fabric">
+                                        <div>Fabric</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Hard Goods</div>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="{% url 'phinix' %}">
+                                        <div>Interior</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Hardware</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/b2b">
+                                        <div>Accessories</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/b2b">
+                                        <div>Bags</div>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="/leather">
+                                        <div>Leather Products</div>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="/b2b">
+                                        <div>Handicrafts</div>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="/about-jgi/retail-service">
+                                        <div>Services</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/about-jgi/retail-product">
+                                        <div>Projects</div>
+                                        </a>
+                                    </li>
+                                    {% for obj in files %}
+                                        <li>
+                                            <a href="{{ obj.file.url }}">
+                                                <div>PDF View {{ obj.name }}</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ obj.file.url }}" class="btn-info" download>
+                                                    Download</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+							</li>
+							<li>
+								 <a   href="#">
+									<div>
+										Fashion
+									</div>
+								</a>
+								<ul>
+                                    <li>
+                                        <a href="/just-connect">
+                                        <div>CONNECT</div>
+                                        </a>
+                                        
+                                    </li>
+                                    <li>
+                                        <a href="/sourcing">
+                                        <div>SOURCING</div>
+                                        </a>
+                                        
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div>Product Development</div>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Branding</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Personalise</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Customise</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Visualise</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Enquiry</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Designing</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Sampling</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Ordering</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Measurement chart</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Size&Fit</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Techpack</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>3D Simulation (Product and  collection, fashion show)</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Consumption</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Lead Time</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Merchandising</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>T&A</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/about-jgi/product-planning">
+                                                    <div>Capacity Planning</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>BOM</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Costing</div>
+                                                </a>
+                                            </li>
+                                        </ul>        
+                                    </li>                
+                                                    
+                                    <li>                                                           
+                                        <a href="/about-jgi/fashion-product">
+                                            <div>Production</div>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <div>GRN</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Fabric </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Trims</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Roll Planning</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Spreading</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>CAD</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/about-jgi/attendance-module">
+                                                    <div>Attendance Operator Performance</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Planning</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Sewing</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/about-jgi/machine-maintenance">
+                                                    <div>Maintenance</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/about-jgi/quality-control">
+                                                    <div>Quality</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Finishing </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Warehouse</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Logistic</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Material Tracking</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Layout</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>SMED</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Line Balancing</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Visual Management</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Order Report</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Lean</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Automation</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <div>Factory setup</div>
+                                                </a>
+                                            </li>
+                                        </ul>   
+                                                                                
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <div>Textile</div>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="/about-jgi/fashion-textile-service">
+                                                <div>Services</div>
+                                                </a>
+                                            </li>                                            
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <div>Apparel</div>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="/about-jgi/fashion-apparel-service">
+                                                <div>Services</div>
+                                                </a>
+                                            </li>                                            
+                                        </ul>    
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <div>Home Furnishing</div>
+                                        </a>                                            
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <div>Hard Goods</div>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="/about-jgi/fashion-hardgoods-service">
+                                                <div>Services</div>
+                                                </a>
+                                            </li>                                            
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <div>Handicraft</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                        <div>Accessories</div>
+                                        </a>    
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <div>Design</div>
+                                </a>
+                                <!-- <ul>
+                                    <li>
+                                        <a href="#">
+                                        <div>Services</div>
+                                        </a> -->
+                                        <ul>
+                                            <li>
+                                                <a href="/enquiry/content-writing/">
+                                                <div>Creative Content Writing</div>
+                                                </a>
+                                            </li>
+                                            
+                                            <li>
+                                                <a href="/enquiry/graphics/">
+                                                <div>Graphics</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/enquiry/ui-ux/">
+                                                <div>UI / UX</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/enquiry/digital-marketing/">
+                                                <div>Digital Marketing</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/enquiry/3D">
+                                                <div>3D Design</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'phinix' %}">
+                                                    <div>Interior Design</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                <div>Visual Merchandising</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/about-jgi/fashion-design-service">
+                                                <div>Fashion Forcasting</div>
+                                                </a>
+                                            </li>
+                                        </ul>   
+                                    </li>
+                                    <!-- <li>
+                                        <a href="#">
+                                        <div>Projects</div>
+                                        </a>
+                                    </li>
+                                </ul>     -->
+                            </li>
+							
+						<!--	<li>
+								 <a   href="#">
+									<div>
+										Engineering
+									</div>
+								</a>
+								    <ul>
+                                            <li>
+                                                <a href="#">
+                                                <div>Services</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                <div>Projects</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                <div>Products</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+							</li>-->
+						       
+                                                                    
+							<li>
+								 <a   href="/enquiry/">
+									<div>
+										Software
+									</div>
+								</a>  
+                            
+                                <ul>
+                                    <li>
+                                        <a href="/enquiry/">
+                                            <div>
+                                                Web
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/enquiry/">
+                                            <div>
+                                                App
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/enquiry/">
+                                            <div>
+                                                ERP &amp; PLM
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/enquiry/">
+                                            <div>
+                                                Automation
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+							</li>
+                            <li>
+                                <a   href="#">
+									<div>
+										Account
+									</div>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a   href="/userdetail/login/">
+                                            <div>
+                                                Login
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% if vend_pro456 %}/userdetail/vendor_profile{% elif oim1.customer %}/userdetail/profile{% elif oim1.staff %}/userdetail/staff_profile{% elif oim1.vendor %}/userdetail/seller_profile{% elif oim1.buisness_Customer %}/buisness/buisness_profile{% elif ad789 %}/admin{% elif oim1.student %}{% url 'planner_home' %}{% elif oim1.b2b_order %}{% url 'b2b_consumer' %}{% else %}/userdetail/login{% endif %}">
+                                            <div>
+                                                Profile
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/userdetail/logout">
+                                            <div>Logout</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div>Menu</div>
+                                </a>
+
+                                <ul>
+                                    <li>
+                                        <a href="/">
+                                            <div>EXPERTS</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            <div>RESOURCES</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            <div>NEWS</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            <div>BLOGS</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            <div>INSIGHTS</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            <div>CLIENTS</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/about-jgi/contact">
+                                            <div>CONTACT US</div>
+                                        </a>
+                                    </li>
+									<li>
+                                        <a href="/">
+                                            <div>HOME</div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <!-- Top Cart
+						============================================= -->
+                        <!-- <div id="top-cart">
+							<a href="#" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>5</span></a>
+							<div class="top-cart-content">
+								<div class="top-cart-title">
+									<h4>Shopping Cart</h4>
+								</div>
+								<div class="top-cart-items">
+									<div class="top-cart-item clearfix">
+										<div class="top-cart-item-image">
+											<a href="#"><img src="images/shop/small/1.jpg" alt="Blue Round-Neck Tshirt" /></a>
+										</div>
+										<div class="top-cart-item-desc">
+											<a href="#">Blue Round-Neck Tshirt</a>
+											<span class="top-cart-item-price">$19.99</span>
+											<span class="top-cart-item-quantity">x 2</span>
+										</div>
+									</div>
+									<div class="top-cart-item clearfix">
+										<div class="top-cart-item-image">
+											<a href="#"><img src="images/shop/small/6.jpg" alt="Light Blue Denim Dress" /></a>
+										</div>
+										<div class="top-cart-item-desc">
+											<a href="#">Light Blue Denim Dress</a>
+											<span class="top-cart-item-price">$24.99</span>
+											<span class="top-cart-item-quantity">x 3</span>
+										</div>
+									</div>
+								</div>
+								<div class="top-cart-action clearfix">
+									<span class="fleft top-checkout-price">$114.95</span>
+									<button class="button button-3d button-small nomargin fright">View Cart</button>
+								</div>
+							</div>
+						</div> -->
+
+                        <!-- Top Search
+						============================================= -->
+                        <div id="top-search">
+                            <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                            <form action="search.html" method="get">
+                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                            </form>
+                        </div>
+                        <!-- #top-search end -->
+
+                    </nav>
+					
+                    
+                </div>
+
+            </div>
+
+        </header>
+        <!-- #header end -->
+
+{% block content %}
+
+{% endblock %}
+
+        <footer id="footer" class="dark" style="float: left; width: 100%;">
+
+            <div class="container">
+
+                <!-- Footer Widgets
+                ============================================= -->
+                <div class="footer-widgets-wrap clearfix">
+
+                    <div class="">
+
+                        <div class="">
+
+                            <div class="widget clearfix">
+
+                                <!-- s<img src="images/footer-widget-logo.png" alt="" class="footer-logo"> -->
+
+                                <!-- <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p> -->
+
+                                <div style="background: url('../../static/img/about/world-map.png') no-repeat center center; background-size: 100%;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <address>                                        
+                                                <strong>Headquarters:</strong><br>
+                                               <br><br>
+                                                Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204.                                 
+                                            </address>
+                                            <abbr title="Phone Number"><strong>Phone:</strong></abbr><a href="tel:+919619348557"> +91-9619348557</a>
+                                            <br>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!-- <abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br> -->
+                                            <abbr title="Email Address">
+                                            <strong>Email:</strong><a href="mailto:hr@justgetit.in"> hr@justgetit.in</a><br>
+                                            <strong>Email:</strong><a href="mailto:admin@justgetit.in"> admin@justgetit.in</a><br>
+                                            <strong>Email:</strong><a href="mailto:sales@justgetit.in"> sales@justgetit.in</a><br>
+                                            <strong>Email:</strong><a href="mailto:info@justgetit.in"> info@justgetit.in</a><br>
+                                            <strong>Email:</strong></abbr><a href="mailto:support@justgetit.in"> support@justgetit.in</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="col_one_third">
+
+                            <div class="widget widget_links clearfix">
+
+                                <h4>Blogroll</h4>
+
+                                <ul>
+                                    <li><a href="http://codex.wordpress.org/">Documentation</a></li>
+                                    <li><a href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
+                                    <li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+                                    <li><a href="http://wordpress.org/support/">Support Forums</a></li>
+                                    <li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+                                    <li><a href="http://wordpress.org/news/">WordPress Blog</a></li>
+                                    <li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+                                </ul>
+
+                            </div>
+
+                        </div> -->
+
+                        <!-- <div class="col_one_third col_last">
+
+                            <div class="widget clearfix">
+                                <h4>Recent Posts</h4>
+
+                                <div id="post-list-footer">
+                                    <div class="spost clearfix">
+                                        <div class="entry-c">
+                                            <div class="entry-title">
+                                                <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                                            </div>
+                                            <ul class="entry-meta">
+                                                <li>10th July 2014</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="spost clearfix">
+                                        <div class="entry-c">
+                                            <div class="entry-title">
+                                                <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                            </div>
+                                            <ul class="entry-meta">
+                                                <li>10th July 2014</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="spost clearfix">
+                                        <div class="entry-c">
+                                            <div class="entry-title">
+                                                <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+                                            </div>
+                                            <ul class="entry-meta">
+                                                <li>10th July 2014</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+                    <div class="col_one_third col_last">
+
+                        <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                            <div class="row">
+                                <!--   
+                                <div class="col-md-6 bottommargin-sm">
+                                    <div class="counter counter-small"><span data-from="0" data-to="132" data-refresh-interval="80" data-speed="3000" data-comma="true"></span>
+                                    </div>
+                                    <h5 class="nobottommargin">Total Deliveries</h5>
+                                </div>
+
+                                <div class="col-md-6 bottommargin-sm">
+                                    <div class="counter counter-small"><span data-from="0" data-to="47" data-refresh-interval="50" data-speed="2000" data-comma="true"></span>
+                                    </div>
+                                    <h5 class="nobottommargin">Clients</h5>
+                                </div>
+                            -->
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="widget subscribe-widget clearfix">
+
+                            <div id="widget-subscribe-form-result" data-notify-type="success" data-notify-msg=""></div>
+                            <form id="widget-subscribe-form" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-email2"></i></span>
+                                    <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="submit">Subscribe</button>
+                                    </span>
+                                </div>
+                            </form>
+                            <script type="text/javascript">
+                                $("#widget-subscribe-form").validate({
+                                    submitHandler: function(form) {
+                                        $(form).find('.input-group-addon').find('.icon-email2').removeClass('icon-email2').addClass('icon-line-loader icon-spin');
+                                        $(form).ajaxSubmit({
+                                            target: '#widget-subscribe-form-result',
+                                            success: function() {
+                                                $(form).find('.input-group-addon').find('.icon-line-loader').removeClass('icon-line-loader icon-spin').addClass('icon-email2');
+                                                $('#widget-subscribe-form').find('.form-control').val('');
+                                                $('#widget-subscribe-form-result').attr('data-notify-msg', $('#widget-subscribe-form-result').html()).html('');
+                                                SEMICOLON.widget.notifications($('#widget-subscribe-form-result'));
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                        </div> -->
+
+                        <!-- <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                            <div class="row">
+
+                                <div class="col-md-6 clearfix bottommargin-sm">
+                                    <a href="#" class="social-icon si-dark si-colored si-facebook nobottommargin" style="margin-right: 10px;">
+                                        <i class="icon-facebook"></i>
+                                        <i class="icon-facebook"></i>
+                                    </a>
+                                    <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
+                                </div>
+                                <div class="col-md-6 clearfix">
+                                    <a href="#" class="social-icon si-dark si-colored si-rss nobottommargin" style="margin-right: 10px;">
+                                        <i class="icon-rss"></i>
+                                        <i class="icon-rss"></i>
+                                    </a>
+                                    <a href="#"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to RSS Feeds</small></a>
+                                </div>
+
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+                </div>
+                <!-- .footer-widgets-wrap end -->
+
+            </div>
+
+            <!-- Copyrights
+            ============================================= -->
+            <div id="copyrights">
+
+                <div class="container clearfix">
+
+                    <div class="col_half">
+                        Copyrights &copy; 2014 JustGetIt
+                        <br>
+                        
+                    </div>
+
+                    <div class="col_half col_last tright">
+                        <div class="fright clearfix">
+                            <a href="https://www.facebook.com/justy.gety" class="social-icon si-small si-borderless si-facebook">
+                                <i class="icon-facebook"></i>
+                                <i class="icon-facebook"></i>
+                            </a>
+
+                            <a href="https://twitter.com/JUSTGETIT9" class="social-icon si-small si-borderless si-twitter">
+                                <i class="icon-twitter"></i>
+                                <i class="icon-twitter"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-gplus">
+                                <i class="icon-gplus"></i>
+                                <i class="icon-gplus"></i>
+                            </a>
+
+                            <!--
+                            <a href="#" class="social-icon si-small si-borderless si-pinterest">
+                                <i class="icon-pinterest"></i>
+                                <i class="icon-pinterest"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-vimeo">
+                                <i class="icon-vimeo"></i>
+                                <i class="icon-vimeo"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-github">
+                                <i class="icon-github"></i>
+                                <i class="icon-github"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless si-yahoo">
+                                <i class="icon-yahoo"></i>
+                                <i class="icon-yahoo"></i>
+                            </a>
+        -->
+
+                            <a href="https://www.linkedin.com/in/just-get-it-74177b1a8/" class="social-icon si-small si-borderless si-linkedin">
+                                <i class="icon-linkedin"></i>
+                                <i class="icon-linkedin"></i>
+                            </a>
+                        </div>
+
+                        <div class="clear"></div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- #copyrights end -->
+
+        </footer>
+<!-- #footer end -->
+
+    </div>
+<!-- #wrapper end -->
+
+<!-- Go To Top
+============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- Footer Scripts
+============================================= -->
+    <script type="text/javascript" src="{% static 'js/about/functions.js' %}"></script>
+    <script src="{% static 'js/about/bootstrap.min.js' %}"></script>
+</body>
+<!-- Modal -->
+<script src = "{% static 'js/about/jquery-ui.js' %}"></script>      
+<script>
+$(function() {
+//	$( "#input_date1" ).datepicker();
+//	$( "#input_date1" ).datepicker("show");
+});
+</script>
+<div id="sign_in" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Please sign in here</h4>
+            </div>
+            <div class="modal-body" style="height:290px;">
+                <div class="col-md-12 nopad">
+                    <form id="order_form" method="post">
+                        <div class="col-md-12 nopad ">
+                            <input type="text" id="email_phone" name="email_phone" placeholder="Email or Phone No" class="form-control input_box_border" />
+                            <p class="email_phone"></p>
+                        </div>
+                        <div class="col-md-12 nopad">
+                            <input type="text" id="sign_in_password" name="sign_in_password" placeholder="Password" class="form-control input_box_border" />
+                            <p class="sign_in_password"></p>
+                            <p class="sign_error"></p>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <input class="btn-success btn" type="button" value="Sign in" id="save_sign_in" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12 nopad text-center">
+                    <h5><a href="#">Forgot Password</a></h5>
+                </div>
+
+                <div class="col-md-12 nopad text-center" style="margin-top:20px;">
+                    <h5>New user please <a href="/about-jgi/new-user-sign-up/">Sign Up</a> Here.</h5>
+                </div>
+
+
+            </div>
+            <!-- end of main div -->
+
+        </div>
+        <!--  <div class="modal-footer">
+<div class="col-md-12">
+    
+    <div class="col-md-6">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div> 
+</div>-->
+</div>
+
+</div>
+</div>
+
+<div id="place_your_order_here" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Place Your Order Here</h4>
+            </div>
+            <div class="modal-body" style="height:800px;">
+                <div class="col-md-9">
+                    <form id="order_form" method="post">
+                        <!--action="save_order_form.php"-->
+                        <div class="col-md-12 nopad ">
+                            <div class="col-md-6 nopad">
+                                <input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control input_box_border" />
+                                <p class="first_name"></p>
+                            </div>
+                            <div class="col-md-6 nopad">
+                                <input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control input_box_border" />
+                                <p class="last_name"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 nopad ">
+                            <input type="text" id="phone_email" name="phone_email" placeholder="Phone no or email address" class="form-control input_box_border" />
+                            <p class="phone_email"></p>
+                        </div>
+                        <div class="col-md-12 nopad ">
+                            <input type="password" id="new_password" name="new_password" placeholder="New Password" class="form-control input_box_border" />
+                            <p class="new_password"></p>
+                        </div>
+                        <div class="col-md-12 nopad">
+                            <span class="message_display"> Birthday</span>
+                        </div>
+                        <div class="col-md-12 nopad">
+                            <input type="text" id="input_date" name="input_date">            
+        <!--<div class="col-md-4 gap">
+            <select name="DOBMonth" id="DOBmonth">
+                <option> - Month - </option>
+                <option value="January">January</option>
+                <option value="Febuary">Febuary</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+            <p class="DOBmonth"></p>
+        </div>
+        <div class="col-md-4 gap">
+            <select name="DOBDay" id="DOBDay">
+                <option> - Day - </option>
+                <?php for($i=1;$i<=31;$i++){ ?>
+                    <option value="1"><?php echo $i; ?></option>
+                <?php } ?>
+                
+            </select>
+            <p class="DOBday"></p>
+        </div>
+        <div class="col-md-4 gap">
+            <select name="DOBYear" id="DOBYear">
+                <option> - Year - </option>
+                <?php for($i=1947;$i<=2017;$i++){ ?>
+                    <option value="1947"><?php echo $i; ?></option>
+                <?php } ?>
+                
+            </select>
+            <p class="DOByear"></p>
+        </div> -->
+    </div>
+    
+    <div class="col-md-12 nopad gap ">
+        <input type="radio" id="female" name="gender" checked/>Female
+        <input type="radio" id="male" name="gender" />Male
+    </div>
+    <div> Please select product to order </div>
+    <div class="col-md-12 nopad gap">
+        <div class="col-md-3 gap" id="product_div">
+            <select name="product" id="product">
+                <option> - product - </option>
+                <option value="Water">Water</option>
+                <option value="Milk">Milk</option>
+                <option value="Vegitable">Vegitable</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Medicine">Medicine</option>
+            </select>
+        </div>	
+        <div class="col-md-3 gap" id="water_div">	
+            <select name="water" id="water">
+                <option> - Water - </option>
+                <option value="Bisleri">Bisleri</option>
+                <option value="Aquafina">Aquafina</option>
+                <option value="Savvy">Savvy</option>
+            </select>
+        </div>
+        <div class="col-md-3 gap" id="milk_div">
+            <select name="milk" id="milk">
+                <option> - Milk - </option>
+                <option value="Chitale">Chitale</option>
+                <option value="Rajhans">Rajhans</option>
+                <option value="Katraj">Katraj</option>
+                <option value="Self made">Self made</option>
+            </select>
+        </div>
+        <div class="col-md-3 gap" id="vegitable_div">
+            <select name="vegitable" id="vegitable">
+                <option> - Vegitable - </option>
+                <option value="Potato">Potato</option>
+                <option value="Onion">Onion</option>
+                <option value="Bringle">Bringle</option>
+                <option value="Tomato">Tomato</option>
+                <option value="Lemon">Lemon</option>
+                <option value="Ladies Finger">Ladies Finger</option>
+            </select>
+        </div>
+        <div class="col-md-3 gap" id="fruits_div">
+            <select name="fruits" id="fruits">
+                <option> - Fruits - </option>
+                <option value="orange">Orange</option>
+                <option value="apple">Apple</option>
+                <option value="grapes">Grapes</option>
+                <option value="papaya">Papaya</option>
+                <option value="pineapple">Pineapple</option>
+                <option value="banana">Banana</option>
+            </select>
+        
+        </div>
+        <div class="col-md-3 gap" id="qty">
+            <input type="text" id="qty" name="qty">KG
+        </div>
+        <div class="col-md-3 gap" id="ltr">
+            <input type="text" id="ltr" name="ltr">Litre
+        </div>
+        <div class="col-md-3 gap" id="medicine_div">
+            <input type="text" id="medicine" name="medicine">Medicine
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <button type="button" class="btn btn-default" onclick="alert('Hello world!')">Add next product</button>
+        <p class="add_product_order"></p>
+    </div>
+    <div class="col-md-6">
+        <input class="btn-success btn" type="submit" value="Save and Submit" id="save_submit" />
+    </div>
+</form>
+</div>
+<!-- end of main div -->
+
+</div>
+<div class="modal-footer">
+<div class="col-md-12">
+
+<div class="col-md-6">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+            
+        </div>
+        
+            
+
+
+</div>
+</div>
+
+<script src="{% static 'js/about/sweetalert.min.js' %}"></script>
+<script>
+
+
+$(document).ready(function(){
+    
+    $("#vegitable_div").css('display','none');
+    $("#water_div").css('display','none');
+    $("#milk_div").css('display','none');
+    $("#fruits_div").css('display','none');
+    $("#qty").css('display','none');
+    $("#ltr").css('display','none');
+    $("#medicine_div").css('display','none');
+})
+
+$("#product").change(function(){
+    if($("#product").val()=='Water'){
+        $("#water_div").css('display','block');
+        $("#vegitable_div").css('display','none');
+        $("#milk_div").css('display','none');
+        $("#fruits_div").css('display','none');
+        $("#qty").css('display','none');
+        $("#ltr").css('display','block');
+        $("#medicine_div").css('display','none');
+    }
+    if($("#product").val()=='Milk'){
+        $("#milk_div").css('display','block');
+        $("#vegitable_div").css('display','none');
+        $("#water_div").css('display','none');
+        $("#fruits_div").css('display','none');
+        $("#qty").css('display','none');
+        $("#ltr").css('display','block');
+        $("#medicine_div").css('display','none');
+    }
+    if($("#product").val()=='Vegitable'){
+        $("#vegitable_div").css('display','block');
+        $("#milk_div").css('display','none');
+        $("#water_div").css('display','none');
+        $("#fruits_div").css('display','none');
+        $("#qty").css('display','block');
+        $("#ltr").css('display','none');
+        $("#medicine_div").css('display','none');
+    }
+    if($("#product").val()=='Fruits'){
+        $("#fruits_div").css('display','block');
+        $("#milk_div").css('display','none');
+        $("#water_div").css('display','none');
+        $("#vegitable_div").css('display','none');
+        $("#qty").css('display','block');
+        $("#ltr").css('display','none');
+        $("#medicine_div").css('display','none');
+    }
+    if($("#product").val()=='Medicine'){
+        $("#medicine_div").css('display','block');
+        $("#fruits_div").css('display','none');
+        $("#milk_div").css('display','none');
+        $("#water_div").css('display','none');
+        $("#vegitable_div").css('display','none');
+        $("#qty").css('display','block');
+        $("#ltr").css('display','none');
+    }
+})
+  $("#signup").click(function(){
+        $("#myModal").modal();
+  }) 
+  
+
+    
+$("#signup_form").submit(function(){
+var flag=new Array();
+        var i=0;
+        if($.trim($("#first_name").val())==""){
+           $(".first_name").html("Please enter first name").css('color','red');
+           flag[i]=false;
+           i=i+1;	
+        }else{
+            $(".first_name").html("");
+            flag[i]=true;
+            i=i+1;
+        }
+        if($.trim($("#last_name").val())==""){
+           $(".last_name").html("Please enter last name").css('color','red');
+           flag[i]=false;
+           i=i+1;
+        }else{
+            $(".last_name").html("");
+            flag[i]=true;
+            i=i+1;
+        }
+        if($.trim($("#customer_address").val())==""){
+           $(".customer_address").html("Please enter  Valid Address").css('color','red');
+           flag[i]=false;
+           i=i+1;
+        }else{
+            $(".customer_address").html("");
+            flag[i]=true;
+            i=i+1;
+        }
+        
+        var email=$.trim($("#email").val());
+
+        if(email==""){
+           $(".email").html("Please enter Email address").css('color','red');
+           flag[i]=false;
+           i=i+1;
+        }else{
+                 var regexp = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+                 if(regexp.test(email)==false){
+                     $(".email").html("Please enter valid Email address").css('color','red');
+                     flag[i]=false;
+                     i=i+1;
+                 }else{
+                    $(".email").html("");
+                    flag[i]=true;
+                    i=i+1;
+                 }
+            }
+        
+        var phone=$.trim($("#phone").val());
+
+        if(phone==""){
+           $(".phone").html("Please enter Phone no").css('color','red');
+           flag[i]=false;
+           i=i+1;
+        }else{
+            
+            var isnum = /^\d+$/.test(phone);
+            if(isnum==true){
+                if(phone.length!=10){
+                    $(".phone").html("Please enter valid mobile no").css('color','red');
+                     flag[i]=false;
+                     i=i+1;
+                }else{
+                    $(".phone").html("");
+                    flag[i]=true;
+                    i=i+1; 
+                }
+                
+            }else{
+                    $(".phone").html("");
+                    flag[i]=true;
+                    i=i+1;
+                 }
+            }
+        
+        
+        
+        
+        if($.trim($("#new_password").val())==""){
+           $(".new_password").html("Please enter New password").css('color','red');
+           flag[i]=false;
+           i=i+1;
+        }else{
+            $(".new_password").html("");
+            flag[i]=true;
+            i=i+1;
+        }
+                        
+        var n=0;
+        
+        for(j=0;j<i;j++){
+            if(flag[j]==false){
+                n=n+1;
+            }
+        }
+        
+        if(n>0){
+            return false;
+        }else{
+            return true;
+        }
+    
+})	
+function signin(){
+$("#sign_in").modal();
+}
+function logout(){
+jQuery.ajax({
+        url: "logout.php",
+        data:{},
+        type: 'POST',
+        success: function(result){
+            window.location = "http://justgetit.co.in";
+        }
+    });
+}
+$("#save_sign_in").click(function(){
+    jQuery.ajax({
+        url: "check_sign_in.php",
+        data:{email:$("#email_phone").val(),password:$("#sign_in_password").val()},
+        type: 'POST',
+        success: function(result){
+            //alert(result);
+            if(result=="1"){
+                //$("#sign_in").modal('hide');
+                window.location = "http://justgetit.co.in";
+                //window.location = "http://justgetit.co.in/";
+            }else{
+                $(".sign_error").html("Invalid user name password");
+            }
+        }
+    });
+})
+</script>
+
+</html>

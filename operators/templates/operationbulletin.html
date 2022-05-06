@@ -1,0 +1,127 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+{% load operator_tags %}
+<style type="text/css">
+    td,th{
+      border: 1px solid black;
+    }
+    thead,th{
+      background-color: #2E2D2D;
+      color: white;
+    }
+    tr{
+      background-color: #fbf7f7;
+    }
+</style>
+<div class="container text-center">
+        <h1>OPERATION BULLETIN</h1>
+</div>
+<div class="container">
+    <form action="operationbulletin" method="post">
+          {% csrf_token %}
+          <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Line no</label>
+              <div class="col-sm-10">
+                <select id="lineno" name="lineno" required>
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=5>5</option>
+                </select>
+              </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Product</label>
+            <div class="col-sm-10">
+              <input type="text" name="product" id="product_category" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Select date</label>
+            <div class="col-sm-10">
+                <input type="date" name="date" id="date" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Mode</label>
+            <div class="col-sm-10">
+                <input type="radio" id="auto" name='mode' value="auto">
+                <label for="auto">Auto</label>
+                <input type="radio" id="manual" name='mode' value="manual">
+                <label for="manual">manual</label>
+            </div>
+          </div>
+          <input type="submit" name="linesubmit" value="Submit" class="btn btn-primary">
+    </form>        
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <tr>
+          <th>Product: {{ product }}</th>
+          <th>Line no: {{ lineno }}</th>
+          <th>Date: {{ inpdate }}</th>
+          <th>Mode: {{ mode }}</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S NO.</th>
+                        <th>OPERATION DESCRIPTION</th>
+                        <th>NO OF MACHINE</th>
+                        <th>NO OF OPERATORS</th>
+                        <th>OPERATOR ID</th>
+                        <th>OPERATOR NAME</th>
+                        <th>OPERATOR ID</th>
+                        <th>OPERATOR NAME</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if operator_attendences %}
+                        <tr>
+                           <td>1</td> 
+                           <td>Dart Stitch</td> 
+                           <td>1</td> 
+                           <td>{{dart_list|length}}</td>
+                           {% for dart in dart_list %}
+                                <td>{{dart.operator_id}}</td>
+                                <td>{{dart.operator_name}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                           <td>2</td> 
+                           <td>Panel Attach</td> 
+                           <td>1</td> 
+                           <td>{{panel_list|length}}</td>
+                           {% for panel in panel_list %}
+                                <td>{{panel.operator_id}}</td>
+                                <td>{{panel.operator_name}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                           <td>3</td> 
+                           <td>Side Seam</td> 
+                           <td>1</td> 
+                           <td>{{sideseam_list|length}}</td>
+                           {% for sideseam in sideseam_list %}
+                                <td>{{sideseam.operator_id}}</td>
+                                <td>{{sideseam.operator_name}}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

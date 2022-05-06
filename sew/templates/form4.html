@@ -1,0 +1,380 @@
+{% extends 'base2.html' %}
+    {% block content %}
+      {% csrf_token %}
+<div class="container text-center">
+    <h1>Generate Operation Bulletin</h1>
+</div>
+<div class="container">
+  <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Order No</label>
+        <div class="col-sm-10">
+          <select name="pfmno" required  id="pfmno">
+       
+              {% for i in gob %}
+              
+                <option value="{{ i.pfmno }}">{{ i.orderno }}</option>
+              
+              
+              {% endfor %}
+          </select>
+        </div>
+    </div>
+    
+  <br>
+  <form method="POST" action="obulletin">
+  <table id="tableid" border="1"  class="table">
+
+     <tr>
+      <th></th>
+        <th>S.No</th>
+        <th>Operations</th>
+        <th>Complexity</th>
+        <th>SPI</th>
+        <th>Stitch Length</th>
+        <th>Machine auto</th>
+        <th>Thread Consumption</th>
+        <th>Work Aid</th>
+        <th>SMV</th>
+        <th>Allowance</th>
+        <th>SAM</th>
+        <th>CT</th>
+        <th>Grade</th>
+        <th>Type</th>
+        <th>M/P Nos.</th>
+        <th>M/P Allocation</th>
+        <th>Name</th>
+        <th>OPH</th>
+        <th>Cost</th>
+    </tr>
+    </table>
+  <button class="btn btn-primary" onclick="addop()">Add More Operation</button>
+ <a href="obulletin"> <button class="btn btn-secondary" onclick ="generate()">Generate</button></a>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <table id="tableid2" border="1"  class="table">
+
+     <tr>
+        
+        <th>Operations</th>
+        <th>Complexity</th>
+        <th>SPI</th>
+        <th>Stitch Length</th>
+        <th>Machine auto</th>
+        <th>Thread Consumption</th>
+        <th>Work Aid</th>
+        <th>SMV</th>
+        <th>Allowance</th>
+        <th>SAM</th>
+        <th>CT</th>
+        <th>Grade</th>
+        <th>Type</th>
+        <th>M/P Nos.</th>
+        <th>M/P Allocation</th>
+        <th>Name</th>
+        <th>OPH</th>
+        <th>Cost</th>
+    </tr>
+     <tr> 
+        
+        <td><input type="text" name="operations" maxlength="100" required id="id_operations"></td>
+        <td><input type="number" name="complexity" value="1" required id="id_complexity"></td>
+        <td><input type="number" name="spi" value="12" required id="id_spi"></td>
+        <td><input type="number" name="stitch_length" value="3" required id="id_stitch_length"></td>
+        <td>
+          <select name="machine_auto" required id="id_machine_auto" onclick="threadvalue()">
+              <option value=""  selected>---------</option>
+              {% for i in machine_type %}
+                <option value="{{ i.thread_consumption_factor}}">{{ i.machine_name }}</option>
+                {% endfor %}
+            </select></td>
+        <td><input type="number" value="" id="id_thread_consumption" readonly name="thread_consumption_factor"></td>
+        <td><input type="text" name="work_aid" value="BINDER" maxlength="100" required id="id_work_aid"></td>
+        <td><input type="number" name="smv" value="0.33" step="0.00001" required id="id_smv"></td>
+        <td><input type="number" name="allowance" step="0.00001" required id="id_allowance"></td>
+        <td><input type="number" name="sam" value="0.53" step="0.00001" required id="id_sam"></td>
+        <td> <input type="number" name="ct" value="0.88" step="0.00001" required id="id_ct"></td>
+        <td><input type="text" name="grade" maxlength="100" required id="id_grade"></td>
+        <td><input type="text" name="type" value="" id="type"></td>
+        <td><input type="text" readonly name="mpnos" id="mpnos" onclick ="getcal()"></td>
+        <td><input type="text" id="mpall" readonly name="mpall"></td>
+        <td><input type="text" name="name" id="name"></td>
+        <td><input type="text" id="oph" value="" readonly name="oph"></td>
+        
+        <td><input type="text" id="cost" name="cost"></td>
+     </tr>
+   </table>
+   </form>
+   <a href="obulletin"><button class="btn btn-primary" id="ob">Submit And Generate Operation Bulletin</button></a>
+  
+    
+  <script>
+    var that;
+    var ever=[];
+    var order;
+    $("#ob").click(function(){
+      var operations = $('#id_operations').val();
+      var complexity = $('#id_complexity').val();
+      var spi = $('#id_spi').val();
+      var stitch_length = $('#id_stitch_length').val();
+      var machine_auto = $('#id_machine_auto').find(":selected").text();
+      var thread_consumption = $('#id_thread_consumption').val();
+      var work_aid = $('#id_work_aid').val();
+      var smv = $('#id_smv').val();
+      var allowance = $('#id_allowance').val();
+      var sam = $('#id_sam').val();
+      var ct = $('#id_ct').val();
+      var grade = $('#id_grade').val();
+      var type = $('#type').val();
+      var naa = $('#name').val();
+      var oph = $('#oph').val();
+      var cos = $('#cost').val();
+      var mpns = $('#mpnos').val();
+      var mpalll = $('#mpall').val()
+      var v=$('#pfmno').val();
+      counter=0;
+      $("input:checkbox[name='mark']:checked").each(function(){
+          z=($(this).val());    
+           console.log(that['ida'][z-1])
+           ever[counter]=(that['ida'][z-1]);
+           w[counter]=($(this).val());
+           console.log(w);
+            console.log($(this).val()+"heee");
+            counter++;
+          });
+      var ty=[];
+        var name=[];
+        var cost=[];
+      for(var i=0;i<that['count'];i++){
+      if(w[i]){
+      ty[i]=$("#type"+w[i]).val();
+    name[i]=$("#name"+w[i]).val();
+    cost[i] = $("#cost"+w[i]).val();  
+  
+    }
+    else{
+      console.log("Ell")
+    }
+    }
+var f=0
+for(var x=0;x<=ty.length;x++){
+  f=ty.length-x;
+      $.ajax({
+        url: "/sew/form4",
+        type: "GET",
+        data: {
+
+          'type1':ty[x],
+          't2':type,
+          'name2':naa,
+          'cost2':cos,
+          'oph':oph,
+          'mpnos':mpns,
+          'mpall':mpalll,
+          'check':f,
+          'name':name[x],
+          'cost':cost[x],
+          'ids':ever[x],
+          'orderno':order,
+          'operations':operations,
+          'complexity':complexity,
+          'pfmno':v,
+          'spi':spi,
+          'stitch_length': stitch_length,
+          'machine_auto': machine_auto,
+          'thread_consumption': thread_consumption,
+          'work_aid': work_aid,
+          'smv': smv,
+          'allowance': allowance,
+          'sam': sam,
+          'ct': ct,
+          'grade':grade,
+          'addoperation':true
+        },
+        success: function () {
+        alert("Sucess")
+               
+        }
+      });
+  }
+      
+    });
+
+    function getcal(){
+      var v=$("#id_sam").val();
+      var mp=(v*600)/(480/1);
+      console.log(mp);
+      $("#mpnos").val(mp);
+      $("#mpall").val(Math.round(mp));
+      x=(60/($("#id_ct").val())*mp);
+      $('#oph').val(x);
+      console.log(x)
+
+    }
+     function threadvalue(){
+      //var z=;
+      //console.log(z);
+     var x= $("#id_stitch_length").val()
+      $("#id_thread_consumption").val($("#id_machine_auto").val()*x);
+
+    }
+
+    function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+
+    $("#pfmno").change(function (){
+      var v=$('#pfmno').val();
+      order=$(this).find(':selected').text();
+
+      
+      console.log(v);
+      console.log(order);
+
+    
+      $.ajax({
+        type: "POST",
+        url: "/sew/form4",
+        data: {
+          'pfmno': v,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          that=data;
+              $('#tableid').find(".rem").remove();
+              ind=0
+                 console.log(data['count'])
+              var unique = data['dep'].filter( onlyUnique );
+              console.log(unique)
+           
+              for(var j=0;j<data['dep'].length;j++){
+                c=0
+            for(var i=0;i<data['count'];i++){
+              if (unique[j]==data['dep'][i] && c==0) {
+                  $('#tableid').append(`<tr class="rem"><td>  <label style="width: 100px;">${data['dep'][j]}</label>
+                    </td></tr>
+                <tr class="rem">
+    
+      <td><input type="checkbox" value="${i+1}" checked name="mark"> </td>
+      <td>${i+1}</td>
+        <td>${data['operations'][i]}</td>
+        <td>${data['complexity'][i]}</td>
+        <td>${ data['spi'][i] }</td>
+        <td>${data['stitch_length'][i]}</td>
+        <td>${ data['machine_auto'][i] }</td>
+        <td>${data['thread_consumption'][i]}</td>
+        <td>${ data['work_aid'][i] }</td>
+        <td>${ data['smv'][i] }</td>
+        <td>${ data['allowance'][i] }</td>
+        <td>${ data['sam'][i] }</td>
+        <td>${ data['ct'][i] }</td>
+        <td>${ data['grade'][i] }</td>
+         
+        <td><input type="text" id="type${i+1}" name="type${i+1}"></td>
+        <td id="mp${i}" value="{{ mp}}">{{ mp}}</td>
+        <td id="rmp" value="{{ rmp}}">{{ rmp}}</td>
+        <td><input type="text" id="name${i+1}" name="name${i+1}"></td>
+        <td id="oph" value="{{ oph }}">{{ oph }}</td>
+        <td><input type="text" id="cost${i+1}" name="cost${i+1}"></td>
+      
+     </tr>
+   `)
+                  c=c+1;
+              }
+              else if (unique[j]==data['dep'][i]) {
+
+              
+              
+              $('#tableid').append(`<tr class="rem">
+    
+      <td><input type="checkbox" value="${i+1}" checked name="mark"> </td>
+      <td>${i+1}</td>
+        <td>${data['operations'][i]}</td>
+        <td>${data['complexity'][i]}</td>
+        <td>${ data['spi'][i] }</td>
+        <td>${data['stitch_length'][i]}</td>
+        <td>${ data['machine_auto'][i] }</td>
+        <td>${data['thread_consumption'][i]}</td>
+        <td>${ data['work_aid'][i] }</td>
+        <td>${ data['smv'][i] }</td>
+        <td>${ data['allowance'][i] }</td>
+        <td>${ data['sam'][i] }</td>
+        <td>${ data['ct'][i] }</td>
+        <td>${ data['grade'][i] }</td>
+         
+        <td><input type="text" id="type${i+1}" name="type${i+1}"></td>
+        <td id="mp${i}" value="{{ mp}}">{{ mp}}</td>
+        <td id="rmp" value="{{ rmp}}">{{ rmp}}</td>
+        <td><input type="text" id="name${i+1}" name="name${i+1}"></td>
+        <td id="oph" value="{{ oph }}">{{ oph }}</td>
+        <td><input type="text" id="cost${i+1}" name="cost${i+1}"></td>
+      
+     </tr>
+   `)
+            }
+            }
+          }
+          }
+        });
+    });
+    var w=[];
+    function generate(){
+      console.log(that)
+          counter=0;
+          $("input:checkbox[name='mark']:checked").each(function(){
+          z=($(this).val());    
+           console.log(that['ida'][z-1])
+           ever[counter]=(that['ida'][z-1]);
+           w[counter]=($(this).val());
+           console.log(w);
+            console.log($(this).val()+"heee");
+            counter++;
+          });
+        console.log("sdsdsds"+w);
+        var ty=[];
+        var name=[];
+        var cost=[];
+  for(var i=0;i<that['count'];i++){
+      if(w[i]){
+      ty[i]=$("#type"+w[i]).val();
+    name[i]=$("#name"+w[i]).val();
+    cost[i] = $("#cost"+w[i]).val();  
+  
+    }
+    else{
+      console.log("Ell")
+    }
+    }
+    console.log(ty.length);
+    var v=$('#pfmno').val();
+    for(var x=0;x<ty.length;x++){
+    $.ajax({
+        url: "/sew/form4",
+        type: "GET",
+        data: {
+          'type1':ty[x],
+          'addoperation':false,
+          'pfmno':v,
+          'orderno':order,
+          'name':name[x],
+          'cost':cost[x],
+          'ids':ever[x],
+        },
+        success: function () {         
+        }
+      });
+  }
+
+    }
+    $("#tableid2").css("display","none")
+    $("input").css("height","45px");
+    $("input").css("width","80px");
+    $("#ob").css("display","none")
+    function addop(){
+      $("#tableid2").css("display","block")
+      $("#ob").css("display","block")
+
+    }
+  </script>
+{% endblock %}

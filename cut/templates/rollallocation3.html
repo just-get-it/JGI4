@@ -1,0 +1,37 @@
+{% extends 'basecut.html' %}
+
+{% block content%}
+<h2 style="text-align: center">Pre-final Roll Allocation</h2><br>
+<table class="table table-light table-striped table-bordered mytable" style="margin-left:10%; max-width:80%;">
+    <thead class="thead-dark">
+    <tr>
+        <!--<th scope="col">ID</th>-->
+        <th scope="col">Shade Grade</th>
+        <th scope="col">Lay No</th>
+        <th scope="col">Lay Length</th>
+        <th scope="col">Roll Lay Seq</th>
+        <th scope="col">Roll No</th>
+        <th scope="col">Roll Length</th>
+    </tr>
+    </thead>
+    {% for values in objects3 %}
+    <tr>
+        <!--<td>{{ values.id }}</td>-->
+        <td>{{ values.Shade_Grade }}</td>
+        <td>{{ values.Lay_No }}</td>
+        <td>{{ values.Lay_Length }}</td>
+        <td>{{ values.Roll_Lay_Seq }}</td>
+        <td>{{ values.Roll_No }}</td>
+        <td>{{ values.Roll_Length }}</td>
+    </tr>
+    {% endfor %}
+</table><br>
+    <div class="btn-group" style="margin-left: 40%;">
+        <a href="/cut/rollallocation/" class="btn btn-primary" role="button">
+            <span class="glyphicon">&#xe092;&nbsp;</span>Go Back
+        </a>
+        <a href="/cut/rollallocation2/" class="btn btn-primary" role="button" style="margin-left: 1px;">
+            Final Allocation <span class="glyphicon">&#xe093;</span>
+        </a>
+    </div> <br><br><br><br>
+{% endblock%}

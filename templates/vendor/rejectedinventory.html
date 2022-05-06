@@ -1,0 +1,95 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+
+{% block content %}
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #30c5ff;
+  color: white;
+}
+</style>
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+			
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center">Fabric Inventory Rejected</h3>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+			<table id="customers">
+								<tr>
+								<td>Order Number</td>
+								<td>Roll No.</td>
+								<td>Supplier Name</td>
+								<td>Lot Number</td>
+								<td>Fabric Type</td>
+								<td>Fabric Shade</td>
+								<td>Actual Roll Length</td>
+								<td>Fabric Width</td>
+								<td>Width Variation</td>
+								<td>Fabric Grade</td>
+								<td>CSV</td>
+								<td>Shade Grade</td>
+								<td>Shade variation</td>
+								<td>Shrinkage %</td>
+									<td>Status</td>
+				</tr>
+										{% for f2 in f %}
+									<tr>
+										<td>{{f2.orderNo}}</td>
+										<td>{{f2.rollNo}}</td>
+                               			<td>{{f2.supplier}}</td>
+										<td>{{f2.lotNo}}</td>
+										<td>{{f2.fabrictype}}</td>
+                                		<td>{{f2.fabricshade}}</td>
+										<td>{{f2.arl}}  {{f2.unit3}}</td>
+										<td>{{f2.fabricWidth}}  {{f2.unit1}}</td>
+										<td>{{f2.wv1}} - {{f2.wv2}} - {{f2.wv3}}</td>
+										<td>{{f2.fgrade}}</td>
+										<td>{{f2.CSV}}</td>
+										<td>{{f2.shadeGrade}}</td>
+										<td>{{f2.shadeVar}}</td>
+										<td>{{f2.shrinkage}}</td>
+										<td>{{f2.status}}</td>
+									</tr>
+									 {%endfor %}
+										</table><br><br><br>
+            </div>            
+        </div>
+    </div>
+</div>
+{% endblock %}

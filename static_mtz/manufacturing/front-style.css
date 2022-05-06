@@ -1,0 +1,69 @@
+/*===========================front  style START============================*/
+.logo_item {margin:6px;}
+.logo_item img {
+box-shadow: initial!important;
+border-radius: 0!important;
+border: 1px solid rgba(0,0,0,0.1);
+}
+
+
+
+.tls_logo_slider .owl-buttons {
+    left: 0;
+    position: absolute;
+    top: 7px;
+}
+.tls_logo_slider .owl-page span{0 0 0 4px !important}
+
+.tls_logo_slider .owl-page.active span {background: #123 !important;}
+.tls_logo_slider .owl-page span {
+  background: #123 !important;
+  border-radius: 10px !important;
+  height: 10px !important;
+  opacity: 0.5;
+  width: 10px !important;
+  margin:0 0 0 6px !important
+}
+
+#tls_logo_slider .owl-buttons div {
+  background: #123 !important;
+  border-radius: 0;
+  margin: 0 1px;
+  padding: 5px 10px;
+}
+
+.tls_logo_slider {
+    border: 1px solid #f2f2f2;
+}
+
+
+.tls_logo_slider .clickable {
+    position: relative;
+}
+
+.tls_logo_slider .owl-controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.tls_logo_slider .owl-pagination {
+    position: absolute;
+    right: 0;
+    top:8px;
+}
+
+
+.tls_logo_slider .logo_item {
+    line-height: 144px;
+    vertical-align: middle;
+}
+
+@media only screen and (min-width:320px) and (max-width:1198px){
+.tls_logo_slider .logo_item {
+    line-height: 233px !important;
+    vertical-align: middle ;
+}    
+    
+}
+
+/*=========================== front style END============================*/

@@ -1,0 +1,106 @@
+
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load qr_code %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style media="screen">
+  .but_print{
+    background:#30c5ff;
+    border:none;
+    border-radius:25vw;
+    transition:all 1s ease;
+    /* font-weight:bold; */
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .but_print:hover{
+    background:#253031;
+    color:#30c5ff;
+  }
+</style>
+<script>
+function myFunction() {
+  window.print();
+}
+</script>
+<div class="row">
+  <div class="container mt-4">
+    <div class="row">
+      <h6 style="color:grey;">Order - {{order.order_no}} / QR Generate / </h6>
+      <h6><b>&nbsp;&nbsp;Pieces QR</b></h6>
+    </div>
+
+  </div>
+  <div class="container mt-1">
+    <div class="row">
+
+      <div class="col-3">
+        <div class="container-fluid">
+
+          <div class="row">
+            {% qr_from_text data %}
+          </div>
+
+          <div class="row mb-4">
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div>Brand name:-	{{detail['Brand Name']}} </div>
+
+					<div> Label name:-	{{detail['Label Name']}} </div>
+
+					<div> category:-	{{detail['Category']}} </div>
+
+
+
+						<div> Style:- {{detail['Style']}} </div>
+                        <div>Sizes:- {{detail['Size']}} </div>
+
+						<div>Colours:-{{detail['Colour']}} </div>
+
+						<div>Net Qty:-{{detail['Net Qty']}} </div>
+
+						<div>Pkd Date:-{{detail['pkd date']}} </div>
+
+						<div>Blend:-{{detail['Blend']}}</div>
+
+						<div>MRP:-{{detail['MRP']}} </div>
+
+						<div>Address:- {{detail['address']}} </div>
+
+						<div>Contact:- {{detail['contact']}}</div>
+
+					<div>Email:- {{detail['Email']}} </div>
+
+					<div>Website:- {{detail['Website'] }}</div>
+
+    <div>Terms & conditions:-	{{detail['T&C']}}</div>
+
+
+
+<script>
+  window.print()
+</script>
+
+
+
+
+
+{% endblock %}

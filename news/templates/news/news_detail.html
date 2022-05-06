@@ -1,0 +1,158 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<main role="main" class="container">
+    <div class="starter-template">
+        <h1>{{news.headline}}</h1>
+        <span>
+            by {{news.author.username}}
+        </span>
+        <span>
+            on {{news.posted_on}}
+        </span>
+        <hr />
+        <p class="lead">{{news.content}}</p>
+
+        {% if user.is_authenticated %}
+        <form action="{% url 'news_like' news.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            {% if is_liked %}
+            <button class="btn " type="submit" name="news_id" value="{{ news.id }}">
+                <!-- Unlike -->
+                <i class="fa fa-2x fa-thumbs-up" aria-hidden="true" style="color: #36bb6e;"></i>
+            </button>
+            {%else%}
+            <button class="btn" type="submit" name="news_id" value="{{ news.id }}">
+                <!-- Like -->
+                <i class="far fa-2x fa-thumbs-up" aria-hidden="true" style="color: #129975;"></i>
+            </button>
+            {%endif%} - {{ total_likes }} Likes
+        </form>
+        <form action="{% url 'news_dislike' news.pk %}" method="post" style="display: inline;">
+            {% csrf_token %} {% if is_disliked %}
+
+            <button class="btn " type="submit" name="news_id" value="{{ news.id }}">
+                <!-- UnDislike -->
+                <i class="fas fa-2x fa-thumbs-down" aria-hidden="true" style="color:#ee5253;"></i>
+            </button>
+            {%else%}
+            <button class="btn " type="submit" name="news_id" value="{{ news.id }}">
+                <!-- Dislike -->
+                <i class="far fa-2x fa-thumbs-down" aria-hidden="true" style="color: red;"></i>
+            </button>
+            {%endif%} - {{ total_dislikes }} Unlikes 
+        </form>
+        {%else%}
+        <button class="btn btn-success" disabled>
+            <!-- Like -->
+            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        </button>
+        - {{ news.total_likes }} Likes
+        <button class="btn btn-danger" disabled>
+            <!-- disLike -->
+            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+        </button>
+        - {{ news.total_dislikes }} Dislikes
+        <a class="d-block" href="/userdetail/login/">Login to React</a>
+        {%endif%}
+        <hr />
+
+        <h4>Comments ({{comments.count}})</h4>
+
+        <hr class="mb-0">
+        <hr class="mt-0 ml-0" style="  border: 2px solid #03133a; border-radius: 7px ;width: 12vh; ">
+
+        {% if user.is_authenticated %}
+
+        <div>
+            <form action="/news/postComment" method="post">
+                {% csrf_token %}
+                <input type="text" name="comment" placeholder="Enter Comment" />
+                <input type="hidden" name="newsID" value="{{news.id}}" />
+                <input type="hidden" name="parentID" value="" />
+                <button class="btn btn-dark ml-3 " type="submit" value="Submit">Submit</button>
+            </form>
+            <br />
+        </div>
+
+        {% else %} <a href="/userdetail/login/">Login to Comment</a> {% endif %}
+
+        <!-- Comments Here -->
+
+        {% load mptt_tags %} {% recursetree comments %}
+        <div class="row comments">
+            <div class="col-md-1">
+                <img src="https://p7.hiclipart.com/preview/201/51/681/computer-icons-customer-service-user-others.jpg"
+                    alt="img" class="rounded" width="70px" height="70px" />
+            </div>
+            <div class="col-md-11">
+                <div class="row">
+                    <div class="col"><b>{{node.user.username}}</b></div>
+
+                    <div class="col">
+                        <p class=" ml-5 text-right" style="font-size: 15px;color:#777777 ;">Add 11 Oct 2016
+                            {% if user.is_authenticated %}
+                            <button class="btn btn btn-light-sm pt-0" type="button" data-toggle="collapse"
+                                data-target="#replyBox{{node.id}}" aria-expanded="false"
+                                aria-controls="#replyBox{{node.id}}">
+                                Reply
+                            </button>
+                            {%else%}
+                            <a href="/userdetail/login/">Login to Reply</a>
+                            {%endif%}</p>
+                    </div>
+                </div>
+                <div class="mydiv">{{node.comment}}</div> 
+
+                {% if user.is_authenticated %}
+                <div class="reply mx-0">
+                    <hr />
+                    <div class="collapse" id="replyBox{{node.id}}">
+                        <form action="/news/postComment" method="post">
+                            {% csrf_token %}
+                            <input type="text" name="comment" placeholder="Enter Reply" style="border-top: 0px; border-left: 0px; border-right: 0px; border-bottom: 2px solid;" />
+                            <input type="hidden" name="newsID" value="{{news.id}}" />
+                            <input type="hidden" name="parentID" value="{{node.id}}" />
+                            <input type="submit" value="Submit" />
+                        </form>
+                        <br />
+                    </div>
+                </div>
+                {%else%}
+                <a href="/userdetail/login/">Login to Reply</a>
+                {%endif%}
+                {% if not node.is_leaf_node %}
+
+                <div class="my-2" style="padding-left: 5px;">
+                    <div class="" type="button" data-toggle="collapse" data-target="#viewreplies_{{node.pk}}"
+                        aria-expanded="false" aria-controls="viewreplies_{{node.pk}}" style="padding-left: -10px;">
+                        <p style="color: #085fd4; font-weight: bolder;">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i> View Replies
+                        </p>
+                    </div>
+
+                    <div class="collapse" id="viewreplies_{{node.pk}}">
+                        {{ children }}
+                    </div>
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
+        {% endrecursetree %}
+    </div>
+</main>
+<style>
+    .comments b {
+        font-size: 22px;
+        font-weight: bold;
+        font-family: "Montserrat-Bold";
+    }
+
+    .mydiv {
+        font-size: 20px;
+    }
+</style>
+
+
+{% endblock content %}

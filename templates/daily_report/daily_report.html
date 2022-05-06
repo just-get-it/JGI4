@@ -1,0 +1,318 @@
+{% extends 'channels/planner/student_base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<title>Hello, world!</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% endblock %}
+
+
+<script>
+var modal_lv = 0;
+$('.modal').on('shown.bs.modal', function (e) {
+    $('.modal-backdrop:last').css('zIndex',1051+modal_lv);
+    $(e.currentTarget).css('zIndex',1052+modal_lv);
+    modal_lv++
+});
+
+$('.modal').on('hidden.bs.modal', function (e) {
+    modal_lv--
+});
+
+</script>
+<style>
+    .table-resizable.resizing,
+    .table-resizable th::before {
+        cursor: col-resize;
+        user-select: none;
+    }
+    
+    .table-resizable th {
+        position: relative;
+    }
+    
+    .table-resizable th::before {
+        content: '';
+        /* display: block; */
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 1em;
+    }
+    
+    .table-resizable th:last-of-type::before {
+        display: none;
+    }
+    
+    .table-resizable td {
+        /* max-width: 0; */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .ovf:hover {
+        overflow: visible;
+    }
+</style>
+
+{% block content %}
+<br>
+<br>
+<p>Filter Table:</p><a href="{% url 'unrated_reports' %}" class="btn btn-primary">Unrated Reports</a><a href="{% url 'report_staff' %}" class="btn btn-primary">All Reports</a> {% if staff %}
+<a href="{% url 'report_link' %}" class="btn btn-primary">Report Link</a>{% endif %}
+<input class="form-control" id="tableSearch" type="text" placeholder="Search..">
+<div style="min-height:50vh;">
+    <table style="min-height: 10" class="table table-bordered  table-striped
+            table-hover table-resizable">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Report</th>
+                <th scope="col">Task</th>
+                <th scope="col">Date</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Total Hours</th>
+                <th scope="col">Team Lead</th>
+                <th scope="col">Today Progress</th>
+                <th scope="col">Files</th>
+                <th scope="col">Concern</th>
+                <th scope="col">Next Plan</th>
+                <th scope="col">Files</th>
+                <th scope="col">Rating</th>
+            </tr>
+        </thead>
+        {% load to_and %}
+        <tbody id="reportTable">
+            {% for report in reports %}
+            <tr>
+                <th scope="row">{{ report.name }}</th>
+                <td>{{report.report}}</td>
+                <td>
+                    <p class="ovf" style="white-space: nowrap;
+                    width: 80px;
+                    height: 20px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;" title="{{report.task}}">{{report.task}}</p>
+                </td>
+                <td>{{report.date}}</td>
+                <td>{{report.start_time}}</td>
+                <td>{{report.end_time}}</td>
+                <td>{{report.no_of_hours}}</td>
+                <td>{{report.team_lead}}</td>
+                <td>{{report.today_progress}}</td>
+                <td>
+                    {% if report.todays_files_url %}
+                    <a target="blank" href="{{report.todays_files_url}}" class="btn btn-primary btn-sm">Files</a> {% else %}
+                    <button class="btn btn-primary btn-sm" disabled>Files</button> {% endif %}
+                </td>
+                <td>{{report.concern}}</td>
+                <td>{{report.next_plan}}</td>
+                <td>
+                    {% if report.next_plan_files_url %}
+                    <a target="blank" href="{{report.next_plan_files_url}}" class="btn btn-primary btn-sm">Files</a> {% else %}
+                    <button class="btn btn-primary btn-sm" disabled>Files</button> {% endif %}
+                </td>
+                <td>
+                    {% if staff %} {% if report.report_rating %}
+                    <input type="number" onkeyup="update_rating(event, '{{report.id}}')" value="{{report.report_rating}}" id="rating-{{report.id}}" max="10" style="width: 50px;" min="0"> {% else %}
+                    <input type="number" onkeyup="update_rating(event, '{{report.id}}')" id="rating-{{report.id}}" max="10" style="width: 50px;" min="0"> {% endif %} {% else %} {{report.report_rating}}
+                    <span></span>{% endif %}
+                </td>
+                <!-- <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{report|unique_id}}" data-backdrop="false">Files</button> -->
+                <!-- Model Starts Here -->
+                <!-- <div class="modal fade" id="{{report|unique_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-xl
+                                modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">{{ report.name }} {{ report.date }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="width:50%;float:left;">
+                                        <b>Today's Work</b>
+                                        <ul style="list-style-type: none;">
+                                            {% for file in report|to_and %}
+                                            <li><a data-toggle="modal" data-target="#{{ file|id_generate }}" style="text-decoration:none;color:black;" data-backdrop="false">{{file.filename|remove_documents}}</a></li>
+                                            <a download href="/media/documents/{{file.filename}}"><button class="btn btn-primary" >Download</button></a> -->
+                <!-- Modal -->
+                <!-- <div class="modal fade 2" id="{{ file|id_generate }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">{{file.filename|remove_documents}}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {% if file.filename|exe in documents %}
+                                                            <iframe height="500px" width="100%" src="https://docs.google.com/gview?embedded=true&url=http://ins.justgetit.in/media/documents/{{file.filename}}"></iframe> {% elif file.filename|exe in images
+                                                            %}
+                                                            <img height="100%" width="100%" src="/media/documents/{{ file.filename }}"> {% else %}
+                                                            <h2>No preview available . Please Download it</h2>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div style="width:50%;float:right;">
+                                        <b>Next Day's Work</b>
+                                        <ul style="list-style-type: none;">
+                                            {% for file in report|to_and2 %}
+                                            <li><a style="text-decoration:none;color:black;" target="_blank" href="{{file.filename|diff}}">{{file.filename|remove_next}}</a></li>
+                                            <a download href="{{file.filename|diff}}"><button class="btn btn-primary" >Download</button></a> {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn
+                                            btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td> -->
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            var startX,
+                startWidth,
+                $handle,
+                $table,
+                pressed = false;
+
+            $(document).on({
+                mousemove: function(event) {
+                    if (pressed) {
+                        $handle.width(startWidth + (event.pageX - startX));
+                    }
+                },
+                mouseup: function() {
+                    if (pressed) {
+                        $table.removeClass('resizing');
+                        pressed = false;
+                    }
+                }
+            }).on('mousedown', '.table-resizable th', function(event) {
+                $handle = $(this);
+                pressed = true;
+                startX = event.pageX;
+                startWidth = $handle.width();
+
+            $table = $handle.closest('.table-resizable').addClass('resizing');
+        }).on('dblclick', '.table-resizable thead', function() {
+            // Reset column sizes on double click
+            $(this).find('th[style]').css('width', '');
+        });
+    });
+</script>
+<script>
+    $('.modal-child').on('show.bs.modal', function() {
+        var modalParent = $(this).attr('data-modal-parent');
+        $(modalParent).css('opacity', 0);
+    });
+
+    $('.modal-child').on('hidden.bs.modal', function() {
+        var modalParent = $(this).attr('data-modal-parent');
+        $(modalParent).css('opacity', 1);
+    });
+</script>
+<script>
+    // Table filter
+    $(document).ready(function() {
+        $("#tableSearch").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#reportTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(6)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(6) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+<script>
+    function update_rating(e, report_id) {
+        if (e.code == "Enter") {
+            var rating = $("#rating-" + report_id).val()
+            if (rating.trim() !== "") {
+                $.ajax({
+                    type: 'POST',
+                    url: "",
+                    data: {
+                        action: 'rate_report',
+                        report_id: report_id,
+                        rating: rating,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    cache: false,
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data)
+                            // location.reload();
+                    }
+                });
+            }
+        }
+    }
+
+    // function save_rating(report_id) {
+    //     rating = $("#rating-" + report_id).val()
+    //     console.log('rating before: ' + rating);
+    //     if (rating !== '') {
+    //         console.log('rating after: ' + rating);
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: "",
+    //             data: {
+    //                 action: 'rate_report',
+    //                 report_id: report_id,
+    //                 rating: rating,
+    //                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+    //             },
+    //             cache: false,
+    //             dataType: "json",
+    //             success: function(data) {
+    //                 console.log(data)
+    //                 location.reload();
+    //             }
+    //         });
+    //     }
+    // }
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+<!-- 
+{% for file in report|to_and %}
+<ul><a href="/media/{{ file.filename }}">{{file.filename|remove_documents}}</a></ul>
+{% endfor %} -->

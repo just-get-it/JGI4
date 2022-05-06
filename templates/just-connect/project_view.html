@@ -1,0 +1,13 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container text-center">
+        <h5>{{project.title}}</h5>
+        <div class="project_content">
+            {{project.content |safe }}
+        </div>
+    </div>
+
+{% endblock %}

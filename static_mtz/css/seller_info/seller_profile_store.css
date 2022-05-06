@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+
+.left_menu{
+	background: #253031;
+	height: 87vh;
+	margin-top: 5vh;
+	position: sticky;
+	top: 14vh;
+}
+
+.right_menu{
+	margin-top: 5vh;
+}
+
+.menu_item{
+	/*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+  	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  	cursor: pointer;
+  	border-radius:0vw;
+  	border-bottom-left-radius: 0px;
+  	border-bottom-right-radius: 0px;
+  	border-top-left-radius: 0px;
+  	overflow: hidden;
+}
+
+
+.menu_item:hover{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.menu_item h6{
+	font-family:'Cabin', sans-serif;
+	color:#30c5ff;
+}
+
+
+
+.right_menu h4{
+	font-family: 'Cabin', sans-serif;
+}
+
+
+.top_heading{
+	background: rgba(48,197,255,.1);
+	/*width: 100%;*/
+}
+
+
+
+.contents{
+	border-bottom:1px solid rgba(0,0,0,.1);
+}
+
+
+#fits,#seasons,#washcare,#barcode,#htm,#products,#inventory,#discounts,#safety,#inventory_noti,#garment_weight{
+	display: none;
+}
+
+
+
+.no_of_sales{
+	background: #9400ff;
+	height: 15vh;
+}
+
+.low_stock{
+	background: #12BC00;
+	height: 15vh;
+}
+
+
+.to_be_packed{
+	background: #D70022;
+	height: 15vh;
+}
+
+
+.to_be_shipped{
+	background: #3f7387;
+	height: 15vh;
+}
+
+
+.to_be_delivered{
+	background: #ffa500;
+	height: 15vh;
+}
+
+
+.quantity_in_hand{
+
+}
+
+.low_stock,.no_of_sales,.to_be_packed,.to_be_shipped,.to_be_delivered,.quantity_in_hand,.quantity_to_recieved{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	cursor: pointer;
+}
+
+.low_stock:hover,.no_of_sales:hover,.to_be_packed:hover,.to_be_shipped:hover,.to_be_delivered:hover,.quantity_to_recieved:hover,.quantity_in_hand:hover{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+.fontcabin{
+	font-family: 'Cabin', sans-serif;
+}
+

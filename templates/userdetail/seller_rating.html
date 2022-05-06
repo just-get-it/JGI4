@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block customcss %}
+<style type="text/css">
+    .stars input {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+        }
+
+        .stars label {
+        box-sizing: border-box;
+        display: inline-block;
+        margin-right: 6px;
+        height: 50px;
+        width: 50px;
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='transparent' stroke='slategray' stroke-width='38' d='M259.216 29.942L330.27 173.92l158.89 23.087L374.185 309.08l27.145 158.23-142.114-74.698-142.112 74.698 27.146-158.23L29.274 197.007l158.89-23.088z' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        filter: invert(0%) sepia(70%) saturate(3136%) hue-rotate(0deg) brightness(150%) contrast(104%);
+        font-size: 0;
+        cursor: pointer;
+        }
+
+        .stars input:nth-child(1):checked ~ label:nth-of-type(-n + 1),
+        .stars input:nth-child(2):checked ~ label:nth-of-type(-n + 2),
+        .stars input:nth-child(3):checked ~ label:nth-of-type(-n + 3),
+        .stars input:nth-child(4):checked ~ label:nth-of-type(-n + 4),
+        .stars input:nth-child(5):checked ~ label:nth-of-type(-n + 5) {
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='slategray' stroke='slategray' stroke-width='38' d='M259.216 29.942L330.27 173.92l158.89 23.087L374.185 309.08l27.145 158.23-142.114-74.698-142.112 74.698 27.146-158.23L29.274 197.007l158.89-23.088z' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        filter: invert(0%) sepia(70%) saturate(3136%) hue-rotate(0deg) brightness(150%) contrast(104%)
+        }
+
+        .stars input:nth-child(1):hover ~ label:nth-of-type(-n + 1),
+        .stars input:nth-child(2):hover ~ label:nth-of-type(-n + 2),
+        .stars input:nth-child(3):hover ~ label:nth-of-type(-n + 3),
+        .stars input:nth-child(4):hover ~ label:nth-of-type(-n + 4),
+        .stars input:nth-child(5):hover ~ label:nth-of-type(-n + 5) {
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='slategray' stroke='slategray' stroke-width='38' d='M259.216 29.942L330.27 173.92l158.89 23.087L374.185 309.08l27.145 158.23-142.114-74.698-142.112 74.698 27.146-158.23L29.274 197.007l158.89-23.088z' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        filter: invert(0%) sepia(70%) saturate(3136%) hue-rotate(0deg) brightness(150%) contrast(104%)
+        }
+
+        /* 
+        PRESENTATION ONLY
+        Everything below this line is unnecessary
+        */
+
+        .textColor{
+            color: rgb(16, 16, 150);
+        }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-11 col-lg-5">
+        <form class="form-group" method="post">
+            {% csrf_token %}<div class="form-group pt-0">
+                <div class="form-group pt-0">
+                    <h5 class="textColor">Rate Seller</h5>
+                    <div class="stars">
+                        <input type="radio" id="vendor_stars1" name='vendor_stars' value="1" />
+                        <input type="radio" id="vendor_stars2" name='vendor_stars' value="2" />
+                        <input type="radio" id="vendor_stars3" name='vendor_stars' value="3" />
+                        <input type="radio" id="vendor_stars4" name='vendor_stars' value="4" />
+                        <input type="radio" id="vendor_stars5" name='vendor_stars' value="5" />
+                        
+                        <label for="vendor_stars1" aria-label="Banana">1 star</label>
+                        <label for="vendor_stars2">2 stars</label>
+                        <label for="vendor_stars3">3 stars</label>
+                        <label for="vendor_stars4">4 stars</label>
+                        <label for="vendor_stars5">5 stars</label>
+                    </div>
+                </div>
+                <div class="form-group pt-3 px-5">
+                    <label for="vendor_review" class="textColor"><b>Review seller</b></label>
+                    <textarea class="form-control" type="Text" name="vendor_review" id="vendor_review" rows="4"
+                        placeholder="Leave a review"></textarea>
+                </div>
+                <div class="text-center">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg shadow-lg mt-2 px-3"
+                    >
+                      Submit
+                    </button>
+                  </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

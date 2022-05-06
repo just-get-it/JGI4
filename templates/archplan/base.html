@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Tags -->
+    {% load static %}
+
+    {% block title %}
+      <title>Just Get It</title>
+    {% endblock title %}
+    <meta charset="UTF-8" />
+    
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/uploads/2021/09/favicon.png"
+    />
+
+    <meta name="robots" content="max-image-preview:large" />
+    <link rel="dns-prefetch" href="//s.w.org" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Nextarch &raquo; Feed"
+      href="https://shtheme.org/demosd/nextarchwp/?feed=rss2"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Nextarch &raquo; Comments Feed"
+      href="https://shtheme.org/demosd/nextarchwp/?feed=comments-rss2"
+    />
+    <script>
+      window._wpemojiSettings = {
+        baseUrl: "https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/",
+        ext: ".png",
+        svgUrl: "https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/",
+        svgExt: ".svg",
+        source: {
+          concatemoji:
+            "https:\/\/shtheme.org\/demosd\/nextarchwp\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.1",
+        },
+      };
+      !(function (e, a, t) {
+        var n,
+          r,
+          o,
+          i = a.createElement("canvas"),
+          p = i.getContext && i.getContext("2d");
+        function s(e, t) {
+          var a = String.fromCharCode;
+          p.clearRect(0, 0, i.width, i.height),
+            p.fillText(a.apply(this, e), 0, 0);
+          e = i.toDataURL();
+          return (
+            p.clearRect(0, 0, i.width, i.height),
+            p.fillText(a.apply(this, t), 0, 0),
+            e === i.toDataURL()
+          );
+        }
+        function c(e) {
+          var t = a.createElement("script");
+          (t.src = e),
+            (t.defer = t.type = "text/javascript"),
+            a.getElementsByTagName("head")[0].appendChild(t);
+        }
+        for (
+          o = Array("flag", "emoji"),
+            t.supports = { everything: !0, everythingExceptFlag: !0 },
+            r = 0;
+          r < o.length;
+          r++
+        )
+          (t.supports[o[r]] = (function (e) {
+            if (!p || !p.fillText) return !1;
+            switch (
+              ((p.textBaseline = "top"), (p.font = "600 32px Arial"), e)
+            ) {
+              case "flag":
+                return s(
+                  [127987, 65039, 8205, 9895, 65039],
+                  [127987, 65039, 8203, 9895, 65039]
+                )
+                  ? !1
+                  : !s(
+                      [55356, 56826, 55356, 56819],
+                      [55356, 56826, 8203, 55356, 56819]
+                    ) &&
+                      !s(
+                        [
+                          55356, 57332, 56128, 56423, 56128, 56418, 56128,
+                          56421, 56128, 56430, 56128, 56423, 56128, 56447,
+                        ],
+                        [
+                          55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418,
+                          8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128,
+                          56423, 8203, 56128, 56447,
+                        ]
+                      );
+              case "emoji":
+                return !s(
+                  [10084, 65039, 8205, 55357, 56613],
+                  [10084, 65039, 8203, 55357, 56613]
+                );
+            }
+            return !1;
+          })(o[r])),
+            (t.supports.everything = t.supports.everything && t.supports[o[r]]),
+            "flag" !== o[r] &&
+              (t.supports.everythingExceptFlag =
+                t.supports.everythingExceptFlag && t.supports[o[r]]);
+        (t.supports.everythingExceptFlag =
+          t.supports.everythingExceptFlag && !t.supports.flag),
+          (t.DOMReady = !1),
+          (t.readyCallback = function () {
+            t.DOMReady = !0;
+          }),
+          t.supports.everything ||
+            ((n = function () {
+              t.readyCallback();
+            }),
+            a.addEventListener
+              ? (a.addEventListener("DOMContentLoaded", n, !1),
+                e.addEventListener("load", n, !1))
+              : (e.attachEvent("onload", n),
+                a.attachEvent("onreadystatechange", function () {
+                  "complete" === a.readyState && t.readyCallback();
+                })),
+            (n = t.source || {}).concatemoji
+              ? c(n.concatemoji)
+              : n.wpemoji && n.twemoji && (c(n.twemoji), c(n.wpemoji)));
+      })(window, document, window._wpemojiSettings);
+    </script>
+    <style>
+      img.wp-smiley,
+      img.emoji {
+        display: inline !important;
+        border: none !important;
+        box-shadow: none !important;
+        height: 1em !important;
+        width: 1em !important;
+        margin: 0 0.07em !important;
+        vertical-align: -0.1em !important;
+        background: none !important;
+        padding: 0 !important;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      id="wp-block-library-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-includes/css/dist/block-library/style.min.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="contact-form-7-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.0.2"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="animate-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/animate.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="bootstrap-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/bootstrap.min.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="font-awesome-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/font-awesome.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="magnific-popup-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/magnific-popup.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="YouTubePopUp-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/YouTubePopUp.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="swiper-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/swiper.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="owl-carousel-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/owl.carousel.min.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="owl-theme-default-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/owl.theme.default.min.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="bootstrap-menu-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/bootstrap.menu.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="nextarch-style-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/css/style.css?ver=5.8.1"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="nextarch-css-css"
+      href="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/style.css?ver=2021-08-05"
+      media="all"
+    />
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-includes/js/jquery/jquery.min.js?ver=3.6.0"
+      id="jquery-core-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2"
+      id="jquery-migrate-js"
+    ></script>
+    <link
+      rel="https://api.w.org/"
+      href="https://shtheme.org/demosd/nextarchwp/index.php?rest_route=/"
+    />
+    <link
+      rel="alternate"
+      type="application/json"
+      href="https://shtheme.org/demosd/nextarchwp/index.php?rest_route=/wp/v2/pages/59"
+    />
+    <link
+      rel="EditURI"
+      type="application/rsd+xml"
+      title="RSD"
+      href="https://shtheme.org/demosd/nextarchwp/xmlrpc.php?rsd"
+    />
+    <link
+      rel="wlwmanifest"
+      type="application/wlwmanifest+xml"
+      href="https://shtheme.org/demosd/nextarchwp/wp-includes/wlwmanifest.xml"
+    />
+    <meta name="generator" content="WordPress 5.8.1" />
+    <link rel="canonical" href="https://shtheme.org/demosd/nextarchwp/" />
+    <link rel="shortlink" href="https://shtheme.org/demosd/nextarchwp/" />
+    <link
+      rel="alternate"
+      type="application/json+oembed"
+      href="https://shtheme.org/demosd/nextarchwp/index.php?rest_route=%2Foembed%2F1.0%2Fembed&#038;url=https%3A%2F%2Fshtheme.org%2Fdemosd%2Fnextarchwp%2F"
+    />
+    <link
+      rel="alternate"
+      type="text/xml+oembed"
+      href="https://shtheme.org/demosd/nextarchwp/index.php?rest_route=%2Foembed%2F1.0%2Fembed&#038;url=https%3A%2F%2Fshtheme.org%2Fdemosd%2Fnextarchwp%2F&#038;format=xml"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+  </head>
+
+  <body>
+    <!-- <div id="Lfa-page-loading" class="Lfa-pageloading">
+      <div class="Lfa-pageloading-inner">
+        <img
+          src="{% static '/branding_images/JGI_Logo.png' %}"
+          class="logo"
+          alt=""
+        />
+      </div>
+    </div> -->
+
+    <div id="next-page-wrapper">
+      <!-- Lines -->
+      <div class="content-lines-wrapper">
+        <div class="content-lines-inner">
+          <div class="content-lines"></div>
+        </div>
+      </div>
+      <!-- Menu -->
+      <div class="next-header-overlay menu-slide header-dark">
+        <div class="container">
+          <div class="next-header-container">
+            <!-- Burger menu -->
+            <div
+              class="burger-menu animate-box"
+              data-animate-effect="fadeInRight"
+            >
+              <div class="line-menu line-half first-line"></div>
+              <div class="line-menu"></div>
+              <div class="line-menu line-half last-line"></div>
+            </div>
+            <!--Navigation menu-->
+            <nav class="next-menu-overlay">
+              <ul class="">
+                <li
+                  id="menu-item-98"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-home
+                    current-menu-item
+                    page_item page-item-59
+                    current_page_item
+                    menu-item-98
+                    nav-item
+                    active
+                  "
+                >
+                  <a title="Home" href="/space"
+                    >Home</a
+                  >
+                </li>
+                <li
+                  id="menu-item-87"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-87
+                    nav-item
+                  "
+                >
+                  <a
+                    title="About"
+                    href="/space/about"
+                    >About</a
+                  >
+                </li>
+                <li
+                  id="menu-item-100"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-100
+                    nav-item
+                  "
+                >
+                  <a
+                    title="Services"
+                    href="/space/services"
+                    >Services</a
+                  >
+                </li>
+                <li
+                  id="menu-item-99"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-99
+                    nav-item
+                  "
+                >
+                  <a
+                    title="Projects"
+                    href="/space/projects"
+                    >Projects</a
+                  >
+                </li>
+                <li
+                  id="menu-item-97"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-97
+                    nav-item
+                  "
+                >
+                  <a
+                    title="Gallery"
+                    href="/space/gallery"
+                    >Gallery</a
+                  >
+                </li>
+                <li
+                  id="menu-item-86"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-86
+                    nav-item
+                  "
+                >
+                  <a
+                    title="News"
+                    href="/space/blog"
+                    >Blogs</a
+                  >
+                </li>
+                <li
+                  id="menu-item-89"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-89
+                    nav-item
+                  "
+                >
+                  <a
+                    title="Contact"
+                    href="/space/contact"
+                    >Contact</a
+                  >
+                </li>
+              </ul>
+              <!-- Menu social media -->
+              <div class="menu-social-media">
+                <a href="https://facebook.com/">
+                  <span class="next-social-icon fa fa-facebook"></span>
+                </a>
+                <a href="https://twitter.com/">
+                  <span class="next-social-icon fa fa-twitter"></span>
+                </a>
+                <a href="https://www.instagram.com/">
+                  <span class="next-social-icon fa fa-instagram"></span>
+                </a>
+                <a href="https://www.behance.net/">
+                  <span class="next-social-icon fa fa-behance"></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- Header -->
+      <header>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 animate-box" data-animate-effect="fadeInUp">
+              <div class="next-header-container d-flex">
+                <!-- Logo -->
+                <!-- <div class="text-center flex-grow-1">
+                  <a href="/space"
+                    ><img
+                      src="{% static '/branding_images/JGI_Logo.png' %}"
+                      alt=""
+                      class="logo"
+                  /></a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      {% block content %} {% endblock content %}
+      
+      <footer>
+        <div class="container next-footer-container">
+          <div class="row">
+            <div class="col-md-8">
+              <div>
+                <div class="textwidget custom-html-widget">
+                  <ul class="next-social-icons">
+                    <li class="next-social-icons-item">
+                      <a
+                        class="next-social-link"
+                        href="https://www.facebook.com/"
+                      >
+                        <span class="next-social-icon fa fa-facebook-f"></span>
+                      </a>
+                    </li>
+                    <li class="next-social-icons-item">
+                      <a class="next-social-link" href="http://twitter.com/">
+                        <span class="next-social-icon fa fa-twitter"></span>
+                      </a>
+                    </li>
+                    <li class="next-social-icons-item">
+                      <a
+                        class="next-social-link"
+                        href="https://www.instagram.com/"
+                      >
+                        <span class="next-social-icon fa fa-instagram"></span>
+                      </a>
+                    </li>
+                    <li class="next-social-icons-item">
+                      <a
+                        class="next-social-link"
+                        href="https://www.behance.net/"
+                      >
+                        <span class="next-social-icon fa fa-behance"></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <p class="next-copyright">
+                © 2021 <span>Just Get it.</span> All right reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script id="contact-form-7-js-extra">
+      var wpcf7 = {
+        apiSettings: {
+          root: "https:\/\/shtheme.org\/demosd\/nextarchwp\/index.php?rest_route=\/contact-form-7\/v1",
+          namespace: "contact-form-7\/v1",
+        },
+        recaptcha: {
+          messages: { empty: "Please verify that you are not a robot." },
+        },
+      };
+    </script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=5.0.2"
+      id="contact-form-7-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/jquery-3.6.0.min.js?ver=5.8.1"
+      id="jquery-3.6.0-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/bootstrap.min.js?ver=5.8.1"
+      id="bootstrap-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/bootstrap.menu.js?ver=5.8.1"
+      id="bootstrap-menu-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/modernizr-2.6.2.min.js?ver=5.8.1"
+      id="modernizr-2.6.2-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/jquery.waypoints.min.js?ver=5.8.1"
+      id="jquery-waypoints-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/YouTubePopUp.jquery.js?ver=5.8.1"
+      id="YouTubePopUp-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/swiper.min.js?ver=5.8.1"
+      id="swiper-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/owl.carousel.min.js?ver=5.8.1"
+      id="owl-carousel-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/isotope.pkgd.min.js?ver=5.8.1"
+      id="isotope-pkgd-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/plugins/jquery.magnific-popup.min.js?ver=5.8.1"
+      id="jquery-magnific-popup-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-content/themes/nextarch/assets/js/script.js?ver=5.8.1"
+      id="nextarch-script-js"
+    ></script>
+    <script
+      src="https://shtheme.org/demosd/nextarchwp/wp-includes/js/wp-embed.min.js?ver=5.8.1"
+      id="wp-embed-js"
+    ></script>
+  </body>
+</html>

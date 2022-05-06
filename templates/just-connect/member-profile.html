@@ -1,0 +1,290 @@
+{% extends 'base_connect.html' %}
+{% load static %}
+{% block customcss %}
+<style>
+    .profile--item:not(#post){
+        display: none;
+    }
+    .ff--primary a {
+        cursor: pointer;
+    } 
+</style>
+{% endblock %}
+{% block content %}
+        <!-- Cover Header Start -->
+        <div class="cover--header pt--80 text-center" style="background-color: white;">
+            <div class="container">
+                <div class="col-md-6">
+                    <div class="cover--avatar online">
+                        <img src="img/cover-header-img/avatar-01.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="cover--user-name">
+                        <h2 class="h3 fw--600">{{member.name}}</h2>
+                    </div>
+
+                    <div class="cover--user-activity">
+                        <p><i class="fa mr--8 fa-clock-o"></i>{{member.email}}</p>
+                    </div>
+
+                    <div class="cover--user-name">
+                        {% if member.customer %}
+                        <h5 class="h3 fw--600">Customer</h5>
+                        {% endif %}
+                        {% if member.vendor %}
+                        <h5 class="h3 fw--600">Vendor</h5>
+                        {% endif %}
+                        {% if member.staff %}
+                        <h5 class="h3 fw--600">Staff</h5>
+                        {% endif %}
+                        {% if member.buisness_Customer %}
+                        <h5 class="h3 fw--600">Business Customer</h5>
+                        {% endif %}
+                        {% if member.service %}
+                        <h5 class="h3 fw--600">Service</h5>
+                        {% endif %}
+                        {% if member.student %}
+                        <h5 class="h3 fw--600">Student</h5>
+                        {% endif %}
+                    </div>
+
+                    <div class="cover--user-desc fw--400 fs--18 fstyle--i text-darkest">
+                        <p>{{member.mission}}</p>
+                    </div>
+                    <br>
+                    {% if friends %}
+                    <button type="button" class="btn btn-primary" id="follow">Following</button>
+                    {% else %}
+                    <button type="button" class="btn btn-primary" id="follow" onclick="follow('{{instance.id}}','{{profile.id}}')">Follow</button>
+                    {% endif %}
+                    <p style="color: red;display: none;" id="not">You Started following <strong>{{member.name}}</strong></p>
+                </div>
+            </div>
+        </div>
+        <!-- Cover Header End -->
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20">
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content Start -->
+                    <div class="main--content col-md-12 pb--60" data-trigger="stickyScroll">
+                        <div class="main--content-inner drop--shadow">
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
+                                    <li onclick="toggle_section(1)" class="active"><a>Posts</a></li>
+                                    <li onclick="toggle_section(2)"><a>Friends</a></li>
+                                    <li><a>Groups</a></li>
+                                    <li><a>Forum</a></li>
+                                    <li><a>Media</a></li>
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+
+                            <!-- Profile Details Start -->
+                            <div class="profile--details fs--14">
+                                <!-- Profile Item Start -->
+                                <!-- {% if post.post_title in post %} -->
+                                <h1>{{post}}</h1>
+                                <!-- {% endif %} -->
+                                {% for post in post %}
+                                    <li>
+                                        <!-- Activity Item Start -->
+                                        <div class="activity--item" id="post">
+                                            <div class="activity--avatar">
+                                                <a href="member-activity-personal.html">
+                                                    <img src="img/activity-img/avatar-02.jpg" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class="activity--info fs--14">
+                                                <div class="activity--header">
+                                                    <p><a href="member-activity-personal.html">{{profile.name}}</a> posted an update</p>
+                                                </div>                                            
+
+                                                <div class="activity--meta fs--12">
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>Yeasterday at 08:20 am</p>
+                                                </div>
+
+                                                <div class="activity--content">
+                                                    <h3><i class="fa mr--8 fa-clock-o"></i>{{post.post_title}}</h3>
+                                                </div>
+
+                                                <div class="activity--content">
+                                                    <p>{{post.post}}</p>
+                                                </div>
+
+                                                <div class="activity--content">                                                    
+                                                    <span class="post-like" id="like-{{profile.id}}"><i class="fa fa-thumbs-up" style="font-size: 16px;"></i></span>
+                                                </div>
+
+                                                <div class="activity--action fw--700">
+                                                    <a href="#">See More...</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Activity Item End -->
+                                    </li>
+                                    {% endfor %}
+                                <!-- Profile Item End -->
+
+                                <!-- Profile Item Start -->
+                                <div class="profile--item" id="friend">
+                                    {% for friend in profile.friends.all %}
+                                    <div class="col-md-6" style="margin-bottom: 50px;">
+                                        <div class="activity--avatar hover">
+                                            <img onclick="visit_profile('{{friend.email}}')" src="/{{instance.image}}" alt="">                                            
+                                        </div>
+                                        <div class="activity--info fs--14 hover" style="margin-top: 15px;">
+                                            <p onclick="visit_profile('{{friend.email}}')">{{friend.name}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <!-- Profile Item End -->
+
+                                <!-- Profile Item Start -->
+                                <div class="profile--item">
+                                    <div class="profile--heading">
+                                        <h3 class="h4 fw--700">
+                                            <span class="mr--4">Work Experience</span>
+                                            <i class="ml--10 text-primary fa fa-caret-right"></i>
+                                        </h3>
+                                    </div>
+
+                                    <div class="profile--info">
+                                        <dl>
+                                            <dt>
+                                                <p class="h6 fw--700 text-darkest">Graphic Designer 2010 - 2012</p>
+                                                <p><small class="fw--400 fs--12 text-darker">Graphicriver.net at Sydney</small></p>
+                                            </dt>
+                                            <dd>
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour which don't look even slightly believable.</p>
+                                            </dd>
+
+                                            <dt>
+                                                <p class="h6 fw--700 text-darkest">Font-End Developer 2012 - 2014</p>
+                                                <p><small class="fw--400 fs--12 text-darker">Themeforest.net at Australia</small></p>
+                                            </dt>
+                                            <dd>
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour which don't look even slightly believable.</p>
+                                            </dd>
+
+                                            <dt>
+                                                <p class="h6 fw--700 text-darkest">Web Developer 2014 - Still Now</p>
+                                                <p><small class="fw--400 fs--12 text-darker">Codecanyon.net at Sydney</small></p>
+                                            </dt>
+                                            <dd>
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour which don't look even slightly believable.</p>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <!-- Profile Item End -->
+
+                                <!-- Profile Item Start -->
+                                <div class="profile--item">
+                                    <div class="profile--heading">
+                                        <h3 class="h4 fw--700">
+                                            <span class="mr--4">Contact</span>
+                                            <i class="ml--10 text-primary fa fa-caret-right"></i>
+                                        </h3>
+                                    </div>
+
+                                    <div class="profile--info">
+                                        <table class="table">
+                                            <tr>
+                                                <th class="fw--700 text-darkest">Phone</th>
+                                                <td><a href="tel:+16105598246">+1610-559-8246</a></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="fw--700 text-darkest">E-mail</th>
+                                                <td><a href="http://themelooks.us/cdn-cgi/l/email-protection#cfabaaa2a08fa9aea4aaa2aea6a3e1aca0a2"><span class="__cf_email__" data-cfemail="f296979f9db2978a939f829e97dc919d9f">[email&#160;protected]</span></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="fw--700 text-darkest">Website</th>
+                                                <td><a href="#">example.com</a></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="fw--700 text-darkest">Address</th>
+                                                <td>10th Cross, 24th Main, Agara, Sector-1, HSR Layout, Bangalore, Karnataka, India, 560102</td>
+                                                <td>#11, Ashok Reddy Colony, AMR Enclave, (Opp MVSR engineering College), Nadergul, Hyderabad 501510</td>
+                                                <td>Urbano L, Lodha Palava Lakeshore Green Dombivli, Thane, Mumbai, Maharashtra, India, 421204</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Profile Item End -->
+                            </div>
+                            <!-- Profile Details End -->
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+                </div>
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+        {% block customjs %}
+            <script>
+                function follow(ins_id, pro_id){
+                    $.ajax({                        
+                        type: "POST",
+                        url: "{% url 'follow' %}",
+                        data: {
+                            action: "follow",
+                            instance_id: ins_id,
+                            profile_id: pro_id,
+                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                        },
+                        cache: false,
+                        dataType: "json",
+                        success: function(data){
+                            console.log(data)
+                            $("#not").show()
+                            $("#follow").text("Following")
+                        }
+                    });
+                }
+                function toggle_section(id){
+                    $(this).hide();
+                    if(id==1){
+                        $(".profile--item").fadeOut(1000);
+                        $("#post").fadeIn(1000);  
+                        $(".content--nav .ff--primary li").removeClass("active");     
+                        $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");       
+                    }
+                    else if(id==2){
+                        $(".profile--item").fadeOut(1000);
+                        $("#friend").fadeIn(1000);
+                        $(this).parent('li').addClass("active");
+                        $(".content--nav .ff--primary li").removeClass("active");     
+                        $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+                    }
+                }
+
+                function visit_profile(ins_id){
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'visit_profile' %}",
+                        data: {
+                            instance: ins_id,
+                            action: "visit_profile",
+                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                        },
+                        cache: false,
+                        dataType: "json",
+                        success: function(data){
+                            console.log(data)
+                            member = data['member']
+                            profile = data['profile']
+                            window.location.href = "/connect/member-profile?member=" + member + "&profile=" + profile;
+                        }
+                    });
+                }
+            </script>
+        {% endblock %}
+{% endblock %}
+       

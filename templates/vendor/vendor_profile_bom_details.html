@@ -1,0 +1,334 @@
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+	<style type="text/css">
+		.acti_table{
+			table-layout: fixed;
+			width: 100%;
+		}
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+			overflow: hidden;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			padding-left: 1vw;
+			padding-right: 1vw;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.hov-link{
+			transition: all .5s ease-out;
+			border: 1px solid black;
+			background: #30c5ff;
+			color: black;
+			border-radius: 50px;
+			text-decoration: none;
+		}
+		.hov-link:hover{
+			background: #253031;
+			text-decoration: none;
+			color: white;
+		}
+		.save_but{
+			transition: all .5s ease-out;
+			border-radius: 25vw;
+			background: #30c5ff;
+		}
+		.save_but:hover{
+			background: #253031;
+			color: #30c5ff;
+		}
+	</style>
+<div class="row">
+	<div class="container">
+		<div class="row my-3" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+			<h3 style="font-family: 'Cabin',sans-serif;">Bill of Materials & Costing 
+				
+			</h3>
+			<select style="background: none;border: none;height: 3vh;" id="versions">
+				{% for i in options %}
+					<option value="{{i.id}}" {% if total_bom.id == i.id %}selected{% endif %}>V-{{forloop.counter}}</option>
+				{% endfor %}
+			</select>
+			<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom" class="hov-a" style="margin-left:auto;">Add New BOM</a>
+			<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/compare_bom" class="hov-a" style="margin-left:2vw;">Compare BOM</a>
+			<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom/{{bom_id}}/ordering" class="hov-a" style="margin-left:2vw;">Ordering</a>
+		</div>
+		<div class="row mt-3 mb-5">
+			<table class="acti_table">
+
+				<tr>
+					<th style="width: 11%">Particulars</th>
+					<th style="width: 20%">Description</th>
+					<th style="width: 8%">UOM</th>
+					<th style="width: 18%">Material Code</th>
+					<th style="width: 11%">Specification</th>
+					<th style="width: 11%">Consumption</th>
+					<th style="width: 8%">Wastage</th>
+					<th style="width: 8%">Rate</th>
+					<th style="width: 8%">Cost</th>
+				</tr>
+				{% for i in total_bom.trims_used.all %}
+					<tr>
+						<th>{{i.trim.title}}</th>
+						<td>{{i.description}}</td>
+						<td>{{i.uom}}</td>
+						<td>2019000-{{i.trim.id}}</td>
+						<td>{{i.specification}}</td>
+						<td>{{i.consumption}}</td>
+						<td>{{i.wastage}}</td>
+						<td>{{i.rate}}</td>
+						<td>{{i.cost}}</td>
+					</tr>
+				{% endfor %}
+
+				<!-- <tr>
+					<th style="width: 11%">Particulars</th>
+					<th style="width: 20%">Description</th>
+					<th style="width: 8%">UOM</th>
+					<th style="width: 18%">Material Code</th>
+					<th style="width: 11%">Specification</th>
+					<th style="width: 11%">Consumption</th>
+					<th style="width: 8%">Wastage</th>
+					<th style="width: 8%">Rate</th>
+					<th style="width: 8%">Cost</th>
+				</tr> -->
+				<tr>
+					<th>Cut-Make</th>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td>{{cutmake_consum}}</td>
+					<td>0 %</td>
+					<td>{{cutmake_rate}}</td>
+					<td>{{cutmake_cost}}</td>
+
+				</tr>
+				{% if is_staff_user and total_bom.merchandising_cost %}
+				<tr>
+					<th>Merchandising</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.merchandising_cost}}</td>
+
+
+
+
+				</tr>
+				{% endif %}
+
+
+
+	{% if is_staff_user and total_bom.warehouse_cost %}
+				<tr>
+					<th>Warehouse</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.warehouse_cost}}</td>
+
+
+
+				</tr>
+				{% endif %}
+				{% if is_staff_user and total_bom.freight_charges %}
+				<tr>
+					<th>Freight</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.freight_charges}}</td>
+
+
+
+				</tr>
+				{% endif %}
+				{% if is_staff_user and total_bom.primary_pack_cost %}
+				<tr>
+					<th>Primary Pack</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.primary_pack_cost}}</td>
+
+
+
+				</tr>
+				{% endif %}
+				{% if is_staff_user and total_bom.sampling_cost %}
+				<tr>
+					<th>Sampling</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.sampling_cost}}</td>
+
+
+
+				</tr>
+				{% endif %}
+				{% if is_staff_user and total_bom.barcode_cost %}
+				<tr>
+					<th>Barcode</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.barcode_cost}}</td>
+
+
+
+				</tr>
+				{% endif %}
+
+
+
+				<tr>
+					<th>Profit(%)</th>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td style="width:57%;border-right: none;"></td>
+					<td>{{total_bom.profit_percentage}} %</td>
+					<td style="border-right: none;"></td>
+
+
+
+				</tr>
+				<tr>
+					<th>Total Cost</th>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td style="border-right: none;"></td>
+					<td>{{total_cost}}</td>
+
+
+				</tr>
+			</table>
+		</div>
+		{% if is_staff_user %}
+			<form method="POST">{% csrf_token %}
+		<div class="row mt-3 mb-4 pb-3" style="box-shadow: 0 0 5px rgba(0,0,0,.5);">
+			<div class="container">
+				<div class="row mt-3" style="margin-left: 25vw;">
+					<label>
+						<b>Merchandising Cost</b>
+					</label>
+					<input type="number" name="merch_cost" placeholder="Merchandising Cost Percentage" style="border:none;border-bottom: 2px solid rgba(0,0,0,.5);width: 25vw;margin-left: 1.5vw;" value="{{total_bom.merchandising_cost}}" required>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="row mt-3" style="margin-left: 25vw;">
+					<label><b>Warehousing Cost</b></label>
+					<select name="warehouse" required style="border:none;border-bottom: 2px solid rgba(0,0,0,.5);width: 25vw;margin-left: 2vw;">
+						<option disabled selected>---------</option>
+						<option value="light"{% ifequal total_bom.warehouse_cost|add:'0'  4 %}selected{% endifequal %}>Light Weighted</option>
+						<option value="medium"{% ifequal total_bom.warehouse_cost|add:'0' 8 %}selected{% endifequal %}>Medium Weighted</option>
+						<option value="heavy"{% ifequal total_bom.warehouse_cost|add:'0'  12 %}selected{% endifequal %}>Heavy Weighted</option>
+					</select>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row mt-3" style="margin-left: 25vw;">
+					<label>
+						<b>Freight Charges</b>
+					</label>
+					<input type="number" name="freight" placeholder="Freight Charges" style="border:none;border-bottom: 2px solid rgba(0,0,0,.5);width: 25vw;margin-left: 3.5vw;" value="{% if total_bom.freight_charges %}{{total_bom.freight_charges}}{% endif %}" required>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row mt-3" style="margin-left: 25vw;">
+					<label>
+						<b>Primary Packing Cost</b>
+					</label>
+					<input type="number" name="primary" placeholder="Primary Packing Cost" style="border:none;border-bottom: 2px solid rgba(0,0,0,.5);width: 24vw;margin-left: 1.5vw;" value="{% if total_bom.primary_pack_cost %}{{total_bom.primary_pack_cost}}{% endif %}" required>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row mt-3" style="margin-left: 25vw;">
+					<label>
+						<b>Sampling Cost</b>
+					</label>
+					<input type="number" name="sampling" placeholder="Sampling Cost" style="border:none;border-bottom: 2px solid rgba(0,0,0,.5);width: 25vw;margin-left: 4.5vw;" value="{% if total_bom.sampling_cost %}{{total_bom.sampling_cost}}{% endif %}" required>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row mt-3" style="margin-left: 25vw;">
+					<label>
+						<b>Barcode Inspection Cost</b>
+					</label>
+					<input type="number" name="barcode" placeholder="Barcode Inspection Cost" style="border:none;border-bottom: 2px solid rgba(0,0,0,.5);width: 23vw;margin-left: 1.5vw;" value="{% if total_bom.barcode_cost %}{{total_bom.barcode_cost}}{% endif %}" required>
+				</div>
+			</div>
+			<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;margin-top: 2vh;margin-left: 35vw;" class="save_but">Save & Approve</button>
+		</div>
+			</form>
+		{% endif %}
+		<div class="row mt-3 mb-4 centered">
+			<a href="/userdetail/{% if is_staff_user %}staff_profile{% else %}vendor_profile{% endif %}" class="hov-a" style="color: blue;">Back to Profile</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#versions').on('change',function(){
+		var hr="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom/"+$('#versions').val();
+		window.location.href=hr;
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+
+
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+
+
+
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+<style type="text/css">
+
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+</style>
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+	<div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+		<div class="row">
+			<h3 style="font-family: 'Cabin',sans-serif;">Lay Lot Planning</h3>
+			{% if gar %}
+			<a href="/userdetail/vendor_profile/new_order" class="hov-a" style="margin-left: auto;margin-top: 2vh;">Create Personal Order</a>
+			{% endif %}
+		</div>
+
+	</div>
+	<div class="container">
+		<div class="row mt-3 pt-2 pl-2" style="">
+
+					{% for o in orders %}
+					<div class="col-2 hover-col mt-2">
+						{% if o.image %}
+						<a href="/userdetail/vendor_profile/orders/{{o.order_no}}/lay"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+						{% else %}
+						<a href="/userdetail/vendor_profile/orders/{{o.order_no}}/lay"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+						{% endif %}
+
+						<h6 class="mt-3 centered"><b>{{o.order_no}}</b></h6>
+						<h6 class="centered">{{o.user_email|truncatechars:15}}</h6>
+						{% if o.overall_priority < 1 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 1  %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 2 and o.overall_priority > 1 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 2 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 3 and o.overall_priority > 2 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 3 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 4 and o.overall_priority > 3 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 4 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 5 and o.overall_priority > 4 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 5 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;color: #30c5ff;"></i>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+	</div>
+
+{% if per_orders.0 %}
+	<div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+		<div class="row">
+			<h3 style="font-family: 'Cabin',sans-serif;">Personal Orders</h3>
+		</div>
+
+	</div>
+
+
+	<div class="container">
+		<div class="row mt-3 pt-2 pl-2" style="">
+
+					{% for o in per_orders %}
+					<div class="col-2 hover-col mt-2">
+						{% if o.image %}
+						<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+						{% else %}
+						<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+						{% endif %}
+
+						<h6 class="mt-3 centered"><b>{{o.order_no}}</b></h6>
+						<h6 class="centered">{{o.user_email|truncatechars:15}}</h6>
+						{% if o.overall_priority < 1 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 1  %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 2 and o.overall_priority > 1 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 2 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 3 and o.overall_priority > 2 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 3 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 4 and o.overall_priority > 3 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style=""></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 4 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority < 5 and o.overall_priority > 4 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+						{% endif %}
+						{% if o.overall_priority == 5 %}
+
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" style="margin-right: auto;color: #30c5ff;"></i>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+	</div>
+{% endif %}
+
+
+
+
+</div>
+</div>
+
+{% endblock %}

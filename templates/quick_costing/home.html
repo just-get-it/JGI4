@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 20px; margin-bottom: 20px">
+    <h2 style="color: red">Quick Costing</h2>
+        <h2>Home</h2>
+
+        <br>
+        <a class="btn btn-info" href="{% url 'quick_costing_create_order'%}">Create Order</a>
+        <br>
+        {% for obj in objects %}
+        <br>
+        <a href="{{ obj.get_product_detail }}" class="h3">{{ obj.garment }}  {{ obj.quantity }} </a><br>
+        {% empty %}
+            <br>
+            <h2>order are empty please create new orders</h2>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}

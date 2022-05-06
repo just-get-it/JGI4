@@ -1,0 +1,339 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+{% block customcss %}
+<style>
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+		*{
+			margin:0;
+			padding:0;
+		}
+		#projectSection .container{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		#projectSection .tag-container{
+			border:2px solid #000;
+			padding:10px;
+			border-radius:4px;
+			display:flex;
+			border-radius:20px;
+		}
+		#projectSection .tag-container .tag{
+			padding:6px 12px;
+			border:1px solid #ccc;
+			margin:2px;
+			display: flex;
+			align-items: center;
+			cursor: default;
+			background:#120E43;
+			color:white;
+			border-radius:20px;
+		}
+		#projectSection .tag-container span{
+			font-size:14px;
+		}
+		#projectSection .tag-container input{
+			flex:1;
+			font-size:16px;
+			padding:5px;
+			outline:none;
+			border:0;
+		}
+		#projectSection h2{
+			font-size:40px;
+			margin:4rem 0.5rem;
+		}
+</style>
+{% endblock %}
+{% block content %}
+<section id="projectSection">
+    <form id="project" action="{% url 'create_project' %}" method="POST">
+        <div class="container-fluid">
+            <div class="row gx-3 d-flex" style="height:90vh;">
+                <div class="col-lg-8 align-self-center p-2 col-md-8 mx-auto">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Start Creating Your Project" id="projectContent"
+                            style="height: 70vh;"></textarea>
+                        <label for="projectContent">Create Project</label>
+                    </div>
+                </div>
+                <div class="col-lg-3 p-2 col-md-3 align-self-center mx-auto border">
+                    <button type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#continue">Settings</button>
+                    <button type="button" class="btn btn-success">Draft</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#continue">Continue</button>
+                </div>
+                <!-- Continue Modal -->
+                <div class="modal fade " id="continue" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl ">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5">
+                                        <div class="cover-image">
+                                            <img src="https://picsum.photos/id/104/200/200" id="previewImg"
+                                                class="w-50 rounded border img-fluid">
+                                        </div>
+                                        <input type="file" name="cover_photo" class="btn btn-info m-3 "
+                                            onchange="previewFile(this);" id="cover_image" required>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="projectName" class="form-label">Enter Project Name
+                                                (required)</label>
+                                            <input type="text" class="form-control" id="projectName"
+                                                placeholder="Enter a Name for your project"
+                                                aria-describedby="projectHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="projectTags" class="form-label">Project Tags(required)</label>
+                                            <div class="tag-container">
+                                                <input type="text" id="projectTags" placeholder="enter your tags">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="projectTools" class="form-label">Tool Used </label>
+                                            <input type="text" class="form-control" id="projectTools"
+                                                aria-describedby="projectHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="projectCategory" class="form-label">Select max 3 category!
+                                            </label>
+                                            <div class="category-checkbox" id="projectCategory">
+                                                {% for category in categories %}
+                                                <input type="checkbox" class="chkbx" value="{{category.slug}}">{{category.title}}
+                                                {% endfor %}
+                                            </div>
+                                            <p class="text-danger" id="text_message"></p>
+                                        </div>
+                                        <select class="form-select form-select-lg mb-3" id="visibility"
+                                            aria-label=".form-select-lg example">
+                                            <option selected>Visibility</option>
+                                            <option value="PUBLIC">Public</option>
+                                            <option value="PRIVATE">Private</option>
+                                        </select>
+                                        <input type="hidden" value="0" id="category">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" formaction="draft"
+                                    form="project">Draft</button>
+                                <button type="submit" class="btn btn-primary" id="save_value"
+                                    form="project">Publish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock %}
+{% block customjs %}
+
+<!---Scripting for cover image preview-->
+<script>
+    function previewFile(input){
+    var file = $("input[type=file]").get(0).files[0];
+
+    if(file){
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            $("#previewImg").attr("src", reader.result);
+        }
+
+        reader.readAsDataURL(file);
+    }
+}
+</script>
+
+<!---Scripting for project tags-->
+<script>
+    const tagContainer = document.querySelector('.tag-container');
+    const input = document.querySelector('.tag-container input');
+    var tags = [];
+    function createTag(label){
+        const div = document.createElement('div');
+        div.setAttribute('class', 'tag')
+        const span = document.createElement('p');
+        span.innerHTML = label;
+        const closebtn = document.createElement('span');
+        closebtn.setAttribute('class', 'material-icons')
+        closebtn.setAttribute('data-item', label);
+        closebtn.innerHTML = 'close';
+
+        div.appendChild(span);
+        div.appendChild(closebtn);
+        return div;
+    }
+
+    function reset(){
+        document.querySelectorAll('.tag').forEach(function(tag){
+            tag.parentElement.removeChild(tag);
+        })
+    }
+
+    function addTags(){
+        reset();
+        tags.slice().reverse().forEach(function(tag){
+            const input = createTag(tag);
+            tagContainer.prepend(input);
+        })
+    }
+    input.addEventListener('keyup' , function(e){
+        if(e.key == ','){
+            tags.push(input.value.slice(0, -1));
+            addTags();
+            input.value = '';
+        }
+    })
+    document.addEventListener('click', function(e){
+        if(e.target.tagName  === "SPAN"){
+            const value = e.target.getAttribute('data-item');
+            console.log(value);
+            const index = tags.indexOf(value);
+            console.log(index);
+            tags = [ ...tags.slice(0, index), ...tags.slice(index + 1)];
+            console.log(tags);
+            addTags();
+        }
+    });
+</script>
+
+
+<!---Scripting for category checkbox -->
+<script>
+          $('.chkbx').click(function(event){
+            var text = "";
+            $('.chkbx:checked').each(function(){
+                text += $(this).val()+ ',';
+            })
+            text = text.substring(0,text.length-1);
+            $('#category').val(text);
+            var count = $("[type='checkbox']:checked").length;
+            if(count > 3){
+                $('#text_message').text('please select only 3');
+                event.preventDefault();
+            }
+          });
+
+        //Scripting for ajax call
+
+        $(document).on('submit', '#project',function(e){
+        e.preventDefault();
+        var project_name=$('#projectName').val();
+        var project_content=$('#projectContent').val();
+        console.log(project_content);
+        var project_tools=$('#projectTools').val();
+        var project_visibility=$('#visibility').val();
+        var project_category = $('#category').val();
+        var project_cover_image = $('#cover_image').val();
+
+
+        //  ajax call
+        $.ajax({
+        type:'POST',
+        url:'{% url "create_project" %}',
+        data:{
+            'project_name': project_name,
+            'project_content': project_content,
+            'project_tools' : project_tools,
+            'project_visibility': project_visibility,
+            'project_tags[]': tags,
+            'project_category' : project_category,
+            'project_cover_image':project_cover_image,
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+          },
+          success:function(response){
+            console.log(response);
+            setTimeout(function() {
+                    window.location = "{% url 'Portfolio' %}";
+                }, 1000);
+
+          }
+        });
+    });
+</script>
+
+
+<!--Scripting for TINYMCE rich text editor -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+<script>
+var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+tinymce.init({
+selector: '#projectContent',
+plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+imagetools_cors_hosts: ['picsum.photos'],
+menubar: 'file edit view insert format tools table help',
+toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+toolbar_sticky: true,
+autosave_ask_before_unload: true,
+autosave_interval: '30s',
+autosave_prefix: '{path}{query}-{id}-',
+autosave_restore_when_empty: false,
+autosave_retention: '2m',
+image_advtab: true,
+link_list: [
+{ title: 'My page 1', value: 'https://www.tiny.cloud' },
+{ title: 'My page 2', value: 'http://www.moxiecode.com' }
+],
+image_list: [
+{ title: 'My page 1', value: 'https://www.tiny.cloud' },
+{ title: 'My page 2', value: 'http://www.moxiecode.com' }
+],
+image_class_list: [
+{ title: 'None', value: '' },
+{ title: 'Some class', value: 'class-name' }
+],
+importcss_append: true,
+file_picker_callback: function (callback, value, meta) {
+/* Provide file and text for the link dialog */
+if (meta.filetype === 'file') {
+  callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+}
+
+/* Provide image and alt text for the image dialog */
+if (meta.filetype === 'image') {
+  callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+}
+
+/* Provide alternative source and posted for the media dialog */
+if (meta.filetype === 'media') {
+  callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+}
+},
+templates: [
+    { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+{ title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+{ title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+],
+template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+height: 600,
+image_caption: true,
+quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+noneditable_noneditable_class: 'mceNonEditable',
+toolbar_mode: 'sliding',
+contextmenu: 'link image imagetools table',
+skin: useDarkMode ? 'oxide-dark' : 'oxide',
+content_css: useDarkMode ? 'dark' : 'default',
+content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+
+</script>
+{% endblock %}

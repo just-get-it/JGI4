@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js"></script>
+<link rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css"
+    type="text/css" />
+
+<style>
+
+</style>
+<div id="map" style="height: 700px; width:100%;"></div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    mapboxgl.accessToken =
+        'pk.eyJ1Ijoic2hpYmRhc2t1bWJoYWthciIsImEiOiJja2NnMXRyenAwbDE4MndwMGl1NnFpampyIn0.S35cmzD63XC15ZFtqKg6HA';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-79.4512, 43.6568],
+        zoom: 50
+    });
+
+    map.addControl(
+        new MapboxDirections({
+            accessToken: mapboxgl.accessToken
+        }),
+        'top-left'
+    );
+    var url = 'https://wanderdrone.appspot.com/';
+    map.on('load', function () {
+        var request = new XMLHttpRequest();
+        window.setInterval(function () {
+            // make a GET request to parse the GeoJSON at the url
+            request.open('GET', url, true);
+            request.onload = function () {
+                if (this.status >= 200 && this.status < 400) {
+                    // retrieve the JSON from the response
+                    var json = JSON.parse(this.response);
+
+                    // update the drone symbol's location on the map
+                    map.getSource('drone').setData(json);
+
+                    // fly the map to the drone's current location
+                    map.flyTo({
+                        center: json.geometry.coordinates,
+                        speed: 0.5
+                    });
+                }
+            };
+            request.send();
+        }, 2000);
+
+        map.addSource('drone', {
+            type: 'geojson',
+            data: url
+        });
+        map.addLayer({
+            'id': 'drone',
+            'type': 'symbol',
+            'source': 'drone',
+            'layout': {
+                'icon-image': 'rocket-15'
+            }
+        });
+    });
+</script>
+{% endblock %}

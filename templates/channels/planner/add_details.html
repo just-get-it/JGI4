@@ -1,0 +1,105 @@
+{% extends 'channels/planner/student_base.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+    .add-details h2, .add-details h4 {        
+        color: #833499;
+        text-align: center;
+    }
+    .add-details form  {
+        border: 1px solid gray;
+        border-radius: 20px;
+        box-shadow: 5px 5px 20px 7px rgba(0,0,0,0.25), -5px -5px 20px 7px rgba(0,0,0,0.22);
+        transition: 0.4s;
+        margin-top: 50px;
+    }
+    .add-details form input, .add-details form textarea, .add-details form a {
+        color:#AAADB5!important;
+    }
+    .add-details form > div {
+        margin: 25px;
+    }
+</style>
+<div class="conatiner add-details">
+    <div class="row">
+        <div class="col-12">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <h2>Personal Details: </h2>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-sm-12">
+                        {{personalform.fname | as_crispy_field }}
+                    </div>
+                    <div class="col-6 col-sm-12">
+                        {{personalform.lname | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-sm-12">
+                        {{personalform.mobile| as_crispy_field }}
+                    </div>
+                    <div class="col-6 col-sm-12">
+                        {{personalform.email| as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{personalform.whatsapp_mobile | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Organisation Details: </h4>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{organisationform.name | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{organisationform.desc | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        {% if organisationform.instance.logo %}
+                        <img height="100" width="100" id="company_logo" src="{{organisationform.instance.logo.url}}"> {% else %}
+                        <img height="100" width="100" id="company_logo"> {% endif %}
+
+                    </div>
+                    <div class="col">
+                        {{organisationform.logo | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="button"><button type="submit" class="btn btn-primary">SAVE</button></div>
+                
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function ImgDisplay(input) {
+        console.log('DISPLAYING IMAGE');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            console.log('Reading');
+            reader.onload = function(e) {
+                $('#company_logo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+</script>
+<script>
+$(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(2)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(2) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+{% endblock %}

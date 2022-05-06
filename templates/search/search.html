@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/search_products/searchProducts.css' %}" />
+
+    <style>
+        .prod-image{
+            width: 90%;
+            height: 333px;
+            object-fit:cover;
+            /* border: 2px solid red; */
+        }
+
+        .product-mrp{
+            color:gray;
+            text-decoration: line-through; 
+            font-weight: 300;
+            font-size: 12px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .prod-image{
+                width: 90%;
+                height: 150px;
+                object-fit:cover;
+                /* border: 2px solid red; */
+            }
+            .search-font-title {
+                font-size: 16px;
+            }
+            .search-font,
+            .search-font-button {
+                font-size: 12px;
+            }
+
+            .search-font-price {
+                font-size: 12px;
+            }
+            .product-mrp{
+                font-weight: 200;
+                font-size: 10px;
+            }
+            .product-offer{
+                font-weight: bold;
+                font-size: 13px;
+            }
+            .user_review{
+                font-size: 12px;
+            }
+            .view{
+                display: none;
+            }
+
+            .search-result-text{
+                font-size: 20px;
+            }
+        }
+
+        @media only screen and (max-width: 350px) {
+            .search-font-button{
+                font-size: 12px;
+            }
+            .search-font{
+                font-size: 10px;
+            }
+        }
+
+        .img-par,
+        .search-result-text{
+            text-align: center;
+        }
+
+        .no-padding{
+            padding: 0;
+        }
+    </style>
+
+    <h3 class="mt-2 search-result-text">Search Results : {{allProducts|length}} found</h3>
+    
+        {% comment %} <div class="bbb_advs">
+            <div class="container">
+            {% for products in allProducts %}
+                <div class="row">
+                    <div class="col-lg-4 bbb_adv_col">
+                        <!-- bbb_adv Item -->
+                        <div class="bbb_adv d-flex flex-row align-items-center justify-content-start">
+                            <div class="bbb_adv_content">
+                                <div class="bbb_adv_title"><a href="#"><h2>{{products.title}}</h2></a></div>
+                                <div class="bbb_adv_text"> <h2>{{products.product_Category}}</h2></div>
+                                <div class="bbb_adv_text">Rs {{products.price}}</div>
+
+                            </div>
+                            <div class="ml-auto">
+                                <div class="bbb_adv_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1561815855/rp-image.png" alt=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div> {% endcomment %}
+
+
+<div class="container ">
+    <hr />
+    <div class="row">
+        {% for products in allProducts %}
+        <!-- <div class="col-6 col-md-3 col-lg-3 m-2"> -->
+        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-3 no-padding">
+            <div class="card mt-1 mr-1" style="width: auto; height: auto; margin-bottom">
+                {% if products.image1 %}
+                <a href="/products/{{products.slug}}" class="img-par"> <img class="card-img-top prod-image" alt="Card image cap" src={ {products.image1.url}}> </a>
+                {% else %}
+                <a href="/products/{{products.slug}}"> <img class="card-img-top" alt="Card image cap" style=" width: 100%;height: 100%; object-fit: cover;" src={ % static 'img/noimage.png' %}> </a>
+                {% endif %} {% comment %}
+                <div class="backup_image" style="background: url({% static 'img/noimage.png'%}); width:400px;height: 250px;background-repeat: no-repeat; position: absolute;">
+                    <div class="my_image" style="background-image: url({{products.image1.url}}); width:400px;height: 250px;background-repeat: no-repeat; position: absolute;"></div>
+                </div> {% endcomment %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12" style="padding: 1px;">
+                            <a href="/products/{{products.slug}}">
+                                <h5 id="name{{products.product_code}}" class="card-title search-font-title" style="color: black">{{products.title}}</h5>
+                            </a>
+                        </div>
+                        <div class="col-md-12" style="padding: 1px;">
+                            <span class="card-text cate search-font"><b>Category</b>: {{products.product_Category}}</span>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="padding: 1px;">
+                            <span class="card-text cate search-font"><b>Brand</b>: {{products.brand}} </span>
+                        </div>
+                    </div>
+                    <!-- <br> -->
+                    <div class="row mt-1 mb-1" style="padding: 1px;">
+                        <div class="col-sm-12">
+                            <!-- <span><b>Ratings</b></span> -->
+                            <span class="fa fa-star checked"></span> {% if products.product_stars >= 2 %}
+                            <span class="fa fa-star checked"></span> {% else %}
+                            <span class="fa fa-star"></span> {% endif %} {% if products.product_stars >= 3 %}
+                            <span class="fa fa-star checked"></span> {% else %}
+                            <span class="fa fa-star"></span> {% endif %} {% if products.product_stars >= 4 %}
+                            <span class="fa fa-star checked"></span> {% else %}
+                            <span class="fa fa-star"></span> {% endif %} {% if products.product_stars == 5 %}
+                            <span class="fa fa-star checked"></span> {% else %}
+                            <span class="fa fa-star"></span> {% endif %}
+                            <span class="user_review">({{ products.product_total_reviews }})</span>
+                        </div>
+                    </div>
+                    <!-- Discount and final price to be shown based on whether user is vendor or customer -->
+                    {% if is_user_vendor %}
+                    <div class="row" style="padding: 1px;">
+                        <h6 id="price{{products.product_code}}" class="ml-3" style="color: #27ae60; font-weight: 550 ">Rs. {{ products.final_b2b_price }}
+                            <i class="product-mrp"> MRP : {{ products.price }}</i>
+                            <span class="product-offer" style="color:#30c5ff">({{ products.B2Boffer }}% off)*</span>
+                            </h6>
+                        </div>
+                    {% else %}
+                    <div class="row" style="padding: 1px;">
+                        <h6 id="price{{products.product_code}}" class="ml-3" style="color: #27ae60; font-weight: 550 ">Rs. {{ products.final_price }}
+                            <i class="product-mrp"> MRP : {{ products.price }}</i>
+                            <span class="product-offer" style="color:#30c5ff">({{ products.offer }}% off)*</span>
+                            </h6>
+                        </div>
+                    {% endif %}
+                        <hr class="view">
+                        <div class="row align-items-center" >
+                            <div class="col-12" style="width: fit-content;">
+                                <a href="/products/{{products.slug}}" class="btn btn-block btn-primary search-font-button" >View product</a>
+                            </div>
+                        </div>   
+                        <!-- add to cart button here  -->
+                        <div class="row align-items-center mt-1">
+                            <div class="col-12" style="color: white;">
+
+                            {% if user.is_authenticated %}
+                            <button class="btn btn-block btn-secondary search-font-button" onclick="quickAddToCart('{{products.slug}}')">Add to Cart
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button> {% else %}
+                            <button class="btn btn-block btn-secondary search-font-button" onclick="cart_un_auth('{{products.product_code}}')">Add to Cart
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button> {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/> {% endfor %}
+    </div>
+</div>
+
+{% endblock %} {% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/cartnew/cartnew.js' %}"></script>
+<script>
+    getCartItems(function(d) {
+        console.log("GETTING CART ITEMS! total_cart_items");
+        console.log("Cart Items: " + d);
+        $('#total_cart_items').text(d);
+    });
+</script>
+
+
+<script>
+	function cart_un_auth(id) {
+        alert("Item added");
+        let idstr = id;
+        var action = "add";
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        if (!cart) {	
+            cart = {};
+        }
+        if (cart[idstr] != undefined) {
+            cart[idstr][0] += 1; // if cart has item then +1
+            //   console.log("inside cart annoymous user");
+        } else {
+            qty = 1;
+            name = document.getElementById("name" + idstr).innerHTML; //namepr1 id given to card title
+            price = document.getElementById("price" + idstr).innerHTML;
+            cart[idstr] = [qty, name, parseInt(price.slice(3))];
+            // console.log('There');
+        }
+        updateCart(cart);
+        Swal.fire({
+            position: "top-end",
+            html: "<b>Item added in cart!</b>",
+            showConfirmButton: false,
+            width: "400px",
+            timer: 1500,
+        });
+  }
+
+  function cart_auth(id) {
+    // console.log(id.id);
+    alert("Item Added");
+    var idstr = id;
+    var action = "add";
+    // console.log("id", id);
+    // console.log(user);
+    var cart = localStorage.getItem('cart');
+    if (user == "AnonymousUser") {
+    //   console.log("user:");
+      if (cart && cart[idstr] != undefined) {
+        cart[idstr][0] += 1; // if cart has item then +1
+        // console.log("inside cart annoymous user");
+      } else {
+        qty = 1;
+        name = document.getElementById("name" + idstr).innerHTML; //namepr1 id given to card title
+        price = document.getElementById("price" + idstr).innerHTML;
+        cart[idstr] = [qty, name, parseInt(price.slice(3))];
+      }
+    //   console.log("lgged out");
+      updateCart(cart);
+    //   console.log("After updateCart");
+    } else {
+    //   console.log("lgged in");
+      // updateuserorder(idstr, action);
+      updateuserorder(idstr, action, user);
+    }
+
+    Swal.fire({
+      position: "top-end",
+      html: "<b>Item added in cart!</b>",
+      showConfirmButton: false,
+      width: "400px",
+      timer: 1500,
+    }); //alert('Updated in cart');
+  }
+
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,91 @@
+{% extends 'basecut.html' %}
+
+{% block content %}
+{% csrf_token %}
+
+
+
+<div class="container text-center">
+  <h1>Daily Spreading and Cutting Sheet</h1>
+</div>
+
+<form class= "", action="", method="POST", id="myForm">
+
+
+<div class="form-group col">
+    <br>
+
+<p><label for="id_datef">Date:</label> <input type="date" name="datef" maxlength="200" required="" id="id_datef"></p>
+<p><label for="id_tableno">Table No:</label> <input type="number" name="tableno" required="" id="id_tableno"></p>
+<p><label for="id_tabletype">Table Type:</label> <input type="text" name="tabletype" maxlength="100" required="" id="id_tabletype"></p>
+ <p><label for="id_garmentorderno">Garment Order No:</label> <input type="number" name="garmentorderno" required="" id="id_garmentorderno"></p>
+<p><label for="id_buyer">Buyer:</label> <input type="text" name="buyer" maxlength="100" required="" id="id_buyer"></p>
+<p><label for="id_styleno">Style No:</label> <input type="text" name="styleno" maxlength="100" required="" id="id_styleno"></p>
+<p><label for="id_sizewiseorderq">Size wise order quantity:</label> <input type="number" name="sizewiseorderq" required="" id="id_sizewiseorderq"></p>
+<p><label for="id_cutplanq">Cut plan quantity:</label> <input type="number" name="cutplanq" required="" id="id_cutplanq"></p>
+<p><label for="id_balance">Balance:</label> <input type="number" name="balance" required="" id="id_balance"></p>
+<p><label for="id_markerno">Marker No:</label> <input type="text" name="markerno" maxlength="100" required="" id="id_markerno"></p>
+<p><label for="id_markerratio">Marker Ratio:</label> <input type="number" name="markerratio" required="" id="id_markerratio"></p>
+<p><label for="id_spreadingmode">Spreading Mode:</label> <input type="text" name="spreadingmode" maxlength="100" required="" id="id_spreadingmode"></p>
+<p><label for="id_lotno">Lot No:</label> <input type="number" name="lotno" required="" id="id_lotno"></p>
+<p><label for="id_rollno">Roll No:</label> <input type="number" name="rollno" required="" id="id_rollno"></p>
+<p><label for="id_shade">Shade:</label> <input type="text" name="shade" maxlength="100" required="" id="id_shade"></p>
+<p><label for="id_csv">CSV:</label> <input type="number" name="csv" required="" id="id_csv"></p>
+<p><label for="id_markerwidth">Marker Width:</label> <input type="number" name="markerwidth" required="" id="id_markerwidth"></p>
+<p><label for="id_markerlength">Marker Length:</label> <input type="number" name="markerlength" required="" id="id_markerlength"></p>
+<p><label for="id_markerefficiency">Marker Efficiency:</label> <input type="number" name="markerefficiency" required="" id="id_markerefficiency"></p>
+<p><label for="id_noofplies">No of plies:</label> <input type="number" name="noofplies" required="" id="id_noofplies"></p>
+<p><label for="id_plannedfabricconsumption">Planned fabric consumption:</label> <input type="number" name="plannedfabricconsumption" required="" id="id_plannedfabricconsumption"></p>
+<p><label for="id_actualfabricconsumption">Actual fabric consumption:</label> <input type="number" name="actualfabricconsumption" required="" id="id_actualfabricconsumption"></p>
+<p><label for="id_deviation">Deviation:</label> <input type="number" name="deviation" required="" id="id_deviation"></p>
+<p><label for="id_plannedendbits">Planned end bits:</label> <input type="number" name="plannedendbits" required="" id="id_plannedendbits"></p>
+<p><label for="id_actualendbits">Actual end bits:</label> <input type="number" name="actualendbits" required="" id="id_actualendbits"></p>
+<p><label for="id_deviationendbits">Deviation end bits:</label> <input type="number" name="deviationendbits" required="" id="id_deviationendbits"></p>
+<p><label for="id_spreadingtime">Spreading time:</label> <input type="number" name="spreadingtime" maxlength="100" required="" id="id_spreadingtime"></p>
+<p><label for="id_cuttingtime">Cutting time:</label> <input type="number" name="cuttingtime" maxlength="100" required="" id="id_cuttingtime"></p>
+<p><label for="id_actualtimetaken">Actual time taken:</label> <input type="number" name="actualtimetaken" maxlength="100" required="" id="id_actualtimetaken"></p>
+<p><label for="id_plannedtime">Planned time:</label> <input type="number" name="plannedtime" maxlength="100" required="" id="id_plannedtime"></p>
+<p><label for="id_deviationtime">Deviation time:</label> <input type="number" name="deviationtime" required="" id="id_deviationtime"></p>
+<p><label for="id_instructions">Instructions:</label> <input type="text" name="instructions" maxlength="100" required="" id="id_instructions"></p>
+   
+</div>
+
+</form>
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+
+	// END BITS DEVIATION
+
+  $("#id_plannedendbits,#id_actualendbits").keyup(function () {
+    $('#id_deviationendbits').val(Number($('#id_plannedendbits').val()) - Number($('#id_actualendbits').val())); 
+  });
+
+  // FABRIC CONSUMPTION DEVIATION
+
+  $("#id_plannedfabricconsumption,#id_actualfabricconsumption").keyup(function () {
+    $('#id_deviation').val(Number($('#id_plannedfabricconsumption').val()) - Number($('#id_actualfabricconsumption').val())); 
+  });
+
+  // ACTUAL TIME TAKEN
+
+  $("#id_spreadingtime,#id_cuttingtime").keyup(function () {
+    $('#id_actualtimetaken').val(Number($('#id_spreadingtime').val()) + Number($('#id_cuttingtime').val())); 
+  });
+
+
+   // TIME DEVIATION
+
+  $("#id_plannedtime").keyup(function () {
+    $('#id_deviationtime').val(Number($('#id_plannedtime').val()) - Number($('#id_actualtimetaken').val())); 
+  });
+
+
+</script>
+
+
+{% endblock %}

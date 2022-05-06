@@ -1,0 +1,265 @@
+{% extends 'basecut.html' %}
+
+{% block content %}
+
+{% csrf_token %}
+
+<div class="container text-center">
+  <h1>Generate Cut Loading Plan</h1>
+</div>
+<br>
+<div class="form-group col">
+
+
+
+<form class= "", action="", method="POST", id="myForm">
+
+  <p><label for="id_cutpaneldelivery">Cut Panel Delivery Date:</label> <input type="date" name="cutpaneldelivery" maxlength="200" required="" id="id_cutpaneldelivery"></p>
+
+  <p><label for="id_leadtime">Lead Time (in days):</label> <input type="number" name="leadtime" value="3" required="" id="id_leadtime"></p>
+
+  <p><label for="id_issuedate">Issue Date:</label> <input type="date" name="issuedate" maxlength="200" required="" id="id_issuedate"></p>
+
+  <p><label for="id_orderno">Order No.:</label> 
+    <select name="orderno" required="" id="id_orderno">
+      <option value="" selected="">---------</option>
+      {% for i in orderno %}
+      <option value="{{ i.orderno }}">{{ i.orderno }}</option>
+      {% endfor %}
+    </select></p>
+
+   <p><label for="id_styleno">Style No:</label> <input type="text" name="styleno" maxlength="100" required="" id="id_styleno"></p>
+
+   <p><label for="id_markerno">Marker No:</label> <select name="markerno" required="" id="id_markerno">
+        <option value="" selected="">---------</option>
+        {% for i in data %}
+          <option value="{{ i.pk }}">{{ i.name }}</option>
+         {% endfor %}
+      </select></p>
+
+   <p><label for="id_noofplies">No. of Plies:</label> <input type="number" name="noofplies" required="" id="id_noofplies"></p>
+
+   <p><label for="id_issuetable">Issue Table:</label> <input type="number" name="issuetable" required="" value="0" id="id_issuetable"></p>
+    
+   <p><label for="id_availcapaforspreadandcut">Available Capacity For Spreading & Cutting per day:</label> <input type="number" name="availcapaforspreadandcut" required="" id="id_availcapaforspreadandcut"></p>
+
+   <p><label for="id_requiredcapacity">Required Capacity:</label> <input type="number" name="requiredcapacity" required="" id="id_requiredcapacity"></p>
+
+   <p><label for="id_requiredday">Required Day:</label> <input type="number" name="requiredday" step="0.00001" required="" id="id_requiredday"></p>
+
+   <p><label for="id_requiredtime">Required Time (in hr):</label> <input type="number" name="requiredtime" step="0.00001" required="" id="id_requiredtime"></p>
+
+
+  <br>
+  {% csrf_token %}
+
+  <a href="/cut/clp" class="btn btn-primary" id="id_prev">Previous</a>
+
+  <button class="btn btn-primary" id="id_submit" type="submit" href="/" ,="" value="Submit">Submit</button>
+  
+  <a href="/cut/capaleft" class="btn btn-primary" id="id_next">Next</a>
+
+
+</div>
+
+<br>
+    <br>
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+</form>
+
+
+  <div>
+
+  <button class="btn btn-primary" id="id_summary" onclick="myFunc()">Summary</button>
+
+  <style type="text/css">
+  table {display: none; border-collapse: collapse;}
+  th, td {
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+  }
+  </style>
+
+  <table id="tableid" border="1" align="center" width="80%">
+
+    <tr>
+        <th>Order No</th>
+        <th>Style No</th>
+        <th>Marker No</th>
+        <th>No of Plies</th>
+        <th>Issue Table</th>
+        <th>Available Capacity For Spreading & Cutting per day</th>
+        <th>Cut Panel Delivery Date</th>
+        <th>Required Capacity</th>
+        <th>Required Day</th>
+        <th>Required Time (in hr)</th>
+        <th>Lead Time (in days)</th>
+        <th>Issue Date</th>
+
+    </tr>
+    {% for item in issuedetailsobjects %}
+    <tr> 
+        <td>{{ item.orderno }}</td>
+        <td>{{ item.styleno }}</td>
+        <td>{{ item.markerno }}</td>
+        <td>{{ item.noofplies }}</td>
+        <td>{{ item.issuetable }}</td>
+        <td>{{ item.availcapaforspreadandcut }}</td>
+        <td>{{ item.cutpaneldelivery }}</td>
+        <td>{{ item.requiredcapacity }}</td>
+        <td>{{ item.requiredday }}</td>
+        <td>{{ item.requiredtime }}</td>
+        <td>{{ item.leadtime }}</td>
+        <td>{{ item.issuedate }}</td>
+       
+    </tr>
+    {% endfor %} 
+  </table>
+
+  </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+
+  function myFunc(){
+    var x = document.getElementById("tableid");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  $("#id_cutpaneldelivery").change(function(){
+
+      var d = new Date($("#id_cutpaneldelivery").val());
+      var n = new Date();
+      var x = Number($("#id_leadtime").val());
+      n.setDate(d.getDate() - x);
+      var formattedDate = n.toISOString().substr(0, 10);
+      $("#id_issuedate").val(formattedDate);
+    });
+
+    $("#id_orderno").change( function(){
+      var od = $("#id_orderno").val();
+      $.ajax({
+        type: "POST",
+        url: "/cut/issuedetails/",
+        data: {
+          'ordernoo' : od,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function(data) {
+           
+           var x = data["dat_list"].toString();
+           list = x.split(",");
+           $("#id_styleno").val(list[0]);
+
+           for(var i=0; i < data["mark_list"].length; i++){
+            $("#id_markerno").append(`<option value="${data['mark_list'][i]}"> ${data['mark_list'][i]} </option>`)
+          }
+        }
+      });
+     
+    });
+
+
+     $("#id_markerno").change( function(){
+      var m = $("#id_markerno").val();
+      var isdate = new Date($("#id_issuedate").val())
+      var formatdate = isdate.toISOString().substr(0, 10)
+      
+
+      $.ajax({
+        type: "POST",
+        url: "/cut/issuedetails/",
+        data: {
+          'markernoo' : m,
+          'isdate' : formatdate,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function(data) {
+          // alert(data["maker_list"].toString());
+           var x = data["maker_list"].toString();
+           list = x.split(",");
+           $("#id_noofplies").val(list[0]);
+           
+           var x = data["ist_list"].toString();
+           ist = x.split(",");
+           $("#id_issuetable").val(ist[0]);
+
+           var x = data["avc_list"].toString();
+           list = x.split(",");
+           $("#id_availcapaforspreadandcut").val(list[0]);
+
+           var x = data["totcapareq_list"].toString();
+           list = x.split(",");
+           $("#id_requiredcapacity").val(list[0]);
+
+            $('#id_requiredday').val((Number($('#id_requiredcapacity').val()) / Number($('#id_availcapaforspreadandcut').val())).toFixed(4));
+
+             $('#id_requiredtime').val((Number($('#id_requiredday').val()) * Number(8)).toFixed(4));
+
+          }
+        });
+    });
+
+     $("#id_issuetable").change( function(){
+      var istab = $("#id_issuetable").val();
+      alert(istab)
+      
+      $.ajax({
+        type: "POST",
+        url: "/cut/issuedetails/",
+        data: {
+          'istab' : istab,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function(data) {
+
+           var x = data["avc_list"].toString();
+           list = x.split(",");
+           $("#id_availcapaforspreadandcut").val(list[0]);
+
+           var x = data["totcapareq_list"].toString();
+           list = x.split(",");
+           $("#id_requiredcapacity").val(list[0]);
+
+            $('#id_requiredday').val((Number($('#id_requiredcapacity').val()) / Number($('#id_availcapaforspreadandcut').val())).toFixed(4));
+
+             $('#id_requiredtime').val((Number($('#id_requiredday').val()) * Number(8)).toFixed(4));
+
+          }
+        });
+    });
+
+
+
+     $("#id_noofplies").keyup(function () { 
+      $('#id_requiredday').val((Number($('#id_requiredcapacity').val()) / Number($('#id_availcapaforspreadandcut').val())).toFixed(4)); 
+    });
+
+     $("#id_noofplies").keyup(function () {
+      $('#id_requiredtime').val((Number($('#id_requiredday').val()) * Number(8)).toFixed(4)); 
+    });
+
+  
+  </script>
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,1 @@
+!function(e){"use strict";e.fn.reinitializeGoogleMap=function(){var t,i,g,r,n=e(this).data("plugin_fusion_maps");if(n&&(i=(t=n.map).getCenter(),g=n.markers,google.maps.event.trigger(t,"resize"),t.setCenter(i),g))for(r=0;r<g.length;r++)google.maps.event.trigger(g[r],"click"),google.maps.event.trigger(g[r],"click")}}(jQuery);

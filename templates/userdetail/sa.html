@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load qr_code %}
+<head>
+    <style>
+table
+{
+margin-left:30%;}
+    tr
+    {
+    border:2px solid black;}
+        td,th
+        {
+        border:1px solid black;
+        padding:3px;
+        margin:3px;
+        colspa
+        font-size:18px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Size Assortment</title>
+</head>
+<body>
+
+<h1 style="margin-left:30%; margin-top:5%;"> SIZE ASSORTMENT TABLE</h1>
+
+    <table style="border:2px solid black; cellspacing:10;">
+        <tr>
+        <th>COLOR</th>
+            <th>ADDRESS</th>
+            <th>TOTAL</th>
+            <th>24</th>
+            <th>28</th>
+            <th>30</th>
+            <th>32</th>
+            <th>34</th>
+            <th>36</th>
+            <th>38</th>
+            <th>40</th>
+
+
+        </tr>
+
+        {% for product in products %}
+        <tr>
+        <td>{{ product.color }}</td>
+            <td>{{ product.address }}</td>
+            <td>{{ product.total }}</td>
+            <td>{{ product.ts24 }}</td>
+            <td>{{ product.ts28 }}</td>
+            <td>{{ product.ts30 }}</td>
+            <td>{{ product.ts32 }}</td>
+            <td>{{ product.ts34 }}</td>
+            <td>{{ product.ts36 }}</td>
+            <td>{{ product.ts38 }}</td>
+            <td>{{ product.ts40 }}</td>
+
+           <td>{% qr_from_text product.barcode %}</td>
+            </tr>
+            {% endfor %}
+
+
+    </table>
+
+</body>
+</html>

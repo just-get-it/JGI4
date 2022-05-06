@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style type="text/css">
+	.act_obj{
+		transition: all .8s ease-out;
+		border: 1px solid white;
+	}
+	.acti_obj:hover{
+		border: 1px solid rgba(0,0,0,.5);
+	}
+	.but_cls{
+		border: 1px solid black;
+		border-radius: 50px;
+		background: #30c5ff;
+		color: #253031;
+		transition: all .5s ease-out;
+		font-weight: bold;
+	}
+	.but_cls:hover{
+		background: #253031;
+		color:white;
+	}
+</style>
+<div class="row">
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row centered">
+			<h3>Activities</h3>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<button class="ml-auto px-4 py-1 but_cls" onclick="moveup();">Move Up</button>
+			<button class="ml-4 px-4 py-1 but_cls" onclick="movedown();">Move Down</button>
+			<a href="/userdetail/staff_profile" class="ml-4 px-4 py-1 but_cls" style="text-decoration: none;">Go To Profile</a>
+		</div>
+	</div>
+	{% csrf_token %}
+	<div class="container" id="allacti">
+		
+		{% for a in activities %}
+		<div class="row py-3 px-2 mt-2 mb-2 pl-4 acti_obj" id="{{a.sequence}}" style="">
+			<input type="radio" name="acti" value="{{a.sequence}}">
+			<div class="col-3 centered">
+				<h6>{{a.title}}</h6>
+			</div>
+			<div class="col-5">
+				<h6>Staff Category - {{a.staff_category}}</h6>
+			</div>
+			<div class="col-3">
+				<h6>Position - {{a.position}}</h6>
+			</div>
+		</div>
+		{% endfor %}
+		
+	</div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+	function moveup(){
+		var acti=document.querySelector('input[name="acti"]:checked').value;
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/staff_profile/activities_order',
+			data:{
+				acti_ajax_moveup:acti,
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+	    	cache:false,
+	    	dataType: "json",
+			success:function(data) {
+				var ht='';
+				if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<div class="row py-3 px-2 mt-2 mb-2 pl-4 acti_obj" id="`+value.sequence+`" style="">
+			<input type="radio" name="acti" value="`+value.sequence+`">
+			<div class="col-3 centered">
+				<h6>`+value.title+`</h6>
+			</div>
+			<div class="col-5">
+				<h6>Staff Category - `+value.staff_category+`</h6>
+			</div>
+			<div class="col-3">
+				<h6>Position - `+value.position+`</h6>
+			</div>
+		</div>`
+				});
+				$('#allacti').html(ht);
+				}
+			}
+		});
+	}
+	function movedown(){
+		var acti=document.querySelector('input[name="acti"]:checked').value;
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/staff_profile/activities_order',
+			data:{
+				acti_ajax_movedown:acti,
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+	    	cache:false,
+	    	dataType: "json",
+			success:function(data) {
+				var ht='';
+				if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<div class="row py-3 px-2 mt-2 mb-2 pl-4 acti_obj" id="`+value.sequence+`" style="">
+			<input type="radio" name="acti" value="`+value.sequence+`">
+			<div class="col-3 centered">
+				<h6>`+value.title+`</h6>
+			</div>
+			<div class="col-5">
+				<h6>Staff Category - `+value.staff_category+`</h6>
+			</div>
+			<div class="col-3">
+				<h6>Position - `+value.position+`</h6>
+			</div>
+		</div>`
+				});
+				$('#allacti').html(ht);
+				}
+			}
+		});
+	}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

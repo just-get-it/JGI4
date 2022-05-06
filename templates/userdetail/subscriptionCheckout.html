@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% load static %}
+{% block content %}
+    <style>
+    .table {
+        text-align: center;
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 20px;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    form {
+        font-size: 20px;
+    }
+    </style>
+    <script type="text/javascript"> 
+        window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
+    </script>
+    <div class="container mt-3">
+        {% comment %} PART - 1 {% endcomment %}
+        <h2 style="text-align:center" >Few steps to go! Review Your Items...</h2>        
+        <div>
+            <table class="table">
+                <tr>
+                    <th> Name </th>
+                    <th> Quantity </th>
+                    <th> Amount </th>
+                </tr>
+                {% for transaction_id, product in maps.items %}
+                    <tr>
+                        <td> {{product.product_name}} </td>
+                        <td> {{product.quantity}} </td>
+                        <td> {{product.amount}} </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"> <strong>Total price</strong> </td>
+                    <td>{{totalPrice}}</td>
+                </tr>
+            </table>
+        </div>
+
+        {% comment %} PART - 2 {% endcomment %}
+        <form action="{% url 'susbcriptionPayment' %}" method="POST"> {% csrf_token %}
+            <input type="hidden" name="items_json" value="{{maps_json}}" />
+            <input type="hidden" name="amount" value="{{totalPrice}}" />
+            <div class="form-group">
+                <label for="inputName">Name</label>
+                <input type="text" name="name" class="form-control" value="{{user.name}}" id="inputName" placeholder="Name" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" name="email" value="{{user.email}}" class="form-control" id="inputEmail4" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPhoneNumber">Phone Number</label>
+                    <input type="text" name="phone" value="{{user.contact}}" class="form-control" id="inputPhoneNumber" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" name="city" class="form-control" id="inputCity" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" name="zip" class="form-control" id="inputZip" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputState">State</label>
+                    <input type="text" name="state" class="form-control" id="inputState" required>
+                </div>
+            </div>
+            {% if alreadySubscribed %}
+                <input type="hidden" name="alreadySubscribed" value="True" />
+                <input type="hidden" name="transaction" value="{{transaction}}" />
+            {% endif %}
+             {% comment %} TERMS AND CONDITIONS {% endcomment %}
+            <div style="height: 200px; overflow: auto; padding: 5px; margin-bottom: 10px;">
+                <h4> Terms and conditions* </h4>
+                <hr />
+                {{terms}}
+                <br />
+                <input id="agreementCheckbox" type="checkbox">
+                <label for="agreementCheckbox"> Agree </label>
+            </div>
+            <input type="hidden" name="subs" value="{{subs}}">
+            {% comment %} <button class="btn btn-primary paymentButton" type="submit" name="PAYTM" disabled>PayTm</button> {% endcomment %}
+            <button class="btn btn-primary paymentButton" type="submit" name="RAZORBTN" disabled>RazorPay</button>
+        </form>
+    </div>
+
+    <script>
+        $("#agreementCheckbox").change(function() {
+            if(this.checked)
+                $(".paymentButton").attr("disabled", false);
+            else
+                $(".paymentButton").attr("disabled", true);
+        })
+    </script>
+{% endblock %}

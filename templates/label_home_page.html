@@ -1,0 +1,238 @@
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+
+
+<!--
+
+===================================================================
+===================================================================
+===================================================================
+===================================================================
+========================Home Page Slider ==========================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== -->
+
+	<div class="row slider">
+    {% if home_crou.image1 %}
+		<img src="{{home_crou.image1.url}}">
+    {% else %}
+    <img src="{% static 'img/index.jpeg' %}" alt="">
+    {% endif %}
+		<div class="row head">
+			<h2>Mens New-Season</h2>
+		</div>
+		<div class="row head1">
+			<h1>Jackets & Coats</h1>
+		</div>
+		<div class="row head2">
+			<a href="/products/?cate=Mens"><button>Shop Now</button></a>
+		</div>
+	</div>
+
+
+
+<!--
+
+===================================================================
+===================================================================
+===================================================================
+===================================================================
+========================Categories of Products ====================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== -->
+
+	<div class="container-fluid">
+		<div class="row" style="margin-top: 5vh; margin-bottom: 5vh;">
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wom-cate">
+				<img src="{% static 'img/banner-01.jpeg' %}">
+				<a href="/products/?cate=Womens" style="display: inline-flex;"><div class="over">
+					<h4>Women</h4>
+					<h6>Spring 2019</h6>
+					<div class="row shop_banner">
+						SHOP NOW
+					</div>
+				</div></a>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 men-cate">
+				<img src="{% static 'img/banner-02.jpeg' %}">
+				<a href="/products/?cate=Mens"><div class="over">
+					<h4>Men</h4>
+					<h6>Spring 2019</h6>
+					<div class="row shop_banner">
+						SHOP NOW
+					</div>
+				</div></a>
+			</div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 acce-cate">
+				<img src="{% static 'img/banner-03.jpeg' %}">
+				<a href="/products/?cate=Home and Living" style="display: inline-flex;"><div class="over">
+					<h4>Home & Living</h4>
+					<h6>New Trend</h6>
+					<div class="row shop_banner">
+						SHOP NOW
+					</div>
+				</div></a>
+			</div>
+		</div>
+	</div>
+
+
+<!--
+
+===================================================================
+===================================================================
+===================================================================
+===================================================================
+========================Categories of Products ====================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== -->
+
+
+
+
+	<div class="container-fluid">
+		{% for cate, sub_cate in prod_dict.items %}
+		<div class="row product-over-head mt-2" style="mt-1">
+			<h1 style="font-size:30px; font-weight: bold;" class="w-100 text-center">Browse {{ cate }}</h1>
+		</div>
+		{% for s_cate, products in sub_cate.items %}
+			<div class="row product-over-head mt-3 mb-3 ml-2">
+				<h1>Trending {{ s_cate }}</h1>
+			</div>
+		<div class="row">
+		{% for i in products %}
+			<div class="col-6 col-md-3 col-lg-2 product-over">
+        {% if i.image1 %}
+        <a href="/products/{{i.slug}}"><div>
+
+				<img src="{{i.image1.url}}"></div></a>
+        {% else %}
+        <div>
+
+				<img src="{% static 'img/product-01.jpeg' %}"></div>
+        {% endif %}
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">{{i.title}}</h6>
+				<h6 style="margin-left: 1vw;">{{i.price}} Rs</h6>
+			</div>
+      {% endfor %}
+    </div>
+	{% endfor %}
+	{% endfor %}
+  </div>
+			<!-- <div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-02.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Hershell Supply</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-03.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Only Check Trouser</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-04.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Classic Trench Coat</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-05.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Front Pocket Jumper</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-06.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Vintage Inspired Classic</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-07.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Shirt in Stretch Cotton</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-08.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-09.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Front Pocket Jumper</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-10.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Vintage Inspired Classic</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-11.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Shirt in Stretch Cotton</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-12.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-13.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-14.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-15.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-3 col-md-3 product-over">
+				<div>
+				<img src="{% static 'img/product-16.jpeg' %}"></div>
+				<h6 style="margin-top: 2vh; margin-left: 1vw;">Pieces of Mettalic Printed</h6>
+				<h6 style="margin-left: 1vw;">15.50 Rs</h6>
+			</div>
+		</div>
+	</div> -->
+
+
+{% endblock %}

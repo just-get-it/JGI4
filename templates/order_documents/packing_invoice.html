@@ -1,0 +1,187 @@
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Order PO</title>
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#253031">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#253031">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#253031">
+    <!-- ============================================================================ -->
+    <!-- <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/> -->
+    <!-- ======================================================================== -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <!-- ======================================================================== -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Cabin|Pacifico" rel="stylesheet"> -->
+  </head>
+  <body>
+    <style media="screen">
+      .acti_table{
+  			table-layout: fixed;
+  			width: 300vw;
+  		}
+  		.acti_table tr,.acti_table th,.acti_table td{
+  			border:2px solid black;
+  		}
+  		.acti_table td,.acti_table th{
+  			padding: 8px;
+  			overflow: hidden;
+  			width: 18vw;
+  			/* align-content: center; */
+  		}
+
+  		.acti_table th{
+  			background-color: #30c5ff;
+  			padding-left: 1vw;
+  			padding-right: 1vw;
+  		}
+      body{
+        size: landscape;
+      }
+    </style>
+
+    <h1 style="margin:0;padding:0;"><center>{{order.fashion_Brand.name}}</center></h1>
+    <h3 style="margin:0;padding:0;"><center>{{order.fashion_Brand.address}}</center></h3>
+    <h3 style="margin:0;padding:0;"><center>Tel: {{order.fashion_Brand.contact}}</center></h3>
+    <h2 style="margin:0;padding:0;border-bottom:2px solid black;"><center>TAX INVOICE</center></h2>
+    {% if check %}
+    <table style="margin-top:20px;">
+      <tr style="border:1px solid black;">
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+          <b>Buyer No / Name & Address</b><br>
+          Id:{{compan.id}} {{compan.name}}<br>
+          {{compan_det.address}}<br>
+          GSTIN: {{compan.gstin}}<br>
+          Contact: {{compan_det.contact}}
+        </td>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+          <b>SHIP TO PARTY</b><br>
+          Id:{{compan.id}} {{compan.name}}<br>
+          {{order.dispatch_Address.first.address}}<br>
+          GSTIN: {{compan.gstin}}<br>
+          Contact: {{compan_det.contact}}
+        </td>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+          SHIP TO PARTY:{{compan.id}}<br>
+          BUYER NO: {{compan.id}}<br>
+          Brand: {{order.fashion_Brand.name}}<br>
+          Tax payable under reverse charges - "NO"<br>
+          RL Ref. No.:<br>
+          PO No.:<br>
+        </td>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+          Invoice No: {{order.order_no}}<br>
+          Date: {{order.order_date_time}}<br>
+          EWAY BILL NO :<br>
+          Transporter :<br>
+          Docket No :<br>
+          Docket Date :<br>
+          No of Cartons : 0<br>
+          Gross Weight : 0.000<br>
+        </td>
+      </tr>
+
+    </table>
+    <table>
+      <tr style="padding:5px;border:1px solid black;font-size:1.2em;">
+        <td>
+          <b>Material Code</b>
+        </td>
+        <td>
+          <b>Description of Goods</b>
+        </td>
+        <td>
+          <b>UOM</b>
+        </td>
+        <td>
+          <b>Quantity</b>
+        </td>
+        <td>
+          <b>Wastage</b>
+        </td>
+        <td>
+          <b>Unit Price</b>
+        </td>
+        <td>
+          <b>Gross Value</b>
+        </td>
+        <td><b>Discount</b></td>
+        <td><b>Taxable Value</b></td>
+      </tr>
+      {% for i in fini %}
+      <tr style="padding:5px;border:1px solid black;font-size:1.2em;">
+        <td>
+          {{i.0}}
+        </td>
+        <td>
+          {{i.2}}
+        </td>
+        <td>{{i.1}}</td>
+        <td>{{i.3}}</td>
+        <td>{{i.4}}</td>
+        <td>{{i.5}}</td>
+        <td>{{i.6}}</td>
+        <td>0.00</td>
+        <td>{{i.6}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <table style="margin-top:50px;">
+      <tr style="padding:2px;border:1px solid black;font-size:1.2em;">
+        <td>Total Qty.</td>
+        <td>{{final_quan}}</td>
+        <td>Gross Val</td>
+        <td>{{final_price}}</td>
+        <td>Discount</td>
+        <td>0.00</td>
+        <td>Taxable</td>
+        <td>{{final_price}}</td>
+        <td>Central Tax</td>
+        <td>0.00</td>
+        <td>State Tax</td>
+        <td colspan="2"><center>0.00</center></td>
+      </tr>
+      <tr style="padding:2px;border:1px solid black;font-size:1.2em;">
+        <td>Integrated</td>
+        <td>0.00</td>
+        <td>Insurance</td>
+        <td>0.00</td>
+        <td>Frieght</td>
+        <td>0.00</td>
+        <td>Round Off</td>
+        <td>0.00</td>
+        <td>CESS</td>
+        <td>0.00</td>
+        <td><b>Final Price</b></td>
+        <td colspan="2">{{final_price}}</td>
+      </tr>
+    </table>
+    <h1><b>Ruppes(in words) {{total_cost_words}}</b></h1><br>
+    <h2>Remarks: </h2>
+    <h2>Delivery No. : {{order.order_no}}</h2>
+    <br><br>
+    E&OE
+    REGD Office : {{order.fashion_Brand.address}}
+    <br>
+    <h1 style="margin-left:500px;">For {{order.fashion_Brand.name}}</h1><br><br>
+    <h1 style="margin-left:500px;">Authorised Reprsentative</h1>
+    {% else %}
+      <h1>This INVOICE can't be generated.</h1>
+    {% endif %}
+  </body>
+</html>

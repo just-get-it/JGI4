@@ -1,0 +1,160 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/userdetail/login.css' %}"
+/>
+
+{% endblock %} {% block content %} {% if invalid %}
+
+<script type="text/javascript">
+  alert("Incorrect Username/Password !");
+</script>
+
+{% endif %}
+<!-- Including ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-lg-4 col-md-7 py-5 my-auto">
+    <div class="container border py-5 px-4 my-5 rounded shadow-lg">
+      <h1 class="text-center text-primary mb-0" id="welcome_text">Welcome</h1>
+      <hr />
+      <form id="loginForm" onsubmit="submitForm()" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group p-0 mb-1">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            class="loginemail form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="form-group p-0 mb-1">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            class="loginpassword form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <p class="text-right mr-3">
+          <a href="/userdetail/recover">Recover Password</a>
+        </p>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success shadow-lg mr-1 px-3">
+            Log in
+          </button>
+          <button
+            type="button"
+            onclick="location.href='/userdetail/register'"
+            class="btn btn-primary shadow-lg ml-1 px-3"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <p class="text-black-50 text-center mt-3">
+          Or Login with
+        </p>
+      
+        <div class="text-center">
+          <button type="button" class="btn btn-white">
+            <a href=""><img src="{% static "img/facebook.png" %}" alt="" /></a>
+          </button>
+          <button type="button" class="btn btn-white">
+            <a href=""><img src="{% static "img/google.png" %}" alt="" /></a>
+          </button>
+          <button type="button" class="btn btn-white">
+            <a href=""><img src="{% static "img/twitter.png" %}" alt="" /></a>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+
+
+<script type="text/javascript" >
+  function welcome() {
+    if ("{{ cart }}") {
+      document.getElementById('welcome_text').innerHTML = "Login to continue";
+    }
+  }
+  welcome();
+
+    function submitForm() {
+        event.preventDefault();
+        var gotocart = "{{ cart }}";
+        var token = "{{ csrf_token }}";
+        var local_cart = JSON.parse(localStorage.getItem('cart'));
+        $.ajax({
+            "headers": {
+                "X-CSRFToken": token
+            },
+            "url": '/userdetail/login/',
+            "method": "POST",
+            "data": JSON.stringify({
+                email: document.getElementById("exampleInputEmail1").value,
+                password: document.getElementById("exampleInputPassword1").value,
+                cart: local_cart,
+                redirect_url: '/userdetail/profile'
+            }),
+            "processData": false,
+            "success": function(response) {
+                if (response.invalid) {
+                    alert('Invalid email or password!');
+                } else {
+                    localStorage.setItem('cart', JSON.stringify({}));
+                    if (gotocart) {
+                        window.location.href = '/cart/';
+                    } else {
+                        window.location.href = response.url;
+                    }
+                }
+            }
+        });
+
+  }
+ 
+</script>
+
+<!-- 
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+				<h4>Logiddn</h4>
+			</div>
+			<form method="POST">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1">
+					<input type="email" name="email" placeholder="Your Email Id" class="loginemail" required>
+					<input type="password" name="password" placeholder="High Security Password" class="loginpassword" required>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">LOGIN</button>
+				</div>
+			</div>
+			</form>
+			<div class="row" style="margin-top: 1.3vh;">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pl-4">
+					<p style="font-size: .8em">New Here ? <a href="/userdetail/register" style="text-decoration: none;color: #30c5ff;">Create Account</a></p>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pl-4">
+					<p style="font-size: .8em"><a href="/userdetail/recover" style="text-decoration: none;color: #30c5ff;">Recover Password</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+{% endblock %}

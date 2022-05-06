@@ -1,0 +1,148 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}"> {% endblock %} {% block content %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <div class="row">
+        <div class="container">
+            <div class="row my-3" style="border-bottom:1px solid black;">
+                <h4>Bulk Orders Bill of Materials Upload</h4>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 1">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Order No">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 2">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Cut-Make Consumption">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 3">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Cut-Make Rate">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 4">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Profit">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 5">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Fabric Id">
+                    <a href="/buisness/fabrics_id">View All Fabric ID</a>
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="VarChar(255)">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 6">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Units of Measurement">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="VarChar(20)">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 7">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Description">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="VarChar(2000)">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 8">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Specifications">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="VarChar(20)">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 9">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Consumption">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 10">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Wastage">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4">
+                    <input type="text" disabled value="Column 11">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Rate">
+                </div>
+                <div class="col-4">
+                    <input type="text" disabled value="Integer">
+                </div>
+            </div>
+            <div class="row my-3">
+                <h6 style="color:red;">Warning : For each Trim in the row there must be 7 cols that is Fabric ID, UOM, Desc, Specs, Consumption, Wastage, Rate.</h6>
+            </div>
+            <div class="row my-5">
+
+                <input type="file" name="bulk_order_bom" required>
+
+            </div>
+            <div class="row my-5">
+
+                <button type="submit" style="border:none;background:#30c5ff;border-radius: 25vw;margin-left:10vw" class="py-1 px-5">Upload</button>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

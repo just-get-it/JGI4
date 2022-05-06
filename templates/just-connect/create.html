@@ -1,0 +1,101 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .post-like {
+        cursor: pointer;
+    }
+    .btn {
+        padding: 0px;
+        padding-right: 2%;
+    }
+
+    .fa-thumbs-up {
+        font-size: 25px;
+    }
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+    #gallery img {
+        width: 400px;
+        height: 250px;
+    }
+    input[type=file].postimg {
+    display: none;
+}
+</style>
+        <!-- Page Header Start -->
+        <!-- <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">Activity</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="home-1.html" class="btn-link">Home</a></li>
+                    <li class="active"><span class="text-primary">Side-Wide Activities</span></li>
+                </ul>
+            </div>
+        </div> -->
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        
+        <section class="page--wrapper pt--80 pb--20">
+        <section style="float:left">
+        <a href="{% url 'showDraft' %}" style="margin:20px">Drafts</a>
+        <a href="{% url 'bookmarks' %}" style="margin:20px">Bookmarks</a>
+        <a href="{% url 'cproducts' %}" style="margin:20px">Commercial Products</a>
+        <a href="{% url 'cproductsorders' %}" style="margin:20px">Book Products</a>
+        <a href="{% url 'ProjectFeed' %}" style="margin:20px">Project Feed</a>
+        <a href="{% url 'DiscoverProject' %}" style="margin:20px">Discover Project</a>
+        <a href="/sbs/pages" style="margin:20px">Pages</a>
+
+        
+        
+        
+        </section>
+            {% block indexbody %}
+
+            <div class="container mt-5" style="z-index: 0;margin-top: 2%;">
+                <!-- top -->
+                
+    <div class="n" style="display:contents; width:70%; z-index:2;top:0;left:0;">
+        <img style="width:50%;position:relative;margin-top:1%;height:auto;margin-left:-10%"  src="/media/b.png"></span>
+    </div>  
+    
+                <span style="display: inline-block;position:relative;z-index:0;width:20%; margin-left: 1%;margin-bottom:12%;">
+                    
+                        <p><a style="color:black;"href="/sbs/pages">Pages></a>Create a Page</p>
+                        <p>Create a Page</p>
+    
+                        <p>Page Information</p>
+                        <form method="POST" class="post-form">  
+                            {% csrf_token %}  
+                            {{form.name}} 
+                            
+                            
+                    
+                    <p>Use the name of your business, brand or organization, or a name that explains what the Page is about.</p>
+                    <a href="">Learn More</a>
+                    {{form.catg}}
+                    <p>Choose a category that describes what type of business, organization or topic the Page represents. You can add up to 3.</p>
+                    {{form.desc}}
+                    <p>Write about what your business does, the services you provide, or the purpose of the Page.</p>
+                        <p>Character limit: 255</p>
+    
+                        <p>You can add images, contact info and other details after you create the Page.</p>
+                        <button type="submit" class="save btn btn-default">Create Page</button>  
+                    </form>
+                
+            </span>
+          
+         
+            {% endblock indexbody %}
+        </section>
+        <!-- Page Wrapper End -->
+
+{% endblock %}

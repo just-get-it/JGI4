@@ -1,0 +1,703 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_timeline.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/placeorder.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/placeorder_1.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<style type="text/css">
+	.logincol1 label{
+		margin-top: 1vh;
+	}
+	label{
+		margin-bottom: 0;
+	}
+	.loginemail{
+		margin-top: 3vh;
+	}
+	.loginrow{
+		min-height: 100%;
+	}
+	.logincol{
+		overflow: auto;
+		padding-bottom: 100px;
+	}
+	.logincol1{
+		margin-top: 3vh;
+		min-height: 100%;
+	}
+	.order-info{
+        background-color: #30c5ff ;
+    }
+    .order-info button:hover{
+        background: #253031;
+        color: #30c5ff;
+    }
+    .order-info button.active {
+        background: #253031;
+        color: #30c5ff;
+    }
+    .order-link{
+        background-color: #30c5ff;
+        color: white;
+        padding: 10px 15px;
+        text-align: center;
+        border: none;
+        font-size: 15px;
+    }
+    .order-contents{
+        display: none;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+    }
+    @-webkit-keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+</style>
+
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+						<h4>Order Details</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<div class="order-info">
+                    <button type="button" class="order-link" onclick="openform(event ,'basic_details')" id="bas">Basic Details</button>
+                    <button type="button" class="order-link" onclick="openform(event,'codes')" id="cod">Code</button>
+                    <button type="button" class="order-link" onclick="openform(event,'styling')" id="sty">Styling</button>
+                    <button type="button" class="order-link" onclick="openform(event,'components')" id="com">Components</button>
+                    <button type="button" class="order-link" onclick="openform(event,'uploads')" id="upl">Uploads</button>
+                    <button type="button" class="order-link" onclick="openform(event,'fabric_details')" id="fab">Fabirc Details</button>
+                    <button type="button" class="order-link" onclick="openform(event,'trim_details')" id="tri">Trim Details</button>
+                    <button type="button" class="order-link" onclick="openform(event,'assortments')" id="ass">Assortment</button>
+                    <button type="button" class="order-link" onclick="openform(event,'tentative_info')" id="ten">Tentative info</button>
+                </div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1" style="padding: 0;height:auto;">
+						<div style="background-image: linear-gradient(rgba(48,197,255,.3),rgba(48,197,255,.1));padding: 1vw;">
+									<div class="order-contents" id="basic_details">
+                                		<div class="row mb-3">
+                                		    <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Basic Details</h5>
+                                		</div>
+                                        <label><b>Customer<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+										<label style="padding-left:41.5%;"><b>Sector<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label><br>
+                                        <input value="{{order.user_email}}" name="customer" id="customer" class="drop_half1"  placeholder="customer" disabled="disabled" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                        <div id="sector_id" style="float:right;width:50%;">
+											<select name="sector" class="drop_half2" id="sector" required style="width: 383.28px;box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+												<option value="" selected>------</option>
+												{% for sec in sector %}
+													<option value="{{sec.id}}">{{sec.name}}</option>
+												{% endfor %}
+												<option value="add-sector">--Add Sector--</option>
+											</select>
+										</div><br>
+
+                                        <label><b>Dispatch Address<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+                                        <textarea class="loginpassword" name="dispatch" id="dispatch" required onkeyup="my(this)" placeholder="Dispatch Address" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.dispatch_Address.first %}{{depend.dispatch_Address.first}}{% endif %}</textarea>
+                                        <div id="tab"></div>
+                                        <button type="button" onclick="myFunction()" name="add" value="Add+" id="add_new" style="width:40px;color:white;border-radius: 100%;background-color: deepskyblue; font-size:20px; position: relative;" class="Add1" disabled>+</button><br>
+                                        <label><b>Billing Address<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+                                        <textarea class="loginpassword" required name="billing" id="billing" onkeyup="my1(this)" placeholder="Billing Address" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.billing_Address %}{{depend.billing_Address}}{% endif %}</textarea>
+                                        <div id="tab1"></div>
+                                        <button type="button" name="add" value="Add+" id="add_new1" onclick="myFunction1()" class='Add2'style="width:40px;color:white;border-radius: 100%;background-color: deepskyblue; font-size:20px;position: relative; " disabled>+</button>
+                                        <div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next" onclick="openform(event,'codes');change();">NEXT</button>
+                                        </div>
+                                    </div>
+                                <script>
+                                function change(){
+                                    document.getElementById("cod").style.backgroundColor="#253031";
+                                    document.getElementById("cod").style.color=" #30c5ff";
+                                    document.getElementById("bas").style.backgroundColor="#30c5ff";
+                                    document.getElementById("bas").style.color= "white";
+                                   }
+                                function my(txt){
+                                     var bt = document.getElementById('add_new');
+                                     if (txt.value.length != '') {
+                                        bt.disabled = false;
+                                     }
+                                     else {
+                                         bt.disabled = true;
+
+                                     }
+                                   }
+
+                                   $(function(){
+                                        $("#add_new").click(function(event){
+                                            var textArea = '<textarea class="loginpassword" name="dispatch" id="dispatch" required onkeyup="my(this)" placeholder="Dispatch Address" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.dispatch_Address.first %}{{depend.dispatch_Address.first}}{% endif %}</textarea>';
+                                            $("#tab").append(textArea);
+                                            $("#tab").append("\n<br />");
+                                        });
+                                    });
+
+                                   function my1(txt1){
+                                   var bt = document.getElementById('add_new1');
+                                           if (txt1.value === '') {
+                                               bt.disabled = true;
+                                           }
+                                           else {
+                                               bt.disabled = false;
+                                           }
+                                   }
+                                   $(function(){
+                                        $("#add_new1").click(function(event){
+                                            var textArea = '<textarea class="loginpassword" required name="billing" id="billing" onkeyup="my1(this)" placeholder="Billing Address" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"></textarea>';
+                                            $("#tab1").append(textArea);
+                                            $("#tab1").append("\n<br />");
+                                        });
+                                    });
+                                </script>
+
+
+                                    <div class="order-contents" id="codes">
+                                        <div class="row mb-3">
+                                            <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Codes</h5>
+                                        </div>
+                                        <label><b>Order No<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+                                        <input type="number" value="{{order.order_no}}" name="Order_No" class="loginpassword" id="order_no"  placeholder="Order No" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                        <span><b>Design Code</b></span>
+                                        <span style="padding-left: 41.5%;"><b>Garment Code</b></span><br>
+                                        <input type="text" name="design_code" value="" class="drop_third1" id="design_code"  placeholder="Design Code" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;width: 383.26px;">
+                                        <input type="text" name="garment_code" value="" class="drop_third2"  id="garment_code"  placeholder="Garment Code" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;width: 383.26px"><br>
+                                        <span><b>Style Code</b></span>
+                                        <span style="padding-left: 41.5%"><b>Fabric Code</b></span><br>
+                                        <input type="text" name="style_code" value="" class="drop_third3" id="style_code"  placeholder="Style Code" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;width: 383.26px;">
+										<input type="text" class="drop_half2" name="fabric_code_name" placeholder="Fabric code" id="fabric-code"  style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;width: 383.26px;"><br>
+                                    	<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre1()">BACK</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="move2()">SKIP</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next1" onclick="openform(event,'styling');change1();">NEXT</button>
+                                        </div>
+                                    </div>
+                                <script>
+                                    function move2(){
+                                    var r = confirm("Going to the next window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'styling');
+                                      document.getElementById("cod").style.backgroundColor="#30c5ff";
+                                      document.getElementById("cod").style.color= "white";
+                                      document.getElementById("sty").style.backgroundColor="#253031";
+                                      document.getElementById("sty").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function pre1(){
+                                    var r = confirm("Going back to previous window would you like to submit contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'basic_details');
+                                      document.getElementById("cod").style.backgroundColor="#30c5ff";
+                                      document.getElementById("cod").style.color= "white";
+                                      document.getElementById("bas").style.backgroundColor="#253031";
+                                      document.getElementById("bas").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function change1(){
+                                    document.getElementById("cod").style.backgroundColor="#30c5ff";
+                                    document.getElementById("cod").style.color= "white";
+                                    document.getElementById("sty").style.backgroundColor="#253031";
+                                    document.getElementById("sty").style.color=" #30c5ff";
+                                   }
+                                </script>
+
+
+
+                                    <div class="order-contents" id="styling">
+                                        <div class="row mb-3">
+                                            <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Styling</h5>
+                                        </div>
+                                        <label><b>Brands<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label>
+                                        <select name="brand" class="loginemail" id="brand" required style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.fashion_Brand %}
+                                                <option value="{{depend.fashion_Brand.id}}" selected>{{depend.fashion_Brand.name}}</option>
+                                            {% endif %}
+                                            {% for b in brand %}
+                                            <option value="{{b.id}}">{{b.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span><label><b> Labels<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <span style="padding-left: 27.5%;"><label><b> Fits<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <span style="padding-left: 31%;"><label><b> Seasons<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span><br>
+                                        <select name="label" class="drop_third1" id="label" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.label %}
+                                                <option value="{{depend.label.slug}}" selected>{{depend.label.name}}</option>
+                                            {% endif %}
+                                        </select>
+                                        <select name="fit" class="drop_third2" id="fit" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.fit %}
+                                                <option value="{{depend.fit.slug}}">{{depend.fit.slug}}</option>
+                                            {% endif %}
+                                        </select>
+                                        <select name="season" class="drop_third3" id="season" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.season %}
+                                                <option value="{{depend.season.slug}}" selected>{{depend.season.name}}</option>
+                                            {% endif %}
+                                        </select><br>
+                                        <span><label><b> Product Category<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <span style="padding-left: 18%;"><label><b> Product Sub-Category<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <span style="padding-left: 16%;"><label><b> Product Super-Category<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <select name="category" class="drop_third1" id="category" required style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.product_Category %}
+                                                <option value="{{depend.product_Category.name}}" selected>{{depend.product_Category.name}}</option>
+                                            {% endif %}
+                                            {% for b in cate %}
+                                            <option value="{{b.name}}">{{b.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <select name="sub_category" class="drop_third2" id="sub_category" required style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.product_Subcategory %}
+                                                <option value="{{depend.product_Subcategory.name}}" selected>{{depend.product_Subcategory.name}}</option>
+                                            {% endif %}
+                                        </select>
+                                        <select name="super_category" class="drop_third3" id="super_category" required style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% if depend.product_Supercategory %}
+                                                <option value="{{depend.product_Supercategory.name}}" selected>{{depend.product_Supercategory.name}}</option>
+                                            {% endif %}
+                                        </select>
+										<label><b>Style Type</b></label>
+                                        <select class="loginpassword" name="style_type"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                            <option value="" selected>--------</option>
+                                            {% for s in style_type %}
+                                            <option value="{{s.name}}">{{s.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label><b>Style description</b></label>
+                                        <textarea class="loginpassword" name="style_desc"  placeholder="Style Description" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"></textarea>
+                                        <label><b>Description/Remarks</b></label>
+                                        <textarea class="loginpassword" name="description" placeholder="Description/Remarks" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">{% if depend.description %}{{depend.description}}{% endif %}</textarea>
+										<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre2()">BACK</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next2" onclick="openform(event,'components');change2();">NEXT</button>
+                                        </div>
+                                    </div>
+                            <script>
+                                function pre2(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'codes');
+                                      document.getElementById("sty").style.backgroundColor="#30c5ff";
+                                      document.getElementById("sty").style.color= "white";
+                                      document.getElementById("cod").style.backgroundColor="#253031";
+                                      document.getElementById("cod").style.color=" #30c5ff";
+                                    }
+                                    }
+                                function change2(){
+                                    document.getElementById("sty").style.backgroundColor="#30c5ff";
+                                    document.getElementById("sty").style.color= "white";
+                                    document.getElementById("com").style.backgroundColor="#253031";
+                                    document.getElementById("com").style.color=" #30c5ff";
+                                   }
+                            </script>
+
+
+									<div class="order-contents" id="uploads">
+                                        <div class="row mb-3">
+                                            <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Uploads</h5>
+                                        </div>
+                                       <span><label><b>Logo Placement</b></label></span>
+                                        <span style="padding-left:38%;"><label><b>Sample logo Image</b></label></span><br>
+                                        <input type="text" name="logo_place" value="{% if depend.logo_placement %}{{depend.logo_placement}}{% endif %}" placeholder="Logo Placement" class="drop_half1" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                        <input type="file" name="sample_logo" placeholder="Sample Logo Image" class="drop_half2"  style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;"><br>
+                                        <span><button class="btn_1" style="width:50px;height:25px">PrintFul</button></span><br>
+                                        <span><label><b>Tech-Pack</b></label></span>
+                                        <span style="padding-left: 43%;"><label><b>Sample Image of Product<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <input type="file" name="tech_pack" placeholder="Tech-Pack" class="drop_half1" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                        <input type="file" name="sample" label="Sample Image of Product" class="drop_half2" id="sample" required style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                        <span><label><b>Specs</b></label></span>
+                                        <span style="padding-left: 45%;"><label><b>Excel Sheet of Employee Data</b></label></span><br>
+                                        <input type="file" name="specs" placeholder="Specs" class="drop_half1" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                        <input type="file" name="excel" class="drop_half2" id="excel" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;"><br>
+                                        <h6 class="mt-4">Sample Excel Sheet <a href="/media/local/b2b/sample.csv">Sample</a></h6>
+                                        <p style="font-size: .6em;">Coloum 1: Employee ID,Coloum 2: Name,Coloum 3: Phone/Password,Coloum 4:Max Quantity Allowed to that User</p>
+                                    	<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre8()">BACK</button>
+                                        
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="move4()">SKIP</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px; " id="Next3" onclick="openform(event,'fabric_details');change3();">NEXT</button>
+                                        </div>
+                                    </div>
+                            <script>
+                                    function move4(){
+                                    var r = confirm("Going to the next window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'fabric_details');
+                                      document.getElementById("upl").style.backgroundColor="#30c5ff";
+                                      document.getElementById("upl").style.color= "white";
+                                      document.getElementById("fab").style.backgroundColor="#253031";
+                                      document.getElementById("fab").style.color=" #30c5ff";
+                                      }
+                                    }
+                                    function pre8(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'components');
+                                      document.getElementById("upl").style.backgroundColor="#30c5ff";
+                                      document.getElementById("upl").style.color= "white";
+                                      document.getElementById("com").style.backgroundColor="#253031";
+                                      document.getElementById("com").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function change3(){
+                                    document.getElementById("upl").style.backgroundColor="#30c5ff";
+                                    document.getElementById("upl").style.color= "white";
+                                    document.getElementById("fab").style.backgroundColor="#253031";
+                                    document.getElementById("fab").style.color=" #30c5ff";
+                                   }
+                                </script>
+
+                                    <div class="order-contents" id="components">
+                                        <div class="row mb-3">
+                                            <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Components</h5>
+                                        </div>
+                                        <div id="load_components" style="margin-top: 0;">
+
+                                        </div>
+                                        <span><button class="btn_1" style="width:50px;height:25px">Style</button></span><br>
+										<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre3()">BACK</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="move5()">SKIP</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next4" onclick="openform(event,'uploads');change4();">NEXT</button>
+                                        </div>
+                                    </div>
+                                <script>
+                                    function move5(){
+                                    var r = confirm("Going to the next window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'uploads');
+                                      document.getElementById("com").style.backgroundColor="#30c5ff";
+                                      document.getElementById("com").style.color= "white";
+                                      document.getElementById("upl").style.backgroundColor="#253031";
+                                      document.getElementById("upl").style.color=" #30c5ff";
+                                      }
+                                    }
+                                    function pre3(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'styling');
+                                      document.getElementById("com").style.backgroundColor="#30c5ff";
+                                      document.getElementById("com").style.color= "white";
+                                      document.getElementById("sty").style.backgroundColor="#253031";
+                                      document.getElementById("sty").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function change4(){
+                                    document.getElementById("com").style.backgroundColor="#30c5ff";
+                                    document.getElementById("com").style.color= "white";
+                                    document.getElementById("upl").style.backgroundColor="#253031";
+                                    document.getElementById("upl").style.color=" #30c5ff";
+                                   }
+                                </script>
+
+									<div class="order-contents" id="fabric_details">
+                                        <div class="row mb-3">
+                                            <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Fabric Details</h5>
+                                        </div>
+                                        <span><label><b> Fabric Code<p style="color: red; margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                                        <span style="padding-left: 38%"><b>Fabric Type</b><span style="color: #e00;"> </span></span><br>
+                                        {% if order.fabric_flag %}
+                                        <input type="text" class="drop_half2" name="fabric_code" value="{{order.fabrics}}" disabled="disabled" placeholder="Fabric code" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                        {% else %}
+                                        <select class="drop_half2" id="fabric_code" name="fabric_code" required style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                            <option value="">------</option>
+                                            {% for f in order.fabrics %}
+                                            <option value="{{f}}">{{f}}</option>
+                                            {% endfor %}
+                                    	</select>
+                                    	{% endif %}
+                                    	<select class="drop_half1" id="fabric_category" name="fabric_type" style="box-shadow: 0 0 1px black;padding:.5vh;background: transparent;margin-top: 1vh;">
+                                            <option value="" selected>------</option>
+                                            {% for f in fabric_type %}
+                                                <option value="{{f.name}}">{{f.name}}</option>
+                                            {% endfor %}
+                                    	</select><br>
+
+
+                                    	<span><label><b>Fabric Supplier</b></label><span style="color: #e00;"></span></span>
+                                    	<span style="padding-left: 35%;"><label><b>Fabric Description<p style="color: red; margin-bottom: 0;display: inline-block;"></p></b></label></span><br>
+                                    	<input type="text" id="fabric_supplier" class="drop_half1" name="fabric_supplier" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                                    	<input type="text" id="fabric_description" class="drop_half2" name="fabric_half2" placeholder="Fabric Description" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;"><br>
+
+                                    	<span><label><b>Fabric Blend</b></label><span style="color: #e00;"> </span></span>
+                                    	<span style="padding-left: 14%;"><label><b>GSM</b></label><span style="color: #e00;"> </span></span>
+                                    	<span style="padding-left: 20%;"><label><b>Fabric Width(inches)</b></label><span style="color: #e00;"> </span></span>
+                                    	<span style="padding-left: 7.5%;"><label><b>Cuttable width(inches)</b></label><span style="color: #e00;"> </span></span><br>
+                                    	<input type="text" id="fabric_blend" class="drop_third4" name="fabric_blend" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                    	<input type="text" id="gsm" class="drop_third4" name="gsm"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                    	<input type="text" id="fabric_width" class="drop_third4" name="fabric_width"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                    	<input type="text" class="drop_third4" name="cuttable_width" placeholder="Cuttable width"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+
+                                    	<span><label><b>Fabric Construction:EPI</b></label><span style="color: #e00;"> </span></span>
+                                    	<span style="padding-left: 6%"><label><b>Fabric Construction:PPI</b></label><span style="color: #e00;"> </span></span>
+                                    	<span style="padding-left: 5%;"><label><b>Yarn Count:Warp</b></label><span style="color: #e00;"> </span></span>
+                                    	<span style="padding-left: 10%"><label><b>Yarn Count:Weft</b></label><span style="color: #e00;"> </span></span><br>
+                                    	<input type="text" id="epi" class="drop_third4" name="EPI" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                    	<input type="text" id="ppi" class="drop_third4" name="PPI" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="text" id="wrap" class="drop_third4" name="warp" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="text" id="weft" class="drop_third4" name="weft" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+
+                            			<span><label><b>Finish</b></label><span style="color: #e00;"> </span></span>
+                            			<span  style="padding-left:43%;"><label><b>Wash Type</b></label><span style="color: #e00;"> </span></span><br>
+                            			<input type="text" id="finish" class="drop_half1" name="finish" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<select class="drop_half2" name="wash_type" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                            			    <option value="" selected>--------</option>
+                                            {% for w in wash_type %}
+                                            <option value="{{w.name}}">{{w.name}}</option>
+                                            {% endfor %}
+                                        </select><br>
+                                        
+                                        <span><label><b>Fabric direction</b></label></span>
+                                        <span style="padding-left:13%;"><label><b>Fabric print type</b></label></span>
+                                        <span style="padding-left:12%;"><label><b>Fabric print design</b></label></span>
+                                        <span style="padding-left:10%;"><label><b>Repeat size</b></label></span><br>
+                                        <input type="text" id="fabric_direction" class="drop_third4" name="fabric_direction" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="text" id="fabric_print_type" class="drop_third4" name="fabric_print_type" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="text" id="fabric_print_design" class="drop_third4" name="fabric_print_design" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                        <input type="text" id="repeat_size" class="drop_third4" name="repeat_size" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+                                        
+                                        <div id='load_fabric' style="margin-bottom: 3vh;">
+
+                                        </div>
+
+										<span><label><b>garment matching parameters</b></label><span style="color: #e00;"> </span></span>
+                            			<span  style="padding-left:30%;"><label><b>garment matching parameters level</b></label><span style="color: #e00;"> </span></span><br>
+                                        <select class="drop_half2" name="garment_matching_parameters" id="garment_matching_parameters" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                            			    <option value="" selected>--------</option>
+                            			</select>
+                                        <select class="drop_half2" name="garment_matching_level" id="garment_matching_level" style="box-shadow: 0 0 1px black;background: transparent;margin-top: 1vh;">
+                            			    <option value="" selected>--------</option>
+                            			</select><br>
+                                        <div id="garment_matching_requirements"></div>
+										<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre4()">BACK</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="move6()">SKIP</button>
+                                            <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next5" onclick="openform(event,'trim_details');change5();">NEXT</button>
+                                        </div>
+                                    </div>
+                                <script>
+                                    function move6(){
+                                    var r = confirm("Going to the next window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'trim_details');
+                                      document.getElementById("fab").style.backgroundColor="#30c5ff";
+                                      document.getElementById("fab").style.color= "white";
+                                      document.getElementById("tri").style.backgroundColor="#253031";
+                                      document.getElementById("tri").style.color=" #30c5ff";
+                                      }
+                                    }
+                                    function pre4(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'uploads');
+                                      document.getElementById("fab").style.backgroundColor="#30c5ff";
+                                      document.getElementById("fab").style.color= "white";
+                                      document.getElementById("upl").style.backgroundColor="#253031";
+                                      document.getElementById("upl").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function change5(){
+                                    document.getElementById("fab").style.backgroundColor="#30c5ff";
+                                    document.getElementById("fab").style.color= "white";
+                                    document.getElementById("tri").style.backgroundColor="#253031";
+                                    document.getElementById("tri").style.color=" #30c5ff";
+                                   }
+                                </script>
+
+								<div class="order-contents" id="trim_details">
+
+									<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre5()">BACK</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="move7()">SKIP</button>
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next7" onclick="openform(event,'assortments');change6();">NEXT</button>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function move7(){
+                                    var r = confirm("Going to the next window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'assortments');
+                                      document.getElementById("tri").style.backgroundColor="#30c5ff";
+                                      document.getElementById("tri").style.color= "white";
+                                      document.getElementById("ass").style.backgroundColor="#253031";
+                                      document.getElementById("ass").style.color=" #30c5ff";
+                                      }
+                                    }
+                                    function pre5(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'fabric_details');
+                                      document.getElementById("tri").style.backgroundColor="#30c5ff";
+                                      document.getElementById("tri").style.color= "white";
+                                      document.getElementById("fab").style.backgroundColor="#253031";
+                                      document.getElementById("fab").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function change6(){
+                                    document.getElementById("tri").style.backgroundColor="#30c5ff";
+                                    document.getElementById("tri").style.color= "white";
+                                    document.getElementById("ass").style.backgroundColor="#253031";
+                                    document.getElementById("ass").style.color=" #30c5ff";
+                                   }
+                                </script>
+								<div class="order-contents" id="assortments">
+										<div class="row mb-3">
+											<h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Assortments</h5>
+										</div>
+										<span><label><b>Colors(Separated by Comma)</b></label></span>
+                                        <span style="padding-left:30%;"><label><b>Sizes(Separated by Comma)</b></label></span>
+                                        <input type="text" name="colors" id="color_id" value="{% for i in depend.colors_avail.all %}{{i}}, {% endfor %}" placeholder="Colors(Separated by Comma)" class="drop_half1" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                        <input type="text" name="sizes" id="size_id" value="" placeholder="Sizes(Separated by Comma)" class="drop_half2" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+										<span><label><b>Quantity of Order<p style="color: red;margin-bottom: 0;display: inline-block;">*</p></b></label></span>
+                            			<span style="padding-left: 35%;"><label><b>Max. Quantity/Consumer</b></label></span>
+                            			<input type="number" value="{% if depend.quantity %}{{depend.quantity}}{% endif %}" name="quantity" required class="drop_half1"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="number" name="max_quantity" value="{% if depend.max_quantity_per_consumer %}{{depend.max_quantity_per_consumer}}{% endif %}" placeholder="Max Quantity/Consumer" class="drop_half2" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+
+                            			<span><label><b>Accepted Rate %(Buyer)</b></label><span style="color: #e00;"> </span></span>
+                            			<span style="padding-left: 12%;"><label><b>Rejection Rate%(Manufacturing Unit)</b></label><span style="color: #e00;"> </span></span>
+                            			<span style="padding-left: 12%;"><label><b>Stock %</b></label><span style="color: #e00;"> </span></span><br>
+                            			<input type="text" class="drop_third1" value="" name="accepted_rate" placeholder="Accepted Rate"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="text" class="drop_third2" value="" name="rejection_rate" placeholder="Rejectiom Rate"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			<input type="text" class="drop_third3" value="" name="stock" placeholder="Stock %"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+                            			<span><label><b>Wastage %</b></label><span style="color: #e00;"> </span></span>
+                            			<input type="text" class="loginpassword" value="" name="wastage" id="wastage" placeholder="Wastage %"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+
+                            			<div style="margin-top: 2vh;margin-bottom: 2vh;">
+                            			    <span style="padding-left: 25%; margin-top:3vh;"><input type="radio" id="Fill" name="sizeForm" value="Fill" class="size_radio">
+                            			    <label for="Fill"><b>Fill the assortment form</b></label></span>
+                            			    <span style="padding-left: 2%;"><input type="radio" id="Default" name="sizeForm" value="Default" class="size_radio">
+                            			    <label for="Default"><b>Default assortment form</b></label></span>
+                            			    <div id="id_sizeTable">
+                            			    </div>
+                                            <select id="id_combinations" class="drop_half1" name="size_combinations" style="box-shadow: 0 0 1px black;padding:.5vh;background: transparent;margin-top: 1vh;">
+
+											</select>
+                                            <input type="text" name="table_fabric_consumption" disabled value="0" id="table_fabric_consumption" class="drop_half2" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                            			</div>
+                                        <div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre6()">BACK</button>
+                                        
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="move8()">SKIP</button>
+                                            <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" id="Next6" onclick="openform(event,'tentative_info');change7();">NEXT</button>
+                                        </div>
+                                    </div>
+
+                                <script>
+                                    function move8(){
+                                    var r = confirm("Going to the next window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'tentative_info');
+                                      document.getElementById("ass").style.backgroundColor="#30c5ff";
+                                      document.getElementById("ass").style.color= "white";
+                                      document.getElementById("ten").style.backgroundColor="#253031";
+                                      document.getElementById("ten").style.color=" #30c5ff";
+                                      }
+                                    }
+                                    function pre6(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'trim_details');
+                                      document.getElementById("ass").style.backgroundColor="#30c5ff";
+                                      document.getElementById("ass").style.color= "white";
+                                      document.getElementById("tri").style.backgroundColor="#253031";
+                                      document.getElementById("tri").style.color=" #30c5ff";
+                                    }
+                                    }
+                                    function change7(){
+                                    document.getElementById("ass").style.backgroundColor="#30c5ff";
+                                    document.getElementById("ass").style.color= "white";
+                                    document.getElementById("ten").style.backgroundColor="#253031";
+                                    document.getElementById("ten").style.color=" #30c5ff";
+                                   }
+                                </script>
+
+									<div class="order-contents" id="tentative_info">
+                                        <div class="row mb-3">
+                                            <h5 style="font-family: 'Cabin', sans-serif; margin-top: 20px;margin-left:45%">Tentative Information</h5>
+                                        </div>
+                                        <span><label><b>Target Lead Time(days)</b></label></span>
+										<span style="padding-left:32%;"><label><b>Target Price</b></label></span><br>
+										<input type="number" value="{% if depend.target_lead_time %}{{depend.target_lead_time}}{% endif %}"  name="target_lead_time" placeholder="Target Lead Time(days)" class="drop_half1" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+										<input type="number" value="{% if depend.target_price %}{{depend.target_price}}{% endif %}" required name="target_price" placeholder="Target Price" class="drop_half2" style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+										<span><label><b>Lead Time</b></label><span style="color: #e00;"> </span></span>
+                            			<span style="padding-left: 38%"><label><b>Tentative Cost</b></label><span style="color: #e00;"> </span></span><br>
+                            			<input type="text" class="drop_half2" name="lead_time" placeholder="Lead Time"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+                                        <input type="text" class="drop_half1" name="tentative_cost" placeholder="Tentative Cost"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;">
+
+                                        <span><button type="button" id="calculate_avg" class="btn_1">Calculate Fabric <br>consumption</button></span>
+                            			<div id="avg"><label><b>Average fabric consumption(meters)or (in kg)</b></label><br><span style="padding-left: 0%;"><b>used for pre-costing:</b><span style="color: #e00;"> </span></span></div>
+                            			<input type="text" id="fabric_consumption" class="drop_half1" name="average_fabric_comsumption" placeholder="Average fabric consumption(meters)"  style="box-shadow: 0 0 1px black;background: transparent;padding: .5vw;margin-top: 1vh;"><br>
+
+                                    	<div style="display: flex;">
+                                        <button class="py-2 loginbutton" style="width: 100px;margin-top:20px;" onclick="pre7()">BACK</button>
+                                        <button class="py-2 loginbutton" type="submit" style="width: 100px;margin-left:35%;margin-top:20px;">SUBMIT</button>
+                                        </div>
+                                    </div>
+                            <script>
+                                function pre7(){
+                                    var r = confirm("Going to the previous window would you like to save the contents of this form?");
+                                    if (r == false) {
+                                      openform(event,'assortments');
+                                      document.getElementById("ten").style.backgroundColor="#30c5ff";
+                                      document.getElementById("ten").style.color= "white";
+                                      document.getElementById("ass").style.backgroundColor="#253031";
+                                      document.getElementById("ass").style.color=" #30c5ff";
+                                    }
+                                    }
+                            </script>
+						</div>
+					</div>
+				</div>
+
+
+
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	function openform(evt, formcontent) {
+  		var i, content, links;
+  		content = document.getElementsByClassName("order-contents");
+  		for (i = 0; i < content.length; i++) {
+  		  content[i].style.display = "none";
+  		}
+  		links = document.getElementsByClassName("order-link");
+  		for (i = 0; i < links.length; i++) {
+  		  links[i].className = links[i].className.replace(" active", "");
+  		}
+  		document.getElementById(formcontent).style.display = "block";
+  		evt.currentTarget.className += " active";
+	}
+document.getElementById("bas").click();
+</script>
+
+
+
+
+<script type="text/javascript" src="{% static 'js/b2b/placeorder.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

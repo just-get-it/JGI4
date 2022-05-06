@@ -1,0 +1,40 @@
+/*
+============================================================
+	
+
+	
+	Description: Designer, Architect, Photographer, Freelancer, Blogger, person who sell goods online or just feeling creative, Kalium is absolutely what you have been waiting for. Start creating that amazing website that you have been dreaming of! You can find us on:  <a href="http://themeforest.net/user/laborator">Envato</a>, <a href="https://twitter.com/thelaborator">Twitter</a> or <a href="https://www.facebook.com/laboratorcreative">Facebook</a>.
+	Version: 1.9
+	License: GNU General Public License version 3.0
+	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+	Tags: agency, architecture, blog, clean, creative, ecommerce, gallery, minimal, photography, portfolio, shop, kalium, translation-ready, theme-options, responsive-layout
+	Text Domain: kalium
+	
+============================================================
+*/
+    
+body { 
+font-family: Novecento, Karla, Helvetica, Arial, sans-serif;
+	background-color: #000000 !important;
+      }
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 400px) {
+
+.tp-revslider-mainul {
+    width: 90% !important;
+}
+.box-bloom.vc_col-sm-6 {
+    width: 100% !important;
+    margin: 0px 0px !important;
+}
+}
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background: #000000;
+}

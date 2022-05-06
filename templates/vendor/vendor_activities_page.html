@@ -1,0 +1,580 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+
+
+
+
+</style>
+{% endblock %}
+
+{% block topcontent %}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			<a href="/userdetail/vendor_profile/" class="hov-a" style="color: white;">Profile & Settings</a>
+		</div>
+		<div class="col py-2 centered noti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Notifications
+
+		</div>
+
+		<div class="col py-2 centered acti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+			Activities
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/vendor_profile/vendors" class="hov-a" style="color: white;">Vendors</a>
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/vendor_profile/orders" class="hov-a" style="color: white;">Orders</a>
+		</div>
+		<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+			<a href="/userdetail/vendor_profile/floated_orders" class="hov-a" style="color: white;">Floated Orders</a>
+		</div>
+		<div class="container-fluid drop_noti">
+			<div class="row">
+				<div class="col-2 my-3 mx-3 ml-5 tod_noti staf_noti">
+					<img src="{% static 'img/jamie.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=staff"><div class="noti_tod_overlay">
+						<p>Staff Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti enq_noti">
+
+					<img src="{% static 'img/pris.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=enquiry"><div class="noti_tod_overlay">
+						<p>Enquiry Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti des_noti">
+
+					<img src="{% static 'img/kelly.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=design"><div class="noti_tod_overlay">
+						<p>Design Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti samp_noti">
+
+					<img src="{% static 'img/freestock.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=sampling"><div class="noti_tod_overlay">
+						<p>Sampling Notifications</p>
+
+					</div></a>
+				</div>
+				<div class="col-2 my-3 mx-3 tod_noti ord_noti">
+
+					<img src="{% static 'img/andre.jpg' %}">
+					<a href="/userdetail/vendor_profile/notifications?filter=order"><div class="noti_tod_overlay">
+						<p>Order Notifications</p>
+
+					</div></a>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid drop_noti_acti">
+			<div class="row">
+				<div class="col my-3 mx-3 ml-5 tod_noti">
+					<img src="{% static 'img/agni.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=today"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Today's</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/yunm.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=pending"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Pending</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/carl.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=enquiry"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Enquiry</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/dmit.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=design"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Design</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/kelly2.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=sampling"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Sampling</p>
+
+					</div></a>
+				</div>
+				<div class="col my-3 mx-3 tod_noti">
+
+					<img src="{% static 'img/san.jpg' %}">
+					<a href="/userdetail/vendor_profile/activities?filter=order"><div class="noti_tod_overlay">
+						<p style="margin-left: 125px">Order</p>
+
+					</div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+{% if logistics %}
+<div class="row hide_row" id="update_resp">
+		<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+			<div class="row centered" style="z-index: 105; margin-top: 20vh;margin-bottom: auto; ">
+				<div class="container-fluid">
+					<div class="row" style="width: 45vw;height: 55vh;background: white;">
+						<div class="row mt-1" style="height: 1vh;">
+							<button style="border: none;background: transparent;margin-left: 43vw;" onclick="remupresp();"><i class="fas fa-times-circle"></i></button>
+						</div>
+						<div class="row mb-2" style="height: 1vh">
+							<h4 class="fontcabin" style="margin-left: 20.5vw;">Filters</h4>
+						</div>
+						<div class="row">
+						<form method="GET">
+							<div class="container mt-2 ml-5">
+								<div class="row">
+									<label><b>Order</b></label>
+									<select name="order" style="margin-left: 13vw;width: 20vw;">
+										<option disabled selected>---------</option>
+										{% for i in orders_filter %}
+										<option value="{{i.order_no}}"{% ifequal request.GET.order i.order_no %}selected{% endifequal %}>{{i.order_no}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="container mt-2 ml-5">
+								<div class="row">
+									<label><b>Pickup Address</b></label>
+									<select name="pickup_add" style="margin-left: 7.1vw;width: 20vw;">
+										<option disabled selected>---------</option>
+										{% for i in pickup_address %}
+										<option value="{{i.email}}"{% ifequal request.GET.pickup_add i.email %}selected{% endifequal %}>{{i.address}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="container mt-2 ml-5">
+								<div class="row">
+									<label><b>Delivery Address</b></label>
+									<select name="delivery_add" style="margin-left: 6.45vw;width: 20vw;">
+										<option disabled selected>---------</option>
+										{% for i in delivery_address %}
+										<option value="{{i.email}}"{% ifequal request.GET.delivery_add i.email %}selected{% endifequal %}>{{i.address}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="container mt-2 ml-5">
+								<div class="row">
+									<label><b>Pickup Date</b></label>
+									<input type="date" name="pickup_date" style="margin-left: 9.5vw;width: 20vw;" value="{% if request.GET.pickup_date %}{{request.GET.pickup_date}}{% endif %}">
+								</div>
+							</div>
+							<div class="container mt-2 ml-5">
+								<div class="row">
+									<label><b>Delivery Date</b></label>
+									<input type="date" name="delivery_date" style="margin-left:8.8vw;width: 20vw;" value="{% if request.GET.delivery_date %}{{request.GET.delivery_date}}{% endif %}">
+								</div>
+							</div>
+							<div class="container mt-2 ml-5">
+								<div class="row">
+									<label><b>Request Date</b></label>
+									<input type="date" name="request_date" style="margin-left:8.8vw;width: 20vw;" value="{% if request.GET.request_date %}{{request.GET.request_date}}{% endif %}">
+								</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row centered">
+							<button type="submit" style="background: #30c5ff;border:none;padding: 1vh;padding-left: 3vw;padding-right: 3vw;border-radius: 25vw;font-weight: bold;">Apply Filters</button>
+							</div>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+{% endif %}
+
+<div class="row mt-5">
+	{% if deactivated %}
+		<div class="container-fluid">
+			<div class="row centered fontpacifico" style="height: 92vh;">
+				<h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+			</div>
+		</div>
+	{% else %}
+
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+			font-size:.8em;
+		}
+		.acti_table td,.acti_table th{
+			padding: 2px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.hov-link{
+			transition: all .5s ease-out;
+			border: 1px solid black;
+			background: #30c5ff;
+			color: black;
+			border-radius: 50px;
+			text-decoration: none;
+		}
+		.hov-link:hover{
+			background: #253031;
+			text-decoration: none;
+			color: white;
+		}
+	</style>
+{% if acti.0.0 %}
+<div class="container">
+
+{% csrf_token %}
+
+		{% if acti.0.0 %}
+		<div class="row mt-3 mb-5" id="profile_acti">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Activities</h3>
+{% if logistics %}
+								<button class="hov-a" style="background: transparent;border: none;margin-left: auto;color: blue;" onclick="showupdateresp();" type="button">Apply Filters</button>
+{% endif %}
+					<!-- <a href="/userdetail/staff_profile/activities" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				{% if not logistics %}
+				<div class="row mt-2">{% csrf_token %}
+					{% for a in acti %}
+						<div class="col-12 mt-2">
+							<h6><b>Order No</b> - {{a.0.0.order}}</h6>
+							<table style="width: 100%" class="acti_table">
+								<tr>
+									<th>Activity Title</th>
+									<th>Created Date</th>
+									<th>Lap</th>
+									<th>Planned Date</th>
+									<th>Custom Lap</th>
+									<th>Custom Date</th>
+									<th>Tentative Date</th>
+									<th>Actual Date</th>
+									<th>Status</th>
+									<th>Form</th>
+									<th>Attachments</th>
+								</tr>
+								{% for j in a.0 %}
+
+								<tr>
+									<td>{{j.activity_Cate.title}} <a href="/userdetail/vendor_profile/activity/{{j.id}}" class="ml-2 hov-a">View</a></td>
+									<td>{{j.created_on}}</td>
+									<td>{{j.activity_Cate.completed_in}}</td>
+									<td>{{j.planned_date}}</td>
+									<td><input type="number" value="{% if j.lap %}{{j.lap}}{% endif %}" placeholder="Custom Lap" style="background: transparent;border: none;" id="lap{{j.id}}"></td>
+									<td>{% if j.custom_date %}{{j.custom_date}}{% else %}-{% endif %}</td>
+									<td>{% if j.tentative_date %}{{j.tentative_date}}{% else %}-{% endif %}</td>
+									<td><input type="date" id="actual_date{{j.id}}" {% if j.actual_date %}value="{{j.actual_date.year}}-{% if j.actual_date.month < 10 %}0{% endif %}{{j.actual_date.month}}-{% if j.actual_date.day < 10 %}0{% endif %}{{j.actual_date.day}}"{% endif %} style="background: transparent;border: none;"></td>
+									<td id="{{j.order}}{{forloop.counter}}"></td>
+									<td>{% if j.activity_Cate.request_Forms.all.first %}<a href="/userdetail/vendor_profile/orders/{{j.order}}/forms/{{j.activity_Cate.request_Forms.all.first}}"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endif %}</td>
+									<td>{% if j.activity_Cate.request_Forms.all.first %}<a href="/userdetail/vendor_profile/orders/{{j.order}}/forms/{{j.activity_Cate.request_Forms.all.first}}"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endif %}</td>
+								</tr>
+								<script type="text/javascript">
+									$('#actual_date{{j.id}}').change(function(){
+										$.ajax({
+											type:'POST',
+											url:'/userdetail/vendor_profile/activities',
+											data:{
+												actual_date_activity_ajax:$('#actual_date{{j.id}}').val(),
+												activity_ajax_cate:'{{j.id}}',
+												csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+											},
+											cache:false,
+											dataType:"json",
+											success:function(data){
+												// window.location="/userdetail/staff_profile/activities";
+												// alert("Well Done")
+												window.location="/userdetail/vendor_profile/activities?filter={{request.GET.filter}}";
+
+											}
+										});
+									});
+									var typingTimer;                //timer identifier
+									var doneTypingInterval = 3000;
+
+									$('#lap{{j.id}}').keyup(function(){
+									    clearTimeout(typingTimer);
+									    if ($('#lap{{j.id}}').val()) {
+									        typingTimer = setTimeout(function(){
+												alert("Custom Lap will be updated Soon !");
+												$.ajax({
+													type:'POST',
+													url:'/userdetail/vendor_profile/activities',
+													data:{
+
+														lap_activity_ajax:$('#lap{{j.id}}').val(),
+														activity_ajax_cate:'{{j.id}}',
+														csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+													},
+													cache:false,
+													dataType:"json",
+													success:function(data){
+														window.location="/userdetail/vendor_profile/activities?filter={{request.GET.filter}}";
+													}
+												});
+									        }, doneTypingInterval);
+									    }
+									});
+									var now_date=Date.parse("{{current}}");
+									var to=Date.parse("{{j.custom_date}}");
+									if (isNaN(to)){
+										to=Date.parse("{{j.planned_date}}");}
+									var some=document.getElementById('{{j.order}}{{forloop.counter}}');
+									if (now_date>to){
+										some.style.backgroundColor="{{j.activity_Cate.late_Time_Color}}";
+									}
+									else if (now_date<to){
+										some.style.backgroundColor="{{j.activity_Cate.before_Time_Color}}";
+									}
+									else{
+										some.style.backgroundColor="{{j.activity_Cate.on_Time_Color}}"
+									}
+								</script>
+								{% endfor %}
+							</table>
+						</div>
+
+					{% endfor %}
+				</div>
+				{% else %}
+				<div class="row mt-2">{% csrf_token %}
+
+						<div class="col-12 mt-2">
+							<!-- <h6><b>Order No</b> - {{af.0.0.order}}</h6> -->
+							<table style="width: 100%" class="acti_table">
+								<tr>
+									<th>Activity Title</th>
+									<th>Request Date</th>
+									<th>Vendor Invoice No.</th>
+									<th>Vendor Invoice Date</th>
+									<th>Vendor Name & Contact</th>
+									<th>Pickup Address</th>
+									<th>Product</th>
+									<th>Customer Name & Contact</th>
+									<th>Delivery Address</th>
+									<th>Quantity</th>
+									<th>No of Cartons</th>
+									<th>Pickup Date</th>
+									<th>Delivery Date</th>
+									<th>Invoice No.</th>
+									<th>LR No.</th>
+								</tr>
+								{% for af in acti %}
+								{% for j in af.0 %}
+
+								<tr>
+									<td>{{j.activity_Cate.title}} <a href="/userdetail/vendor_profile/activity/{{j.id}}" class="ml-2 hov-a">View</a></td>
+									<td>{{j.created_on}}</td>
+									<td>INV/{{j.order.quantity}}/{{j.order.order_no}}</td>
+									<td>{{j.logistics_invoice_date}}</td>
+									<td>{{j.logistics_pickup_user.name}}<br>{{j.logistics_pickup_user.contact}}</td>
+									<td>{{j.logistics_pickup_address}}</td>
+									<td>{{j.order.product_Supercategory}}</td>
+									<td>{{j.logistics_delivery_user.name}}<br>{{j.logistics_delivery_user.contact}}</td>
+									<td>{{j.logistics_delivery_address}}</td>
+									<td>{{j.order.quantity}}</td>
+									<td>{{j.order.packing_list_set.all.first.cartons.all.count}}<br>
+									{{af.1}}*{{af.2}}*{{af.3}}(Vol - {{af.4}})</td>
+									<td>{{j.planned_date}}</td>
+									<td>{{j.logistics_delivery_date}}</td>
+									<td>RYMD/{{j.order.quantity}}/{{j.order.order_no}}</td>
+									<td><input type="number" name="lr" value="{% if j.lr_number %}{{j.lr_number}}{% endif %}" placeholder="LR Number" id="lr{{j.id}}" style="border:none;width:100px;"></td>
+								</tr>
+								<script type="text/javascript">
+									$('#lr{{j.id}}').change(function(){
+										$.ajax({
+											type:'POST',
+											url:'/userdetail/vendor_profile/activities',
+											data:{
+												lr_activity_ajax:$('#lr{{j.id}}').val(),
+												activity_ajax_cate:'{{j.id}}',
+												csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+											},
+											cache:false,
+											dataType:"json",
+											success:function(data){
+												// window.location="/userdetail/staff_profile/activities";
+												// alert("Well Done")
+												window.location="/userdetail/vendor_profile/activities?filter={{request.GET.filter}}";
+
+											}
+										});
+									});
+								</script>
+								{% endfor %}
+								{% endfor %}
+							</table>
+						</div>
+
+				</div>
+				{% endif %}
+
+
+
+			</div>
+		</div>
+		{% endif %}
+
+
+</div>
+{% else %}
+
+<div class="container">
+<div class="row centered" style="margin-top: 20vh;margin-bottom: 40vh;">
+	<p style="font-size: 1.5em;font-family: 'Pacifico', cursive;">Sorry there are No Activities !</p>
+</div>
+</div>
+
+
+{% endif %}
+</div>
+
+
+<script type="text/javascript">
+
+function showupdateresp(){
+	var up=document.getElementById('update_resp');
+	up.classList.remove('hide_row');
+}
+function remupresp(){
+
+	var up=document.getElementById('update_resp');
+	up.classList.add('hide_row');
+}
+
+</script>
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/staff_profile.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endif %}
+{% endblock %}

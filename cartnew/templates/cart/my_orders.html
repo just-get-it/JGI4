@@ -1,0 +1,168 @@
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<style>
+
+.strike-through {
+    position: relative;  
+}
+
+.strike-through:after {
+    font-size:50px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 10px;
+    background: #c00;
+    content: "YOUR ITEM WAS CANCELLED";
+    width: 100%;
+    display: block;
+    
+}
+.strike-through-order {
+    position: relative;  
+}
+
+.strike-through-order:after {
+    font-size:50px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 50%;
+    background: #c00;
+    content: "YOUR ORDER WAS CANCELLED";
+    width: 100%;
+    display: block;
+    
+}
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    
+    .dot {
+        border: 1px solid grey;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+{% endblock %} {% block content %}
+
+<div class="container">
+    <h3>My Orders:</h3>
+    <br> {% if orderdata %} {% for data in orderdata %}
+    <div class="card">
+        <div class="row {% if data.0.is_Cancelled == True %} strike-through-order {% endif %}">
+            <h5 class="card-header">Order Id: {{data.0.id}} {% if data.0.payment_method == 'razorpay' %} (Payment Status: {{data.0.payment_status}}) {% endif %}</h5>
+            <h5 class="col text-right card-header">Total: ₹{{data.0.total}}/-</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3 text-left">
+                    <h6>Shipping Address:</h6>
+                    <p>{{data.1.0.shipping_address.name}}, {{data.1.0.shipping_address.phone}}</p>
+                    <p>{{data.1.0.shipping_address.shipping_address}}, {{data.1.0.shipping_address.city}}-{{data.1.0.shipping_address.pin_code}} , {{data.1.0.shipping_address.state}}.
+                    </p>
+                </div>
+                <div class="col-3 text-left">
+                    <h6>Payment Method: </h6> {{data.0.payment_method}}
+                </div>
+                {% if data.0.total < 10000 %}
+                <div class="col-2 text-left">
+                    <h6>Delivery Charges of ₹101 are applied.</h6>
+                </div>
+                {% endif %}
+                <div class="col-2 text-right">
+                    <p>Placed On: {{data.0.date_order_placed}} </p>
+                    <a href="{% url 'order' order_id=data.0.id %}" class="btn btn-primary btn-sm">View Order</a>
+                </div>
+                {% if data.0.is_Cancelled != True %}
+                <div class="col-2 text-right">
+                    {% if data.0.status == "Accepted" %}
+                    <small class="text-muted ">* Order can only be edited until it is packed</small> <br>
+                        <a href="{% url 'edit_order' order_id=data.0.id %}" class="btn btn-primary btn-sm" >Edit Order</a> 
+                        
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% for cate in categories %}
+
+            {% for odItem in data.1 %}
+            {% if cate == odItem.product.product_Category.first %}
+            <div class="card {% if odItem.is_Cancelled %} strike-through {% endif %}">
+                <h6 class="card-header">
+                    {{ odItem.product.product_Category.all|join:", "}} - 
+                    {{odItem.product_name}}
+                </h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <img height="75" width="75" src="/media/{{odItem.product.image1}}">
+                        </div>
+                        <div class="col-8">
+                            <p>Quantity: {{odItem.quantity}} Size: {{odItem.size_name}}</p>
+                            <p>Sold by: {{odItem.seller_name}}</p>
+                        </div>
+                        <div class="col-2">
+                            <h6>₹{{odItem.total}}</h6>
+                            <label for="file">Order Status: {{odItem.order.status}}</label>
+                            {% if odItem.order.status == "Accepted" %}
+                            <progress id="file" value="16.66" max="100">  </progress>
+                            {% elif odItem.order.status == "Packed" %}
+                            <progress id="file" value="33.33" max="100">  </progress>
+                            {% elif odItem.order.status == "Dispatched" %}
+                            <progress id="file" value="50" max="100">  </progress>
+                            {% elif odItem.order.status == "Reached Nearby" %}
+                            <progress id="file" value="66.66" max="100">  </progress>
+                            {% elif odItem.order.status == "Out for Delivery" %}
+                            <progress id="file" value="83.33" max="100">  </progress>
+                            {% elif odItem.order.status == "Delivered" %}
+                            <progress id="file" value="100" max="100">  </progress>
+                            {% endif %}
+                        </div>
+                        {% if  odItem.days_for_delivery <= 1 %}
+                            <div class="col-2">
+                                <a href="{% url 'track_order' order_id=odItem.id %}" class="btn btn-primary">Track order</a>
+                            </div>
+                        {% endif %}
+                        {% if odItem.order.status == "Delivered" %}
+                        <div class="col-2">
+                            <a href="/userdetail/seller_rating_form/{{odItem.id}}" class="btn btn-primary">Rate seller</a>
+                            <a href="/userdetail/delivery_rating_form/{{odItem.id}}" class="btn btn-primary">Rate delivery</a>
+                            <a href="/userdetail/product_rating_form/{{odItem.id}}" class="btn btn-primary">Rate product</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% endif %}
+             {% endfor %}
+             {% endfor %}
+        </div>
+    </div>
+    <br> {% endfor %} {% else %}
+    <br>
+    <h4> Looks like you have no Orders!</h4>
+    <br> {% endif %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/cartnew/cartnew.js' %}"></script>
+<script>
+    getCartItems(function(d) {
+        console.log("GETTING CART ITEMS! total_cart_items");
+        console.log("Cart Items: " + d);
+        $('#total_cart_items').text(d);
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,1825 @@
+{% extends 'base_connect.html' %}
+{% load static %}{% load crispy_forms_tags %}
+{% block customcss %}
+{% load readmore %}
+<style>
+    .profile--item:not(#post) {
+        display: none;
+    }
+
+    .ff--primary a {
+        cursor: pointer;
+    }
+
+    .profile--item button.no-bg {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    .modal-title {
+        display: inline-block;
+    }
+
+    input[type="radio"],
+    #div_id_proficiency_level>div>label {
+        display: inline-block;
+    }
+
+    .cover--user-name{
+        background-color: white;
+        border-radius: 10px;
+        padding: 25px 30px 16px;
+        margin-bottom: 10px;
+    }
+
+    .cover--user{
+        background-color: #ECF0F1 ;
+        border-radius: 20px;
+        border: solid;
+    }
+
+    .cover--user-activity{
+        margin: 10px;
+    }
+
+    .cover--user--edit{
+        background-color: Orange;
+        border-radius: 20px;
+        padding: 5px;
+    }
+    
+    .cover--user--edit:hove{
+        background-color: blue;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!-- Cover Header Start -->
+<div class="cover--header pt--80 text-center" style="background: url( {{instance.coverimage.url}} );">
+
+    <div class="container">
+        <div class="cover--avatar online col-md-8">
+            
+                <img src="{{instance.image.url}}" alt="">
+           
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="cover--user-name">
+                <div class="cover--user">
+                    <h2 class="h3 fw--600">{{instance.name}}</h2>
+                </div>
+    
+                <div class="cover--user-activity">
+                    <p><i class="fa mr--8 fa-clock-o"></i>{{instance.email}}</p>
+                </div>
+    
+                <div class="cover--user">
+                    {% if instance.customer %}
+                    <h5 class="h3 fw--600">Customer</h5>
+                    {% endif %}
+                    {% if instance.vendor %}
+                    <h5 class="h3 fw--600">Vendor</h5>
+                    {% endif %}
+                    {% if instance.staff %}
+                    <h5 class="h3 fw--600">Staff</h5>
+                    {% endif %}
+                    {% if instance.buisness_Customer %}
+                    <h5 class="h3 fw--600">Business Customer</h5>
+                    {% endif %}
+                    {% if instance.service %}
+                    <h5 class="h3 fw--600">Service</h5>
+                    {% endif %}
+                    {% if instance.student %}
+                    <h5 class="h3 fw--600">Student</h5>
+                    {% endif %}
+                </div>
+    
+                <div class="cover--user-desc fw--400 fs--18 fstyle--i text-darkest">
+                    <p>{{profile.bio}}</p>
+                </div>
+
+                <div class="cover--user--edit">
+                    <a href="{% url 'my_profile_edit' %} "><h2 class="h3 fw--600">Edit Profile</h2></a>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+<!-- Cover Header End -->
+
+<!-- Page Wrapper Start -->
+<section class="page--wrapper pt--80 pb--20">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content Start -->
+            <div class="main--content col-md-12 pb--60" data-trigger="stickyScroll">
+                <div class="main--content-inner drop--shadow">
+                    <!-- Content Nav Start -->
+                    <div class="content--nav pb--30">
+                        <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
+                            <li onclick="toggle_section(1)" class="active"><a>My Posts</a></li>
+                            <li onclick="toggle_section(2)" ><a>My Album</a></li>
+                            <li onclick="toggle_section(3)" ><a>My Ads</a></li>
+                            <li onclick="toggle_section(4)"><a>Followers</a></li>
+                            <li onclick="toggle_section(5)"><a>My Portfolio</a></li>
+                            <li onclick="toggle_section(6)"><a>About {{instance.name}}</a></li>
+                            <li><a>Groups</a></li>
+                            <li><a>Forum</a></li>
+                            <li><a>Media</a></li>
+                        </ul>
+                    </div>
+                    <!-- Content Nav End -->
+
+                    <!-- Profile Details Start -->
+                    <div class="profile--details fs--14">
+                        <!-- Profile Item Start -->
+                        <!-- <div class="profile--item" id="title">
+                                    <div class="profile--heading">
+                                        <h3 class="h4 fw--700">
+                                            <span class="mr--4">Edit Profile</span>
+                                            <i class="ml--10 text-primary fa fa-caret-right"></i>
+                                        </h3>
+                                    </div>                                    
+                                </div> -->
+                        <!-- Profile Item End -->
+
+                        <!-- Profile Item Start -->
+                        <!--<div class="profile--item" id="edit_profile">
+                                     <div class="profile--heading">
+                                        <h3 class="h4 fw--700">
+                                            <span class="mr--4">Biography</span>
+                                            <i class="ml--10 text-primary fa fa-caret-right"></i>
+                                        </h3>
+                                    </div>
+
+                                    <div class="profile--info">
+                                        <p>Hello ! I’m <a href="#">Eileen K. Ruiz</a>. Senior web developer of themelooks.com from last 5 years many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing</p>
+                                    </div>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        {{ edit_form|crispy }}
+                                        <button type="submit" name="submit" class="btn btn-primary" value="{{profile.id}}">Submit</button>
+                                    </form>
+                                </div> -->
+                        <!-- Profile Item End -->
+
+                        <!-- Profile Item Start -->
+                        <!--post item started-->
+                        
+                        <!-- album profile item-->
+                        <div class="profile--item" id="post">
+                            {% for post in posts %}
+                            <li>
+                                <!-- Activity Item Start -->
+                                <div class="activity--item">
+                                    <div class="activity--avatar">
+                                        <a href="member-activity-personal.html">
+                                            <img src="img/activity-img/avatar-02.jpg" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="activity--info fs--14">
+                                        <div class="activity--header">
+                                            <p><a href="member-activity-personal.html">{{profile.name}}</a> posted an
+                                                update</p>
+                                        </div>
+
+                                        <div class="activity--meta fs--12">
+                                            <p><i class="fa mr--8 fa-clock-o"></i>Yeasterday at 08:20 am</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <h3><i class="fa mr--8 fa-clock-o"></i>{{post.post_title}}</h3>
+                                        </div>
+
+                                        {% comment %} images {% endcomment %}
+                                        <div id="carousel-{{post.id}}" class="carousel slide" data-interval="false">
+                                            <!--Indicators-->
+                                            {% comment %} <ol class="carousel-indicators">
+                                                {% for p in post.image.all %}
+
+                                                <li data-target="#carousel-{{post.id}}" data-slide-to="{{ forloop.counter0 }}"
+                                                    class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+
+                                                {% endfor %}
+                                            </ol> {% endcomment %}
+                                            <!--/.Indicators-->
+                                            <!--Slides-->
+                                            
+                                            {% comment %} {% if post.ad %}
+                                                                
+                                                    <img src="{{post.ad.image.url}}" class="img-fluid" alt="{{post.img}}" ">
+                                                
+                                            {% endif %} {% endcomment %}
+
+                                            <div class="carousel-inner" role="listbox" >
+                                                {% if post.ad %}
+                                                <div
+                                                    class="carousel-item active">
+                                                    <img class="d-block w-100" src="{{post.ad.image.url|default_if_none:'#'}}"
+                                                        alt="{{post.ad}}">
+                                                </div>    
+                                                {% else %}
+                                                {% for p in post.image.all %}
+
+                                                <div
+                                                    class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                                                    <img class="d-block w-100" src="{{p.image.url}}"
+                                                        alt="{{forloop.counter}} slide">
+                                                </div>
+
+                                                {% endfor %}
+                                                {% endif %}
+                                                <!--/First slide-->
+                                                <!--/.Slides-->
+                                                <!--Controls-->
+                                                {% if post.image.all.count >= 2 %}
+                                                <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button"
+                                                    data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button"
+                                                    data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                                {% endif %}
+                                                <!--/.Controls-->
+                                            </div>
+                                            <p>{{post.description|readmore:50}}</p>
+                                        </div>
+                                        <div class="activity--content">
+                                            <p>{{post.post}}</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <span class="post-like" id="like-{{profile.id}}"><i class="fa fa-thumbs-up"
+                                                    style="font-size: 16px;"></i></span>
+                                        </div>
+
+                                        <div class="activity--action fw--700">
+                                            <a href="#">See More...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Activity Item End -->
+                                <div class="activity--info fs--14">
+                                    <div class="activity--header">
+                                        <div class="dropdown" style="float:right">
+    
+                                            <ul  id="dropdown{{post.id}}">
+                                                {% if profile.id is post.post_by.id %}
+                                                <li><a type="button" class="" href="{% url 'editpost' post.id %}">Edit</a>
+                                                </li>
+                                                <li><a type="button" class="" data-toggle="modal"
+                                                        data-target="#deleteModal{{post.id}}">Delete</a></li>
+                                                {% endif %}
+                                                {% if post.draft %}
+                                                <li><a href="{% url 'post-draft' post.id %}"><span>Post</span></a></li>
+                                                {% endif %}
+                                                {% if post in bookmarks.posts.all %}
+                                                <li><a href="{% url 'addbookmark' post.id %}"><span>Remove
+                                                            Bookmark</span></a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'addbookmark' post.id %}"><span>Bookmark</span></a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'postdetail' post.id %}"><span>View</span></a></li>
+                                                {% comment %} <li><a
+                                                        href="{% url 'deletepost' post.id %}"><span>Delete</span></a></li>
+                                                {% endcomment %}
+    
+                                            </ul>
+    
+                                        </div>
+                                        <!-- DeleteModal -->
+                                        <div class="modal fade" id="deleteModal{{post.id}}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Post-
+                                                            {{post.post_title}} {% if post.draft %}<span style="color:red">
+                                                                Draft</span>{% endif %}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+    
+                                                        Are you sure you want to delete this {% if post.draft %}<span
+                                                            style="color:red"> Draft!</span> {% else %} post!{% endif %}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <a type="button" class="btn btn-warning"
+                                                            href="{% url 'editpost' post.id %}"><span>Edit
+                                                                Instead</span></a>
+                                                        <a type="button" class="btn btn-danger"
+                                                            href="{% url 'deletepost' post.id %}">Delete 
+                                                            {% if post.draft %} Draft {% else %} Post{% endif %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </li>
+                            
+                                    {% endfor %}
+                                </div>
+                                <!--end post items-->
+                                 <!-- album profile item-->
+                        <div class="profile--item" id="album">
+                            {% for post in albums %}
+                            <li>
+                                <!-- Activity Item Start -->
+                                <div class="activity--item">
+                                    <div class="activity--avatar">
+                                        <a href="member-activity-personal.html">
+                                            <img src="img/activity-img/avatar-02.jpg" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="activity--info fs--14">
+                                        <div class="activity--header">
+                                            <p><a href="member-activity-personal.html">{{profile.name}}</a> posted an
+                                                update</p>
+                                        </div>
+
+                                        <div class="activity--meta fs--12">
+                                            <p><i class="fa mr--8 fa-clock-o"></i>Yeasterday at 08:20 am</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <h3><i class="fa mr--8 fa-clock-o"></i>{{post.post_title}}</h3>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <p>{{post.post}}</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <span class="post-like" id="like-{{profile.id}}"><i class="fa fa-thumbs-up"
+                                                    style="font-size: 16px;"></i></span>
+                                        </div>
+
+                                        <div class="activity--action fw--700">
+                                            <a href="#">See More...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Activity Item End -->
+                                <div class="activity--info fs--14">
+                                    <div class="activity--header">
+                                        <div class="dropdown" style="float:right">
+    
+                                            <ul  id="dropdown{{post.id}}">
+                                                {% if profile.id is post.post_by.id %}
+                                                <li><a type="button" class="" href="{% url 'editpost' post.id %}">Edit</a>
+                                                </li>
+                                                <li><a type="button" class="" data-toggle="modal"
+                                                        data-target="#deleteModal{{post.id}}">Delete</a></li>
+                                                {% endif %}
+                                                {% if post.draft %}
+                                                <li><a href="{% url 'post-draft' post.id %}"><span>Post</span></a></li>
+                                                {% endif %}
+                                                {% if post in bookmarks.posts.all %}
+                                                <li><a href="{% url 'addbookmark' post.id %}"><span>Remove
+                                                            Bookmark</span></a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'addbookmark' post.id %}"><span>Bookmark</span></a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'postdetail' post.id %}"><span>View</span></a></li>
+                                                {% comment %} <li><a
+                                                        href="{% url 'deletepost' post.id %}"><span>Delete</span></a></li>
+                                                {% endcomment %}
+    
+                                            </ul>
+    
+                                        </div>
+                                        <!-- DeleteModal -->
+                                        <div class="modal fade" id="deleteModal{{post.id}}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Post-
+                                                            {{post.post_title}} {% if post.draft %}<span style="color:red">
+                                                                Draft</span>{% endif %}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+    
+                                                        Are you sure you want to delete this {% if post.draft %}<span
+                                                            style="color:red"> Draft!</span> {% else %} post!{% endif %}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <a type="button" class="btn btn-warning"
+                                                            href="{% url 'editpost' post.id %}"><span>Edit
+                                                                Instead</span></a>
+                                                        <a type="button" class="btn btn-danger"
+                                                            href="{% url 'deletepost' post.id %}">Delete 
+                                                            {% if post.draft %} Draft {% else %} Post{% endif %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </li>
+                            
+                                    {% endfor %}
+                                </div>
+                                <!--End album items-->
+                                <!--ads prifle item-->
+                        <div class="profile--item" id="ads">
+                            {% for post in ads %}
+                            <li>
+                                <!-- Activity Item Start -->
+                                <div class="activity--item">
+                                    <div class="activity--avatar">
+                                        <a href="member-activity-personal.html">
+                                            <img src="img/activity-img/avatar-02.jpg" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="activity--info fs--14">
+                                        <div class="activity--header">
+                                            <p><a href="member-activity-personal.html">{{profile.name}}</a> posted an
+                                                update</p>
+                                        </div>
+
+                                        <div class="activity--meta fs--12">
+                                            <p><i class="fa mr--8 fa-clock-o"></i>Yeasterday at 08:20 am</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <h3><i class="fa mr--8 fa-clock-o"></i>{{post.post_title}}</h3>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <p>{{post.post}}</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <span class="post-like" id="like-{{profile.id}}"><i class="fa fa-thumbs-up"
+                                                    style="font-size: 16px;"></i></span>
+                                        </div>
+
+                                        <div class="activity--action fw--700">
+                                            <a href="#">See More...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Activity Item End -->
+                                <div class="activity--info fs--14">
+                                    <div class="activity--header">
+                                        <div class="dropdown" style="float:right">
+    
+                                            <ul  id="dropdown{{post.id}}">
+                                                {% if profile.id is post.post_by.id %}
+                                                <li><a type="button" class="" href="{% url 'editpost' post.id %}">Edit</a>
+                                                </li>
+                                                <li><a type="button" class="" data-toggle="modal"
+                                                        data-target="#deleteModal{{post.id}}">Delete</a></li>
+                                                {% endif %}
+                                                {% if post.draft %}
+                                                <li><a href="{% url 'post-draft' post.id %}"><span>Post</span></a></li>
+                                                {% endif %}
+                                                {% if post in bookmarks.posts.all %}
+                                                <li><a href="{% url 'addbookmark' post.id %}"><span>Remove
+                                                            Bookmark</span></a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'addbookmark' post.id %}"><span>Bookmark</span></a></li>
+                                                {% endif %}
+                                                <li><a href="{% url 'postdetail' post.id %}"><span>View</span></a></li>
+                                                {% comment %} <li><a
+                                                        href="{% url 'deletepost' post.id %}"><span>Delete</span></a></li>
+                                                {% endcomment %}
+    
+                                            </ul>
+    
+                                        </div>
+                                        <!-- DeleteModal -->
+                                        <div class="modal fade" id="deleteModal{{post.id}}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Post-
+                                                            {{post.post_title}} {% if post.draft %}<span style="color:red">
+                                                                Draft</span>{% endif %}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+    
+                                                        Are you sure you want to delete this {% if post.draft %}<span
+                                                            style="color:red"> Draft!</span> {% else %} post!{% endif %}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <a type="button" class="btn btn-warning"
+                                                            href="{% url 'editpost' post.id %}"><span>Edit
+                                                                Instead</span></a>
+                                                        <a type="button" class="btn btn-danger"
+                                                            href="{% url 'deletepost' post.id %}">Delete 
+                                                            {% if post.draft %} Draft {% else %} Post{% endif %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </li>
+                            
+                                    {% endfor %}
+                                </div>
+
+                        <!-- Profile Item Start -->
+                        <div class="profile--item" id="friend">
+                            {% for friend in profile.friends.all %}
+                            <div class="col-md-6" style="margin-bottom: 50px;">
+                                <div class="activity--avatar hover">
+                                    <img onclick="visit_profile('{{friend.email}}')" src="/{{instance.image}}"
+                                        alt="">
+                                </div>
+                                <div class="activity--info fs--14 hover" style="margin-top: 15px;">
+                                    <p onclick="visit_profile('{{friend.email}}')">{{friend.name}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Profile Istart -->
+                        <div classs="profile--item" id="my-portfolio">
+                            <div class="col-lg-8 mt-3 col-md-8">
+                                <p>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#work"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        My work
+                                    </button>
+                
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#draft"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Draft
+                                    </button>
+                                </p>
+                                <div class="collapse" id="work">
+                                    <div class="card card-body">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="container">
+                                                    <a href="{% url 'create_project' %}" class="btn btn-primary mt-2 btn-sm">Create
+                                                        Porject</a>
+                                                </div>
+                                            </div>
+                                            {% for project in public_projects %}
+                                            <div class="col-md-6 col-lg-6">
+                                                <div class="container">
+                                                    <div class="image">
+                                                        <img src="{{project.cover_image.url}}" class="w-50 img-fluid">
+                                                    </div>
+                                                    <h3>{{project.title}}</h3>
+                                                    <a href="{% url 'EditProject' project.slug %}" class="btn btn-primary mt-2 btn-sm">Edit Project</a>
+                                                    <a href="{% url 'ProjectView' project.slug %}"
+                                                        class="btn btn-primary mt-2 btn-sm">See Project</a>
+                                                    <!--delete modal button-->
+                                                    <button type="button" class="btn btn-primary mt-2 btn-sm" data-toggle="modal"
+                                                        data-target="#deleteModal{{project.id}}">
+                                                        Delete
+                                                    </button>
+                
+                                                    <!-- delete Modal -->
+                                                    <div class="modal fade" id="deleteModal{{project.id}}" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Project -
+                                                                        {{project.title}}</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Are you sure you want to delete your project?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <a href="{% url 'DeleteProject' project.slug %}"
+                                                                        class="btn btn-primary">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="draft">
+                                    <div class="card card-body">
+                                        <div class="row">
+                                            {% for project in private_projects %}
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="container">
+                                                    <div class="image">
+                                                        <img src="{{project.cover_image.url}}" class="w-50 img-fluid">
+                                                    </div>
+                                                    <h3>{{project.title}}</h3>
+                                                    <p><a href="" class="btn btn-primary m-2 btn-sm">Edit</a><button
+                                                            class="btn btn-primary m-2 btn-sm">Publish</button>
+                                                    </p>
+                                                    <a href="{% url 'ProjectView' project.slug %}"
+                                                        class="btn btn-primary mt-2 btn-sm">See Project</a>
+                                                    <!--delete modal button-->
+                                                    <button type="button" class="btn btn-primary mt-2 btn-sm" data-toggle="modal"
+                                                        data-target="#deleteModal{{project.id}}">
+                                                        Delete
+                                                    </button>
+                
+                                                    <!-- draf delete Modal -->
+                                                    <div class="modal fade" id="deleteModal{{project.id}}" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Project -
+                                                                        {{project.title}}</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Are you sure you want to delete your project?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <a href="{% url 'DeleteProject' project.slug %}"
+                                                                        class="btn btn-primary">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Profile Item Start -->
+
+                        <div class="profile--item" id="my_profile" style="display: none;">
+                            <div class="profile--heading">
+                                <h3 class="h4 fw--700">
+                                    <span class="mr--4">Academic Profile</span>
+                                    <button type="button" class="no-bg" data-toggle="modal"
+                                        data-target="#education-form" data-backdrop="false"><i
+                                            class="ml--10 text-primary fa fa-plus"></i></button>
+                                </h3>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="education-form">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Education Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                {{education_form|crispy}}
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="edu_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile--info">
+                                <table class="table">
+                                    {% if education_check %}
+                                    {% for key,education in data.items %}
+                                    {% if forloop.counter == 1 %}
+                                    {% for educations in education %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>{{forloop.counter}}) College Details
+                                                <button type="button" data-toggle="modal" class="no-bg"
+                                                    data-target="#education-edit-{{educations.id}}"
+                                                    data-backdrop="false">
+                                                    <i class="ml--10 text-primary fa fa-edit"></i>
+                                                </button>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">College Name</th>
+                                        <td><a href="#" class="btn-link">{{educations.college_name}}
+                                                ({{educations.admission_year}} -
+                                                {{educations.passout_year}})</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Stream</th>
+                                        <td><a href="#" class="btn-link">{{educations.stream}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Degree</th>
+                                        <td><a href="#" class="btn-link">{{educations.degree}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                    <p>There is no Academic Record Provided</p>
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div class="profile--heading">
+                                <h3 class="h4 fw--700">
+                                    <span class="mr--4">Professional Profile</span>
+                                    <button type="button" class="no-bg" data-toggle="modal"
+                                        data-target="#add-professional-details" data-backdrop="false">
+                                        <i class="ml--10 text-primary fa fa-plus"></i>
+                                    </button>
+                                </h3>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="add-professional-details">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="modal-title">
+                                                <h3>Add Professional details</h3>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                data-toggle="modal" data-target="#job-modal"
+                                                data-backdrop="false">Add Job Details</button>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                data-toggle="modal" data-target="#internship-modal"
+                                                data-backdrop="false">Add Internship Details</button>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                data-toggle="modal" data-target="#training-modal"
+                                                data-backdrop="false">Add Training Details</button>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                data-toggle="modal" data-target="#project-modal"
+                                                data-backdrop="false">Add Project Details</button>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                data-toggle="modal" data-target="#skill-modal"
+                                                data-backdrop="false">Add Skills</button>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                data-toggle="modal" data-target="#worksample-modal"
+                                                data-backdrop="false">Add Work Sample Details</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="job-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Job Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken"
+                                                    value="dr0Z1NZ1hGPq8Lkb9twsMksFoi4SxCZJxT3KO3Dz9B8LXwcGpjKQ33Cdd4k69sR1">
+
+
+                                                <div id="div_id_job_title" class="form-group"> <label
+                                                        for="id_job_title" class=" requiredField">
+                                                        Job title<span class="asteriskField">*</span> </label>
+                                                    <div class=""> <input type="text" name="job_title"
+                                                            maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_job_title"> </div>
+                                                </div>
+                                                <div id="div_id_company_name" class="form-group"> <label
+                                                        for="id_company_name" class=" requiredField">
+                                                        Company name<span class="asteriskField">*</span>
+                                                    </label>
+                                                    <div class=""> <input type="text" name="company_name"
+                                                            maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_company_name"> </div>
+                                                </div>
+                                                <div id="div_id_join_date" class="form-group"> <label
+                                                        for="id_join_date" class="">
+                                                        Join date
+                                                    </label>
+                                                    <div class=""> <input type="text" name="join_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_join_date"> </div>
+                                                </div>
+                                                <div id="div_id_leave_date" class="form-group"> <label
+                                                        for="id_leave_date" class="">
+                                                        Leave date
+                                                    </label>
+                                                    <div class=""> <input type="text" name="leave_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_leave_date"> </div>
+                                                </div>
+                                                <div id="div_id_location" class="form-group"> <label
+                                                        for="id_location" class="">
+                                                        Location
+                                                    </label>
+                                                    <div class=""> <input type="text" name="location"
+                                                            maxlength="200"
+                                                            class="textinput textInput form-control"
+                                                            id="id_location"> </div>
+                                                </div>
+                                                <div id="div_id_description" class="form-group"> <label
+                                                        for="id_description" class="">
+                                                        Description
+                                                    </label>
+                                                    <div class=""> <textarea name="description" cols="40"
+                                                            rows="10" class="textarea form-control"
+                                                            id="id_description"></textarea> </div>
+                                                </div>
+
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="job_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="internship-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Internship Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken"
+                                                    value="shxq5Eo1fePgGe9abDzVnwopJOonmYSDMJAbSU2z798BvZ1FrtNjEfyXyAEBYOKV">
+                                                <div id="div_id_internship_title" class="form-group">
+                                                    <label for="id_internship_title"
+                                                        class=" requiredField">Internship title
+                                                        <span class="asteriskField">*</span>
+                                                    </label>
+                                                    <div class="">
+                                                        <input type="text" name="internship_title"
+                                                            maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_internship_title">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_company_name" class="form-group">
+                                                    <label for="id_company_name" class=" requiredField">Company
+                                                        name
+                                                        <span class="asteriskField">*</span>
+                                                    </label>
+                                                    <div class="">
+                                                        <input type="text" name="company_name" maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_company_name">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_join_date" class="form-group">
+                                                    <label for="id_join_date" class="">Join date</label>
+                                                    <div class="">
+                                                        <input type="date" name="join_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_join_date">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_leave_date" class="form-group">
+                                                    <label for="id_leave_date" class="">Leave date</label>
+                                                    <div class="">
+                                                        <input type="date" name="leave_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_leave_date">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_location" class="form-group">
+                                                    <label for="id_location" class="">Location</label>
+                                                    <div class="">
+                                                        <input type="text" name="location" maxlength="200"
+                                                            class="textinput textInput form-control"
+                                                            id="id_location">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_description" class="form-group">
+                                                    <label for="id_description" class="">Description</label>
+                                                    <div class="">
+                                                        <textarea name="description" cols="40" rows="10"
+                                                            class="textarea form-control"
+                                                            id="id_description"></textarea>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="internship_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="training-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Training Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken"
+                                                    value="dr0Z1NZ1hGPq8Lkb9twsMksFoi4SxCZJxT3KO3Dz9B8LXwcGpjKQ33Cdd4k69sR1">
+                                                <div id="div_id_program" class="form-group">
+                                                    <label for="id_program" class=" requiredField">Program
+                                                        <span class="asteriskField">*</span>
+                                                    </label>
+                                                    <div class="">
+                                                        <input type="text" name="program" maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_program">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_organisation_name" class="form-group">
+                                                    <label for="id_organisation_name"
+                                                        class=" requiredField">Organisation name
+                                                        <span class="asteriskField">*</span>
+                                                    </label>
+                                                    <div class="">
+                                                        <input type="text" name="organisation_name"
+                                                            maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_organisation_name">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_start_date" class="form-group">
+                                                    <label for="id_start_date" class="">Start date</label>
+                                                    <div class="">
+                                                        <input type="date" name="start_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_start_date">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_end_date" class="form-group">
+                                                    <label for="id_end_date" class="">End date</label>
+                                                    <div class="">
+                                                        <input type="date" name="end_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_end_date">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_location" class="form-group">
+                                                    <label for="id_location" class="">Location</label>
+                                                    <div class="">
+                                                        <input type="date" name="location" maxlength="200"
+                                                            class="textinput textInput form-control"
+                                                            id="id_location">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_description" class="form-group">
+                                                    <label for="id_description" class="">Description</label>
+                                                    <div class="">
+                                                        <textarea name="description" cols="40" rows="10"
+                                                            class="textarea form-control"
+                                                            id="id_description"></textarea>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="training_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="project-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Project Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken"
+                                                    value="dr0Z1NZ1hGPq8Lkb9twsMksFoi4SxCZJxT3KO3Dz9B8LXwcGpjKQ33Cdd4k69sR1">
+                                                <div id="div_id_project_name" class="form-group">
+                                                    <label for="id_project_name" class=" requiredField">Project
+                                                        name
+                                                        <span class="asteriskField">*</span>
+                                                    </label>
+                                                    <div class="">
+                                                        <input type="text" name="project_name" maxlength="200"
+                                                            class="textinput textInput form-control" required=""
+                                                            id="id_project_name">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_start_date" class="form-group">
+                                                    <label for="id_start_date" class="">Start date</label>
+                                                    <div class="">
+                                                        <input type="date" name="start_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_start_date">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_end_date" class="form-group">
+                                                    <label for="id_end_date" class="">End date</label>
+                                                    <div class="">
+                                                        <input type="date" name="end_date"
+                                                            class="datepicker dateinput form-control"
+                                                            id="id_end_date">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_project_link" class="form-group">
+                                                    <label for="id_project_link" class="">Project link</label>
+                                                    <div class="">
+                                                        <input type="text" name="project_link" maxlength="200"
+                                                            class="textinput textInput form-control"
+                                                            id="id_project_link">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_description" class="form-group">
+                                                    <label for="id_description" class="">Description</label>
+                                                    <div class="">
+                                                        <textarea name="description" cols="40" rows="10"
+                                                            class="textarea form-control"
+                                                            id="id_description"></textarea>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="project_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="skill-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Skills</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken"
+                                                    value="dr0Z1NZ1hGPq8Lkb9twsMksFoi4SxCZJxT3KO3Dz9B8LXwcGpjKQ33Cdd4k69sR1">
+                                                <div id="div_id_profile_skills" class="form-group">
+                                                    <label for="id_profile_skills" class="">Profile
+                                                        skills</label>
+                                                    <div class="">
+                                                        <input type="text" name="profile_skills" maxlength="100"
+                                                            class="textinput textInput form-control"
+                                                            id="id_profile_skills">
+                                                    </div>
+                                                </div>
+                                                <div id="div_id_proficiency_level" class="form-group">
+                                                    <label for="id_proficiency_level" class="">Proficiency
+                                                        level</label>
+                                                    <div class="">
+                                                        <label>Beginner</label>
+                                                        <input type="radio" name="proficiency_level"
+                                                            value="beginner">
+                                                        <label>Intermediate</label>
+                                                        <input type="radio" name="proficiency_level"
+                                                            value="intermediate">
+                                                        <label>Advanced</label>
+                                                        <input type="radio" name="proficiency_level"
+                                                            value="advanced">
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="skill_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="worksample-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Work Sample Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                {{worksample_form|crispy}}
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="worksample_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile--info">
+                                <table class="table">
+                                    {% if job_check %}
+                                    {% for key,jobs in data.items %}
+                                    {% if forloop.counter == 2 %}
+                                    {% for job in jobs %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>{{forloop.counter}}) Job Details
+                                                <button type="button" data-toggle="modal" class="no-bg"
+                                                    data-target="#job-edit-{{job.id}}" data-backdrop="false">
+                                                    <i class="ml--10 text-primary fa fa-edit"></i>
+                                                </button>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Job Title</th>
+                                        <td><a href="#" class="btn-link">{{job.job_title}} ({{job.join_date}} -
+                                                {{job.leave_date}})</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Company Name</th>
+                                        <td><a href="#" class="btn-link">{{job.company_name}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Job location</th>
+                                        <td><a href="#" class="btn-link">{{job.location}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Job Description</th>
+                                        <td><a href="#" class="btn-link">{{job.description}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if internship_check %}
+                                    {% for key,internships in data.items %}
+                                    {% if forloop.counter == 3 %}
+                                    {% for internship in internships %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>Internship Details
+                                                <button type="button" data-toggle="modal" class="no-bg"
+                                                    data-target="#internship-edit-{{internship.id}}"
+                                                    data-backdrop="false">
+                                                    <i class="ml--10 text-primary fa fa-edit"></i>
+                                                </button>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Internship Title</th>
+                                        <td><a href="#" class="btn-link">{{internship.internship_title}}
+                                                ({{internship.join_date}} - {{internship.leave_date}})</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Company Name</th>
+                                        <td><a href="#" class="btn-link">{{internship.company_name}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Internship location</th>
+                                        <td><a href="#" class="btn-link">{{internship.location}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Internship Description</th>
+                                        <td><a href="#" class="btn-link">{{internship.description}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if training_check %}
+                                    {% for key,training in data.items %}
+                                    {% if forloop.counter == 4 %}
+                                    {% for trainings in training %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>Training Details
+                                                <button type="button" data-toggle="modal" class="no-bg"
+                                                    data-target="#training-edit-{{trainings.id}}"
+                                                    data-backdrop="false">
+                                                    <i class="ml--10 text-primary fa fa-edit"></i>
+                                                </button>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Program Name</th>
+                                        <td><a href="#" class="btn-link">{{trainings.program}}
+                                                ({{trainings.start_date}} - {{trainings.end_date}})</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Organisation Name</th>
+                                        <td><a href="#" class="btn-link">{{trainings.organisation_name}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Training location</th>
+                                        <td><a href="#" class="btn-link">{{trainings.location}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Training Description</th>
+                                        <td><a href="#" class="btn-link">{{trainings.description}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if project_check %}
+                                    {% for key,projects in data.items %}
+                                    {% if forloop.counter == 5 %}
+                                    {% for project in projects %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>Project Details
+                                                <button type="button" data-toggle="modal" class="no-bg"
+                                                    data-target="#project-edit-{{project.id}}"
+                                                    data-backdrop="false">
+                                                    <i class="ml--10 text-primary fa fa-edit"></i>
+                                                </button>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Project Name</th>
+                                        <td><a href="#" class="btn-link">{{project.project_name}}
+                                                ({{project.start_date}} - {{project.end_date}})</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Project Link</th>
+                                        <td><a href="{{project.0.project_link}}" target="_blank"
+                                                class="btn-link">{{project.project_link}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Project Description</th>
+                                        <td><a href="#" class="btn-link">{{project.description}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if skill_check %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>Skill Details <i class="ml--10 text-primary fa fa-edit"></i>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Skills</th>
+                                        <td><a href="#" class="btn-link">
+                                            {% for key,skill in data.items %}
+                                                {% if forloop.counter == 6 %}
+                                                    {% for skills in skill %}{{skills.profile_skills}},
+                                                        {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                                </a></td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if worksample_check %}
+                                    {% for key,worksamples in data.items %}
+                                    {% if forloop.counter == 7 %}
+                                    {% for worksample in worksamples %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>Work Sample Details
+                                                <button type="button" data-toggle="modal" class="no-bg"
+                                                    data-target="#worksample-edit-{{worksample.id}}"
+                                                    data-backdrop="false">
+                                                    <i class="ml--10 text-primary fa fa-edit"></i>
+                                                </button>
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Blog Link</th>
+                                        <td><a href="{{worksample.0.blog_link}}" target="_blank"
+                                                class="btn-link">{{worksample.blog_link}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Github Link</th>
+                                        <td><a href="{{worksample.0.github_link}}" target="_blank"
+                                                class="btn-link">{{worksample.github_link}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Playstore Link</th>
+                                        <td><a href="{{worksample.0.playstore_link}}" target="_blank"
+                                                class="btn-link">{{worksample.playstore_link}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Behance Link</th>
+                                        <td><a href="{{worksample.0.behance_link}}" target="_blank"
+                                                class="btn-link">{{worksample.behance_link}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Other Link</th>
+                                        <td><a href="{{worksample.0.other_link}}" target="_blank"
+                                                class="btn-link">{{worksample.other_link}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if not job_check %} 
+                                        {% if not internship_check %}
+                                            {% if not training_check%} 
+                                    
+                                                {% if not project_check %}
+                                                    {% if not skill_check %} 
+                                                        {% if not worksample_check %}<p>There is no Professional Record Provided</p>
+                                                            {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div class="profile--heading">
+                                <h3 class="h4 fw--700">
+                                    <span class="mr--4">Social Profile</span>
+                                    <button type="button" class="no-bg" data-toggle="modal"
+                                        data-target="#social-modal" data-backdrop="false"><i
+                                            class="ml--10 text-primary fa fa-plus"></i></button>
+                                    <button type="button" data-toggle="modal" class="no-bg"
+                                        data-target="#social-edit" data-backdrop="false">
+                                        <i class="ml--10 text-primary fa fa-edit"></i>
+                                    </button>
+                                </h3>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="social-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Social Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                {{social_form|crispy}}
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="social_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile--info">
+                                <table class="table">
+                                    {% if social_check %}
+                                    {% for key,social in data.items %}
+                                    {% if forloop.counter == 8 %}
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Email</th>
+                                        <td><a href="#" class="btn-link">{{social.0.email}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Date Of Birth</th>
+                                        <td><a href="#" class="btn-link">{{social.0.dob}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Gender</th>
+                                        <td><a href="#" class="btn-link">{{social.0.gender}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Marital</th>
+                                        <td><a href="#" class="btn-link">{{social.0.marital}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Hometown</th>
+                                        <td><a href="#" class="btn-link">{{social.0.hometown}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Hobbies</th>
+                                        <td><a href="#" class="btn-link">{{social.0.hobbies}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Contact</th>
+                                        <td><a href="#" class="btn-link">{{social.0.mobile_number}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Linkedin Profile</th>
+                                        <td><a href="{{social.0.linkedin_profile}}" target="_blank"
+                                                class="btn-link">{{social.0.linkedin_profile}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Facebook Profile</th>
+                                        <td><a href="{{social.0.facebook_profile}}" target="_blank"
+                                                class="btn-link">{{social.0.facebook_profile}}</a></td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                    <p>There is no Social record Provided</p>
+                                    {% endif %}
+                                </table>
+                            </div>
+
+                            <div class="profile--heading">
+                                <h3 class="h4 fw--700">
+                                    <span class="mr--4">Medical Profile</span>
+                                    <button type="button" class="no-bg" data-toggle="modal"
+                                        data-target="#medical-modal" data-backdrop="false"><i
+                                            class="ml--10 text-primary fa fa-plus"></i></button>
+                                    <button type="button" data-toggle="modal" class="no-bg"
+                                        data-target="#medical-edit" data-backdrop="false">
+                                        <i class="ml--10 text-primary fa fa-edit"></i>
+                                    </button>
+                                </h3>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="medical-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add Medical Details</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                {{medical_form|crispy}}
+                                                <button class="btn btn-primary" type="submit" name="submit"
+                                                    value="medical_form">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile--info">
+                                <table class="table">
+                                    {% if medical_check %}
+                                    {% for key,medical in data.items %}
+                                    {% if forloop.counter == 9 %}
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Height</th>
+                                        <td><a href="#" class="btn-link">{{medical.0.Height}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Weight</th>
+                                        <td><a href="#" class="btn-link">{{medical.0.Height}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Blood Group</th>
+                                        <td><a href="#" class="btn-link">{{medical.0.blood_group}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Disability</th>
+                                        <td><a href="#" class="btn-link">{{medical.0.disability}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Medical Issues</th>
+                                        <td><a href="#" class="btn-link">{{medical.0.medical_issues}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="fw--700 text-darkest">Diseases</th>
+                                        <td><a href="#" class="btn-link">{% for diseases in medical%}
+                                            {{diseases.diseases}}
+                                            {% endfor %}</a></td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                    <p>There is no Medical Record Provided</p>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Profile Item End -->
+                        {% for education in education_edit %}
+                        <div class="modal fade" tabindex="-1" id="education-edit-{{education.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{education.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_edu_profile"
+                                                value="{{education.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for job in job_edit %}
+                        <div class="modal fade" tabindex="-1" id="job-edit-{{job.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{job.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_job_profile" value="{{job.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for internship in internship_edit %}
+                        <div class="modal fade" tabindex="-1" id="internship-edit-{{internship.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{internship.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_internship_profile"
+                                                value="{{internship.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for training in training_edit %}
+                        <div class="modal fade" tabindex="-1" id="training-edit-{{training.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{training.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_training_profile"
+                                                value="{{training.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for project in project_edit %}
+                        <div class="modal fade" tabindex="-1" id="project-edit-{{project.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{project.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_project_profile"
+                                                value="{{project.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for skill in skill_edit %}
+                        <div class="modal fade" tabindex="-1" id="skill-edit-{{skill.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{skill.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_skill_profile" value="{{skill.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for worksample in worksample_edit %}
+                        <div class="modal fade" tabindex="-1" id="worksample-edit-{{worksample.0.id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{worksample.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_worksample_profile"
+                                                value="{{worksample.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for social in social_edit %}
+                        <div class="modal fade" tabindex="-1" id="social-edit">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{social.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_social_profile"
+                                                value="{{social.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for medical in medical_edit %}
+                        <div class="modal fade" tabindex="-1" id="medical-edit">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{medical.1|crispy}}
+                                            <button class="btn btn-primary" type="submit"
+                                                name="edit_medical_profile"
+                                                value="{{medical.0.id}}">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                            </div>
+                            <!-- Profile Details End -->
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                </div>
+            </div>
+</section>
+<!-- Page Wrapper End -->
+{% block customjs %}
+<script>
+    function toggle_section(id) {
+        $(this).hide();
+        if (id == 1) {
+            $(".profile--item").fadeOut(1000);
+            $("#post").fadeIn(1000);
+            $(".content--nav .ff--primary li").removeClass("active");
+            $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+        }
+        else if(id == 2){
+            $(".profile--item").fadeOut(1000);
+            $('#album').fadeIn(1000);
+            $(".content--nav .ff--primary li").removeClass("active");
+            $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+        }
+        else if(id == 3){
+            $(".profile--item").fadeOut(1000);
+            $('#ads').fadeIn(1000);
+            $(".content--nav .ff--primary li").removeClass("active");
+            $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+
+        }
+        else if (id == 4) {
+            $(".profile--item").fadeOut(1000);
+            $("#friend").fadeIn(1000);
+            $(".content--nav .ff--primary li").removeClass("active");
+            $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+        }
+        else if (id == 5) {
+            $(".profile--item").fadeOut(1000);
+            $("#my_portfolio").fadeIn(1000);
+            $(".content--nav .ff--primary li").removeClass("active");
+            $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+        }
+        else if (id == 6) {
+            $(".profile--item").fadeOut(1000);
+            $("#my_profile").fadeIn(1000);
+            $(".content--nav .ff--primary li").removeClass("active");
+            $(".content--nav .ff--primary li:nth-of-type(" + id + ")").addClass("active");
+        }
+       
+    }
+
+    function visit_profile(ins_id) {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'visit_profile' %}",
+            data: {
+                instance: ins_id,
+                action: "visit_profile",
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                member = data['member']
+                profile = data['profile']
+                window.location.href = "/just-connect/member-profile?member=" + member + "&profile=" + profile;
+            }
+        });
+    }
+            // $(document).ready(function(){
+            //     $(".profile--info table").each(function(index){
+            //         $text = $(this).text();
+            //         alert($text);
+            //         if(/^[a-zA-Z0-9]*$/.test($text)==true)
+            //         {
+            //             alert("empty");
+            //         }
+            //     })
+            // })
+</script>
+{% endblock %}
+{% endblock %}

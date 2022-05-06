@@ -1,0 +1,174 @@
+
+
+
+
+
+
+
+.content{
+	position: sticky;
+	top: 55px;
+	position: -webkit-sticky;
+	display: block;
+	z-index: 35;
+	position: all;
+}
+.noti_head{
+	z-index: 35;
+	position: all;
+	cursor: pointer;
+}
+.drop_noti{
+	display: none;
+	background:  rgba(48,197,255,.1);
+	width: 100%;
+	position: all;
+	z-index: 34;
+}
+.drop_noti:hover{
+	display: block;
+}
+.noti_head:hover ~ .drop_noti{
+	display: block;
+
+}
+
+.tod_noti{
+	height: 130px;
+	position: relative;
+	padding: 0;
+	transition: all .8s ease-out;
+	box-shadow: 0 0 20px rgba(0,0,0,.8)
+}
+
+
+
+.noti_tod_overlay{
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: all .8s ease-out;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+
+.noti_tod_overlay p{
+	margin-top: 90px;
+	font-size: .9em;
+	font-family: 'Cabin', sans-serif;
+	color: white;
+	margin-left: 80px;
+	animation-name: cme_left;
+	animation-duration: 1s;
+}
+
+.tod_noti:hover .noti_tod_overlay{
+	display: block;
+}
+.tod_noti img{
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes incheight{
+	0%{
+		transform: translateY(-100%);
+	}
+	100%{
+		transform: translateY(0%);
+	}
+}
+
+
+@keyframes cme_left{
+	0%{
+		transform: translateX(100%);
+	}
+	100%{
+		transform: translateX(0%);
+	}
+}
+.acti_head{
+	z-index: 35;
+	position: all;
+	cursor: pointer;
+}
+.drop_noti_acti{
+	display: none;
+	background:  rgba(48,197,255,.1);
+	width: 100%;
+	position: all;
+	z-index: 34;
+}
+.drop_noti_acti:hover{
+	display: block;
+}
+.acti_head:hover ~ .drop_noti_acti{
+	display: block;
+
+}
+
+
+.hide_row{
+	display: none;
+}
+
+
+.staff_head{
+	cursor: pointer;
+}
+
+.b2b_head{
+	cursor: pointer;
+}
+
+.vend_head{
+	cursor: pointer;
+}
+
+.pro_head{
+	cursor: pointer;
+}
+
+
+
+.noti_head::after{
+	content: '25';
+	padding: 5px;
+	padding-top: 2px;
+	background: rgba(255,0,0,.8);
+	color: white;
+	font-weight: bold;
+	width: 23px;
+	height: 20px;
+	position: absolute;
+	right: 30px;
+	border-radius: 15px;
+	font-size: .65em;
+	display: grid;
+	justify-content: center;
+}
+
+
+.staf_noti::after,.ord_noti::after,.samp_noti::after,.des_noti::after,.enq_noti::after{
+	content: '25';
+	padding: 5px;
+	padding-top: 2px;
+	background: rgba(255,0,0,.8);
+	color: white;
+	font-weight: bold;
+	width: 23px;
+	height: 20px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	border-radius: 15px;
+	font-size: .65em;
+	display: grid;
+	justify-content: center;
+}

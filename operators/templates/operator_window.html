@@ -1,0 +1,409 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+
+<style type="text/css">
+ td,th,tr{
+      border: 1px solid black;
+      text-align: center;
+    }
+</style>
+
+<div class="container text-center">
+  <h1>OPERATOR WINDOW</h1>
+</div><br>
+ 
+<form action="operator_window" method="post"> 
+  {% csrf_token %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <thead>
+          <a class="btn btn-warning" href="logout" role="button">Logout</a><br><br>
+          <tr>
+            <th>Time</th>
+            <td>
+              <input type="text" name="optime" value='{{ time }}' readonly>
+            </td>
+            <th>Date</th>
+            <td><input type="text" name="opdate" value='{{ date }}' readonly></td>
+            <th>Machine</th>
+            <td>SNLS-L1-122/3</td>
+            <th>Operator ID</th>
+            <td><input type="text" name="opid" value='{{ id }}' readonly></td>
+            <th>Operator name</th>
+            <td><input type="text" name="opname" value='{{ name }}' readonly></td>
+            <th>Daily Available Minutes</th>
+            <td>450</td>
+            <th>Style</th>
+            <td>Dunkan</td>
+            <th>Operation</th>
+            <td>
+              <select id="operation" name="operation">
+                  <option value="dart stitch">Dart Stitch</option>
+                  <option value="panel attach">Panel Attach</option>
+                  <option value="dart and panel pressing">Dart And Panel Pressing</option>
+                  <option value="centre back stitch">Centre Back Stitch</option>
+                  <option value="diamond stitch">Diamond Stitch</option>
+                  <option value="chest welt iron">Chest Welt Iron</option>
+                  <option value="chest welt attach">Chest Welt Attach</option>
+                </select>
+            </td>
+            <th>SAM</th>
+            <td>0.8</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>PRODUCTION (DPR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Daily Report</th>
+            <th>WIP</th>
+            <th>Daily Target</th>
+            <th>Daily Achieved</th>
+            <th>Efficiency</th>
+            <th></th>
+            <th>Performance</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>{{wip}}</td>
+            <td>562.5</td>
+            <td>{{total_pieces}}</td>
+            <td>{{efficiency}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Hourly Report</th>
+            <th>Next Operation ticket no</th>
+            <th>Hourly Target</th>
+            <th>Hourly Achieved</th>
+            <th>Ticket No Start</th>
+            <th>Ticket No End</th>
+            <td>{{performance}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="number" step="1" name="nextoperation"></td>
+            <td><input type="number" step="1" value="75" name="hourlytarget"></td>
+            <td><input type="number" step="1" min="0" value="{{total_pieces}}" name="hourlyachieved"></td>
+            <td><input type="number" step="1" name="ticketnostart"></td>
+            <td><input type="number" step="1" name="ticketnoend"></td>
+            <td></td>
+            
+          </tr>
+        </tbody>
+          <td><input type="submit" class="btn btn-primary" value="Save" name="saveticket"></td>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>QUALITY (DQR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Daily Report</th>
+            <th>Daily Rework No.</th>
+            <th>Daily Repair</th>
+            <th>Daily Finish Return</th>
+            <th>Daily Cutting Defect</th>
+            <th>Daily Cutting Missing</th>
+            <th>Missing/Holding Ticket Nos.</th>
+            <th>Total pics</th>
+            <th>Quality Loss Time</th>
+            <th>COQ</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="number" name="reworkpieces" value="{{rework_pieces}}" readonly></td>
+            <td><input type="number" name="dailyrepair" value="{{daily_repair}}" readonly></td>
+            <td><input type="number" name="dailyfinishreturn" value="{{daily_finish_return}}" readonly></td>
+            <td><input type="number" name="dailycutdefect" value="{{daily_cut_defect}}" readonly></td>
+            <td><input type="number" name="dailycutmiss" value="{{dailycuttingmiss}}" readonly></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Hourly Report</th>
+            <th>Self Rework tkt No.</th>
+            <th>Repair tkt No</th>
+            <th>Finish Return tkt No.</th>
+            <th>Cutting defects No.</th>
+            <th>Cutting Missing ticket No.</th>
+            <th></th>
+            <td>{{totalpcs}}</td>
+            <td>
+              <input type="number" name="qualitylosstime" value="{{qualitylosstime}}" readonly>
+            </td>
+            <td>{{coq}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="text" name="selfreworktktno">
+            </td>
+            <td>
+              <input type="number" name="repairtktno">
+            </td>
+            <td>
+              <input type="number" name="finishreturntktno">
+            </td>
+            <td>
+              <input type="number" name="cutdefectno">
+            </td>
+            <td>
+              <input type="text" name="cutmissdefectno">
+            </td>
+            <td>5000</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <td><input type="submit" class="btn btn-primary" value="Save" name="saverework"></td>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <table style="display: inline-block !important;" class="table">
+        <thead>
+          <tr>
+            <th>WIP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Daily Report</th>
+            <th>Waiting</th>
+            <th>Waiting Loss Time</th>  
+          </tr>
+          <tr>
+            <td></td>
+            <td>16</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Hourly Report</th>
+            <td></td>
+            <td>12.8</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>2</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="display: inline-block !important;" class="table">
+        <thead>
+          <tr>
+            <th>Maintenance (DMR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Daily Report</th>
+            <th>Displace/Waiting</th>
+            <th>Setting</th>
+            <th>Breakdown</th>
+            <th>Power Failure</th>
+            <th>Machine Loss Time</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="number" name="displace" value="{{displace}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="setting" value="{{setting}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="breakdown" value="{{breakdown}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="powerfailure" value="{{powerfailure}}" readonly>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Hourly Report</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <input type="number" name="machinelosstime" value="{{machinelosstime}}" readonly>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="radio" name="maintenance" value="dw0.5">
+            </td>
+            <td>
+              <input type="radio" name="maintenance" value="se1">
+            </td>
+            <td>
+              <input type="radio" name="maintenance" value="br2">
+            </td>
+            <td>
+              <input type="radio" name="maintenance" value="pf1">
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+        <td>
+          <label>Machine </label>
+          <input type="submit" class="btn btn-success" value="Start" name="machinestart" >
+          <input type="submit" class="btn btn-danger" value="Stop" name="machinestop" >
+        </td>
+
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Plan Change/Set-up/SMED-Style Change Over (COR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Daily Report</th>
+            <th>Machine Issue</th>
+            <th>Quality Issue</th>
+            <th>Trims Issue</th>
+            <th>Others</th>
+            <th>Delay Start</th>
+            <th>Demo</th>
+            <th>Learing</th>
+            <th>Full swing</th>
+            <th>CO Loss Time</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="number" name="machineissue" value="{{machineissue}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="qualityissue" value="{{qualityissue}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="trimsissue" value="{{trimsissue}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="others" value="{{others}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="delaystart" value="{{delaystart}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="demo" value="{{demo}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="learing" value="{{learing}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="fullswing" value="{{fullswing}}" readonly>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Hourly Report</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>
+              <input type="number" name="colosstime" value="{{colosstime}}" readonly>
+            </th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="radio" name="smed" value="mi0.1">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="qi0.1">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="ti0.05">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="ot0.05">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="ds5.00">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="de5.00">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="le10.00">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="fs0.00">
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+        <td>
+          <label>CO </label>
+          <input type="submit" class="btn btn-success" value="Start" name="costart" >
+          <input type="submit" class="btn btn-danger" value="Stop" name="costop" >
+        </td>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Total Loss Time</th>
+          </tr>
+          <tr>
+            <td>{{totallosstime}}</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,1919 @@
+{% extends 'base_sourcing.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/upload_product.css' %}">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/css/bootstrap-markdown.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/less/bootstrap-markdown.less' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/scss/bootstrap-markdown.scss' %}">
+<link rel="stylesheet" href="{% static 'css/portfolio/owl-carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/portfolio/light-box.css' %}">
+<link rel="stylesheet" href="{% static 'css/portfolio/templatemo-style.css' %}">
+<script src="{% static 'js/portfolio/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+<style media="screen">
+
+.textar{
+	width: 800px !important;
+}
+.file-upload {
+  background-color: #ffffff;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+  width: 100px;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  height: 300px;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+.hid{
+		display: none;
+	}
+	.md-editor .md-fullscreen-controls{
+	    margin-top: 12vh;
+	}
+	#some-textarea{
+		padding-left: 2vw;
+
+	}
+	.md-editor.md-fullscreen-mode .md-header{
+	    margin-top: 12vh;
+	}
+	.md-editor.md-fullscreen-mode .md-input{
+	    margin-top: 10vh !important;
+	}
+	.md-editor.md-fullscreen-mode .md-input{
+	    margin-top: 10vh !important;
+	    height: 80vh !important;
+	    overflow: auto;
+	}
+
+	.md-editor.md-fullscreen-mode .md-preview{
+	    margin-top: 10vh !important;
+	    height: 80vh !important;
+	}
+	.product-info{
+		background-color: #30c5ff ;
+	}
+	.product-info button:hover{
+		background: #253031;
+		color: #30c5ff;
+	}
+	.product-info button.active {
+  		background: #253031;
+		color: #30c5ff;
+	}
+	.product-link{
+		background-color: #30c5ff;
+		color: white;
+		padding: 10px 50px;
+		text-align: center;
+		border: none;
+		font-size: 15px;
+	}
+	.product-content{
+		display: none;
+	}
+	.b2b-cate{
+		display: none;
+	}
+	.requiredins{
+		border:1px solid rgba(240, 52, 52, 1);
+	}
+</style>
+<style>
+  .card-img-top{
+    width: 100%;
+    height: 45%;
+  }
+  .card-title{
+    color: azure;
+  }
+  .card-text{
+    color: azure;
+    height: 25vh;
+    line-height: 1.5;
+  }
+  .card{
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75);
+    border: none;
+  }
+  .card-body{
+    border-bottom-right-radius:5px ;
+    border-bottom-left-radius:5px ;
+  }
+  .qualities-img{
+    width:25vh;
+  }
+  .phara p{
+    font-weight: 500;
+    letter-spacing: .5px;
+  }
+  .main{
+    width:50vw;
+  }
+  .promise{
+    color: azure;
+  }
+  .line{
+    border: solid 1px #35bfee;
+    width: 28vw;
+    justify-items: center;
+  }
+  .line2{
+    border: solid 1px #35bfee;
+    width: 47vw;
+    justify-items: center;
+  }
+  @media all and (max-width: 992px){
+    .main{
+      width:100vw;
+      justify-items: center;
+      padding-left: 0px;
+    }
+    .logo{
+      width: 20vh;
+    }
+  }
+
+
+  .temp-block{
+    position: absolute;
+    width: 700px;
+    top: 480px;
+    height: 250px;
+    z-index: 10;
+    background-color: #13115a;
+  }
+  .main-header{
+    color: #ffffff;
+    text-align: center;
+    font-size: 3rem;
+  }
+  .sub-header{
+    color: #ffffff;  
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+  }
+
+  @media (min-width: 450px) and (max-width: 960px) {
+    .temp-block{
+      width: 400px;
+      top: 360px;
+      height: 150px;
+    }
+  } 
+  @media (min-width: 960px) and (max-width: 1024px) {
+    .temp-block{
+      width: 500px;
+      top: 380px;
+    }
+  }
+
+  /* new css */ 
+
+  .temp-block p {
+      color: white;
+      margin: 25px 100px;
+      font-size: 18px;
+  }
+
+/* new css */
+
+.featured-brands-section{
+    flex-direction:column;
+    padding-top:4rem;
+    padding-bottom:4rem
+}
+
+.featured-brands-section p{
+    color:#8188a4;
+    font-family:Montserrat;
+    font-style:normal;
+    font-weight:700;
+    font-size:18px;
+    line-height:22px;
+    text-align:center
+}
+
+.featured-brands-section .brand-list{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    width:100%
+}
+
+.featured-brands-section .brand-list .img-wrapper{
+    height:40px
+}
+
+.featured-brands-section .brand-list .img-wrapper .brand-img-hoverable{
+    height:40px;
+    transition:.2s ease-in-out
+}
+
+.featured-brands-section .brand-list .img-wrapper .brand-img-hoverable.forever21{
+    height:47px;
+}
+
+.featured-brands-section .brand-list .img-wrapper .brand-img-hoverable.azani{
+    height:32px
+}
+
+.featured-brands-section .brand-list .img-wrapper .brand-img-hoverable.souledstore{
+    height:90px
+}
+
+@media (max-width:1250px){
+    .featured-brands-section .brand-list .img-wrapper .brand-img-hoverable{
+        height:25px
+    }
+}
+
+.featured-brands-section .brand-list .img-wrapper:hover .brand-img-hoverable{
+    height:50px
+}
+
+.featured-brands-section .brand-list .img-wrapper:hover .brand-img-hoverable.azani{
+    height:40px
+}
+
+.featured-brands-section .brand-list .img-wrapper:hover .brand-img-hoverable.forever21{
+    height:59px
+}
+
+.featured-brands-section .brand-list .img-wrapper:hover .brand-img-hoverable.souledstore{
+    height:115px
+}
+
+@media (max-width:768px){
+    .featured-brands-section .brand-list{
+        grid-template-columns:50% 50%
+    }
+    
+    .featured-brands-section .brand-list .img-wrapper{
+        height:80px
+    }
+    
+    .featured-brands-section .brand-list .img-wrapper .brand-img-hoverable{
+        height:100%;
+        max-height:42px
+    }
+    
+    .featured-brands-section .brand-list .img-wrapper .brand-img-hoverable.azani{
+        height:100%;
+        max-height:32px
+    }
+    
+    .featured-brands-section .brand-list .img-wrapper .brand-img-hoverable.souledstore{
+        height:100%;
+        max-height:80px
+    }
+}
+
+/* Apparel */
+
+.card-wrapper{
+    background:#f8f8f8;
+    padding-top:3.5rem;
+    padding-bottom:3.5rem;
+    flex-direction:column
+}
+
+.three-card-container{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-gap:2.3rem;
+    padding-top:2rem
+}
+
+@media (max-width:768px){
+    .three-card-container{
+        grid-template-columns:auto
+    }
+}
+
+.center{
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+
+.padded{
+    padding-right:6%;
+    padding-left:6%
+}
+
+.center-text{
+    text-align:center
+}
+
+.card{
+  border-radius:30px;
+  box-shadow:0 12px 24px 0 rgba(130,136,162,.2);
+  background-color:#fff;
+  padding:3rem 2rem
+}
+
+.card img{
+  height:180px;
+  width:100%;
+  margin:1rem 0;
+  object-fit:scale-down
+}
+
+.card h4,.card p{
+  text-align:center;
+  margin:1rem 0
+}
+
+.card-with-img .card-content{
+  padding:0 1rem
+}
+
+.card-wrapper{
+  background:#f8f8f8;
+  padding-top:3.5rem;
+  padding-bottom:3.5rem;
+  flex-direction:column
+}
+
+/* new category */
+
+.new-category{
+  flex-direction:column;
+  padding-top:3.5rem;
+  padding-bottom:3.5rem
+}
+
+.new-category h2{
+  display:flex;
+  flex-direction:column;
+  align-items:center
+}
+
+.new-category h2:after{
+  margin-top:1rem;
+  content:"";
+  height:5px;
+  width:2rem;
+  background-image:linear-gradient(87deg,var(--pink-primary) 4%,var(--pumpkin-orange) 97%)
+}
+
+.card-with-img{
+  border-radius:30px;
+  box-shadow:0 12px 24px 0 rgba(130,136,162,.2);
+  background-color:#fff;
+  padding-bottom:20px;
+  max-width:380px
+}
+
+.card-with-img img{
+  height:290px;
+  border-radius:30px 30px 0 0;
+  width:100%;
+  object-fit:cover
+}
+
+.card-with-img h4,.card-with-img p{
+  text-align:center;
+  margin:1rem 0
+}
+
+.card-with-img p{
+  font-size:14px
+}
+
+.two-card-container{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-gap:2.3rem;
+  padding:2.3rem 0 3rem
+}
+
+.two-card-container .two-card-wrapper{
+  display:flex
+}
+
+.two-card-container .two-card-wrapper:nth-of-type(odd){
+  justify-content:flex-end
+}
+
+.two-card-container .two-card-wrapper:nth-of-type(2n){
+  justify-content:flex-start
+}
+
+@media (max-width:768px){
+  .two-card-container{
+    grid-template-columns:auto
+  }
+}
+
+/* Jarvis */
+
+.service-wrapper{
+  padding-top:6rem;
+  padding-bottom:2rem;
+  background-color:var(--gray-primary);
+  display:flex;
+  justify-content:space-between
+}
+
+@media (max-width:768px){
+  .service-wrapper{
+    display:block
+  }
+}
+
+.service-wrapper .img-wrapper{
+  max-width:50%;
+  padding:0 .8rem
+}
+
+@media (max-width:768px){
+  .service-wrapper .img-wrapper{
+    max-width:100%
+  }
+}
+
+.service-wrapper .img-wrapper .service-img{
+  width:100%;
+  object-fit:cover
+}
+
+.service-wrapper .service-text{
+  max-width:300px;
+  padding:1rem 0;
+  display:flex;
+  flex-direction:column
+}
+
+.service-wrapper .service-text:after{
+  margin-top:1rem;
+  content:"";
+  height:5px;
+  width:2rem;
+  background-image:linear-gradient(87deg,var(--pink-primary) 4%,var(--pumpkin-orange) 97%)
+}
+@media (max-width:768px){
+  .service-wrapper .service-text{
+    max-width:100%
+  }
+}
+
+.service-wrapper .service-ul li{
+  padding:1.5rem 0;
+  display:grid;
+  grid-template-columns:3.5rem auto
+}
+
+.service-wrapper .service-ul li p{
+  max-width:380px
+}
+
+.service-wrapper .service-ul li p.li-head{
+  font-weight:600;
+  margin-bottom:.5rem;
+  font-size:1.3rem
+}
+
+.icon-wrapper{
+  height:2.5rem;
+  width:2.5rem;
+  border-radius:50%;
+  box-shadow:0 4px 8px 0 rgba(130,136,162,.2);
+  background-color:#fff
+}
+
+.icon-wrapper img{
+  width:1.4rem
+}
+
+/* * {  
+  font-family: Montserrat!important;
+} */
+
+/* p {
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 1.8rem;
+} */
+
+/* product development */
+
+.dev-wrapper{
+  padding-top:4rem;
+  padding-bottom:4rem;
+  background:linear-gradient(180deg,#f8f8f8,#fff);
+  flex-direction:column
+}
+
+.dev-wrapper h2{
+  margin-bottom:1rem
+}
+
+.dev-wrapper h3{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-weight:500
+}
+
+.dev-wrapper h3:after{
+  margin-top:1rem;
+  content:"";
+  height:5px;
+  width:2rem;
+  background-image:linear-gradient(87deg,var(--pink-primary) 4%,var(--pumpkin-orange) 97%)
+}
+
+.dev-wrapper img{
+  width:100%;
+  margin-top:3rem
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17rem;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+/* Product Management */
+
+.manage-section-wrapper{
+  padding-top:4rem;
+  padding-bottom:4rem;
+  flex-direction:column;
+  position:relative;
+  height:860px
+}
+
+@media (max-width:768px){
+  .manage-section-wrapper{
+    position:static;
+    height:100%;
+    padding-top:0
+  }
+}
+
+.manage-section-wrapper h2{
+  margin-bottom:1rem
+}
+
+.manage-section-wrapper .h3-content{
+  display:flex;
+  flex-direction:column;
+  align-items:center
+}
+
+.manage-section-wrapper .h3-content h3{
+  font-weight:500
+}
+
+@media (max-width:768px){
+  .manage-section-wrapper .h3-content h3{
+    text-align:center
+  }
+}
+
+.manage-section-wrapper .h3-content h3 .colored-text{
+  margin-left:.4rem
+}
+
+.manage-section-wrapper .h3-content:after{
+  margin-top:1rem;
+  content:"";
+  height:5px;
+  width:2rem;
+  background-image:linear-gradient(87deg,var(--pink-primary) 4%,var(--pumpkin-orange) 97%)
+}
+
+.manage-section-wrapper .with-fz-div,.manage-section-wrapper .without-fz-div{
+  position:absolute;
+  top:0;
+  width:50%;
+  z-index:-1;
+  flex-direction:column;
+  height:860px;
+  padding:210px 30px 0
+}
+
+@media (max-width:768px){
+  .manage-section-wrapper .with-fz-div,.manage-section-wrapper .without-fz-div{
+    margin-top:40px;
+    position:static;
+    width:100%;
+    padding:0;
+    height:100%
+  }
+}
+
+.manage-section-wrapper .with-fz-div .bg-img,.manage-section-wrapper .without-fz-div .bg-img{
+  margin-top:45px;
+  margin-bottom:45px;
+  width:100%
+}
+
+.manage-section-wrapper .without-fz-div{
+  left:0;
+  background-color:#fef7f7
+}
+
+@media (max-width:768px){
+  .manage-section-wrapper .without-fz-div{
+    background:none
+  }
+}
+
+.manage-section-wrapper .with-fz-div{
+  right:0;
+  background-color:#f7f7fe
+}
+
+@media (max-width:768px){
+  .manage-section-wrapper .with-fz-div{
+    background:none
+  }
+}
+
+.manage-section-wrapper .steps-container-phone .steps-row{
+  align-items:center;
+  justify-content:center;
+  display:flex
+}
+
+.manage-section-wrapper .step-div{
+  display:flex;
+  margin:0 8px 8px 0;
+  padding:5px 10px;
+  align-items:center;
+  border-radius:17px
+}
+
+.manage-section-wrapper .step-div p{
+  font-style:normal;
+  font-weight:600;
+  font-size:12px;
+  line-height:14px
+}
+
+.manage-section-wrapper .step-div img{
+  margin-left:5px
+}
+
+.manage-section-wrapper .step-div.without-fz-step{
+  background:#ffe5e5
+}
+
+.manage-section-wrapper .step-div.without-fz-step p{
+  color:#5d3232
+}
+
+.manage-section-wrapper .step-div.with-fz-step{
+  background:#e1e1f7
+}
+
+.manage-section-wrapper .step-div.with-fz-step p{
+  color:#32325d
+}
+
+.manage-section-wrapper .steps-container-desk .steps-row1,.manage-section-wrapper .steps-container-desk .steps-row2,.manage-section-wrapper .steps-container-desk .steps-row3{
+  display:flex
+}
+
+.colored-text{
+  color:var(--pumpkin-orange)
+}
+
+.phone-only{
+  display:none!important
+}
+
+@media (max-width:768px){
+  .phone-only{
+    display:block!important
+  }
+}
+  
+</style>
+
+
+
+
+
+
+<!-- Featured brands -->
+
+  <div class="slider">
+    <div class="Modern-Slider content-section" id="top">
+        <!-- Item -->
+        <div class="item item-1">
+            <div class="img-fill">
+            <div class="image"></div>
+            <div class="info">
+                <div>
+                  <h1>WEB AND APP<br>JUSTGETIT</h1>
+                  <p>JUSTGETIT is here to provide IT Solutions.<br>
+                    Please share our site link to your friends.</p>
+                  <div class="white-button button">
+                      <a href="#featured">Discover More</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Item -->
+        <!-- Item -->
+        <div class="item item-2">
+            <div class="img-fill">
+                <div class="image"></div>
+                <div class="info">
+                <div>
+                  <h1>Please tell <br>your friends</h1>
+                  <p>Support templatemo by sharing a link to your friends.
+                  <br>Thank you for helping us.</p>
+                  
+                  <div class="white-button button">
+                      <a href="#featured">Share More</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Item -->
+        <!-- Item -->
+        <div class="item item-3">
+            <div class="img-fill">
+                <div class="image"></div>
+                <div class="info">
+                <div>
+                  <h1><br></h1>
+                  <p> <br></p>
+                  
+                  <div class="white-button button">
+                      <a href="#featured">Learn More</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Item -->
+        <!-- Item -->
+        <div class="item item-4">
+            <div class="img-fill">
+                <div class="image"></div>
+                <div class="info">
+                <div>
+                  <h1><br></h1>
+                  <p> <br></p>
+                  
+                  <div class="white-button button">
+                      <a href="#featured">Learn More</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Item -->
+        <!-- Item -->
+        <div class="item item-5">
+            <div class="img-fill">
+                <div class="image"></div>
+                <div class="info">
+                <div>
+                  <h1><br></h1>
+                  <p> <br></p>
+                  
+                  <div class="white-button button">
+                      <a href="#featured">Learn More</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Item -->
+    </div>
+  </div>
+
+<div class="featured-brands-section padded center">
+    <p>TRUSTED BY SOME OF THE WORLD’S BEST BRANDS</p>
+    <div class="brand-list">
+        <div class="img-wrapper center">
+            <img src="{% static 'img/portfolio/azani.png' %}" alt="brand-img" class="brand-img-hoverable azani">
+        </div>
+        <div class="img-wrapper center">
+            <img src="data:image/png;base64,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" alt="brand-img" class="brand-img-hoverable firstcry">
+        </div>
+        <div class="img-wrapper center">
+            <img src="{% static 'img/portfolio/spencers.png' %}" alt="brand-img" class="brand-img-hoverable spencers">
+        </div>
+        <div class="img-wrapper center">
+            <img src="{% static 'img/portfolio/libas.png' %}" alt="brand-img" class="brand-img-hoverable libas">
+        </div>
+        <div class="img-wrapper center">
+            <img src="{% static 'img/portfolio/sostore.png' %}" alt="brand-img" class="brand-img-hoverable souledstore">
+        </div>
+        <div class="img-wrapper center">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA/wAAAFcCAMAAABC/EUOAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAANlBMVEUAAAA9PD49PD49PD49PD49PD49PD49PD49PD49PD49PD49PD49PD49PD49PD49PD49PD7////YmhnmAAAAEHRSTlMAQHCPv9/vr4AQIM8wn1Bgd++eoAAAAAFiS0dEEeK1PboAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQffCQ8KLRPTzOiaAAAePElEQVR42u2d10KjOwyEAyQhoeb9n/ZQ97CQkVXGJex8txDbkj2/3L3ZCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEKI3V9c3293pg/329nB1nF0kIURv7q63pzPc3zzMLpkQoh/H6/sTZHdzN7t8Qogu3D2eGtxezS7jIB6u/jC7KEJ0py39V7a/XAyv0x3fez/328OTOj3i13K88Uj/lUeeDr7E1wK0yYiHwxabvXt8ps96/mX/AfNMNPILdwcCz+18kGmhOHJ9qKayZRCrh+OX+n2yvPjy93lz6lc7r/ZPp/21lVKg3Wy2/kytzgjFA3c3bRfckvUfs5++6nI1yPson9tIYWEBnsopRIh1fGMefulhPk+YVneH/Y8KN9pgIJmFxH/lLMqe2O+Jiv8NZgdklPiPyBZKWd0VwrC2q/jf2G+vh34AjvfhEmIfBFJZRvxe6b9BlH/SflYHZJT4N6hPFTDjGuXv/4IwrO0v/jebxq2rPewT5YNDvUAai4j/LlqMAyv2pu3fU1rHMPGjqWR3jx0nERg7MKwdI/5XtwZ8UyCl/ZcAWHfxGuK/jtu/Iy15VOwndECGiR+F7YO/rLBzeu1OgmHtMPG/NDLHVGqVpPah+gMprCD+Y64MNxTfl+zfB6RznmHivyr89qOaYP5+NTKsHSj+F/f0HvzfZbWP1B9IYAHxpz9994yuf9H++2IHZJj4N+jHhKL6zWVYO1T8LzGm6/pffK7va9GKLp4v/uf8p29H+CyX7a8F/3HiR4a6fXhA2d/7zWVYO1j8p/uewd+1qw9yblQS+Pl08T9Xst3X66Vu/7YSGsaJHy0lu4e1tyj7wPiLYe1o8Z/2/Ub+T8WinWn/gV/PFn9J+wz1E+yvDD/GiR95+tHz41fgBqyANhjWDhd/yMIQx3yv9539z6YX+PVk8afH+4b1MRj2F9Q/TvwPqPDehgqzD6x5MKydIH7/FzLGbblgP1dZAz+eK/7CVOcn1Vk/iv35QowT/wb52ll2WNJ9wFyGtTPE3yf2M4r2Yy9C4LdTxV+a6vyk+FHm2J9W/0DxI0udWoLzfZHjARRnzxB/F/UHDvNAdt9bXuC3U8UfPM7QpVo49qc/QQPFj9TrXK6AXdTIcgfF11PET5hb/k5xvgu4P/DTmeKvTnV+Vktpnx1J/NlP0EDxI3c7IzcMUxEtUlw9RfycXSU+j4b4PusV+OlE8ZenOiuZ/4El/uQnaKD40Yydb8yO5/sioqC4eo74STtK/6cZ+O+3h8Nju31+C/0BiyaKn9Ppf6XS8WeJP/kJGih+GGlcny1Y0MAWn8sWfzDfJvaE1/bPsdGHRztKfgv9AYPmif+hnusnu0KPjCb+yPk4ctN0eh+N2l3fTjjfF5rtoDh6lvhDn7kmZvv/+9ja0d4H+Hf9BQyaJ36e6kpbbHnFiNyLwW2aTu8j/br6s3C+L9Ttojh6lvi5M/5Wx/fxezR7soL/35M2AXumiZ9YJ6WtPsRvUKZtjBR/6WAfnJ0KzYJT/DxN/KnPe9ihZztT5m64v1p/wJ5p4nflu9tufVOi+dBPFH+mbYwU/wb93vFTON8X2eJz6eJnhn6j1392IPXsLVbAnFnib1fJ7ec9anfPj811gXzoZ44+Em1jqPjRFJNDTU/VvN+huHme+ImhH86hoDVFo6H+9bUImIPT7Ps4QGNX8/7va7qOz60OgP8yGa9Pr45f7+p+uDq0N2InZj5Q03zscXE6mjdyOA+21VifCzbDfnivIXh4ctwdzRMF1jKozTtcquY3CWQ2SfyGJa/c/vz4HexfpL/JAfvbn6D4Wj9qmuUrgs6Buo6ObT7QTbE1DpRKD2sbHj6X6VXreD3vgE88C6NsrczWEr+9xn+2+/xgKy9b3Jj9B3sAEt8HMlT8aJzp+HJCu2PjrWzrLRC7gOihMQxkbfNLXINujF9ajX8t8VsaQneS28eAst/koP13ZiHi/Y+h4t+kmzTsqQUtRsl0sdb2MMrU7mKypvzgNehGO8bRr9X9Wkr85q5+aMnRiv3ZKb+w/WbPMHz6Y6z4kbHNvjussOA3FyXTxVrbwzDTwJp6Htj1fUj8ptlalhK/JSBj9sncFJX8JsftTxb+PGPFnz7YdyAZjJLpYq3tYZyptaYeW9nEoGZn9aSwJRclfsO75qf1+pT8YbwWDPuNYSFtybOP+J+yxYYmB7s6KJku1toeNjK11tRJJ3tRJ9acNUo3u5XEb/T6G713azomV5aE/dZxxGj2Y8V/ly32PvvDb3DrruRhK1NjPjq9puxzhDkAg/NNlyR+o+Pc6LxbHf/c40oZ+43IEA0MY8UPRdwoNvxoRHs6KJ0+1poetjI1Zpc4g37oUDP2Qd20jhytJH7s2ubksfHdyM33p+zHBkRnHgaLP3mwD3bVomubKJ0+1poeNjPFn3fOJj9UKFvFeCGikd1C4jfCd1M7lX1OEb/Y9uO2EVXDYPGj5vOY+1m4t5VsvBVyDw3tUr8qF8ruVzxnC7WQ+PG0nUO/RuhP3aWTsx+OgaP94MHiz0Uc7KSoy5ONt4fJdqa4jVJ0kXs2Nf1g2kLix5vkHbMplW5DwC8N++EnKNr9GCx+eDjP/tmeZO0m2Xgr5BSDmxnl3W7UlbIF8BvEjyfLPYEEb7FLDfpz9qc7YN8ZLP7cwT441grPfpG8xvBwI1PYSCk1g8Rviw6b0piwXUf8+KPqaku4Q5a6ZilnP+PFWjOhXuJ/zOQH5/vC614krzE83MgUtouJ4scTXg2xriN+HDVd/XZjyi9Tmpz9jLfq3xgtfvTpNL+7B5Kxv0L8lLW+nPih+y5H/HgHhW97Pu73Z4qctJ9VhtHiTx3sgz4KZ09LqO7hrPhLF8V/8s+KH+bo7Lbj1c7M7qt/TPyw4HeJ38R1gFLqZe1mUfEnn07Ltrp1xA8tcDZ4XJuZGT+2+INLDsPFnzjYBydp4tcXoJR6WbuR+I3sxosfz/d5c4QJZOqFLf6gaoeLHw26DCHDSZr42ipKqZe1G774KWVli/8uld148eNTPVXPperlXxM/UrLx4YSTNPFdVcSKq3r4AsV/zJZpGfHDIbs7buNBf2KP378m/sTBPuSixNn2ZOOt8IvEf/mbfOD+PvcIEvcdEmX+18SfONiHTE0seiUbbwWJfyHxw5U69wgSr/QnJPPPiR8ZDJdKHkimWm7rZm1aMTe5nxUrISn+1jbrZcQPneo/Cg+TkPjbhA/2wfm+RAtBSXWzNi3+9PFZF2TxX8plHjhs111HfS/0t4o/fLAPxsBE5sSkqvYuKX57pwrc2X4p4k9/vb6QvtEkUA2/Vvxwyhjtr0QeyhylQHl3s/bCxG9XO2z3l3KBJ+xEBqaPmBXDFn9wl+F48cN7KpDByNL4Fp9fIf6um3zsaofTZa1Gt4r4GY++1bcKtKvht27vDR/sg/N9mesTePVW9vCSO/zMas+fJltF/HAEGWhLuD7jhf73xB882Ae7aplLrFFa/az9ReLHx2FbJ+JWET8jP9qB2nR58LRlUBITxI+yBHt2bmL/boO81s9auvgzox136ma1wx0yzapYXvyR57Zgfca7ov/YZR6W987vj0QOSkVAktcYHp56mcfz4TxW6MAhL/vmynDxU1QDZz7iNUO+xmvxO/xMk88f7KOKgFH5JA83MoXX97Ke6gyDe/3Nqlhd/KFeJPGznLMfzlwsfnuvWfizHVo435dqHyixjtbmxJ++Masf23yRFhE/7LuEVEO8YylnP+x6LH5v/xuhg31wY0nqVWSUWEdrc+Kn3dBKo3J93SLiZ+zxoS7CpuzHFbH4iz1vwGB+7p/RwmDqttTNBEXlxA8n1zgv9iTAhw3aEW918Ydu4ZktfnyD8OJv9b0TOdiH+ji5x9GQ2zoamxI/nlzL2V3HeB22va9sdfGHWjsUfzwecd/qC69/TRF/ZGc5sjQ374VS62gs+a2+WfN9xuOw7VssFhE/jJmh1k7c4pexH2cfnnOYIv7AwT4ondw79bRqq3vYzBTfEJ16E44AfjzQEfAWET9jdy9xmT0nfjzvGo4LU8SPPl5nmhH8WOdy5qZW8rCVKf7NrCE/LpHnNMnq4g9lN1f8RkWEp8CniD9wsA/N9yU3udKqre7hzMVlpP19CXCJPG1O4g96FRcI9wnjK41TxB842HfPLR+t2uoeNjLFw7rkaKeMsc7nmYFcRPyPlOzwZGx4SBa3H0/1J2aD5oj/1p0rsjT5Vi1KrqOtcfEbE+uzev3Gw/Qe4SwiflJ2JVfUCvSAm8Y+vvFljvjdB/ugclJbfC5E/PgJ+dSbUARwsPONvyR+ToGOeNo1MyCcI373wT70lchGQOS5CbbCTI2eXfabVwXfXuNr8KuLP5ZMzReuAp1P6YgH/KlloDni33gtQN3N7FYXTu1TPIwyNRbUZ+3wKY9DJP5ggc6mdGdpP9M0JokfmfHk/L9s95dT+xQPg0wt7c9a5C/PMoXFf791EprlIokfarCv+J/wJ/ilz5xpGqhp7rp4/w/Og31wrJmd9Ebpea1NrDCGxH80xvvdv8gQPNJ0Dr/C4ncTcglJ/Lz+SiClK9tXqaZxdSqSa5DOg32wdKlMN0aPzQvTwz/+9fhsfdwz87kUjM6Is/YXET+pVseL/+Ha6vGfsnNgk8TvPNiHJprS99hVrT3Fs/SK/+HpcW/nnVzeLIMDv/dz9I+IP9wLrtv/Qa4nPEn8sB7+tgJ1gtP73Mpe7uHhlwHu3pF14mlCCoYB3spfXPzB43C8q3xY4k9Ogc0SPzL7748nijnpGFh28wQPf7Cb1Om3Wqh3lmlx8Qc7ksuJP7sINEv8roN9cL4vPetd9vMED7+zn7Sx1yq/u9FJ/MGUQqQHwbPE7zrYB5cistbC6nczwcNvTNO+td/Q/Q2W+IMpRdimu4SzxA9Pinz9J9Q9yI9+y56e4OFX5mm/eKTnHYk/mFKAwsavWeJ3HexDQSe/w73s6gkePs3UvnWkx18oiT+YUicHfGOa+D0H+6JPerYp+3qCh1/GQrOu7zEDf0Ayv0v8nAuBDL/42ZX2QU8Tv6NL7xoaxKham8i6Lv5ZF3i8UjzL+4HEH/KLv2XUVoCmid8xmYcmBQtPVVatPY33cO3jXsQ40hOpBYk/5Bcn22rLmCZ+WBP/f8yQkwuRsGrtabSH97P289tVcIqNvST+kF9clKU/U/ztg32+jUAhqtaexnp4f5i1s+cdUuCX+GN+cfDI6A/OE/9jM0HU8grTX1VrTyM9fP88V/q0wC/xx/zS4pbUMOaJv3mwD833hR8m+ULV2tMwD+9u5i3vfcIK/BJ/zC8W2wPvfNc88aODfX+0jeb7Kgdcqtaehnh49/g8b3HvC6zAL/HH/AK55TaLeeKHVfEZ8Q70HC9C/Pur2Z39P5Re6fnK7xL/DaUwhl9w2+A2jYnib83nob9Xpjqq1p4GeHjWa3w/MC7xCHY9f5f4J+7w4679TBR/6yovNOCsmFu1NpF52MPTHuH+Tvn2rj9I/MGUENzQP1H8jT08aE4g/hDyF6rWnkZ4eNLl/N8xAn+0cyLxB1Pi2Ntiovgbu3dR2yttdq1aexrh4Vl39X0DB/7wFkuJP5gSvLKP2jas23v53v8b1K9/H9SjUUFpSAyrf8btvVBdc3f1fWAEftZFlaPv7Ye1T7GGKf7DkLYx6d7+N+wTu8gxpeVv5NKOVmLxw+vwlwj9xMAv8YdTgp9eZtuYKX77Ki9kfClL5NKOVmLx4z00C4R+ZuCX+OMpjQj9M8WP8n6b0kPzfYUjfZvFxI93iywQ+pmBf3XxBxcvhoh/ROifKX54P+frH5+7FMzKsROG+BcO/dTAv4r4obsp1jAf7ThsRoT+meKHB/tenfho/C0Pp/YpHn7NdN3QTw38q4j/cp7rOhgPJPLaxlTxWwf70IehZjmn9ikefs102dDPDfy/TPw7Wqkt8Q9oG1PFjz5ur0d3wJ9KW3yWE/+yoR8/DZeac/ld4j/RSm3OHvRvG1PFjyb1drhcxRfqObVP8fBbpouGfmNjUkqWEn+wQK+1379tTBU/dOMRdgqKp144tU/x8Huma4Z+vL8r9/GV+IMFepNf97YxV/zI+Cc4HVC84YJT+xQPv2cKVzxmhn4j8OcOlK8u/lirOtFKbYsfh37Sfc5zxX8Dc0eTKsUMT32SzXj4I1N4N/bE0M8O/KuI/5GTnV2hFEcf7PJWbrL7wlzxw4N9KCDWtvisKH78Ksa00E8P/KuI/0DJDtcYyy+fdY9zKk59fTBX/PCavl7FolVb3cOfmfb+vMfBgT/b3fxV4m9VKMPTH+28c9uYK3645wpZXb28kFZtdQ9/Ztr7804scHoksrr4Q9PIA8XfuW1MFj862Ic+CtVxMK3a6h7+k+lqoR9v7ks3itXFHzIMVmj8CqbmKYG+bWOy+I37YTnu/QZKuKOJTfEvFvrx5r78FOQi4odVEWrtcN8t7ajz/wVCO2E4bWOy+IPX3JQtRglPMfHzP27hf8wI/Tjw568XW138obkMGLA6iN+YfyG0jcnix8vc5Ob3AUq4o4lt8eP/mBD6ceAvdLtWF39ItkPF37VtTBa/EWfOUX7EBiXc0ULH/FDXz3sQXCGFzZWLiB8OsEKyhePw+FqI42aAnm1jtviN998tuWTplnDcw18yXSj048BfOVK1iPhh9Yeuh+Ld5eFJqmfbmC1+OHtyjuoWn1XFv1Dox4G/osfVxX8iGNNJ/D3bxmzxh2b86luaGZVPs9DzP4NDPw78pQ/vKuKHJ5Uj6xjQRfFNKB7x4yopt43Z4seupHjXm1tHA117QnDAHRv6cTlK0y2riJ+S34lXaFcnolOdbBYQf+TdhroQUModDXSJv+PnPUKvYqwifrioGggreOk9rkWX+Dv1xjYLiB8+efoTwiN2KOmOBvp2g/YZa0fp1QFZRfyMLX7E3b3O6YNubWO6+I3b4r5zW8+NV29lD/+dab/PewBciGJzWF78gY4N3pRK88s3f3drG9PFjze3/oDwgCWv3soe/pbpCqEflqF6t8Aq4mfs8rkhpNHwy3f5wUs9in6aLn7Dsg4tAiXd0b6nkytTvOY5LPTjIlRbwyrih+P1wEI/LHM/8ePORq1tzBe/f8aPkFnHpBHObuKx1+fdDS5BebJlFfHD+g/MaTCv1XSKv1fbmC9+98E+RgREaU+xz/t/g0I/LkDx1tSFxF+/ch8PUxOjUu9+oU5tY7743dt8GLcWorQ72ucV/+zQj/Ovf3yWEX99dx4exfGeMftRnE5tY7743Qf7yvFns7T4Z4d+nH1dicuIH87WuVeSsJsSk6Lub1GftjFf/O6DfYy9bijtjua5xW+sewwI/Ti4EFZYlxE/fgCvaEru7Xi3+Pu0jQXEj++yKDv3Byjxjub514XxCccBoR8Xk/DRXUb8eIzptZJaR/5RCG4bhdnYBcTvPNhHCECLi39m6O/7QMQy4ocNwDuoxF+PjJ/84jfaRn44vID4nTN+lBKhxDuaF9gRhj/vxfdJ28DBMOXtkHXED8eYztjCXRIJzD/2CP0LiB8qskN7QIl3tC4g/i6fdxfUBayfrCN+OMZ0jirx88WZI3YB8fdoGyuIHzvUlEqGromfJ7IXHG94Ihxqsnjsm+864sdjTNfBPkOCRL+clV+HtrGC+F0H+zgdX2bNOYmI3xgBdQ39uE3Xr1B4ZR3xF69NIW/Cjoi/Q9tYQfyug32ch0lR6h2tC50CmxT6YeAnLTOsI37YAnz9ftxJTQkmtOeI3zZWED++HuELnMiHUu9oXUj8c0I/Dvzl65LfWUj8WEIOB7PXY0Li57eNFcTvOtjHaYYo9Y7Gxc5/49DSMfTDNsi6Rmgh8Zf2yhl3TacWRWK7jemhfwnxOw72Ubb4XID4jSFQt9APQ8qedYHgQuI34mczU2OLfW58FBO/0TZyazJLiN9xsI80+ETJTzHu7L/jzc7dQj/xLupYDjPEvykI2GinOVcFPY/bRm43xhLixyel2OUJ6ZBDUPzjQz9+dZaxv+eNlcRvdN0bud4Zw9PcqDQofqNtpPSxhPgdB/tIrQEl39G46J1vw0M/bIG8j81K4jcU1HDwbfqXYdcD+ZFD/xLidxzsIwWhmA4pRMVvHHXoUimc1yttVhK/FWlMB1v90+TMaFT85NC/hvibB/tYe9tR+h1ti4rfmFWi7LP/Tv1ymzYrid9sbEa+Vqc/uxcqKn5y21hD/M0ZP9aaU0yHnW2LO6NDrcBgQjlF+QES/4gPzw+sCL6HY/ejtQk9uxYVnmrlto01xN882McafqL0O9oWFv/Y0A/1x3wnDIkfGtr1CLMVwnfAbFP76e2nYfFz28Ya4set4APSTjOYT0fT4o88jAz9z0NyWkv85lmS87H/zj58lv1QxhdZqW1jEfG3Dvax8umd/hni4jc2kdJD/25IRmuJv/FOzJmm/2TvQU1PjcbFb0xXxqtsEfEbi68l734HZdDRtMTzToY3yPUCC7c9uHEIdS3xt3aU7r4NMq9aO1DTg9LE9ipm21hE/I2DfbTSwMYWIfaFTYh/WOg/+p9LKlXOYuJvTjHtH58+/Xx1aK5D5/dfJMTPbBvuW/Mt6oG5cbCPc6p84700qEGsZWYedhwV+t0Pplhcnvhdr0Ttti+47pnJz0ZnNlYT28Yi4t/YGdDCHcPaAeIfFPopgf8SxU9p9Z8UNl5mxE9sG6uI3/wW8/a1Umo71jJT77kb7iCGfkrgv0TxBx6IbFNYhk4dqTI2KQW3w6wifrMdsrb4XI74rWqhLcAHXke3uETxu+6P8VHZfJoSP69trCJ+82Af5QbZNyjVPUD8VmiifQobSyxeLlH8vnsjO7QGZy0fUr+Kto1VxG9GIV5TmFDdOfEPCP2kwH+Z4udMd5yKd0vmxE9rG6uI39xzSUj+A0p9jxD/gNBPCvyXKX7PHRIeanceJK9RMdYgQm1jGfHf9k3+A0qFDxG/tfOBEvppw97LFD+p41/bd54UP6ttLCN+Y8aPc2v3G5QKHyJ+644DSuinTXhfqPiPvrdibIqzUdkL1EhtYxnxGwWhbfG5KPF3Dv28pe4LFb99QN9H9SucFT+pbSwjfuPEAvFwKcPaQeLvHPp5K92XKv7NQ1X95Stm0lenctrGMuLH9jCvrmNYO0r8XUM/cY/bxYq/qv778mbLtPitbTH+trGO+OHkM/NKGYa1o8Rvfd7LPmEMeD+4XPHX1F/Xfl781kqlX43riB9eXMk8ysKwdpj4D7Qy/MD1PKKTCxZ/Rf1bwiGL/IsJlLaxjvhhSZgNgWHtMPFzPu9naV+X7OeSxd+6ogdDWYLKi9+6g9jdNtYRP2wJlMQbeYQYJX7z815aYGYG/ss
+            W/+aY2uu07/p0ucenVrG9bWMh8QNPsG7tfoNh7TjxW6G/NOHPDPwXLv7mHV3n2JIWoAritzZne9vGQuIHW66IW3wuTfxm6C8MOTlHeT+5dPFvjsHNfjvaxpPKK4lW6He2jYXED/qi1BfqGNYOFL8V+vOby2iHWt65ePG/hNFA339HbJAV8Vuh31nEhcQPrGHeH78JmcVpmRXxW5/3/HCIG/h/g/hfGt+N74t4T41FpfeR60e/FhL/+YN92cdQzsOwNtgy8Re69ON8v58c+H+H+F94emw5ZnfDej/C9otP/IZ0nYJcSfzbjml/wLA22jJhOp4f5x+UhpADf0X8pAuSaVwdoBz3t9fUPugbD8j+dFbH99/7/vnOfz87htQVuqO64SyhK7pJLROmU7DjoeCZB7+lLhzlAFmyapXKw9Phdvt1OWS7vTmQm6EQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQ4h/gP0GcKuyZpj3xAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE1LTA5LTE1VDEwOjQ1OjE5LTA0OjAw2bpLMAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNS0wOS0xNVQxMDo0NToxOS0wNDowMKjn84wAAAAASUVORK5CYII=" alt="brand-img" class="brand-img-hoverable forever21">
+        </div>
+    </div>
+</div>
+
+<!-- card -->
+
+<!-- <div class="card-wrapper center padded">
+    <h2 class="center-text">Apparel sourcing with complete transparency</h2>
+    <div class="three-card-container">
+        <div class="card">
+            <div class="center">
+                <img src="/static/media/pro-mg.631422f4.svg" alt="">
+            </div>
+            <div class="card-content">
+                <h4>Project Management</h4>
+                <p>Project management by a team of highly experienced merchandisers and on-ground
+                     manufacturing experts</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="center">
+                <img src="/static/media/ext.916bd48f.svg" alt="">
+            </div>
+            <div class="card-content">
+                <h4>Extensive network</h4>
+                <p>Extensive network of factories across India and Bangladesh</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="center">
+                <img src="/static/media/flex.12a6c695.svg" alt="">
+            </div>
+            <div class="card-content">
+                <h4>Flexibility</h4>
+                <p>Flexibility across MOQs and price ranges</p>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<section style="margin-top: 100px; margin-bottom: 100px;">
+    <div class="container mt-5">
+      <div style="margin-bottom: 50px;">
+        <h3 class="text-center" style="font-size: 2rem; margin-bottom: 20px;">Apparel sourcing with complete transparency</h3>
+        <hr class="line">
+      </div>
+  
+      <div class="row">
+        <!-- <div class="card-deck">
+          <div class="card">
+            <img  src="{% static 'img/portofolio/hcjb.jpg' %}" class="card-img-top " alt="...">
+            <div class="card-body bg-dark">
+              <h5 class="card-title">Web Development</h5>
+              <p class="card-text">We provide full-cycle mobile app development services. 
+                This includes expert business analysis, design and development of your mobile application from idea to launch, integrating the new product into your infrastructure and providing further optimization and scale-up on demand. 
+                We build mobile applications on different platforms using top-notch technologies and proven approaches.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'img/portofolio/The-Technology-behind-App-Development.png' %}" class="card-img-top" alt="...">
+            <div class="card-body bg-dark">
+              <h5 class="card-title">App Development</h5>
+              <p class="card-text">If you’re looking to leverage mobile technology for your business, our best app developers are at your service.
+                 We provide iOS and Android mobile application development services so you can reach your customers on their favorite devices. 
+                  Justgetit has expertise in both native and cross-platform technologies.</p>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'img/portofolio/iot.jpeg' %}" class="card-img-top" alt="...">
+            <div class="card-body bg-dark">
+              <h5 class="card-title">IOT Development</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+          </div>
+        </div> -->
+        <div class="three-card-container">
+            <div class="card">
+                <div class="center">
+                    <img src="{% static 'img/portfolio/pro-mg.631422f4.svg' %}" alt="">
+                </div>
+                <div class="card-content">
+                    <h4>Project Management</h4>
+                    <p>Project management by a team of highly experienced merchandisers and on-ground
+                         manufacturing experts</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="center">
+                    <img src="{% static 'img/portfolio/ext.916bd48f.svg' %}" alt="">
+                </div>
+                <div class="card-content">
+                    <h4>Extensive network</h4>
+                    <p>Extensive network of factories across India and Bangladesh</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="center">
+                    <img src="{% static 'img/portfolio/flex.12a6c695.svg' %}" alt="">
+                </div>
+                <div class="card-content">
+                    <h4>Flexibility</h4>
+                    <p>Flexibility across MOQs and price ranges</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- New Category -->
+
+<section>
+  <div class="new-category center padded">
+    <h2 class="center-text">Start a new category overnight</h2>
+    <div class="three-card-container">
+      <div class="card-with-img">
+        <div class="center">
+          <img src="{% static 'img/portfolio/active.png' %}" alt="">
+        </div>
+        <div class="card-content">
+          <h4>Activewear</h4>
+          <p>T-shirts | Trousers | Shirts</p>
+        </div>
+      </div>
+      <div class="card-with-img">
+        <div class="center">
+          <img src="{% static 'img/portfolio/knit.png' %}" alt="">
+        </div>
+        <div class="card-content">
+          <h4>Knitwear</h4>
+          <p>T-shirts | Trousers | Sleepwear</p>
+        </div>
+      </div>
+        <div class="card-with-img">
+          <div class="center">
+            <img src="{% static 'img/portfolio/ethnic.png' %}" alt="">
+          </div>
+          <div class="card-content">
+            <h4>Ethnic wear</h4>
+            <p>Anarkali | Lehenga | Kurti | Saree</p>
+          </div>
+        </div>
+    </div>
+    <div class="two-card-container">
+      <div class="two-card-wrapper">
+        <div class="card-with-img">
+          <div class="center">
+            <img src="{% static 'img/portfolio/west.jpeg' %}" alt="">
+          </div>
+          <div class="card-content">
+            <h4>Western wear</h4>
+            <p>Tops, T-Shirts &amp; Shirts | Dresses &amp; Jumpsuits | Sweaters &amp; Sweatshirts</p>
+          </div>
+        </div>
+      </div>
+      <div class="two-card-wrapper">
+        <div class="card-with-img">
+          <div class="center">
+            <img src="{% static 'img/portfolio/kids.jpeg' %}" alt="">
+          </div>
+          <div class="card-content">
+            <h4>Kids wear</h4>
+            <p>Boys Clothing | Girls Clothing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Jarvis -->
+
+<section>
+  <div class="service-wrapper padded" id="jarvis">
+    <div>
+      <h2>JGI Jarvis</h2>
+      <p class="service-text">Jarvis provides complete visibility from Design to Delivery</p>
+      <ul class="service-ul">
+        <li>
+          <div class="icon-wrapper center">
+            <img src="{% static 'img/portfolio/product-lifecycle.svg' %}" alt="icon">
+          </div><div class="li-content">
+            <p class="li-head">Product lifecycle visibility</p>
+            <p>Complete visibility of entire production down to an SKU level</p>
+          </div>
+        </li>
+        <li>
+          <div class="icon-wrapper center">
+            <img src="{% static 'img/portfolio/enabling-speed.svg' %}" alt="icon">
+          </div>
+          <div class="li-content">
+            <p class="li-head">Enabling speed</p>
+            <p>Industry best turn around times with no last minute surprises</p>
+          </div>
+        </li>
+        <li>
+          <div class="icon-wrapper center">
+            <img src="{% static 'img/portfolio/e2e-process.svg' %}" alt="icon">
+          </div>
+          <div class="li-content">
+            <p class="li-head">End-to-end project management</p>
+            <p>Our on-ground team of experts ensures that your production is always on time</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="img-wrapper center">
+      <img class="service-img" src="{% static 'img/portfolio/fzJarvis3.png' %}" srcset="{% static 'img/portfolio/fzJarvis3.png' %}" alt="Jarvis">
+    </div>
+  </div>
+</section>
+
+<!-- Street -->
+
+<section>
+  <div class="service-wrapper padded" id="street">
+    <div class="img-wrapper center">
+      <img class="service-img" src="{% static 'img/portfolio/fzStreet3.png' %}" srcset="{% static 'img/portfolio/fzStreet3.png' %}" alt="Street">
+    </div>
+    <div>
+      <h2>JGI Street</h2>
+      <p class="service-text">Extensive catalog of ready to launch designs</p>
+      <ul class="service-ul">
+        <li>
+          <div class="icon-wrapper center">
+            <img src="{% static 'img/portfolio/catalog.svg' %}" alt="icon">
+          </div>
+          <div class="li-content">
+            <p class="li-head">Extensive catalog</p>
+            <p>Access catalogs and collections across categories like ethnic wear, knitwear, activewear,
+               sleepwear, reusable masks</p>
+          </div>
+        </li>
+        <li>
+          <div class="icon-wrapper center">
+            <img src="{% static 'img/portfolio/fashion.svg' %}" alt="icon">
+          </div>
+          <div class="li-content">
+            <p class="li-head">Fast Fashion</p>
+            <p>Launch new categories, collections, designs FAST</p>
+          </div>
+        </li>
+        <li>
+          <div class="icon-wrapper center">
+            <img src="{% static 'img/portfolio/moq.svg' %}" alt="icon">
+          </div>
+          <div class="li-content">
+            <p class="li-head">Low MOQs</p>
+            <p>MOQs as low as 100 pieces to get you started, experiment with minimal investment</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</section>
+
+<!-- product development -->
+
+<section>
+  <div class="dev-wrapper center padded">
+    <h2 class="center-text">Enabling speed in product development cycle</h2>
+    <h3 class="center-text">Trusted by clients across 4 continents</h3>
+    <img src="{% static 'img/portfolio/world.svg' %}" alt="wold-img">
+  </div>
+</section>
+
+<!-- Manage -->
+
+<section>
+  <div class="manage-section-wrapper padded">
+    <h2 class="center-text">Make more, manage less</h2>
+    <div class="h3-content">
+      <h3>
+        <span>JUSTGETIT automates the process and delivers you the orders within</span>
+        <span class="colored-text">8 weeks</span>
+      </h3>
+    </div>
+    <div class="without-fz-div center">
+      <h3>Without JUSTGETIT</h3>
+      <img class="bg-img" src="{% static 'img/portfolio/without.svg' %}" alt="wo-fz">
+      <div class="steps-container-phone phone-only">
+        <div class="steps-row">
+          <div class="step-div without-fz-step">
+            <p>Deliver on time</p>
+            <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+          </div>
+          <div class="step-div without-fz-step">
+            <p>Quality check</p>
+            <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+          </div>
+        </div>
+        <div class="steps-row">
+          <div class="step-div without-fz-step">
+            <p>Track each step</p>
+            <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+          </div>
+        </div>
+        <div class="steps-row">
+          <div class="step-div without-fz-step">
+            <p>100% visibility</p>
+            <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+          </div>
+          <div class="step-div without-fz-step">
+            <p>Verified supplier</p>
+            <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+          </div>
+        </div>
+        <div class="steps-row">
+          <div class="step-div without-fz-step">
+            <p>On ground team</p>
+            <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+          </div>
+        </div>
+      </div>
+      <div class="steps-container-desk desktop-only">
+        <div class="steps-row1 center"
+        ><div class="step-div without-fz-step">
+          <p>Deliver on time</p>
+          <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+        </div>
+        <div class="step-div without-fz-step">
+          <p>Quality check</p>
+          <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+        </div>
+        <div class="step-div without-fz-step">
+          <p>Track each step</p>
+          <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+        </div>
+      </div>
+      <div class="steps-row2 center">
+        <div class="step-div without-fz-step">
+          <p>100% visibility</p>
+          <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+        </div>
+        <div class="step-div without-fz-step">
+          <p>Verified supplier</p>
+          <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+        </div>
+      </div>
+      <div class="steps-row3 center">
+        <div class="step-div without-fz-step">
+          <p>On ground team</p>
+          <img src="{% static 'img/portfolio/cross.svg' %}" alt="crossimg">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="with-fz-div center">
+    <h3>With JUSTGETIT</h3>
+    <img class="bg-img" src="{% static 'img/portfolio/with.svg' %}" alt="with-fz">
+    <div class="steps-container-phone phone-only">
+      <div class="steps-row">
+        <div class="step-div with-fz-step">
+          <p>Deliver on time</p>
+          <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick"></div>
+          <div class="step-div with-fz-step">
+            <p>Quality check</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+        <div class="steps-row">
+          <div class="step-div with-fz-step">
+            <p>Track each step</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+        <div class="steps-row">
+          <div class="step-div with-fz-step">
+            <p>100% visibility</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+          <div class="step-div with-fz-step">
+            <p>Verified supplier</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+        <div class="steps-row">
+          <div class="step-div with-fz-step">
+            <p>On ground team</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+      </div>
+      <div class="steps-container-desk desktop-only">
+        <div class="steps-row1 center">
+          <div class="step-div with-fz-step">
+            <p>Deliver on time</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+          <div class="step-div with-fz-step">
+            <p>Quality check</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+          <div class="step-div with-fz-step">
+            <p>Track each step</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+        <div class="steps-row2 center">
+          <div class="step-div with-fz-step">
+            <p>100% visibility</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div><div class="step-div with-fz-step">
+            <p>Verified supplier</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+        <div class="steps-row3 center">
+          <div class="step-div with-fz-step">
+            <p>On ground team</p>
+            <img src="{% static 'img/portfolio/tick.svg' %}" alt="tick">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product Design -->
+
+<section>
+  <div class="prod-design-section-wrapper padded">
+    <img src="{% static 'img/portfolio/prod-des.png' %}" alt="img-design">
+  </div>
+</section>
+
+<!----about us-->
+<section>
+  <div class="container about-us">
+    <div class="row ">
+      <div class="col-12">
+        <h3 class="mb-3 text-center pb-10" >About Us</h3>
+        <hr class="line">
+        <h5>  JUSTGETIT, a company incorporated under the laws of India, having its registered office
+          at #38, 10th Cross, 24th Main, Agara, sector-1, HSR Layout, Bengaluru, Karnataka 560102, India <b> (“the
+          Company”)</b> offers various retail solutions, including through its website www.JUSTGETIT.IN and
+          other applicationsv<b> ("Platforms")</b> various online lifestyle, fashion, grocery and electronics solutions,
+          which inter alia facilitates the sale and purchase of products across categories related to fashion &
+          lifestyle, consumer electronics, grocery and general merchandise <b> ("Products")</b> by users of the Platforms
+          <b>("Users").
+
+          </h5>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- promices -->
+<!-- <section class=" bg-dark">
+  <div class="container bg-dark"  style="padding: 80px;">
+    <div class="row text-center promise">
+      <div class="col-12">
+        <h3 class="mb-3 pb-10" >Our Promise</h3>
+        <hr class="line">
+        <h5>We build results-oriented brand strategies and continually refine your campaigns for the greatest outcome.
+           from full-scale Development strategy, right through to our precise execution and reporting 
+           that’s right,we’ve got you covered</h5>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- carousel -->
+<!-- <section style="margin-top: 100px; margin-bottom: 100px;">
+  <div class="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'img/portofolio/website-development.jpg' %}" class="d-block w-100 image-fluid" alt="no image found">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/portofolio/iot-Development.jpg' %}" class="d-block w-100 image-fluid" alt="no image found">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/portofolio/The-quick-grasp-of-mobile.png' %}" class="d-block w-100 image-fluid" alt="no image found">
+        </div>
+      </div>
+  </div>
+  <div class="carousel-overlay" style="position: absolute; opacity: 0;">
+      <h2>Our team is tailored for your business needs</h2>
+      <hr class="line2">
+      <h6>From the day of its establishment, Justgetit has been helping businesses with ground breaking IT solutions. 
+        Founded on the ideals of innovation and investment in great ideas, we have been scaling enterprises with state of the art applications and products using multitude of emerging technologies.
+         What sets us apart is that we are not just IT service providers, we consider ourselves as solution partners who are sincerely interested in your business growth.</h6>
+  </div> -->
+  <!-- <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-md-6 ">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{% static 'img/portofolio/website-development.jpg' %}" class="d-block w-100 image-fluid" alt="no image found">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/portofolio/iot-Development.jpg' %}" class="d-block w-100 image-fluid" alt="no image found">
+            </div>
+            <div class="carousel-item">
+              <img src="{% static 'img/portofolio/The-quick-grasp-of-mobile.png' %}" class="d-block w-100 image-fluid" alt="no image found">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>Our team is tailored for your business needs</h2>
+        <hr class="line2">
+        <h6>From the day of its establishment, Justgetit has been helping businesses with ground breaking IT solutions. 
+          Founded on the ideals of innovation and investment in great ideas, we have been scaling enterprises with state of the art applications and products using multitude of emerging technologies.
+           What sets us apart is that we are not just IT service providers, we consider ourselves as solution partners who are sincerely interested in your business growth.</h6>
+      </div>
+    </div>
+  </div> -->
+<!-- </section> -->
+<!-- body -->
+<!-- <section class="pt-3 mt-4 pb-5">
+  <div class="container">
+      <div class="row mb-30">
+          <div class="col-12 text-center">
+              <h3>Lots of IT companies in the market. Then why us ? </h3>
+              <hr class="line2">
+          </div>
+      </div>
+
+      <div class="row phara">
+          <div class="col-md-4 text-center ">
+              <img class="img-fluid p-5 qualities-img" src="{% static 'img/portofolio/pngimages/lightbulb.png' %}" alt="">
+              <h5>Customized Requirements</h5>
+              <p>
+                  We had unique work to represent your's idea
+              </p>
+          </div>
+          <div class="col-md-4 text-center">
+              <img class="img-fluid p-5 qualities-img" src="{% static 'img/portofolio/pngimages/screen.png' %}" alt="">
+              <h5>99% Server Uptime</h5>
+              <p>
+                  Make sure that server ping is less
+              </p>
+          </div>
+          <div class="col-md-4 text-center">
+              <img class="img-fluid p-5 qualities-img" src="{% static 'img/portofolio/pngimages/phone.png' %}" alt="">
+              <h5>Quick Support</h5>
+              <p>
+                  We understand sense aurgency. when ever client require help
+              </p>
+          </div>
+      </div>
+
+      <div class="row phara">
+          <div class="col-md-4 text-center ">
+              <img class="img-fluid p-5 qualities-img" src="{% static 'img/portofolio/pngimages/quality.png' %}" alt="">
+              <h5>Quality Assurance</h5>
+              <p>
+                  Quality is the central edifics of our service and we make no compromises on it.
+              </p>
+          </div>
+          <div class="col-md-4 text-center">
+              <img class="img-fluid p-5 qualities-img" src="{% static 'img/portofolio/pngimages/delivery-box.png' %}" alt="">
+              <h5>On Time Delivery</h5>
+              <p>
+                  When you take a project to task. you can be rest assured that it will be delevered in time.
+              </p>
+          </div>
+          <div class="col-md-4 text-center">
+              <img class="img-fluid p-5 qualities-img" src="{% static 'img/portofolio/pngimages/coins.png' %}" alt="">
+              <h5>Value Of Money</h5>
+              <p>
+                  Get the best service for the money you pay us. we assured that to give you value for money.
+              </p>
+          </div>
+      </div>
+
+  </div>
+</section> -->
+<!-- Requirements -->
+<!-- <section class="requirements-section bg-dark" style="padding: 100px">
+  <div class="container">
+    <div style="text-align: center;">
+      <div class="mb-5">
+        <h3 style="color: azure;">Have any IT requirement, We can help.</h3>
+      </div>
+
+      <h4 class="mb-3 " style="color: azure;">Let's Get Started.</h2>
+      <hr class="line2 mb-2" 
+        style="        
+        border: solid 1px #35bfee;
+        width: 16vw;
+        justify-items: center;">
+      </div>
+    </div>
+       <div class="row align-items-center"> 
+           <div class=" col-md-9 text-center"> 
+               <h3 style="color: azure;">Have any IT requirement, We can help.</h3> 
+           </div> 
+           <div class="col-md-3 text-center">
+              <button class="btn btn-lg btn-primary">Get Started</button>
+          </div> 
+       </div> 
+  </div>
+</section> -->
+
+<!-- <section class="contacts-section" style="padding: 100px">
+  <div class="container">
+    <div style="text-align: center;">
+      <div class="mb-5">
+        <h3>We are always here to help you.</h3>
+      </div>
+      <h4 class="mb-5" >Contact Us.</h4>
+
+      <div class="row mr-0 ml-0">
+        <div class="col">
+          <h5>call/Watsapp</h5>
+          <p><a href="#"><i class="fa fa-phone"></i>+(91)123456789</a></p><br>
+        </div>
+        <div class="col">
+          <h5>E-mail</h5>
+          <p><a href="#"><i class="fa fa-envelope"></i>  Justgetit@gmail.com</a></p><br>
+        </div>
+        <div class="col">
+          <h5>Address</h5>
+          <p>XYZ</p>
+        </div>
+      </div>
+       
+
+
+
+      <hr class="line2 mb-2" 
+        style="        
+        border: solid 1px #35bfee;
+        width: 16vw;
+        justify-items: center;">
+      </div>
+    </div>
+      <div class="row align-items-center"> 
+          <div class=" col-md-9 text-center"> 
+              <h3 style="color: azure;">Have any IT requirement, We can help.</h3>
+          </div>
+          <div class="col-md-3 text-center">
+              <button class="btn btn-lg btn-primary">Get Started</button>
+          </div>
+      </div>
+  </div>
+</section> -->
+
+<!-- <section>
+  <div class="container form-section pt-3">
+    <div class="row">
+        <div class="col-12 text-center ">
+            <p style="font-weight: 500;letter-spacing: .5px;">We are alway to gelp you. If you had requirements/quaries about our services. Fill up the
+                contact from below and we'll do our best to contact you in 24hr. Alternatively simple pickup phone
+                and call us.
+            </p>
+            <hr class="line2 mb-5">
+        </div>
+    </div>
+</div>
+</section> -->
+<!-- form -->
+
+<section class="form-section bg-dark mb-5">
+  <div class="container">
+    <div style="text-align: center;">
+      <div class="mb-5">
+        <h3 style="color: azure;">Want a tailored solutions, Book an appointment.</h3>
+      </div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <form action="../portfolio/sourcing/" method="POST">
+          {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input name="en_title" type="text" value="sourcing" style="display: none;">
+                    <input type="text" name="fullname" class="form-control" placeholder="full name *" required/>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="email" name="email" class="form-control" placeholder="email*" required/>
+                </div>
+            </div>
+            <div class="form-row">
+                
+                <div class="form-group col-md-6">
+                    <select class="form-control" name="country" id="">
+                        <option selected>Country</option>
+                        <option data-countryCode="DZ" value="Algeria (+213)">Algeria (+213)</option>
+                        <option data-countryCode="AD" value="Andorra (+376)">Andorra (+376)</option>
+                        <option data-countryCode="AO" value="Angola (+244)">Angola (+244)</option>
+                        <option data-countryCode="AI" value="Anguilla (+1264)">Anguilla (+1264)</option>
+                        <option data-countryCode="AG" value="Antigua &amp; Barbuda (+1268)">Antigua &amp; Barbuda (+1268)</option>
+                        <option data-countryCode="AR" value="Argentina (+54)">Argentina (+54)</option>
+                        <option data-countryCode="AM" value="Armenia (+374)">Armenia (+374)</option>
+                        <option data-countryCode="AW" value="Aruba (+297)">Aruba (+297)</option>
+                        <option data-countryCode="AU" value="Australia (+61)">Australia (+61)</option>
+                        <option data-countryCode="AT" value="Austria (+43)">Austria (+43)</option>
+                        <option data-countryCode="AZ" value="Azerbaijan (+994)">Azerbaijan (+994)</option>
+                        <option data-countryCode="BS" value="Bahamas (+1242)">Bahamas (+1242)</option>
+                        <option data-countryCode="BH" value="Bahrain (+973)">Bahrain (+973)</option>
+                        <option data-countryCode="BD" value="Bangladesh (+880)">Bangladesh (+880)</option>
+                        <option data-countryCode="BB" value="Barbados (+1246)">Barbados (+1246)</option>
+                        <option data-countryCode="BY" value="Belarus (+375)">Belarus (+375)</option>
+                        <option data-countryCode="BE" value="Belgium (+32)">Belgium (+32)</option>
+                        <option data-countryCode="BZ" value="Belize (+501)">Belize (+501)</option>
+                        <option data-countryCode="BJ" value="Benin (+229)">Benin (+229)</option>
+                        <option data-countryCode="BM" value="Bermuda (+1441)">Bermuda (+1441)</option>
+                        <option data-countryCode="BT" value="Bhutan (+975)">Bhutan (+975)</option>
+                        <option data-countryCode="BO" value="Bolivia (+591)">Bolivia (+591)</option>
+                        <option data-countryCode="BA" value="Bosnia Herzegovina (+387)">Bosnia Herzegovina (+387)</option>
+                        <option data-countryCode="BW" value="Botswana (+267)">Botswana (+267)</option>
+                        <option data-countryCode="BR" value="Brazil (+55">Brazil (+55)</option>
+                        <option data-countryCode="BN" value="Brunei (+673)">Brunei (+673)</option>
+                        <option data-countryCode="BG" value="Bulgaria (+359)">Bulgaria (+359)</option>
+                        <option data-countryCode="BF" value="Burkina Faso (+226)">Burkina Faso (+226)</option>
+                        <option data-countryCode="BI" value="Burundi (+257)">Burundi (+257)</option>
+                        <option data-countryCode="KH" value="Cambodia (+855)">Cambodia (+855)</option>
+                        <option data-countryCode="CM" value="Cameroon (+237)">Cameroon (+237)</option>
+                        <option data-countryCode="CA" value="Canada (+1)">Canada (+1)</option>
+                        <option data-countryCode="CV" value="Cape Verde Islands (+238)">Cape Verde Islands (+238)</option>
+                        <option data-countryCode="KY" value="Cayman Islands (+1345)">Cayman Islands (+1345)</option>
+                        <option data-countryCode="CF" value="Central African Republic (+236)">Central African Republic (+236)</option>
+                        <option data-countryCode="CL" value="Chile (+56)">Chile (+56)</option>
+                        <option data-countryCode="CN" value="China (+86)">China (+86)</option>
+                        <option data-countryCode="CO" value="Colombia (+57)">Colombia (+57)</option>
+                        <option data-countryCode="KM" value="Comoros (+269)">Comoros (+269)</option>
+                        <option data-countryCode="CG" value="Congo (+242)">Congo (+242)</option>
+                        <option data-countryCode="CK" value="Cook Islands (+682)">Cook Islands (+682)</option>
+                        <option data-countryCode="CR" value="Costa Rica (+506)">Costa Rica (+506)</option>
+                        <option data-countryCode="HR" value="Croatia (+385)">Croatia (+385)</option>
+                        <option data-countryCode="CU" value="Cuba (+53)">Cuba (+53)</option>
+                        <option data-countryCode="CY" value="Cyprus North (+90392)">Cyprus North (+90392)</option>
+                        <option data-countryCode="CY" value="Cyprus South (+357)">Cyprus South (+357)</option>
+                        <option data-countryCode="CZ" value="Czech Republic (+42)">Czech Republic (+42)</option>
+                        <option data-countryCode="DK" value="Denmark (+45)">Denmark (+45)</option>
+                        <option data-countryCode="DJ" value="Djibouti (+253)">Djibouti (+253)</option>
+                        <option data-countryCode="DM" value="Dominica (+1809)">Dominica (+1809)</option>
+                        <option data-countryCode="DO" value="Dominican Republic (+1809)">Dominican Republic (+1809)</option>
+                        <option data-countryCode="EC" value="Ecuador (+593)">Ecuador (+593)</option>
+                        <option data-countryCode="EG" value="Egypt (+20)">Egypt (+20)</option>
+                        <option data-countryCode="SV" value="El Salvador (+503)">El Salvador (+503)</option>
+                        <option data-countryCode="GQ" value="Equatorial Guinea (+240)">Equatorial Guinea (+240)</option>
+                        <option data-countryCode="ER" value="Eritrea (+291)">Eritrea (+291)</option>
+                        <option data-countryCode="EE" value="Estonia (+372)">Estonia (+372)</option>
+                        <option data-countryCode="ET" value="Ethiopia (+251)">Ethiopia (+251)</option>
+                        <option data-countryCode="FK" value="Falkland Islands (+500)">Falkland Islands (+500)</option>
+                        <option data-countryCode="FO" value="Faroe Islands (+298)">Faroe Islands (+298)</option>
+                        <option data-countryCode="FJ" value="Fiji (+679)">Fiji (+679)</option>
+                        <option data-countryCode="FI" value="Finland (+358)">Finland (+358)</option>
+                        <option data-countryCode="FR" value="France (+33)">France (+33)</option>
+                        <option data-countryCode="GF" value="French Guiana (+594)">French Guiana (+594)</option>
+                        <option data-countryCode="PF" value="French Polynesia (+689)">French Polynesia (+689)</option>
+                        <option data-countryCode="GA" value="Gabon (+241)">Gabon (+241)</option>
+                        <option data-countryCode="GM" value="Gambia (+220)">Gambia (+220)</option>
+                        <option data-countryCode="GE" value="Georgia (+7880)">Georgia (+7880)</option>
+                        <option data-countryCode="DE" value="Germany (+49)">Germany (+49)</option>
+                        <option data-countryCode="GH" value="Ghana (+233)">Ghana (+233)</option>
+                        <option data-countryCode="GI" value="Gibraltar (+350)">Gibraltar (+350)</option>
+                        <option data-countryCode="GR" value="Greece (+30)">Greece (+30)</option>
+                        <option data-countryCode="GL" value="Greenland (+299)">Greenland (+299)</option>
+                        <option data-countryCode="GD" value="Grenada (+1473)">Grenada (+1473)</option>
+                        <option data-countryCode="GP" value="Guadeloupe (+590)">Guadeloupe (+590)</option>
+                        <option data-countryCode="GU" value="Guam (+671)">Guam (+671)</option>
+                        <option data-countryCode="GT" value="Guatemala (+502)">Guatemala (+502)</option>
+                        <option data-countryCode="GN" value="Guinea (+224)">Guinea (+224)</option>
+                        <option data-countryCode="GW" value="Guinea - Bissau (+245)">Guinea - Bissau (+245)</option>
+                        <option data-countryCode="GY" value="Guyana (+592)">Guyana (+592)</option>
+                        <option data-countryCode="HT" value="Haiti (+509)">Haiti (+509)</option>
+                        <option data-countryCode="HN" value="Honduras (+504)">Honduras (+504)</option>
+                        <option data-countryCode="HK" value="Hong Kong (+852)">Hong Kong (+852)</option>
+                        <option data-countryCode="HU" value="Hungary (+36)">Hungary (+36)</option>
+                        <option data-countryCode="IS" value="Iceland (+354)">Iceland (+354)</option>
+                        <option data-countryCode="IN" value="India (+91)">India (+91)</option>
+                        <option data-countryCode="ID" value="Indonesia (+62)">Indonesia (+62)</option>
+                        <option data-countryCode="IR" value="Iran (+98)">Iran (+98)</option>
+                        <option data-countryCode="IQ" value="Iraq (+964)">Iraq (+964)</option>
+                        <option data-countryCode="IE" value="Ireland (+353)">Ireland (+353)</option>
+                        <option data-countryCode="IL" value="Israel (+972)">Israel (+972)</option>
+                        <option data-countryCode="IT" value="Italy (+39)">Italy (+39)</option>
+                        <option data-countryCode="JM" value="Jamaica (+1876)">Jamaica (+1876)</option>
+                        <option data-countryCode="JP" value="Japan (+81)">Japan (+81)</option>
+                        <option data-countryCode="JO" value="Jordan (+962)">Jordan (+962)</option>
+                        <option data-countryCode="KZ" value="Kazakhstan (+7)">Kazakhstan (+7)</option>
+                        <option data-countryCode="KE" value="Kenya (+254)">Kenya (+254)</option>
+                        <option data-countryCode="KI" value="Kiribati (+686)">Kiribati (+686)</option>
+                        <option data-countryCode="KP" value="Korea North (+850)">Korea North (+850)</option>
+                        <option data-countryCode="KR" value="Korea South (+82)">Korea South (+82)</option>
+                        <option data-countryCode="KW" value="Kuwait (+965)">Kuwait (+965)</option>
+                        <option data-countryCode="KG" value="Kyrgyzstan (+996)">Kyrgyzstan (+996)</option>
+                        <option data-countryCode="LA" value="Laos (+856)">Laos (+856)</option>
+                        <option data-countryCode="LV" value="Latvia (+371)">Latvia (+371)</option>
+                        <option data-countryCode="LB" value="Lebanon (+961)">Lebanon (+961)</option>
+                        <option data-countryCode="LS" value="Lesotho (+266)">Lesotho (+266)</option>
+                        <option data-countryCode="LR" value="Liberia (+231)">Liberia (+231)</option>
+                        <option data-countryCode="LY" value="Libya (+218)">Libya (+218)</option>
+                        <option data-countryCode="LI" value="Liechtenstein (+417)">Liechtenstein (+417)</option>
+                        <option data-countryCode="LT" value="Lithuania (+370)">Lithuania (+370)</option>
+                        <option data-countryCode="LU" value="Luxembourg (+352)">Luxembourg (+352)</option>
+                        <option data-countryCode="MO" value="Macao (+853)">Macao (+853)</option>
+                        <option data-countryCode="MK" value="Macedonia (+389)">Macedonia (+389)</option>
+                        <option data-countryCode="MG" value="Madagascar (+261)">Madagascar (+261)</option>
+                        <option data-countryCode="MW" value="Malawi (+265)">Malawi (+265)</option>
+                        <option data-countryCode="MY" value="Malaysia (+60)">Malaysia (+60)</option>
+                        <option data-countryCode="MV" value="Maldives (+960)">Maldives (+960)</option>
+                        <option data-countryCode="ML" value="Mali (+223)">Mali (+223)</option>
+                        <option data-countryCode="MT" value="Malta (+356)">Malta (+356)</option>
+                        <option data-countryCode="MH" value="Marshall Islands (+692)">Marshall Islands (+692)</option>
+                        <option data-countryCode="MQ" value="Martinique (+596)">Martinique (+596)</option>
+                        <option data-countryCode="MR" value="Mauritania (+222)">Mauritania (+222)</option>
+                        <option data-countryCode="YT" value="Mayotte (+269)">Mayotte (+269)</option>
+                        <option data-countryCode="MX" value="Mexico (+52)">Mexico (+52)</option>
+                        <option data-countryCode="FM" value="Micronesia (+691)">Micronesia (+691)</option>
+                        <option data-countryCode="MD" value="Moldova (+373)">Moldova (+373)</option>
+                        <option data-countryCode="MC" value="Monaco (+377)">Monaco (+377)</option>
+                        <option data-countryCode="MN" value="Mongolia (+976)">Mongolia (+976)</option>
+                        <option data-countryCode="MS" value="Montserrat (+1664)">Montserrat (+1664)</option>
+                        <option data-countryCode="MA" value="Morocco (+212)">Morocco (+212)</option>
+                        <option data-countryCode="MZ" value="Mozambique (+258)">Mozambique (+258)</option>
+                        <option data-countryCode="MN" value="Myanmar (+95)">Myanmar (+95)</option>
+                        <option data-countryCode="NA" value="Namibia (+264)">Namibia (+264)</option>
+                        <option data-countryCode="NR" value="Nauru (+674)">Nauru (+674)</option>
+                        <option data-countryCode="NP" value="Nepal (+977)">Nepal (+977)</option>
+                        <option data-countryCode="NL" value="Netherlands (+31)">Netherlands (+31)</option>
+                        <option data-countryCode="NC" value="New Caledonia (+687)">New Caledonia (+687)</option>
+                        <option data-countryCode="NZ" value="New Zealand (+64)">New Zealand (+64)</option>
+                        <option data-countryCode="NI" value="Nicaragua (+505)">Nicaragua (+505)</option>
+                        <option data-countryCode="NE" value="Niger (+227)">Niger (+227)</option>
+                        <option data-countryCode="NG" value="Nigeria (+234)">Nigeria (+234)</option>
+                        <option data-countryCode="NU" value="Niue (+683)">Niue (+683)</option>
+                        <option data-countryCode="NF" value="Norfolk Islands (+672)">Norfolk Islands (+672)</option>
+                        <option data-countryCode="NP" value="Northern Marianas (+670)">Northern Marianas (+670)</option>
+                        <option data-countryCode="NO" value="Norway (+47)">Norway (+47)</option>
+                        <option data-countryCode="OM" value="Oman (+968)">Oman (+968)</option>
+                        <option data-countryCode="PW" value="Palau (+680)">Palau (+680)</option>
+                        <option data-countryCode="PA" value="Panama (+507)">Panama (+507)</option>
+                        <option data-countryCode="PG" value="Papua New Guinea (+675)">Papua New Guinea (+675)</option>
+                        <option data-countryCode="PY" value="Paraguay (+595)">Paraguay (+595)</option>
+                        <option data-countryCode="PE" value="Peru (+51)">Peru (+51)</option>
+                        <option data-countryCode="PH" value="Philippines (+63)">Philippines (+63)</option>
+                        <option data-countryCode="PL" value="Poland (+48)">Poland (+48)</option>
+                        <option data-countryCode="PT" value="Portugal (+351)">Portugal (+351)</option>
+                        <option data-countryCode="PR" value="Puerto Rico (+1787)">Puerto Rico (+1787)</option>
+                        <option data-countryCode="QA" value="Qatar (+974)">Qatar (+974)</option>
+                        <option data-countryCode="RE" value="Reunion (+262)">Reunion (+262)</option>
+                        <option data-countryCode="RO" value="Romania (+40)">Romania (+40)</option>
+                        <option data-countryCode="RU" value="Russia (+7)">Russia (+7)</option>
+                        <option data-countryCode="RW" value="Rwanda (+250)">Rwanda (+250)</option>
+                        <option data-countryCode="SM" value="San Marino (+378)">San Marino (+378)</option>
+                        <option data-countryCode="ST" value="Sao Tome &amp; Principe (+239)">Sao Tome &amp; Principe (+239)</option>
+                        <option data-countryCode="SA" value="Saudi Arabia (+966)">Saudi Arabia (+966)</option>
+                        <option data-countryCode="SN" value="Senegal (+221)">Senegal (+221)</option>
+                        <option data-countryCode="CS" value="Serbia (+381)">Serbia (+381)</option>
+                        <option data-countryCode="SC" value="Seychelles (+248)">Seychelles (+248)</option>
+                        <option data-countryCode="SL" value="Sierra Leone (+232)">Sierra Leone (+232)</option>
+                        <option data-countryCode="SG" value="Singapore (+65)">Singapore (+65)</option>
+                        <option data-countryCode="SK" value="Slovak Republic (+421)">Slovak Republic (+421)</option>
+                        <option data-countryCode="SI" value="Slovenia (+386)">Slovenia (+386)</option>
+                        <option data-countryCode="SB" value="Solomon Islands (+677)">Solomon Islands (+677)</option>
+                        <option data-countryCode="SO" value="Somalia (+252)">Somalia (+252)</option>
+                        <option data-countryCode="ZA" value="South Africa (+27)">South Africa (+27)</option>
+                        <option data-countryCode="ES" value="Spain (+34)">Spain (+34)</option>
+                        <option data-countryCode="LK" value="Sri Lanka (+94)">Sri Lanka (+94)</option>
+                        <option data-countryCode="SH" value="St. Helena (+290)">St. Helena (+290)</option>
+                        <option data-countryCode="KN" value="St. Kitts (+1869)">St. Kitts (+1869)</option>
+                        <option data-countryCode="SC" value="St. Lucia (+1758)">St. Lucia (+1758)</option>
+                        <option data-countryCode="SD" value="Sudan (+249)">Sudan (+249)</option>
+                        <option data-countryCode="SR" value="Suriname (+597)">Suriname (+597)</option>
+                        <option data-countryCode="SZ" value="Swaziland (+268)">Swaziland (+268)</option>
+                        <option data-countryCode="SE" value="Sweden (+46)">Sweden (+46)</option>
+                        <option data-countryCode="CH" value="Switzerland (+41)">Switzerland (+41)</option>
+                        <option data-countryCode="SI" value="Syria (+963)">Syria (+963)</option>
+                        <option data-countryCode="TW" value="Taiwan (+886)">Taiwan (+886)</option>
+                        <option data-countryCode="TJ" value="Tajikstan (+7)">Tajikstan (+7)</option>
+                        <option data-countryCode="TH" value="Thailand (+66)">Thailand (+66)</option>
+                        <option data-countryCode="TG" value="Togo (+228)">Togo (+228)</option>
+                        <option data-countryCode="TO" value="Tonga (+676)">Tonga (+676)</option>
+                        <option data-countryCode="TT" value="Trinidad &amp; Tobago (+1868)">Trinidad &amp; Tobago (+1868)</option>
+                        <option data-countryCode="TN" value="Tunisia (+216)">Tunisia (+216)</option>
+                        <option data-countryCode="TR" value="Turkey (+90)">Turkey (+90)</option>
+                        <option data-countryCode="TM" value="Turkmenistan (+7)">Turkmenistan (+7)</option>
+                        <option data-countryCode="TM" value="Turkmenistan (+993)">Turkmenistan (+993)</option>
+                        <option data-countryCode="TC" value="Turks &amp; Caicos Islands (+1649)">Turks &amp; Caicos Islands (+1649)</option>
+                        <option data-countryCode="TV" value="Tuvalu (+688)">Tuvalu (+688)</option>
+                        <option data-countryCode="UG" value="Uganda (+256)">Uganda (+256)</option>
+                        <!-- <option data-countryCode="GB" value="44">UK (+44)</option> -->
+                        <option data-countryCode="UA" value="Ukraine (+380)">Ukraine (+380)</option>
+                        <option data-countryCode="AE" value="United Arab Emirates (+971)">United Arab Emirates (+971)</option>
+                        <option data-countryCode="UY" value="Uruguay (+598)">Uruguay (+598)</option>
+                        <!-- <option data-countryCode="US" value="1">USA (+1)</option> -->
+                        <option data-countryCode="UZ" value="Uzbekistan (+7)">Uzbekistan (+7)</option>
+                        <option data-countryCode="VU" value="Vanuatu (+678)">Vanuatu (+678)</option>
+                        <option data-countryCode="VA" value="Vatican City (+379)">Vatican City (+379)</option>
+                        <option data-countryCode="VE" value="Venezuela (+58)">Venezuela (+58)</option>
+                        <option data-countryCode="VN" value="Vietnam (+84)">Vietnam (+84)</option>
+                        <option data-countryCode="VG" value="Virgin Islands - British (+1284)">Virgin Islands - British (+1284)</option>
+                        <option data-countryCode="VI" value="Virgin Islands - US (+1340)">Virgin Islands - US (+1340)</option>
+                        <option data-countryCode="WF" value="Wallis &amp; Futuna (+681)">Wallis &amp; Futuna (+681)</option>
+                        <option data-countryCode="YE" value="Yemen (North)(+969)">Yemen (North)(+969)</option>
+                        <option data-countryCode="YE" value="Yemen (South)(+967)">Yemen (South)(+967)</option>
+                        <option data-countryCode="ZM" value="Zambia (+260)">Zambia (+260)</option>
+                        <option data-countryCode="ZW" value="Zimbabwe (+263)">Zimbabwe (+263)</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" name="number" class="form-control" placeholder="Contact Number *" pattern="[789][0-9]{9}" required/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <input type="text" name="subject" class="form-control" placeholder="Subject*">
+                </div>
+            </div>
+    
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <textarea class="form-control" name="disp" id="some-textarea" data-provide="markdown" placeholder="Description of Product" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-dark"><i class="fa fa-paper-plane"></i> Send
+                        Message</button>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="col-2"></div>
+
+    </div>
+
+
+  </div>
+</section>
+</script>
+
+<script type="text/javascript" src="{% static 'bootstrap-markdown/js/bootstrap-markdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-markdown/locale/bootstrap-markdown.fr.js' %}"></script>
+<script src="{% static 'js/portfolio/plugins.js' %}"></script>
+<script src="{% static 'js/portfolio/main.js' %}"></script>
+<script type="text/javascript">
+	$("#some-textarea").markdown({
+		autofocus:false,savable:false,width:675,iconlibrary:'fa',
+		onChange:function(e){
+			$('#some-textarea').html(e.parseContent());
+		
+		},
+		onSave:function(e){
+			$('#some-textarea').html(e.parseContent());
+		}
+	});
+	function mySubmit(e){
+	
+		$('#desc_up').html($('#some-textarea').html());
+		
+	}
+</script>
+  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+    <script src="{% static 'js/portfolio/vendor/bootstrap.min.js' %}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script data-require="marked@*" data-semver="0.3.1" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.1/marked.js"></script>
+<script type="text/javascript" src="{% static 'js/products/upload_product.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+
+
+<!-- basha -->
+{% endblock %}

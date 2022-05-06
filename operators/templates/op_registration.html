@@ -1,0 +1,140 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+  
+  <div class="container text-center">
+        <h1>Register Here</h1>
+        {{mess}}
+    </div>
+    <form enctype="multipart/form-data" method="POST" action="register" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Operator Name</label>
+            <div class="col-sm-10">
+              <input type="text" name="operator_name" id="op_name" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Operator ID</label>
+            <div class="col-sm-10">
+              <input type="text" name="operator_id" id="op_id" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Line no</label>
+            <div class="col-sm-10">
+              <select id="lineno" name="line_no" required>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10">
+              <input type="text" name="address" id="address" required>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Product Category</label>
+            <div class="col-sm-10">
+              <input type="text" name="product_category" id="product_category" required>
+            </div>
+        </div> 
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Product Sub Category</label>
+            <div class="col-sm-10">
+              <input type="text" name="product_sub_category" id="product_sub_category" required>
+            </div>
+        </div>  
+        
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Select Operation</label>
+            <div class="col-sm-10 op">
+              <select id="operation" name="operation" required>
+                <option value="dart_stitch">Dart Stitch</option>
+                <option value="panel_attach">Panel Attach</option>
+                <option value="chest_welt_attach">Chest Welt Attach</option>
+                <option value="facing_att">Facing Att</option>
+                <option value="chest_canvas_attach">Chest Canvas Attach</option>
+                <option value="side_seam">Side Seam</option>
+              </select>
+              <button class="add">+</button>
+              <button class="sub">-</button>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Skill Percentage</label>
+            <div class="col-sm-10 skp" >
+              <input type="number" name="skill_percentage" id="skill_percentage" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">No of Operations</label>
+            <div class="col-sm-10">
+              <input type="number" class="no_op" name="no_of_operation" id="no_of_operation" value="1" readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Operation Criticality</label>
+            <div class="col-sm-10">
+              <input type="number" name="operation_complexity" id="operation_complexity" required>
+            </div>
+        </div>        
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Grade</label>
+            <div class="col-sm-10">
+              <input type="text" name="grade" id="grade" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" name="password" id="password" required>
+            </div>
+        </div>
+
+        <div class="container text-center">
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+            <a class="btn btn-primary" href="login" role="button">Already registered? Login Now!</a>
+        </div>
+    </form>
+
+    <script language="javascript">
+        $(document).ready( function(){
+            $('.add').on('click',function(){
+                var element1 = $('<select id="operation" name="operation" required><option value="dart_stitch">Dart Stitch</option><option value="panel_attach">Panel Attach</option><option value="chest_welt_attach">Chest Welt Attach</option><option value="facing_att">Facing Att</option><option value="chest_canvas_attach">Chest Canvas Attach</option><option value="side_seam">Side Seam</option></select>');
+                var element2=$('<input type="number" name="skill_percentage" id="skill_percentage" required>');
+                $('.add').before(element1);
+                $('.skp').append(element2);
+                
+                var no=parseInt($('.no_op').val());
+                no=no+1;
+                $('.no_op').val(no);
+            });
+            $('.sub').on('click',function(){
+                var size=$('.op').find('select').length;
+                if (size>1) {
+                    $('.op').find('select').last().remove();
+                    $('.skp').find('input').last().remove();
+                    var no=parseInt($('.no_op').val());
+                    no=no-1;
+                    $('.no_op').val(no);
+                }
+            });
+        });
+    </script>
+{% endblock %}

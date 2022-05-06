@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>None</title>
+
+  </head>
+  <body>
+  <style>
+      #container {
+    max-width:70%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:25px;
+    overflow:hidden;
+
+}
+table, th, td {
+  border: 1px solid black;
+}
+
+
+  </style>
+<div id="container">
+  <div class="row">
+    <div class="col">
+<h2 id="form1">Assumption</h2>
+<form method="post"> {% csrf_token %}
+<label>No. of years:</label>
+  <input type="text"  name="No_of_years"><br>
+<label>No_of_working_hrs_per_day:</label>
+  <input type="number"  name="No_of_working_hrs_per_day" id="v1" onchange="calc1()"><br>
+<label>Attendance_Time_hrs_perday:</label>
+      <input type="number"  name="Attendance_Time_hrs_perday" id="v2" value="" readonly><br>
+    <label>Working_minutes_per_day:</label>
+  <input type="text"  name="Working_minutes_per_day" id="v3" readonly><br>
+<label>No_of_working_days_per_month:</label>
+  <input type="text"  name="No_of_working_days_per_month" id="v4" onchange="calc2()"><br>
+<label>Total_no_of_production_days_per_year:</label>
+  <input type="text"  name="Total_no_of_production_days_per_year" id="v5" readonly><br>
+<label>No_of_shifts_per_day:</label>
+  <input type="text"  name="No_of_shifts_per_day"><br>
+<label>Exchange_rate:<br>1$= </br></label>
+  <input type="text"  name="Exchange_rate" id="v6" onchange="calc3()" value="0"><br>
+    <input type="submit" value="Submit" name="btnform1">
+</form>
+        <h2 id="form2">Absenteeis and Defective</h2>
+
+  <form method="post" > {% csrf_token %}
+
+<label>Sewing:</label>
+  <input type="text"  name="Sewing"  ><br>
+<label>Cutting:</label>
+      <input type="text"  name="Cutting"><br>
+    <label>Finishing:</label>
+  <input type="text"  name="Finishing" ><br>
+<label>Cutting_Output_as_percentage_of_Sewing_Output:</label>
+  <input type="text"  name="Cutting_Output_as_percentage_of_Sewing_Output"><br>
+<label>Finishing_Output_as_percentage_of_Sewing_Output:</label>
+  <input type="text"  name="Finishing_Output_as_percentage_of_Sewing_Output" ><br>
+<label>Extra_Sewing_Machines_Required:</label>
+  <input type="text"  name="Extra_Sewing_Machines_Required"><br>
+<label>Cutting_Loss:</label>
+  <input type="text"  name="Cutting_Loss"><br>
+      <h2>Years</h2>
+
+      {% for i in list1%}
+        <label>Year{{i}}:</label>
+  <input type="text"  name="Year{{i}}" ><br>
+      {% endfor %}
+
+    <input type="submit" value="Submit" name="btnform2">
+</form>
+                <h2 id="form3">Cost Assumptions</h2>
+
+         <form method="post" > {% csrf_token %}
+      <label>Electricity cost per KW-Hr (INR.)</label>
+  <input type="text"  name="a"  ><br>
+<label>Electricity requirement for light & fans (Kw-Hr per 1000 Sq Ft.):</label>
+  <input type="text"  name="b"  ><br>
+<label>Water consumption per person per day (Lts.):</label>
+      <input type="text"  name="c"><br>
+<label>Water Cost (INR. Per 1000 Lts.):</label>
+      <input type="text"  name="d" id="v7" readonly><br>
+    <label>Construction cost per sq ft. (INR.):</label>
+  <input type="text"  name="e" id="v8" ><br>
+<label>Land Cost (INR per Acre):</label>
+  <input type="text"  name="f"><br>
+<label>TotalBuilt up area area (Acres):</label>
+  <input type="text"  name="g" ><br>
+<label>Total land as % of covered area:</label>
+  <input type="text"  name="h"><br>
+<label>Land development cost (INR /Acre):</label>
+  <input type="text"  name="i"><br>
+<label>Office area (Sq ft):</label>
+  <input type="text"  name="j"><br>
+             <label>Office development cost (INR./sq ft):</label>
+  <input type="text"  name="k"><br>
+             <label>False ceiling cost (INR. Per sq ft):</label>
+  <input type="text"  name="l"><br>
+<label>Road construction cost (INR./sq ft.):</label>
+  <input type="text"  name="m"><br>
+<label>ETP cost:</label>
+  <input type="text"  name="n" ><br>
+<label>STP cost:</label>
+  <input type="text"  name="o"><br>
+<label>Generator cost (100KW):</label>
+  <input type="text"  name="p"><br>
+<label>Generator cost (150KW):</label>
+  <input type="text"  name="q"><br>
+             <label>Electrical expenses (INR):</label>
+  <input type="text"  name="r" id="v9"><br>
+             <label>Product Development Expenses (% of Total sales):</label>
+  <input type="text"  name="s"><br>
+ <label>Miscllaneous fixed asset per sewing machine (INR.):</label>
+  <input type="text"  name="t" value="1000"><br>
+<label>Cutting:</label>
+  <input type="text"  name="u"><br>
+<label>Provision for contingency:</label>
+  <input type="text"  name="v"><br>
+    <input type="submit" value="Submit" name="btnform3">
+</form>
+            <h2 id="form4">Salary_growth_and_Incentives</h2>
+  <form method="post" > {% csrf_token %}
+
+<label>Salary Growth % year on year</label>
+  <input type="text"  name="z"  ><br>
+<label>Wages Growth % year on year</label>
+      <input type="text"  name="y"><br>
+    <label>Incentive % per annum</label>
+  <input type="text"  name="x" ><br>
+    <input type="submit" value="Submit" name="btnform4">
+
+</form>
+                        <h2 id="form5">Financial</h2>
+
+         <form method="post" > {% csrf_token %}
+      <label>Ratio D/E</label>
+  <input type="text"  name="a"  ><br>
+<label>Interest on Term Loan  Y1 & Y2</label>
+  <input type="text"  name="b"  ><br>
+<label>Interest on Term Loan  Y3 onwards</label>
+      <input type="text"  name="c"><br>
+<label>Interest on Working Capital Financing</label>
+      <input type="text"  name="d" ><br>
+    <label>Interest Income on Cash Surplus</label>
+  <input type="text"  name="e"><br>
+<label>Tax</label>
+  <input type="text"  name="f"><br>
+<label>Business Commissions on Sales Value (For 1st 3 yrs)</label>
+  <input type="text"  name="g" ><br>
+<label>Duty Draw Backs</label>
+  <input type="text"  name="h"><br>
+    <input type="submit" value="Submit" name="btnform5">
+
+</form>
+                                <h2 id="form6">Depreciation Schedule For Balance Sheet Straight Line</h2>
+
+                <form method="post" > {% csrf_token %}
+      <label>Factory Building</label>
+  <input type="text"  name="a"  ><br>
+<label>Plant & Machinery</label>
+  <input type="text"  name="b"  ><br>
+<label>IT</label>
+      <input type="text"  name="c"><br>
+<label>Misc Fixed Assets</label>
+      <input type="text"  name="d"><br>
+    <label>Amortisation of Pre Operative Expenses</label>
+  <input type="text"  name="e"  ><br>
+    <input type="submit" value="Submit" name="btnform6">
+
+</form>
+                                <h2 id="form7">Clearing & Forwarding Exports</h2>
+
+         <form method="post" > {% csrf_token %}
+      <label>For Exports</label>
+  <input type="text"  name="a"  ><br>
+<label>Average pieces per container</label>
+  <input type="text"  name="b"  ><br>
+<label>Port Handling charges (INR. per container) - all incl</label>
+      <input type="text"  name="c"><br>
+<label>Transportation (in INR./ container)</label>
+      <input type="text"  name="d" ><br>
+    <label>Material Handling @</label>
+  <input type="text"  name="e"><br>
+<label>Duty - Manual Machines</label>
+  <input type="text"  name="f"><br>
+<label>Duty - Electronic machines</label>
+  <input type="text"  name="g" ><br>
+
+    <input type="submit" value="Submit" name="btnform7">
+
+</form>
+    </div>
+    <div id="sidebar">
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+    </div>
+      </div>
+    </div>
+
+  </body>
+<script>
+  function calc1(){
+  var a=parseInt(document.getElementById('v1').value);
+  var b= a+1
+  var c= a*60
+  document.getElementById('v2').value=b;
+  document.getElementById('v3').value=c;
+
+ }
+   function calc2(){
+  var a=parseInt(document.getElementById('v4').value);
+  var b= a*12
+  document.getElementById('v5').value=b;
+  }
+  function calc3(){
+    var a=document.getElementById('v6').value;
+    var b= a*0.3
+    var c= (a*500)*(3.28*0)/3.28
+    var d=(25000*a)/10
+    document.getElementById('v7').value=b;
+    document.getElementById('v8').value=c;
+    document.getElementById('v9').value=d;
+
+  }
+</script>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+            {% if messages %}
+                <div class="mt-0 pt-4">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                </div>
+           {% endif %}
+
+    <div class="container">
+    <br>
+    <br>
+        <h2>Rent Order {{ object.id }}</h2>
+        <h4>Start Date -: {{ object.start_date | date:"D d M Y" }} <br>End Date -: {{ object.end_date | date:"D d M Y" }}</h4>
+        <br>
+        {% for obj in object.rent_products.all %}
+            <br>
+            <a class="h3" href="{{ obj.get_rent_cart_product_absolute_url }}">{{ forloop.counter }}. ]  {{ obj.rent_product.title }}</a>
+            <br>
+        {% endfor %}
+    <br>
+    <h3>Total Quantity : {{ selected_total_quantity }}</h3>
+    <h3>Number of Rent Products : {{ selected_total_rent_products }}</h3>
+    <h3>Total Amount : {{ object.get_selected_final_amount }}</h3>
+    <br>
+    <a class="btn btn-outline-danger" href="#">Place Product On Rent</a>
+    <br>
+    <br>
+    <h3>Rent Order Average Amount : {{ object.get_avg }}</h3>
+{#    <h3>Id : {{ object.get_plan_id }}</h3>#}
+
+    <h3>Total renting cost - : {{ total_rent_cost }}</h3>
+    <h3>Base renting cost - : {{ base_rent_cost }}</h3>
+
+    <br>
+    <br>
+    </div>
+{% endblock %}

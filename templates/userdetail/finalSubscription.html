@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h4> Subscription details </h4>
+    <h6>Quantity = {{quantity}}</h6>
+    <h6>interval = {{interval}}</h6>
+    <h6>Start date = {{start_date}}</h6>
+    <h6>end date = {{end_date}}</h6>
+    <h6>remark = {{remark}}</h6>
+    <div class="container-fluid">
+        <form action="{% url 'payForSubscription' %}" method='post'>
+        {% csrf_token %}
+            <h4> Shipping address </h4>
+            <div class="row">
+            <label for="name">Full name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="name" name="fullname" value="{{full_name}}" readonly>
+                </div>
+                
+            </div>
+            <br>    
+            <div class="row">
+            <label for="address">Address</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Address" name="address" value="{{address}}" readonly>
+                </div>
+            </div>
+            
+            <input type="text" name="slug" value={{slug}} style="display: none;">
+            <input type="text" name="quantity" value="{{quantity}}" style="display: none;">
+            <input type="text" name="interval" value={{interval}} style="display: none;">
+            <input type="text" name="shift" value={{shift}} style="display: none;">
+            <input type="text" name="start_date" value={{start_date}} style="display: none;">
+            <input type="text" name="end_date" value={{end_date}} style="display: none;">
+            {% if remark %}
+                <input type="text" name="remark" value={{remark}} style="display: none;">
+            {% else %}
+                <input type="text" name="remark" value="" style="display: none;">
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Proceed to pay</button>
+        </form>
+    </div
+{% endblock content %}

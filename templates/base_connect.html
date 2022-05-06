@@ -1,0 +1,561 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<!-- Mirrored from themelooks.us/demo/socifly/html/home-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Nov 2020 08:41:06 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ==== Document Title ==== -->
+    <title>JUST CONNECT - JUSTGETIT</title>
+
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="ThemeLooks">
+    <meta name="description" content="Multipurpose Social Network HTML5 Template">
+    <meta name="keywords" content="social media, social network, forum, shop, bootstrap, html5, css3, template, responsive, retina ready">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <!-- <link rel="stylesheet" href="../../../../../fonts.googleapis.com/cssaba8.css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome.min.css' %}"
+
+    <!-- ==== Plugins Bundle ==== -->
+    <link rel="stylesheet" href="{% static 'css/just-connect/plugins.min.css' %}">
+
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'css/just-connect/style.css' %}">
+
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'css/just-connect/responsive-style.css' %}">
+
+    <!-- ==== Color Scheme Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'css/just-connect/colors/color-1.css' %}" id="changeColorScheme">
+
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'css/just-connect/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/just-connect/site.css' %}"> {% block customcss %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/just-connect/lightbox.css' %}">
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" >-->
+    
+</head>
+
+<body id="collection-5f28c264280c2529aa6cb027" class="transparent-header enable-nav-button nav-button-style-solid nav-button-corner-style-pill banner-button-style-solid banner-button-corner-style-pill banner-slideshow-controls-arrows meta-priority-date  hide-entry-author hide-list-entry-footer    hide-blog-sidebar     event-show-past-events event-thumbnails event-thumbnail-size-32-standard event-date-label  event-list-show-cats event-list-date event-list-time event-list-address   event-icalgcal-links  event-excerpts      gallery-design-grid aspect-ratio-auto lightbox-style-light gallery-navigation-bullets gallery-info-overlay-show-on-hover gallery-aspect-ratio-32-standard gallery-arrow-style-no-background gallery-transitions-fade gallery-show-arrows gallery-auto-crop   product-list-titles-under product-list-alignment-center product-item-size-11-square product-image-auto-crop product-gallery-size-11-square  show-product-price show-product-item-nav product-social-sharing tweak-v1-related-products-image-aspect-ratio-11-square tweak-v1-related-products-details-alignment-center newsletter-style-dark hide-opentable-icons opentable-style-dark small-button-style-solid small-button-shape-pill medium-button-style-solid medium-button-shape-pill large-button-style-solid large-button-shape-square image-block-poster-text-alignment-center  image-block-card-content-position-center image-block-card-text-alignment-left image-block-overlap-dynamic-font-sizing image-block-overlap-content-position-center image-block-overlap-text-alignment-left image-block-collage-dynamic-font-sizing image-block-collage-content-position-top image-block-collage-text-alignment-left  image-block-stack-text-alignment-left button-style-solid button-corner-style-pill tweak-product-quick-view-button-style-floating tweak-product-quick-view-button-position-bottom tweak-product-quick-view-lightbox-excerpt-display-truncate tweak-product-quick-view-lightbox-show-arrows tweak-product-quick-view-lightbox-show-close-button tweak-product-quick-view-lightbox-controls-weight-light native-currency-code-usd collection-type-index collection-layout-default collection-5f28c264280c2529aa6cb027 homepage view-list mobile-style-available has-banner-image index-page">
+
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="preloader--inner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+        <!-- Header Section Start -->
+        <header class="header--section style--3">
+            
+
+            <!-- Header Navbar Start -->
+            <div class="header--navbar navbar bg-default" data-trigger="sticky">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle style--3 collapsed" data-toggle="collapse" data-target="#headerNav">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Header Navbar Logo Start -->
+                        <div class="header--navbar-logo navbar-brand" style="background-color: white;">
+                            <a href="{% url 'just-connect' %}">
+                                <img src="{% static 'img/logo2.png' %}" alt="" width="150" height="100">
+                            </a>
+                        </div>
+                        <!-- Header Navbar Logo End -->
+                    </div>
+
+                    <!-- Header Search Start -->
+                    <div class="header--search style--2 float--right" data-form="validate">
+                        <form>
+                            {% csrf_token %}
+                            <input id="profile" list="profiles" name="profile" placeholder="I’m looking for..." class="form-control" required>
+                            <datalist id="profiles">
+                                
+                            </datalist>
+                            <button type="button" class="btn-link"><i class="fa fa-search" onclick="gotoprofile()"></i></button>
+                        </form>
+                    </div>
+                    <!-- Header Search End -->
+
+                    <div id="headerNav" class="navbar-collapse collapse float--right">
+                        <!-- Header Nav Links Start -->
+                        <ul class="header--nav-links style--3 nav ff--primary">
+                            <li class="dropdown active">
+                                <a href="{% url 'just-connect' %}">
+                                    <span>Home</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span>Event</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'connect-event-add' %}"><span>Add</span></a></li>
+                                    <li><a href="{% url 'connect-event-manage' %}"><span>Manage</span></a></li>
+                                    <li><a href="{% url 'connect-upcoming-list' %}"><span>Upcomming</span></a></li>
+                                    
+                                </ul>
+                            </li>
+                             <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span>News</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'connect-news-create' %}"><span>Add</span></a></li>
+                                    <li><a href="{% url 'connect-news-list' %}"><span>View all</span></a></li>
+                            
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'OrderProduct' %}">Cart</a></li>
+                            <li class="dropdown megamenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span>Pages</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <div class="dropdown-menu">
+                                    <div class="row">
+                                        <ul class="col-md-2">
+                                            <li><a href="members.html">Members</a></li>
+                                            <li><a href="groups.html">Groups</a></li>
+                                            <li><a href="activity.html">Site Wide Activity</a></li>
+                                            <li><a href="member-activity-personal.html">Member Activity</a></li>
+                                            <li><a href="group-home.html">Group Activity</a></li>
+                                        </ul>
+
+                                        <ul class="col-md-2">
+                                            <li><a href="member-profile.html">Member Profile</a></li>
+                                            <li><a href="member-forum-topics.html">Member Forum</a></li>
+                                            <li><a href="member-media-all.html">Member Media</a></li>
+                                            <li><a href="group-forum.html">Group Forum</a></li>
+                                            <li><a href="group-media.html">Group Media</a></li>
+                                        </ul>
+
+                                        <ul class="col-md-2">
+                                            <li><a href="forums.html">Forums</a></li>
+                                            <li><a href="sub-forums.html">Sub Forums</a></li>
+                                            <li><a href="topics.html">Topics</a></li>
+                                            <li><a href="topic-replies.html">Topic Replies</a></li>
+                                            <li><a href="#">Dummy</a></li>
+                                        </ul>
+
+                                        <ul class="col-md-2">
+                                            <li><a href="products.html">Products</a></li>
+                                            <li><a href="product-details.html">Product Details</a></li>
+                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="checkout.html">Checkout</a></li>
+                                            <li><a href="#">Dummy</a></li>
+                                        </ul>
+
+                                        <ul class="col-md-2">
+                                            <li><a href="blog-sidebar-right.html">Blog Sidebar Right</a></li>
+                                            <li><a href="blog-sidebar-left.html">Blog Sidebar Left</a></li>
+                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><a href="#">Dummy</a></li>
+                                            <li><a href="#">Dummy</a></li>
+                                        </ul>
+
+                                        <ul class="col-md-2">
+                                            <li><a href="about.html">About</a></li>
+                                            <li><a href="faq.html">FAQ</a></li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                                            <li><a href="404.html">404</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span>Products</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="products.html">Products</a></li>
+                                    <li><a href="product-details.html">Product Details</a></li>
+                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a href="checkout.html">Checkout</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span>Blog</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="blog-sidebar-right.html">Blog Sidebar Right</a></li>
+                                    <li><a href="blog-sidebar-left.html">Blog Sidebar Left</a></li>
+                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contact.html"><span>Contact</span></a></li>
+                            <li><a href="{% url 'planner_home' %}"><span>InternShip</span></a></li>
+                            <li><a href="{% url 'my_profile' %}"><span>Profile</span></a></li>
+                            <li><a href="{% url 'logout' %}"><span>Log Out</span></a></li>
+                        </ul>
+                        <!-- Header Nav Links End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Navbar End -->
+        </header>
+        <!-- Header Section End -->
+
+        {% block content %} {% endblock %}
+
+        <!-- Footer Section Start -->
+        <footer class="footer--section">
+            <!-- Footer Widgets Start -->
+            <div class="footer--widgets pt--70 pb--20 bg-lightdark" data-bg-img="{% static 'img/just-connect/footer-img/footer-widgets-bg.png' %}">
+                <div class="container">
+                    <div class="row AdjustRow">
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">About Us</h2>
+
+                                <!-- Text Widget Start -->
+                                <div class="text--widget">
+                                    <p>Ipsum is simply dummy text of the printing printing and typesetting industry.</p>
+
+                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered believable.</p>
+                                </div>
+                                <!-- Text Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Subscribe To Our Newsletter</h2>
+
+                                <!-- Newsletter Widget Start -->
+                                <div class="newsletter--widget style--2" data-form="validate">
+                                    <p>Ipsum is simply dummy text of the printing printing and typesetting industry.</p>
+
+                                    <form action="https://themelooks.us13.list-manage.com/subscribe/post?u=79f0b132ec25ee223bb41835f&amp;id=f4e0e93d1d" method="post" name="mc-embedded-subscribe-form" target="_blank">
+                                        <div class="input-group">
+                                            <input type="email" name="EMAIL" placeholder="Enter your emil address" class="form-control" autocomplete="off" required>
+
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-send-o"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Newsletter Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Recent Post</h2>
+
+                                <!-- Recent Posts Widget Start -->
+                                <div class="recent-posts--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="blog-details.html">I look at you and see the rest of my life in front</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="blog-details.html">If I know what love is, it is because of you</a>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Recent Posts Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Catagories</h2>
+
+                                <!-- Nav Widget Start -->
+                                <div class="nav--widget">
+                                    <ul class="nav fw--700">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Social Media</span>
+                                                <span class="count">(26)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Business Studies</span>
+                                                <span class="count">(06)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Technology</span>
+                                                <span class="count">(34)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Nav Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Recent Active Members</h2>
+
+                                <!-- Recent Active Members Widget Start -->
+                                <div class="recent-active-members--widget style--1">
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/01.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/02.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/03.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/04.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/05.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/06.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/07.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/08.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/09.jpg' %}" alt=""></a>
+                                    </div>
+
+                                    <div class="img">
+                                        <a href="member-activity-personal.html"><img src="{% static 'img/just-connect/widgets-img/recent-active-members/10.jpg' %}" alt=""></a>
+                                    </div>
+                                </div>
+                                <!-- Recent Active Members Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Useful Links</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">Register</a></li>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Membership Levels</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Forums</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="sub-forums.html">User Interface Design</a></li>
+                                        <li><a href="sub-forums.html">Front-End Engineering</a></li>
+                                        <li><a href="sub-forums.html">Web Development</a></li>
+                                        <li><a href="sub-forums.html">Social Media Marketing</a></li>
+                                        <li><a href="sub-forums.html">Content Marketing</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Tags</h2>
+
+                                <!-- Tags Widget Start -->
+                                <div class="tags--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">BuddyPress</a></li>
+                                        <li><a href="#">HTML</a></li>
+                                        <li><a href="#">Music</a></li>
+                                        <li><a href="#">Technology</a></li>
+                                        <li><a href="#">Movies</a></li>
+                                        <li><a href="#">Photography</a></li>
+                                        <li><a href="#">WordPress</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Tags Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Widgets End -->
+
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright pt--30 pb--30 bg-darkest">
+                <div class="container">
+                    <div class="text fw--500 fs--14 float--left">
+                        <p>Copyright &copy; Soci<span>fly</span>. All Rights Reserved.</p>
+                        <p>Design and Developed with <i class="fa fa-heart text-primary"></i> by <a href="https://themeforest.net/user/themelooks">ThemeLooks</a></p>
+                    </div>
+
+                    <div class="social float--right">
+                        <ul class="nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Back To Top Button Start -->
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="{% static 'js/just-connect/plugins.min.js' %}"></script>
+
+    <!-- ==== Color Switcher Plugin ==== -->
+    <script src="{% static 'js/just-connect/color-switcher.min.js' %}"></script>
+
+    <!-- ==== Main Script ==== -->
+    <script src="{% static 'js/just-connect/main.js' %}"></script>
+    <script charset="utf-8" type="text/javascript" src="{% static 'js/just-connect/v2.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: "POST",
+                url: "{% url 'get_profiles' %}",
+                data: {
+                    action: "get_profiles",
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    console.log(data)
+                    profile_name = data['profiles']
+                    $names = $("#profiles")
+                    var l = profile_name.length;
+                    for (i=0;i<l;i++){
+                        m = i+1;
+                        var element = document.createElement('option');
+                        $names.append(element);
+                        element.setAttribute('value', profile_name[i])
+                        element.setAttribute('id', 'profile-' + i)
+                        element.append('a')
+                        element.innerText = profile_name[i]
+                    }
+                    
+                }
+            });
+           
+        })
+        function gotoprofile(){
+            p_name = $("#profile").val()
+            $.ajax({
+                type: "POST",
+                url: "{% url 'member_profile' %}",
+                data: {
+                    action: "gotoprofile",
+                    p_name: p_name,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    console.log(data)
+                    member = data['member']
+                    profile = data['profile']
+                    window.location.href = "/connect/member-profile?member=" + member + "&profile=" + profile;
+                }
+            });
+        }
+    </script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="{% static 'js/jquery.lightbox.js' %}"></script>
+	<script src="{% static 'js/lightbox.js' %}"></script>
+
+    {% block customjs %}{% endblock %}
+
+</body>
+
+<!-- Mirrored from themelooks.us/demo/socifly/html/home-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Nov 2020 08:41:06 GMT -->
+
+</html>

@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+	.input_attri{
+		width: 80%;
+		border: none;
+		border-bottom: 2px solid rgba(0,0,0,.5);
+		margin-left: 1vw;
+	}
+	.input_attri:focus{
+		border-bottom: 2px solid #30c5ff;
+	}
+	.inp{
+		width: 140%;
+		margin-left: 2vw;
+	}
+	.but_add{
+		background: transparent;
+		border:none;
+		color: #30c5ff;
+		margin-left: auto;
+	}
+	.sub_but{
+		border:none;
+		padding-left: 4vw;
+		padding-right: 4vw;
+		padding-top: 1vh;
+		padding-bottom: 1vh;
+		background: #30c5ff;
+		color: #253031;
+		font-weight: bold;
+		border-radius: 25vw;
+		margin-left: auto;
+		margin-right: auto;
+		transition: all .5s ease;
+	}
+	.sub_but:hover{
+		background: #253031;
+		color: #30c5ff;
+	}
+	.acti_table{
+		width: 100%;
+	}
+	.acti_table tr,.acti_table th,.acti_table td{
+		border:2px solid black;
+	}
+	.acti_table td,.acti_table th{
+		padding: 8px;
+		overflow: hidden;
+	}
+
+	.acti_table th{
+        background-color: #30c5ff;
+        padding-left: 1vw;
+        padding-right: 1vw;}
+
+    </style>
+<div class="container">
+		{% if packing_prod789.0 %}
+
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Packing List Quantity</b></h3>
+
+			</div>
+
+			<div class="row mb-1 mt-1 mx-1">
+				{% for f in packing_prod789 %}
+
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for j in f.1 %}
+							<th>{{j}}</th>
+							{% endfor %}
+						</tr>
+						{% for q in f.2 %}
+						<tr>
+							<th><b>{{q.0}}</b></th>
+							<th><b>Location{{q.1.id}}</b></th>
+							{% for s in q.2 %}
+							<td>{{s}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+						<tr>
+							<th>Total</th>
+							<th>-</th>
+							{% for j in f.3 %}
+							<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+				</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+	<div class="container">
+		{% if balance_packingprod789.0 %}
+
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Balance Packing List Quantity</b></h3>
+
+			</div>
+
+			<div class="row mb-1 mt-1 mx-1">
+				{% for f in balance_packingprod789 %}
+
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for j in f.1 %}
+							<th>{{j}}</th>
+							{% endfor %}
+						</tr>
+						{% for q in f.2 %}
+						<tr>
+							<th><b>{{q.0}}</b></th>
+							<th><b>Location{{q.1.id}}</b></th>
+							{% for s in q.2 %}
+							<td>{{s}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+						<tr>
+							<th>Total</th>
+							<th>-</th>
+							{% for j in f.3 %}
+							<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+				</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+
+
+        <form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-3">
+						<label><b>Color</b></label>
+						<select name="color" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.colors_avail.all %}
+							<option value="{{a.id}}">{{a}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Address</b></label>
+						<select name="address" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.dispatch_Address.all %}
+							<option value="{{a.id}}">{{a.address}}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+
+<label><b>size</b></label>
+
+						{% for size in sizes_lst %}
+					<div class="col-3">
+						<label><b>{{ size }}</b></label>
+							<input type="number"  name="{{ size }}">
+
+						</div>
+							{% endfor %}
+
+
+
+				</div>
+				<div class="row mt-2">
+					<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;" class="save_but">Save</button>
+				</div>
+
+
+
+    </form>
+	<h1><a href="/userdetail/staff_profile/show_all_packing/{{ order.order_no }}">Show All Lists </a></h1>
+</div>
+
+{% endblock %}

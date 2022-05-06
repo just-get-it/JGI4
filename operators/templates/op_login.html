@@ -1,0 +1,32 @@
+{% extends 'op_base.html' %}
+{% block body_block %}
+  
+  <div class="container text-center">
+        <h1>Login Here</h1>
+        {{registerfirst}}
+  </div>
+
+  <form method="post" action="{% url 'operators:user_login' %}" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Operator ID</label>
+            <div class="col-sm-10">
+              <input type="text" name="operator_id" id="operator_id" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" name="password" id="password" required>
+            </div>
+        </div>
+
+        <div class="container text-center">
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+            <a class="btn btn-primary" href="register" role="button">Not Registered? Register here!</a>
+        </div>
+    </form>
+{% endblock %}

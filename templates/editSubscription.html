@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% comment %} <h1> Subscription details </h1>
+<div class="row mt-3">
+	
+	<div class="col-6 ml-auto mr-auto" name="before" id="before">
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+			<strong>Dear {{username}}</strong> Your changes will be applied after {{ product_period }} day{{ product_period|pluralize }}. If urgent, contact vendor at {{ vendor_email }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="row">
+			<div class="col-4">
+				<img class="card-img" src="{{product_image.url}}" alt="Not Found" onerror=this.src="{% static 'img/noimage.png' %}">
+			</div>
+			<div class="col-8">
+				<h5>{{product_name}}</h5>
+			</div>
+		</div>
+		<br />
+        <form action="{% url 'updateSubscription'%}" method='POST'>
+            {% csrf_token %}
+            <input type="text" value={{transaction_id}} name="transaction_id" style="display: none;"> {% endcomment %}
+			{% comment %} QUANTITY {% endcomment %}
+			{% comment %} <div class="form-group row" style="width: 500px;">
+				<label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+				{% if unit_of_measurement == 'K' %}
+					<div class="col-sm-4">
+						<input type="number" min="0.25" step="0.25" name="quantity" value="{{quantity}}" class="form-control" >
+					</div>
+					<h6>Kg(s)</h6>
+				{% elif unit_of_measurement == 'L' %}
+					<div class="col-sm-4">
+						<input type="number" min="0.5" step="0.5" name="quantity" value="{{quantity}}" class="form-control" >
+					</div>
+					<h6>litre(s)</h6>
+				{% else %}
+					<div class="col-sm-4">
+						<input type="number" min="1" name="quantity" value="{{quantity}}" class="form-control" >
+					</div>
+					<h6>Piece(s)</h6>
+				{% endif %}
+			</div> {% endcomment %}
+			 {% comment %} AMOUNT {% endcomment %}
+			{% comment %} <div class="form-group row" style="width: 500px;">
+				<div class="form-group-row">
+					<div class="col-sm-12">
+						<h6> Price = Rs.<span id="amount">{{amount}}</span></h6>
+					</div>
+					<input type="number" step="0.25" name="amount" value="{{amount}}" style="display: none;">
+				</div>
+			</div>
+			<input type="number" name="base_price" value="{{base_price}}" style="display: none;">
+			
+            <div class="form-row" style="width: 500px;">
+				<label for="date" class="col-sm-2 col-form-label">Start Date</label>
+				{% if cannot_edit_start_date %}
+					<div class="col-sm-8">
+						<input type="date" value={{start_date|date:"Y-m-d"}} class="form-control" disabled>
+					</div>
+					<input type="date" name="start_date" value={{start_date|date:"Y-m-d"}} style="display: none;">
+				{% else %}
+					<div class="col-sm-8">
+						<input type="date" name="start_date" min="{{today_date|date:"Y-m-d"}}" value={{start_date|date:"Y-m-d"}} class="form-control" >
+					</div>
+				{% endif %}
+            </div>
+			<div class="form-row" style="width: 500px;">
+				<label for="date" class="col-sm-2 col-form-label">End Date</label>
+				<div class="col-sm-8">
+					<input type="date" name="end_date" value={{end_date|date:"Y-m-d"}} class="form-control" >
+				</div>
+            </div>
+			<div class="form-group row" style="width: 500px;">
+				<label for="interval" class="col-sm-2 col-form-label">Frequency</label>
+				<div class="col-sm-4">
+					<input type="number" min="1" value={{sub_interval}} name="interval" class="form-control" >
+				</div>
+				<br>
+				<div>
+					<strong>Note:</strong> <span>frequency=2 means you will get delivery every 2 days. So for weekly delivery enter 7 which means you will recieve delivery every 7 days.</span>
+				</div>
+			</div>
+			<div class="form-row" style="width: 500px;">
+				<label for="shift" class="col-sm-2 col-form-label">Time for delivery: </label>
+				<div class="col-sm-4">
+					{% if shifts == "M" %}
+						<select class="form-control" name="shift">
+							<option value='M' selected> Morning </option>
+							<option value='A'> Afternoon </option>
+							<option value='E'> Evening </option>
+						</select>
+					{% elif shifts == "A" %}
+						<select class="form-control" name="shift">
+							<option value='M'> Morning </option>
+							<option value='A' selected> Afternoon </option>
+							<option value='E'> Evening </option>
+						</select>
+					{% else %}
+						<select class="form-control" name="shift">
+							<option value='M'> Morning </option>
+							<option value='A'> Afternoon </option>
+							<option value='E' selected> Evening </option>
+						</select>
+					{% endif %}
+				</div>
+			</div>
+			<div class="form-row" style="width: 500px;">
+				<label for="remark" class="col-sm-2 col-form-label">Remarks</label>
+				<div class="col-sm-8">
+					<input type="text" min="1" name="remark" value="{{remark}}" class="form-control" >
+				</div>
+            </div>
+            {% if stop_next %}
+				<input name="stop_next" value="s" type='radio' checked>
+				<label for='stop_next'>Stop</label>
+				<input name="stop_next" value="c" type='radio'>
+				<label for='stop_nextC'>Continue</label>
+			{% else %}
+				<input name="stop_next" value="s" type='radio'>
+				<label for='stop_next'>Stop</label>
+				<input name="stop_next" value="c" type='radio' checked>
+				<label for='stop_next'>Continue</label>
+			{% endif %}
+            <br>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+        <form action="{% url 'deleteSubscription' %}" method="POST">
+        {% csrf_token %}
+            <input type="text" value={{transaction_id}} name="transaction_id" style="display: none;">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</div> {% endcomment %}
+
+<div class="container-fluid my-2">
+	<h1> Edit Subscription </h1>
+	<div class="row">
+		<div class="col-4">
+			<img class="card-img" src="{{product_image.url}}" alt="Not Found" onerror=this.src="{% static 'img/noimage.png' %}">
+		</div>
+		<div class="col-8">
+			<h5>{{product_name}}</h5>
+			<div class="row mx-5 my-1">
+				<form action="{% url 'updateSubscription'%}" method='POST'>
+					{% csrf_token %}
+					<input type="text" value={{transaction_id}} name="transaction_id" style="display: none;">
+					{% comment %} QUANTITY {% endcomment %}
+					<div class="form-group row" style="width: 500px;">
+						<label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+						{% if unit_of_measurement == 'K' %}
+							<div class="col-sm-4">
+								<input type="number" min="0.25" step="0.25" name="quantity" value="{{quantity}}" class="form-control" >
+							</div>
+							<h6>Kg(s)</h6>
+						{% elif unit_of_measurement == 'L' %}
+							<div class="col-sm-4">
+								<input type="number" min="0.5" step="0.5" name="quantity" value="{{quantity}}" class="form-control" >
+							</div>
+							<h6>litre(s)</h6>
+						{% else %}
+							<div class="col-sm-4">
+								<input type="number" min="1" name="quantity" value="{{quantity}}" class="form-control" >
+							</div>
+							<h6>Piece(s)</h6>
+						{% endif %}
+					</div>
+					{% comment %} AMOUNT {% endcomment %}
+					<div class="form-group row" style="width: 500px;">
+						<div class="form-group-row">
+							<div class="col-sm-12">
+								<h6> Price = Rs.<span id="amount">{{amount}}</span></h6>
+							</div>
+							<input type="number" step="0.0001" name="amount" value="{{amount}}" style="display: none;">
+						</div>
+					</div>
+					<input type="number" name="base_price" value="{{base_price}}" style="display: none;">
+					
+					<div class="form-row" style="width: 500px;">
+						<label for="date" class="col-sm-2 col-form-label">Start Date</label>
+						{% if cannot_edit_start_date %}
+							<div class="col-sm-8">
+								<input type="date" value={{start_date|date:"Y-m-d"}} class="form-control" disabled>
+							</div>
+							<input type="date" name="start_date" value={{start_date|date:"Y-m-d"}} style="display: none;">
+						{% else %}
+							<div class="col-sm-8">
+								<input type="date" name="start_date" min="{{today_date|date:"Y-m-d"}}" value={{start_date|date:"Y-m-d"}} class="form-control" >
+							</div>
+						{% endif %}
+					</div>
+					<div class="form-row" style="width: 500px;">
+						<label for="date" class="col-sm-2 col-form-label">End Date</label>
+						<div class="col-sm-8">
+							<input type="date" name="end_date" value={{end_date|date:"Y-m-d"}} class="form-control" >
+						</div>
+					</div>
+					<div class="form-group row" style="width: 500px;">
+						<label for="interval" class="col-sm-2 col-form-label">Frequency</label>
+						<div class="col-sm-4">
+							<input type="number" min="1" value={{sub_interval}} name="interval" class="form-control" >
+						</div>
+						<br>
+						<div>
+							<strong>Note:</strong> <span>frequency=2 means you will get delivery every 2 days. So for weekly delivery enter 7 which means you will recieve delivery every 7 days.</span>
+						</div>
+					</div>
+					<div class="form-row" style="width: 500px;">
+						<label for="shift" class="col-sm-2 col-form-label">Time for delivery: </label>
+						<div class="col-sm-4">
+							{% if shifts == "M" %}
+								<select class="form-control" name="shift">
+									<option value='M' selected> Morning </option>
+									<option value='A'> Afternoon </option>
+									<option value='E'> Evening </option>
+								</select>
+							{% elif shifts == "A" %}
+								<select class="form-control" name="shift">
+									<option value='M'> Morning </option>
+									<option value='A' selected> Afternoon </option>
+									<option value='E'> Evening </option>
+								</select>
+							{% else %}
+								<select class="form-control" name="shift">
+									<option value='M'> Morning </option>
+									<option value='A'> Afternoon </option>
+									<option value='E' selected> Evening </option>
+								</select>
+							{% endif %}
+						</div>
+					</div>
+					<div class="form-row" style="width: 500px;">
+						<label for="remark" class="col-sm-2 col-form-label">Remarks</label>
+						<div class="col-sm-8">
+							<input type="text" min="1" name="remark" value="{{remark}}" class="form-control" >
+						</div>
+					</div>
+					{% if stop_next %}
+						<input name="stop_next" value="s" type='radio' checked>
+						<label for='stop_next'>Stop</label>
+						<input name="stop_next" value="c" type='radio'>
+						<label for='stop_nextC'>Continue</label>
+					{% else %}
+						<input name="stop_next" value="s" type='radio'>
+						<label for='stop_next'>Stop</label>
+						<input name="stop_next" value="c" type='radio' checked>
+						<label for='stop_next'>Continue</label>
+					{% endif %}
+					<br>
+					<button type="submit" class="btn btn-primary">Update</button>
+				</form>
+			</div>
+			<div class="row mx-5">
+				<form action="{% url 'deleteSubscription' %}" method="POST">
+				{% csrf_token %}
+					<input type="text" value={{transaction_id}} name="transaction_id" style="display: none;">
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+ {% comment %} PRICE CALCULATION {% endcomment %}
+<script>
+	var base_price = $("input[name=base_price]").val()
+	$("input[name=quantity]").change(function(e) {
+		var quantity = $("input[name=quantity]").val();
+		var price = quantity*base_price;
+		$("#amount").text(price);
+		$("input[name=amount]").val(price);
+	})
+</script>
+{% endblock content %}

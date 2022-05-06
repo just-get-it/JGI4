@@ -1,0 +1,85 @@
+
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load qr_code %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style media="screen">
+  .but_print{
+    background:#30c5ff;
+    border:none;
+    border-radius:25vw;
+    transition:all 1s ease;
+    /* font-weight:bold; */
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .but_print:hover{
+    background:#253031;
+    color:#30c5ff;
+  }
+</style>
+<a href="/userdetail/staff_profile/orders/view_all_qr/{{order.order_no}}">
+<button type="button" class="px-4 py-1 but_print">Print All Qrs</button>
+</a>
+<script>
+function myFunction() {
+  window.print();
+}
+</script>
+<div class="row">
+  <div class="container mt-4">
+    <div class="row">
+      <h6 style="color:grey;">Order - {{order.order_no}} / QR Generate / </h6>
+      <h6><b>&nbsp;&nbsp;Cartons QR</b></h6>
+    </div>
+
+  </div>
+  <div class="container mt-1">
+    <div class="row">
+      {% for i in cartons_links %}
+      <div class="col-3">
+        <div class="container-fluid">
+
+          <div class="row">
+            {% qr_from_text i.qr %}
+          </div>
+          <div class="row ml-auto">
+            <h6 style="margin-left:auto;margin-right:auto;"><b>Carton - {{forloop.counter}}</b></h6>
+          </div>
+          <div class="row mb-4">
+            <div class="col-5">
+             <a href="/userdetail/staff_profile/orders/{{order.order_no}}/print_individual_carton/{{i.id}}"> <button type="button" class="px-4 py-1 but_print" >Print</button>
+            </div>
+            <div class="col-7">
+             <a href="/userdetail/staff_profile/orders/{{order.order_no}}/print_pieces_inside_carton/{{i.id}}"> <button type="button" class="px-2 py-1 but_print">Print all pieces qr</button></a>
+            </div>
+              <div class="col-7">
+            <a href="/userdetail/staff_profile/orders/{{order.order_no}}/show_pieces_inside_carton/{{i.id}}"><button type="button" class="px-2 py-1 but_print">Show all pieces qr</button></a>
+              </div><div class="col-7">
+             <a href="/userdetail/staff_profile/orders/{{order.order_no}}/inside_carton/{{i.id}}"> <button type="button" class="px-2 py-1 but_print">View Carton</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

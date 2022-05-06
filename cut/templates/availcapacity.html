@@ -1,0 +1,149 @@
+{% extends 'basecut.html' %}
+
+    {% block content %}
+			{% csrf_token %}
+
+	
+<style type="text/css">
+  .hidden{
+   visibility:hidden;
+}
+</style>
+			
+      <div class="container text-center">
+        <h1>Available Capacity</h1>
+    </div>
+    <form class= "", action="", method="POST", id="myForm">
+ 
+
+	{% csrf_token %}
+
+	<div class="form-group col">
+
+
+		<p><label for="id_tableno">Table No:</label> <input type="number" name="tableno" required="" id="id_tableno"></p>
+
+    <p><label for="id_tabletype">Table Type:</label> 
+    <select name="tabletype" required="" id="id_tabletype">
+    <option value="" selected="">---------</option>
+    <option value="pintable">Pin Table</option>
+    <option value="airfloation">Air Floation</option>
+    <option value="normal">Normal</option>
+  </select></p>
+
+		<p><label for="id_modeofspread">Mode of Spreading:</label> <select name="modeofspread" required="" id="id_modeofspread">
+			<option value="" selected="">---------</option>
+
+			<option value="manual">Manual</option>
+
+			<option value="autospreader">Auto Spreader</option>
+
+		</select></p>
+		<p><label for="id_modeofcut">Mode of Cutting:</label> <select name="modeofcut" required="" id="id_modeofcut">
+			<option value="" selected="">---------</option>
+
+			<option value="manual">Manual</option>
+
+			<option value="cnc">CNC</option>
+
+		</select></p>
+		<p><label for="id_availcapaforspreadandcut">Available Capacity For Spreading & Cutting per day:</label> <input type="number" name="availcapaforspreadandcut" required="" id="id_availcapaforspreadandcut"></p>
+
+    <br>
+    <br>
+
+    <button class="btn btn-primary" id="id_submit" type="submit" href="/", value="Submit">Submit</button>
+
+    <br>
+    <br>
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p><label class="hidden" for="id_capacityleft">Capacity Left:</label> <input type="number" name="capacityleft" required="" id="id_capacityleft" class="hidden"></p>
+
+    <p><label class="hidden" for="id_datefield">Date:</label> <input type="date" name="datefield" value="2001-01-01" id="id_datefield" class="hidden"></p>
+	{% csrf_token %}
+ 
+			
+
+		</form>
+
+	</div>
+			
+
+<div>
+
+  <button class="btn btn-primary" id="id_summary" onclick="myFunc()">Summary</button>
+
+  <br>
+  <br>
+
+  <style type="text/css">
+  table {display: none; border-collapse: collapse;}
+  th, td {
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+  }
+  </style>
+
+  <table id="tableid" border="1" align="center" width="50%" >
+
+    <tr>
+        <th>Table No</th>
+        <th>Table Type</th>
+        <th>Mode of Spreading</th>
+        <th>Mode of Cutting</th>
+        <th>Available Capacity For Spreading & Cutting per day</th>
+        <th>Capacity Left</th>
+        <th>Date</th>
+       
+    </tr>
+    {% for item in availablecapacityobjects %}
+    <tr> 
+        <td>{{ item.tableno }}</td>
+        <td>{{ item.tabletype }}</td>
+        <td>{{ item.modeofspread }}</td>
+        <td>{{ item.modeofcut }}</td>
+        <td>{{ item.availcapaforspreadandcut }}</td>
+        <td>{{ item.capacityleft }}</td>
+        <td>{{ item.datefield }}</td>
+       
+    </tr>
+    {% endfor %} 
+  </table>
+
+  </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+
+  function myFunc(){
+    var x = document.getElementById("tableid");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  // Capacity Left
+
+  $("#id_availcapaforspreadandcut").keyup(function () {
+
+    $('#id_capacityleft').val(Number($('#id_availcapaforspreadandcut').val())); 
+  });
+
+</script>
+
+
+	{% endblock %}

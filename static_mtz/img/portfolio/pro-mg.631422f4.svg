@@ -1,0 +1,19 @@
+
+<svg width="327" height="200" viewBox="0 0 327 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M242 26L255.83 42.34L269.66 26L283.49 42.34L297.32 26L311.16 42.34L325 26" stroke="#F1F2F0" stroke-width="4"/>
+<path d="M242 4L255.83 20.34L269.66 4L283.49 20.34L297.32 4L311.16 20.34L325 4" stroke="#F1F2F0" stroke-width="4"/>
+<path d="M2 180L15.83 196.34L29.66 180L43.49 196.34L57.32 180L71.16 196.34L85 180" stroke="#F1F2F0" stroke-width="4"/>
+<path d="M2 158L15.83 174.34L29.66 158L43.49 174.34L57.32 158L71.16 174.34L85 158" stroke="#F1F2F0" stroke-width="4"/>
+<circle cx="168" cy="105" r="80" fill="#FEE2E7"/>
+<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="88" y="25" width="160" height="160">
+<circle cx="168" cy="105" r="80" fill="white"/>
+</mask>
+<g mask="url(#mask0)">
+</g>
+<circle cx="148" cy="74" r="15" fill="#6F242B"/>
+<path d="M127 119C127 106.85 136.85 97 149 97C161.15 97 171 106.85 171 119V145H127V119Z" fill="#C57C89"/>
+<circle cx="186" cy="74" r="15" fill="#6F242B"/>
+<path d="M165 119C165 106.85 174.85 97 187 97C199.15 97 209 106.85 209 119V145H165V119Z" fill="#C57C89"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M165 145H171V119C171 114.952 169.907 111.16 168 107.902C166.093 111.16 165 114.952 165 119V145Z" fill="#6F242B"/>
+<path d="M189.071 119.219L206 102.29L204.71 101L189.071 116.661L183.268 110.858L182 112.148L189.071 119.219Z" fill="#6F242B" stroke="#6F242B" stroke-width="4"/>
+</svg>

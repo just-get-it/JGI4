@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block customcss %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<style type="text/css">
+	.not_activated{
+		height: 92vh;
+		font-family: 'Cabin', sans-serif;
+		display: grid;
+		justify-content: center;
+		color: white;
+		background: rgba(0,0,0,.5);
+	}
+	.not_content{
+		margin: auto;
+	}
+</style>
+<div class="row not_activated">
+	<div class="row not_content">
+		<h3>Your Buisness Account has not been activated by Admin. So <a href="/contact-us">Contact US</a></h3>
+	</div>
+</div>
+
+{% endblock %}

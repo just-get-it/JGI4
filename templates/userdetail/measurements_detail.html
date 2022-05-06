@@ -1,0 +1,1078 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/measurement_detail.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" {% if not meas %} style="margin-bottom: 25vh;" {% endif %}>
+	<div class="container mt-2 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Measurement</h3>
+		</div>
+	</div>
+
+
+	{% if meas %}
+
+
+
+	<div class="container" style="box-shadow: 0 0 3px black;">
+		<div class="row mt-2 mb-2 centered">
+
+				<h4><b>Base Label - {{meas.name}}</b></h4>
+
+		</div>
+		<div class="row mb-2">
+			<div class="col-4 centered">
+				<h6><b>Label -</b> {{meas.label}}</h6>
+			</div>
+			<div class="col-4 centered">
+				<h6><b>Fit -</b> {{meas.fit}}</h6>
+			</div>
+			<div class="col-4 centered">
+				<h6><b>Season -</b> {{meas.season}}</h6>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-4 centered">
+				<h6><b>Product Category -</b> {{meas.product_Category}}</h6>
+			</div>
+			<div class="col-4 centered">
+				<h6><b>Product Sub-Category -</b> {{meas.product_Subcategory}}</h6>
+			</div>
+			<div class="col-4 centered">
+				<h6><b>Product Super-Category -</b> {{meas.product_Supercategory}}</h6>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-4 mb-4" style="border-bottom: 1px solid rgba(0,0,0,.3)">
+		<div class="row">
+			<h3 style="font-family: 'Cabin', sans-serif;">Measurement Chart</h3>
+			<p style="font-family: 'Cabin', sans-serif;font-size: .8em; margin-left: 1vw; margin-top: auto;">(In {% if request.GET.half %}Half POM{% else %}Full POM{% endif %} and {% if request.GET.cm %}CentiMeters{% else %}Inch{% endif %})</p>
+		</div>
+	</div>
+
+
+	<div class="container mt-2">
+		<div class="row">
+			{% if request.GET.half %}
+			<!-- <a href="/userdetail/seller_profile/measurements/{{meas.slug}}" style="margin-left: auto;"><button class="halfpom">Full POM</button></a> -->
+				{% if request.GET.cm %}
+				<a href="/userdetail/seller_profile/measurements/{{meas.slug}}?cm=True" style="margin-left: auto;"><button class="halfpom">Full POM</button></a>
+				{% else %}
+				<a href="/userdetail/seller_profile/measurements/{{meas.slug}}" style="margin-left: auto;"><button class="halfpom">Full POM</button></a>
+				{% endif %}
+			{% else %}
+			<!-- <a href="?half=True" style="margin-left: auto;"><button class="halfpom">Half POM</button></a> -->
+				{% if request.GET.cm %}
+				<a href="?half=True&cm=True" style="margin-left: auto;"><button class="halfpom">Half POM</button></a>
+				{% else %}
+				<a href="?half=True" style="margin-left: auto;"><button class="halfpom">Half POM</button></a>
+				{% endif %}
+			{% endif %}
+			{% if request.GET.cm %}
+				{% if request.GET.half %}
+					<a href="/userdetail/seller_profile/measurements/{{meas.slug}}?half=True"><button class="halfpom">Inch</button></a>
+				{% else %}
+					<a href="/userdetail/seller_profile/measurements/{{meas.slug}}"><button class="halfpom">Inch</button></a>
+				{% endif %}
+			{% else %}
+				{% if request.GET.half %}
+					<a href="?cm=True&half=True"><button class="inch">cm</button></a>
+				{% else %}
+					<a href="?cm=True"><button class="inch">cm</button></a>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+
+<input type="hidden" value="{{meas.name}}" id="base_size">
+	<div class="container mt-3 mb-4">
+		<div class="row">
+			<table style="width: 100%;" class="meas_chart">
+
+				<tr>
+					<th>Points</th>
+					<th>Factory<br> Tolerance</th>
+					<th>Consumer<br> Tolerance</th>
+					<th>24</th>
+					<th>26</th>
+					<th>28</th>
+					<th>30</th>
+					<th>32</th>
+					<th>34</th>
+					<th>36</th>
+					<th>38</th>
+					<th>40</th>
+					<th>42</th>
+					<th>44</th>
+					<th>46</th>
+					<th>48</th>
+					<th>50</th>
+					<th>52</th>
+				</tr>
+				{% if meas1.0 %}
+				<tr>
+					<th>{{meas1.0.label}}</th>
+					<td id="convert_base_ab1">{{tb1}}</td>
+					<td id="convert_base_ab1">{% widthratio tb1 1 2 %}</td>
+					<td id="convert_data_row1_01">28</td>
+					<td id="convert_data_row1_0">28</td>
+					<td id="convert_data_row1_1">28</td>
+					<td id="convert_data_row1_2">28</td>
+					<td id="convert_data_row1_3">28</td>
+					<td id="convert_data_row1_4">28</td>
+					<td id="convert_data_row1_5">28</td>
+					<td id="convert_data_row1_6">28</td>
+					<td id="convert_data_row1_7">28</td>
+					<td id="convert_data_row1_8">28</td>
+					<td id="convert_data_row1_9">28</td>
+					<td id="convert_data_row1_10">28</td>
+					<td id="convert_data_row1_11">28</td>
+					<td id="convert_data_row1_12">28</td>
+					<td id="convert_data_row1_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.1 %}
+				<tr>
+					<th>{{meas1.1.label}}</th>
+					<td id="convert_base_ab2">{{tb2}}</td>
+					<td id="convert_base_ab2">{% widthratio tb2 1 2 %}</td>
+					<td id="convert_data_row2_01">28</td>
+					<td id="convert_data_row2_0">28</td>
+					<td id="convert_data_row2_1">28</td>
+					<td id="convert_data_row2_2">28</td>
+					<td id="convert_data_row2_3">28</td>
+					<td id="convert_data_row2_4">28</td>
+					<td id="convert_data_row2_5">28</td>
+					<td id="convert_data_row2_6">28</td>
+					<td id="convert_data_row2_7">28</td>
+					<td id="convert_data_row2_8">28</td>
+					<td id="convert_data_row2_9">28</td>
+					<td id="convert_data_row2_10">28</td>
+					<td id="convert_data_row2_11">28</td>
+					<td id="convert_data_row2_12">28</td>
+					<td id="convert_data_row2_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.2 %}
+				<tr>
+					<th>{{meas1.2.label}}</th>
+					<td id="convert_base_ab3">{{tb3}}</td>
+					<td id="convert_base_ab3">{% widthratio tb3 1 2 %}</td>
+					<td id="convert_data_row3_01">28</td>
+					<td id="convert_data_row3_0">28</td>
+					<td id="convert_data_row3_1">28</td>
+					<td id="convert_data_row3_2">28</td>
+					<td id="convert_data_row3_3">28</td>
+					<td id="convert_data_row3_4">28</td>
+					<td id="convert_data_row3_5">28</td>
+					<td id="convert_data_row3_6">28</td>
+					<td id="convert_data_row3_7">28</td>
+					<td id="convert_data_row3_8">28</td>
+					<td id="convert_data_row3_9">28</td>
+					<td id="convert_data_row3_10">28</td>
+					<td id="convert_data_row3_11">28</td>
+					<td id="convert_data_row3_12">28</td>
+					<td id="convert_data_row3_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.3 %}
+				<tr>
+					<th>{{meas1.3.label}}</th>
+					<td id="convert_base_ab4">{{tb4}}</td>
+					<td id="convert_base_ab4">{% widthratio tb4 1 2 %}</td>
+					<td id="convert_data_row4_01">28</td>
+					<td id="convert_data_row4_0">28</td>
+					<td id="convert_data_row4_1">28</td>
+					<td id="convert_data_row4_2">28</td>
+					<td id="convert_data_row4_3">28</td>
+					<td id="convert_data_row4_4">28</td>
+					<td id="convert_data_row4_5">28</td>
+					<td id="convert_data_row4_6">28</td>
+					<td id="convert_data_row4_7">28</td>
+					<td id="convert_data_row4_8">28</td>
+					<td id="convert_data_row4_9">28</td>
+					<td id="convert_data_row4_10">28</td>
+					<td id="convert_data_row4_11">28</td>
+					<td id="convert_data_row4_12">28</td>
+					<td id="convert_data_row4_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.4 %}
+				<tr>
+					<th>{{meas1.4.label}}</th>
+					<td id="convert_base_ab5">{{tb5}}</td>
+					<td id="convert_base_ab5">{% widthratio tb5 1 2 %}</td>
+					<td id="convert_data_row5_01">28</td>
+					<td id="convert_data_row5_0">28</td>
+					<td id="convert_data_row5_1">28</td>
+					<td id="convert_data_row5_2">28</td>
+					<td id="convert_data_row5_3">28</td>
+					<td id="convert_data_row5_4">28</td>
+					<td id="convert_data_row5_5">28</td>
+					<td id="convert_data_row5_6">28</td>
+					<td id="convert_data_row5_7">28</td>
+					<td id="convert_data_row5_8">28</td>
+					<td id="convert_data_row5_9">28</td>
+					<td id="convert_data_row5_10">28</td>
+					<td id="convert_data_row5_11">28</td>
+					<td id="convert_data_row5_12">28</td>
+					<td id="convert_data_row5_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.5 %}
+				<tr>
+					<th>{{meas1.5.label}}</th>
+					<td id="convert_base_ab6">{{tb6}}</td>
+					<td id="convert_base_ab6">{% widthratio tb6 1 2 %}</td>
+					<td id="convert_data_row6_01">28</td>
+					<td id="convert_data_row6_0">28</td>
+					<td id="convert_data_row6_1">28</td>
+					<td id="convert_data_row6_2">28</td>
+					<td id="convert_data_row6_3">28</td>
+					<td id="convert_data_row6_4">28</td>
+					<td id="convert_data_row6_5">28</td>
+					<td id="convert_data_row6_6">28</td>
+					<td id="convert_data_row6_7">28</td>
+					<td id="convert_data_row6_8">28</td>
+					<td id="convert_data_row6_9">28</td>
+					<td id="convert_data_row6_10">28</td>
+					<td id="convert_data_row6_11">28</td>
+					<td id="convert_data_row6_12">28</td>
+					<td id="convert_data_row6_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.6 %}
+				<tr>
+					<th>{{meas1.6.label}}</th>
+					<td id="convert_base_ab7">{{tb7}}</td>
+					<td id="convert_base_ab7">{% widthratio tb7 1 2 %}</td>
+					<td id="convert_data_row7_01">28</td>
+					<td id="convert_data_row7_0">28</td>
+					<td id="convert_data_row7_1">28</td>
+					<td id="convert_data_row7_2">28</td>
+					<td id="convert_data_row7_3">28</td>
+					<td id="convert_data_row7_4">28</td>
+					<td id="convert_data_row7_5">28</td>
+					<td id="convert_data_row7_6">28</td>
+					<td id="convert_data_row7_7">28</td>
+					<td id="convert_data_row7_8">28</td>
+					<td id="convert_data_row7_9">28</td>
+					<td id="convert_data_row7_10">28</td>
+					<td id="convert_data_row7_11">28</td>
+					<td id="convert_data_row7_12">28</td>
+					<td id="convert_data_row7_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.7 %}
+				<tr>
+					<th>{{meas1.7.label}}</th>
+					<td id="convert_base_ab8">{{tb8}}</td>
+					<td id="convert_base_ab8">{% widthratio tb8 1 2 %}</td>
+					<td id="convert_data_row8_01">28</td>
+					<td id="convert_data_row8_0">28</td>
+					<td id="convert_data_row8_1">28</td>
+					<td id="convert_data_row8_2">28</td>
+					<td id="convert_data_row8_3">28</td>
+					<td id="convert_data_row8_4">28</td>
+					<td id="convert_data_row8_5">28</td>
+					<td id="convert_data_row8_6">28</td>
+					<td id="convert_data_row8_7">28</td>
+					<td id="convert_data_row8_8">28</td>
+					<td id="convert_data_row8_9">28</td>
+					<td id="convert_data_row8_10">28</td>
+					<td id="convert_data_row8_11">28</td>
+					<td id="convert_data_row8_12">28</td>
+					<td id="convert_data_row8_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.8 %}
+				<tr>
+					<th>{{meas1.8.label}}</th>
+					<td id="convert_base_ab9">{{tb9}}</td>
+					<td id="convert_base_ab9">{% widthratio tb9 1 2 %}</td>
+					<td id="convert_data_row9_01">28</td>
+					<td id="convert_data_row9_0">28</td>
+					<td id="convert_data_row9_1">28</td>
+					<td id="convert_data_row9_2">28</td>
+					<td id="convert_data_row9_3">28</td>
+					<td id="convert_data_row9_4">28</td>
+					<td id="convert_data_row9_5">28</td>
+					<td id="convert_data_row9_6">28</td>
+					<td id="convert_data_row9_7">28</td>
+					<td id="convert_data_row9_8">28</td>
+					<td id="convert_data_row9_9">28</td>
+					<td id="convert_data_row9_10">28</td>
+					<td id="convert_data_row9_11">28</td>
+					<td id="convert_data_row9_12">28</td>
+					<td id="convert_data_row9_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.9 %}
+				<tr>
+					<th>{{meas1.9.label}}</th>
+					<td id="convert_base_ab10">{{tb10}}</td>
+					<td id="convert_base_ab10">{% widthratio tb10 1 2 %}</td>
+					<td id="convert_data_row10_01">28</td>
+					<td id="convert_data_row10_0">28</td>
+					<td id="convert_data_row10_1">28</td>
+					<td id="convert_data_row10_2">28</td>
+					<td id="convert_data_row10_3">28</td>
+					<td id="convert_data_row10_4">28</td>
+					<td id="convert_data_row10_5">28</td>
+					<td id="convert_data_row10_6">28</td>
+					<td id="convert_data_row10_7">28</td>
+					<td id="convert_data_row10_8">28</td>
+					<td id="convert_data_row10_9">28</td>
+					<td id="convert_data_row10_10">28</td>
+					<td id="convert_data_row10_11">28</td>
+					<td id="convert_data_row10_12">28</td>
+					<td id="convert_data_row10_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.10 %}
+				<tr>
+					<th>{{meas1.10.label}}</th>
+					<td id="convert_base_ab11">{{tb11}}</td>
+					<td id="convert_base_ab11">{% widthratio tb11 1 2 %}</td>
+					<td id="convert_data_row11_01">28</td>
+					<td id="convert_data_row11_0">28</td>
+					<td id="convert_data_row11_1">28</td>
+					<td id="convert_data_row11_2">28</td>
+					<td id="convert_data_row11_3">28</td>
+					<td id="convert_data_row11_4">28</td>
+					<td id="convert_data_row11_5">28</td>
+					<td id="convert_data_row11_6">28</td>
+					<td id="convert_data_row11_7">28</td>
+					<td id="convert_data_row11_8">28</td>
+					<td id="convert_data_row11_9">28</td>
+					<td id="convert_data_row11_10">28</td>
+					<td id="convert_data_row11_11">28</td>
+					<td id="convert_data_row11_12">28</td>
+					<td id="convert_data_row11_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.11 %}
+				<tr>
+					<th>{{meas1.11.label}}</th>
+					<td id="convert_base_ab12">{{tb12}}</td>
+					<td id="convert_base_ab12">{% widthratio tb12 1 2 %}</td>
+					<td id="convert_data_row12_01">28</td>
+					<td id="convert_data_row12_0">28</td>
+					<td id="convert_data_row12_1">28</td>
+					<td id="convert_data_row12_2">28</td>
+					<td id="convert_data_row12_3">28</td>
+					<td id="convert_data_row12_4">28</td>
+					<td id="convert_data_row12_5">28</td>
+					<td id="convert_data_row12_6">28</td>
+					<td id="convert_data_row12_7">28</td>
+					<td id="convert_data_row12_8">28</td>
+					<td id="convert_data_row12_9">28</td>
+					<td id="convert_data_row12_10">28</td>
+					<td id="convert_data_row12_11">28</td>
+					<td id="convert_data_row12_12">28</td>
+					<td id="convert_data_row12_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.12 %}
+				<tr>
+					<th>{{meas1.12.label}}</th>
+					<td id="convert_base_ab13">{{tb13}}</td>
+					<td id="convert_base_ab13">{% widthratio tb13 1 2 %}</td>
+					<td id="convert_data_row13_01">28</td>
+					<td id="convert_data_row13_0">28</td>
+					<td id="convert_data_row13_1">28</td>
+					<td id="convert_data_row13_2">28</td>
+					<td id="convert_data_row13_3">28</td>
+					<td id="convert_data_row13_4">28</td>
+					<td id="convert_data_row13_5">28</td>
+					<td id="convert_data_row13_6">28</td>
+					<td id="convert_data_row13_7">28</td>
+					<td id="convert_data_row13_8">28</td>
+					<td id="convert_data_row13_9">28</td>
+					<td id="convert_data_row13_10">28</td>
+					<td id="convert_data_row13_11">28</td>
+					<td id="convert_data_row13_12">28</td>
+					<td id="convert_data_row13_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.13 %}
+				<tr>
+					<th>{{meas1.13.label}}</th>
+					<td id="convert_base_ab14">{{tb14}}</td>
+					<td id="convert_base_ab14">{% widthratio tb14 1 2 %}</td>
+					<td id="convert_data_row14_01">28</td>
+					<td id="convert_data_row14_0">28</td>
+					<td id="convert_data_row14_1">28</td>
+					<td id="convert_data_row14_2">28</td>
+					<td id="convert_data_row14_3">28</td>
+					<td id="convert_data_row14_4">28</td>
+					<td id="convert_data_row14_5">28</td>
+					<td id="convert_data_row14_6">28</td>
+					<td id="convert_data_row14_7">28</td>
+					<td id="convert_data_row14_8">28</td>
+					<td id="convert_data_row14_9">28</td>
+					<td id="convert_data_row14_10">28</td>
+					<td id="convert_data_row14_11">28</td>
+					<td id="convert_data_row14_12">28</td>
+					<td id="convert_data_row14_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.14 %}
+				<tr>
+					<th>{{meas1.14.label}}</th>
+					<td id="convert_base_ab15">{{tb15}}</td>
+					<td id="convert_base_ab15">{% widthratio tb15 1 2 %}</td>
+					<td id="convert_data_row15_01">28</td>
+					<td id="convert_data_row15_0">28</td>
+					<td id="convert_data_row15_1">28</td>
+					<td id="convert_data_row15_2">28</td>
+					<td id="convert_data_row15_3">28</td>
+					<td id="convert_data_row15_4">28</td>
+					<td id="convert_data_row15_5">28</td>
+					<td id="convert_data_row15_6">28</td>
+					<td id="convert_data_row15_7">28</td>
+					<td id="convert_data_row15_8">28</td>
+					<td id="convert_data_row15_9">28</td>
+					<td id="convert_data_row15_10">28</td>
+					<td id="convert_data_row15_11">28</td>
+					<td id="convert_data_row15_12">28</td>
+					<td id="convert_data_row15_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.15 %}
+				<tr>
+					<th>{{meas1.15.label}}</th>
+					<td id="convert_base_ab16">{{tb16}}</td>
+					<td id="convert_base_ab16">{% widthratio tb16 1 2 %}</td>
+					<td id="convert_data_row16_01">28</td>
+					<td id="convert_data_row16_0">28</td>
+					<td id="convert_data_row16_1">28</td>
+					<td id="convert_data_row16_2">28</td>
+					<td id="convert_data_row16_3">28</td>
+					<td id="convert_data_row16_4">28</td>
+					<td id="convert_data_row16_5">28</td>
+					<td id="convert_data_row16_6">28</td>
+					<td id="convert_data_row16_7">28</td>
+					<td id="convert_data_row16_8">28</td>
+					<td id="convert_data_row16_9">28</td>
+					<td id="convert_data_row16_10">28</td>
+					<td id="convert_data_row16_11">28</td>
+					<td id="convert_data_row16_12">28</td>
+					<td id="convert_data_row16_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.16 %}
+				<tr>
+					<th>{{meas1.16.label}}</th>
+					<td id="convert_base_ab17">{{tb17}}</td>
+					<td id="convert_base_ab17">{% widthratio tb17 1 2 %}</td>
+					<td id="convert_data_row17_01">28</td>
+					<td id="convert_data_row17_0">28</td>
+					<td id="convert_data_row17_1">28</td>
+					<td id="convert_data_row17_2">28</td>
+					<td id="convert_data_row17_3">28</td>
+					<td id="convert_data_row17_4">28</td>
+					<td id="convert_data_row17_5">28</td>
+					<td id="convert_data_row17_6">28</td>
+					<td id="convert_data_row17_7">28</td>
+					<td id="convert_data_row17_8">28</td>
+					<td id="convert_data_row17_9">28</td>
+					<td id="convert_data_row17_10">28</td>
+					<td id="convert_data_row17_11">28</td>
+					<td id="convert_data_row17_12">28</td>
+					<td id="convert_data_row17_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.17 %}
+				<tr>
+					<th>{{meas1.17.label}}</th>
+					<td id="convert_base_ab18">{{tb18}}</td>
+					<td id="convert_base_ab18">{% widthratio tb18 1 2 %}</td>
+					<td id="convert_data_row18_01">28</td>
+					<td id="convert_data_row18_0">28</td>
+					<td id="convert_data_row18_1">28</td>
+					<td id="convert_data_row18_2">28</td>
+					<td id="convert_data_row18_3">28</td>
+					<td id="convert_data_row18_4">28</td>
+					<td id="convert_data_row18_5">28</td>
+					<td id="convert_data_row18_6">28</td>
+					<td id="convert_data_row18_7">28</td>
+					<td id="convert_data_row18_8">28</td>
+					<td id="convert_data_row18_9">28</td>
+					<td id="convert_data_row18_10">28</td>
+					<td id="convert_data_row18_11">28</td>
+					<td id="convert_data_row18_12">28</td>
+					<td id="convert_data_row18_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.18 %}
+				<tr>
+					<th>{{meas1.18.label}}</th>
+					<td id="convert_base_ab19">{{tb19}}</td>
+					<td id="convert_base_ab19">{% widthratio tb19 1 2 %}</td>
+					<td id="convert_data_row19_01">28</td>
+					<td id="convert_data_row19_0">28</td>
+					<td id="convert_data_row19_1">28</td>
+					<td id="convert_data_row19_2">28</td>
+					<td id="convert_data_row19_3">28</td>
+					<td id="convert_data_row19_4">28</td>
+					<td id="convert_data_row19_5">28</td>
+					<td id="convert_data_row19_6">28</td>
+					<td id="convert_data_row19_7">28</td>
+					<td id="convert_data_row19_8">28</td>
+					<td id="convert_data_row19_9">28</td>
+					<td id="convert_data_row19_10">28</td>
+					<td id="convert_data_row19_11">28</td>
+					<td id="convert_data_row19_12">28</td>
+					<td id="convert_data_row19_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.19 %}
+				<tr>
+					<th>{{meas1.19.label}}</th>
+					<td id="convert_base_ab20">{{tb20}}</td>
+					<td id="convert_base_ab20">{% widthratio tb20 1 2 %}</td>
+					<td id="convert_data_row20_01">28</td>
+					<td id="convert_data_row20_0">28</td>
+					<td id="convert_data_row20_1">28</td>
+					<td id="convert_data_row20_2">28</td>
+					<td id="convert_data_row20_3">28</td>
+					<td id="convert_data_row20_4">28</td>
+					<td id="convert_data_row20_5">28</td>
+					<td id="convert_data_row20_6">28</td>
+					<td id="convert_data_row20_7">28</td>
+					<td id="convert_data_row20_8">28</td>
+					<td id="convert_data_row20_9">28</td>
+					<td id="convert_data_row20_10">28</td>
+					<td id="convert_data_row20_11">28</td>
+					<td id="convert_data_row20_12">28</td>
+					<td id="convert_data_row20_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.20 %}
+				<tr>
+					<th>{{meas1.20.label}}</th>
+					<td id="convert_base_ab21">{{tb21}}</td>
+					<td id="convert_base_ab21">{% widthratio tb21 1 2 %}</td>
+					<td id="convert_data_row21_01">28</td>
+					<td id="convert_data_row21_0">28</td>
+					<td id="convert_data_row21_1">28</td>
+					<td id="convert_data_row21_2">28</td>
+					<td id="convert_data_row21_3">28</td>
+					<td id="convert_data_row21_4">28</td>
+					<td id="convert_data_row21_5">28</td>
+					<td id="convert_data_row21_6">28</td>
+					<td id="convert_data_row21_7">28</td>
+					<td id="convert_data_row21_8">28</td>
+					<td id="convert_data_row21_9">28</td>
+					<td id="convert_data_row21_10">28</td>
+					<td id="convert_data_row21_11">28</td>
+					<td id="convert_data_row21_12">28</td>
+					<td id="convert_data_row21_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.21 %}
+				<tr>
+					<th>{{meas1.21.label}}</th>
+					<td id="convert_base_ab22">{{tb22}}</td>
+					<td id="convert_base_ab22">{% widthratio tb22 1 2 %}</td>
+					<td id="convert_data_row22_01">28</td>
+					<td id="convert_data_row22_0">28</td>
+					<td id="convert_data_row22_1">28</td>
+					<td id="convert_data_row22_2">28</td>
+					<td id="convert_data_row22_3">28</td>
+					<td id="convert_data_row22_4">28</td>
+					<td id="convert_data_row22_5">28</td>
+					<td id="convert_data_row22_6">28</td>
+					<td id="convert_data_row22_7">28</td>
+					<td id="convert_data_row22_8">28</td>
+					<td id="convert_data_row22_9">28</td>
+					<td id="convert_data_row22_10">28</td>
+					<td id="convert_data_row22_11">28</td>
+					<td id="convert_data_row22_12">28</td>
+					<td id="convert_data_row22_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.22 %}
+				<tr>
+					<th>{{meas1.22.label}}</th>
+					<td id="convert_base_ab23">{{tb23}}</td>
+					<td id="convert_base_ab23">{% widthratio tb23 1 2 %}</td>
+					<td id="convert_data_row23_01">28</td>
+					<td id="convert_data_row23_0">28</td>
+					<td id="convert_data_row23_1">28</td>
+					<td id="convert_data_row23_2">28</td>
+					<td id="convert_data_row23_3">28</td>
+					<td id="convert_data_row23_4">28</td>
+					<td id="convert_data_row23_5">28</td>
+					<td id="convert_data_row23_6">28</td>
+					<td id="convert_data_row23_7">28</td>
+					<td id="convert_data_row23_8">28</td>
+					<td id="convert_data_row23_9">28</td>
+					<td id="convert_data_row23_10">28</td>
+					<td id="convert_data_row23_11">28</td>
+					<td id="convert_data_row23_12">28</td>
+					<td id="convert_data_row23_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.23 %}
+				<tr>
+					<th>{{meas1.23.label}}</th>
+					<td id="convert_base_ab24">{{tb24}}</td>
+					<td id="convert_base_ab24">{% widthratio tb24 1 2 %}</td>
+					<td id="convert_data_row24_01">28</td>
+					<td id="convert_data_row24_0">28</td>
+					<td id="convert_data_row24_1">28</td>
+					<td id="convert_data_row24_2">28</td>
+					<td id="convert_data_row24_3">28</td>
+					<td id="convert_data_row24_4">28</td>
+					<td id="convert_data_row24_5">28</td>
+					<td id="convert_data_row24_6">28</td>
+					<td id="convert_data_row24_7">28</td>
+					<td id="convert_data_row24_8">28</td>
+					<td id="convert_data_row24_9">28</td>
+					<td id="convert_data_row24_10">28</td>
+					<td id="convert_data_row24_11">28</td>
+					<td id="convert_data_row24_12">28</td>
+					<td id="convert_data_row24_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.24 %}
+				<tr>
+					<th>{{meas1.24.label}}</th>
+					<td id="convert_base_ab25">{{tb25}}</td>
+					<td id="convert_base_ab25">{% widthratio tb25 1 2 %}</td>
+					<td id="convert_data_row25_01">28</td>
+					<td id="convert_data_row25_0">28</td>
+					<td id="convert_data_row25_1">28</td>
+					<td id="convert_data_row25_2">28</td>
+					<td id="convert_data_row25_3">28</td>
+					<td id="convert_data_row25_4">28</td>
+					<td id="convert_data_row25_5">28</td>
+					<td id="convert_data_row25_6">28</td>
+					<td id="convert_data_row25_7">28</td>
+					<td id="convert_data_row25_8">28</td>
+					<td id="convert_data_row25_9">28</td>
+					<td id="convert_data_row25_10">28</td>
+					<td id="convert_data_row25_11">28</td>
+					<td id="convert_data_row25_12">28</td>
+					<td id="convert_data_row25_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.25 %}
+				<tr>
+					<th>{{meas1.25.label}}</th>
+					<td id="convert_base_ab26">{{tb26}}</td>
+					<td id="convert_base_ab26">{% widthratio tb26 1 2 %}</td>
+					<td id="convert_data_row26_01">28</td>
+					<td id="convert_data_row26_0">28</td>
+					<td id="convert_data_row26_1">28</td>
+					<td id="convert_data_row26_2">28</td>
+					<td id="convert_data_row26_3">28</td>
+					<td id="convert_data_row26_4">28</td>
+					<td id="convert_data_row26_5">28</td>
+					<td id="convert_data_row26_6">28</td>
+					<td id="convert_data_row26_7">28</td>
+					<td id="convert_data_row26_8">28</td>
+					<td id="convert_data_row26_9">28</td>
+					<td id="convert_data_row26_10">28</td>
+					<td id="convert_data_row26_11">28</td>
+					<td id="convert_data_row26_12">28</td>
+					<td id="convert_data_row26_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.26 %}
+				<tr>
+					<th>{{meas1.26.label}}</th>
+					<td id="convert_base_ab27">{{tb27}}</td>
+					<td id="convert_base_ab27">{% widthratio tb27 1 2 %}</td>
+					<td id="convert_data_row27_01">28</td>
+					<td id="convert_data_row27_0">28</td>
+					<td id="convert_data_row27_1">28</td>
+					<td id="convert_data_row27_2">28</td>
+					<td id="convert_data_row27_3">28</td>
+					<td id="convert_data_row27_4">28</td>
+					<td id="convert_data_row27_5">28</td>
+					<td id="convert_data_row27_6">28</td>
+					<td id="convert_data_row27_7">28</td>
+					<td id="convert_data_row27_8">28</td>
+					<td id="convert_data_row27_9">28</td>
+					<td id="convert_data_row27_10">28</td>
+					<td id="convert_data_row27_11">28</td>
+					<td id="convert_data_row27_12">28</td>
+					<td id="convert_data_row27_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.27 %}
+				<tr>
+					<th>{{meas1.27.label}}</th>
+					<td id="convert_base_ab28">{{tb28}}</td>
+					<td id="convert_base_ab28">{% widthratio tb28 1 2 %}</td>
+					<td id="convert_data_row28_01">28</td>
+					<td id="convert_data_row28_0">28</td>
+					<td id="convert_data_row28_1">28</td>
+					<td id="convert_data_row28_2">28</td>
+					<td id="convert_data_row28_3">28</td>
+					<td id="convert_data_row28_4">28</td>
+					<td id="convert_data_row28_5">28</td>
+					<td id="convert_data_row28_6">28</td>
+					<td id="convert_data_row28_7">28</td>
+					<td id="convert_data_row28_8">28</td>
+					<td id="convert_data_row28_9">28</td>
+					<td id="convert_data_row28_10">28</td>
+					<td id="convert_data_row28_11">28</td>
+					<td id="convert_data_row28_12">28</td>
+					<td id="convert_data_row28_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.28 %}
+				<tr>
+					<th>{{meas1.28.label}}</th>
+					<td id="convert_base_ab29">{{tb29}}</td>
+					<td id="convert_base_ab29">{% widthratio tb29 1 2 %}</td>
+					<td id="convert_data_row29_01">28</td>
+					<td id="convert_data_row29_0">28</td>
+					<td id="convert_data_row29_1">28</td>
+					<td id="convert_data_row29_2">28</td>
+					<td id="convert_data_row29_3">28</td>
+					<td id="convert_data_row29_4">28</td>
+					<td id="convert_data_row29_5">28</td>
+					<td id="convert_data_row29_6">28</td>
+					<td id="convert_data_row29_7">28</td>
+					<td id="convert_data_row29_8">28</td>
+					<td id="convert_data_row29_9">28</td>
+					<td id="convert_data_row29_10">28</td>
+					<td id="convert_data_row29_11">28</td>
+					<td id="convert_data_row29_12">28</td>
+					<td id="convert_data_row29_13">28</td>
+				</tr>
+				{% endif %}
+{% if meas1.29 %}
+				<tr>
+					<th>{{meas1.29.label}}</th>
+					<td id="convert_base_ab30">{{tb30}}</td>
+					<td id="convert_base_ab30">{% widthratio tb30 1 2 %}</td>
+					<td id="convert_data_row30_01">28</td>
+					<td id="convert_data_row30_0">28</td>
+					<td id="convert_data_row30_1">28</td>
+					<td id="convert_data_row30_2">28</td>
+					<td id="convert_data_row30_3">28</td>
+					<td id="convert_data_row30_4">28</td>
+					<td id="convert_data_row30_5">28</td>
+					<td id="convert_data_row30_6">28</td>
+					<td id="convert_data_row30_7">28</td>
+					<td id="convert_data_row30_8">28</td>
+					<td id="convert_data_row30_9">28</td>
+					<td id="convert_data_row30_10">28</td>
+					<td id="convert_data_row30_11">28</td>
+					<td id="convert_data_row30_12">28</td>
+					<td id="convert_data_row30_13">28</td>
+				</tr>
+				{% endif %}
+
+
+
+
+			</table>
+		</div>
+	</div>
+
+
+
+
+	<div class="container mt-2 mb-4">
+		<div class="row">
+			<table style="width: 100%;" class="meas_chart">
+				<tr>
+					<th>Points</th>
+					<th>Base Size</th>
+					<th>Grading</th>
+					<th>Tolerance</th>
+				</tr>
+			<form method="POST">{% csrf_token %}
+{% if meas1.0 %}
+	<tr>
+		<th>{{meas1.0.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab1" name="ab1" value="{{ab1}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb1" name="gb1" value="{{gb1}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb1" name="tb1" value="{{tb1}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.1 %}
+	<tr>
+		<th>{{meas1.1.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab2" name="ab2" value="{{ab2}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb2" name="gb2" value="{{gb2}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb2" name="tb2" value="{{tb1}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.2 %}
+	<tr>
+		<th>{{meas1.2.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab3" name="ab3" value="{{ab3}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb3" name="gb3" value="{{gb3}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb3" name="tb3" value="{{tb2}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.3 %}
+	<tr>
+		<th>{{meas1.3.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab4" name="ab4" value="{{ab4}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb4" name="gb4" value="{{gb4}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb4" name="tb4" value="{{tb3}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.4 %}
+	<tr>
+		<th>{{meas1.4.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab5" name="ab5" value="{{ab5}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb5" name="gb5" value="{{gb5}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb5" name="tb5" value="{{tb4}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.5 %}
+	<tr>
+		<th>{{meas1.5.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab6" name="ab6" value="{{ab6}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb6" name="gb6" value="{{gb6}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb6" name="tb6" value="{{tb5}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.6 %}
+	<tr>
+		<th>{{meas1.6.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab7" name="ab7" value="{{ab7}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb7" name="gb7" value="{{gb7}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb7" name="tb7" value="{{tb6}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.7 %}
+	<tr>
+		<th>{{meas1.7.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab8" name="ab8" value="{{ab8}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb8" name="gb8" value="{{gb8}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb8" name="tb8" value="{{tb7}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.8 %}
+	<tr>
+		<th>{{meas1.8.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab9" name="ab9" value="{{ab9}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb9" name="gb9" value="{{gb9}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb9" name="tb9" value="{{tb8}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.9 %}
+	<tr>
+		<th>{{meas1.9.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab10" name="ab10" value="{{ab10}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb10" name="gb10" value="{{gb10}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb10" name="tb10" value="{{tb9}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.10 %}
+	<tr>
+		<th>{{meas1.10.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab11" name="ab11" value="{{ab11}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb11" name="gb11" value="{{gb11}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb11" name="tb11" value="{{tb10}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.11 %}
+	<tr>
+		<th>{{meas1.11.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab12" name="ab12" value="{{ab12}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb12" name="gb12" value="{{gb12}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb12" name="tb12" value="{{tb11}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.12 %}
+	<tr>
+		<th>{{meas1.12.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab13" name="ab13" value="{{ab13}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb13" name="gb13" value="{{gb13}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb13" name="tb13" value="{{tb12}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.13 %}
+	<tr>
+		<th>{{meas1.13.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab14" name="ab14" value="{{ab14}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb14" name="gb14" value="{{gb14}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb14" name="tb14" value="{{tb13}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.14 %}
+	<tr>
+		<th>{{meas1.14.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab15" name="ab15" value="{{ab15}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb15" name="gb15" value="{{gb15}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb15" name="tb15" value="{{tb14}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.15 %}
+	<tr>
+		<th>{{meas1.15.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab16" name="ab16" value="{{ab16}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb16" name="gb16" value="{{gb16}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb16" name="tb16" value="{{tb15}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.16 %}
+	<tr>
+		<th>{{meas1.16.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab17" name="ab17" value="{{ab17}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb17" name="gb17" value="{{gb17}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb17" name="tb17" value="{{tb16}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.17 %}
+	<tr>
+		<th>{{meas1.17.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab18" name="ab18" value="{{ab18}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb18" name="gb18" value="{{gb18}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb18" name="tb18" value="{{tb17}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.18 %}
+	<tr>
+		<th>{{meas1.18.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab19" name="ab19" value="{{ab19}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb19" name="gb19" value="{{gb19}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb19" name="tb19" value="{{tb18}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.19 %}
+	<tr>
+		<th>{{meas1.19.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab20" name="ab20" value="{{ab20}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb20" name="gb20" value="{{gb20}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb20" name="tb20" value="{{tb19}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.20 %}
+	<tr>
+		<th>{{meas1.20.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab21" name="ab21" value="{{ab21}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb21" name="gb21" value="{{gb21}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb21" name="tb21" value="{{tb20}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.21 %}
+	<tr>
+		<th>{{meas1.21.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab22" name="ab22" value="{{ab22}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb22" name="gb22" value="{{gb22}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb22" name="tb22" value="{{tb21}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.22 %}
+	<tr>
+		<th>{{meas1.22.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab23" name="ab23" value="{{ab23}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb23" name="gb23" value="{{gb23}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb23" name="tb23" value="{{tb22}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.23 %}
+	<tr>
+		<th>{{meas1.23.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab24" name="ab24" value="{{ab24}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb24" name="gb24" value="{{gb24}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb24" name="tb24" value="{{tb23}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.24 %}
+	<tr>
+		<th>{{meas1.24.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab25" name="ab25" value="{{ab25}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb25" name="gb25" value="{{gb25}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb25" name="tb25" value="{{tb24}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.25 %}
+	<tr>
+		<th>{{meas1.25.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab26" name="ab26" value="{{ab26}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb26" name="gb26" value="{{gb26}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb26" name="tb26" value="{{tb25}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.26 %}
+	<tr>
+		<th>{{meas1.26.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab27" name="ab27" value="{{ab27}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb27" name="gb27" value="{{gb27}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb27" name="tb27" value="{{tb26}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.27 %}
+	<tr>
+		<th>{{meas1.27.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab28" name="ab28" value="{{ab28}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb28" name="gb28" value="{{gb28}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb28" name="tb28" value="{{tb27}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.28 %}
+	<tr>
+		<th>{{meas1.28.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab29" name="ab29" value="{{ab29}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb29" name="gb29" value="{{gb29}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb29" name="tb29" value="{{tb28}}"></td>
+	</tr>
+{% endif %}
+{% if meas1.29 %}
+	<tr>
+		<th>{{meas1.29.label}}</th>
+		<td><input type="text" class="tbinput" step="0.01" id="ab30" name="ab30" value="{{ab30}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="gb30" name="gb30" value="{{gb30}}"></td>
+		<td><input type="text" class="tbinput" step="0.01" id="tb30" name="tb30" value="{{tb29}}"></td>
+	</tr>
+{% endif %}
+
+			</table>
+		</div>
+	</div>
+
+
+	{% if data.vendor %}
+
+	<div class="container">
+		<div class="row mt-3 mb-4">
+			<button type="submit" class="but_save">Save</button>
+		</div>
+	</div>
+
+
+	{% endif %}
+</form>
+
+
+
+
+	{% else %}
+	<div class="container">
+		<div class="row mt-2 mb-2 centered">
+			<h3><b>Sorry this Measurement does not exist to your A/c</b></h3>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+
+
+
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/measurement_detail.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/userdetail/measurement_detail1.js' %}"></script>
+{% endblock %}

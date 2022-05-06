@@ -1,0 +1,17 @@
+
+
+
+{% load qr_code %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% for i in ik %}
+      {% qr_from_text i %}
+    {% endfor %}
+    <img src="" alt="Hello World!">
+  </body>
+</html>

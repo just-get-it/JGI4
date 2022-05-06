@@ -1,0 +1,833 @@
+
+/* Royal Hover Effects */
+.royal-image, .info-box {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: scale(1, 1);
+  -moz-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  transform: scale(1, 1);
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -ms-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  zoom: 1;
+}
+.royal-image img, .info-box img {
+  display: block;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/*
+ *	CSS3 Hover Style 01 | Trans Effect
+ */
+.royal-trans-animation {
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.royal-trans-animation .info-box {
+background: #16a085;
+}
+.royal-trans-animation.top .royal-image {
+  top: 0;
+}
+.royal-trans-animation.top .info-box {
+  top: 100%;
+}
+.royal-trans-animation.top:hover .royal-image {
+  top: -100%;
+}
+.royal-trans-animation.top:hover .info-box {
+  top: 0;
+}
+.royal-trans-animation.bottom .royal-image {
+  bottom: 0;
+}
+.royal-trans-animation.bottom .info-box {
+  bottom: 100%;
+}
+.royal-trans-animation.bottom:hover .royal-image {
+  bottom: -100%;
+}
+.royal-trans-animation.bottom:hover .info-box {
+  bottom: 0;
+}
+.royal-trans-animation.left .royal-image {
+  left: 0;
+}
+.royal-trans-animation.left .info-box {
+  left: 100%;
+}
+.royal-trans-animation.left:hover .royal-image {
+  left: -100%;
+}
+.royal-trans-animation.left:hover .info-box {
+  left: 0;
+}
+.royal-trans-animation.right .royal-image {
+  right: 0;
+}
+.royal-trans-animation.right .info-box {
+  right: 100%;
+}
+.royal-trans-animation.right:hover .royal-image {
+  right: -100%;
+}
+.royal-trans-animation.right:hover .info-box {
+  right: 0;
+}
+
+/*
+ *
+ *	CSS3 Hover Style 02 | Fade In Effect
+ *
+ */
+.royal-fade-in-animation {
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.royal-fade-in-animation .royal-image, .royal-fade-in-animation .info-box {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #e6e6e6;
+}
+.royal-fade-in-animation .royal-image a, .royal-fade-in-animation .royal-image a:active, .royal-fade-in-animation .royal-image a:focus, .royal-fade-in-animation .info-box a, .royal-fade-in-animation .info-box a:active, .royal-fade-in-animation .info-box a:focus {
+  color: #999999;
+}
+.royal-fade-in-animation .royal-image a:hover, .royal-fade-in-animation .royal-image a:active:hover, .royal-fade-in-animation .royal-image a:focus:hover, .royal-fade-in-animation .info-box a:hover, .royal-fade-in-animation .info-box a:active:hover, .royal-fade-in-animation .info-box a:focus:hover {
+  color: #f2f2f2;
+}
+.royal-fade-in-animation .royal-image {
+  z-index: 0;
+}
+.royal-fade-in-animation .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  filter: alpha(opacity=0);
+  -wekbit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+}
+.royal-fade-in-animation:hover .info-box {
+  filter: alpha(opacity=100);
+  -wekbit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+
+/*
+ *
+ *	CSS3 Hover Style 03 | OverTrans Effect
+ *
+ */
+.royal-overtrans-animation {
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.royal-overtrans-animation .royal-image, .royal-overtrans-animation .info-box {
+  color: #e6e6e6;
+}
+.royal-overtrans-animation .royal-image a, .royal-overtrans-animation .royal-image a:active, .royal-overtrans-animation .royal-image a:focus, .royal-overtrans-animation .info-box a, .royal-overtrans-animation .info-box a:active, .royal-overtrans-animation .info-box a:focus {
+  color: #999999;
+}
+.royal-overtrans-animation .royal-image a:hover, .royal-overtrans-animation .royal-image a:active:hover, .royal-overtrans-animation .royal-image a:focus:hover, .royal-overtrans-animation .info-box a:hover, .royal-overtrans-animation .info-box a:active:hover, .royal-overtrans-animation .info-box a:focus:hover {
+  color: #f2f2f2;
+}
+.royal-overtrans-animation .info-box {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.royal-overtrans-animation.top .royal-image {
+  top: 0;
+}
+.royal-overtrans-animation.top .info-box {
+  top: 100%;
+}
+.royal-overtrans-animation.top:hover .info-box {
+  top: 0;
+}
+.royal-overtrans-animation.bottom .royal-image {
+  bottom: 0;
+}
+.royal-overtrans-animation.bottom .info-box {
+  bottom: 100%;
+}
+.royal-overtrans-animation.bottom:hover .info-box {
+  bottom: 0;
+}
+.royal-overtrans-animation.left .royal-image {
+  left: 0;
+}
+.royal-overtrans-animation.left .info-box {
+  left: 100%;
+}
+.royal-overtrans-animation.left:hover .info-box {
+  left: 0;
+}
+.royal-overtrans-animation.right .royal-image {
+  right: 0;
+}
+.royal-overtrans-animation.right .info-box {
+  right: 100%;
+}
+.royal-overtrans-animation.right:hover .info-box {
+  right: 0;
+}
+
+/*
+
+ *	CSS3 Hover Style 04 | Zoom Out Effect
+
+ */
+.royal-zoom-out-animation {
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.royal-zoom-out-animation .royal-image, .royal-zoom-out-animation .info-box {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #e6e6e6;
+}
+.royal-zoom-out-animation .royal-image a, .royal-zoom-out-animation .royal-image a:active, .royal-zoom-out-animation .royal-image a:focus, .royal-zoom-out-animation .info-box a, .royal-zoom-out-animation .info-box a:active, .royal-zoom-out-animation .info-box a:focus {
+  color: #999999;
+}
+.royal-zoom-out-animation .royal-image a:hover, .royal-zoom-out-animation .royal-image a:active:hover, .royal-zoom-out-animation .royal-image a:focus:hover, .royal-zoom-out-animation .info-box a:hover, .royal-zoom-out-animation .info-box a:active:hover, .royal-zoom-out-animation .info-box a:focus:hover {
+  color: #f2f2f2;
+}
+.royal-zoom-out-animation .royal-image {
+  z-index: 0;
+}
+.royal-zoom-out-animation .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  filter: alpha(opacity=0);
+  -wekbit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+}
+.royal-zoom-out-animation:hover .info-box {
+  filter: alpha(opacity=100);
+  -wekbit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.royal-zoom-out-animation:hover .royal-image {
+  -webkit-transform: translateZ(0) scale(1.15, 1.15);
+  -moz-transform: translateZ(0) scale(1.15, 1.15);
+  -ms-transform: translateZ(0) scale(1.15, 1.15);
+  -o-transform: translateZ(0) scale(1.15, 1.15);
+  transform: translateZ(0) scale(1.15, 1.15);
+}
+
+/*
+ *
+ *	CSS3 Hover Style 05 | Flip Effect
+ *
+ */
+.royal-flip-effect-animation {
+  display: block;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.royal-flip-effect-animation .royal-image, .royal-flip-effect-animation .info-box {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #e6e6e6;
+}
+.royal-flip-effect-animation .royal-image a, .royal-flip-effect-animation .royal-image a:active, .royal-flip-effect-animation .royal-image a:focus, .royal-flip-effect-animation .info-box a, .royal-flip-effect-animation .info-box a:active, .royal-flip-effect-animation .info-box a:focus {
+  color: #999999;
+}
+.royal-flip-effect-animation .royal-image a:hover, .royal-flip-effect-animation .royal-image a:active:hover, .royal-flip-effect-animation .royal-image a:focus:hover, .royal-flip-effect-animation .info-box a:hover, .royal-flip-effect-animation .info-box a:active:hover, .royal-flip-effect-animation .info-box a:focus:hover {
+  color: #f2f2f2;
+}
+.royal-flip-effect-animation .royal-image {
+  z-index: 0;
+}
+.royal-flip-effect-animation.top .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translateZ(0) rotateX(-180deg);
+  -moz-transform: translateZ(0) rotateX(-180deg);
+  -ms-transform: translateZ(0) rotateX(-180deg);
+  -o-transform: translateZ(0) rotateX(-180deg);
+  transform: translateZ(0) rotateX(-180deg);
+}
+.royal-flip-effect-animation.top:hover .royal-image {
+  -webkit-transform: translateZ(0) rotateX(180deg);
+  -moz-transform: translateZ(0) rotateX(180deg);
+  -ms-transform: translateZ(0) rotateX(180deg);
+  -o-transform: translateZ(0) rotateX(180deg);
+  transform: translateZ(0) rotateX(180deg);
+}
+.royal-flip-effect-animation.top:hover .info-box {
+  -webkit-transform: translateZ(0) rotateX(0deg);
+  -moz-transform: translateZ(0) rotateX(0deg);
+  -ms-transform: translateZ(0) rotateX(0deg);
+  -o-transform: translateZ(0) rotateX(0deg);
+  transform: translateZ(0) rotateX(0deg);
+}
+.royal-flip-effect-animation.bottom .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translateZ(0) rotateX(180deg);
+  -moz-transform: translateZ(0) rotateX(180deg);
+  -ms-transform: translateZ(0) rotateX(180deg);
+  -o-transform: translateZ(0) rotateX(180deg);
+  transform: translateZ(0) rotateX(180deg);
+}
+.royal-flip-effect-animation.bottom:hover .royal-image {
+  -webkit-transform: translateZ(0) rotateX(-180deg);
+  -moz-transform: translateZ(0) rotateX(-180deg);
+  -ms-transform: translateZ(0) rotateX(-180deg);
+  -o-transform: translateZ(0) rotateX(-180deg);
+  transform: translateZ(0) rotateX(-180deg);
+}
+.royal-flip-effect-animation.bottom:hover .info-box {
+  -webkit-transform: translateZ(0) rotateX(0deg);
+  -moz-transform: translateZ(0) rotateX(0deg);
+  -ms-transform: translateZ(0) rotateX(0deg);
+  -o-transform: translateZ(0) rotateX(0deg);
+  transform: translateZ(0) rotateX(0deg);
+}
+.royal-flip-effect-animation.left .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translateZ(0) rotateY(180deg);
+  -moz-transform: translateZ(0) rotateY(180deg);
+  -ms-transform: translateZ(0) rotateY(180deg);
+  -o-transform: translateZ(0) rotateY(180deg);
+  transform: translateZ(0) rotateY(180deg);
+}
+.royal-flip-effect-animation.left:hover .royal-image {
+  -webkit-transform: translateZ(0) rotateY(-180deg);
+  -moz-transform: translateZ(0) rotateY(-180deg);
+  -ms-transform: translateZ(0) rotateY(-180deg);
+  -o-transform: translateZ(0) rotateY(-180deg);
+  transform: translateZ(0) rotateY(-180deg);
+}
+.royal-flip-effect-animation.left:hover .info-box {
+  -webkit-transform: translateZ(0) rotateY(0deg);
+  -moz-transform: translateZ(0) rotateY(0deg);
+  -ms-transform: translateZ(0) rotateY(0deg);
+  -o-transform: translateZ(0) rotateY(0deg);
+  transform: translateZ(0) rotateY(0deg);
+}
+.royal-flip-effect-animation.right .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translateZ(0) rotateY(-180deg);
+  -moz-transform: translateZ(0) rotateY(-180deg);
+  -ms-transform: translateZ(0) rotateY(-180deg);
+  -o-transform: translateZ(0) rotateY(-180deg);
+  transform: translateZ(0) rotateY(-180deg);
+}
+.royal-flip-effect-animation.right:hover .royal-image {
+  -webkit-transform: translateZ(0) rotateY(180deg);
+  -moz-transform: translateZ(0) rotateY(180deg);
+  -ms-transform: translateZ(0) rotateY(180deg);
+  -o-transform: translateZ(0) rotateY(180deg);
+  transform: translateZ(0) rotateY(180deg);
+}
+.royal-flip-effect-animation.right:hover .info-box {
+  -webkit-transform: translateZ(0) rotateY(0deg);
+  -moz-transform: translateZ(0) rotateY(0deg);
+  -ms-transform: translateZ(0) rotateY(0deg);
+  -o-transform: translateZ(0) rotateY(0deg);
+  transform: translateZ(0) rotateY(0deg);
+}
+
+/*
+CSS3 Hover Style 06 | Bubble Effect
+ */
+.bubble-effect {
+  display: block;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.bubble-effect .royal-image, .bubble-effect .info-box {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #e6e6e6;
+}
+.bubble-effect .royal-image a, .bubble-effect .royal-image a:active, .bubble-effect .royal-image a:focus, .bubble-effect .info-box a, .bubble-effect .info-box a:active, .bubble-effect .info-box a:focus {
+  color: #999999;
+}
+.bubble-effect .royal-image a:hover, .bubble-effect .royal-image a:active:hover, .bubble-effect .royal-image a:focus:hover, .bubble-effect .info-box a:hover, .bubble-effect .info-box a:active:hover, .bubble-effect .info-box a:focus:hover {
+  color: #f2f2f2;
+}
+.bubble-effect .royal-image {
+  z-index: 1;
+}
+.bubble-effect .info-box {
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.bubble-effect.round, .bubble-effect .round {
+  overflow: visible !important;
+}
+.bubble-effect.top:hover .royal-image {
+  z-index: 2;
+}
+.bubble-effect.top:hover .info-box {
+  padding-top: 15%;
+}
+.bubble-effect.top:hover .royal-image {
+  -webkit-transform: translateZ(0) translateY(-60%) scale(0.5, 0.5);
+  -moz-transform: translateZ(0) translateY(-60%) scale(0.5, 0.5);
+  -ms-transform: translateZ(0) translateY(-60%) scale(0.5, 0.5);
+  -o-transform: translateZ(0) translateY(-60%) scale(0.5, 0.5);
+  transform: translateZ(0) translateY(-60%) scale(0.5, 0.5);
+}
+.bubble-effect.bottom:hover .royal-image {
+  z-index: 2;
+}
+.bubble-effect.bottom:hover .info-box {
+  padding-bottom: 15%;
+}
+.bubble-effect.bottom:hover .royal-image {
+  -webkit-transform: translateZ(0) translateY(60%) scale(0.5, 0.5);
+  -moz-transform: translateZ(0) translateY(60%) scale(0.5, 0.5);
+  -ms-transform: translateZ(0) translateY(60%) scale(0.5, 0.5);
+  -o-transform: translateZ(0) translateY(60%) scale(0.5, 0.5);
+  transform: translateZ(0) translateY(60%) scale(0.5, 0.5);
+}
+.bubble-effect.left:hover .royal-image {
+  z-index: 2;
+}
+.bubble-effect.left:hover .info-box {
+  padding-left: 15%;
+}
+.bubble-effect.left:hover .royal-image {
+  -webkit-transform: translateZ(0) translateX(-60%) scale(0.5, 0.5);
+  -moz-transform: translateZ(0) translateX(-60%) scale(0.5, 0.5);
+  -ms-transform: translateZ(0) translateX(-60%) scale(0.5, 0.5);
+  -o-transform: translateZ(0) translateX(-60%) scale(0.5, 0.5);
+  transform: translateZ(0) translateX(-60%) scale(0.5, 0.5);
+}
+.bubble-effect.right:hover .royal-image {
+  z-index: 2;
+}
+.bubble-effect.right:hover .info-box {
+  padding-right: 15%;
+}
+.bubble-effect.right:hover .royal-image {
+  -webkit-transform: translateZ(0) translateX(60%) scale(0.5, 0.5);
+  -moz-transform: translateZ(0) translateX(60%) scale(0.5, 0.5);
+  -ms-transform: translateZ(0) translateX(60%) scale(0.5, 0.5);
+  -o-transform: translateZ(0) translateX(60%) scale(0.5, 0.5);
+  transform: translateZ(0) translateX(60%) scale(0.5, 0.5);
+}
+
+/*
+ *
+ *	CSS3 Hover Style 07 | Zoom In Effect
+ *
+ */
+.zoom-in-effect {
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.zoom-in-effect .royal-image, .zoom-in-effect .info-box {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #e6e6e6;
+}
+.zoom-in-effect .royal-image a, .zoom-in-effect .royal-image a:active, .zoom-in-effect .royal-image a:focus, .zoom-in-effect .info-box a, .zoom-in-effect .info-box a:active, .zoom-in-effect .info-box a:focus {
+  color: #999999;
+}
+.zoom-in-effect .royal-image a:hover, .zoom-in-effect .royal-image a:active:hover, .zoom-in-effect .royal-image a:focus:hover, .zoom-in-effect .info-box a:hover, .zoom-in-effect .info-box a:active:hover, .zoom-in-effect .info-box a:focus:hover {
+  color: #f2f2f2;
+}
+.zoom-in-effect .royal-image {
+  z-index: 0;
+}
+.zoom-in-effect .info-box {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translateZ(0) scale(2, 2);
+  -moz-transform: translateZ(0) scale(2, 2);
+  -ms-transform: translateZ(0) scale(2, 2);
+  -o-transform: translateZ(0) scale(2, 2);
+  transform: translateZ(0) scale(2, 2);
+  filter: alpha(opacity=0);
+  -wekbit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+}
+.zoom-in-effect:hover .royal-image {
+  -webkit-transform: translateZ(0) scale(1.1, 1.1);
+  -moz-transform: translateZ(0) scale(1.1, 1.1);
+  -ms-transform: translateZ(0) scale(1.1, 1.1);
+  -o-transform: translateZ(0) scale(1.1, 1.1);
+  transform: translateZ(0) scale(1.1, 1.1);
+}
+.zoom-in-effect:hover .info-box {
+  -webkit-transform: translateZ(0) scale(1, 1);
+  -moz-transform: translateZ(0) scale(1, 1);
+  -ms-transform: translateZ(0) scale(1, 1);
+  -o-transform: translateZ(0) scale(1, 1);
+  transform: translateZ(0) scale(1, 1);
+  filter: alpha(opacity=100);
+  -wekbit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+
+/*
+ *
+ *	CSS3 Hover Style 08 | Square Spin Effect
+ *
+ */
+.square-spin-effect {
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.square-spin-effect .info-box {
+  filter: alpha(opacity=0);
+  -wekbit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transform: translateZ(0) scale(2, 2);
+  -moz-transform: translateZ(0) scale(2, 2);
+  -ms-transform: translateZ(0) scale(2, 2);
+  -o-transform: translateZ(0) scale(2, 2);
+  transform: translateZ(0) scale(2, 2);
+}
+.square-spin-effect .info-box:after, .square-spin-effect .info-box:before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  visibility: visible !important;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  -webkit-transition: 0.6s ease-in;
+  -moz-transition: 0.6s ease-in;
+  -ms-transition: 0.6s ease-in;
+  -o-transition: 0.6s ease-in;
+  transition: 0.6s ease-in;
+}
+.square-spin-effect.vertical .info-box:before {
+  -webkit-transform: translateZ(0) translateX(100%) rotateZ(180deg);
+  -moz-transform: translateZ(0) translateX(100%) rotateZ(180deg);
+  -ms-transform: translateZ(0) translateX(100%) rotateZ(180deg);
+  -o-transform: translateZ(0) translateX(100%) rotateZ(180deg);
+  transform: translateZ(0) translateX(100%) rotateZ(180deg);
+}
+.square-spin-effect.vertical .info-box:after {
+  -webkit-transform: translateZ(0) translateX(-100%) rotateZ(180deg);
+  -moz-transform: translateZ(0) translateX(-100%) rotateZ(180deg);
+  -ms-transform: translateZ(0) translateX(-100%) rotateZ(180deg);
+  -o-transform: translateZ(0) translateX(-100%) rotateZ(180deg);
+  transform: translateZ(0) translateX(-100%) rotateZ(180deg);
+}
+.square-spin-effect.vertical:hover .info-box {
+  filter: alpha(opacity=100);
+  -wekbit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  -moz-transform: translateZ(0) scale(1, 1);
+  -ms-transform: translateZ(0) scale(1, 1);
+  -o-transform: translateZ(0) scale(1, 1);
+  transform: translateZ(0) scale(1, 1);
+}
+.square-spin-effect.vertical:hover .info-box:before {
+  -webkit-transform: translateZ(0) translateX(50%) rotateZ(-90deg);
+  -moz-transform: translateZ(0) translateX(50%) rotateZ(-90deg);
+  -ms-transform: translateZ(0) translateX(50%) rotateZ(-90deg);
+  -o-transform: translateZ(0) translateX(50%) rotateZ(-90deg);
+  transform: translateZ(0) translateX(50%) rotateZ(-90deg);
+}
+.square-spin-effect.vertical:hover .info-box:after {
+  -webkit-transform: translateZ(0) translateX(-50%) rotateZ(-90deg);
+  -moz-transform: translateZ(0) translateX(-50%) rotateZ(-90deg);
+  -ms-transform: translateZ(0) translateX(-50%) rotateZ(-90deg);
+  -o-transform: translateZ(0) translateX(-50%) rotateZ(-90deg);
+  transform: translateZ(0) translateX(-50%) rotateZ(-90deg);
+}
+.square-spin-effect.horizontal .info-box:before {
+  -webkit-transform: translateZ(0) translateY(100%) rotateZ(180deg);
+  -moz-transform: translateZ(0) translateY(100%) rotateZ(180deg);
+  -ms-transform: translateZ(0) translateY(100%) rotateZ(180deg);
+  -o-transform: translateZ(0) translateY(100%) rotateZ(180deg);
+  transform: translateZ(0) translateY(100%) rotateZ(180deg);
+}
+.square-spin-effect.horizontal .info-box:after {
+  -webkit-transform: translateZ(0) translateY(-100%) rotateZ(180deg);
+  -moz-transform: translateZ(0) translateY(-100%) rotateZ(180deg);
+  -ms-transform: translateZ(0) translateY(-100%) rotateZ(180deg);
+  -o-transform: translateZ(0) translateY(-100%) rotateZ(180deg);
+  transform: translateZ(0) translateY(-100%) rotateZ(180deg);
+}
+.square-spin-effect.horizontal:hover .info-box {
+  filter: alpha(opacity=100);
+  -wekbit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  -moz-transform: translateZ(0) scale(1, 1);
+  -ms-transform: translateZ(0) scale(1, 1);
+  -o-transform: translateZ(0) scale(1, 1);
+  transform: translateZ(0) scale(1, 1);
+}
+.square-spin-effect.horizontal:hover .info-box:before {
+  -webkit-transform: translateZ(0) translateY(50%) rotateZ(-90deg);
+  -moz-transform: translateZ(0) translateY(50%) rotateZ(-90deg);
+  -ms-transform: translateZ(0) translateY(50%) rotateZ(-90deg);
+  -o-transform: translateZ(0) translateY(50%) rotateZ(-90deg);
+  transform: translateZ(0) translateY(50%) rotateZ(-90deg);
+}
+.square-spin-effect.horizontal:hover .info-box:after {
+  -webkit-transform: translateZ(0) translateY(-50%) rotateZ(-90deg);
+  -moz-transform: translateZ(0) translateY(-50%) rotateZ(-90deg);
+  -ms-transform: translateZ(0) translateY(-50%) rotateZ(-90deg);
+  -o-transform: translateZ(0) translateY(-50%) rotateZ(-90deg);
+  transform: translateZ(0) translateY(-50%) rotateZ(-90deg);
+}
+
+/*
+ *
+ *	CSS3 Hover Style 09 | Over Flip Effect
+ *
+ */
+.over-royal-flip-effect-animation {
+  display: block;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.over-royal-flip-effect-animation .royal-image, .over-royal-flip-effect-animation .info-box {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: center center right;
+  -moz-transform-origin: center center right;
+  -ms-transform-origin: center center right;
+  -o-transform-origin: center center right;
+  transform-origin: center center right;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.over-royal-flip-effect-animation .royal-image {
+  z-index: 2;
+}
+.over-royal-flip-effect-animation .info-box {
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.over-royal-flip-effect-animation.top .info-box {
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  -ms-transform: rotateX(-90deg);
+  -o-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+.over-royal-flip-effect-animation.top:hover .royal-image {
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  -ms-transform: rotateX(90deg);
+  -o-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+}
+.over-royal-flip-effect-animation.top:hover .info-box {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  -o-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.over-royal-flip-effect-animation.bottom .info-box {
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  -ms-transform: rotateX(90deg);
+  -o-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+}
+.over-royal-flip-effect-animation.bottom:hover .royal-image {
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  -ms-transform: rotateX(-90deg);
+  -o-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+.over-royal-flip-effect-animation.bottom:hover .info-box {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  -o-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.over-royal-flip-effect-animation.left .info-box {
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  -ms-transform: rotateY(90deg);
+  -o-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+}
+.over-royal-flip-effect-animation.left:hover .royal-image {
+  -webkit-transform: rotateY(-90deg);
+  -moz-transform: rotateY(-90deg);
+  -ms-transform: rotateY(-90deg);
+  -o-transform: rotateY(-90deg);
+  transform: rotateY(-90deg);
+}
+.over-royal-flip-effect-animation.left:hover .info-box {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.over-royal-flip-effect-animation.right .info-box {
+  -webkit-transform: rotateY(-90deg);
+  -moz-transform: rotateY(-90deg);
+  -ms-transform: rotateY(-90deg);
+  -o-transform: rotateY(-90deg);
+  transform: rotateY(-90deg);
+}
+.over-royal-flip-effect-animation.right:hover .royal-image {
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  -ms-transform: rotateY(90deg);
+  -o-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+}
+.over-royal-flip-effect-animation.right:hover .info-box {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+
+/*
+ *
+ *	CSS3 Hover Style 10 | Rotate Switch Effect
+ *
+ */
+.rotate-switch-effect {
+  display: block;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.rotate-switch-effect .info-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-transform: rotateZ(360deg) scale(0, 0);
+  -moz-transform: rotateZ(360deg) scale(0, 0);
+  -ms-transform: rotateZ(360deg) scale(0, 0);
+  -o-transform: rotateZ(360deg) scale(0, 0);
+  transform: rotateZ(360deg) scale(0, 0);
+}
+.rotate-switch-effect .royal-image {
+  -webkit-transform: rotateZ(0) scale(1, 1);
+  -moz-transform: rotateZ(0) scale(1, 1);
+  -ms-transform: rotateZ(0) scale(1, 1);
+  -o-transform: rotateZ(0) scale(1, 1);
+  transform: rotateZ(0) scale(1, 1);
+}
+.rotate-switch-effect:hover .info-box {
+  -webkit-transform: rotateZ(0) scale(1, 1);
+  -moz-transform: rotateZ(0) scale(1, 1);
+  -ms-transform: rotateZ(0) scale(1, 1);
+  -o-transform: rotateZ(0) scale(1, 1);
+  transform: rotateZ(0) scale(1, 1);
+}
+.rotate-switch-effect:hover .royal-image {
+  -webkit-transform: rotateZ(-360deg) scale(0, 0);
+  -moz-transform: rotateZ(-360deg) scale(0, 0);
+  -ms-transform: rotateZ(-360deg) scale(0, 0);
+  -o-transform: rotateZ(-360deg) scale(0, 0);
+  transform: rotateZ(-360deg) scale(0, 0);
+  z-index: 0;
+}

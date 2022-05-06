@@ -1,0 +1,77 @@
+$(document).ready(function(){
+
+	$('body').on('click', '.cookies', function(e){
+	    e.preventDefault();
+	    var nonce = $(this).data('nonce');
+	    var cookie = $(this).data('cookie');
+	    $.ajax({
+    		url : ajaxurl,
+    		type : 'post',
+     		data : { 'action': 'update_cookie', 'cookie':cookie, 'nonce':nonce  },
+		    error:  function(xhr, str){ alert('Error: ' + xhr.responseCode); }
+   		});
+    });
+
+	if($('div').hasClass('blog-list') || $('#blog-list').hasClass('blog-posts')) {
+    $(window).scroll(function(){
+   	    var bottomOffset = 2500;
+		var data = {
+			'action': 'loadmore',
+			'query': true_posts,
+			'page' : current_page,
+			'template' : template
+		};
+		if( $(document).scrollTop() > ($(document).height() - bottomOffset) && !$('body').hasClass('loading')) {
+		    $.ajax({
+			    url:ajaxurl,
+			    data:data, 
+			    type:'POST',
+			    beforeSend: function( xhr){
+				    $('body').addClass('loading');
+			    },
+			    success:function(data){
+				    if( data ) { 
+					    $('#blog-list').append(data);
+					    $('body').removeClass('loading');
+					    current_page++;
+				    } 
+			    }
+		    });
+	    }
+	});
+	}
+
+    $('body').on('click', '.load-bottom', function(e){
+    	e.preventDefault();
+		$(this).text('Loading...');
+		var Btn = $(this);
+		var templ = $(this).data('templ');
+		var max = $(this).data('max');
+		var data = {
+			'action': 'loadmore',
+			'query': true_posts,
+			'page' : current_page,
+			'template' : template,
+			'templ' : templ
+		};
+		$.ajax({
+			url:ajaxurl,
+			data:data, 
+			type:'POST', 
+			success:function(data){
+				if( data ) { 
+					$(Btn).parent().parent().find('.load').append(data);
+					$(Btn).text('Load More');
+					current_page++;
+					if (current_page == max_pages || template == 4 || current_page == max && templ == 5 || current_page == max && templ == 6) {
+						$(Btn).parent().remove();
+					}
+				} else {
+					$(Btn).parent().remove();
+				}
+			}
+		});
+	});
+
+
+});

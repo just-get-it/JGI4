@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row my-3">
+  <div class="container">
+    <div class="row my-3" style="border-bottom:1px solid black;">
+      <h5><b>Profile Information</b></h5>
+    </div>
+    <form method="post">{% csrf_token %}
+
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <label>Name</label>
+          <input type="text" name="name" value="{{details.name}}" placeholder="Name" style="border:none;margin-left:4.1vw;">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <label>Registration No.</label>
+          <input type="number" name="reg_no" value="{{details.reg_no}}" placeholder="Registration No." style="border:none;margin-left:1vw;">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <label>Department</label>
+          <input type="text" name="dept" value="{{details.dept}}" placeholder="Department" style="border:none;margin-left:1vw;">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <label>Semester</label>
+          <input type="text" name="sub_dept" value="{{details.sub_dept}}" placeholder="Semester" style="border:none;margin-left:4.5vw;">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit" style="border:none;color:#30c5ff;background:none;margin-left:auto;">Save</button>
+      <a href="/userdetail/recover" class="hov-a" style="margin-left:5vw;margin-right:5vw;">Change Password</a>
+    </div>
+    </form>
+
+
+
+{% if orders.0 %}
+    <div class="row my-3" style="border-bottom:1px solid black;">
+      <h5><b>Orders for Assortment</b></h5>
+      <a href="/buisness/consumer_profile/request" class="hov-a" style="margin-left:auto;color:#30c5ff;">Request for Assortment</a>
+    </div>
+
+{% endif %}
+
+    <div class="row">
+      {% if orders.0 %}
+      <div class="container-fluid">
+				<div class="row orders_row" style="">
+
+						{% for ord in orders %}
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+								{% if ord.image %}
+								<a href="/buisness/order_update/{{ord.order_no}}"><img src="{{ord.image.url}}" style="border-radius: 25vw;width: 11vw;height: 11vw;"></a>
+								{% else %}
+
+								<a href="/buisness/order_update/{{ord.order_no}}"><img src="{% static 'img/order_rep.jpg' %}" style="border-radius: 25vw;width: 11vw;height: 11vw;"></a>
+								{% endif %}
+								<div class="container-fluid mt-2">
+									<div class="row">
+										<h6 class=""><b>{{ord.label|truncatewords:2}}</b></h6>
+										<p class="product_details_p">
+											Super-Category - {{ord.product_Category}}<br>
+											Sub-Category - {{ord.product_Subcategory}}<br>
+											Category - {{ord.product_Supercategory}}
+										</p>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+
+
+            			</div>
+				</div>
+
+        {% endif %}
+
+
+
+      </div>
+
+
+          <div class="row my-3" style="border-bottom:1px solid black;">
+            <h5><b>Previous Orders</b></h5>
+          </div>
+
+
+              <div class="row">
+                {% if order_assort.0 %}
+                <div class="container-fluid">
+          				<div class="row orders_row" style="">
+
+          						{% for ord in order_assort %}
+          							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+          								{% if ord.order_no.image %}
+          								<a href="/buisness/order_update/{{ord.order_no.order_no}}"><img src="{{ord.order_no.image.url}}" style="border-radius: 25vw;width: 11vw;height: 11vw;"></a>
+          								{% else %}
+
+          								<a href="/buisness/order_update/{{ord.order_no.order_no}}"><img src="{% static 'img/order_rep.jpg' %}" style="border-radius: 25vw;width: 11vw;height: 11vw;"></a>
+          								{% endif %}
+          								<div class="container-fluid mt-2">
+          									<div class="row">
+          										<h6 class=""><b>{{ord.order_no.label|truncatewords:2}}</b></h6>
+          										<p class="product_details_p">
+          											Super-Category - {{ord.order_no.product_Category}}<br>
+          											Sub-Category - {{ord.order_no.product_Subcategory}}<br>
+          											Category - {{ord.order_no.product_Supercategory}}
+          										</p>
+          									</div>
+          								</div>
+          							</div>
+          						{% endfor %}
+
+
+                                			</div>
+          				</div>
+                  {% else %}
+                    <div class="row my-3">
+                      <h5>You don't have any previous orders.</h5>
+                    </div>
+
+                  {% endif %}
+
+
+
+                </div>
+
+
+
+                <div class="row my-3" style="border-bottom:1px solid black;">
+                  <h5><b>Products</b></h5>
+                  <a href="/buisness/consumer_profile/products" class="hov-a" style="margin-left:auto;">Show All</a>
+                </div>
+
+
+                <div class="container-fluid">
+          				<div class="row orders_row" style="">
+
+          						{% for ord in products %}
+          							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 ord">
+          								{% if ord.image %}
+          								<a href="/buisness/consumer_profile/products/{{ord.order_no}}"><img src="{{ord.image.url}}" style="border-radius: 25vw;width: 11vw;height: 11vw;"></a>
+          								{% else %}
+
+          								<a href="/buisness/consumer_profile/products/{{ord.order_no}}"><img src="{% static 'img/order_rep.jpg' %}" style="border-radius: 25vw;width: 11vw;height: 11vw;"></a>
+          								{% endif %}
+          								<div class="container-fluid mt-2">
+          									<div class="row">
+          										<h6 class=""><b>{{ord.label|truncatewords:2}}</b></h6>
+          										<p class="product_details_p">
+          											Super-Category - {{ord.product_Category}}<br>
+          											Sub-Category - {{ord.product_Subcategory}}<br>
+          											Category - {{ord.product_Supercategory}}
+          										</p>
+          									</div>
+          								</div>
+          							</div>
+          						{% endfor %}
+
+
+          				</div>
+          			</div>
+
+    </div>
+  </div>
+
+{% endblock %}

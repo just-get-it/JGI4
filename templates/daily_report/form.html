@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+    
+    {% block customcss %}
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/style1.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    {% endblock %}
+    
+    {% block content %}
+    <main style="font-family: 'Open Sans', sans-serif;" class="page
+            contact-page">
+        <section class="portfolio-block contact">
+            <div class="container">
+                <div class="heading">
+                    <h2>Report</h2>
+                </div>
+                 {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} mt-10 alert-dismissible fade show" role="alert">
+    <strong>Message: </strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+            </div>
+            {% endfor %}
+            <form enctype="multipart/form-data" id="form" method="post" action="/daily_report/save">
+                {% csrf_token %}
+                <input type="hidden" name="owner_det" value="{{ owner_det.email }}">
+                <input type="hidden" name="owner" value="{{ owner }}">
+                <input type="hidden" name="unique" value="{{ unique }}">
+                <div class="form-group"><label for="name">Name</label><input required class="form-control item" type="text" name="name"></div>
+                <div class="form-group"><label for="report">Report</label>
+                    <select required name="report" class="custom-select">
+                                <option selected>Open this select menu</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                    </div>
+                    <div class="form-group"><label for="report">Project/Task</label>
+                        <select required name="task" class="custom-select">
+                                <option selected>Open this select menu</option>
+                                {% for tas in task %}
+                                <option value="{{ tas.name }}">{{ tas.name }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="form-group"><label for="message">Date</label>
+                        <input required type="date" class="form-control item" name="date">
+                    </div>
+                    <div class="form-group"><label for="message">Start Time</label>
+                        <input required type="time" id="start_time" class="form-control item" name="start_time">
+                    </div>
+                    <div class="form-group"><label for="message">End Time</label>
+                        <input required type="time" id="end_time" class="form-control item" name="end_time">
+                    </div>
+                    <div class="form-group"><label for="message">Number Of
+                                Hours</label>
+                    <input type="text" id="number_of_hours" class="form-control item" name="no_of_hours">
+                </div>
+                <div class="form-group"><label for="message">Team Lead</label><br> {% for e in emp %}
+                    <div class="form-check form-check-inline">
+                        <input required class="form-check-input" type="radio" name="team_lead" value="{{ e.name }}">
+                        <label class="form-check-label" for="inlineRadio1">{{ e.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group"><label for="name">Today's Progress</label><input class="form-control item" type="text" name="today_progress"></div>
+                <!-- <div style="border:solid grey 0.5px">
+                    <div class="file-uploader__message-area">
+                        <p>Select a file to upload</p>
+                    </div>
+                    <div class="file-chooser">
+                        <input class="file-chooser__input" type="file" name="file_input" id="file_input">
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label for="file_link1">Files Drive Link: </label>
+                    <input class="form-control item" type="url" name="file_link1">
+                    <p style="color: red;">* kindly set drive access permissions to anyone with link can view! ( Share folder link for attaching multiple files )</p>
+                </div>
+
+                <div class="form-group"><label for="name">Concern If Any</label><input required class="form-control item" type="text" name="concern"></div>
+                <div class="form-group"><label for="name">Next Plan</label><input required class="form-control item" type="text" name="next_plan"></div>
+
+                <!--second file upload-->
+                <!-- <div style="border:solid grey 0.5px">
+                    <div class="file-uploader2__message-area">
+                        <p>Select a file to upload</p>
+                        <p>Paste Drive Link: </p>
+                        <p style="color: red;">* kindly set drive access permissions to anyone with link can view!</p>
+                    </div>
+                    <div class="file-chooser2">
+                        <input class="file-chooser2__input" type="file" name="file_input2" id="file_input2">
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label for="file_link2">Files Drive Link: </label>
+                    <input class="form-control item" type="url" name="file_link2">
+                    <p style="color: red;">* kindly set drive access permissions to anyone with link can view! ( Share folder link for attaching multiple files )</p>
+                </div>
+                <br>
+                <hr>
+                <div class="form-group"><button class="btn btn-primary
+                                btn-block btn-lg" type="submit">Submit Form</button></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/form.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+{% endblock %}
+

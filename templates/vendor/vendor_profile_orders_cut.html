@@ -1,0 +1,62 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+</style>
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+{% block content %}
+<a href="/userdetail/staff_profile/packing/{{order_no}}">Generate Packing</a>
+<a href="/userdetail/staff_profile/show_packing/{{order_no}}">Show Packing</a>
+<h1>Cut Order Planning</h1>
+<h2>Order No-{{order.order_no}}</h2>
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for i in sizes_cum_prod %}
+								<th>{{i}}</th>
+							{% endfor %}
+						</tr>
+						{% for i in map_prod %}
+						<tr>
+							<th>{{map_prod|get_item_color:i}}</th>
+							<th>Location{{map_prod|get_item_location:i}}</th>
+							{% for j in map_prod|get_item_sizes:i %}
+								<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+				<div class="col-12 mt-3">
+
+<h3>Rejection Rate- {{rejected}}%</h3>
+<h3>Acception Rate- {{accepted}}%</h3>
+<h3>Stock- {{stock_no}}%</h3>
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for i in sizes_cum_prod %}
+								<th>{{i}}</th>
+							{% endfor %}
+						</tr>
+						{% for i in stock %}
+						<tr>
+							<th>{{stock|get_item_color:i}}</th>
+							<th>Location{{stock|get_item_location:i}}</th>
+							{% for j in stock|get_item_sizes:i %}
+								<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+{% endblock %}

@@ -1,0 +1,683 @@
+{% extends 'base.html' %}
+{% block topcontent %}
+{% load static %}
+		<!-- ADDED FOR CHATBOT APP BY @NAAJID -->
+  {% comment %} <link media="all" type="text/css" rel="stylesheet" href="https://bootsnipp.com/css/fullscreen.css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" id="bootstrap-css"> {% endcomment %}
+  <link rel="shortcut icon" href="#">
+  <style type="text/css">
+  .container{
+    @include 'https://bootsnipp.com/css/fullscreen.css'
+    @include '//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css'
+  }
+    /*===========================
+     CHAT BOOT MESSENGER
+   ===========================*/
+    #Smallchat .Messages,
+    #Smallchat .Messages_list {
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+    }
+
+    img#closebutton {
+      height: 15px;
+	    position: relative;
+      top: 0.5px;
+    }
+
+    .chat_close_icon {
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+      position: absolute;
+      right: 12px;
+      z-index: 9;
+    }
+
+    .chat_on {
+      position: fixed;
+      z-index: 10;
+      width: 45px;
+      height: 45px;
+      right: 15px;
+      bottom: 20px;
+      background-color: grey;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      padding: 9px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+      cursor: pointer;
+      display: block;
+    }
+
+    .chat_on_icon {
+      color: #fff;
+      font-size: 25px;
+      text-align: center;
+    }
+
+    /*
+#Smallchat,#Smallchat * {
+ box-sizing:border-box; 
+ -webkit-font-smoothing:antialiased;
+ -moz-osx-font-smoothing:grayscale;
+ -webkit-tap-highlight-color:transparent
+}
+*/
+    #Smallchat .Layout {
+      pointer-events: auto;
+      box-sizing: content-box !important;
+      z-index: 999999999;
+      position: fixed;
+      bottom: 20px;
+      min-width: 50px;
+      max-width: 300px;
+      max-height: 30px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+      border-radius: 50px;
+      box-shadow: 5px 0 20px 5px rgba(0, 0, 0, .1);
+      -webkit-animation: appear .15s cubic-bezier(.25, .25, .5, 1.1);
+      animation: appear .15s cubic-bezier(.25, .25, .5, 1.1);
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+      opacity: 0;
+      -webkit-transition: right .1s cubic-bezier(.25, .25, .5, 1), bottom .1s cubic-bezier(.25, .25, .5, 1), min-width .2s cubic-bezier(.25, .25, .5, 1), max-width .2s cubic-bezier(.25, .25, .5, 1), min-height .2s cubic-bezier(.25, .25, .5, 1), max-height .2s cubic-bezier(.25, .25, .5, 1), border-radius 50ms cubic-bezier(.25, .25, .5, 1) .15s, background-color 50ms cubic-bezier(.25, .25, .5, 1) .15s, color 50ms cubic-bezier(.25, .25, .5, 1) .15s;
+      transition: right .1s cubic-bezier(.25, .25, .5, 1), bottom .1s cubic-bezier(.25, .25, .5, 1), min-width .2s cubic-bezier(.25, .25, .5, 1), max-width .2s cubic-bezier(.25, .25, .5, 1), min-height .2s cubic-bezier(.25, .25, .5, 1), max-height .2s cubic-bezier(.25, .25, .5, 1), border-radius 50ms cubic-bezier(.25, .25, .5, 1) .15s, background-color 50ms cubic-bezier(.25, .25, .5, 1) .15s, color 50ms cubic-bezier(.25, .25, .5, 1) .15s
+    }
+
+    #Smallchat .Layout-right {
+      right: 20px
+    }
+
+    #Smallchat .Layout-open {
+      overflow: hidden;
+      min-width: 300px;
+      max-width: 300px;
+      height: 500px;
+      max-height: 500px;
+      border-radius: 10px;
+      color: #fff;
+      -webkit-transition: right .1s cubic-bezier(.25, .25, .5, 1), bottom .1s cubic-bezier(.25, .25, .5, 1.1), min-width .2s cubic-bezier(.25, .25, .5, 1.1), max-width .2s cubic-bezier(.25, .25, .5, 1.1), max-height .2s cubic-bezier(.25, .25, .5, 1.1), min-height .2s cubic-bezier(.25, .25, .5, 1.1), border-radius 0ms cubic-bezier(.25, .25, .5, 1.1), background-color 0ms cubic-bezier(.25, .25, .5, 1.1), color 0ms cubic-bezier(.25, .25, .5, 1.1);
+      transition: right .1s cubic-bezier(.25, .25, .5, 1), bottom .1s cubic-bezier(.25, .25, .5, 1.1), min-width .2s cubic-bezier(.25, .25, .5, 1.1), max-width .2s cubic-bezier(.25, .25, .5, 1.1), max-height .2s cubic-bezier(.25, .25, .5, 1.1), min-height .2s cubic-bezier(.25, .25, .5, 1.1), border-radius 0ms cubic-bezier(.25, .25, .5, 1.1), background-color 0ms cubic-bezier(.25, .25, .5, 1.1), color 0ms cubic-bezier(.25, .25, .5, 1.1);
+    }
+
+    #Smallchat .Layout-expand {
+      height: 500px;
+      min-height: 500px;
+      display: none;
+    }
+
+    #Smallchat .Layout-mobile {
+      bottom: 10px
+    }
+
+    #Smallchat .Layout-mobile.Layout-open {
+      width: calc(100% - 20px);
+      min-width: calc(100% - 20px)
+    }
+
+    #Smallchat .Layout-mobile.Layout-expand {
+      bottom: 0;
+      height: 100%;
+      min-height: 100%;
+      width: 100%;
+      min-width: 100%;
+      border-radius: 0 !important
+    }
+
+    @-webkit-keyframes appear {
+      0% {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0)
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1)
+      }
+    }
+
+    @keyframes appear {
+      0% {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0)
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1)
+      }
+    }
+
+    #Smallchat .Messenger_messenger {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      min-width: 300px;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column
+    }
+
+    #Smallchat .Messenger_header,
+    #Smallchat .Messenger_messenger {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex
+    }
+
+    #Smallchat .Messenger_header {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding-left: 10px;
+      padding-right: 40px;
+      height: 40px;
+      -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+      flex-shrink: 0
+    }
+
+
+    #Smallchat .Messenger_header h4 {
+      opacity: 0;
+      font-size: 16px;
+      -webkit-animation: slidein .15s .3s;
+      animation: slidein .15s .3s;
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards
+    }
+
+    #Smallchat .Messenger_prompt {
+      margin: 0;
+      font-size: 16px;
+      line-height: 18px;
+      font-weight: 400;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis
+    }
+
+    @-webkit-keyframes slidein {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px)
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes slidein {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px)
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+      }
+    }
+
+    #Smallchat .Messenger_content {
+      height: 450px;
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      background-color: #fff;
+    }
+
+    #Smallchat .Messages {
+      position: relative;
+      -webkit-flex-shrink: 1;
+      -ms-flex-negative: 1;
+      flex-shrink: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 10px;
+      background-color: lightblue;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #image {
+      height: 29px;
+      width: 28px;
+      margin-left: 6px;
+    }
+
+
+
+    #Smallchat .Input {
+      position: relative;
+      width: 100%;
+      -webkit-box-flex: 0;
+      -webkit-flex-grow: 0;
+      -ms-flex-positive: 0;
+      flex-grow: 0;
+      -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+      padding-top: 17px;
+      padding-bottom: 15px;
+      color: #96aab4;
+      background-color: #fff;
+      border-top: 1px solid #e6ebea;
+    }
+
+    #Smallchat .Input-blank .Input_field {
+      max-height: 20px;
+      overflow: hidden;
+    }
+
+    #usermessage {
+      text-align: right;
+      background-color: grey;
+      color: white;
+      font-weight: bold;
+    }
+
+    #Smallchat .Input_field {
+      width: 100%;
+      resize: none;
+      border: none;
+      outline: none;
+      padding: 0;
+      padding-right: 0px;
+      padding-left: 0px;
+      padding-left: 20px;
+      padding-right: 75px;
+      background-color: transparent;
+      font-size: 16px;
+      line-height: 20px;
+      min-height: 20px !important;
+    }
+
+    #Smallchat .Input_button-emoji {
+      right: 45px;
+    }
+
+    .introd {
+      color: black;
+    }
+
+    p.messageslistnew {
+      color: black;
+      background-color: white;
+      cursor: pointer;
+	  font-size: 14px;
+    }
+
+    #Smallchat .Input_button {
+      position: absolute;
+      bottom: 15px;
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    #Smallchat .Input_button-send {
+      right: 15px;
+    }
+
+    #Smallchat .Input-emoji .Input_button-emoji .Icon,
+    #Smallchat .Input_button:hover .Icon {
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+      -webkit-transition: all .1s ease-in-out;
+      transition: all .1s ease-in-out;
+    }
+
+    #Smallchat .Input-emoji .Input_button-emoji .Icon path,
+    #Smallchat .Input_button:hover .Icon path {
+      fill: #2c2c46;
+    }
+
+    .messageslistnew:hover {
+      background-color: navy;
+      color: #fff;
+
+    }
+
+    p.messageslist {
+      background-color: white;
+      border: lightblue solid 1px;
+      border-radius: 9px;
+      color: black;
+      font-weight: bold;
+	  font-size: 14px;
+
+    }
+
+    .Messenger_header {
+      height: 30px;
+      background-color: grey;
+      color: rgb(255, 255, 255);
+
+    }
+
+    .whatsapp {
+      overflow: auto;
+    }
+    #micro{
+      position: absolute;
+    left: 235px;
+    top: 15px;
+    }
+    img#texttospeech{
+    right: -136px;
+    height: 20px;
+    top: 0.5px;
+    position: relative;
+    cursor: pointer;
+    }
+    img#texttospeech:active{
+      box-shadow: 0 5px grey;
+      transform: translateY(4px);
+    }
+  </style>
+
+		<!-- ADDED FOR CHATBOT APP BY @NAAJID -->
+
+<!-- 
+<style type="text/css">
+
+input[type="file"]::before {
+  content: 'Select your Resume';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 50px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700; 
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  height: 200px;
+  width: 250px;
+
+}
+input[type="file"]:hover::before {
+  border-color: black;
+  border-width: 3px;
+}
+input[type="file"]:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+</style> -->
+
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<div class="container-fluid">
+	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+    <ul class="navbar-nav m-auto" >
+      <li class="nav-item"><a  class="nav-link" href="/userdetail/academic_profile?email={{email}}"   style="color: white;">Profile</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/upload_product"   style="color: white;">Product Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/staff_profile/message"   style="color: white;">Service Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/products"   style="color: white;">Suscribe</a></li>	
+	  <li class="nav-item"><a  class="nav-link" href="/cal"   style="color: white;">Diet Plan</a>
+		</li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/store"   style="color: white;">Whislist</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Cart</a>
+		</li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Order Placement</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Payment</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/generate"   style="color: white;">Generate Link For Form</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/display_report_user"   style="color: white;">Display Report</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="h4">Welcome:-
+				<div class="h2">{{email}}</div>
+			</div>
+		</div>
+		<div class="col"></div>
+		<div class="col"></div>
+		</div>
+		<div class="row">
+			<div class="container"> 
+  				
+				<div class="bg-success text-center py-5 mb-3 shadow-lg rounded">
+					<p id="info" name="info" class="text-center h1" >Upload Your PDF Resume here</p>
+				<!--	<img src=" class="" alt=""> -->
+ 			 		<form method="POST" enctype="multipart/form-data" style="background-repeat: no-repeat; background-position: center; height: 300px; background-image: url({% static 'img/upload.png' %});" >
+						{% csrf_token %} 
+						<div id="forming" >
+							{{ form.as_p }}  
+						</div>
+						<button  class="btn btn-primary btn-lg px-5 py-3" style="margin-top:20%;">Submit</button>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+
+
+
+
+
+<script type="text/javascript">
+	var forms=document.getElementById("forming")
+	forms.onchange = function(e) { 
+		document.getElementById("info").innerHTML="Upload Successful! Click Submit"
+};
+</script>
+		<!-- ADDED FOR CHATBOT APP BY @NAAJID -->
+
+
+  <div class="container">
+    <div class="row">
+      <div id="Smallchat">
+        <div class="Layout Layout-open Layout-expand Layout-right"
+          style="background-color: #3F51B5;color: rgb(255, 255, 255);opacity: 5;border-radius: 10px;">
+          <div class="Messenger_messenger">
+            <div class="Messenger_header">
+              <h4 class="Messenger_prompt">JustGetIn Bot</h4><img src="../../static/images/speech.png" id="texttospeech" alt="T2Speech" onclick="voiceupdater()">
+              <span class="chat_close_icon"><img src="../../static/images/close.gif" id="closebutton" alt="close"></i></span>
+            </div>
+            <div class="Messenger_content">
+              <div class="Messages">
+                <div class="Messages_list">
+                  <div class="whatsapp" id="whatsapp">
+                    <p class="messageslist"><img id="image" src="../../static/images/bot3.jpeg" alt="bot">Hello! How may I help
+                      you ?
+                      <!-- <br>Click here for order enquiry
+                  <br>Click here for complaints -->
+                    </p>
+                    <p class="messageslistnew" id="messageslistnew1">1. Click Here for recent Order Details</p>
+                    <p class="messageslistnew" id="messageslistnew2">2. Click Here to see your Wishlist</p>
+                    <p class="messageslistnew" id="messageslistnew3">3. Click Here to see your Complaints</p>
+                    <p class="messageslistnew" id="messageslistnew4">4. Click Here to directly connect to an executive
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+              <form id="form1" method="GET">
+                <div class="Input Input-blank">
+                  <textarea class="Input_field" spellcheck="true" placeholder="Send a message..." id="senderbutton"
+                    name="question" onkeydown="keydown(event)" style="height: 20px;"></textarea>
+                  <button type="button" class="Input_button Input_button-send" id="micro" onclick=record()>
+                    <div class="Icon" style="width: 18px; height: 18px;">
+                      <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px"
+                        viewBox="0 0 24 24" width="24px" fill="grey">
+                        <g>
+                          <rect fill="none" height="24" width="24" />
+                          <rect fill="none" height="24" width="24" />
+                          <rect fill="none" height="24" width="24" />
+                        </g>
+                        <g>
+                          <g />
+                          <g>
+                            <path
+                              d="M12,14c1.66,0,3-1.34,3-3V5c0-1.66-1.34-3-3-3S9,3.34,9,5v6C9,12.66,10.34,14,12,14z" />
+                            <path
+                              d="M17,11c0,2.76-2.24,5-5,5s-5-2.24-5-5H5c0,3.53,2.61,6.43,6,6.92V21h2v-3.08c3.39-0.49,6-3.39,6-6.92H17z" />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <button type="button" class="Input_button Input_button-send" id="sendbutton">
+                      <div class="Icon" style="width: 18px; height: 18px;">
+                        <svg width="57px" height="54px" viewBox="1496 193 57 54" version="1.1"
+                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                          style="width: 18px; height: 18px;">
+                          <g id="Group-9-Copy-3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                            transform="translate(1523.000000, 220.000000) rotate(-270.000000) translate(-1523.000000, -220.000000) translate(1499.000000, 193.000000)">
+                            <path
+                              d="M5.42994667,44.5306122 L16.5955554,44.5306122 L21.049938,20.423658 C21.6518463,17.1661523 26.3121212,17.1441362 26.9447801,20.3958097 L31.6405465,44.5306122 L42.5313185,44.5306122 L23.9806326,7.0871633 L5.42994667,44.5306122 Z M22.0420732,48.0757124 C21.779222,49.4982538 20.5386331,50.5306122 19.0920112,50.5306122 L1.59009899,50.5306122 C-1.20169244,50.5306122 -2.87079654,47.7697069 -1.64625638,45.2980459 L20.8461928,-0.101616237 C22.1967178,-2.8275701 25.7710778,-2.81438868 27.1150723,-0.101616237 L49.6075215,45.2980459 C50.8414042,47.7885641 49.1422456,50.5306122 46.3613062,50.5306122 L29.1679835,50.5306122 C27.7320366,50.5306122 26.4974445,49.5130766 26.2232033,48.1035608 L24.0760553,37.0678766 L22.0420732,48.0757124 Z"
+                              id="sendicon" fill="#96AAB4" fill-rule="nonzero"></path>
+                          </g>
+                        </svg>
+                      </div>
+                    </button>
+
+              </form>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--===============CHAT ON BUTTON STRART===============-->
+      <div class="chat_on"> <span class="chat_on_icon"><i class="fa fa-comments" aria-hidden="true"></i></span> </div>
+      <!--===============CHAT ON BUTTON END===============-->
+    </div>
+  </div>
+  </div>
+
+  <!-- <iframe id="snippet-preview" src="//s.bootsnipp.com/iframe/Q0BMR" frameborder='no'></iframe> -->
+  {% if ans %}
+  <h4>BOT'S REPLY : {{ans}}</h4>
+  {% endif %}
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!-- <script src="../templates/ajax.js"></script> -->
+
+  <script type="text/javascript">
+
+
+    // CHAT BOOT MESSENGER////////////////////////
+
+
+    $(document).ready(function () {
+      $(".chat_on").click(function () {
+        $(".Layout").toggle();
+        $(".chat_on").hide(300);
+      });
+
+      $(".chat_close_icon").click(function () {
+        $(".Layout").hide();
+        $(".chat_on").show(300);
+      });
+
+    });
+  </script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    window.alert = function () { };
+    var defaultCSS = document.getElementById('bootstrap-css');
+    function changeCSS(css) {
+      if (css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="' + css + '" type="text/css" />');
+      else $('head > link').filter(':first').replaceWith(defaultCSS);
+    }
+    $(document).ready(function () {
+      var iframe_height = parseInt($('html').height());
+      window.parent.postMessage(iframe_height, 'http://127.0.0.1:8000/');
+    });
+
+    function record()
+{
+  var recog = new webkitSpeechRecognition();
+  recog.lang = "en-GB";
+  recog.onresult = function(e){
+    console.log(e);
+    document.getElementById('senderbutton').value = e.results[0][0].transcript;
+
+
+  }
+  recog.start();
+  document.getElementById('senderbutton').click();
+
+}
+
+  </script>
+  <script src="../../static/javascript/ajax.js"></script>
+
+  		<!-- ADDED FOR CHATBOT APP BY @NAAJID -->
+
+{% endblock %}

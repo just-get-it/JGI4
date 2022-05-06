@@ -1,0 +1,398 @@
+{% extends 'base2.html' %}
+    {% block content %}
+      {% csrf_token %}
+<div class="container text-center">
+    <h1>Form 3</h1>
+</div>
+<div class="container">
+  <form class="form" action="home"  method="POST" style="margin-left:20px; width: 97%">
+    {% csrf_token %}
+    <div class="form-group row" style="text-align: center;">
+      <h2>ORDER DETAILS</h2>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Order No</label>
+        <div class="col-sm-10">
+            <select name="orderno" required id="orderno">
+              <option value="" selected>---------</option>
+              {% for i in orderno %}
+              
+                <option value="{{ i.order_no }}">{{ i.order_no }}</option>
+              
+              {% endfor %}
+          </select>
+        
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Style No</label>
+        <div class="col-sm-10">
+            <input type="text" name="styleno" id="styleno" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Line No</label>
+        <div class="col-sm-10">
+            <input type="number" name="lineno" id="lineno" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Mins/Shift</label>
+        <div class="col-sm-10">
+            <input type="number" name="shift" id="shift" value="480" required >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Order Quantity</label>
+        <div class="col-sm-10">
+            <input type="number" name="order_quantity" id="order_quantity" required >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Capacity</label>
+        <div class="col-sm-10">
+            <input type="number" name="capacity" id="capacity" value="800" required >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Target</label>
+        <div class="col-sm-10">
+            <input type="number" name="target" id="target" value="600" required >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Expected skill level</label>
+        <div class="col-sm-10">
+            <input type="number" name="skill_level" id="skill_level" required >
+        </div>
+    </div>
+    <div class="form-group row" style="text-align: center;">
+      <h2>SELECT THE FOLLOWING TO GENERATE THE OPERATIONS</h2>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">PFM NO</label>
+        <div class="col-sm-10">
+          <select name="pfmno" required id="pfmno">
+              <option value="" selected>---------</option>
+              {% for i in data %}
+              
+                <option value="{{ i.pfmno }}">{{ i.pfmno }}</option>
+              
+              {% endfor %}
+          </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Department</label>
+        <div class="col-sm-10">
+          <select name="department" required id="department">
+              <option value="" selected>---------</option>
+                {% for item in department %}
+              <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endfor %}
+          </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Section</label>
+        <div class="col-sm-10">
+          <select name="section" required id="section">    
+              <option value="" selected>---------</option>
+              {% csrf_token %}
+            {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Sub-Section</label>
+        <div class="col-sm-10">
+          <select name="subsection" required id="subsection">    
+            {% for i in data %}
+              <option value="{{ i.name }}">{{ i.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+      <h2>COMPONENT</h2>
+       <label  class="col-sm-2 col-form-label">Component</label>
+        <div class="col-sm-10">
+
+          <div name="component" required id="component">
+          </div>
+        </div>
+        <button class="btn btn-primary" name="submit" id="id_submit">Submit</button>
+        <button class="btn btn-primary" id="id_summary" onclick="myFunc()">Summary</button>
+    </div>
+
+  </form>
+  <div class="container">
+  <br>
+
+  <table id="tableid" border="1" align="center" class="table">
+
+     <tr>
+        <th>PFM No</th>
+        <th>Order No</th>
+        <th>Style NO</th>
+        <th>Line No</th>
+        <th>Shift</th>
+        <th>Order Quantity</th>
+        <th>Capacity</th>
+        <th>Target</th>
+        <th>Skill Level</th>
+        <th>Department</th>
+        <th>Section</th>
+        <th>Sub-Section</th>
+        <th>Collar</th>
+        <th>Pocket</th>
+        <th>Vent</th>
+        <th>lapel</th>
+        <th>cuff</th>
+        <th>sleeve</th>
+        
+        
+    </tr>
+    
+    {% for item in ob %}
+    <tr> 
+        <td>{{ item.pfmno }}</td>
+        <td>{{ item.orderno }}</td>
+        <td>{{ item.styleno }}</td>
+        <td>{{ item.lineno }}</td>
+        <td>{{ item.shift }}</td>
+        <td>{{ item.order_quantity }}</td>
+        <td>{{ item.capacity }}</td>
+        <td>{{ item.target }}</td>
+        <td>{{ item.skill_level }}</td>
+        <td>{{ item.department }}</td>
+        <td>{{ item.section }}</td>
+        <td>{{ item.subSection }}</td>
+        <td>{{ item.collar }}</td>
+        <td>{{ item.pocket }}</td>
+        <td>{{ item.vent }}</td>
+        <td>{{ item.lapel }}</td>
+        <td>{{ item.cuff }}</td>
+        <td>{{ item.sleeve }}</td>
+    </tr>
+    {% endfor %} 
+  </table>
+
+  </div>
+</div>
+ 
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+<script>
+
+  function myFunc(){
+    var x = document.getElementById("tableid");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  var globe;
+   $("#department").change(function () {
+      var depart = $("#department").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/obgenerateform3",
+        data: {
+          'department': depart,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          
+          $("#section").find('.section_type_ops').remove()  
+          for(var i=0; i < data["section_res"].length; i++){
+
+            $("#section").append(`<option value="${data['section_res'][i]}" class="section_type_ops">${data['section_res'][i]}</option>`)
+          }
+        }
+      });
+    });
+
+    $("#orderno").change(function () {
+      var ord = $("#orderno").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/obgenerateform3",
+        data: {
+          'orderno': ord,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+
+          $("pfmno").find('.section_type_ops').remove()
+          for(var i=0; i < data["section_res"].length; i++){
+
+            $("#pfmno").append(`<option value="${data['section_res'][i]}" class="section_type_ops">${data['section_res'][i]}</option>`)
+          }
+        }
+      });
+    });
+
+   $("#section").change(function () {
+      var section = $("#section").val();
+      
+      $.ajax({
+        type: "POST",
+        url: "/sew/obgenerateform3",
+        data: {
+          'section': section,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+          $("#subsection").find('.sub_section_type_ops').remove()
+
+          for(var i=0; i < data['sub_section_res'].length; i++){
+
+            $("#subsection").append(`<option value="${data['sub_section_res'][i]}" class="sub_section_type_ops">${data['sub_section_res'][i]}</option>`)
+          }
+        }
+      });
+    });
+   $("#pfmno").change(function () {
+      var p = $("#pfmno").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/sew/obgenerateform3",
+        data: {
+          'pfmno': p,
+          'csrfmiddlewaretoken': "{{ csrf_token }}"
+        },
+        success: function (data) {
+            var count=0;
+            var a=[];
+            var b=0;
+            globe=data;
+           for(var i=0; i < data['component'].length; i++){
+              
+                  $("#component").append(`<div class="sub_component" id="${data['component'][i]}"><br><input type="text" readonly id="component_add" name="${data['component'][i]}" value="${data['component'][i]}"></div>`)
+           
+                 for(var j=count;j<data['type'].length;j++){
+                    if(data['type'][j]=="o"){
+                        b=1;
+                        count++;
+                        break;
+                    }
+                    else{
+                     $("#"+data['component'][i] ).append(`<input type="checkbox"
+                     onclick="fuc()"  id="a${i}"
+                      name="${data['component'][i]}" value="${data['type'][j]}"> <label for="${data['component'][i]}">${data['type'][j]}</label><br>`)
+                    count++;
+                  }
+                }
+           
+
+        }
+          
+          }
+        });
+    });
+    var coll="";
+    var pock="";
+    var v="";
+    var sleeve="";
+    var lapel="";
+    var cuff="";
+   function fuc(){
+      console.log();
+      var collar = "";
+      var pocket = "";
+      var vent="";
+      var sl="";
+      var la="";
+      
+      var cu="";
+      $("input:checkbox[name='Collar']:checked").each(function(){    
+        //collar.push($(this).val());
+        collar=collar+":"+$(this).val();
+      });
+      $("input:checkbox[name='Pockets']:checked").each(function(){    
+        pocket=pocket+":"+$(this).val();        
+      });
+      $("input:checkbox[name='Vent']:checked").each(function(){    
+        vent=vent+":"+$(this).val();        
+      });
+      $("input:checkbox[name='Sleeve']:checked").each(function(){    
+        sl=sl+":"+$(this).val();        
+      });
+      $("input:checkbox[name='Lapel']:checked").each(function(){    
+        la=la+":"+$(this).val();        
+      });
+      $("input:checkbox[name='Cuff']:checked").each(function(){    
+        cu=cu+":"+$(this).val();        
+      });
+      coll=collar;
+      pock=pocket;
+      v=vent;
+      lapel=la;
+      cuff=cu;
+      sleeve=sl;
+      //console.log("The best cricketers are: " + collar.join(": "));
+     // console.log("The best cricketers are: " + pocket.join(": "));
+     // console.log("The best cricketers are: " + vent.join(": "));
+  }
+
+  $("#id_submit").click(function (data) {
+
+      var orderno = $('#orderno').val();
+      var styleno = $('#styleno').val();
+      var lineno = $('#lineno').val();
+      var shift = $('#shift').val()
+      var order_quantity = $('#order_quantity').val();
+      var capacity = $('#capacity').val();
+      var target = $('#target').val();
+      var skill_level= $('#skill_level').val();
+      var pfmno= $('#pfmno').find(":selected").text();
+      var department = $('#department').find(":selected").text();
+      var section = $('#section').find(":selected").text();
+      var sub_section = $('#subsection').find(":selected").text();
+      var component = $('#component_add').find(":checked").val();
+      console.log(v)
+      console.log(coll)
+      if (skill_level=="") {
+        alert("fill form")
+      }
+      else{
+    
+      $.ajax({
+        url: "/sew/obgenerateform3",
+        type: "GET",
+        data: {
+          'orderno': orderno,
+          'styleno': styleno,
+          'lineno':lineno,
+          'shift': shift,
+          'order_quantity': order_quantity,
+          'capacity': capacity,
+          'target':target,
+          'skill_level':skill_level,
+          'pfmno':pfmno,
+          'department':department,
+          'section':section,
+          'sub_section':sub_section,
+          'collar':coll,
+          'pocket':pock,
+          'vent':v,  
+          'lapel':lapel,
+          'cuff':cuff,
+          'sleeve':sleeve,
+        },
+        success: function () {         
+        }
+      });
+    }
+  });
+   
+</script> 
+{% endblock %}
+

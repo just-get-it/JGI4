@@ -1,0 +1,370 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+{% load operator_tags %}
+<style type="text/css">
+    td,th{
+      border: 1px solid black;
+    }
+    thead,th{
+      background-color: #2E2D2D;
+      color: white;
+    }
+    tr{
+      background-color: #fbf7f7;
+    }
+</style>
+<div class="container text-center">
+    <h1>OPERATOR SKILL MATRIX</h1>
+</div>
+  <!-- Example row of columns -->
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <table class="table">
+        <tr>
+          <th>Product: {{ product }}</th>
+          <th>Line no: {{ lineno }}</th>
+          <th>Date: {{ inpdate }}</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+      <br>
+      <table id="myTable1" class="table">
+        <thead>
+          <tr>
+            <th>Operator ID</th>
+            <th> </th>
+            {% for operator in operator_list %}
+              <th>{{ operator.operator_id }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Operator Name</th>
+            <th> </th>
+            {% for operator in operator_list %}
+              <th>{{ operator.operator_name }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Operator grade</th>
+            <th> </th>
+            {% for operator in operator_list %}
+              <th>{{ operator.grade }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Operation</th>
+            <th>Operation criticality</th>
+            {% for operator in operator_list %}
+              <th> </th>
+            {% endfor %}
+            <th>No of operator per operation</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th>dart stitch</th>
+              <td>4</td>
+              {% for operator in operator_list %}
+                {% if 'dart_stitch' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'dart_stitch' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'dart_stitch' }}</td>
+            </tr>
+            <tr>
+              <th>panel attach</th>
+              <td>3</td>
+              {% for operator in operator_list %}
+                {% if 'panel_attach' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'panel_attach' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'panel_attach' }}</td>
+            </tr>
+            <tr>
+              <th>dart and panel pressing</th>
+              <td>5</td>
+              {% for operator in operator_list %}
+                {% if 'dart_and_panel_pressing' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'dart_and_panel_pressing' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'dart_and_panel_pressing' }}</td>
+            </tr>
+            <tr>
+              <th>centre back stitch</th>
+              <td>2</td>
+              {% for operator in operator_list %}
+                {% if 'centre_back_stitch' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'centre_back_stitch' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'centre_back_stitch' }}</td>
+            </tr>
+            <tr>
+              <th>diamond stitch</th>
+              <td>3</td>
+              {% for operator in operator_list %}
+                {% if 'diamond_stitch' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'diamond_stitch' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'diamond_stitch' }}</td>
+            </tr>
+            <tr>
+              <th>chest welt iron</th>
+              <td>1</td>
+              {% for operator in operator_list %}
+                {% if 'chest_welt_iron' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'chest_welt_iron' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'chest_welt_iron' }}</td>
+            </tr>
+            <tr>
+              <th>chest welt attach</th>
+              <td>4</td>
+              {% for operator in operator_list %}
+                {% if 'chest_welt_attach' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'chest_welt_attach' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'chest_welt_attach' }}</td>
+            </tr>
+            <tr>
+              <th>side seam</th>
+              <td>3</td>
+              {% for operator in operator_list %}
+                {% if 'side_seam' in operator.operation %}
+                  {% with ope=operator.operation|strtolist %}
+                  {% with sk=operator.skill_percentage|strtolist %}
+                    {% for a,b in ope|zip:sk %}
+                      {% if 'side_seam' == a %}
+                            {% for attend in operator_attendences %}
+                              {% if operator.operator_id == attend.operator_id %}
+                                {% if attend.attendence == 'present' %}
+                                  <td style="background-color: green;color: white">{{b}}</td>
+                                {% elif attend.attendence == 'absent' %}
+                                  <td style="background-color: red;color: white">{{b}}</td>
+                                {% else %}
+                                  <td>{{b}}</td>
+                                {% endif %}
+                              {% endif %}
+                            {% empty %}
+                              <td>{{b}}</td>
+                            {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  <td></td>
+                {% endif %}
+              {% endfor %}
+              <td>{{ operatorpop|get_item:'side_seam' }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background-color: #47c19f;">
+            <th style="background-color: #47c19f!important;" >No. of operation per operator</th>
+            <td></td>
+             {% for operator in operator_list %}
+              {% with ope=operator.operation|strtolist %}
+                <td>{{ope|length}}</td>
+              {% endwith %}
+             {% endfor %}
+             <td> </td>
+          </tr>
+          <tr>
+          <th>Required skill level</th>
+          <td> </td>
+          {% for operator in operator_list %}
+              <td>20</td>
+          {% endfor %}
+          <td>{{ operator_list.count|mul }}</td>
+        </tr>
+        <tr>
+          <th>Achieved skill level</th>
+          <td> </td>
+          {% for operator in operator_list %}
+              {% with ope=operator.operation|strtolist %}
+                {% with sk=operator.skill_percentage|strtolist %}
+                  <td>
+                    {{ ope|zip:sk|get_achieved }}
+                  </td>
+                {% endwith %}
+              {% endwith %}
+          {% endfor %}
+          <td>{{achievedskilllevel}}</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+</div>
+{% endblock %}

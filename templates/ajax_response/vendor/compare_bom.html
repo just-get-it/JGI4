@@ -1,0 +1,77 @@
+
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-5 mx-4">
+			{% for j in bom1.trims_used.all %}
+			<div class="row my-3 p-3" style="box-shadow:0 0 5px rgba(0,0,0,.5);">
+		        <div class="container-fluid">
+		          <div class="row">
+		            {% if j.fabric %}Fabric{% endif %}
+		            {% if j.sewing %}Sewing{% endif %}
+		            {% if j.packing %}Packing{% endif %}
+		            {% if j.finishing %}Finishing{% endif %}
+		            (2019000-{{j.trim.id}})
+		          </div>
+		          <div class="row">
+		            <div class="col">
+		              Consumption - {{j.consumption}}
+		            </div>
+		            <div class="col">
+		              Rate - {{j.rate}}
+		            </div>
+		            <div class="col">
+		              Cost - {{j.cost}}
+		            </div>
+		          </div>
+		          
+		        </div>
+		    </div>
+		    {% endfor %}
+		    <div class="row my-3 p-3" style="box-shadow:0 0 5px rgba(0,0,0,.5);">
+		        <div class="container-fluid">
+		          <div class="row">
+		            Total Cost - &nbsp;&nbsp;&nbsp;<b>{{bom1.total_cost_vendor}}</b>
+		          </div>
+		        </div>
+		    </div>
+		</div>
+		<div class="col-6 mx-2">
+			{% for j in bom2.trims_used.all %}
+			<div class="row my-3 p-3" style="box-shadow:0 0 5px rgba(0,0,0,.5);">
+		        <div class="container-fluid">
+		          <div class="row">
+		            {% if j.fabric %}Fabric{% endif %}
+		            {% if j.sewing %}Sewing{% endif %}
+		            {% if j.packing %}Packing{% endif %}
+		            {% if j.finishing %}Finishing{% endif %}
+		            (2019000-{{j.trim.id}})
+		          </div>
+		          <div class="row">
+		            <div class="col">
+		              Consumption - {{j.consumption}}
+		            </div>
+		            <div class="col">
+		              Rate - {{j.rate}}
+		            </div>
+		            <div class="col">
+		              Cost - {{j.cost}}
+		            </div>
+		          </div>
+		          
+		        </div>
+		    </div>
+		    {% endfor %}
+		    <div class="row my-3 p-3" style="box-shadow:0 0 5px rgba(0,0,0,.5);">
+		        <div class="container-fluid">
+		          <div class="row">
+		            Total Cost - &nbsp;&nbsp;&nbsp;<b>{{bom2.total_cost_vendor}}</b>
+		          </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>

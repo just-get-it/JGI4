@@ -1,0 +1,541 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+{% endblock %}
+
+
+
+
+{% block topcontent %}
+{% include 'include/brand_topcontent.html' %}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="row mt-5">
+	{% if deactivated %}
+		<div class="container-fluid">
+			<div class="row centered fontpacifico" style="height: 92vh;">
+				<h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+			</div>
+		</div>
+	{% else %}
+
+	<div class="container-fluid addlabel" id="addlabel">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Label</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="cross();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form method="POST" id="addlabel_form">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<input type="text" name="label" placeholder="Label Name" class="inputfield" id="label_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Label</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="container-fluid addlabel" id="addfit">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Fit</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="crossfit();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<select name="fit_label" class="inputfield" required>
+							<option value="" disabled selected>------</option>
+							{% for l in label %}
+							<option value="{{l.slug}}">{{l.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="text" name="fit" placeholder="Fit Name" class="inputfield" id="fit_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Fit</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="container-fluid addlabel" id="addseason">
+		<div class="row centered addlabel_row">
+			<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+				<div class="container-fluid">
+					<div class="row mt-3">
+						<div class="col-11 centered">
+							<h4 class="fontcabin"><b>Add Season</b></h4>
+						</div>
+						<div class="col-1 cross centered" onclick="crossseason();">
+							<i class="fas fa-times-circle fa-lg"></i>
+						</div>
+					</div>
+					<form method="POST">{% csrf_token %}
+					<div class="row mt-5 mb-2">
+						<select name="season_label" class="inputfield" id="season_label" required>
+							<option value="" disabled selected>------</option>
+							{% for l in label %}
+
+							<option value="{{l.slug}}">{{l.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<select name="season_fit" class="inputfield" id="season_fit" required>
+							<option value="" disabled selected>------</option>
+
+						</select>
+					</div>
+					<div class="row mt-5 mb-2">
+						<input type="text" name="season" placeholder="Season Name" class="inputfield" id="fit_input_field">
+					</div>
+					<div class="row mt-5 mb-3 centered start_order1">
+						<button type="submit" class="px-5 py-2"><b>Add Seasons</b></button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+		<div class="container-fluid addlabel mt-5" id="addwashcare">
+			<div class="row centered addlabel_row">
+				<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+					<div class="container-fluid">
+						<div class="row mt-3">
+							<div class="col-11 centered">
+								<h4 class="fontcabin"><b>Add Washcare</b></h4>
+							</div>
+							<div class="col-1 cross centered" onclick="crosswashcare();">
+								<i class="fas fa-times-circle fa-lg"></i>
+							</div>
+						</div>
+						<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+						<div class="row mt-5 mb-2">
+							<select name="washcare_label" class="inputfield" id="washcare_label" required>
+								<option value="" disabled selected>------</option>
+								{% for l in label %}
+
+								<option value="{{l.slug}}">{{l.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="washcare_fit" class="inputfield" id="washcare_fit" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<select name="washcare_season" class="inputfield" id="washcare_season" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<input type="text" name="washcare" placeholder="Washcare Name" class="inputfield" required id="washcare_input_field">
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<input type="file" name="washcare_file" class="inputfield" required id="washcare_file_input_field">
+						</div>
+						<div class="row mt-5 mb-3 centered start_order1">
+							<button type="submit" class="px-5 py-2"><b>Add Washcare</b></button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="container-fluid addlabel mt-5" id="addhtm">
+			<div class="row centered addlabel_row">
+				<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+					<div class="container-fluid">
+						<div class="row mt-3">
+							<div class="col-11 centered">
+								<h4 class="fontcabin"><b>Add How To Measure</b></h4>
+							</div>
+							<div class="col-1 cross centered" onclick="crosshtm();">
+								<i class="fas fa-times-circle fa-lg"></i>
+							</div>
+						</div>
+						<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+						<div class="row mt-5 mb-2">
+							<select name="htm_category" class="inputfield" id="htm_category" required>
+								<option value="" disabled selected>------</option>
+								{% for l in product_category %}
+
+								<option value="{{l.id}}">{{l.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<select name="htm_subcategory" class="inputfield" id="htm_subcategory" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<select name="htm_supercategory" class="inputfield" id="htm_supercategory" required>
+								<option value="" disabled selected>------</option>
+
+							</select>
+						</div>
+						<div class="row mt-5 mb-2">
+							<input type="text" name="htm" placeholder="How to Measure Name" class="inputfield" required id="htm_input_field">
+						</div>
+
+						<div class="row mt-5 mb-2">
+							<input type="file" name="htm_file" class="inputfield" required id="htm_file_input_field">
+						</div>
+						<div class="row mt-5 mb-3 centered start_order1">
+							<button type="submit" class="px-5 py-2"><b>Add HTM</b></button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+				<div class="container-fluid addlabel mt-5" id="addbarcode">
+					<div class="row centered addlabel_row">
+						<div class="col-10 addlabel_col" style="margin-top: auto;margin-bottom: auto;">
+							<div class="container-fluid">
+								<div class="row mt-3">
+									<div class="col-11 centered">
+										<h4 class="fontcabin"><b>Add Barcode</b></h4>
+									</div>
+									<div class="col-1 cross centered" onclick="crossbarcode();">
+										<i class="fas fa-times-circle fa-lg"></i>
+									</div>
+								</div>
+								<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+								<div class="row mt-5 mb-2">
+									<select name="barcode_label" class="inputfield" id="barcode_label" required>
+										<option value="" disabled selected>------</option>
+										{% for l in label %}
+
+										<option value="{{l.slug}}">{{l.name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="row mt-5 mb-2">
+									<select name="barcode_fit" class="inputfield" id="barcode_fit" required>
+										<option value="" disabled selected>------</option>
+
+									</select>
+								</div>
+
+								<div class="row mt-5 mb-2">
+									<select name="barcode_season" class="inputfield" id="barcode_season" required>
+										<option value="" disabled selected>------</option>
+
+									</select>
+								</div>
+								<div class="row mt-5 mb-2">
+									<input type="text" name="barcode" placeholder="Barcode Name" class="inputfield" required id="barcode_input_field">
+								</div>
+
+								<div class="row mt-5 mb-2">
+									<input type="file" name="barcode_file" class="inputfield" required id="barcode_file_input_field">
+								</div>
+								<div class="row mt-5 mb-3 centered start_order1">
+									<button type="submit" class="px-5 py-2"><b>Add Barcode</b></button>
+								</div>
+							</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+	<div class="container">
+		<div class="row mt-3 mb-5">
+			{% if data.image %}
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+				<img src="{{data.image.url}}">
+			</div>
+			{% endif %}
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+				<h1><b>{{data.name}}</b></h1>
+				<h6> <b>Email</b> - {{data.email}}</h6>
+				<h6> <b>Mission</b> - {{data.mission}}</h6>
+				<div class="row">
+					<a href="/userdetail/seller_profile/yearly_budget" class="hov-a" style="margin-left: auto;">Task</a>
+					<a href="/userdetail/seller_profile/yearly_budget" class="hov-a" style="margin-left: auto;">Yearly Budget</a>
+					<a href="/userdetail/seller_profile_update" class="hov-a" style="margin-left: 2vw;">Update Profile</a>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2 mb-5 buis_desc_row">
+			<h6 align="justify"><b>Description</b> : - {{data.description}}</h6>
+
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row" style="bottom: 0;position: fixed;height: 50px;width: 100%;z-index: 105;
+		margin-bottom: 50px;margin-left: 90vw;margin-right: 10vw;">
+			<a href="/userdetail/staff_profile/message"><img src="{% static 'img/msg.png' %}" style="width: 5vw;height: 5vw;cursor: pointer;"></a>
+		</div>
+	</div>
+
+
+	{% endif %}
+</div>
+
+<script type="text/javascript">
+
+
+function crosswashcare(){
+	lab=document.getElementById('addwashcare');
+	lab.style.display="none"
+}
+
+
+function addwashcare(){
+	lab=document.getElementById('addwashcare');
+	lab.style.display="block";
+}
+
+
+function crosshtm(){
+	lab=document.getElementById('addhtm');
+	lab.style.display="none"
+}
+
+
+function addhtm(){
+	lab=document.getElementById('addhtm');
+	lab.style.display="block";
+}
+
+function crossbarcode(){
+	lab=document.getElementById('addbarcode');
+	lab.style.display="none"
+}
+
+
+function addbarcode(){
+	lab=document.getElementById('addbarcode');
+	lab.style.display="block";
+}
+
+
+
+
+
+$('#htm_category').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			htm_category_ajax:$('#htm_category').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+  	cache:false,
+  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#htm_subcategory').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#htm_subcategory').on("change",function(){
+	// alert("Done");
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			htm_subcategory_ajax:$('#htm_subcategory').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+  	cache:false,
+  	dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#htm_supercategory').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#washcare_label').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			season_ajax_label:$('#washcare_label').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#washcare_fit').html(ht);
+			}
+			else{
+
+				$('#washcare_fit').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#barcode_label').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			season_ajax_label:$('#barcode_label').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#barcode_fit').html(ht);
+			}
+			else{
+
+				$('#barcode_fit').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#barcode_fit').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			barcode_ajax_fit:$('#barcode_fit').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#barcode_season').html(ht);
+			}
+			else{
+
+				$('#barcode_season').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#washcare_fit').on('change',function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/',
+		data:{
+			barcode_ajax_fit:$('#washcare_fit').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+    	cache:false,
+    	dataType: "json",
+		success:function(data) {
+			var ht='<option value="" disabled selected>------</option>';
+			if (data.bol){
+			$.each(data.data,function(index,value){
+				ht=ht+`<option value="`+value.slug+`">`+value.name+`</option>`
+			});
+			$('#washcare_season').html(ht);
+			}
+			else{
+
+				$('#washcare_season').html(ht);
+			}
+		}
+	});
+});
+</script>
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

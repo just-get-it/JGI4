@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load qr_code %}
+<head>
+    <style>
+table
+{
+margin-left:30%;}
+    tr
+    {
+    border:2px solid black;}
+        td,th
+        {
+        border:1px solid black;
+        padding:3px;
+        margin:3px;
+        colspa
+        font-size:18px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Packing List</title>
+</head>
+<body>
+
+
+
+<h1 style="margin-left:30%; margin-top:5%;"> Packing List</h1>
+
+    <table style="border:2px solid black; cellspacing:10;">
+        <tr>
+        <th>CARTON</th>
+            <th>COLORS</th>
+            <th>ADDRESS</th>
+
+            <th>TOTAL</th>
+
+            <th>Qrcode</th>
+
+
+        </tr>
+
+        <tr>
+            {% for carton in cartons %}
+
+
+
+            <td><a href="/userdetail/staff_profile/orders/carton_details/{{ carton.carton_no }}"> {{ carton.carton_no }} </a></td>
+            <td>{% for i in carton.colors.all %}
+            {{ i }}
+            {% endfor %}</td>
+            <td>{{ carton.address }} </td>
+            <td>{{ carton.capacity }}</td>
+        <td style="align:center">{% qr_from_text carton.qrcode size="T" %}
+           <br>
+           {% if carton.ts24 %}
+            24:- {{ carton.ts24 }},
+            {% endif %}
+        {% if carton.ts28 %}
+            28:- {{ carton.ts28 }},
+        {% endif %}
+            {% if carton.ts30 %}
+            30:- {{ carton.ts30 }},
+            {% endif %}
+            {% if carton.ts32 %}
+            32:- {{ carton.ts32 }},
+            {% endif %}
+            {% if carton.ts34 %}
+            34:- {{ carton.ts34 }},
+            {% endif %}
+            {% if carton.ts36 %}
+            36:- {{ carton.ts36 }},
+            {% endif %}
+            {% if carton.ts38 %}
+            38:- {{ carton.ts38 }},
+            {% endif %}
+            {% if carton.ts40 %}
+            40:- {{ carton.ts40 }}
+            {% endif %}
+
+
+
+        </td>
+
+
+
+
+            </tr>
+            {% endfor %}
+
+
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Cost</h2>
+        <h3>garment : {{ object.garment}}
+            quantity : {{ object.quantity}}
+            colour : {{ object.colour}}
+            fabric : {{ object.fabric}}</h3>
+        <br>
+        <h4> basic_cost     : {{ basic_cost }}</h4>
+        <h4> final_costing  : {{ final_costing}}</h4>
+        <h4> business_value : {{ business_value }}</h4>
+        <br>
+        <h3>Size and Quantity</h3>
+        <h5>small (S) - {{ sizeAndQuantity.small }}</h5>
+        <h5>medium (M) - {{ sizeAndQuantity.medium }}</h5>
+        <h5>large (L) - {{ sizeAndQuantity.large }}</h5>
+        <h5>xl (XL) - {{ sizeAndQuantity.xl }}</h5>
+        <h5>xxl (XXL) - {{ sizeAndQuantity.xxl }}</h5>
+        <br>
+        <a class="btn btn-info">Update</a>
+        <a class="btn btn-danger">Delete</a>
+    </div>
+{% endblock %}

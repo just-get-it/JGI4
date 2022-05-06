@@ -1,0 +1,103 @@
+1,Enquiry Request,by B2B customer/Sales,Sales,,E,,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+2,Enquiry Receipt by Sales,by Sales,Sales,,E,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+3,Enquiry Receipt by Merchant,by Merchant,Merchandising,,E,2,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+4,Enquiry Resolved by Sales,by Sales,Sales,,E,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+5,Enquiry Resolved by Merchant,by Merchant,Merchandising,,E,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+6,Design request,by B2B customer/Sales,Sales,,D,,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+7,Design Receipt by Sales,by Sales,Sales,,D,6,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+8,Design Receipt by Design,by Design,Design,,D,7,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+9,Design Development,by Design,Design,,D,8,3,3,3,3,3,3,3,3,3,3,3,1,1,1
+10,Design Submitted,by Sales,Sales,,D,9,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+11,Sample Request,by B2B customer/Sales,Sales,,S,,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+12,Sampling Receipt by Sales,by Sales ,Sales,,S,11,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+13,Sample Receipt by Merchant,by Merchant,Merchandising,,S,12,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+14,Sample Lab Test Submission,by Merchant,Merchandising,,S,13,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+15,Sample Lab Test Report Receipt,by Merchant,Merchandising,,S,14,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+16,Sample Fabric Vendor Allocation,by Fabric Sourcing,Fabric Sourcing,,S,15,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+17,Sample Fabric Swatch Receipt,by Fabric Vendor,Fabric Sourcing,,S,16,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+18,Sample Fabric Development,by Fabric Vendor,,Fabric Vendor,,17,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+19,Sample Fabric Receipt,by Fabric Sourcing,,Fabric Vendor,S,18,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+20,Sample Garment Vendor Allocation,by Merchant,Merchandising,,S,14,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+21,Customer Sample Receipt by Garment Vendor,by Garment Vendor,,Garmenting Vendor,S,14,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+22,Sample Fabric Receipt by Garment Vendor,,,Garmenting Vendor,,20,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+23,Sample Development,by Garment Vendor,,Garmenting Vendor,S,22,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+24,Sample Receipt by Merchant,by Merchant,Merchandising,,S,23,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+25,Sample Evaluation by Quality,By Quality,Quality,,S,24,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+26,Sample Receipt by Sales,by Sales,Sales,,S,25,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+27,Sample Receipt by B2B Customer,by B2B customer,Sales,,S,26,2,2,2,2,2,2,2,2,2,2,2,1,1,1
+28,Order Request,by B2B/Sales,Sales,,O,,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+29,Order Mail Confirmation,by Sales/Merchant,Sales,,O,28,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+30,Order Receipt by Sales,by Sales,Sales,,O,29,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+31,Order Receipt by Merchant,by Merchant,Merchandising,,O,30,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+32,Order PO Receipt,by Sales/Merchant,Sales,,O,31,2,2,2,2,1,1,1,1,1,0,0,1,1,1
+33,Order Master Creation,by Documentation/SPAC,Documentation/SPAC,,O,32,1,1,1,1,1,1,0,0,0,0,0,1,1,1
+34,Fabric Bulk Order Form,by Merchant,Merchandising,,O,33,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+35,Size-set Submission/Specs Allocation,by Merchant,Merchandising,,O,34,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+36,"Fabric CAD/BOM, Floating and Costing",by Fabric Sourcing/CAD/IE,Fabric Sourcing,,O,35,1,1,1,1,1,1,0,0,0,0,0,1,1,1
+37,Fabric Commercial Approval,by Fabric Sourcing/Commercial+C61,Fabric Sourcing,,O,36,1,1,1,1,1,1,0,0,0,0,0,1,1,1
+38,Fabric Vendor Capacity wise Allocation,by Fabric Sourcing,Fabric Sourcing,,O,37,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+39,Fabric Ordering,by Fabric Sourcing,Fabric Sourcing,,O,38,1,1,1,1,1,1,0,0,0,0,0,1,1,1
+40,Fabric PO,by Fabric Sourcing/Documentation-SPAC,Fabric Sourcing,,O,39,1,1,1,1,1,0,0,0,0,0,0,1,1,1
+41,Lab Dip/Desk Loom/Strike Off Approvals,by Fabric Sourcing,Fabric Sourcing,,O,40,1,1,1,1,1,0,0,0,0,0,0,1,1,1
+42,PSS,by Fabric Sourcing,Fabric Sourcing,,O,41,20,20,13,10,8,5,4,1,0,0,0,1,1,1
+43,FPT,by Fabric Sourcing,Fabric Sourcing,,O,42,2,2,2,2,2,1,1,1,0,0,0,1,1,1
+44,Yardage,by Fabric Sourcing,Fabric Sourcing,,O,43,14,14,14,14,13,12,10,7,7,3,0,2,1,1
+45,Fabric inline inspection,by Fabric Sourcing/Quality,Fabric Sourcing,,O,44,5,5,5,4,3,2,1,1,0,0,0,1,1,1
+46,Fabric midline inspection,by Fabric Sourcing/Quality,Fabric Sourcing,,O,45,15,15,8,6,5,4,3,2,0,0,0,2,1,1
+47,Fabric endline inspection,by Fabric Sourcing/Quality,Fabric Sourcing,,O,46,10,10,5,5,4,4,3,2,0,0,0,2,1,1
+48,Fabric Packing List,by Fabric Sourcing,Fabric Sourcing,,O,47,10,10,3,2,1,1,1,1,0,0,0,2,1,1
+49,Fabric Final Inspection,by Fabric Sourcing/Quality,Fabric Sourcing,,O,48,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+50,Fabric invoice,by Fabric Sourcing,Fabric Sourcing,,O,49,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+51,Fabric Ex-Mill/Dispatch,by Fabric Sourcing,Fabric Sourcing,,O,50,1,1,1,0,0,0,0,0,0,0,0,1,1,1
+52,Fabric at Warehouse,by Fabric Sourcing,Fabric Sourcing,,O,51,2,2,1,1,0,0,0,0,0,0,0,1,1,1
+53,Fabric I/H at Garment Vendor,by Fabric Sourcing,Fabric Sourcing,,O,52,2,2,1,1,1,1,1,0,0,0,0,1,1,1
+54,"Garment Techpack/BOM, Floating and Costing",by Merchant/IE,Merchandising,,O,32,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+55,Patterns & Marker & Consumption,by Merchant/CAD,CAD,,O,32,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+56,Garment Commercial Approval,by Merchant/Commercial,Merchandising,,O,55,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+57,Garment Vendor Capacity wise Allocation,by Merchant,Merchandising,,O,56,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+58,Size-assortment,by Sales,Sales,,O,31,40,40,35,30,25,20,15,10,7,0,0,5,5,5
+59,Garment Factory PO,by Merchant,Documentation/SPAC,,O,58,3,3,3,3,3,3,3,1,0,0,0,1,1,1
+60,Washcare Approvals,by Merchant,Merchandising,,O,59,1,1,1,1,1,1,1,0,0,0,0,1,1,1
+61,Barcode Approvals,by Merchant,Merchandising,,O,60,1,1,1,1,1,1,1,0,0,0,0,1,1,1
+62,Sewing Trims I/H,by Merchant,,Garmenting Vendor,O,61,5,5,5,5,5,4,3,2,0,0,0,2,2,2
+63,Finishing Trims I/H,by Merchant,,Garmenting Vendor,O,62,3,3,3,3,3,3,2,1,0,0,0,1,1,1
+64,Packing Trims I/H,by Merchant,,Garmenting Vendor,O,63,2,2,2,2,2,2,1,1,0,0,0,1,1,1
+65,Packaging Trims I/H,by Merchant,,Garmenting Vendor,O,64,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+66,Trim Card Approval,by Merchant,Merchandising,,O,65,1,1,1,1,1,1,1,0,1,1,0,1,1,1
+67,Proto Approvals (Substitute),by Merchant/Quality,Quality,,O,58,5,5,5,5,4,3,2,0,0,0,0,2,2,2
+68,FIT Approvals (Substitute),by Merchant/Quality,Quality,,O,67,3,3,3,3,3,2,1,0,0,0,0,2,2,2
+69,Wash Approvals (Actual),by Merchant/Quality,Quality,,O,44,1,1,1,1,1,1,1,0,0,0,0,2,2,2
+70,PP Approval,by Merchant/Quality,Quality,,,69,6,6,6,6,6,5,4,2,1,0,0,3,3,3
+71,Size-set Approvals,by Merchant/Quality,Quality,,O,70,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+72,GPT Approvals,by Merchant/Quality,Quality,,O,71,1,1,1,1,1,0,0,0,0,0,0,1,1,1
+73,PPM & Production file,by Merchant,Merchandising,,O,72,1,1,1,1,1,1,1,0,0,0,0,2,2,2
+74,PCD,by Merchant,,Garmenting Vendor,O,73,1,1,1,1,1,1,1,0,1,1,1,2,2,2
+75,DPR,by Merchant,,Garmenting Vendor,O,74,1,1,1,1,1,0,0,0,0,0,0,1,1,1
+76,Loading-Parts,by Merchant,,Garmenting Vendor,O,75,1,1,1,1,1,1,1,1,0,0,0,1,1,1
+77,Loading-Assembly,by Merchant,,Garmenting Vendor,O,76,3,3,3,3,3,3,3,3,3,2,1,1,1,1
+78,TOP/GPT Approvals,by Merchant,Quality,,O,77,2,2,2,2,2,2,1,1,0,0,0,1,1,1
+79,Garment Inline Inspection,by Quality,Quality,,O,77,1,1,1,1,1,1,1,0,0,0,0,1,1,1
+80,Garment Midline Inspection,by Quality,Quality,,O,79,2,2,2,2,2,0,0,0,0,0,0,1,1,1
+81,Garment Endline Inspection,by Quality,Quality,,O,80,2,2,2,2,2,2,1,0,0,0,0,1,1,1
+82,Carton Sticker Approval,by Merchant,Merchandising,,O,81,1,1,1,1,1,1,0,0,0,0,0,1,1,1
+83,Garment Packing List,by Merchant,,Garmenting Vendor,O,82,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+84,Garment Final Inspection,By Quality,Quality,,O,83,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+85,Garment Factory Invoice,by Merchant,,Garmenting Vendor,O,84,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+86,Garment Ex-Factory/Dispatch/Logitic Allocation,by Merchant,,Garmenting Vendor,O,85,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+87,Garment at Warehouse,by Merchant,Documentation/SPAC,,O,86,2,2,5,3,2,2,1,1,0,0,0,1,1,1
+88,Garment Customer Invoice,by Merchant/Documentation-Spac,Documentation/SPAC,,O,87,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+89,Garment Dispatch to Customer,by Merchant/Logistic,Sales,,O,88,1,1,6,4,1,1,1,1,1,0,0,1,1,1
+90,Garment Customer Receipt,by Merchant,Sales,,O,89,3,3,8,5,3,2,1,1,0,0,0,2,2,2
+91,Customer Payment,by Sales,Sales,,O,90,45,45,45,45,45,45,45,45,45,45,45,5,5,5
+92,Vendor Payment,by Merchant,Merchandising,,O,86,45,45,45,45,45,45,45,45,45,45,45,5,5,5
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,

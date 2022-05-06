@@ -1,0 +1,149 @@
+
+
+{% extends 'base.html' %} {% load static %} {% block customcss %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/userdetail/login.css' %}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/userdetail/register.css' %}"
+/>
+
+{% endblock %} {% block content %} {% if exist %}
+
+<script type="text/javascript">
+  alert("Email Id Already Exists !!");
+</script>
+
+{% endif %}
+
+<!-- <style type="text/css">
+  .logincol1 {
+    height: 56vh;
+  }
+</style> -->
+
+<div class="row">
+  <div class="col-sm"></div>
+  <div class="col-lg-4 col-md-7 py-2 my-auto">
+    <div class="container border py-5 px-4 my-5 rounded shadow-lg">
+      <h1 class="text-center text-primary mb-0">Seller Register</h1>
+      <hr />
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group p-0 mb-1">
+          <input
+            type="name"
+            name="name"
+            placeholder="Your Name"
+            class="loginemail form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="form-group p-0 mb-1">
+          <input
+            type="email"
+            name="email"
+            placeholder="Youe Email ID"
+            class="loginpassword form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="form-group p-0 mb-1">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            class="loginpassword form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div class="form-group p-0">
+          <input
+            type="number"
+            name="contact"
+            placeholder="Contact Number"
+            class="loginpassword form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white"
+            id="exampleInputPassword1"
+          />
+        </div>
+
+        <div class="form-group p-0 pt-4 mb-1">
+          <select class="form-control border rounded-pill shadow p-1 pl-3 mb-3 bg-white" name="seller_cate">
+			  {% for q in query %}
+			<option value="{{q.name}}">{{q.name}}</option>
+			  {% endfor %}
+          </select>
+        </div>
+
+        
+
+
+
+        <!-- <div class="row mt-3">
+            <div class="col-3">
+                <label><b>Select Additional features</b></label>
+            </div>
+            <div class="col-7">
+                <select class="ui fluid search dropdown" id="features" name="features" multiple>
+                    {% for feat in features %}
+                    <option value="{{feat.id}}">{{feat.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div> -->
+
+        <div class="ml-3 custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            id="customRadio1"
+            name="customRadio"
+            class="custom-control-input"
+          />
+          <label class="custom-control-label" for="customRadio1">Male</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            name="gender"
+            value="Female"
+            id="customRadio2"
+            name="customRadio"
+            class="custom-control-input"
+          />
+          <label class="custom-control-label" for="customRadio2">Female</label>
+        </div>
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg shadow-lg mt-2 px-3"
+          >
+            Register
+          </button>
+        </div>
+        <hr />
+
+        <p class="h5 text-black-50 text-center my-3">
+          Already have an account?<a href="/userdetail/login">Login</a>
+		</p>
+		
+		 <hr />
+
+        <p class="h5 text-black-50 text-center mt-3">
+          Register as a customer <a href="/userdetail/register">here</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm"></div>
+</div>
+
+
+{% endblock %}

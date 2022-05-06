@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="row">
+	{% if deactivated %}
+		<div class="container-fluid">
+			<div class="row centered fontpacifico" style="height: 92vh;">
+				<h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+			</div>
+		</div>
+	{% else %}
+
+	
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+		
+
+
+	<div class="container">
+		<div class="row mt-3 mb-5">
+			{% if data.image %}
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+				<img src="{{data.image.url}}">
+			</div>
+			{% endif %}
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+				<h1><b>{{data.name}}</b></h1>
+				<h6> <b>Email</b> - {{data.email}}</h6>
+				<h6> <b>Mission</b> - {{data.mission}}</h6>
+				
+			</div>
+		</div>
+		<div class="row mt-2 mb-5 buis_desc_row">
+			<h6 align="justify"><b>Description</b> : - {{data.description}}</h6>
+			
+		</div>
+
+
+
+
+
+		{% if acti.0 %}
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Activities</h3>
+					<!-- <a href="/userdetail/staff_profile/activities" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-2">
+					{% for a in acti %}
+						<div class="col-12 mt-2">
+							<h6><b>Order No</b> - {{a.0.order}}</h6>
+							<table style="width: 100%" class="acti_table">
+								<tr>
+									<th>Activity Title</th>
+									<th>Created Date</th>
+									<th>Lap</th>
+									<th>Planned Date</th>
+									<th>Custom Lap</th>
+									<th>Custom Date</th>
+									<th>Status of Activity</th>
+									<th>Actual Date</th>
+								</tr>
+								{% for j in a %}
+
+								<tr id="{{j.order}}{{forloop.counter}}">
+									<td>{{j.activity_Cate.title}} <a href="/userdetail/staff_profile/activity/{{j.slug}}" class="ml-2 hov-a">View</a></td>
+									<td>{{j.created_on}}</td>
+									<td>{{j.activity_Cate.completed_in}}</td>
+									<td>{{j.planned_date}}</td>
+									<td>{{j.lap}}</td>
+									<td>{{j.custom_date}}</td>
+									<td>{{j.status}}</td>
+									<td>{{j.actual_date}}</td>
+								</tr>
+								<script type="text/javascript">
+									var now_date=Date.parse("{{current}}");
+									var to=Date.parse("{{j.custom_date}}");
+									if (isNaN(to)){
+										to=Date.parse("{{j.planned_date}}");}
+									var some=document.getElementById('{{j.order}}{{forloop.counter}}');
+									if (now_date>to){
+										some.style.backgroundColor="{{j.activity_Cate.late_Time_Color}}";
+									}
+									else if (now_date<to){
+										some.style.backgroundColor="{{j.activity_Cate.before_Time_Color}}";
+									}
+									else{
+										some.style.backgroundColor="{{j.activity_Cate.on_Time_Color}}"
+									}
+								</script>
+								{% endfor %}
+							</table>
+						</div>
+
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+
+
+
+		
+		{% if data.position and head or manager %}
+		<div class="row mb-1 mb-5">
+			<h4><b>Position</b> - {{data.position}}</h4>
+			<p class="pl-3 fontcabin" style="font-size: .8em">*Here Annotation are - H - Head , M - Manager, C - Staff</p>
+		</div>
+		{% if data.activate_Staff %}
+
+
+
+		{% else %}
+		<form method="POST">{% csrf_token %}
+		<div class="row">
+			
+			<input type="checkbox" name="activate" class="ml-3">
+			<label class="ml-2">Activate</label>
+		</div>
+		<div class="row mt-2 mb-2 centered">
+			<button type="submit" style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="py-1 px-4">Save</button>
+		</div>
+		</form>
+		{% endif %}
+		{% endif %}
+	</div>
+
+
+
+
+	{% endif %}
+</div>
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">	
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

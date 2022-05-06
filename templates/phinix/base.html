@@ -1,0 +1,142 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from preview.colorlib.com/theme/ideal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Jan 2021 17:26:56 GMT -->
+<head>
+<title>JustGetIt</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/fonts/icomoon/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/phinix/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/phinix/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/phinix/jquery.fancybox.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/phinix/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/phinix/owl.theme.default.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/fonts/flaticon/font/flaticon.css' %}">
+<link rel="stylesheet" href="{% static 'css/phinix/aos.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/phinix/style.css' %}">
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<div class="site-wrap" id="home-section">
+<div class="site-mobile-menu site-navbar-target">
+<div class="site-mobile-menu-header">
+<div class="site-mobile-menu-close mt-3">
+<span class="icon-close2 js-menu-toggle"></span>
+</div>
+</div>
+<div class="site-mobile-menu-body"></div>
+</div>
+<header class="site-navbar site-navbar-target" role="banner">
+<div class="container">
+<div class="row align-items-center position-relative">
+<div class="col-lg-4">
+<nav class="site-navigation text-right ml-auto " role="navigation">
+<ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
+<li class="active"><a href="{% url 'phinix' %}" class="nav-link">Home</a></li>
+<li><a href="{% url 'phinix-project' %}" class="nav-link">Project</a></li>
+<li><a href="{% url 'phinix-services' %}" class="nav-link">Services</a></li>
+</ul>
+</nav>
+</div>
+<div class="col-lg-4 text-center">
+<div class="site-logo">
+<a href="{% url 'phinix' %}">JustGetIt</a>
+</div>
+<div class="ml-auto toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-white"><span class="icon-menu h3 text-white"></span></a></div>
+</div>
+<div class="col-lg-4">
+<nav class="site-navigation text-left mr-auto " role="navigation">
+<ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
+<li><a href="{% url 'phinix-about' %}" class="nav-link">About</a></li>
+<li><a href="{% url 'phinix-blog' %}" class="nav-link">Blog</a></li>
+<li><a href="{% url 'phinix-contact' %}" class="nav-link">Contact</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+{% block content %}
+{% endblock %}
+<footer class="site-footer">
+    <div class="container">
+    <div class="row">
+    <div class="col-md-6">
+    <div class="row">
+    <div class="col-md-7">
+    <h2 class="footer-heading mb-4">About Us</h2>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+    </div>
+    <div class="col-md-4 ml-auto">
+    <h2 class="footer-heading mb-4">Features</h2>
+    <ul class="list-unstyled">
+    <li><a href="{% url 'phinix-about' %}">About Us</a></li>
+    <li><a href="#">Testimonials</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="{% url 'phinix-contact' %}">Contact Us</a></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-4 ml-auto">
+    <div class="mb-5">
+    <h2 class="footer-heading mb-4">Subscribe to Newsletter</h2>
+    <form action="#" method="post" class="footer-suscribe-form">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
+    <div class="input-group-append">
+    <button class="btn btn-primary text-white" type="button" id="button-addon2">Subscribe</button>
+    </div>
+    </div>
+    </div>
+    <h2 class="footer-heading mb-4">Follow Us</h2>
+    <a href="#about-section" class="smoothscroll pl-0 pr-3"><span class="icon-facebook"></span></a>
+    <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+    <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+    <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+    </form>
+    </div>
+    </div>
+    <div class="row pt-5 mt-5 text-center">
+    <div class="col-md-12">
+    <div class="border-top pt-5">
+    <p>
+    
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="/" target="_blank">JustGetIt</a>
+    
+    </p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </footer>
+    </div>
+    <script src="{% static 'js/phinix/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/phinix/popper.min.js' %}"></script>
+    <script src="{% static 'js/phinix/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/phinix/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/phinix/jquery.sticky.js' %}"></script>
+    <script src="{% static 'js/phinix/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/phinix/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'js/phinix/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'js/phinix/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/phinix/aos.js' %}"></script>
+    <script src="{% static 'js/phinix/main.js' %}"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-23581568-13');
+    </script>
+    </body>
+    
+    <!-- Mirrored from preview.colorlib.com/theme/ideal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Jan 2021 17:27:32 GMT -->
+    </html>
+    

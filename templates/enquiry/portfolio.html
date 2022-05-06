@@ -1,0 +1,2498 @@
+
+{% extends 'base_about.html' %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>JUSTGETIT - WEB and APP</title>
+    
+        
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static 'img/portfolio/logo.png' %}" type="image/logo.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+          
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/responsive/1.0.5/responsive.min.js"></script>
+        
+        <link rel="stylesheet" href="{% static 'css/portfolio/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/portfolio/bootstrap-theme.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/portfolio/fontAwesome.css' %}">
+        <link rel="stylesheet" href="{% static 'css/portfolio/light-box.css' %}">
+        <link rel="stylesheet" href="{% static 'css/portfolio/owl-carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'css/portfolio/templatemo-style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/about/style1.css' %}">
+        <link rel="stylesheet" href="{% static 'css/about/dark.css' %}">
+        <link rel="stylesheet" href="{% static 'css/about/font-icons.css' %}" type="text/css" />
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+        <script src="{% static 'js/portfolio/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+
+
+
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
+	<!-- ======================================================================== -->
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+	<!-- ======================================================================== -->
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+	<!-- ======================================================================== -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+	<!-- ======================================================================== -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+	<!-- ======================================================================== -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+	<!-- ======================================================================== -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Cabin|Pacifico" rel="stylesheet"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+	<!-- ======================================================================== -->
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/less/fontawesome.less' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/scss/fontawesome.scss' %}">
+
+
+
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-grid.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-grid.min.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-reboot.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-reboot.min.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}"> -->
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script> -->
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script> -->
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script> -->
+	<!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script> -->
+	<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    </head>
+ 
+    <!-- Bootstrap Core CSS 
+    <link href="{% static 'css/about/bootstrap.min.css' %}" rel="stylesheet">-->
+
+    <!-- Custom CSS 
+    <link href="{% static 'css/about/blog-post.css' %}" rel="stylesheet">-->
+	
+    <!-- External JavaScripts
+	============================================= 
+    <script type="text/javascript" src="{% static 'js/about/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/about/plugins.js' %}"></script>-->
+
+    <!-- Document Title
+	============================================= 
+    <title>JustGetIt</title>
+    <link rel="icon" type="logo/png" href="{% static 'img/logo.png' %}" />-->
+    
+        
+    
+    <style>
+        section {
+            width: 100%!important;
+       
+        } 
+        
+       /* #jumbotron {
+  background-color: #f1f1f1;
+  padding: 50px 10px;
+  color: black;
+ 
+  max-height: 400px;
+  font-weight: bold;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: 0.2s;
+}
+        .clearfix::after {
+               content: "";
+              clear: both;
+              display:block;
+              overflow:hidden;
+         
+            }
+        #primary-menu > ul  {
+            position: relative;
+        }
+        #primary-menu > ul > li > ul > li > ul {
+            position: absolute;
+            max-height: 300px;
+        }
+        /* #primary-menu > ul > li > ul {
+            overflow-y: auto;
+            max-height: 500px;
+        } */
+
+        #primary-menu .primary-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+        #primary-menu ul:first-child ul:first-child {
+            position: absolute;
+            max-height: 400px;
+            max-width: 440px;
+            overflow-y: auto;
+        }
+        @media only screen and (min-width: 768px){
+            .footer-widgets-wrap .col-sm-6 {
+                padding-right: 15%;
+            }
+        }
+        @media only screen and (max-width: 768px){
+            .last-list {
+                position: relative!important;
+            }
+            #primary-menu > ul > li > ul > li > ul {
+                position: relative!important;;
+            }
+        }
+        #primary-menu ul::-webkit-scrollbar {
+            width: 5px!important;
+        }
+            
+        #primary-menu ul::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)!important;
+        }
+            
+        #primary-menu ul::-webkit-scrollbar-thumb {
+            background-color: darkgrey!important;
+            outline: 1px solid slategrey!important;
+        }
+        .signupforms li {
+            display: inline-block;
+        }
+        hr {
+            width: 100%;
+        }
+        .half {
+            width: 45%;
+            display: inline-block;
+            float: left;
+            margin-right: 25px;
+        }
+        #div_id_en_title {
+            display: none;
+        }
+
+        .tright a {
+            font-size: 18px;
+            margin-left: 25px;
+        }
+   
+    </style>
+</head>
+
+<body>
+
+    <!-- Document Wrapper
+	============================================= -->
+    <!-- <div id="wrapper" class="clearfix"></div>
+    -->
+      
+        </header>
+        <!-- ======= hero Section ======= -->
+  <section id="hero2">
+    <div class="container-fluid">
+    <div id="hero-demo" class="hero-slider owl-carousel owl-theme">
+            {% for b in Automation_banner_images %}  
+                <div class="item">  <img src="{{b.image.url}}" alt="banner">
+                  <div class="d-flex carousel-caption d-none d-md-block">
+                      <span><h2>{{b.name}}</h2></span>
+                      <h3>{{b.subtitle}}</h3> 
+                      <div class="d-flex">
+              <a href="{{b.link}}" class="btn-get-started scrollto">{{b.button}}</a>
+                      </div>
+                    </div></div>
+                    
+          {% endfor %}
+    
+      </div>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+  
+  $("#hero-demo").owlCarousel({
+    animateOut: 'slideOutDown',
+    animateIn: 'flipInX',
+    items:1,
+    margin:30,
+    stagePadding:30,
+    smartSpeed:450,
+    autoplay: true,
+    nav:true,
+    loop : true,
+     
+  
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+  
+  });
+  
+  });
+  
+  </script>
+  <style>
+            
+            #hero2 {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      background-size: cover;
+      
+  }</style>
+  
+       
+   </div>  
+      
+    
+  </section>
+
+<!-- End owl -->
+         
+        
+        <!-- <div class="slider">
+            <div class="Modern-Slider content-section" id="top">
+                <!-- Item 
+                <div class="item item-1">
+                    <div class="img-fill">
+                    <div class="image"></div>
+                    <div class="info">
+                        <div>
+                          <h1><br></h1>
+                          <p><br>
+                          	</p>
+                          <div class="white-button button">
+                              <a href="#featured">Discover More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item 
+                <!-- Item 
+                <div class="item item-2">
+                    <div class="img-fill">
+                        <div class="image"></div>
+                        <div class="info">
+                        <div>
+                          <h1>Mobile APP</h1>
+                          <p>
+							<br></p>
+                          
+                          <div class="white-button button">
+                              <a href="#featured">Share More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item 
+                <!-- Item 
+                <div class="item item-3">
+                    <div class="img-fill">
+                        <div class="image"></div>
+                        <div class="info">
+                        <div>
+                          <h1>Graphics Design</h1>
+                          <p> </p>
+                          
+                          <div class="white-button button">
+                              <a href="#featured">Learn More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item 
+                <!-- Item 
+                <div class="item item-4">
+                    <div class="img-fill">
+                        <div class="image"></div>
+                        <div class="info">
+                        <div>
+                          <h1>Content Writing</h1>
+                          <p> <br></p>
+                          
+                          <div class="white-button button">
+                              <a href="#featured">Learn More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item 
+                <!-- Item 
+                <div class="item item-5">
+                    <div class="img-fill">
+                        <div class="image"></div>
+                        <div class="info">
+                        <div>
+                          <h1><br></h1>
+                          <p> <br></p>
+                          
+                          <div class="white-button button">
+                            <a href="/software/digital-marketing">Learn More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                 // Item -->
+            </div>
+        </div> 
+  <!-- Header
+		============================================= -->
+        <header id="header" class="full-header">
+
+            <div id="header-wrap">
+
+                <div class="container-clearfix">
+                    
+
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i>
+                    </div>
+    
+                    <!-- Logo
+					============================================= -->
+                    <!-- <div id="logo">
+                        <a href="/about-jgi" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="" alt="Canvas Logo" id="homepage_logo">
+                        </a>
+                        <a href="/about-jgi" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="" alt="Canvas Logo" id="homepage_logo_alt">
+                        </a>
+						
+                    </div> -->
+                   
+                    <!-- #logo end -->
+					<!-- sign in button -->
+					
+                    <!-- Primary Navigation
+					============================================= -->
+                    <nav id="primary-menu" class="collapse navbar-collapse">
+                      
+            
+                    <ul>
+                        <li class="dropdown"><a href="#webnapp">Web&App</a>
+                            <ul> <li>Website</li>
+                                <li>App</li>
+                                <li>ERP</li>
+                                <li>PLM</li>
+   
+                           </ul></li>
+                        <li><a href="#branding">Branding</a></li>
+                        <ul> <li>Design</li>
+                             <li>Graphics</li>
+                             <li>Logo</li>
+                             <li>Packaging</li>
+                             <li>UI UX</li>
+
+                        </ul>
+                        <li><a href="#content">Content</a>
+                        <ul> <li>Content Writing</li>
+                            <li>Graphics</li>
+                            <li>Animation</li>
+                            <li>Video</li>
+                            <li>Social media</li>
+                            <li>Digital Marketing</li>
+
+                       </ul></li>
+                
+                        <li><a href="#projects">Projects</a>
+                            <ul> <li>Website</li>
+                                <li>App</li>
+                                <li>ERP</li>
+                                <li>PLM</li>
+   
+                           </ul></li>
+
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+         
+<!-- <li><a href="#projects">Recent Projects</a></li> -->
+                        <!-- Top Search
+						============================================= -->
+                        <!-- <div id="top-search">
+                            <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                            <form action="search.html" method="get">
+                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                            </form>
+                        </div> -->
+                        <!-- #top-search end -->
+                          
+                
+                    </nav>
+                    
+					
+                
+                   </div>
+                  
+                 
+                    
+            </br></br></br> 
+           
+            </div>
+            
+           
+        </header>
+        <section id="video" class="content-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h1><em>WEB DESIGN</em> AND <em>DEVELOPMENT</em></h1>
+                        <p>In today’s digital world it has become a trend for every business entity to 
+                            have a standard business website. For <strong>core marketing and unique 
+                                branding,</strong> corporate houses are looking for best mobile 
+                                responsive <strong>website designing services</strong>. We develop 
+                                websites using programming languages <strong>Python                                        
+                                </strong> and frameworks as <strong>Django                                        
+                                </strong> and <strong>REST Framework</strong>.</p>
+                        <p>All our designed websites are created by advance features so that it is always 
+                            future ready. The website development can be categorized as:</p>
+                    </div>
+                    <div class="text-content">
+                        <ul>
+                            <li style="font-weight: 400;">&nbsp;Corporate Website</li>
+                            <li style="font-weight: 400;">&nbsp;E-Commerce Website</li>
+                            <li style="font-weight: 400;">&nbsp;Business Website</li>
+                            <li style="font-weight: 400;">&nbsp;Job Board</li>
+                            <li style="font-weight: 400;">&nbsp;Non Profit or Religious Website</li>
+                            <li style="font-weight: 400;">&nbsp;Portfolio Website</li>
+                            <li style="font-weight: 400;">&nbsp;Coupon Website</li>
+                            <li style="font-weight: 400;">&nbsp;Institute/ College/ School Website</li>
+                            <li style="font-weight: 400;">&nbsp;ERP/PLM</li>
+                        </ul>
+                    </div>                        
+                </div> 
+            </div>                  
+        </section>
+
+        <style media="screen">
+            .new-category{
+              flex-direction:column;
+              padding-top:1.5rem;
+              padding-bottom:0.2rem
+            }
+            .section h3 a {
+                color: black!important;
+            }
+            .card-wrapper{
+                background:#f8f8f8;
+                padding-top:3.5rem;
+                padding-bottom:3.5rem;
+                flex-direction:column
+            }
+            .three-card-container{
+                display:grid;
+                grid-template-columns:repeat(3,minmax(0,1fr));
+                grid-gap:2.3rem;
+                padding-top:2rem
+            }
+            .four-card-container{
+                display:grid;
+                grid-template-columns:repeat(4,minmax(0,1fr));
+                grid-gap:2.3rem;
+                padding-top:2rem
+            }
+            @media (max-width:768px){
+                .three-card-container{
+                    grid-template-columns:auto
+                }
+            }
+            @media (max-width:768px){
+                .four-card-container{
+                    grid-template-columns:auto
+                }
+            }
+            .center{
+                display:flex;
+                justify-content:center;
+                align-items:center
+            }
+            .center-head{
+                text-align:center;
+                text-transform:uppercase
+            }
+            
+            
+            .card-with-img .card-content{
+              padding:0 1rem
+            }
+            
+            .card{
+              border-radius:30px;
+              box-shadow:0 12px 24px 0 rgba(130,136,162,.2);
+              background-color:#fff;
+              padding:3rem 2rem
+            }
+            
+            .card img{
+              height:180px;
+              width:100%;
+              margin:1rem 0;
+              object-fit:scale-down
+            }
+            
+            .card h4,.card p{
+              text-align:center;
+              margin:1rem 0
+            }
+            
+            .card-with-img .card-content{
+              padding:0 1rem
+            }
+            
+            .card-wrapper{
+              background:#f8f8f8;
+              padding-top:3.5rem;
+              padding-bottom:3.5rem;
+              flex-direction:column
+            }
+            
+            .card-with-img{
+              border-radius:30px;
+              box-shadow:0 12px 24px 0 rgba(130,136,162,.2);
+              background-color:#fff;
+              padding-bottom:20px;
+              max-width:380px
+            }
+            
+            .card-with-img img{
+              height:150px;
+              border-radius:30px 30px 0 0;
+              width:100%;
+              object-fit:cover
+            }
+            
+            .card-with-img h4,.card-with-img p{
+              text-align:center;
+              margin:1rem 0
+            }
+            
+            .card-with-img p{
+              font-size:14px
+            }
+            
+            
+            /* carousel css */
+            
+            .col-md-3
+                      {
+                      padding-left: 0px;
+                      padding-right:0px;
+            
+                      display: inline-block;
+                      margin-left:-4px;
+                      }
+                      .carousel-indicators .active {
+                      background-color: blue;
+                        }
+                      .col-md-3  img{
+                      width:270px;
+                      height:300px;
+                      }
+                      body .carousel-indicator li{
+                      background-color: blue;
+                      }
+                      body .carousel-indicators{
+                      bottom: 0;
+                      }
+                      body .carousel-control-prev-icon,
+                      body .carousel-control-next-icon{
+                      background-color: blue;
+                      }
+                       body .no-padding{
+                       padding-left: 0,
+                       padding-right: 0;
+                       }
+                       .centered {
+                       background-color:#33cccc;
+                       color: white;
+                       border-radius:18px;
+                       padding:5px;
+                       font-size:15px;
+                       width:170px;
+                       border: 1px solid #33cccc ;
+                       position:absolute;
+                       top:80%;
+                       left: 50%;
+                      transform: translate(-50%, -50%);
+                       }
+            
+                     .for-mobile{
+                     display:none;
+                     }
+                     .container-fluid{
+                     padding-left:0px;
+                     padding-right:0px;
+                     }
+                      .home-img img{
+                     height:70vh;
+                     }
+                     .container-fluid {
+               padding-left:0px;
+               padding-right:0px;
+            
+               }
+            
+                            .mt-5, .my-5 {
+                 margin-top: 0rem !important; */
+            }
+            
+            .col-md-6 img{
+              height:180px;
+            }
+            
+            
+            
+            
+            
+                 @media only screen and (max-width: 600px) {
+            
+                .col-sm-12  img{
+                      width:300px;
+                      height:300px;
+                      }
+                       .centered1 {
+                       background-color:#33cccc;
+                       color: white;
+                       border-radius:18px;
+                       padding:5px;
+                       text-align:center;
+                       font-size:15px;
+                       width:170px;
+                       border: 1px solid #33cccc ;
+                       position:absolute;
+                       top:70%;
+                       left: 90%;
+            
+                       }
+            
+                      .for-pc{
+                     display:none;
+                     }
+                     .for-mobile{
+                     display:block;
+                     }
+                     .home-img img{
+                     height:150px;
+                     }
+                    .head {
+                    top:30px;
+                    }
+                    .head1 {
+                    top:50px;
+                    }
+                    .head2 {
+                    top:80px;
+                    }
+                .col-md-6 img{
+              height:100px;
+            }
+               }
+            
+            
+                          .mt-5, .my-5 {
+                 margin-top: 2.5rem !important;
+            }
+            
+            </style>
+
+        <!-- card -->
+<section class="position:absolute;">
+    <div class="card-wrapper">
+        <h2 style="text-align:center">Apparel sourcing with complete transparency</h2>
+        <section class="position:absolute;">
+          <div class="new-category center padded">
+            <!-- <h2 class="center-head">Manufacturing </h2> -->
+             <!-- <h3>Optimise! Efficient! Profitable! Sustainable!</h3> -->
+            <div id="owl-demo14" class="owl-carousel owl-theme">
+              {% for c in First %} 
+              <div class="new-category center padded">
+                  
+                  <div class="card-with-img"> 
+                  
+                            
+                  <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                      <div class="card-content"></a>
+                        <h4>{{c.name}}</h4>
+                        <p>{{c.desc}}</p>
+                          
+                      </div>
+                  </div>
+                  </div>
+                  </div> 
+                 
+                  {% endfor %}    
+                  </div> 
+            </div>
+                <!-- {% for b in fashion %}
+                <div class="card-with-img">
+                    <div class="center">
+                        <a href="/{{b.link}}">
+                            <img src="{{b.image.url}}" alt="fashion">
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <h4>{{b.name}}</h4>
+                        <p></p>
+                    </div>
+                </div>
+                {% endfor %} -->
+          
+                  
+                          <script>
+                          $(document).ready(function() {
+                       
+                        $("#owl-demo14").owlCarousel({
+                       
+                          
+                                         // stagePadding:30,
+          // smartSpeed:450,
+          autoplay: true,
+          // 
+          loop : true,
+          margin:10,
+          responsiveClass:true,
+          responsive:{
+              0:{
+                  items:1,
+                  
+                  
+              },
+              600:{
+                  items:4,
+                  
+                  loop:true
+              
+              },
+              
+          }
+          
+                           
+                       
+                            // "singleItem:true" is a shortcut for:
+                            // items : 1, 
+                            // itemsDesktop : false,
+                            // itemsDesktopSmall : false,
+                            // itemsTablet: false,
+                            // itemsMobile : false
+                       
+                        });
+                       
+                       });
+                        
+                        </script>
+                      
+                        
+        </section>
+    </section>
+
+    <!-- card2 -->
+<section class="position:absolute;">
+    <div class="card-wrapper">
+        <h2 style="text-align:center">Apparel sourcing with complete transparency</h2>
+        <section class="position:absolute;">
+          <div class="new-category center padded">
+            <!-- <h2 class="center-head">Manufacturing </h2> -->
+             <!-- <h3>Optimise! Efficient! Profitable! Sustainable!</h3> -->
+            <div id="owl-demo15" class="owl-carousel owl-theme">
+              {% for c in Second %} 
+              <div class="new-category center padded">
+                  
+                  <div class="card-with-img"> 
+                  
+                            
+                  <a href="{{c.link}}"> <div><img src="{{c.image.url}}" alt="card">
+                      <div class="card-content"></a>
+                        <h4>{{c.name}}</h4>
+                        <p>{{c.desc}}</p>
+                          
+                      </div>
+                  </div>
+                  </div>
+                  </div> 
+                 
+                  {% endfor %}    
+                  </div> 
+            </div>
+                <!-- {% for b in fashion %}
+                <div class="card-with-img">
+                    <div class="center">
+                        <a href="/{{b.link}}">
+                            <img src="{{b.image.url}}" alt="fashion">
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <h4>{{b.name}}</h4>
+                        <p></p>
+                    </div>
+                </div>
+                {% endfor %} -->
+          
+                  
+                          <script>
+                          $(document).ready(function() {
+                       
+                        $("#owl-demo15").owlCarousel({
+                       
+                          
+                                         // stagePadding:30,
+          // smartSpeed:450,
+          autoplay: true,
+          // 
+          loop : true,
+          margin:10,
+          responsiveClass:true,
+          responsive:{
+              0:{
+                  items:1,
+                  
+                  
+              },
+              600:{
+                  items:4,
+                  
+                  loop:true
+              
+              },
+              
+          }
+          
+                           
+                       
+                            // "singleItem:true" is a shortcut for:
+                            // items : 1, 
+                            // itemsDesktop : false,
+                            // itemsDesktopSmall : false,
+                            // itemsTablet: false,
+                            // itemsMobile : false
+                       
+                        });
+                       
+                       });
+                        
+                        </script>
+                      
+                        
+        </section>
+    </section>
+
+            <section id="webnapp" class="content-section">
+                <div class="section-heading">
+                    <h1><em>WEB & APP</em></h1>
+                    <p>CONSIDER US AS YOUR RELIABLE PARTNER FOR ALL YOUR E-BUSINESS REQUIREMENTS. 
+                    <br>OUR TYPICAL E-COMMERCE PACKAGE INCLUDES THE FOLLOWING:</p>
+                </div>
+                <div class="section-content">
+                    <div id="owl-logo" class="owl-carousel owl-theme" data-tabgroup="first-tab-group">
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/web-consulting.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab1">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>WEB CONSULTING</h4>
+                                <!-- <span>Proin et sapien</span> -->
+                                <p>The Branding and Consulting team of JUSTGETIT is highly efficient to 
+                                    decide the marketing strategy for promoting a product in the market. We 
+                                    have more than 10 years of experience in the field of Branding and 
+                                    Consulting.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/web-development.jpg' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab1">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>WEB Development</h4>
+                                <!-- <span>Proin et sapien</span> -->
+                                <p>The website is the most effective and efficient way to build and professionalize your brand. Website optimization techniques can help Internet users find your brand.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/web-design-icon.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab2">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>WEB DESIGNING</h4>
+                                <!-- <span>Maximus</span> -->
+                                <p>Website design means arranging, creation and overhauling of websites. 
+                                    Website design additionally includes data construction modeling, website 
+                                    structure, client interface, route ergonomics, website design.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/mobile-applications.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab6">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>MOBILE APPLIATION DEVELOPMENT</h4>
+                                <!-- <span>Curabitur</span> -->
+                                <p>We have come a long way in the business of technology solutions. We 
+                                    concentrate in mobile application development. We sketch, design, put 
+                                    together, deliver, administer and market splendid applications</p>
+                            </div>        
+                            </div>
+                            <div class="item">
+                                <div class="image">
+                                    <img src="{% static 'img/portfolio/plm.png' %}" alt="">
+                                    <!-- <div class="featured-button button">
+                                        <a href="#tab2">Continue Reading</a>
+                                    </div> -->
+                                </div>
+                                <div class="text-content">
+                                    <h4>PLM</h4>
+                                    <!-- <span>Maximus</span> -->
+                                    <p>Website design means arranging, creation and overhauling of websites. 
+                                        Website design additionally includes data construction modeling, website 
+                                        structure, client interface, route ergonomics, website design.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="image">
+                                    <img src="{% static 'img/portfolio/erp.png' %}" alt="">
+                                    <!-- <div class="featured-button button">
+                                        <a href="#tab6">Continue Reading</a>
+                                    </div> -->
+                                </div>
+                                <div class="text-content">
+                                    <h4>ERP</h4>
+                                    <!-- <span>Curabitur</span> -->
+                                    <p>We have come a long way in the business of technology solutions. We 
+                                        concentrate in mobile application development. We sketch, design, put 
+                                        together, deliver, administer and market splendid applications</p>
+                                </div> 
+                            </div>                           
+                        </div>
+
+                        <!-- <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/branding.png' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#tab6">Continue Reading</a>
+                                </div> 
+                            </div>
+                        </div> 
+                       <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_2.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Aliquam mollis lacus</h4>
+                                <span>Suspendisse</span>
+                                <p>#7 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_1.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Mauris lacinia pretium</h4>
+                                <span>Vestibulum</span>
+                                <p>#8 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_3.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Proin sit amet fringilla erat</h4>
+                                <span>Convallis</span>
+                                <p>#9 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+                
+                <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-logo").owlCarousel({
+                    smartSpeed:450,
+                    margin: 40,
+autoplay: true,
+// lazyload: true,
+nav:true,
+loop : true,
+
+responsiveClass:true,
+responsive:{
+0:{
+items:1,
+nav:true
+
+},
+600:{
+items:3,
+nav:true,
+loop:true
+
+},
+
+}     // "singleItem:true" is a shortcut for:
+ // items : 1, 
+ // itemsDesktop : false,
+ // itemsDesktopSmall : false,
+ // itemsTablet: false,
+ // itemsMobile : false
+
+});
+
+});
+  
+  </script>
+                  
+                  </script>
+            </section>
+            <section id="branding" class="content-section">
+                <div class="section-heading">
+                    <h1><em>BRANDING</em></h1>
+                    <p>CONSIDER US AS YOUR RELIABLE PARTNER FOR ALL YOUR E-BUSINESS REQUIREMENTS. 
+                    <br>OUR TYPICAL E-COMMERCE PACKAGE INCLUDES THE FOLLOWING:</p>
+                </div>
+                <div class="section-content">
+                    <div id="owl-logo1" class="owl-carousel owl-theme" data-tabgroup="first-tab-group">
+                    
+                                
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/branding.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab6">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>BRANDING</h4>
+                                <!-- <span>Curabitur</span> -->
+                                <p>Effective brand management enables the price of products to go up and builds loyal customers through positive brand associations and images or a strong awareness of the brand.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/graphics-designing.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab3">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>GRAPHICS</h4>
+                                <!-- <span>Vulputate</span> -->
+                                <p>Visual society is a blend of incalculable messages and images, from over a
+                                     wide span of time. The design of messages, as content, image, and now
+                                      moving images is the part of the realistic graphic designer.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/graphics-designing.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab3">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>LOGO</h4>
+                                <!-- <span>Vulputate</span> -->
+                                <p>Need a New Brand Logo? Get the Results You Want. We'll Work with You to Develop Engaging Graphics That Create an Impact.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/graphics-designing.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab3">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>PACKAGING</h4>
+                                <!-- <span>Vulputate</span> -->
+                                <p>Product packaging is what most people think of when they think of packaging: it’s the box the toy comes in, the bottle with a label, the tag on a garment, the wrapper of a candy bar.</p>
+                            </div>
+                        </div>
+                       
+                        </div>
+                        <!-- <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_2.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Aliquam mollis lacus</h4>
+                                <span>Suspendisse</span>
+                                <p>#7 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_1.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Mauris lacinia pretium</h4>
+                                <span>Vestibulum</span>
+                                <p>#8 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_3.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Proin sit amet fringilla erat</h4>
+                                <span>Convallis</span>
+                                <p>#9 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+                
+                <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-logo1").owlCarousel({
+                    smartSpeed:450,
+autoplay: true,
+// lazyload: true,
+nav:true,
+loop : true,
+
+responsiveClass:true,
+responsive:{
+0:{
+items:1,
+nav:true
+
+},
+600:{
+items:3,
+nav:true,
+loop:true
+
+},
+
+}     // "singleItem:true" is a shortcut for:
+ // items : 1, 
+ // itemsDesktop : false,
+ // itemsDesktopSmall : false,
+ // itemsTablet: false,
+ // itemsMobile : false
+
+});
+
+});
+  
+  </script>
+                  
+                  </script>
+            </section>
+            <section id="content" class="content-section">
+                <div class="section-heading">
+                    <h1><em>CONTENT</em></h1>
+                    <p>CONSIDER US AS YOUR RELIABLE PARTNER FOR ALL YOUR E-BUSINESS REQUIREMENTS. 
+                    <br>OUR TYPICAL E-COMMERCE PACKAGE INCLUDES THE FOLLOWING:</p>
+                </div>
+                <div class="section-content">
+                    <div id="owl-logo2" class="owl-carousel owl-theme" data-tabgroup="first-tab-group">
+                       
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/cms.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab5">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>CONTENT MANAGEMENT</h4>
+                                <!-- <span>Aliquam</span> -->
+                                <p>When you need publishing, editing and modifying content along with 
+                                    organising and deleting those from the innermost border, CMS or rather 
+                                    Content Management System is that computer application that helps us.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/cms.png' %}" alt="">
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab5">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <h4>DIGITAL MARKETING</h4>
+                                <!-- <span>Aliquam</span> -->
+                                <p>We specialise in the creation and launch of influencer-made products. Our dedicated team can help you turn your product idea into a reality, whilst covering all aspects of marketing, logistics and fulfillment.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <a href="/software/content-writing">
+                                    <img src="{% static 'img/portfolio/content-writing2.png' %}" alt="">
+                                </a>                                
+                                <!-- <div class="featured-button button">
+                                    <a href="#tab4">Continue Reading</a>
+                                </div> -->
+                            </div>
+                            <div class="text-content">
+                                <a href="/software/content-writing">
+                                    <h4>CONTENT WRITING</h4>
+                                </a>                                
+                                <!-- <span>Elementum</span> -->
+                                <a href="/software/content-writing">
+                                    <p>The Content Writing team of JUSTGETIT is highly efficient to write
+                                        content, relevant to a particular website. Before developing the content,
+                                        our expert writers analyze the purpose or requirement of a particular
+                                        website.</p>
+                                </a>                                
+                            </div>
+                        </div>
+                        <!-- <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_2.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Aliquam mollis lacus</h4>
+                                <span>Suspendisse</span>
+                                <p>#7 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_1.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Mauris lacinia pretium</h4>
+                                <span>Vestibulum</span>
+                                <p>#8 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="image">
+                                <img src="{% static 'img/portfolio/featured_3.jpg' %}" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>Proin sit amet fringilla erat</h4>
+                                <span>Convallis</span>
+                                <p>#9 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+                
+                <script>
+                    $(document).ready(function() {
+                 
+                  $("#owl-logo2").owlCarousel({
+                    smartSpeed:450,
+autoplay: true,
+// lazyload: true,
+nav:true,
+loop : true,
+
+responsiveClass:true,
+responsive:{
+0:{
+items:1,
+nav:true
+
+},
+600:{
+items:3,
+nav:true,
+loop:true
+
+},
+
+}     // "singleItem:true" is a shortcut for:
+ // items : 1, 
+ // itemsDesktop : false,
+ // itemsDesktopSmall : false,
+ // itemsTablet: false,
+ // itemsMobile : false
+
+});
+
+});
+  
+  </script>
+                  
+                  </script>
+            </section>
+            <section id="projects" class="content-section">
+                <div class="row">
+                    <div class="section-heading col-12">
+                        <h1 class="mb-4"><em></em>  <em>Projects</em></h1>
+                        
+                    <div class="text-content row">
+                            <div class="project-nav col-6 col-md-4 col-lg-2">
+                                <h3>Retail</h3>
+                                <a href="\b2c"><li style="font-weight: 400;">&nbsp;B2C</li></a>
+                                <a href="\b2b"><li style="font-weight: 400;">&nbsp;B2B</li></a>
+                            </div>
+                            <div class="project-nav col-6 col-md-4 col-lg-2">
+                                <h3>Fashion</h3>
+                                <a href="\connect"><li style="font-weight: 400;">&nbsp;Connect</li></a>
+                                <a href="\consulting"><li style="font-weight: 400;">&nbsp;Consulting</li></a>
+                                <a href="\sourcing"><li style="font-weight: 400;">&nbsp;Sourcing</li></a>
+                            </div>
+                            <div class="project-nav col-6 col-md-4 col-lg-2">
+                                <h3>Design</h3>
+                                <a href="\branding"><li style="font-weight: 400;">&nbsp;Branding</li></a>
+                                <a href="\branding"><li style="font-weight: 400;">&nbsp;2D</li></a>
+                                <a href="\branding"><li style="font-weight: 400;">&nbsp;3D</li></a>
+                                <a href="\branding"><li style="font-weight: 400;">&nbsp;Graphics</li></a>
+                                <a href="\branding"><li style="font-weight: 400;">&nbsp;UI</li></a>
+                                <a href="\branding"><li style="font-weight: 400;">&nbsp;UX</li></a>
+                                <a href="\content"><li style="font-weight: 400;">&nbsp;Content</li></a>
+                                <a href="\branding\digital-marketing"><li style="font-weight: 400;">&nbsp;Digital Marketing</li></a>
+                                <a href="\phinix"><li style="font-weight: 400;">&nbsp;Interior</li></a>
+                                <a href="\landscape"><li style="font-weight: 400;">&nbsp;Landscape</li></a>
+                                <a href="\urban-planning"><li style="font-weight: 400;">&nbsp;Urban Planning</li></a>
+                                <a href="\visual-merchandising"><li style="font-weight: 400;">&nbsp;Visual Merchandising</li></a>
+                                <a href="\photography"><li style="font-weight: 400;">&nbsp;Photography</li></a>
+                                <a href="\styling"><li style="font-weight: 400;">&nbsp;Styling</li></a>
+                                <a href="\forecasting"><li style="font-weight: 400;">&nbsp;Fashion Forecasting</li></a>
+                            </div>
+                            <div class="project-nav col-6 col-md-4 col-lg-2">
+                                <h3>Brand</h3>
+                                <a href="\inolio"><li style="font-weight: 400;">&nbsp;Inolio</li></a>
+                                <a href="\stylothon"><li style="font-weight: 400;">&nbsp;Stylothon</li></a>
+                                <a href="\miha"><li style="font-weight: 400;">&nbsp;Miha</li></a>
+                                <a href="\rainush"><li style="font-weight: 400;">&nbsp;Rainush</li></a>
+                                <a href="\nilambari"><li style="font-weight: 400;">&nbsp;Nilambari</li></a>
+                                <a href="\justio"><li style="font-weight: 400;">&nbsp;Justio</li></a>
+                                <a href="\spyturtle"><li style="font-weight: 400;">&nbsp;Spyturtle</li></a>
+                                <a href="\phinix"><li style="font-weight: 400;">&nbsp;Phinix</li></a>
+                                <a href="\minaar"><li style="font-weight: 400;">&nbsp;Minaar</li></a>
+                            </div>
+                            <div class="project-nav col-6 col-md-4 col-lg-2">
+                                <h3>Marketplace</h3>
+                                <a href="\textile"><li style="font-weight: 400;">&nbsp;Textile</li></a>
+                                <a href="\apparel"><li style="font-weight: 400;">&nbsp;Apparels - RTW</li></a>
+                                <a href="\designer"><li style="font-weight: 400;">&nbsp;Apparels - Designer Wear</li></a>
+                                <a href="\home"><li style="font-weight: 400;">&nbsp;Home Furnishing</li></a>
+                                <a href="\handicraft"><li style="font-weight: 400;">&nbsp;Handicraft</li></a>
+                                <a href="\accessories"><li style="font-weight: 400;">&nbsp;Accessories</li></a>
+                                <a href="\hard-goods"><li style="font-weight: 400;">&nbsp;Hard Goods</li></a>
+                                <a href="\phinix"><li style="font-weight: 400;">&nbsp;Interior</li></a>
+                                <a href="\hardware"><li style="font-weight: 400;">&nbsp;Hardware</li></a>
+                            </div>
+                            <div class="project-nav col-6 col-md-4 col-lg-2">
+                                <h3>Software</h3>
+                                <a href="\software"><li style="font-weight: 400;">&nbsp;Web</li></a>
+                                <a href="\software"><li style="font-weight: 400;">&nbsp;APP</li></a>
+                                <a href="\software"><li style="font-weight: 400;">&nbsp;ERP\PLM</li></a>
+                                <a href="\software"><li style="font-weight: 400;">&nbsp;Automation</li></a>
+                            </div>
+                    </div>
+
+                    </div>                        
+                </div>                  
+            </section>
+            <section id="recent_work" class="content-section">
+                <div class="section-heading">
+                    <h1>Recent<br><em>Projects</em></h1>
+                    <p>Our Live Projects, 
+                    <br>See The Latest Video.</p>
+                    <a href="\new-portfolio"><li style="font-weight: 400;">Portfolio Website (Congress) </li></a>
+                </div>
+                <div class="section-content">
+                    <div class="masonry">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box-video">
+                                    <!-- <div class="bg-video" style="background-image: url(https://unsplash.imgix.net/photo-1425036458755-dc303a604201?fit=crop&fm=jpg&q=75&w=1000);">
+                                        <div class="bt-play">Play</div>
+                                    </div> -->
+                                    <div class="video-container">
+                                        <iframe width="100%" height="480" src="https://www.youtube.com/embed/6VoUwCIYzJQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>                                    
+                                </div>
+                                <div>
+                                    <a href="videos/" class="more-videos">See More such videos</a>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>            
+            </section>
+           
+            <section id="blog" class="content-section">
+                <div class="section-heading">
+                    <h1><br><em>Blog</em></h1>
+                    <!-- <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum. 
+                    <br>Phasellus luctus odio eget dui imperdiet.</p> -->
+                </div>
+                <div class="section-content">
+                    <div class="tabs-content">
+                        <div class="wrapper">
+                            <select>
+                                <option value="tab1" selected>WEB CONSULTING</option>
+                                <option value="tab2">WEB DEVELOPMENT</option>
+                                <option value="tab3">WEB DESIGNING</option>                                
+                                <option value="tab4">MOBILE APPLIATION DEVELOPMENT</option>                                
+                                <option value="tab5">BRANDING</option>
+                                <option value="tab6">GRAPHIC DESIGN</option>
+                                <option value="tab7">LOGO</option>
+                                <option value="tab8">PACKAGING</option>
+                                <option value="tab9">CONTENT MANAGEMENT SYSTEM</option>
+                                <option value="tab10">DIGITAL MARKETING</option>
+                                <option value="tab11">CONTENT WRITING</option>
+                            </select>
+                            <!-- <ul class="tabs clearfix" data-tabgroup="first-tab-group">
+                              <li><a href="#tab1" class="active">WEB CONSULTING</a></li>
+                              <li><a href="#tab2">WEB DESIGNING</a></li>
+                              <li><a href="#tab3">GRAPHIC DESIGN</a></li>
+                              <li><a href="#tab4">CONTENT WRITING</a></li>
+                              <li><a href="#tab5">CONTENT MANAGEMENT SYSTEM</a></li>
+                              <li><a href="#tab6">MOBILE APPLIATION DEVELOPMENT</a></li>
+                            </ul> -->
+                            <section id="first-tab-group" class="tabgroup">
+                                <div id="tab1" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/Web-consulting-new-2-copy.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>WEB CONSULTING</h4>
+                                                    <!-- <span>25 July 2018</span> -->
+                                                    <p>The <strong>Branding and Consulting</strong> team of <strong>
+                                                        JUSTGETIT</strong>&nbsp;is highly efficient to decide the 
+                                                        <strong>marketing strategy</strong> for promoting a product in 
+                                                        the market. We have more than 10 years of experience in the 
+                                                        field of Branding and Consulting.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Our expert professionals gather data from various 
+                                                        platforms and make extensive researches on the present 
+                                                        trend, customers’ requirement, etc. They also decide 
+                                                        the actual product value, which will be suitable in the 
+                                                        competitive market.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>The <strong>Branding and Consulting</strong> team of 
+                                                        <strong>JUSTGETIT</strong>&nbsp;gives expert 
+                                                        solution about <strong>Logo Designing</strong>, 
+                                                        packaging, marking of a product, etc. Our highly 
+                                                        experienced professionals always guide the clients to 
+                                                        develop the best marketing strategy for promoting a 
+                                                        product in the market.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Before making a marketing strategy, we take sound 
+                                                        knowledge about the type of the product, the age group 
+                                                        and other features of its main customer base and the 
+                                                        geographic regions where the possibility of selling the 
+                                                        product will be the maximum. As a result of such 
+                                                        extensive study, we can decide the prospective media, 
+                                                        the right way of brand promotion, etc in the best 
+                                                        possible manner.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>In the present scenario, a <strong>good marketing 
+                                                        strategy</strong> plays vary important role to 
+                                                        popularize a product in the market. Even a premium 
+                                                        quality product may not get the market due to faulty 
+                                                        <strong>Marketing Strategy</strong>. If you have 
+                                                        manufactured a great product or want to offer any 
+                                                        service to your clients, <strong>JUSTGETIT
+                                                        </strong>&nbsp;will be the best choice for you. 
+                                                        We focus to develop a long term relationship with our 
+                                                        customers and we believe that we will grow, only when 
+                                                        our customers will grow.</p>                                                    
+                                                    <!-- <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tab2" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/Web-consulting-new-2-copy.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>WEB DEVELOPMENT</h4>
+                                                    <!-- <span>25 July 2018</span> -->
+                                                    <p>The website is the most effective and efficient way to build and professionalize your brand. Website optimization techniques can help Internet users find your brand.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tab3" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/web-designing-copy.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>WEB DESIGNING</h4>
+                                                    <!-- <span>30 June 2018</span> -->
+                                                    <p><strong>Website Design</strong> means arranging, 
+                                                        creation and overhauling of website.</p>
+                                                    <p>Website design additionally includes data construction 
+                                                        modeling, website structure, client interface, route 
+                                                        ergonomics, website design, colors, differentiations, 
+                                                        fonts and image (photography) and symbols design. Most 
+                                                        likely, the current website building includes all languages
+                                                        and frameworks like <strong>Django</strong>, <strong>REST 
+                                                        framework</strong>, websites’ visual side is characterized 
+                                                        with <strong>html</strong> and <strong>CSS</strong>, client 
+                                                        experience is improved with element <strong>JavaScript
+                                                        </strong> and <strong> Ajax</strong>. Some of the 
+                                                        angles that may be incorporated in Web design or Web 
+                                                        production are graphics and movement creation, color 
+                                                        choice, font determination, route design, content 
+                                                        creation, <strong>HTML/XML</strong> creating, <strong>
+                                                        JavaScript programming</strong>, and ecommerce 
+                                                        advancement.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We give complete solutions and backing, from the first 
+                                                        venture of prerequisite social occasion to the last 
+                                                        arrangement of an application and rollout. Our group 
+                                                        <strong>web designer</strong> is devoted to create the 
+                                                        visual engage guarantee the hits for your website which 
+                                                        draws in the movement and associate you with gatherings 
+                                                        of people. We nearly understand your website’s 
+                                                        criticalness and needs and design your website in such a 
+                                                        way along these lines, to the point that your prospect 
+                                                        customers have the capacity join with you in a simpler 
+                                                        way.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Our center group is ready to situate an imprint in the 
+                                                        field of <strong>Web Designing</strong>. The details 
+                                                        specified by the customer are of most extreme vitality 
+                                                        and we are resolved to change over trusts into reality by 
+                                                        giving quality web solutions to the websites. We take 
+                                                        incredible consideration while designing the website and 
+                                                        stress on the methodologies to make the website alluring 
+                                                        and famous with the goal that it is dependably there in 
+                                                        the main posting of the best. With productive designing 
+                                                        skills we support our customers in building the <strong>
+                                                        brands online</strong>. The content utilization and the 
+                                                        brilliant pictures are ready to force the trigger and 
+                                                        scope to the intended interest groups in a less time. The 
+                                                        best quality website demonstrates the brand esteem and its 
+                                                        rich content has the capacity make history hold of client’s 
+                                                        eye ball development.</p>
+                                                    
+                                                    <!-- <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div> 
+                                <div id="tab4" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/MOBILE-APPLICATION-DEVELOPMENT.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>MOBILE APPLICATION DEVELOPMENT</h4>
+                                                    <!-- <span>26 April 2018</span> -->
+                                                    <p>We have come a long way in the business of technology 
+                                                        solutions. We concentrate in <strong>Mobile 
+                                                        Application Development</strong> in <strong>Flutter                                                            
+                                                        </strong> and <strong>IOS</strong>. We sketch, design, 
+                                                        put together, deliver, administer and market splendid 
+                                                        applications for mobile platforms that are pioneering, 
+                                                        functionally vigorous, game altering and above all 
+                                                        precious to mobile users. Our mobile applications are 
+                                                        product oriented that actually do something 
+                                                        significant, not business driven that just end up 
+                                                        selling somewhat. We recognize how to get the correct 
+                                                        stability between client ideas, relevant technologies 
+                                                        platform standards, and user practice and client 
+                                                        prospect.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We offer you with interactive, feature-rich and 
+                                                        customer-oriented applications for portable devices 
+                                                        such as Mobile Phones, Smart Phones and Tablets. Our 
+                                                        engineers supervise, devise, study, analyze and 
+                                                        visualize. We focus on design and architecture. Our 
+                                                        specialized development and design team negotiate for 
+                                                        hours to come up with the best application that our 
+                                                        clients can offer to their customers. We expand, 
+                                                        execute and test. Our Quality team leaves no stone 
+                                                        unturned to eradicate any kind of bug or end user 
+                                                        impediments. Our team of mobile apps designers and 
+                                                        developers specialize in creating attractive and 
+                                                        functional user interface that are adaptive, 
+                                                        intellectual, spontaneous and user-friendly.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We have acquired the skills and knowledge base to take 
+                                                        care of each and every issue above and produce specific 
+                                                        mobile based applications, solutions for the customers. 
+                                                        We have the potential to effortlessly and faultlessly 
+                                                        integrate different development inventiveness catering 
+                                                        to most of the devices and their system software. Taking 
+                                                        sides of all the popular devices on the market in that 
+                                                        way maximizing the chance of getting the critical mass 
+                                                        for business success is the motto of our company. Our aim 
+                                                        is to build customer-centric applications that are 
+                                                        user-friendly as well as expenditure effective to fit in 
+                                                        your financial statement. You can rely on us for standard 
+                                                        <strong>Mobile Application Development</strong> that has 
+                                                        uncomplicated interface and persuasive resourcefulness.</p>
+                                                    
+                                                    <!-- <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </li>    
+                                    </ul>
+                                </div>
+                                <div id="tab5" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/MOBILE-APPLICATION-DEVELOPMENT.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>BRANDING</h4>
+                                                    <!-- <span>26 April 2018</span> -->
+                                                    <p>Brand management is a function of marketing that uses techniques to increase the perceived value of a product line or brand over time. Effective brand management enables the price of products to go up and builds loyal customers through positive brand associations and images or a strong awareness of the brand.</p>
+                                                </div>
+                                            </div>
+                                        </li>    
+                                    </ul>
+                                </div>
+                                <div id="tab6" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/graphic-designing.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>GRAPHIC DESIGN</h4>
+                                                    <!-- <span>26 May 2018</span> -->
+                                                    <p>Visual society is a blend of incalculable messages and 
+                                                        images, from over a wide span of time. The design of 
+                                                        messages, as content, image, and now moving images is 
+                                                        the part of the realistic designer. <strong>Graphic 
+                                                        Design</strong> is the approach of visual 
+                                                        communication, and critical thinking through the 
+                                                        utilization of sort, space and image. The field is 
+                                                        viewed as a subset of visual communication and 
+                                                        communication design, yet in some cases the expression 
+                                                        “visual communication” is utilized reciprocally with 
+                                                        these because of covering abilities included. Visual 
+                                                        designers use different techniques to make and 
+                                                        consolidate words, images, and images to make a visual 
+                                                        representation of thoughts and messages. A visual 
+                                                        designer may utilize a mix of typography, visual 
+                                                        expressions and page format methods to deliver a last 
+                                                        result. Visual communication regularly alludes to both 
+                                                        the methodology (designing) by which the communication 
+                                                        is made and the products (designs) which are created.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Normal employments of visual depiction <strong>
+                                                        incorporate identity</strong> <strong>(logos and 
+                                                        branding)</strong>, publications (magazines, 
+                                                        newspapers and books), print advertisements, posters, 
+                                                        billboards, website graphics and elements, signs and 
+                                                        product packaging. Case in point, a product bundle may 
+                                                        incorporate a logo or other fine art, sorted out 
+                                                        content and unadulterated design elements, for 
+                                                        example, images, shapes and shade which bring together 
+                                                        the piece. Structure is a standout amongst the most 
+                                                        critical peculiarities of visual depiction, 
+                                                        particularly when utilizing prior materials or various 
+                                                        elements. With more than 12+ years of mastery in the 
+                                                        field of seaward visual computerization, we can furnish 
+                                                        your company with staggering realistic designs that help 
+                                                        fortify your corporate image crosswise over distinctive 
+                                                        communication channels.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We offer an extensive variety of custom visual depiction 
+                                                        services, and capably interpret your contemplations and 
+                                                        thoughts into inventive realistic designs that bring out 
+                                                        prevalent results. We guarantee that our creativity is 
+                                                        not ordinary; however weights on making custom graphics 
+                                                        that work further bolstering your good fortune. Our 
+                                                        visual communication outsourcing services aid in making 
+                                                        anything nearly connected with graphics.</p>
+                                                    
+                                                    <!-- <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tab7" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/MOBILE-APPLICATION-DEVELOPMENT.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>LOGO</h4>
+                                                    <!-- <span>26 April 2018</span> -->
+                                                    <p>Need a New Brand Logo? Get the Results You Want. We'll Work with You to Develop Engaging Graphics That Create an Impact.</p>
+                                                </div>
+                                            </div>
+                                        </li>    
+                                    </ul>
+                                </div>
+                                <div id="tab8" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/MOBILE-APPLICATION-DEVELOPMENT.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>PACKAGING</h4>
+                                                    <!-- <span>26 April 2018</span> -->
+                                                    <p>Bring your brand to life and make your packaging pop!</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>A product’s packaging should appeal to its ideal consumer; it’s important to know who that consumer is before you start the design process. Products for older adults may need larger text. Alternatively, items geared towards an affluent customer will need to consider materials that create a feeling of luxury.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>You’re going to want to think about packaging differently if the product is going to be sold online and shipped than if it’s going to need to stand out from the competition on a big-box store shelf. Items that will be sold online probably shouldn’t have a lot of extra space that could cause the product to rattle around, or the package to bend. And those that will be on a boutique shelf will need to catch the eye of a buyer surrounded by cutesy items in cutesy packages.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Product packaging is what most people think of when they think of packaging: it’s the box the toy comes in, the bottle with a label, the tag on a garment, the wrapper of a candy bar.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Each one of these layers of packaging gives you a chance to tell a part of your story.</p>
+                                                </div>
+                                            </div>
+                                        </li>    
+                                    </ul>
+                                </div>
+                                <div id="tab9" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/CMS.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>CONTENT MANAGEMENT SYSTEM</h4>
+                                                    <!-- <span>26 April 2018</span> -->
+                                                    <p>When you need publishing, editing and modifying 
+                                                        content along with organising and deleting those from 
+                                                        the innermost border, <strong>CMS</strong> or rather 
+                                                        <strong>Content Management System</strong> is that 
+                                                        computer application that helps us. With the help of 
+                                                        Content Management System we are able to maintain work 
+                                                        pressure in a collaborative environment. We are able to 
+                                                        store as well as organize the important files and our 
+                                                        access to this data is controlled. Content Management 
+                                                        System gives us a handful of features and we are fed 
+                                                        with powerful functions such as publishing, format 
+                                                        management, indexing, search and retrieval. We are 
+                                                        assisted with updates that are added on to the already 
+                                                        existing file.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>A <strong>Content Management System</strong> may give out 
+                                                        as an essential arsenal containing papers, cinemas, 
+                                                        pictures, phone numbers, and scientific data. Through 
+                                                        Content Management System accumulation, controlling, 
+                                                        revising, semantically elevating and publishing 
+                                                        documentation turns out to be quite easy. With the help 
+                                                        of CMS we are able to create, deploy, organise the 
+                                                        materials in store in the Web Pages. <strong>CMS</strong> 
+                                                        is astonishingly helpful in cataloguing the Web Pages and 
+                                                        also giving index content. It also allows us to have a 
+                                                        client control over <strong>HTML</strong> contents, 
+                                                        documents and files. We are highly benefited from this 
+                                                        computer based application.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>A <strong>Content Management System (CMS)</strong> is an 
+                                                        arrangement used to administer the content of a networking 
+                                                        site. Characteristically, a CMS comprises of two 
+                                                        essentials. One being the content management application 
+                                                        (CMA) and the other is content delivery application (CDA). 
+                                                        The CMA factor agrees to the content administrator or 
+                                                        instigator, not knowing the <strong>Hypertext Mark-up 
+                                                        Language</strong> <strong>(HTML)</strong>, therefore unable 
+                                                        to administer the formation, alteration, and elimination of 
+                                                        content or document from a Web site with no requirement for 
+                                                        the proficiency of a Webmaster. The CDA constituent employs 
+                                                        and collects that information to modernize the Web site. 
+                                                        Web-based publishing, format management, revision control, 
+                                                        and indexing, search, and retrieval are thus made easy with 
+                                                        CMS.</p>
+                                                        <p>&nbsp;</p>
+                                                        <p>Our creative team will supply inspirational and innovative content for your brands digital presence that drives sales through social channels and websites. We cover all aspects of branding, paid ads, strategy and website management.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>       
+                                <div id="tab10" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/CMS.jpg' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>DIGITAL MARKETING</h4>
+                                                    <!-- <span>26 April 2018</span> -->
+                                                    <p>We specialise in the creation and launch of influencer-made products. Our dedicated team can help you turn your product idea into a reality, whilst covering all aspects of marketing, logistics and fulfillment, leaving you to focus on what matters- your audience.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We believe for clients to stand out they need access to specialists. The four teams across our social media agency, based in Leeds, use their unique combination of talent, knowledge and experience to deliver just that.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Celebrity & influencer management</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We identify and engage with key influencer partners that are relevant to your brand and customers, getting you seen by consumers that are already interested in what your brand offers.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>A designated team member will be assigned to your account, covering posting, scheduling, reporting and responding, leaving you to focus on your business operations.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We build bespoke marketing strategies based on your business goals. You’ll be provided with a clear outline of recommendations and targets that allow us to work in close partnership for the best possible results.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>       
+                                <div id="tab11" class="tab">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="{% static 'img/portfolio/content-writing-min.png' %}" alt="">
+                                                <div class="text-content">
+                                                    <h4>CONTENT WRITING</h4>
+                                                    <!-- <span>25 July 2018</span> -->
+                                                    <p>The <strong>Content Writing</strong> team of <strong>
+                                                        JUSTGETIT</strong>&nbsp;is highly efficient to 
+                                                        write content, relevant to a particular website. 
+                                                        Before developing the content, our expert writers 
+                                                        analyze the purpose or requirement of a particular 
+                                                        website. As a result of it, our content is capable of 
+                                                        highlighting all the strong points of a website in an 
+                                                        efficient way.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>When required, our Content Writing team works together
+                                                         with our <strong>SEO</strong> team. Our SEO team or 
+                                                         our customers provide the exact keywords to be 
+                                                         featured in a website for obtaining a rank in 
+                                                         <strong>leading search engines</strong> like <strong>
+                                                             Google, Yahoo, Bing</strong>, etc and our writers 
+                                                             put them in their content in a smart way.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>In present times, the visitors of a website want to get 
+                                                        more information in a short period of time. The expert 
+                                                        professionals of <strong>JUSTGETIT</strong>&nbsp;
+                                                        write compact content, which contains all the required 
+                                                        information in shorter length. They also write content 
+                                                        according to the word limit provided by our clients.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>We hire the <strong>content writers</strong> from 
+                                                        different background, like English, Mass Communication, 
+                                                        Journalism, Technical fields, etc. For that reason, we 
+                                                        can provide versatile content within short period of time. 
+                                                        Our lucid English attract all types of web visitors and the 
+                                                        beautiful writing style has been complemented by all.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>The experience <strong>Content Writing</strong> team also 
+                                                        develop content for promoting any product or service in 
+                                                        different electronic and <strong>Social Media</strong>.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>Before providing a piece of content to our customers, the 
+                                                        quality and grammar of the total content is strictly checked 
+                                                        by our expert staffs. We never write duplicate content and 
+                                                        every writing is checked with some plagiarism checker software 
+                                                        before delivering them to the clients.</p>
+                                                    <p>&nbsp;</p>
+                                                    <p>If you are interested in promoting blog sites, or want to sale 
+                                                        or popularize any product or service through a website, then 
+                                                        <strong>JUSTGETIT</strong>&nbsp;will be the best choice for 
+                                                        you. So, don’t wait, Just come to our company to avail the 
+                                                        <strong>best content writing solution</strong> for your 
+                                                        company.</p>
+                                                    <p>&nbsp;</p>
+                                                </div>
+                                            </div>
+                                        </li>                                
+                                    </ul>
+                                </div>                         
+                            </section> 
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="content-section">
+                <div id="map">
+                
+                	<!-- How to change your own map point
+                           1. Go to Google Maps
+                           2. Click on your location point
+                           3. Click "Share" and choose "Embed map" tab
+                           4. Copy only URL and paste it within the src="" field below
+                    -->
+                    <!-- <iframe src="https://www.google.com/maps/place/JustGetIt+Pvt.+Ltd./@19.2077914,72.9877266,15z/data=!4m5!3m4!1s0x0:0x9396803c3ddd53a2!8m2!3d19.2077914!4d72.9877266&output=embed" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15070.846717120443!2d72.9877266!3d19.2077914!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9396803c3ddd53a2!2sJustGetIt%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1600586483374!5m2!1sen!2sin" width="100%" height="400px" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+              
+    <footer id="footer" class="dark" style="float: left; width: 100%;">
+
+        <div class="container">
+
+            <!-- Footer Widgets
+            ============================================= -->
+            <div class="footer-widgets-wrap clearfix">
+
+                <div class="">
+
+                    <div class="">
+
+                        <div class="widget clearfix">
+
+                            <!-- s<img src="images/footer-widget-logo.png" alt="" class="footer-logo"> -->
+
+                            <!-- <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p> -->
+
+                            <div style="background: url('../../static/img/about/world-map.png') no-repeat center center; background-size: 100%;">
+                                
+                            <div class="row">
+                                    
+                                            <div class="col">
+                                                
+                                                <ul>
+                                                    <li>About Us</li>
+                                                    <li>Categories</li>
+                                                    <li>Products</li>
+                                                    <li>Services</li>
+                                                    <li>Blogs</li>
+                                                    <li>News</li>
+                                                    <li>Experts</li>
+                                                    <li>Team Diary</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col">
+                                                <ul>
+                                                    <li>Resources</li>
+                                                    <li>Insights</li>
+                                                    <li>Clients</li>
+                                                    <li>Terms & Conditions</li>
+                                                    <li>Privacy</li>
+                                                    <li>Refund Policy</li>
+                                                    <li>Career</li>
+                                                </ul>
+                                            </div>
+                                        <div class="col">
+                                            <!-- <div class="row"></div> -->
+                                            <ul>
+                                                <li>Enquiry</li>
+                                                <li>Design</li>
+                                                <li>Samplings</li>
+                                                <li>Bulk Orders</li>
+                                                <li>Daily Report</li>
+                                                <li>Daily Work Upload</li>
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                        
+                                        
+                                    
+                                    <!-- <div class="col">
+                                        <address>                                        
+                                            <strong>Office Addresses:</strong>
+                                            <br><br>
+                                          
+                                     Arihant Commercial Complex, Bldg, No, 49, 1st Floor, Village Purna, Bhiwandi Road, Dist. Thane- 421302.
+                                                Maharashtra
+
+                                                                      
+                                        </address> 
+                                    </div>  -->
+
+                                    <div class="col">
+                                        <address>                                        
+                                            <strong>Office Addresses:</strong>
+                                            <br><br>
+                                            27th Main Rd, Sector 2, HSR Layout, Bengaluru, Karnataka, India, 560102
+                                           <br><br>
+                                            Urbano L, Lodha palava lakeshore green Dombivli, Thane, Maharashtra, India, 421204.<br><br>
+                                                                      
+                                        </address> 
+                                    </div>        
+                                    <div class="col-sm">
+                                        <address>                                        
+                                            <strong>Office Address:</strong>
+                                            <br><br>
+                                            Apparel Manufacturing Center, CP Colony, Raghavpuram, Morar, Gwalior, Madhya Pradesh 474006
+                                            <!-- <img style="float:right;" class="col-xs col-lg" src="/static/Just Get It Logo 1.png" width="100" height="70"> -->
+                          
+                                        </address> 
+                                    </div>        
+                                   
+                                   
+                                    <div class="col">
+                                        <!-- <abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br> -->
+                                        <abbr title="Phone Number"><strong>Phone:</strong></abbr><a href="tel:+919619348557"> +91-9619348557</a>
+                                        <br><br><br>
+                                        <abbr title="Email Address">
+                                        <strong>Email:</strong><a href="mailto:hr@justgetit.in"> hr@justgetit.in</a><br>
+                                        <strong>Email:</strong><a href="mailto:admin@justgetit.in"> admin@justgetit.in</a><br>
+                                        <strong>Email:</strong><a href="mailto:sales@justgetit.in"> sales@justgetit.in</a><br>
+                                        <strong>Email:</strong><a href="mailto:info@justgetit.in"> info@justgetit.in</a><br>
+                                        <strong>Email:</strong></abbr><a href="mailto:support@justgetit.in"> support@justgetit.in</a>
+                                    </div>
+                                
+                                <div class="col-6 col-lg-2 color-white newslet">
+                                    <h5 class="mt-5 ml-2">Newsletter</h5>
+                                    <form method="POST">{% csrf_token %}
+                                        <input type="email" name="subscribe" placeholder="Email" class="ml-3" style="border: none; border-bottom: 1px solid white; color: white;background: transparent;">
+                                        <button style="border:none;background: #30c5ff;color: white; border-radius: 30px;" class="mt-3 ml-4 py-1 px-4 but-subs" type="submit">Subscribe</button>
+                                    </form><a href="/"><img src="{% static 'img/payment.png' %}" class="img-fluid"></a>
+                                    <img style="margin-top :10px;" class="img-responsive" src="/static/Just Get It Logo 1.png" width="100" height="70">
+
+                                </div>
+<!--                                 
+                                <div class="col-xs-12 col-md-2 col-lg-3 color-white">
+                                    {% if home_links.footer_track or home_links.footer_shipping or home_links.footer_return or home_links.footer_faq %}
+                                    <h5 class="mt-5 ml-2">Help</h5>{% endif %}
+                                    <ul class="ml-2 mt-3" style="list-style-type: none; padding: 0;padding-left: 1vw;">
+                                        {% if home_links.footer_track %}
+                                        <li class="hov-a mt-2 cursor-pointer">Track Order</li>{% endif %} {% if home_links.footer_shipping %}
+                                        <li class="hov-a cursor-pointer">Shipping</li>{% endif %} {% if home_links.footer_return %}
+                                        <li class="hov-a cursor-pointer">Returns</li>{% endif %} {% if home_links.footer_faq %}
+                                        <li class="hov-a cursor-pointer">FAQs</li>{% endif %}
+                                    </ul>
+                                </div> -->
+                                <!-- <div class="col-xs col-lg">
+                                    <img style="float:right;" class="img-responsive" src="/static/Just Get It Logo 1.png" width="100" height="70">
+                                </div> -->
+                                <!-- <div id="logo" class="fixed-top">
+                                    <a href="/about-jgi" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src=""  id="homepage_logo" width="60" height="60">
+                                    </a>
+                                    </div> -->
+                            </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="col_one_third">
+
+                        <div class="widget widget_links clearfix">
+
+                            <h4>Blogroll</h4>
+
+                            <ul>
+                                <li><a href="http://codex.wordpress.org/">Documentation</a></li>
+                                <li><a href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
+                                <li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+                                <li><a href="http://wordpress.org/support/">Support Forums</a></li>
+                                <li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+                                <li><a href="http://wordpress.org/news/">WordPress Blog</a></li>
+                                <li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+                            </ul>
+
+                        </div>
+
+                    </div> -->
+
+                    <!-- <div class="col_one_third col_last">
+
+                        <div class="widget clearfix">
+                            <h4>Recent Posts</h4>
+
+                            <div id="post-list-footer">
+                                <div class="spost clearfix">
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                                        </div>
+                                        <ul class="entry-meta">
+                                            <li>10th July 2014</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="spost clearfix">
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                        </div>
+                                        <ul class="entry-meta">
+                                            <li>10th July 2014</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="spost clearfix">
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
+                                        </div>
+                                        <ul class="entry-meta">
+                                            <li>10th July 2014</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> -->
+
+                </div>
+
+                <div class="col_one_third col_last">
+
+                    <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                        <div class="row">
+                            <!--   
+                            <div class="col-md-6 bottommargin-sm">
+                                <div class="counter counter-small"><span data-from="0" data-to="132" data-refresh-interval="80" data-speed="3000" data-comma="true"></span>
+                                </div>
+                                <h5 class="nobottommargin">Total Deliveries</h5>
+                            </div>
+
+                            <div class="col-md-6 bottommargin-sm">
+                                <div class="counter counter-small"><span data-from="0" data-to="47" data-refresh-interval="50" data-speed="2000" data-comma="true"></span>
+                                </div>
+                                <h5 class="nobottommargin">Clients</h5>
+                            </div>
+                        -->
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="widget subscribe-widget clearfix">
+
+                        <div id="widget-subscribe-form-result" data-notify-type="success" data-notify-msg=""></div>
+                        <form id="widget-subscribe-form" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-email2"></i></span>
+                                <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">Subscribe</button>
+                                </span>
+                            </div>
+                        </form>
+                        <script type="text/javascript">
+                            $("#widget-subscribe-form").validate({
+                                submitHandler: function(form) {
+                                    $(form).find('.input-group-addon').find('.icon-email2').removeClass('icon-email2').addClass('icon-line-loader icon-spin');
+                                    $(form).ajaxSubmit({
+                                        target: '#widget-subscribe-form-result',
+                                        success: function() {
+                                            $(form).find('.input-group-addon').find('.icon-line-loader').removeClass('icon-line-loader icon-spin').addClass('icon-email2');
+                                            $('#widget-subscribe-form').find('.form-control').val('');
+                                            $('#widget-subscribe-form-result').attr('data-notify-msg', $('#widget-subscribe-form-result').html()).html('');
+                                            SEMICOLON.widget.notifications($('#widget-subscribe-form-result'));
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+                    </div> -->
+
+                    <!-- <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                        <div class="row">
+
+                            <div class="col-md-6 clearfix bottommargin-sm">
+                                <a href="#" class="social-icon si-dark si-colored si-facebook nobottommargin" style="margin-right: 10px;">
+                                    <i class="icon-facebook"></i>
+                                    <i class="icon-facebook"></i>
+                                </a>
+                                <a href="#"><small style="display: block; margin-top: 3px;"><strong>Like us</strong><br>on Facebook</small></a>
+                            </div>
+                            <div class="col-md-6 clearfix">
+                                <a href="#" class="social-icon si-dark si-colored si-rss nobottommargin" style="margin-right: 10px;">
+                                    <i class="icon-rss"></i>
+                                    <i class="icon-rss"></i>
+                                </a>
+                                <a href="#"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to RSS Feeds</small></a>
+                            </div>
+
+                        </div>
+
+                    </div> -->
+
+                </div>
+
+            </div>
+            <!-- .footer-widgets-wrap end -->
+
+        </div>
+        <div class="container">
+            <div class="row">
+            <form method="POST">
+                {% csrf_token %}
+            <div id="div_id_fullname" class="form-group col-12 col-md-6"> <label for="id_fullname" class=" requiredField">
+                            Fullname<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="fullname" maxlength="100" class="textinput textInput form-control " required="" id="id_fullname"> <p id="error_1_id_fullname" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_email" class="form-group  col-12 col-md-6"> <label for="id_email" class=" requiredField">
+                            Email<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="email" maxlength="50" class="textinput textInput form-control " required="" id="id_email"> <p id="error_1_id_email" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_number" class="form-group   col-12 col-md-6"> <label for="id_number" class=" requiredField">
+                            Contact Number<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="number" maxlength="10" class="textinput textInput form-control " required="" id="id_number"> <p id="error_1_id_number" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_country" class="form-group   col-12 col-md-6"> <label for="id_country" class=" requiredField">
+                            Country<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="country" maxlength="50" class="textinput textInput form-control " required="" id="id_country"> <p id="error_1_id_country" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_subject" class="form-group col-12 col-md-6"> <label for="id_subject" class=" requiredField">
+                            Subject<span class="asteriskField">*</span> </label> <div class=""> <input name="subject" class="textinput textInput form-control " required="" id="id_subject"> <p id="error_1_id_subject" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_disp" class="form-group col-12 col-md-6"> <label for="id_disp" class=" requiredField">
+                            Details<span class="asteriskField">*</span> </label> <div class=""> <textarea name="disp" cols="40" rows="10" class="textarea form-control " required="" id="id_disp"></textarea> <p id="error_1_id_disp" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div> <div id="div_id_en_title" class="form-group col-12 col-md-6"> <label for="id_en_title" class=" requiredField">
+                            <span class="asteriskField"></span> </label> <div class=""> <input type="hidden" name="en_title" maxlength="25" class="textinput textInput form-control " required="" id="id_en_title" value="automation_page"><p id="error_1_id_en_title" class="invalid-feedback"><strong>This field is required.</strong></p> </div> </div>
+                            <button type="submit" name="homepage_enquiry" value="homepage_enquiry" class="btn btn-primary" style="margin-left:12px">Submit</button>
+                            </div> 
+                    </form>
+                </div>    
+            </div>
+
+        <!-- Copyrights
+        ============================================= -->
+        <style>.signupforms li {
+            display: inline-block;
+        }</style>
+        <div id="copyrights">
+
+            <div class="container clearfix">                    
+                <div class="col-sm-9">
+                    <ul class="signupforms">
+                      
+                            
+                        <li><a href="/userdetail/consumer_register">B2C Consumers |</a></li>
+                        <li><a href="/userdetail/buisness_registration/">B2B Consumers |</a></li>
+                        <li><a href="/userdetail/buisness_registration/">B2B Customers |</a></li>
+                        <li><a href="/userdetail/seller_registration/">Buyers |</a></li>
+                        <li><a href="/userdetail/seller_registration/">Brands |</a></li>
+                        <li><a href="/userdetail/manufacturer_registration/">Manufacturer |</a></li>
+                        <li><a href="/userdetail/staff_registration/">Management Staff |</a></li>
+                        <li><a href="/userdetail/staff_registration/">Operators</a></li>                        
+                    </ul>
+                    Copyrights © 2014 JustGetIt
+                    <br>
+                    
+                </div>
+
+                <div class="col-sm-3 col_last tright" style="height: 40px">
+                    <div class="fright clearfix">
+                        <a href="https://api.whatsapp.com/send?phone=+9188619 91781" target="_blank">
+                            <i class="fa fa-whatsapp"></i>
+                        </a>
+
+                        <a href="https://m.facebook.com/Just-Get-It-109801484083189/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="https://instagram.com/inolio_justgetit?igshid=1trb3k83sz2fr" target="_blank">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <a href="https://youtube.com/channel/UCOPMH0cdOY5C1zotNMSaWLw" target="_blank">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/company/justgetit" target="_blank">
+                            <i class="fa fa-linkedin"></i>
+                        </a>                            
+
+                        <!-- <a href="https://m.facebook.com/Just-Get-It-109801484083189/" target="_blank" class="social-icon si-small si-borderless si-facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+
+                        <a href="https://instagram.com/inolio_justgetit?igshid=1trb3k83sz2fr" target="_blank" class="social-icon si-small si-borderless si-twitter">
+                            <i class="icon-instagram"></i>
+                            <i class="icon-instagram"></i>
+                        </a> -->
+
+                        <!-- <a href="https://instagram.com/inolio_justgetit?igshid=1trb3k83sz2fr" target="_blank" class="social-icon si-small si-borderless si-gplus">
+                            <i class="icon-gplus"></i>
+                            <i class="icon-gplus"></i>
+                        </a> -->
+                        <!-- <a href="https://youtube.com/channel/UCOPMH0cdOY5C1zotNMSaWLw" target="_blank" class="social-icon si-small si-borderless si-gplus">
+                            <i class="icon-youtube"></i>
+                            <i class="icon-youtube"></i>
+                        </a> -->
+
+                        <!--
+                        <a href="#" class="social-icon si-small si-borderless si-pinterest">
+                            <i class="icon-pinterest"></i>
+                            <i class="icon-pinterest"></i>
+                        </a>
+
+                        <a href="#" class="social-icon si-small si-borderless si-vimeo">
+                            <i class="icon-vimeo"></i>
+                            <i class="icon-vimeo"></i>
+                        </a>
+
+                        <a href="#" class="social-icon si-small si-borderless si-github">
+                            <i class="icon-github"></i>
+                            <i class="icon-github"></i>
+                        </a>
+
+                        <a href="#" class="social-icon si-small si-borderless si-yahoo">
+                            <i class="icon-yahoo"></i>
+                            <i class="icon-yahoo"></i>
+                        </a>
+    -->
+
+                        <!-- <a href="https://www.linkedin.com/company/justgetit" target="_blank" class="social-icon si-small si-borderless si-linkedin">
+                            <i class="icon-linkedin"></i>
+                            <i class="icon-linkedin"></i>
+                        </a> -->
+                    </div>
+
+                    <div class="clear"></div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- #copyrights end -->
+
+    </footer>
+<!-- #footer end -->
+
+</div>
+<!-- #wrapper end -->
+<section>
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'js/portfolio/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
+
+    <script src="{% static 'js/portfolio/vendor/bootstrap.min.js' %}"></script>-->
+    
+    <script src="{% static 'js/portfolio/plugins.js' %}"></script>
+    <script src="{% static 'js/portfolio/main.js' %}"></script>
+    <script src="{% static 'index/assets/js/main.js'%}"></script> 
+
+    <script>
+        // Hide Header on on scroll down
+        var didScroll;
+        var lastScrollTop = 0;
+        var delta = 5;
+        var navbarHeight = $('header').outerHeight();
+
+        $(window).scroll(function(event){
+            didScroll = true;
+        });
+
+        setInterval(function() {
+            if (didScroll) {
+                hasScrolled();
+                didScroll = false;
+            }
+        }, 250);
+
+        function hasScrolled() {
+            var st = $(this).scrollTop();
+            
+            // Make sure they scroll more than delta
+            if(Math.abs(lastScrollTop - st) <= delta)
+                return;
+            
+            // If they scrolled down and are past the navbar, add class .nav-up.
+            // This is necessary so you never see what is "behind" the navbar.
+            if (st > lastScrollTop && st > navbarHeight){
+                // Scroll Down
+                $('header').removeClass('nav-down').addClass('nav-up');
+            } else {
+                // Scroll Up
+                if(st + $(window).height() < $(document).height()) {
+                    $('header').removeClass('nav-up').addClass('nav-down');
+                }
+            }
+            
+            lastScrollTop = st;
+        }
+    </script>
+    <script>
+        // $("#content-slide nav li").hover(function(){
+        //     $(this).css("background-color","red");
+        // })
+        $(document).ready(function(){
+            $("select").change(function(){
+                $(this).find("option:selected").each(function(){
+                    var optionValue = $(this).attr("value");
+                    if(optionValue){
+                        $(".tab").not("#" + optionValue).fadeOut(500);
+                        $("#" + optionValue).fadeIn(500);
+                    } else{
+                        $("#tab1").show();
+                    }
+                });
+            }).change();
+        })
+    </script>
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script> -->
+
+
+
+    
+        <!-- //slider jquery -->
+        <!-- jQuery library -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+<!-- Popper JS -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+
+<!-- Latest compiled JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.13/dist/sweetalert2.all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/cartnew/cartnew.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}">
+
+</script>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script> -->
+
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 20px; margin-bottom:20px">
+    {% for obj in objects %}
+        <h2>
+        <br>
+            {{ forloop.counter }} ]  Name : {{ obj.name }}
+            <a href="{% url 'tag_detail' obj.slug %}" class="btn btn-outline-info">Detail View</a>
+            <a href="{{ obj.file.url }}" class="btn btn-outline-info">View</a>
+            <a href="{{ obj.file.url }}" class="btn btn-outline-primary" download="">Download</a>
+        </h2>
+    {% endfor %}
+    </div>
+{% endblock %}

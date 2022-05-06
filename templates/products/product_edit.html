@@ -1,0 +1,536 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/products/upload_product.css' %}">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/css/bootstrap-markdown.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/less/bootstrap-markdown.less' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-markdown/scss/bootstrap-markdown.scss' %}">
+<style media="screen">
+	.hid{
+		display: none;
+	}
+	.md-editor .md-fullscreen-controls{
+	    margin-top: 12vh;
+	}
+	#some-textarea{
+		padding-left: 2vw;
+
+	}
+	.md-editor.md-fullscreen-mode .md-header{
+	    margin-top: 12vh;
+	}
+	.md-editor.md-fullscreen-mode .md-input{
+	    margin-top: 10vh !important;
+	}
+	.md-editor.md-fullscreen-mode .md-input{
+	    margin-top: 10vh !important;
+	    height: 80vh !important;
+	    overflow: auto;
+	}
+
+	.md-editor.md-fullscreen-mode .md-preview{
+	    margin-top: 10vh !important;
+	    height: 80vh !important;
+	}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+{% csrf_token %}
+<div class="row">
+	<div class="container mt-5 mb-5">
+		<!-- <div class="row mb-1">
+			<h4 style="font-family: 'Cabin', sans-serif;" id="head_upload">Select Super-Category of Product</h4>
+		</div>
+		<div class="row" id="prod_cate">
+
+			{% for o in cate %}
+			<div class="col-3 mb-4 prod_cate" onclick="select_subcate('{{o.id}}');">
+				<img src="{{o.image.url}}">
+				<div class="overlay"></div>
+				<div class="overlay_cate">
+					<button>{{o.name}}</button>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="row" id="prod_subcate"></div>
+
+		<div class="row" id="prod_supcate"></div> -->
+		<form method="POST" enctype="multipart/form-data" id="upload_form" onsubmit="return mySubmit(event)">{% csrf_token %}
+<!-- 
+			<div class="row">
+				<div class="container mt-4" style="margin-left:2vw;">
+					<div class="row">
+
+					{% for i in label %}
+					<div class="col-2">
+						<input type="checkbox" name="{{i.id}}" value="True" id="label_check_{{i.id}}" class="hov-a" style="margin-right: 2vw;">
+						<label>{{i.name}}</label>
+					</div>
+					<script type="text/javascript">
+						$('#label_check_{{i.id}}').on('change',function(){
+							var a=document.getElementById('label_check_{{i.id}}');
+							var b=document.getElementById('label_content_{{i.id}}');
+							console.log(a.checked,b)
+							if (a.checked){
+								b.classList.remove('hid');
+							}
+							else{
+								b.classList.add('hid');
+							}
+						})
+					</script>
+					{% endfor %}
+
+										</div>
+				</div>
+			</div> -->
+			<div class="row">
+				<select class="input_attribute" id="brand_ajax" name="brand" style="background:none;" required>
+					<option value="{{prod.brand.email}}" selected>{{prod.brand.name}}</option>
+					{% for i in brands %}
+						<option value="{{i.email}}">{{i.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="row">
+				<select class="input_attribute" name="label" id="brand_label" style="background:none;" required>
+					<option value="{{prod.label.id}}" selected>{{prod.label}}</option>
+				</select>
+			</div>
+
+			<div class="row">
+				<select class="input_attribute" name="fit" id="brand_fit" required style="background:none;">
+					<option value="{{prod.fit.id}}" selected>{{prod.fit}}</option>
+				</select>
+			</div>
+
+			<div class="row">
+				<select class="input_attribute" name="season" id="brand_season" required style="background:none;">
+					<option value="{{prod.season.id}}" selected>{{prod.season}}</option>
+				</select>
+			</div>
+
+				<div class="row">
+					<select class="input_attribute" name="washcare" id="brand_washcare" required style="background:none;">
+						<option value="{{prod.washcare.id}}" selected>{{prod.washcare}}</option>
+					</select>
+				</div>
+
+			<div class="row">
+				<select class="input_attribute" name="barcode" id="brand_barcode" required style="background:none;">
+					<option value="{{prod.barcode.id}}" selected>{{prod.barcode}}</option>
+				</select>
+			</div>
+			<div class="row">
+				<input type="text" name="title" value="{{prod.title}}" class="input_attribute" placeholder="Title of the Product" required>
+				<p style="font-size: .6em; margin-left: 4vw">This would be shown to the users on the following pages as - <br>
+				 -	Title on the Product Listing Page <br>
+				 -  Will be used as the Title of the Product Detail Page</p>
+
+			</div>
+			<div class="row">
+
+				<input type="text" name="slug" value="{{prod.slug}}" class="input_attribute" placeholder="Unique Identity of the Product" minlength="10" maxlength="50" required id="slug">
+				<p style="font-size: .6em; margin-left: 4vw">This would help us to identify the uniqueness of the Product - <br>
+					- Must be atleast 10 characters. <br>
+					- It should not contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+			<div class="row" id="slug_update">
+			</div>
+			<div class="row">
+				<h6>Product Description</h6>
+				
+			</div>
+			<div class="row">
+				{{prod.description|safe}}
+			</div>
+			<div class="row">
+				<textarea class="input_attribute" name="description" id="some-textarea" data-provide="markdown" placeholder="Description of Product">{% if prod.desc %}{{prod.desc}}{% endif %}</textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Additinal Attribute of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div> 
+			<div class="row">
+				<textarea class="input_attribute" placeholder="Notes for Product" name="notes" required>{{prod.notes}}</textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Wash Care Details of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+			<div class="row">
+				<textarea class="input_attribute" placeholder="Terms & Conditions of Product" name="terms" required>{% if details.t_and_c %}{{details.t_and_c}}{% endif %}</textarea>
+				<p style="font-size: .6em; margin-left: 4vw;margin-top: 1vh;">This would help users to know your Product Easily - <br>
+					- This can also show Wash Care Details of the Product. <br>
+					- It can contain special characters. <br>
+					- It can contain numbers. </p>
+			</div>
+
+			{% for i in cont %}
+			<div class="row hid" id="label_content_{{i.0.id}}">
+			{% for j in i.1 %}
+				<div class="row">
+					<input type="text" name="label_content_{{j.id}}" class="input_attribute" style="width:44vw;margin-left:2.3vw;" placeholder="{{j.name}}">
+				</div>
+			{% endfor %}
+			</div>
+			{% endfor %}
+			<!-- <div class="row">
+
+				<input type="number" name="price" class="input_attribute" placeholder="Price of the Product" required>
+				<p style="font-size: .6em; margin-left: 4vw">Final Price would be update by the Sales Person by Inspection of the Product - <br>
+					- Price given by the Sales Person will be final. <br>
+					- It should not contain special character.<br>
+					- It can contain numbers. </p>
+			</div> -->
+			<input type="hidden" name="cate" id="input_cate" value="{{prod.product_Category.id}}">
+			<input type="number" name="sub_cate" id="input_subcate" value="{{prod.product_Subcategory.id}}" style="display: none;">
+			<input type="number" name="sup_cate" id="input_supcate" value="{{prod.product_Supercategory.id}}" style="display: none;">
+
+			<div class="row" id="form_upload_product">
+				{% for i in attri %}
+					<div class="row">
+						<input type="text" name="attribute{{forloop.counter}}" class="input_attribute" style="width:44vw;margin-left:2.3vw;" placeholder="{{i.0.name}}" value="{% if i.1 %}{{i.1}}{% endif %}">
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="row">
+				<select name="fixed_privacy" class="input_attribute" required style="background: transparent;">
+					<option value="" disabled selected>Please Select Privacy for Product</option>
+					<option value="private" {% if prod.privacy == 'private' %}selected{% endif %}>Private</option>
+					<option value="consumers"{% if prod.privacy == 'consumers' %}selected{% endif %}>Consumers</option>
+					<option value="staffs"{% if prod.privacy == 'staffs' %}selected{% endif %}>Staffs</option>
+					<option value="merchant"{% if prod.privacy == 'merchant' %}selected{% endif %}>Merchandiser</option>
+					<option value="public"{% if prod.privacy == 'public' %}selected{% endif %}>Public</option>
+				</select>
+			</div>
+			<div class="row images_upload" id="images_upload">
+				<div class="container mt-4" style="margin-left: 2vw;">
+					<div class="row">
+
+						<label>Images of the Product</label>
+					</div>
+					<div class="row">
+						<div class="col-2">
+							{% if prod.image1 %}
+							<img src="{{prod.image1.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" width="100" height="100">
+							{% endif %}
+						</div>
+						<div class="col-2">
+							{% if prod.image2%}
+							<img src="{{prod.image2.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" width="100" height="100">
+							{% endif %}
+						</div>
+						<div class="col-2">
+							{% if prod.image3 %}
+							<img src="{{prod.image3.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" width="100" height="100">
+							{% endif %}
+						</div>
+						<div class="col-2">
+							{% if prod.image4 %}
+							<img src="{{prod.image4.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" width="100" height="100">
+							{% endif %}
+						</div>
+
+						<div class="col-2">
+							{% if prod.image5 %}
+							<img src="{{prod.image5.url}}" onerror="this.src='{% static 'img/noimage.png' %}'" width="100" height="100">
+							{% endif %}
+						</div>
+					</div>
+					<div class="row mt-2 mb-2">
+						<div class="col-8">
+							Image 1
+							<input type="file" name="image1">
+
+						</div>
+					</div>
+					<div class="row mt-2 mb-2">
+						<div class="col-8">
+							Image 2
+							<input type="file" name="image2">
+							
+						</div>
+					</div>
+					<div class="row mt-2 mb-2">
+						<div class="col-8">
+							Image 3
+							<input type="file" name="image3">
+							
+						</div>
+					</div>
+					<div class="row mt-2 mb-2">
+						<div class="col-8">
+							Image 4
+							<input type="file" name="image4">
+							
+						</div>
+					</div>
+					<div class="row mt-2 mb-2">
+						<div class="col-8">
+							Image 5
+							<input type="file" name="image5">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="container mt-4">
+
+					{% for i in prod.size_color_quantity_set.all %}
+					<div class="row" id="size{{forloop.counter}}">
+						<div class="col">
+							<select name="size{{forloop.counter}}" id="size1_input" class="input_attribute" required style="padding-left: .5vw;width:100%;">
+								<option selected value="{{i.size}}">{{i.size}}</option>
+								{% for i in meas %}
+									<option value="{{i}}">{{i}}</option>
+								{% endfor %}
+							</select>
+							<!-- <input type="number" name="size1" class="input_attribute" style="padding-left: .5vw;width:100%;" placeholder="Size of Product" required> -->
+						</div>
+						<div class="col">
+							<input type="color" name="color{{forloop.counter}}" value="{{i.color}}" class="input_attribute" placeholder="Color of Product" required style="padding-left: .5vw;width:100%;">
+						</div>
+						<div class="col">
+							<input type="number" name="price{{forloop.counter}}" value="{{i.price}}" class="input_attribute" placeholder="Selling Price of Product" required style="padding-left: .5vw;width:100%;">
+						</div>
+						<div class="col">
+							<input type="number" name="c_price{{forloop.counter}}" value="{{i.c_price}}" class="input_attribute" placeholder="Cost Price of Product" required style="padding-left: .5vw;width:100%;">
+						</div>
+						<div class="col">
+							<input type="number" name="quantity{{forloop.counter}}" value="{{i.quantity}}" class="input_attribute" placeholder="Quantity of Product" required style="padding-left: .5vw;width:100%;">
+						</div>
+						<div class="col">
+							<input type="number" name="safety_stock{{forloop.counter}}" id="safety_stock{{forloop.counter}}" class="input_attribute" placeholder="Safety Stock of Product" value="{{i.safety_stock_limit}}" required style="padding-left: .5vw;width:100%;">
+						</div>
+					</div>
+					{% endfor %}
+ 
+
+
+					 
+					<div class="row" id="size2"></div>
+					<div class="row" id="size3"></div>
+					<div class="row" id="size4"></div>
+					<div class="row" id="size5"></div>
+					<div class="row" id="size6"></div>
+					<div class="row" id="size7"></div>
+					<div class="row" id="size8"></div>
+					<div class="row" id="size9"></div>
+					<div class="row" id="size10"></div>
+					<div class="row mt-4">
+						<button onclick="addsize();" type="button" id="addmore_size" class="hov-a" style="background: transparent;color:#30c5ff;border: none;margin-left:auto;">Add More Size-vis-Quantity</button>
+					</div>
+				</div>
+			</div>
+
+			<textarea style="display: none" name="desc_up" id="desc_up"></textarea>
+            <div class="form-group">
+                <input type="radio" id="deal_of_day" name="deal_of_day" value="1">
+                <label for="deal_of_day">Deal of the day</label><br>
+            </div>
+			<div class="row mt-3 mb-3 upload_row_but">
+				<button type="submit" class="px-5 py-2" name="upload_product">Upload</button>
+			</div>
+
+		</form>
+	</div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+
+
+var sizes="<option disabled selected>---------------</option>"
+
+$('#brand_ajax').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			brand_ajax_cate:$('#brand_ajax').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_label').html(ht);
+			}
+		}
+	});
+});
+
+
+
+$('#brand_label').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			label_fits_ajax:$('#brand_label').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_fit').html(ht);
+			}
+		}
+	});
+});
+
+
+$('#brand_fit').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			fits_season_ajax:$('#brand_fit').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_season').html(ht);
+			}
+		}
+	});
+});
+$('#brand_season').on("change",function(){
+	$.ajax({
+		type:'POST',
+		url:'/userdetail/seller_profile/upload_product',
+		data:{
+			season_washcare_ajax:$('#brand_season').val(),
+			season_supercategory_ajax:$('#input_supcate').val(),
+			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+		},
+		cache:false,
+		dataType: "json",
+		success:function(data){
+			var ht='<option disabled selected>---------------</option>';
+			if (data.bol){
+				$.each(data.data,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_washcare').html(ht);
+				ht=`<option disabled selected>---------------</option>`;
+				$.each(data.barcode,function(index,value){
+					ht=ht+`<option value="`+value.id+`">`+value.name+`</option>`;
+				});
+				$('#brand_barcode').html(ht);
+				sizes="<option disabled selected>---------------</option>"
+				$.each(data.sizes,function(index,value){
+					sizes=sizes+`<option value="`+value+`">`+value+`</option>`;
+				});
+				$('#size1_input').html(sizes);
+			}
+		}
+	});
+});
+
+
+
+</script>
+<script type="text/javascript" src="{% static 'bootstrap-markdown/js/bootstrap-markdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-markdown/locale/bootstrap-markdown.fr.js' %}"></script>
+<script type="text/javascript">
+	$("#some-textarea").markdown({
+		autofocus:false,savable:false,width:580,iconlibrary:'fa',
+		onChange:function(e){
+			$('#some-textarea').html(e.parseContent());
+			// console.log(e.parseContent());
+		},
+		onSave:function(e){
+			$('#some-textarea').html(e.parseContent());
+		}
+	});
+	function mySubmit(e){
+		// e.preventDefault();
+		// alert(e.description);
+		// e.description = $('#some-textarea').html();
+		// alert(e.description);
+		// e.desc_up=$('#some-textarea').html();
+		$('#desc_up').html($('#some-textarea').html());
+		if ($('#some-textarea').html() == ""){
+			$('#desc_up').html(`{{prod.description}}`);
+		}
+		
+		// return false;
+	}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script data-require="marked@*" data-semver="0.3.1" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.1/marked.js"></script>
+<script type="text/javascript" src="{% static 'js/products/upload_product.js' %}"></script>
+<script type="text/javascript">
+	
+
+var size_count=parseInt('{{prod.size_color_quantity_set.all.count}}');
+var safety_stock=parseInt('{{default_safety}}');
+function addsize(){
+	size_count=size_count+1;
+	var ht=$('#size'+size_count.toString()).html();
+	var sizes="<option disabled selected>------------</option>";
+	{% for i in meas %}
+		sizes=sizes+`<option value="{{i}}">{{i}}</option>`
+	{% endfor %}
+	ht=ht+`<div class="col">
+		<select name="size`+size_count.toString()+`" class="input_attribute" required style="padding-left: .5vw;width:100%;">
+			`+sizes+`
+		</select>
+	</div>
+	<div class="col">
+		<input type="color" name="color`+size_count.toString()+`" class="input_attribute" placeholder="Color of Product" required style="padding-left: .5vw;width:100%;"number>
+	</div>
+	<div class="col">
+		<input type="number" name="price`+size_count.toString()+`" class="input_attribute" placeholder="Selling Price of Product" required style="padding-left: .5vw;width:100%;"number>
+	</div>
+	<div class="col">
+		<input type="number" name="c_price`+size_count.toString()+`" class="input_attribute" placeholder="Cost Price of Product" required style="padding-left: .5vw;width:100%;">
+	</div>
+	<div class="col">
+		<input type="number" name="quantity`+size_count.toString()+`" class="input_attribute" placeholder="Quantity of Product" required style="padding-left: .5vw;width:100%;"number>
+	</div>
+	<div class="col">
+		<input type="number" name="safety_stock`+size_count.toString()+`" class="input_attribute" placeholder="Safety Stock of Product" value="`+safety_stock+`" required style="padding-left: .5vw;width:100%;">
+	</div>`;
+	$('#size'+size_count.toString()).html(ht);
+	if (size_count>=10){
+		var addmore=document.getElementById('addmore_size');
+		addmore.style.display="none";
+		// console.log("giver nonne");
+	}
+}
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+{% endblock %}

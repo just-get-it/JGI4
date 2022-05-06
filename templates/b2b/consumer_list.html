@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="row hide_row" id="update_resp">
+		<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+			<div class="row centered" style="z-index: 105; margin-top: 15vh;margin-bottom: auto; ">
+				<div class="container-fluid">
+					<div class="row" style="width: 45vw;height: 78vh;background: white;">
+						<div class="row mt-1" style="height: 2vh;">
+							<button style="border: none;background: transparent;margin-left: 43vw;" onclick="remupresp();"><i class="fas fa-times-circle"></i></button>
+						</div>
+						<div class="row" style="height: 1vh">
+							<h4 class="fontcabin" style="margin-left: 20.5vw;">Filters</h4>
+						</div>
+						<div class="row">
+						<form method="GET">
+							<div class="container mt-2 ml-5">
+							<div class="row">
+							<label><b>Email</b></label>
+							<input type="email" name="email" style="margin-left: 13vw;width: 20vw;" value="{% if request.GET.email %}{{request.GET.email}}{% endif %}">
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Gender</b></label>
+							<select name="gender" style="margin-left: 12vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in gender_avail %}
+								<option value="{{i}}"{% ifequal request.GET.gender i %}selected{% endifequal %}>{{i}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Department</b></label>
+							<select name="dept" style="margin-left: 9.5vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in department_avail %}
+								<option value="{{i}}"{% ifequal request.GET.dept i %}selected{% endifequal %}>{{i}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Sub-Department</b></label>
+							<select name="sub_dept" style="margin-left: 6.9vw;width: 20vw;">
+								<option disabled selected>---------</option>
+								{% for i in sub_dept_avail %}
+								<option value="{{i}}"{% ifequal request.GET.sub_dept i %}selected{% endifequal %}>{{i}}</option>
+								{% endfor %}
+							</select>
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Max Count </b></label>
+							  <input type="number" name="max_quantity" style="margin-left: 10.2vw;width: 20vw;" value="{{request.GET.max_quantity}}">
+							</div>
+							</div>
+							<div class="container ml-5 mt-3">
+							<div class="row">
+								<label><b>Size</b></label>
+                <input type="number" name="size" style="margin-left: 13.9vw;width: 20vw;" value="{{request.GET.size}}">
+
+							</div>
+							</div>
+
+							<div class="container ml-5 mt-3">
+							<div class="row centered">
+							<button type="submit" style="background: #30c5ff;border:none;padding: 1vh;padding-left: 3vw;padding-right: 3vw;border-radius: 25vw;font-weight: bold;">Apply Filters</button>
+							</div>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+
+
+
+
+
+<div class="row">
+
+  <div class="container my-4">
+    <div class="row">
+      <h5>Order - {{order.order_no}} / <b>Consumer List</b></h5>
+      <button class="hov-a" style="background: transparent;border: none;margin-left: auto;color: blue;" onclick="showupdateresp();" type="button">Apply Filters</button>
+			<a href="?login_details=t" class="hov-a ml-3 mt-1">Send Login Details</a>
+		</div>
+  </div>
+
+
+  <div class="container mb-3">
+    <div class="row">
+      <table style="width:100%;" >
+        <tr>
+          <th>Consumer Name</th>
+          <th>Email</th>
+					<th>Password</th>
+          <th>Gender</th>
+          <th>Department</th>
+          <th>Sub-Department</th>
+          <th>Max-Count</th>
+          <th>Size</th>
+					<th>E-mail</th>
+        </tr>
+        {% for i in consumers_li %}
+          <tr>
+            <td><a href="/buisness/buisness_order/{{order.order_no}}/consumer_list/{{i.0.user.email}}" class="hov-a">{{i.0.user.name}}</a></td>
+            <td>{{i.0.user.email}}</td>
+						<td>{{i.0.user.password}}</td>
+            <td>{{i.0.user.gender}}</td>
+            <td>{{i.0.user.dept}}</td>
+            <td>{{i.0.user.sub_dept}}</td>
+            <td>{{i.0.max_quantity}}</td>
+            <td>{% if i.1.size_label %}{{ i.1.size_label }}{% endif %}</td>
+						<td><a href="?send_email={{i.0.user.email}}" class="hov-a">Send</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+function showupdateresp(){
+	var up=document.getElementById('update_resp');
+	up.classList.remove('hide_row');
+}
+function remupresp(){
+
+	var up=document.getElementById('update_resp');
+	up.classList.add('hide_row');
+}
+
+
+</script>
+
+{% endblock %}

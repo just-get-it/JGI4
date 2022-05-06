@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+<div class="container-fluid  my-2" style="justfiy-content: center; margin-left:120px;">
+  <form class="form-inline" action="{% url 'subscriptionSearch' %}" method="GET">
+    <input type="text" name="query" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Enter product name">
+    <button type="submit" class="btn btn-primary mb-2">Search</button>
+  </form>
+</div>
+
+<div class="container-fluid row" style="justify-content: center;">
+{% for slug, values in products.items %}
+  <div class="card" style="; display: inline-block;; margin: 4px 4px 4px 4px; width: 350px, height: 400px; text-align: center;">
+    <a href="subscription/{{slug}}">
+      <img class="card-img-top" src="{{values.prod.image1.url}}" alt="Not Found" onerror=this.src="{% static 'img/noimage.png' %}" style="object-fit: cover; width: 300px; height: 200px;">
+    </a>
+    <div class="card-body">
+      <h5 class="card-title" style="overflow: visible; width: 300px;"><a href="subscription/{{slug}}">{{values.title}}</a></h5>
+      <p class="card-text">{{values.manufacturer}}</p>
+      <p class="card-text">Rs. {{values.price}}</p>
+      <a href="subscription/{{slug}}" class="btn btn-primary">Subscribe</a>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

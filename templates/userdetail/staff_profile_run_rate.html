@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<style type="text/css">
+	.hide_row{
+		display: none;
+	}
+	.acti_table{
+		table-layout: fixed;
+		width: 50vw;
+	}
+	.acti_table tr,.acti_table th,.acti_table td{
+		border:2px solid black;
+	}
+	.acti_table td,.acti_table th{
+		padding: 8px;
+		overflow: hidden;
+		width: 12vw;
+		/* align-content: center; */
+	}
+
+	.acti_table th{
+		background-color: #30c5ff;
+		padding-left: 1vw;
+		padding-right: 1vw;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+{% include 'include/loader.html' %}
+{% csrf_token %}
+<div class="row">
+	<div class="container my-3">
+		<div class="row" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+			<h5 class="cabin">Budget/Hit-Rate/Run-Rate</h5>
+			<select style="margin-left:auto" id="years">
+				{% for i in years %}
+					<option value="{{i.year.year}}">{{i.year.year}}</option>
+				{% endfor %}
+			</select>
+			<select style="margin-left:3vw" id="year_mode">
+				<option value="year">Yearly</option>
+				<option value="half">Half-Yearly</option>
+				<option value="quart">Quarterly</option>
+				<option value="month">Monthly</option>
+			</select>
+			
+			<select style="margin-left:3vw" id="sub_years">
+				<option disabled selected>-----------</option>
+			</select>
+		</div>
+		
+		{% if normal.0 %}
+
+			<div id="content">
+				<div class="row my-3">
+					<table class="acti_table" style="width: 100%;">
+						<tr>
+							<th>Sector Name</th>
+							<th>Planned-A Budget</th>
+							<th>Planned-B Budget</th>
+							<th>Total</th>
+							<th>Actual Budget</th>
+						</tr>
+						{% for i in normal %}
+						<tr>
+							<td>{{i.sector_name}}</td>
+							<td>{{i.planned_a}}</td>
+							<td>{{i.planned_b}}</td>
+							<td>{{i.total}}</td>
+							<td>{{i.actual}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+				<div class="row my-3">
+					<div class="col-6">
+						<h6>This Year Variance</h6>
+						<table class="acti_table" style="width: 100%;">
+							<tr>
+								<th>Planned-vis-Actual Budget</th>
+								<th>Hit Rate %</th>
+							</tr>
+							{% for i in variance %}
+							<tr>
+								<td>{{i.planned_vis}}</td>
+								<td>{{i.hit}} %</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+					<div class="col-5 ml-2">
+						<h6>Next-Year Required Run-rate</h6>
+						<table class="acti_table" style="width: 100%;">
+							<tr>
+								<th>Normal Year</th>
+								<th>Required</th>
+							</tr>
+							{% for i in next_year %}
+							<tr>
+								<td>{{i.normal_year}}</td>
+
+								<td {% if i.normal_year < i.required %}style="background-color:red;color:white;"{% endif %}{% if i.normal_year == i.required %}style="background-color:green;color:white;"{% endif %} {% if i.normal_year > i.required %}style="background-color:green;color:white;"{% endif %}>
+									{{i.required}}
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+				
+			</div>
+
+		{% else %}
+		<div class="row" style="margin-top: 25vh;margin-bottom: 25vh;">
+			<h3 class="cabin" style="margin-left:25vw;"><center>Sorry There is no Run-Rate Data</center></h3>
+		</div>
+		{% endif %}
+		{% csrf_token %}
+	</div>
+</div>
+
+<script src="{% static 'js/userdetail/staff_profile_run_rate.js' %}"></script>
+
+{% endblock %}

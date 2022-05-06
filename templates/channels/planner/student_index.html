@@ -1,0 +1,454 @@
+{% extends 'channels/planner/student_base.html' %} {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-4 col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header card-header-success">
+                    <div class="ct-chart" id="reportChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Daily Ratings</h4>
+                    <p class="card-category">
+                        {% if week_today_percent %} {% if week_today_percent > 0 %}
+                        <span class="text-success">
+                            <i class="fa fa-long-arrow-up"></i> {{week_today_percent}}%
+                        </span> increase in rating today. {% else %}
+                        <span class="text-danger">
+                          <i class="fa fa-long-arrow-down"></i> {{week_today_percent}}%
+                      </span> increase in rating today. {% endif %} {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header card-header-warning">
+                    <div class="ct-chart" id="websiteViewsChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Email Subscriptions</h4>
+                    <p class="card-category">Last Campaign Performance</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header card-header-danger">
+                    <!-- <div class="ct-chart" id="completedTasksChart"></div> -->
+                    <div class="ct-chart" id="taskCompletedChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Completed Tasks</h4>
+                    <p class="card-category">Last Campaign Performance</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">content_copy</i>
+                    </div>
+                    <p class="card-category">Rated Reports</p>
+                    <h3 class="card-title">{{ratingdt.0}}/{{ratingdt.1}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons text-warning">warning</i>
+                        <a href="{% url 'unrated_reports' %}" class="warning-link">Rate Unrated Reports...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                        <!-- <i class="material-icons">store</i> -->
+                        <i class="material-icons">work</i>
+                    </div>
+                    <p class="card-category">Internships</p>
+                    <h3 class="card-title">{{total_internships}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">date_range</i> Since October 2020
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">rule</i>
+                    </div>
+                    <p class="card-category">Pending Tasks</p>
+                    <h3 class="card-title">{{incomplete_tasks}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">local_offer</i>
+                        <a href="{% url 'dash' %}" class="danger-link">Project Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">assignment_turned_in</i>
+                    </div>
+                    <p class="card-category">Applications</p>
+                    <h3 class="card-title">+{{total_applications}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">update</i> Just Updated
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">fact_check</i>
+                    </div>
+                    <p class="card-category">Unassigned Tasks</p>
+                    <h3 class="card-title">{{unassigned_tasks}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons text-warning">warning</i>
+                        <a href="" class="warning-link">Rate Unrated Reports...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">developer_board</i>
+                    </div>
+                    <p class="card-category">Unassigned Projects</p>
+                    <h3 class="card-title">{{unassigned_projects}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">date_range</i> Since October 2020
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">memory</i>
+                    </div>
+                    <p class="card-category">Unassigned Sections</p>
+                    <h3 class="card-title">{{unassigned_sections}}</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">local_offer</i>
+                        <a href="#" class="danger-link">Project Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">device_hub</i>
+                    </div>
+                    <p class="card-category">Thing</p>
+                    <h3 class="card-title">+398</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">update</i> Just Updated
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Employees Stats</h4>
+                    <p class="card-category">Tasks completed by employees</p>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-warning">
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Task Completed</th>
+                        </thead>
+                        <tbody>
+                            {% for data in emp_data %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{data.0}}</td>
+                                <td>{{data.1}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-warning">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Priority:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#high" data-toggle="tab">
+                                        <i class="material-icons">warning</i> High
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#medium" data-toggle="tab">
+                                        <i class="material-icons">notification_important</i> Medium
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#low" data-toggle="tab">
+                                        <i class="material-icons">notifications</i> Low
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="high">
+                            <table class="table">
+                                <tbody>
+                                    <tr> {% for n in all_notifications %} {% if n.type == 'danger' %} {% if n.project %}
+                                        <a href="{% url 'project' project_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-danger alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.task %}
+                                        <a href="{% url 'task' task_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-danger alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.section %}
+                                        <a href="{% url 'section' section_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-danger alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.report %}
+                                        <a href="{% url 'report_staff' %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-danger alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.internship %}
+                                        <a href="{% url 'applicants' internship_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-danger alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% endif %}{% endif %} {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="medium">
+                            <table class="table">
+                                <tbody>
+                                    <tr> {% for n in all_notifications %} {% if n.type == 'warning' %} {% if n.project %}
+                                        <a href="{% url 'project' project_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-warning alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.task %}
+                                        <a href="{% url 'task' task_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-warning alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.section %}
+                                        <a href="{% url 'section' section_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-warning alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.report %}
+                                        <a href="{% url 'report_staff' %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-warning alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.internship %}
+                                        <a href="{% url 'applicants' internship_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-warning alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% endif %}{% endif %} {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="low">
+                            <table class="table">
+                                <tbody>
+                                    <tr> {% for n in all_notifications %} {% if n.type == 'primary' %} {% if n.project %}
+                                        <a href="{% url 'project' project_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-primary alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.task %}
+                                        <a href="{% url 'task' task_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-primary alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.section %}
+                                        <a href="{% url 'section' section_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-primary alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.report %}
+                                        <a href="{% url 'report_staff' %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-primary alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% elif n.internship %}
+                                        <a href="{% url 'applicants' internship_id=n.link_id %}">
+                                            <h6 class="card-title">{{n.date}}</h6>
+                                            <div class="alert alert-primary alert-with-icon" data-notify="container">
+                                                <i class="material-icons" data-notify="icon">add_alert</i>
+                                                <span data-notify="message">{{n.text}}</span>
+                                            </div>
+                                        </a>
+                                        {% endif %}{% endif %} {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(1)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(1) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+{% endblock %} {% block customjs %}
+<script>
+    $(document).ready(function() {
+        var tempSeries = [parseFloat('{{week_ratings.0}}'), parseFloat('{{week_ratings.1}}'), parseFloat('{{week_ratings.2}}'), parseFloat('{{week_ratings.3}}'), parseFloat('{{week_ratings.4}}'), parseFloat('{{week_ratings.5}}'), parseFloat('{{week_ratings.6}}')]
+        var mySeries = []
+        tempSeries.forEach(element => {
+            console.log('ELEMENT ' + element)
+            if (element > 0) {
+                mySeries.push(element)
+                console.log('..pushing ' + element)
+            }
+        });
+
+        var data_reports = {
+            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+            series: [
+                mySeries
+            ]
+        };
+
+        var options_reports = {
+            high: 10,
+            low: 0
+        };
+
+        new Chartist.Line('#reportChart', data_reports, options_reports);
+
+        var data_tasks = {
+            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+            series: [
+                [parseInt('{{no_of_tasks_completed.0}}'), parseInt('{{no_of_tasks_completed.1}}'), parseInt('{{no_of_tasks_completed.2}}'), parseInt('{{no_of_tasks_completed.3}}'), parseInt('{{no_of_tasks_completed.4}}'), parseInt('{{no_of_tasks_completed.5}}'), parseInt('{{no_of_tasks_completed.6}}')]
+            ]
+        };
+
+        var options_tasks = {};
+
+        new Chartist.Bar('#taskCompletedChart', data_tasks, options_tasks);
+    })
+</script>
+{% endblock %}

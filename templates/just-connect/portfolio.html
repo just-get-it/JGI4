@@ -1,0 +1,153 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section>
+    <div class="container-fluid bg-light" style="height:30vh">
+        <img src="" class="img-fluid">
+    </div>
+</section>
+<section>
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 text-center">
+                <div class="card text-center mx-auto">
+                    <img src="https://picsum.photos/id/1005/200/200"
+                        class="rounded-circle mt-3 mx-auto border card-img-top w-25" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{request.user}}</h5>
+                        <p>Location : Delhi </p>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 mt-3 col-md-8">
+                <p>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#work"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        My work
+                    </button>
+
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#draft"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Draft
+                    </button>
+                </p>
+                <div class="collapse" id="work">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="container">
+                                    <a href="{% url 'create_project' %}" class="btn btn-primary mt-2 btn-sm">Create
+                                        Porject</a>
+                                </div>
+                            </div>
+                            {% for project in public_projects %}
+                            <div class="col-md-6 col-lg-6">
+                                <div class="container">
+                                    <div class="image">
+                                        <img src="{{project.cover_image.url}}" class="w-50 img-fluid">
+                                    </div>
+                                    <h3>{{project.title}}</h3>
+                                    <a href="{% url 'EditProject' project.slug %}" class="btn btn-primary mt-2 btn-sm">Edit Project</a>
+                                    <a href="{% url 'ProjectView' project.slug %}"
+                                        class="btn btn-primary mt-2 btn-sm">See Project</a>
+                                    <!--delete modal button-->
+                                    <button type="button" class="btn btn-primary mt-2 btn-sm" data-toggle="modal"
+                                        data-target="#deleteModal{{project.id}}">
+                                        Delete
+                                    </button>
+
+                                    <!-- delete Modal -->
+                                    <div class="modal fade" id="deleteModal{{project.id}}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Project -
+                                                        {{project.title}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete your project?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <a href="{% url 'DeleteProject' project.slug %}"
+                                                        class="btn btn-primary">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="draft">
+                    <div class="card card-body">
+                        <div class="row">
+                            {% for project in private_projects %}
+                            <div class="col-lg-6 col-md-6">
+                                <div class="container">
+                                    <div class="image">
+                                        <img src="{{project.cover_image.url}}" class="w-50 img-fluid">
+                                    </div>
+                                    <h3>{{project.title}}</h3>
+                                    <p><a href="" class="btn btn-primary m-2 btn-sm">Edit</a><button
+                                            class="btn btn-primary m-2 btn-sm">Publish</button>
+                                    </p>
+                                    <a href="{% url 'ProjectView' project.slug %}"
+                                        class="btn btn-primary mt-2 btn-sm">See Project</a>
+                                    <!--delete modal button-->
+                                    <button type="button" class="btn btn-primary mt-2 btn-sm" data-toggle="modal"
+                                        data-target="#deleteModal{{project.id}}">
+                                        Delete
+                                    </button>
+
+                                    <!-- draf delete Modal -->
+                                    <div class="modal fade" id="deleteModal{{project.id}}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Project -
+                                                        {{project.title}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete your project?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <a href="{% url 'DeleteProject' project.slug %}"
+                                                        class="btn btn-primary">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

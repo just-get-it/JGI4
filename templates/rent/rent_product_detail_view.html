@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if messages %}
+                <div class="mt-0 pt-4">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                </div>
+           {% endif %}
+
+    <div class="container">
+        <h2>Rent Product DetailView</h2>
+        <br>
+        <h2>{{ object.title }}</h2>
+
+        MRP.<h4 style="color: grey; text-decoration: line-through; margin-top: 5px; margin-left: 10px;" id="price{{object.product_code}}"><span id='price_val'>{{object.price}}</span></h4>
+        <h4 id="offer_price" style="color: #27ae60;">{{ object.final_price }}</h4>
+
+        {% for obj in size_colour_quantity %}
+            {% for i in obj %}
+                <h3>Size : {{ i.get_size }} | Colour : {{ i.colour }}</h3>
+            {% endfor %}
+        {% endfor %}
+        <br>
+
+            <div class="container">
+                <br>
+                    <div class="col-lg-6 col-md-6">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <legend class="'border-bottom mb-4" style="color: red">Size Quantity Colour</legend>
+
+                                {{ form | crispy  }}
+                                <h4>{{ todays_date }}</h4>
+                                {{ date_form | crispy  }}
+                            </fieldset>
+                            <div class="form-group">
+            {#                    <button class="btn btn-outline-info" type="submit" href="{% url 'quick_costing_select_size_colour_quantity' object.slug %}">Save And Add Another</button>#}
+                                <button class="btn btn-outline-info" type="submit">Add to rent Cart</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+
+
+
+    </div>
+{% endblock %}

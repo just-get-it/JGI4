@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<br>
+<h1>Customize</h1>
+
+<hr>
+<form method="post" action="customize_service">
+	{% csrf_token %}
+	<div class="form-group row">
+        <label for="requirement" class="col-sm-2 col-form-label">Requirement</label>
+            <div class="col-sm-4">
+                  <input type="text" name="requirement" class="form-control" >
+            </div>
+    </div>
+    <div class="form-group row">
+        <label for="date1" class="col-sm-2 col-form-label">Date of Product/Service Delivery</label>
+            <div class="col-sm-4">
+                  <input type="date" name="service_date" class="form-control" >
+            </div>
+    </div>
+    <div class="form-group row">
+        <label for="time" class="col-sm-2 col-form-label">Time of Product/Service Delivery</label>
+            <div class="col-sm-4">
+                  <input type="time" name="service_time" class="form-control" >
+            </div>
+    </div>
+	
+
+	
+    <input type="text" name="customer_id" value="{{email}}" style="display: none;">
+
+
+	<br><input type="submit" name="submit" class="btn btn-success">
+</form>
+</div>
+
+{% endblock %}

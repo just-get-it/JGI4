@@ -1,0 +1,138 @@
+{% extends 'channels/planner/student_base.html' %} {% block content %}
+<style>
+    .sngl-intern {
+        color: #AAADB5!important;
+    }
+    .sngl-intern > .row > h1 {
+        color: #833499
+    }
+    .sngl-intern .col-5 {
+        width: 40%;
+        max-width: 40%;
+    }
+    .sngl-intern strong {
+        font-weight: 400;
+        color: #833499
+    }
+    .sngl-intern > .row:first-child {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .sngl-intern > .row > .row {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+    .sngl-intern > .row > .col-5  {
+        margin-left: 25px;
+    }
+    .text-right {
+        display: inline-block;
+        max-width: unset;
+        width: 25px;
+        height: auto;
+    }
+    .text-right img {
+        width: 25px;
+        height: auto;
+    }
+    .text-center {
+        display: block;
+        color: #F07F03;
+    }
+    .sngl-intern .row > .col-12, .sngl-intern .row > .col, .sngl-intern .row > p {
+        padding-left: 0px!important;
+    }
+    @media only screen and (max-width:768px){
+        .sngl-intern .col-5 {
+            width: 90%!important;
+            max-width: 90%!important;
+            flex: 0 0 100%;
+        }
+    }
+</style>
+<div class="conatiner sngl-intern">
+    <div class="row text-center">
+        <h1>{{internship.title}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-5 col-sm-12">            
+            <div class="row">
+                <div class="col">
+                    <p><strong>Company: </strong>{{internship.organization.name}}</p>
+                </div>
+                <div class="col text-right">
+                    <img src="{{internship.organization.logo.url}}" height="100" width="100">
+                </div>
+            </div>
+            <div class="row">
+                <p style="padding-left: 15px;"><strong> Type Of Internship: </strong>{{internship.type.type}}</p>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p><strong>Location: </strong>{% for city in internship.cities.all %} {{city.name}}, {% endfor %}</p>
+                </div>
+                <div class="col-12">
+                    <p><strong>Start Date: </strong>{{internship.start_date_from}} to {{internship.start_date_to}}</p>
+                </div>
+                <div class="col-12">
+                    <p><strong>Duration: </strong>{{internship.duration}}</p>
+                </div>
+                <div class="col-12">
+                    <p><strong>Apply By: </strong>{{internship.apply_by}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-5 col-sm-12">
+            <div class="row">
+                <p><strong>Daily Responsibilities:</strong> {{internship.daily_responsiblilities}}</p>
+            </div>
+            <div class="row">
+                <p><strong>Stipend: </strong> {{internship.stipend_type}} Rs. {{internship.stipend}}</p>
+            </div>
+            {% if internship.perks %}
+            <div class="row">
+                <p><strong>Perks: </strong> {% for perk in internship.perks.all %} {{perk.name}}, {% endfor %}</p>
+            </div>
+            {% endif %}
+            <div class="row">
+                <p><strong>Required Skills: </strong> {% for skill in internship.skills.all %} {{skill.skill}}, {% endfor %}</p>
+            </div>
+            <div class="row">
+                <p><strong>Details: </strong> {{ internship.detail_of_internship }}</p>
+            </div>                     
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            {% if applied %}
+            <div class="row text-center">
+                You have already applied for this internship!
+            </div>
+            {% else %}
+            <div class="row text-center">
+                <a class="btn btn-primary" href="{% url 'apply' internship_id=internship.id %}">Apply Now</a>
+            </div>
+            {% endif %}   
+        </div>
+    </div>  
+</div>
+<script>
+    $(document).ready(function(){
+        var t = document.referrer;
+        if(t.includes('internship')){
+            $(".nav-item").removeClass("active");
+            $(".nav-item:nth-child(2)").addClass("active");
+            var p = $(".sidebar-wrapper .nav-item:nth-child(2) p").text();
+            $("#page-title").text(p)
+        }
+        else{
+            $(".nav-item").removeClass("active");
+            $(".nav-item:nth-child(4)").addClass("active");
+            var p = $(".sidebar-wrapper .nav-item:nth-child(4) p").text();
+            $("#page-title").text(p)
+        }
+        
+    });
+</script>
+{% endblock %}

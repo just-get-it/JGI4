@@ -1,0 +1,668 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %} {% load productfilters %}
+<style>
+    #wrapper {
+        width: max-content;
+    }
+    
+    #wrapper .container {
+        max-width: 100%;
+        display: block;
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div class="container mt-5 justify-content-center">
+            <div class="row hide to_be_hidden">
+                <div class="container mb-4 ml-4">
+                    <div class="row justify-content-center">
+                        <div class="product-info" style="width: auto;">
+                            <button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid; " class="btn btn-outline-secondary active" id="Vitalinf" onclick="openform(event ,'independent-attributes')">Vital Info</button>
+                            <button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="btn btn-outline-secondary" id="deplink" onclick="openform(event ,'dependent-common')">Common Info</button>
+                            <button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="btn btn-outline-secondary" id="nondeplink" onclick="openform(event ,'dependent-notcommon')">Dependent Attributes</button>
+                            <button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="btn btn-outline-secondary" id="uploads" onclick="openform(event ,'Uploads')">Images </button>
+                            <button type="button" style="font-size: 17px;border-right: gray;border-right-style:solid;" class="btn btn-outline-secondary" id="variations" onclick="openform(event ,'Variations')">Variations</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="product-content" id="independent-attributes">
+                    <div class="row hide to_be_hidden">
+                        <div class="container" style="margin-left:2vw;">
+                            <br>
+
+                            <div class="row">
+                                {% comment %}
+                                <div class="col">
+                                    {{ form.b2b_product|as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.b2c_product|as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.sample_product|as_crispy_field }}
+                                </div>
+                                {% endcomment %}
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.product_Category | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.product_Subcategory | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.product_Supercategory | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.title | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.slug | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.brand | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.label | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.seller | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.price | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.offer | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.bestoffers | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.B2Boffer | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.sold_quantity | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.barcode | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.gst | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    {% if form.instance.image1 %}
+                                    <img height="100" width="100" src="{{ form.instance.image1.url }}" /> {% endif %}
+                                </div>
+                                <div class="col">
+                                    {{ form.image1 | as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.made_in | as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.packed|as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.Service|as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.available_for_subscription|as_crispy_field }}
+                                </div>
+                                <div class="col">
+                                    {{ form.old_product|as_crispy_field }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="product-content" id="dependent-common" style="display: none;">
+                    <div class="row hide to_be_hidden">
+                        <div class="row hide to_be_hidden">
+                            <div class="container" style="margin-left:2vw;">
+                                <br>
+
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.product_cate | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.privacy | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.product_tags | as_crispy_field }}
+                                        <span>*Hold Ctrl To Select Multiple Fields</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.safe_stock | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.keywords | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.sale | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.salediscount | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.salestartdate | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.saleenddate | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.notes | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.description | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.manufacturername | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.manufacturerno | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.length | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.width | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.height | as_crispy_field }}
+                                    </div>
+                                </div>
+                                {% if form.product_Category.value == 12 %}
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.batteriesincluded | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.batteriesno | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.wattage | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ form.features | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.graphics | as_crispy_field }}
+                                    </div>
+                                    <div class="col">
+                                        {{ form.powersource | as_crispy_field }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="product-content" id="dependent-notcommon" style="display: none;">
+                    <div class="row hide to_be_hidden">
+                        <div class="container" style="margin-left:2vw;">
+                            {% for data in label_data %}
+                            <div class="row">
+                                <div class="col">
+                                    <div id="div_id_{{ data.0.name }}-label_attribute" class="form-group">
+                                        <label for="id_{{ data.0.name }}-label_attribute" class=" requiredField">Label attribute<span class="asteriskField">*</span></label>
+                                        <div class="">
+                                            <select name="{{ data.0.name }}-label_attribute" class="select form-control" required="" disabled="" id="id_{{ data.0.name }}-label_attribute">
+                                <option value="{{ data.0.id }}" selected="">{{ data.0.name }}</option>
+                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div id="div_id_{{ data.0.name }}-value" class="form-group">
+                                        <label for="id_{{ data.0.name }}-value" class="">Value</label>
+                                        <div class="">
+                                            {% if data.1 %} {% if data.0.input_type == "Text" %}
+                                            <input type="text" name="{{ data.0.name }}-value" value="{{ data.1 }}" maxlength="255" class="textinput textInput form-control" id="id_{{ data.0.name }}-value"> {% elif data.0.input_type == "Date" %}
+                                            <input type="date" name="{{ data.0.name }}-value" class="input_attribute form-control" id="id_{{ data.0.name }}-value" value="{{ data.1 }}"> {% else %}
+                                            <select name="{{ data.0.name }}-value" id="id_{{ data.0.name }}-value" class="select form-control">
+                                            {% for a in data.0.values|split:"," %}
+                                            {% if a == data.1.value %}
+                                            <option value="{{a}}" selected>{{a}}</option>
+                                            {% else %}
+                                            <option value="{{a}}">{{a}}</option>
+                                            {% endif %}
+                                            {% endfor %}  
+                                            </select> {% endif %} {% else %} {% if data.0.input_type == "Text" %}
+                                            <input type="text" name="{{ data.0.name }}-value" value="" maxlength="255" class="textinput textInput form-control" id="id_{{ data.0.name }}-value"> {% elif data.0.input_type == "Date" %}
+                                            <input type="date" name="{{ data.0.name }}-value" class="input_attribute form-control" id="id_{{ data.0.name }}-value"> {% else %}
+                                            <select name="{{ data.0.name }}-value" id="id_{{ data.0.name }}-value" class="select form-control">
+                                            <option disabled selected>{{data.0.name}}</option>
+                                            {% for a in data.0.values|split:"," %}
+                                            <option value="{{a}}">{{a}}</option>
+                                            {% endfor %}  
+                                            </select> {% endif %} {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-content" id="Uploads" style="display: none;">
+                    <div class="row hide to_be_hidden">
+                        <div class="container" style="margin-left:2vw;">
+                            {% if image_forms %} {% for image_form in image_forms %}
+                            <div class="row">
+                                <div class="col">
+                                    <img height="150" width="150" src="{{ image_form.instance.image.url }}" />
+                                </div>
+                                <div class="col">
+                                    {{ image_form.image | as_crispy_field }} {{ image_form.is_actual | as_crispy_field }} {{ image_form.delete | as_crispy_field }}
+                                </div>
+                            </div>
+                            <br/> {% endfor %} {% endif %}
+                            <button onclick="addImage('addmore_image');" type="button" id="addmore_image" class="btn btn-primary">Add More Image</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="product-content" id="Variations" style="display: none;">
+                    <div class="row hide to_be_hidden">
+                        <div id="sizes" class="container mt-4" style="margin-left:2vw;">
+                            {% if size_data %} {% for size_dt in size_data %}
+                            <p>Variation {{ forloop.counter }} {{ size_dt.0.delete | as_crispy_field }}</p>
+                            <div class="row">
+                                <div class="col-1">
+                                    {{ size_dt.0.size | as_crispy_field }}
+                                </div>
+                                <div class="col-2">
+                                    {{ size_dt.0.unit | as_crispy_field }}
+                                </div>
+                                <div class="col-1">
+                                    {{ size_dt.0.color | as_crispy_field }}
+                                </div>
+                                <div class="col-1">
+                                    {{ size_dt.0.price | as_crispy_field }}
+                                </div>
+                                <div class="col-1">
+                                    {{ size_dt.0.c_price | as_crispy_field }}
+                                </div>
+                                <div class="col-1">
+                                    {{ size_dt.0.quantity | as_crispy_field }}
+                                </div>
+                                <div class="col-2">
+                                    {{ size_dt.0.safety_stock_limit | as_crispy_field }}
+                                </div>
+                            </div>
+                            {% if size_dt.1 %} {% for size_img in size_dt.1 %}
+                            <div class="row">
+                                <div class="col-2">
+                                    <img height="150" width="150" src="{{size_img.image.url}}">
+                                </div>
+                                <div class="col">
+                                    <div id="div_id_{{forloop.parentloop.counter}}-image{{forloop.counter}}" class="form-group">
+                                        <div class="">
+                                            <div class="form-check">
+                                                <br> Select Image:
+                                                <input type="file" name="{{forloop.parentloop.counter}}-image{{forloop.counter}}" class="form-control-file" id="id_{{forloop.parentloop.counter}}-image{{forloop.counter}}">
+                                                <br> {% if size_img.is_actual %}
+                                                <input type="checkbox" id="Id_{{forloop.parentloop.counter}}isactual{{forloop.counter}}" name="{{forloop.parentloop.counter}}isactual{{forloop.counter}}" value=true checked><label for="Id_{{forloop.parentloop.counter}}isactual{{forloop.counter}}">Is Actual</label>                                                {% else %}
+                                                <input type="checkbox" id="Id_{{forloop.parentloop.counter}}isactual{{forloop.counter}}" name="{{forloop.parentloop.counter}}isactual{{forloop.counter}}" value=true><label for="Id_{{forloop.parentloop.counter}}isactual{{forloop.counter}}">Is Actual</label>                                                {% endif %}
+                                            </div>
+                                            <br>
+                                            <div class="form-check">
+                                                <input type="checkbox" id="Id_{{forloop.parentloop.counter}}-delete-{{forloop.counter}}" name="{{forloop.parentloop.counter}}-delete-{{forloop.counter}}"><label for="Id_{{forloop.parentloop.counter}}-delete-{{forloop.counter}}">Delete</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <br> {% endfor %} {% endif %}
+                            <button type="button" id="{{forloop.counter}}-image" class="btn btn-primary" onclick="add_size_image('{{forloop.counter}}');">Add Variation Image</button> {% endfor %} {% endif %}
+                            <br>
+                            <br>
+                            <button onclick="addsize('addmore_size');" type="button" id="addmore_size" class="btn btn-primary">Add More Size</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container ml-4 justify-content-center">
+                    <div class="row mt-3 mb-3 hide upload_row_but to_be_hidden justify-content-center">
+                        <input class="btn btn-primary" name="submit" type="submit" id='submit_Changes' value="Submit" />
+                    </div>
+                </div>
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+    <!--Subscription-->
+
+
+    <script>
+        "{% if messages %}"
+        "{% for i in messages %}"
+        alert("{{i}}")
+        "{% endfor %}"
+        "{% endif %}"
+
+        document.getElementById('id_prod').value = "{{ prod.pk }}";
+        document.getElementById('id_seller').value = "{{ prod.seller.pk }}";
+        document.getElementById('id_linked_product').value = "{{ prod.pk }}";
+
+        $(function() {
+            $("#datetimepicker1").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+            });
+        });
+
+        function openform(evt, formcontent) {
+            var i, procontent, prolinks;
+            procontent = document.getElementsByClassName("product-content");
+            for (i = 0; i < procontent.length; i++) {
+                procontent[i].style.display = "none";
+            }
+            prolinks = document.getElementsByClassName("btn btn-outline-secondary");
+            for (i = 0; i < prolinks.length; i++) {
+                prolinks[i].className = prolinks[i].className.replace(" active", "");
+            }
+            document.getElementById(formcontent).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+    <script>
+        var temp = '{{ total_size }}'
+        var size_count = Number(temp) - 1;
+        var size_array = [];
+        size_count++;
+        for (i = size_count; i <= 10; i++) {
+            size_array.push(i)
+        }
+        console.log(size_array);
+
+        var safety_stock = 0;
+
+        function addsize(id) {
+            var len = size_array.length;
+            if (len > 0) {
+                size_count = size_array.shift();
+                console.log(size_count);
+                var size_button = document.getElementById(id);
+                var div = document.createElement('div');
+                div.id = size_count + `-sizeDiv`;
+                div.innerHTML = `
+                    <p>Variation ` + size_count + `</p>
+                <div class="row">
+                    <div class="col-1">
+                    <div id="div_id_` + size_count + `-size" class="form-group">
+                        <label for="id_` + size_count + `-size" class=" requiredField">
+                            Size<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="number" name="` + size_count + `-size" value="" class="numberinput form-control" required id="id_` + size_count + `-size" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="div_id_` + size_count + `-unit" class="form-group">
+                        <label for="id_` + size_count + `-unit" class=" requiredField">
+                            Unit<span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="` + size_count + `-unit" value="" maxlength="100" class="textinput textInput form-control" required="" id="id_` + size_count + `-unit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div id="div_id_` + size_count + `-color" class="form-group">
+                                        <label for="id_` + size_count + `-color" class=" requiredField">
+                            Color<span class="asteriskField">*</span>
+                        </label>
+                                        <div class="">
+                                            <input type="color" name="` + size_count + `-color" value="" maxlength="255" class="textinput textInput form-control" required id="id_` + size_count + `-color" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div id="div_id_` + size_count + `-price" class="form-group">
+                                        <label for="id_` + size_count + `-price" class=" requiredField">
+                            Price<span class="asteriskField">*</span>
+                        </label>
+                                        <div class="">
+                                            <input type="number" name="` + size_count + `-price" value="" class="numberinput form-control" required id="id_` + size_count + `-price" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div id="div_id_` + size_count + `-c_price" class="form-group">
+                                        <label for="id_` + size_count + `-c_price" class=" requiredField">
+                            C price<span class="asteriskField">*</span>
+                        </label>
+                                        <div class="">
+                                            <input type="number" name="` + size_count + `-c_price" value="" class="numberinput form-control" required id="id_` + size_count + `-c_price" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div id="div_id_` + size_count + `-quantity" class="form-group">
+                                        <label for="id_` + size_count + `-quantity" class=" requiredField">
+                            Quantity<span class="asteriskField">*</span>
+                        </label>
+                                        <div class="">
+                                            <input type="number" name="` + size_count + `-quantity" value="" class="numberinput form-control" required id="id_` + size_count + `-quantity" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div id="div_id_` + size_count + `-safety_stock_limit" class="form-group">
+                                        <label for="id_` + size_count + `-safety_stock_limit" class=" requiredField">
+                            Safety stock limit<span class="asteriskField">*</span>
+                        </label>
+                                        <div class="">
+                                            <input type="number" name="` + size_count + `-safety_stock_limit" value="" class="numberinput form-control" required id="id_` + size_count + `-safety_stock_limit" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-danger" onclick='discardSize("` + size_count + `-sizeDiv",` + size_count + `)'>Discard</button>
+                                </div>
+                            </div> <br/> 
+                                    <button type="button" id="` + size_count + `-image" class="btn btn-primary" onclick="add_size_image('` + size_count + `');">Add Variation Image</button> 
+                            <br/><br/>
+                            
+                            `;
+                size_button.parentNode.insertBefore(div, size_button);
+            }
+        }
+
+        function discardSize(id, size_val) {
+            size_array.push(size_val);
+            $("#" + id).remove();
+        }
+    </script>
+    <script>
+        var temp = '{{ total_image }}'
+        var image_count = Number(temp) - 1;
+        var image_array = [];
+        image_count++;
+        for (i = image_count; i <= 10; i++) {
+            image_array.push(i)
+        }
+        console.log("INITIAL: " + image_array);
+
+        function addImage(id) {
+
+            var len = image_array.length;
+            if (len > 0) {
+                image_count = image_array.shift();
+                // image_count = image_count + 1;
+                console.log("ADD: " + image_array);
+                var image_button = document.getElementById(id);
+                var div = document.createElement('div');
+                div.id = image_count + '-Imgdiv'
+                div.innerHTML = `<div class="row">
+            <div class="col">
+                <img height="150" width="150" id="` + image_count + `-ImageDisplay">
+                </div>
+                <div class="col">
+                    <div id="div_id_` + image_count + `-image" class="form-group">
+                        <label for="id_` + image_count + `-image" class="">
+                        Image
+                    </label>
+                    <div class="">
+                        <br> Select Image:
+                        <input type="file" onchange="ImgDisplay(this, '` + image_count + `-ImageDisplay');" name="` + image_count + `-image" class="form-control-file" id="id_` + image_count + `-image">
+                    </div>
+                    <div class="form-group">
+                    <div id="div_id_` + image_count + `-is_actual" class="form-check">
+                        <input type="checkbox" name="` + image_count + `-is_actual" value=true class="checkboxinput form-check-input" id="id_` + image_count + `-is_actual">
+                            <label for="id_` + image_count + `-is_actual" class="form-check-label">
+                                Is actual
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-danger" onclick="RemoveImg('` + image_count + `-Imgdiv',` + image_count + `)">Remove</button>
+                </div>
+                </div>
+                <br/>`;
+
+                image_button.parentNode.insertBefore(div, image_button);
+            }
+        };
+
+        function RemoveImg(Id, image_val) {
+
+            image_array.push(image_val);
+            console.log('REMOVE: ', image_array);
+            $("#" + Id).remove();
+        }
+
+        function ImgDisplay(input, Id) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                console.log('Reading');
+                reader.onload = function(e) {
+                    $('#' + Id).attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+    </script>
+    <script>
+        var size_image_counter = {
+            '1': parseInt('{{size_data.0.2}}') || 0,
+            '2': parseInt('{{size_data.1.2}}') || 0,
+            '3': parseInt('{{size_data.2.2}}') || 0,
+            '4': parseInt('{{size_data.3.2}}') || 0,
+            '5': parseInt('{{size_data.4.2}}') || 0,
+            '6': parseInt('{{size_data.5.2}}') || 0,
+            '7': parseInt('{{size_data.6.2}}') || 0,
+            '8': parseInt('{{size_data.7.2}}') || 0,
+            '9': parseInt('{{size_data.8.2}}') || 0,
+            '10': parseInt('{{size_data.9.2}}') || 0,
+        }
+        var size_image_dict = {};
+        console.log('BEFORE LOOP SIZE IMAGE DICT: ' + size_image_dict);
+        for (i = 1; i <= 10; i++) {
+            size_image_array = [];
+            images = size_image_counter[i];
+            images++;
+            console.log('LOOPS ' + images + ' INDEX ' + i + ' SIZE IMAGE ARRAY ' + size_image_array);
+            console.log('ADDING IMAGES...');
+            for (j = images; j <= 10; j++) {
+                console.log('BEFORE PUSH: ' + size_image_array);
+                size_image_array.push(j);
+                console.log('AFTER PUSH: ' + size_image_array);
+            }
+            str = i.toString();
+            size_image_dict[str] = size_image_array;
+        }
+
+
+        console.log('INITIA SIZE IMAGE DICT: ' + JSON.stringify(size_image_dict));
+
+        function add_size_image(variation) {
+
+            size_image_counter = size_image_dict[variation.toString()].shift();
+            buttonId = variation + "-image";
+            console.log(buttonId)
+            var variation_image_button = document.getElementById(buttonId);
+            var div = document.createElement('div');
+            div.id = variation + '-SizeImgDiv-' + size_image_counter;
+            div.innerHTML = `<div class="row">
+    <div class="col-2">
+        <img height="150" width="150" id = "` + variation + `-imgaeDisplay` + size_image_counter + `">
+    </div>
+    <div class="col-2">
+        <div id="div_id_` + variation + `-image` + size_image_counter + `" class="form-group">
+            <div class="">
+                <div class="form-check">
+                    <br> Select Image:
+                    <input type="file" name="` + variation + `-image` + size_image_counter + `" onchange="ImgDisplay(this, '` + variation + `-imgaeDisplay` + size_image_counter + `');" class="form-control-file" id="id_` + variation + `-image` + size_image_counter + `">
+                    <br>
+                    <input type="checkbox" id="` + variation + `isactual` + size_image_counter + `" name="` + variation + `isactual` + size_image_counter + `" value=true><label for="` + variation + `isactual` + size_image_counter + `"> Is Actual</label>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="col-1">
+        <button type="button" class="btn btn-danger" onclick="RemoveSizeImg('` + variation + `-SizeImgDiv-` + size_image_counter + `', ` + size_image_counter + `, ` + variation + `)">Remove</button>
+    </div>
+</div><br>`;
+
+            variation_image_button.parentNode.insertBefore(div, variation_image_button);
+
+        }
+
+        function RemoveSizeImg(Id, size_image_counter, variation) {
+            var arr = size_image_dict[variation.toString()]
+            arr.push(size_image_counter);
+            size_image_dict[variation.toString()] = arr;
+            $("#" + Id).remove();
+        }
+    </script>
+
+
+    {% endblock %}

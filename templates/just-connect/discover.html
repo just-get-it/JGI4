@@ -1,0 +1,93 @@
+
+{% extends 'just-connect/index.html' %}
+
+{% load static %}
+{% block customcss %}
+<style>
+    .control{
+       display:flex;
+       justify-content: center;
+       margin-top:20px;
+   }
+   .control ul li{
+       list-style:none;
+       background-color:#fff;
+       border:2px solid #000;
+       padding:5px 15px;
+       cursor:pointer;
+       color:#000;
+       letter-spacing:2px;
+       display:inline-block;
+       margin-bottom:2px;
+   }
+</style>
+{% endblock %}
+{% block indexbody %}
+
+
+<div class="container">
+   <div class="control">
+    <ul>
+        <li class="cat_button active" data-filter="all">All</li>
+        {% for category in categories %}
+        <li class="cat_button" data-filter="{{category.slug}}">{{category.title}}</li>
+        {% endfor %}
+    </ul>
+   </div>
+</div>
+<div id="show_projects" class="container">
+   <div class="heading-text text-center">
+    <h2>BEST OF JUSTGETIT</h2>
+    <p>Projects featured today by our curators</p>
+   </div>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-3 col-lg-3">
+            <div class="container">
+                <div class="image">
+                    <img src="{{project.cover_image.url}}" class="w-50 img-fluid">
+                </div>
+                <h3>{{project.title}}</h3>
+                <a href="{% url 'ProjectView' project.slug %}"class="btn btn-primary mt-2 btn-sm">See Project</a>  
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock indexbody %}
+{% block customjs %}
+<script>
+    $('.cat_button').click(function(){
+        let cat_value = $(this).attr("data-filter");
+
+        //ajax call here 
+        $.ajax({
+            url : "{% url 'DiscoverProject' %}",
+            data:{
+                "value":cat_value,
+            },
+            success:function(response){
+                console.log(response);
+                $('#show_projects > .row').empty();
+                var data = response.projects;
+                for( let index = 0; index < data.length; index++){
+                    $('#show_projects > .row').append(
+                    `
+                    <div class="col-md-3 col-lg-3">
+                        <div class="container">
+                            <div class="image">
+                                <img src="${data[index].cover_image}" class="w-50 img-fluid">
+                            </div>
+                            <h3>${data[index].title}</h3>
+                            <a href="/connect/project/${data[index].slug}/" class="btn btn-primary mt-2 btn-sm">See Project</a>  
+                        </div>
+                    </div>
+                    `
+                )
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

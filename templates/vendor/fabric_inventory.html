@@ -1,0 +1,176 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+<!--
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+{% endblock %}
+
+{% block title %}
+	Fabric Inhouse Form
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %} -->
+
+{% block content %}
+
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #30c5ff;
+  color: white;
+}
+</style>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>FABRIC INVENTORY<br></h3>
+            </div>
+        </div>
+			<form action="{% url 'inventory_request' %}" method="post" >
+						{% csrf_token %}
+<br><br>
+		<div class="form-group row">
+			<label for="orderNo" class="col-sm-2 col-form-label">Select an Order Number </label>
+					<div class="col-sm-4">
+						 <select class="form-control" id="orderNo" name="orderNo" onblur="set_hid()">
+							<option value="11">Select an Order</option>
+							{% for x in x %}
+          					    <option value="{{x}}">{{x}}</option>
+							{% endfor %}
+							{% if objt %}
+							{% for xt in objt %}
+          					    <option value="{{xt}}">{{xt}}</option>
+							{% endfor %}
+							{% endif %}
+						</select>
+						<div id="oNo_hid_div"></div>
+							<script type="text/javascript">
+							function set_hid()
+							{
+							var so=document.getElementById("orderNo").value;
+							if(so=="")
+								document.getElementById("oNo_hid_div").innerHTML="Field required";
+							else
+							{document.getElementById("oNo_hid_div").innerHTML="";
+							}
+							}
+							</script>
+					 <div class="form-group row">
+		 <div class="col-sm-4"><br>
+			 <input type="submit" class="btn btn-primary" value="View Details" id="sumbut" name="sumbut">
+		</div>
+	 </div>
+
+
+					</div>
+				</div>
+				</form>
+		<form  method="post" >
+			{% csrf_token %}
+        <div class="container">
+							<table id="customers">
+								<tr>
+									<td>Order Number</td>
+									<td>Supplier Name</td>
+									<td>Lot Number</td>
+									<td>Roll No.</td>
+									<td>Fabric Type</td>
+									<td>Fabric Shade</td>
+									<td>Actual Roll Length</td>
+									<td>Fabric Width</td>
+									<td>Width Variation</td>
+									<td>Fabric Grade</td>
+									<td>CSV</td>
+									<td>Shade Grade</td>
+									<td>Shade variation</td>
+									<td>Shrinkage %</td>
+									<td>Acceptance Point/100sq. Yards</td>
+									<td>Acceptance Point/100sq. Metres</td>
+									<td>Point/100sq. Yards</td>
+									<td>Point/100sq. Metres</td>
+									<td>Results</td> 
+								</tr>
+								{% for f2 in f %}
+									<tr>
+										<td>{{f2.orderNo}}</td>
+                               			<td>{{f2.supplier}}</td>
+										<td>{{f2.lotNo}}</td>
+										<td>{{f2.rollNo}}</td>
+										<td>{{f2.fabrictype}}</td>
+                                		<td>{{f2.fabricshade}}</td>
+										<td>{{f2.arl}}  {{f2.unit3}}</td>
+										<td>{{f2.fabricWidth}}  {{f2.unit1}}</td>
+										<td>{{f2.wv1}} - {{f2.wv2}} - {{f2.wv3}}</td>
+										<td>{{f2.fgrade}}</td>
+										<td>{{f2.CSV}}</td>
+										<td>{{f2.shadeGrade}}</td>
+										<td>{{f2.shadeVar}}</td>
+										<td>{{f2.shrinkage}}</td>
+										<td>{{f2.acceptancePointYard}}</td>
+										<td>{{f2.acceptancePointMeter}}</td>
+										<td>{{f2.pphuny}}</td>
+										<td>{{f2.pphunm}}</td>
+										<td>{{f2.result}}</td>
+									</tr>
+								{% endfor %}
+									<tr>
+										<td colspan="14">Average</td>
+										<td>{{acy}}</td>
+										<td>{{acm}}</td>
+										<td>{{pphuny}}</td>
+										<td>{{pphunm}}</td>
+										<td rowspan="{{z}}">{{var}}</td>
+									</tr>
+							</table>
+<br><br><br>
+        </div>
+			<input type="text" name="oNo_hid" id="oNo_hid" value="{{orno}}" hidden>
+		    <input type="submit" class="btn btn-primary" value="SEND TO FABRIC INVENTORY APPROVED" formaction="{% url 'fabinventoryreturnapprove' %}" >
+                <input type="submit" class="btn btn-primary" value="SEND TO FABRIC INVENTORY REJECTED" formaction="{% url 'fabinventoryreturnsupplier' %}">
+			<br><br><br>
+	</form>
+    </div>
+</div>
+
+{% endblock %}

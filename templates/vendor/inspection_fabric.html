@@ -1,0 +1,188 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+{% block content %}
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+
+<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+   createTable();
+}, false);
+
+        </script>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+			
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>FABRIC INSPECTION<br></h3>
+
+            </div>
+        </div>
+			<div class="form-group row">
+		 <div class="col-sm-4">
+			 <br><br><input type="button" class="btn btn-primary" value="View Previous Record Summary" id="view_summary_but" name="view_summary_but" onclick="viewsummary()">
+		</div>
+				<script type="text/javascript">
+                         function viewsummary() {
+                                      location="{% url 'inspectionsummary' %}";
+                                    }
+                        </script>
+	 </div>
+        <div class="container">
+
+				<div class="form-group row">
+					<label for="orderNo" class="col-sm-2 col-form-label">Order Number</label>
+						<div class="col-sm-4">
+<form action="{% url 'ajaxcallinsorder' %}" method="post" onsubmit="return f_orderNo()">
+						{% csrf_token %}
+									<select class="form-control" id="orderNo" name="orderNo">
+										<option value="">Select an order</option>
+											{% if xd %}
+											<option value="{{xd}}" selected>{{xd}}</option>
+											{% endif %}
+											{% if f2.orderNo %}
+												<option value="{{f2.orderNo}}" selected>{{f2.orderNo}}</option>
+											{% endif %}
+										{% for item in x %}
+											<option value="{{item}}">{{item}}</option>
+										{% endfor %}
+									</select>
+						 <div id="orderNodiv"></div>
+						<input type="submit" value="Update Fields" >
+</form>					
+
+					</div>
+			<script type="text/javascript">
+                         function f_orderNo() {
+                                       if (document.getElementById("orderNo").value=="")
+                                            {document.getElementById("orderNodiv").innerHTML="<font color=red>Select an order No<font>";
+                                            return false;
+                                            }
+                                        else
+											{document.getElementById("orderNodiv").innerHTML="";
+
+											return true;
+											}
+                                    }
+                        </script>
+				</div>
+ <form action="{% url 'ajaxcallinslot' %}" method="post">
+ {% csrf_token %}
+				<div class="form-group row">
+					<label for="lotNo" class="col-sm-2 col-form-label">Lot Number</label>
+					<div class="col-sm-4">
+						{% if roll %}
+						 <select style="width:70%;" data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="test" readonly>
+							{% for z in lot %}
+							<option value="{{z}}" selected>{{z}}</option>
+							{% endfor %}
+						</select>
+						{% endif %}
+						 <select style="width:70%;" data-placeholder="Begin typing a name to filter..." multiple class="chosen-select" name="test" required>
+							<option value=""></option>
+								{% for x in mine %}	
+									<option value="{{x}}">{{x}}</option>
+								{% endfor %}
+							</select>
+					<input type="submit" value="Update Fields" >
+					</div>
+				</div>
+			
+		  			<input type="text" class="form-control" name="ird" value="{{f2.orderNo}}" id="ird" hidden>
+		 		
+</form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
+ <form action="{% url 'up_roll' %}" method="post">
+				{% csrf_token %}
+
+				<div class="form-group row">
+					<label for="numRolls" class="col-sm-2 col-form-label">Number of Rolls</label>
+					<div class="col-sm-4">
+						  <input type="text" class="form-control" name="numRolls" id="numRolls" value="{{roll}}" readonly>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="insPer" class="col-sm-2 col-form-label">Inspection %</label>
+					<div class="col-sm-4">
+						<select class="form-control" id="insPer" name="insPer" onchange="roll_num(this)">
+							<option value="">Select Inspection %</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="30">30</option>
+							<option value="35">35</option>
+							<option value="50">50</option>
+							<option value="75">75</option>
+							<option value="100">100</option>
+					</select>
+						 <input type="text" class="form-control" name="insPer2" id="insPer2" placeholder="or Enter manuaaly between 0-100" onblur="roll_num(insPer)">
+						<div id="insperdiv"></div>
+						<script type="text/javascript">
+						$(".chosen-select").chosen({
+  							no_results_text: "Oops, nothing found!"
+						})
+							function roll_num(select)
+							{
+							var insPer=select.options[select.selectedIndex].getAttribute("value");
+							var insPer2=document.getElementById("insPer2").value;
+							if(insPer.length==0)
+                                   {
+                                       if (insPer2.length==0)
+                                           	{
+                                           	document.getElementById("insperdiv").innerHTML="<font color=red>Select or enter manually Inspection %<font>";
+                           					}
+                           				else
+                          					insPer=insPer2;
+                                   }
+
+							if(insPer.length!=0)
+    		                         {
+									document.getElementById("insperdiv").innerHTML="";
+									var numRolls=document.getElementById("numRolls").value;
+									const rollnum=(insPer*numRolls)/100;
+									document.getElementById("insP").value=insPer;
+									document.getElementById("hid_random").value=rollnum;
+									}
+							}
+    				</script>
+					</div>
+				</div>
+		  <input type="text" class="form-control" name="hid_on" value="{{f2.orderNo}}" id="hid_on" hidden>
+		  {% for zc in lot %}
+		  <input type="text" class="form-control" name="ltno" value="{{zc}}" id="ltno" hidden>
+			{% endfor %}
+	 <input type="text" class="form-control" name="insP" id="insP" hidden>
+	 		  <input type="text" class="form-control" name="hid_random" id="hid_random" hidden>
+
+	 <div class="form-group row">
+		 <div class="col-sm-4">
+			 <input type="submit" class="btn btn-primary" value="Go to Next Page" id="npbut" name="npbut">
+		</div>
+	 </div>
+ </form>
+
+			<br>
+		</div>
+	</div>
+</div>
+{% endblock %}

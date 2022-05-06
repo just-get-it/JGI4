@@ -1,0 +1,64 @@
+
+
+
+
+<div class="row my-3">
+    {% if n == 1 %}
+        <h6>Half Yearly(Jan - July)</h6>
+    {% else %}
+        <h6>Half Yearly (Aug - Dec)</h6>
+    {% endif %}
+    <table class="acti_table" style="width: 100%;">
+        <tr>
+            <th>Sector Name</th>
+            <th>Planned-A Budget</th>
+            <th>Planned-B Budget</th>
+            <th>Total</th>
+            <th>Actual Budget</th>
+        </tr>
+        {% for i in normal %}
+        <tr>
+            <td>{{i.sector_name}}</td>
+            <td>{{i.planned_a}}</td>
+            <td>{{i.planned_b}}</td>
+            <td>{{i.total}}</td>
+            <td>{{i.actual}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="row my-3">
+    <div class="col-6">
+        <h6>This Year Variance</h6>
+        <table class="acti_table" style="width: 100%;">
+            <tr>
+                <th>Planned-vis-Actual Budget</th>
+                <th>Hit Rate %</th>
+            </tr>
+            {% for i in variance %}
+            <tr>
+                <td>{{i.planned_vis}}</td>
+                <td>{{i.hit}} %</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-5 ml-2">
+        <h6>Next-Half-Year Required Run-rate</h6>
+        <table class="acti_table" style="width: 100%;">
+            <tr>
+                <th>Normal Year</th>
+                <th>Required</th>
+            </tr>
+            {% for i in next_year %}
+            <tr>
+                <td>{{i.normal_year}}</td>
+
+                <td {% if i.normal_year < i.required %}style="background-color:red;color:white;"{% endif %}{% if i.normal_year == i.required %}style="background-color:green;color:white;"{% endif %} {% if i.normal_year > i.required %}style="background-color:green;color:white;"{% endif %}>
+                    {{i.required}}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

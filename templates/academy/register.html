@@ -1,0 +1,129 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> App landing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/academy/favicon.ico' %}">
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="{% static 'css/academy/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/progressbar_barfiller.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/gijgo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/academy/style.css' %}">
+</head>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'img/academy/logo/loder.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start-->
+
+
+<!-- Register -->
+
+<main class="login-body" data-vide-bg="{% static 'img/academy/login-bg.mp4' %}">
+    <!-- Login Admin -->
+    <form class="form-default" action="login-bg.mp4" method="POST">
+        
+        <div class="login-form">
+            <!-- logo-login -->
+            <div class="logo-login">
+                <a href="/academy/"><img src="{% static 'img/academy/logo/loder.png' %}" alt=""></a>
+            </div>
+            <h2>Registration Here</h2>
+
+            <div class="form-input">
+                <label for="name">Full name</label>
+                <input  type="text" name="name" placeholder="Full name">
+            </div>
+            <div class="form-input">
+                <label for="name">Email Address</label>
+                <input type="email" name="email" placeholder="Email Address">
+            </div>
+            <div class="form-input">
+                <label for="name">Password</label>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-input">
+                <label for="name">Confirm Password</label>
+                <input type="password" name="password" placeholder="Confirm Password">
+            </div>
+            <div class="form-input pt-30">
+                <input type="submit" name="submit" value="Registration">
+            </div>
+            <!-- Forget Password -->
+            <a href="/academy/login/" class="registration">login</a>
+        </div>
+    </form>
+    <!-- /end login form -->
+</main>
+
+
+    <script src="{% static 'js/academy/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static 'js/academy/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'js/academy/popper.min.js' %}"></script>
+    <script src="{% static 'js/academy/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static 'js/academy/jquery.slicknav.min.js' %}"></script>
+
+    <!-- Video bg -->
+    <script src="{% static 'js/academy/jquery.vide.js' %}"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static 'js/academy/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/academy/slick.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static 'js/academy/wow.min.js' %}"></script>
+    <script src="{% static 'js/academy/animated.headline.js' %}"></script>
+    <script src="{% static 'js/academy/jquery.magnific-popup.js' %}"></script>
+
+    <!-- Date Picker -->
+    <script src="{% static 'js/academy/gijgo.min.js' %}"></script>
+    <!-- Nice-select, sticky -->
+    <script src="{% static 'js/academy/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/academy/jquery.sticky.js' %}"></script>
+    <!-- Progress -->
+    <script src="{% static 'js/academy/jquery.barfiller.js' %}"></script>
+    
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="{% static 'js/academy/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/academy/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/academy/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/academy/hover-direction-snake.min.js' %}"></script>
+
+    <!-- contact js -->
+    <script src="{% static 'js/academy/contact.js' %}"></script>
+    <script src="{% static 'js/academy/jquery.form.js' %}"></script>
+    <script src="{% static 'js/academy/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/academy/mail-script.js' %}"></script>
+    <script src="{% static 'js/academy/jquery.ajaxchimp.min.js' %}"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->    
+    <script src="{% static 'js/academy/plugins.js' %}"></script>
+    <script src="{% static 'js/academy/main.js' %}"></script>
+    
+    </body>
+</html>

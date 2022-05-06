@@ -1,0 +1,112 @@
+{% load static %} {% block customcss %}
+{% endblock %} {% block content %}
+
+<div class="container">
+    <p>Delivary path</p>
+    <div id="map" style='width: 800px; position: absolute; right:100px'></div>
+</div>
+<script src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&s=1"></script>
+
+<script type="text/javascript">
+    var order_item_id = '{{order_item_id.id}}'
+    console.log(order_item_id)
+    window.onload = function(e) {
+        // e.preventDefault();
+        var container = document.getElementById('map'),
+            resize = function () { container.style.height = '500px'; };
+        resize();
+        
+        var map = new Microsoft.Maps.Map(container, {
+            credentials: 'AgB7hiqOcS-Xw-jNEegI1kq-LPI1BJPDRi5mlCfaLrs_0tBrOvsTTBpbJ4eSrEqo',
+            center:new  Microsoft.Maps.Location({{order_item_id.customer.current_loc_coord}}),
+            mapTypeId: Microsoft.Maps.MapTypeId.road,
+            zoom: 18
+            
+        });
+        fetch(
+            'http://127.0.0.1:8000/cartnew/get_order_coords/' + order_item_id +'/' ,    
+            {
+                headers: {      
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }
+        ).then((response)=>{
+            if (response.status === 200){
+                var res = response.json()
+                res.then(result=>{
+                    console.log(result)
+                    var seller = result['order_pickup_coords']; ;
+                    var customer = result['delivery_coords'];
+                    Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+                        var directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+                        directionsManager.setRequestOptions({ routeMode: Microsoft.Maps.Directions.RouteMode.driving });
+                        var waypoint1 = new Microsoft.Maps.Directions.Waypoint({ location: new Microsoft.Maps.Location(pickup[1], pickup[0]) });
+                        var waypoint2 = new Microsoft.Maps.Directions.Waypoint({ location: new Microsoft.Maps.Location(drop[1], drop[0]) });
+                        directionsManager.addWaypoint(waypoint1);
+                        directionsManager.addWaypoint(waypoint2);
+                        directionsManager.calculateDirections();
+                    });
+                })
+            }
+        })
+        function update_location() {
+            get_live_location_coords(map);
+            // console.log("here")
+        }
+    setInterval(update_location,30000)
+
+};
+
+    function get_live_location_coords(map){
+        fetch(
+            'http://127.0.0.1:8000/cartnew/get_live_location_coords/' + order_item_id +'/' ,    
+            {
+                headers: {      
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }
+        ).then((response)=>{
+            if (response.status === 200){
+                var res = response.json()
+                // console.log(res)
+                res.then(result=>{
+                    console.log(result)
+                    var cust = result['delivery_coords'];
+                    var order = result['order_coords'];
+
+                    var center = map.getCenter();
+                    customer = cust.split(',')
+                    console.log(customer)
+                    var loc = new Microsoft.Maps.Location(customer[0],customer[1]);
+                    var pin = new Microsoft.Maps.Pushpin(loc, {text: 'Cust'}); 
+                    map.entities.push(pin);
+                    
+                    var loc = new Microsoft.Maps.Location(order[0],order[1]);
+                    var pin = new Microsoft.Maps.Pushpin(loc, {text: 'order'}); 
+                    map.entities.push(pin);
+                    
+                    // var loc = new Microsoft.Maps.Location(car[1],car[0]);
+                    // var pin = new Microsoft.Maps.Pushpin(loc, {text: 'car'}); 
+                    // map.entities.push(pin);
+
+                    // Center the map on the location
+                    map.setView({center: loc, zoom: 18});
+
+                    //Add the pushpin to the map
+                    map.entities.push(pin);
+                    window.onresize = function() {
+                        resize()
+                    };
+                })
+            }
+        }).catch((error)=>{
+            console.log(error)
+        });
+    }
+
+</script>
+{% endblock %}

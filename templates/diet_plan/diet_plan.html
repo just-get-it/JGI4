@@ -1,0 +1,109 @@
+{#{% extends 'diet_plan/common.html' %}#}
+{##}
+{#{% block common %}#}
+{#    <h1 style="text-align: center ;font-size: 40px;color: darkslateblue;padding-top: 30px;padding-bottom: 40px"> Diet chat</h1>#}
+{#<style>#}
+{#table {#}
+{#  font-family: arial, sans-serif;#}
+{#  border-collapse: collapse;#}
+{#  width: 100%;table-layout:fixed#}
+{#}#}
+{##first_th{ border: 1px solid #dddddd;#}
+{#  text-align: left;#}
+{#  padding-bottom: 88px;#}
+{#    height: 180px;}#}
+{##secnd_th{text-align: left;#}
+{#  padding-bottom: 8px;#}
+{#    height: 55px;}#}
+{#td, th {#}
+{#  border: 1px solid #dddddd;#}
+{#  text-align: left;#}
+{#  padding-bottom: 88px;#}
+{#    height: 180px;#}
+{#}#}
+{#.first_tr:nth-child(even){#}
+{#  background-color: #dddddd;}#}
+{#tr:nth-child(even) {#}
+{#  background-color: #dddddd;}#}
+{##}
+{#.CellWithComment{#}
+{#  position:relative;#}
+{##}
+{#}#}
+{##}
+{#.CellComment{#}
+{#  display:none;#}
+{#  position:absolute;#}
+{#  z-index:100;#}
+{#  border:1px;#}
+{#  background-color:white;#}
+{#  border-style:solid;#}
+{#  border-width:1px;#}
+{#  border-color:red;#}
+{#  padding:3px;#}
+{#  color:red;#}
+{#  top:20px;#}
+{#  left:20px;#}
+{#}#}
+{##}
+{#.CellWithComment:hover span.CellComment{#}
+{#  display:block;#}
+{#}#}
+{##}
+{##}
+{#</style>#}
+{#   <table>#}
+{#   <tr >#}
+{##}
+{##}
+{#       <th class="CellWithComment" id="first_th"> 1.Breakfast :(7.30)#}
+{# <span class="CellComment">#}
+{#     <table > <tr> <th colspan="6" style="text-align: center">Breakfast :(7.30)</th></tr>#}
+{#   <tr >  <th id="secnd_th"> Product:</th>#}
+{#     <th> Quantity:</th>#}
+{#       <th>Unit:</th>#}
+{#     <th> Kcal:</th>#}
+{#     <th> Protein:</th>#}
+{#     <th> Carbs:</th>#}
+{#     <th> Fat:</th>#}
+{# </tr>#}
+{# {% for x in data %}#}
+{#     <tr >#}
+{#     <th id="secnd_th">{{ x.Product }}</th>#}
+{#     <th>{{ x.Quantity }}</th>#}
+{#     <th>{{ x.Unit }}</th>#}
+{#     <th>{{ x.Kcal }}</th>#}
+{#     <th>{{ x.Protein }}</th>#}
+{#     <th>{{ x.Carbs }}</th>#}
+{#     <th>{{ x.Fat }}</th>#}
+{#     </tr>#}
+{#     {% endfor %}#}
+{# </table></span>#}
+{##}
+{#       </th>#}
+{#       <th id="first_th"> 2.Morning meal(10.00 )</th>#}
+{#   </tr>#}
+{#       <tr class="first_tr" id="first_th">#}
+{#       <th> 3.Lunch(12.30)</th>#}
+{#       <th> 4.Afternoon meal(15.00)</th>#}
+{#   </tr>#}
+{##}
+{#       <tr>#}
+{#       <th id="first_th" > 5.Diner(17.30)</th>#}
+{#       <th> 6.Postworkout shake(20.00)</th>#}
+{#   </tr> </tr>#}
+{#       <tr class="first_tr" id="first_th">#}
+{#       <th> 7.snakes(21.00)</th>#}
+{#       <th> 8.Bedtime meal(22.30)</th>#}
+{#   </tr>#}
+{#   </table>#}
+{#{% endblock %}#}
+
+
+
+
+<br>
+ {% for x in data %}
+    {{ x}}<br>
+{% endfor %}
+

@@ -1,0 +1,35 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+</style>
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+{% block content %}
+<h2>Order No-{{order.order_no}}</h2>
+				<div class="col-12 mt-3">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th>Color</th>
+							<th>Address</th>
+							{% for i in sizes_cum_prod %}
+								<th>{{i}}</th>
+							{% endfor %}
+						</tr>
+						{% for i in map_prod %}
+						<tr>
+							<th><a href="{% url 'detail1' order_no=order.order_no color=map_prod|get_item_color:i %}">{{map_prod|get_item_color:i}}</a></th>
+							<th>Location{{map_prod|get_item_location:i}}</th>
+							{% for j in map_prod|get_item_sizes:i %}
+								<td>{{j}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+{% endblock %}

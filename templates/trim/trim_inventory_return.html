@@ -1,0 +1,156 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+<!--
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+{% endblock %}
+
+{% block title %}
+	Fabric Inhouse Form
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %} -->
+
+{% block content %}
+
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #30c5ff;
+  color: white;
+}
+</style>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br><br>TRIM INVENTORY/RETURN<br></h3>
+            </div>
+        </div><br>
+			<form action="{% url 'updateobj' %}" method="post" >
+						{% csrf_token %}
+
+		<div class="form-group row">
+			<label for="orderNo" class="col-sm-2 col-form-label">Select an Order Number </label>
+					<div class="col-sm-4">
+						 <select class="form-control" id="orderNo" name="orderNo" onblur="set_hid()">
+							 <option value="11">Select an Order</option>
+							{% for item in f11 %}
+          					<option value="{{item.orderNo}}">{{item.orderNo}}</option>
+							 {%endfor %}
+						</select>
+						<div id="oNo_hid_div"></div>
+							<script type="text/javascript">
+							function set_hid()
+							{
+							var so=document.getElementById("orderNo").value;
+							if(so=="")
+								document.getElementById("oNo_hid_div").innerHTML="Field required";
+							else
+							{document.getElementById("oNo_hid_div").innerHTML="";
+							}
+							}
+							</script>
+					 <div class="form-group row">
+		 <div class="col-sm-4">
+			 <input type="submit" class="btn btn-primary" value="View Details" id="sumbut" name="sumbut">
+		</div>
+	 </div>
+
+
+					</div>
+				</div>
+				</form>
+		<form  method="post" >
+			{% csrf_token %}
+        <div class="container">
+							<table id="customers">
+
+								<tr>
+									<td>Order Number</td>
+										<td>Carton Number</td>
+									<td>Supplier Name</td>
+									<td>Lot Number</td>
+									<td>Category</td>
+									<td>Sub category</td>
+									<td>Super category</td>
+									<td>Total No. of Cartons</td>
+									<td>Total Quantity</td>
+									<td>AQL</td>
+									<td>Acceptance Criteria</td>
+								<td>Fail Quantity</td>
+								<td>Pass Quantity</td>
+								<td>Result</td>
+									<td>Status</td>
+				</tr>
+	{% for f2 in f21 %}
+									<tr>
+										<td>{{f2.orderNo}}</td>
+										<td>{{f2.cartonNo}}</td>
+										<td>{{f2.supplier}}</td>
+										<td>{{f2.lotNo}}</td>
+                               			<td>{{f2.cat}}</td>
+										<td>{{f2.subcat}}</td>
+										<td>{{f2.supcat}}</td>
+										<td>{{f2.noc}}</td>
+										<td>{{f2.tqty}}</td>
+                                		<td>{{f2.aql}}</td>
+									  	<td>{{f2.accp}}</td>
+										<td>{{f2.fqty}}</td>
+										<td>{{f2.paqty}}</td>
+										<td>{{f2.result}}</td>
+										<td>{{f2.status}}</td>
+									</tr>
+	 {%endfor %}
+										</table>
+<br><br><br>
+        </div>
+			<input type="text" name="oNo_hid" id="oNo_hid" value="{{P_onum}}" hidden>
+		    <input type="submit" class="btn btn-primary" value="SEND TO TRIM INVENTORY APPROVED" formaction="{% url 'tinreturnapp' %}" >
+                <input type="submit" class="btn btn-primary" value="SENT BACK TO SUPPLIER" formaction="{% url 'tinreturnsupp' %}">
+			<br><br><br>
+	</form>
+    </div>
+</div>
+
+{% endblock %}

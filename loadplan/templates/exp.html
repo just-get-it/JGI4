@@ -1,0 +1,21 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>Select Order No</h1>
+  <form method='GET' action='exp' style="margin-left:20px; width: 97%">
+    <div class="form-group row">
+      <label  class="col-sm-2 col-form-label">Order No.</label>
+      <div class="col-sm-10">
+          <select name="orderno" id="orderno">
+              <option id="a2">----</option>
+              
+              {% for a in allorder %}
+              <option value="{{a.orderno}}" id="a1">{{a.orderno}}</option>
+              {% endfor %}
+            </select>
+      </div>
+  </div>
+    <button name="button" id="button" value="button" class="btn btn-primary" >Click Me</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,142 @@
+#container{
+    overflow-x: scroll;
+}
+.taskbox{
+    display: inline-flex;
+    height: 100%;
+    padding: 20px 20px;
+    overflow-x: scroll;
+    word-wrap: break-word;
+}
+.taskcolumn{
+    width: 300px;
+    height: 100%;
+    word-wrap: break-word;
+}
+.taskheading{
+    width: 100%;
+    height: 50px;   
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
+}
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+
+  z-index: 1100;
+  vertical-align: middle;
+}
+.modal-backdrop {
+    display: none;
+}
+
+/* Modal Content */
+
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#p{
+    text-decoration: none;
+    }
+  
+.taskcontainer{
+      height: 100%;
+      padding: 20px 20px 40px;
+}
+.taskcontents{
+  border-radius: 10px;
+  text-align: left;
+  padding: 5px;
+  background-color: white;
+  border: none;
+  margin: 5px 5px 15px 5px;
+  padding-top: 5px;
+  transition: box-shadow .2s;
+  color: #455a64;
+}
+.taskcontents:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+/* .taskcontents{  
+      border-radius: 10px;
+      text-align: center;
+      padding: 5px;
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    } */
+.taskdetails{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 30%;
+    padding: 20px 20px 40px;
+    background-color: lightblue;
+    display: none;
+    word-wrap: break-word;
+    }
+.activity{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 500px;
+    width: 40%;
+    margin-left: 27.5%;
+    background-color: #ebe8e8;
+    margin-top: 5%;
+    position: absolute;
+    display: none;
+    }
+.topcorner{
+   position:absolute;
+   top:0;
+   right:0;
+   margin-right: 5%;
+  }
+.bottomleft{
+   position:absolute;
+   left:0;
+   margin-left: 10%;
+  }
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+ 
+ cursor: pointer;
+}
+.heead{
+  color: purple;
+  font-size: 18px;
+}
+.check{
+  color: #4d4dff;
+
+}
+

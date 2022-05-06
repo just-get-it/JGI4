@@ -1,0 +1,56 @@
+{% extends 'base_gown.html' %}
+
+{% load static %}
+
+{% block content %}
+
+	<!-- Page top section -->
+	<section class="page-top-section set-bg" data-setbg="{% static 'img/gown/header-bg/3.jpg' %}">
+		<h2>Lookbook</h2>
+		<div class="hero-social-warp">
+			<p>Follow us on Social MEdia</p>
+			<div class="hero-social-links">
+				<a href="#"><i class="fa fa-behance"></i></a>
+				<a href="#"><i class="fa fa-dribbble"></i></a>
+				<a href="#"><i class="fa fa-twitter"></i></a>
+				<a href="#"><i class="fa fa-facebook"></i></a>
+				<a href="#"><i class="fa fa-pinterest"></i></a>
+			</div>
+		</div>
+	</section>
+	<!-- Page top section end-->
+
+	<!-- Portfolio page -->
+	<div class="portfolio-page">
+		<ul class="portfolio-cata">
+			<li class="active"><a href="#">Spring / Summer 2019</a></li>
+			<li><a href="#">Winter Collection</a></li>
+			<li><a href="#">Cruise Collection</a></li>
+			<li><a href="#">Men Collection</a></li>
+		</ul>
+		<img src="{% static 'img/gown/portfolio-2/1.jpg' %}" alt="" class="portfolio-big-img">
+		<!-- Related portfolio slider -->
+		<div class="portfolio-slider owl-carousel">
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/2.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/3.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/4.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/5.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/6.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/7.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/8.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/9.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/10.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/11.jpg' %}" alt=""></a>
+			<a href="#"><img src="{% static 'img/gown/portfolio-2/6.jpg' %}" alt=""></a>
+		</div>
+	</div>
+	<!-- Portfolio page end-->
+
+	<!-- Back to top -->
+	<div class="container">
+		<div class="backtotop">
+			<div class="up-btn" id="backTotop">UP</div>
+		</div>
+	</div>
+
+	{% endblock %}

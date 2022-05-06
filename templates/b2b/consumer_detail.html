@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+
+  <div class="container my-4">
+    <div class="row">
+      <h5>Order - {{order.order_no}} / Consumer List / <b>{{consumer.email}}</b></h5>
+    </div>
+  </div>
+
+
+  <div class="container mb-3">
+    <form method="post">{% csrf_token %}
+    <div class="row mt-3">
+      <label>Name</label>
+      <input type="text" name="name" value="{{consumer.name}}" placeholder="Name" style="margin-left:8.5vw;"><br>
+    </div>
+    <div class="row mt-3">
+      <label>Department</label>
+      <input type="text" name="dept" value="{{consumer.dept}}" placeholder="Department" style="margin-left:5.3vw;"><br>
+    </div>
+    <div class="row mt-3">
+      <label>Sub-Department</label>
+      <input type="text" name="sub_dept" value="{{consumer.sub_dept}}" placeholder="Sub-Department" style="margin-left:3vw;"><br>
+    </div>
+    <div class="row mt-3">
+      <label>Gender</label>
+      <input type="text" name="gender" value="{{consumer.gender}}" placeholder="Gender" style="margin-left:8vw;"><br>
+    </div>
+    <div class="row mt-3">
+      <label>Max-Quantity</label>
+      <input type="number" name="max_quantity" value="{{consumer_quan.max_quantity}}" placeholder="Max-Quantity" style="margin-left:5vw;"><br>
+    </div>
+    <div class="row mt-3">
+      <label>Size</label>
+      <input type="number" name="size" value="{{assortment_obj.size_label}}" placeholder="Size Assorted" style="margin-left:10vw;"><br>
+    </div>
+
+    <div class="row mt-3">
+      <label>Color</label>
+      <select name="color" style="margin-left:9.3vw;width:201px;">
+        <option value="--------------" disabled selected>--------------</option>
+        {% for i in order.colors_avail.all %}
+        <option value="{{i.id}}"{% if assortment_obj.color.id == i.id %}selected{% endif %}>{{i.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="row mt-3">
+      <label>Address</label>
+      <select name="address" style="margin-left:7.8vw;width:201px;">
+        <option value="--------------" disabled selected>--------------</option>
+        {% for i in order.dispatch_Address.all %}
+        <option value="{{i.id}}"{% if assortment_obj.address.id == i.id %}selected{% endif %}>{{i.address}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="row mt-3">
+      <label>Quantity</label>
+      <input type="number" name="quantity" value="{{assortment_obj.quantity}}" placeholder="Quantity" style="margin-left:7.8vw;"><br>
+
+    </div>
+
+    <div class="row mt-3">
+      <input type="checkbox" name="distributed" {% if assortment_obj.distributed %}checked{% endif %}><br>
+      <label style="margin-left:1vw;">Distributed</label>
+
+    </div>
+    <div class="row mt-5">
+      <button type="submit" style="border:none;background:white;color:#30c5ff;margin-left:30vw;">Save</button>
+    </div>
+    </form>
+  </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,212 @@
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Order PO</title>
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#253031">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#253031">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#253031">
+    <!-- ============================================================================ -->
+    <!-- <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/> -->
+    <!-- ======================================================================== -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <!-- ======================================================================== -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+    <!-- ======================================================================== -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Cabin|Pacifico" rel="stylesheet"> -->
+  </head>
+  <body>
+    <style media="screen">
+      .acti_table{
+  			table-layout: fixed;
+  			width: 300vw;
+  		}
+  		.acti_table tr,.acti_table th,.acti_table td{
+  			border:2px solid black;
+  		}
+  		.acti_table td,.acti_table th{
+  			padding: 8px;
+  			overflow: hidden;
+  			width: 18vw;
+  			/* align-content: center; */
+  		}
+
+  		.acti_table th{
+  			background-color: #30c5ff;
+  			padding-left: 1vw;
+  			padding-right: 1vw;
+  		}
+    </style>
+
+    <h1 style="margin:0;padding:0;"><center>{{compan.name}}</center></h1>
+    <h1 style="margin:0;padding:0;border-bottom:2px solid black;"><b><center>PURCHASE ORDER</center></b></h1>
+    {% if check %}
+    <table style="margin-top:10px;" class="acti_table">
+      <tr style="border:1px solid black;">
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;"><b>Order No - </b>{{order.order_no}}</td>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;"><b>Order Date - </b>{{order.order_date_time.date}}</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+          <b>To - </b>{{order.fashion_Brand.name}}<br>
+          {{order.fashion_Brand.address}}<br><br>
+          <b>Contact No - </b>{{order.fashion_Brand.contact}}
+        </td>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+          <b>Quotation #</b><br>
+          <b>Quotation Date</b><br>
+          <b>PO Currency </b> INR <br>
+          <b>Purchase Group </b> Uniform[P01]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+                <b><center>PAN</center></b>
+                <center>N/A</center>
+              </td>
+              <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+                <b><center>GSTIN</center></b>
+                <center>N/A</center>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+                <b><center>PAN</center></b>
+                <center>N/A</center>
+              </td>
+              <td style="border:1px solid black;padding:5px;font-size:1.2em;">
+                <b><center>GSTIN</center></b>
+                <center>{{compan.gstin}}</center>
+              </td>
+            </tr>
+          </table>
+        </td>
+
+      </tr>
+    </table>
+    <table>
+      <tr style="border:1px solid black;padding:5px;">
+        <td style="font-size:1.2em;">We are pleased to confirm order to provide material/service as per detail given below. Please arrange to provide
+        the material/service as per the delivery period and the terms mentioned below.</td>
+      </tr>
+    </table>
+    <br>
+    <table>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;font-size:1.2em;"><b>Sr.#</b></td>
+        <td style="padding:5px;font-size:1.2em;"><b><center>Material Description</center></b></td>
+        <td style="padding:5px;font-size:1.2em;"><b><center>Delivery Date</center></b></td>
+        <td style="padding:5px;font-size:1.2em;"><b><center>Quantity</center></b></td>
+        <td style="padding:5px;font-size:1.2em;"><b><center>Unit Rate <br>(in INR)</center></b></td>
+        <td style="padding:5px;font-size:1.2em;"><b><center>Unit Discount <br>(in INR)</center></b></td>
+        <td style="padding:5px;font-size:1.2em;"><b><center>Amount</center></b></td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;font-size:1.2em;"><b>1</b></td>
+        <td style="padding:5px;font-size:1.2em;">{{order.description}}</td>
+        <td style="padding:5px;font-size:1.2em;">{{delivery.date}}</td>
+        <td style="padding:5px;font-size:1.2em;">{{order.quantity}}</td>
+        <td style="padding:5px;font-size:1.2em;">{{order.total_Price}}</td>
+        <td style="padding:5px;font-size:1.2em;">0.00</td>
+        <td style="padding:5px;font-size:1.2em;">{{total_cost}}</td>
+
+      </tr>
+    </table>
+    <table>
+      <tr style="border-bottom:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;border-right:0px;"><center>Basic Amount</center></td>
+        <td style="border-bottom:1px solid black;"></td>
+        <td style="border-bottom:1px solid black;"></td>
+        <td style="border-bottom:1px solid black;"></td>
+        <td style="border-bottom:1px solid black;"></td>
+        <td style="border-bottom:1px solid black;"></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;">{{total_cost}}</td>
+      </tr>
+    </table>
+    <table>
+      <tr style="border:1px solid black;">
+        <td colspan="3" style="border:1px solid black;">
+          <table>
+            <tr style="border:1px solid black;">
+              <td style="padding:5px;font-size:1.2em;"><b>TERMS & CONDITIONS</b></td>
+            </tr>
+            <tr style="border:1px solid black;">
+              <td style="padding:5px;font-size:1.2em;"><b>PAYMENT TERMS &nbsp;&nbsp;&nbsp;</b>100% within 30 days of rcpt.<br>
+              <b>Price & Delivery</b></td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="3">
+
+        </td>
+        <td>
+
+        </td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td colspan="3" style="padding:5px;border:1px solid black;font-size:1.2em;"></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="3"><b>GRAND TOTAL</b></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="1">{{total_cost}}</td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="7"><b>Amount (in words) {{total_cost_words}}</b></td>
+      </tr>
+    </table>
+    <table style="margin-top:20px;">
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="7">
+          <b>SPECIFIC TERMS & CONDITIONS:</b>
+        </td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="2"><b>HEADER TEXT</b></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="5"><b>Uniform for 250 Pilots</b></td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="2"><b>PRICING TYPE</b></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="5">All Taxes are extra as applicable</td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="2"><b>SHIPPING INSTRUCTIONS</b></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="5">To be delivered at the following address:<br><br>
+          {{order.dispatch_Address.first.address}}<br><br>
+          To be billed as per plant location.
+        </td>
+      </tr>
+      <tr style="border:1px solid black;">
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="2"><b>TERMS OF PAYMENT</b></td>
+        <td style="padding:5px;border:1px solid black;font-size:1.2em;" colspan="5">100% payment within 30 days upon delivery of material and submission of original invoice.</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid black;padding:5px;font-size:1.2em;" colspan="7">
+          <b>For {{compan.name}}</b><br><br><br><br>
+          This is computer generated document, no signature is required.
+        </td>
+      </tr>
+    </table>
+    {% else %}
+      <h1>This Purchase Order can't be generated.</h1>
+    {% endif %}
+  </body>
+</html>

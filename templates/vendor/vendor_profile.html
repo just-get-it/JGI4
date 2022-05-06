@@ -1,0 +1,862 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load perm_filters %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+
+{% endblock %}
+
+
+
+{% block topcontent %}
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+
+
+
+
+
+
+</style>
+<div class="container-fluid">
+  <nav
+    class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0"
+  >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown1"
+      aria-controls="navbarNavDropdown1"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item">
+         <a href="/userdetail/vendor_profile/" class="nav-link" style="color: white;">Profile & Settings</a>
+		</li>
+	   <li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Notifications
+			</a>
+			<div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+			<a href="/buisness/vendor_profile/notifications?filter=staff" class="nav-link text-white dropdown-item">Staff Notification</a>
+			<a href="/buisness/vendor_profile/notifications?filter=enquiry" class="nav-link text-white dropdown-item">Enquiry Notifications</a>
+			<a href="/buisness/vendor_profile/notifications?filter=design" class="nav-link text-white dropdown-item">Design Notifications</a>
+			<a href="/buisness/vendor_profile/notifications?filter=sampling" class="nav-link text-white dropdown-item">Sampling Notifications</a>
+			<a href="/buisness/vendor_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+			</div>
+      </li>
+	   <li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Activities
+			</a>
+			<div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+			<a href="/userdetail/vendor_profile/activities?filter=today"  class="nav-link text-white dropdown-item">
+						Today's
+
+					</a>
+			<a href="/userdetail/vendor_profile/activities?filter=pending"  class="nav-link text-white dropdown-item">
+						Pending
+
+					</a>
+				<a href="/userdetail/vendor_profile/activities?filter=enquiry"  class="nav-link text-white dropdown-item">
+						Enquiry
+
+					</a>
+				<a href="/userdetail/vendor_profile/activities?filter=design"  class="nav-link text-white dropdown-item">
+						Design
+
+					</a>
+					<a href="/userdetail/vendor_profile/activities?filter=sampling"  class="nav-link text-white dropdown-item">
+						Sampling
+
+					</a>
+					<a href="/userdetail/vendor_profile/activities?filter=order"  class="nav-link text-white dropdown-item">
+						Order
+
+					</a>
+
+			<a href="/buisness/buisness_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+			
+      </li>
+		<li class="nav-item">
+		    <a href="/userdetail/vendor_profile/vendors" class="nav-link" style="color: white;">Vendors</a>
+		</li>
+	    <li class="nav-item">	<a href="/userdetail/vendor_profile/orders" class="nav-link" style="color: white;">Orders</a></li>
+	    {% if data.seller_category.name == "Logistic" %}
+        <li class="nav-item">	<a href="/cartnew/order_to_be_delivered" class="nav-link" style="color: white;">Delivery</a></li>
+        <li class="nav-item">	<a href="/userdetail/add_distribution_center" class="nav-link" style="color: white;">Add Center</a></li>
+		{% endif %}
+        <li class="nav-item"><a href="/userdetail/vendor_profile/floated_orders" class="nav-link" style="color: white;">Floated Orders</a></li>
+		<li class="nav-item">	<a href="/daily_report/generate" class="nav-link" style="color: white;">Generate Link For Form</a></li>
+		<li class="nav-item">	<a href="/daily_report/display_report_user" class="nav-link" style="color: white;">Display Report </a></li>
+		<li class="nav-item">	<a href="/controladmin" class="nav-link" style="color: white;">Dashboard</a></li>
+        
+      </ul>
+    </div>
+  </nav>
+</div>
+ {% comment %} 
+ <div class="container-fluid stic">
+	<div class="row">
+		<div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+				<a href="/userdetail/vendor_profile/" class="hov-a" style="color: white;">Profile & Settings</a>
+			</div>
+			<div class="col py-2 centered noti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+				Notifications
+
+			</div>
+
+			<div class="col py-2 centered acti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+				Activities
+			</div>
+			<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+				<a href="/userdetail/vendor_profile/vendors" class="hov-a" style="color: white;">Vendors</a>
+			</div>
+			<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+				<a href="/userdetail/vendor_profile/orders" class="hov-a" style="color: white;">Orders</a>
+			</div>
+			<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;" >
+				<a href="/userdetail/vendor_profile/floated_orders" class="hov-a" style="color: white;">Floated Orders</a>
+			</div>
+			<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+				<a href="/daily_report/generate" class="hov-a" style="color: white;">Generate Link For Form</a>
+			</div>
+			<div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+				<a href="/daily_report/display_report_user" class="hov-a" style="color: white;">Display Report</a>
+			</div>
+			
+			<div class="container-fluid drop_noti">
+				<div class="row">
+					<div class="col-2 my-3 mx-3 ml-5 tod_noti staf_noti">
+						<img src="{% static 'img/jamie.jpg' %}">
+						<a href="/userdetail/vendor_profile/notifications?filter=staff"><div class="noti_tod_overlay">
+							<p>Staff Notifications</p>
+
+						</div></a>
+					</div>
+					<div class="col-2 my-3 mx-3 tod_noti enq_noti">
+
+						<img src="{% static 'img/pris.jpg' %}">
+						<a href="/userdetail/vendor_profile/notifications?filter=enquiry"><div class="noti_tod_overlay">
+							<p>Enquiry Notifications</p>
+
+						</div></a>
+					</div>
+					<div class="col-2 my-3 mx-3 tod_noti des_noti">
+
+						<img src="{% static 'img/kelly.jpg' %}">
+						<a href="/userdetail/vendor_profile/notifications?filter=design"><div class="noti_tod_overlay">
+							<p>Design Notifications</p>
+
+						</div></a>
+					</div>
+					<div class="col-2 my-3 mx-3 tod_noti samp_noti">
+
+						<img src="{% static 'img/freestock.jpg' %}">
+						<a href="/userdetail/vendor_profile/notifications?filter=sampling"><div class="noti_tod_overlay">
+							<p>Sampling Notifications</p>
+
+						</div></a>
+					</div>
+					<div class="col-2 my-3 mx-3 tod_noti ord_noti">
+
+						<img src="{% static 'img/andre.jpg' %}">
+						<a href="/userdetail/vendor_profile/notifications?filter=order"><div class="noti_tod_overlay">
+							<p>Order Notifications</p>
+
+						</div></a>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid drop_noti_acti">
+				<div class="row">
+					<div class="col my-3 mx-3 ml-5 tod_noti">
+						<img src="{% static 'img/agni.jpg' %}">
+						<a href="/userdetail/vendor_profile/activities?filter=today"><div class="noti_tod_overlay">
+							<p style="margin-left: 125px">Today's</p>
+
+						</div></a>
+					</div>
+					<div class="col my-3 mx-3 tod_noti">
+
+						<img src="{% static 'img/yunm.jpg' %}">
+						<a href="/userdetail/vendor_profile/activities?filter=pending"><div class="noti_tod_overlay">
+							<p style="margin-left: 125px">Pending</p>
+
+						</div></a>
+					</div>
+					<div class="col my-3 mx-3 tod_noti">
+
+						<img src="{% static 'img/carl.jpg' %}">
+						<a href="/userdetail/vendor_profile/activities?filter=enquiry"><div class="noti_tod_overlay">
+							<p style="margin-left: 125px">Enquiry</p>
+
+						</div></a>
+					</div>
+					<div class="col my-3 mx-3 tod_noti">
+
+						<img src="{% static 'img/dmit.jpg' %}">
+						<a href="/userdetail/vendor_profile/activities?filter=design"><div class="noti_tod_overlay">
+							<p style="margin-left: 125px">Design</p>
+
+						</div></a>
+					</div>
+					<div class="col my-3 mx-3 tod_noti">
+
+						<img src="{% static 'img/kelly2.jpg' %}">
+						<a href="/userdetail/vendor_profile/activities?filter=sampling"><div class="noti_tod_overlay">
+							<p style="margin-left: 125px">Sampling</p>
+
+						</div></a>
+					</div>
+					<div class="col my-3 mx-3 tod_noti">
+
+						<img src="{% static 'img/san.jpg' %}">
+						<a href="/userdetail/vendor_profile/activities?filter=order"><div class="noti_tod_overlay">
+							<p style="margin-left: 125px">Order</p>
+
+						</div></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>  
+	{% endcomment %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="row">
+	{% if deactivated %}
+		<div class="container-fluid">
+			<div class="row centered fontpacifico" style="height: 92vh;">
+				<h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+			</div>
+		</div>
+	{% else %}
+
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+
+		.hide_row{
+			display: none;
+		}
+	</style>
+
+
+
+	<div class="container">
+		<div class="row mt-5 mb-5">
+			{% if data.image %}
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+				<img src="{{data.image.url}}">
+			</div>
+			{% endif %}
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+				<h1><b>{{data.name}}</b></h1>
+				<h6> <b>Email</b> - {{data.email}}</h6>
+				<h6> <b>Mission</b> - {{data.mission}}</h6>
+				<div class="row">
+					<a href="/userdetail/seller_profile_update" class="hov-a" style="margin-left: auto;">Task</a>
+					<a href="/userdetail/seller_profile_update" class="hov-a" style="margin-left: auto;">Update Profile</a>
+					{% if data.is_driver %}
+					{% else %}
+					{% if data.email|vendor_perm:'production_product' %}
+						<a href="/userdetail/vendor_profile/create_production_products" class="hov-a" style="margin-left: 1.5vw;">Create/Update Production Products</a>
+					{% endif %}
+					{% if data.email|vendor_perm:'upload_product' %}
+						<a href="/userdetail/seller_profile/upload_product" class="hov-a" style="margin-left: 1.5vw;">Upload Product</a>
+					{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2 mb-5 buis_desc_row">
+			<h6 align="justify"><b>Description</b> : - {{data.description}}</h6>
+
+		</div>
+
+		<div class="row hide_row" id="update_budget">
+			<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+				<div class="row centered" style="z-index: 105; margin-top: 30vh;margin-bottom: auto;margin-left: 30vw;">
+					<div class="container-fluid">
+						<div class="row" style="width: 50vw;height: 40vh;background: white;">
+							<div class="row" style="height: 4vh;">
+								<button style="border: none;background: transparent;margin-left: 48vw;" onclick="remupbudget();"><i class="fas fa-times-circle"></i></button>
+							</div>
+							<div class="row">
+								<h4 class="fontcabin" style="margin-left: 18vw;">Update Budget-Hit Rate</h4>
+							</div>
+							<form method="POST">{% csrf_token %}
+							<div class="row" style="height: 10vh; margin-top: 4vh;">
+								<input type="number" name="up_budget" style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" placeholder="Budget Hit-Rate" value="{{data.budget_hit_rate}}">
+							</div>
+							<div class="row">
+								<button type="submit" class="px-3 py-2" style="border: none;background: #30c5ff;border-radius: 25px;font-weight: bold;margin-left: 23vw;">Update</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row hide_row" id="update_dpr">
+			<div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+				<div class="row centered" style="z-index: 105; margin-top: 30vh;margin-bottom: auto;margin-left: 30vw;">
+					<div class="container-fluid">
+						<div class="row" style="width: 50vw;height: 40vh;background: white;">
+							<div class="row" style="height: 4vh;">
+								<button style="border: none;background: transparent;margin-left: 48vw;" onclick="remupdpr();"><i class="fas fa-times-circle"></i></button>
+							</div>
+							<div class="row">
+								<h4 class="fontcabin" style="margin-left: 18vw;">Update Daily Production</h4>
+							</div>
+							<form method="POST">{% csrf_token %}
+							<div class="row">
+								<select name="production_line" required style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);">
+									<option selected disabled>----------</option>
+									{% for i in pr_lines %}
+										<option value="{{i.0}}">{{i.1}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="row" style="height: 10vh; margin-top: 4vh;">
+								<input type="number" name="up_dpr" style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" placeholder="Production Quantity">
+							</div>
+							<div class="row">
+								<button type="submit" class="px-3 py-2" style="border: none;background: #30c5ff;border-radius: 25px;font-weight: bold;margin-left: 23vw;">Update</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			{% if data.email|vendor_perm:'hit_rate' %}
+			<div class="col-6">
+				<div class="container">
+					<div class="row">
+						<select style="margin-left: auto;" id="budget_filter">
+							<option value="{{current_year|add:2}}" selected {% if request.GET.budget_year == current_year|add:2 %}selected{% endif %}>{{current_year|add:2}}</option>
+							<option value="{{current_year|add:1}}" {% if request.GET.budget_year == current_year|add:1 %}selected{% endif %}>{{current_year|add:1}}</option>
+							<option value="{{current_year}}" selected>{{current_year}}</option>
+							<option value="{{current_year|add:-1}}" {% if request.GET.budget_year == current_year|add:-1 %}selected{% endif %}>{{current_year|add:-1}}</option>
+							<option value="{{current_year|add:-2}}" {% if request.GET.budget_year == current_year|add:-2 %}selected{% endif %}>{{current_year|add:-2}}</option>
+						</select>
+						<button class="hov-a" style="background: transparent;border: none;margin-left: 2vw;color: blue;" onclick="showupdatebudget();">Update Budget Hit-Rate</button>
+					</div>
+					<div class="row">
+						<div id="chartContainer7" style="height: 300px; width: 100%;"></div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% if data.email|vendor_perm:'dpr' %}
+			<div class="col-6">
+				<div class="container">
+					<div class="row">
+						<select style="margin-left: auto;" id="dpr_filter">
+							{% for i in pr_lines %}
+								<option value="{{i.0}}" {% if request.GET.dpr_filter == i.0 %}selected{% endif %}>{{i.1}}</option>
+							{% endfor %}
+						</select>
+						<button class="hov-a" style="background: transparent;border: none;margin-left: 2vw;color: blue;" onclick="showupdatedpr();">Update DPR</button>
+					</div>
+					<div class="row">
+						<div id="chartContainer8" style="height: 300px; width: 100%;"></div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+{% if noti.0 %}
+
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Notifications</h3>
+					<a href="/userdetail/vendor_profile/notifications" style="margin-left: auto" class="hov-a">Show All</a>
+				</div>
+				<style type="text/css">
+					.noti_row{
+						cursor: pointer;
+						padding: 15px;
+						font-family: 'Cabin', sans-serif
+					}
+					.noti_row:hover{
+						box-shadow: 0 0 2px rgba(0,0,0,.5)
+					}
+				</style>
+				{% for n in noti %}
+				<div class="row noti_row">
+					<h6>{{n.title}}</h6>
+					<a href="{{n.link}}" class="hov-a ml-2">Link</a>
+					<h6 style="margin-left: auto;">{{n.created_on}}</h6>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+
+{% endif %}
+
+		{% if acti.0 %}
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Activities</h3>
+					<!-- <a href="/userdetail/staff_profile/activities" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-2">
+					{% for a in acti %}
+						<div class="col-12 mt-2">
+							<h6><b>Order No</b> - {{a.0.order}}</h6>
+							<table style="width: 100%" class="acti_table">
+								<tr>
+									<th>Activity Title</th>
+									<th>Created Date</th>
+									<th>Lap</th>
+									<th>Planned Date</th>
+									<th>Custom Lap</th>
+									<th>Custom Date</th>
+									<th>Status of Activity</th>
+									<th>Actual Date</th>
+								</tr>
+								{% for j in a %}
+
+								<tr id="{{j.order}}{{forloop.counter}}">
+									<td>{{j.activity_Cate.title}} <a href="/userdetail/vendor_profile/activity/{{j.slug}}" class="ml-2 hov-a">View</a></td>
+									<td>{{j.created_on}}</td>
+									<td>{{j.activity_Cate.completed_in}}</td>
+									<td>{{j.planned_date}}</td>
+									<td>{{j.lap}}</td>
+									<td>{{j.custom_date}}</td>
+									<td>{{j.status}}</td>
+									<td>{{j.actual_date}}</td>
+								</tr>
+								<script type="text/javascript">
+									var now_date=Date.parse("{{current}}");
+									var to=Date.parse("{{j.custom_date}}");
+									if (isNaN(to)){
+										to=Date.parse("{{j.planned_date}}");}
+									var some=document.getElementById('{{j.order}}{{forloop.counter}}');
+									if (now_date>to){
+										some.style.backgroundColor="{{j.activity_Cate.late_Time_Color}}";
+									}
+									else if (now_date<to){
+										some.style.backgroundColor="{{j.activity_Cate.before_Time_Color}}";
+									}
+									else{
+										some.style.backgroundColor="{{j.activity_Cate.on_Time_Color}}"
+									}
+								</script>
+								{% endfor %}
+							</table>
+						</div>
+
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+
+{% if ord.0 %}
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Orders under you </h3>
+					<!-- <a href="/userdetail/staff_profile/orders" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-3 pt-2 pl-2" style="">
+
+					{% for o in ord %}
+					<div class="col-2 hover-col">
+						{% if o.image %}
+						<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;"></a>
+						{% else %}
+						<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;"></a>
+						{% endif %}
+						<h6 class="mt-3 centered"><b>{{o.order_no}}</b></h6>
+						<h6 class="centered">{{o.user_email|truncatechars:15}}</h6>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+{% endif %}
+
+
+
+
+
+
+{% if qwe.0 %}
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Floated Orders </h3>
+					<!-- <a href="/userdetail/staff_profile/orders" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-3 pt-2 pl-2" style="">
+
+					{% for o in qwe %}
+					<div class="col-2 hover-col">
+						{% if o.order.image %}
+						<a href="/userdetail/vendor_profile/floated_orders/{{o.order.order_no}}"><img src="{{o.order.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;"></a>
+						{% else %}
+						<a href="/userdetail/vendor_profile/floated_orders/{{o.order.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;"></a>
+						{% endif %}
+						<h6 class="mt-3 centered"><b>{{o.order.order_no}}</b></h6>
+						<h6 class="centered">{{o.order.user_email|truncatechars:15}}</h6>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+{% endif %}
+
+
+
+
+
+
+	{% if oth %}
+		{% if prod.0 %}
+		<div class="row mt-3 mb-5">
+			<div class="container">
+				<div class="row">
+					<h3 class="fontcabin">Your Products</h3>
+					<!-- <a href="/userdetail/staff_profile/orders" style="margin-left: auto" class="hov-a">Show All</a> -->
+				</div>
+				<div class="row mt-3 pt-2 pl-2" style="">
+
+					{% for o in prod %}
+					<div class="col-2 hover-col">
+						{% if o.image1 %}
+						<img src="{{o.image1.url}}" style="width: 100%; height: 150px; border-radius: 50%;">
+						{% else %}
+						<img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;">
+						{% endif %}
+						<h6 class="mt-3 centered"><b>{{o.title|truncatechars:15}}</b></h6>
+						<h6 class="centered">{{o.seller|truncatechars:15}}</h6>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<style type="text/css">
+			.but_hov{
+				transition: all .3s ease;
+				border-radius: 30px;
+				color: white;
+				text-decoration: none;
+				cursor: pointer;
+			}
+			.but_hov:hover{
+				background: #253031;
+				text-decoration: none;
+				color: white
+			}
+		</style>
+		{% if data.is_driver %}
+		{% else %}
+		<div class="container">
+			<div class="row mb-4">
+			<!--<div class="col-6 centered">
+					<a href="/userdetail/vendor_profile/product_upload" class="py-2 px-5 but_hov" style="background: #30c5ff;font-weight: bold;border: none;">Upload Product</a>
+				</div>
+				<div class="col-6 centered">
+					<a href="/userdetail/vendor_profile/update_availiable_products" class="py-2 px-5 but_hov" style="background: #30c5ff;font-weight: bold;border: none;">Update Availiable Products</a>
+				</div>-->
+			</div>
+		</div>
+		{% endif %}
+
+	{% endif %}
+
+
+	</div>
+
+
+	<div class="container-fluid">
+		<div class="row" style="bottom: 0;position: fixed;height: 50px;width: 100%;z-index: 105;
+		margin-bottom: 50px;margin-left: 90vw;margin-right: 10vw;">
+			<a href="/userdetail/staff_profile/message"><img src="{% static 'img/msg.png' %}" style="width: 5vw;height: 5vw;cursor: pointer;"></a>
+		</div>
+	</div>
+
+	{% endif %}
+</div>
+<script type="text/javascript">
+	
+
+
+	$('#budget_filter').on("change",function(){
+		window.location.href="/userdetail/vendor_profile?budget_year="+$('#budget_filter').val();
+	});
+	
+	$('#dpr_filter').on("change",function(){
+		window.location.href="/userdetail/vendor_profile?dpr_filter="+$('#dpr_filter').val();
+	});
+	function showupdatebudget(){
+		var up=document.getElementById('update_budget');
+		up.classList.remove('hide_row');
+	}
+
+	function remupbudget(){
+
+		var up=document.getElementById('update_budget');
+		up.classList.add('hide_row');
+	}
+	function showupdatedpr(){
+		var up=document.getElementById('update_dpr');
+		up.classList.remove('hide_row');
+	}
+
+	function remupdpr(){
+
+		var up=document.getElementById('update_dpr');
+		up.classList.add('hide_row');
+	}
+</script>
+
+<script src="{% static 'canvas_js/canvas_js.min.js' %}"></script>
+
+<script type="text/javascript">
+	
+var chart7 = new CanvasJS.Chart("chartContainer7", {
+	animationEnabled: true,
+	title: {
+		text: "Budget Hit-Rate Analysis"
+	},
+	axisX: {
+		valueFormatString: "MMM",
+		minimum: new Date(parseInt('{{current_year}}')-1, 12),
+		maximum: new Date(parseInt('{{current_year}}'), 11)
+	},
+	axisY: {
+		title: "Budget"
+	},
+	legend: {
+		verticalAlign: "top",
+		horizontalAlign: "right",
+		dockInsidePlotArea: true
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		name: "Expected",
+		showInLegend: true,
+		legendMarkerType: "square",
+		type: "area",
+		color: "rgba(40,175,101,0.6)",
+		markerSize: 0,
+		dataPoints: [
+			{ x: new Date(parseInt('{{current_year}}'), 1), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 2), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 3), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 4), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 5), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 6), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 7), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 8), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 9), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 10), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 11), y: parseInt('{{data.budget_hit_rate}}') },
+			{ x: new Date(parseInt('{{current_year}}'), 12), y: parseInt('{{data.budget_hit_rate}}') }
+		]
+	},
+	{
+		name: "Actual",
+		showInLegend: true,
+		legendMarkerType: "square",
+		type: "area",
+		color: "rgba(0,75,141,0.7)",
+		markerSize: 0,
+		dataPoints: [
+			{% for i in months_wise_budget %}
+				{ x: new Date(parseInt('{{current_year}}'), parseInt('{{forloop.counter}}')), y: parseInt('{{i}}') },
+			{% endfor %}
+			{ x: new Date(2017, 1, 6), y: 42 },
+			{ x: new Date(2017, 1, 7), y: 34 },
+			{ x: new Date(2017, 1, 8), y: 29 },
+			{ x: new Date(2017, 1, 9), y: 42 },
+			{ x: new Date(2017, 1, 10), y: 53},
+			{ x: new Date(2017, 1, 11), y: 15 },
+			{ x: new Date(2017, 1, 12), y: 12 }
+		]
+	}]
+});
+chart7.render();
+
+
+var chart8 = new CanvasJS.Chart("chartContainer8", {
+	animationEnabled: true,
+	title: {
+		text: "DPR Analysis"
+	},
+	axisX: {
+		valueFormatString: "D",
+		minimum: new Date(parseInt('{{year}}'),parseInt('{{month}}')-1,1),
+		maximum: new Date(parseInt('{{year}}'),parseInt('{{month}}')-1,parseInt('{{end_date}}'))
+	},
+	axisY: {
+		title: "Production"
+	},
+	legend: {
+		verticalAlign: "top",
+		horizontalAlign: "right",
+		dockInsidePlotArea: true
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		name: "Expected",
+		showInLegend: true,
+		legendMarkerType: "square",
+		type: "area",
+		color: "rgba(40,175,101,0.6)",
+		markerSize: 0,
+		dataPoints: [
+			{% for i in pro_graph %}
+				{ x: new Date(parseInt('{{year}}'), parseInt('{{month}}')-1,parseInt('{{forloop.counter}}')), y: parseInt('{{pro_obj.quantity}}') },
+			{% endfor %}
+		]
+	},
+	{
+		name: "Actual",
+		showInLegend: true,
+		legendMarkerType: "square",
+		type: "area",
+		color: "rgba(0,75,141,0.7)",
+		markerSize: 0,
+		dataPoints: [
+			{% for i in pro_graph %}
+				{ x: new Date(parseInt('{{year}}'), parseInt('{{month}}')-1,parseInt('{{forloop.counter}}')), y: parseInt('{{i}}') },
+			{% endfor %}
+		]
+	}]
+});
+chart8.render();
+</script>
+
+
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

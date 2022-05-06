@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<br><br>
+	<h1>ADD ADDRESS</h1>
+	<hr>
+	{% for i in cus_address %}
+	<div class="form-group row">
+		{% if i.permanent %}
+		<label class="col-sm-2 col-form-label">Address-{{forloop.counter}}-primary</label>
+		{% else %}
+		<label class="col-sm-2 col-form-label">Address-{{forloop.counter}}</label>
+		{% endif %}
+		<div class="col-sm-4">
+			<input type="text" disabled name="addre" class="form-control" value="{{i.address}}">
+		</div>
+	</div>
+	{% endfor %}
+	<form id="formsubmit" >
+		{% csrf_token %}
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Address</label>
+		<div class="col-sm-4">
+			<input type="text" name="address" id="addresses" class="form-control">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">PRIMARY</label>
+		<div class="col-sm-4">
+			<input type="checkbox" id='primary' name="primary" >
+		</div>
+	</div>
+	<div class="form-group row">
+		
+		<div class="col-sm-4">
+			<input type="submit" name="ADD" id="submit" class="btn btn-success">
+		</div>
+	</div>
+	
+	
+	
+</div>
+</form>
+<div id="geocoder" class="geocoder"></div>
+	<div id='map'  style = 'width: 1200px; height: 600px;'></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+                <link
+                    rel="stylesheet"
+                    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+                    type="text/css"
+                />
+<script>
+	
+	var map = document.getElementById("map");
+	
+	
+
+	var mapbox_access_token = "pk.eyJ1Ijoicm9taXRzaW5naDE5OTkiLCJhIjoiY2tiNTR1aDM3MTFqbTJ3czc5dnVxZ3Q1dCJ9.6JV6YA9gjRfNaAqdiSScQQ"
+	mapboxgl.accessToken = "pk.eyJ1Ijoicm9taXRzaW5naDE5OTkiLCJhIjoiY2tiNTR1aDM3MTFqbTJ3czc5dnVxZ3Q1dCJ9.6JV6YA9gjRfNaAqdiSScQQ";
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v10',
+		zoom: 20,
+		hash:false,
+		center: [80.983299,26.883301],
+		pitchWithRotate:true,
+		clickTolerance:8,
+		draggable:false
+		
+	});
+	
+	
+	var geocoder = new MapboxGeocoder({
+		accessToken: mapboxgl.accessToken,
+		mapboxgl: mapboxgl
+		});
+		 
+		document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+			var logistic_lat;
+			var logistic_lon;
+			var coordinates;
+		/*Add geolocation of the Runner */
+			var geolocate = new mapboxgl.GeolocateControl({
+				positionOptions: {
+				enableHighAccuracy: true,
+				zoom:2
+				},
+				trackUserLocation:true
+				});
+				// Add the control to the map.
+				map.addControl(geolocate);
+				// Set an event listener that fires
+				// when a geolocate event occurs.
+				
+				geolocate.on('geolocate', function(e) {
+				
+					logistic_lat = e.coords.latitude;
+					logistic_lon = e.coords.longitude;
+					
+					
+					coordinates = [logistic_lon, logistic_lat];
+
+					var Runnermarker = new mapboxgl.Marker({
+						draggable:false,
+						color:'green'
+					})
+						
+						.setLngLat(coordinates)
+						.setPopup(new mapboxgl.Popup().setHTML("<h1>your locatioin</h1>"))
+						
+						.addTo(map);
+						
+						
+					});	
+					map.on('load', function() {
+						geolocate.trigger();
+						});
+						
+					map.addControl(new mapboxgl.FullscreenControl({container: document.querySelector('map')}));
+						//ajax
+					$(document).on('submit','#formsubmit',function(e){
+						//csrf
+						
+						//ajax
+						
+							$.ajaxSetup({
+								headers : {
+									"X-CSRFToken":'{{ csrf_token }}'
+								}
+							});
+
+							$.ajax({
+								type: "POST",
+								url: "add_address",
+								dataType: "json",
+								data: {
+									'address':$('#addresses').val(),
+									'primary':$('#primary').val(),
+									'latitude':logistic_lat,
+									'longitude':logistic_lon
+								},
+							
+								
+
+							});
+						
+
+					})
+					
+				
+				
+			
+  </script>
+<br><br><br><br><br>
+{% endblock %}

@@ -1,0 +1,1727 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+{% load filters %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_order.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile_orders.css' %}">
+{% endblock %}
+
+
+{% block content %}
+	<style type="text/css">
+		.notvisi{
+			display: none;
+		}
+	</style>
+
+	<style type="text/css">
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#star1,#star2,#star3,#star4,#star5{
+			cursor: pointer;
+			transition: all .3s ease-out;
+		}
+		#star1:hover,#star2:hover,#star3:hover,#star4:hover,#star5:hover{
+			color: #30c5ff;
+			transform: scale(1.2);
+		}
+		.hovered_star{
+			color: #30c5ff;
+		}
+		.priority_row{
+			transition: all .3s ease-out;
+		}
+		.priority_row:hover{
+			box-shadow: 0 0 5px rgba(48,197,255,1);
+		}
+		.right_menu{
+			background: #253031;
+			color: #30c5ff;
+			position: sticky;
+			height: 100vh;
+			top: 0vh;
+			left: 0;
+		}
+		.menu_item{
+			height: 3vh;
+			border-bottom: 1px solid rgba(255,255,255,.1);
+			cursor: pointer;
+			transition: all .3s ease-out;
+		}
+		.menu_item:hover{
+			border-color: rgba(48,197,255,.5);
+		}
+				.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+			padding-left: auto;
+			padding-right: auto;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.input_field_buis{
+			border:none;
+			margin-left: 2vw;
+			width: 20vw;
+		}
+		#add_assort{
+			display: none;
+		}
+		.save_but{
+			transition: all .5s ease-out;
+			border-radius: 25vw;
+			background: #30c5ff;
+		}
+		.save_but:hover{
+			background: #253031;
+			color: #30c5ff;
+		}
+		.order-info{
+        background-color: #30c5ff ;
+    }
+    .order-info button:hover{
+        background: #253031;
+        color: #30c5ff;
+    }
+    .order-info button.active {
+        background: #253031;
+        color: #30c5ff;
+    }
+    .order-link{
+        background-color: #30c5ff;
+        color: white;
+        padding: 10px 23px;
+        text-align: center;
+        border: none;
+        font-size: 15px;
+    }
+    .order-contents{
+        display: none;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+    }
+    @-webkit-keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+	</style>
+	<div class="row">
+		<div class="col-2 right_menu">
+			<div class="container">
+				{% for i in order_section %}
+					<div class="row p-2 py-4 menu_item" onclick="showData('{{i.name}}')">
+						<h6 style="font-size: 1.1em;" class="fontcabin">{{i.name|safe_text}} <i class="fas fa-angle-right"></i></h6>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-10" id="content">
+			<div class="container-fluid">
+			<div class="row">
+		<div class="container">
+			<div class="row mt-4">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 order_image">
+					{% if order.image %}
+					<img src="{{order.image.url}}" style="border-radius: 50%;">
+					{% else %}
+					<img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2" style="border-radius: 50%;">
+					{% endif %}
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_head" style="margin-top: auto; margin-bottom: auto;">
+					<h1>{{order.fashion_Brand}}({{order.label}})</h1>
+					<h6><b>Order Time -</b> {{order.order_date_time}}</h6>
+					<div class="container" style="padding: 0;">
+						<div class="row priority_row" style="margin-left: auto;width: 17vw;height: 18vh;margin-right: 0;padding: 1vw;">
+							<div class="container-fluid">
+							<div class="row mb-3" style="height: 50%;">
+								{% if order.overall_priority %}
+								<div class="container">
+								<div class="row">
+									<h4 style="font-family: 'Cabin',sans-serif;margin-left: auto;margin-right: auto;">{{order.overall_priority}}</h4>
+								</div>
+								</div>
+								<div class="container">
+								<div class="row">
+									<h6 style="margin-left: auto;margin-right: auto;">({{order.priority_no}}/{{order.priority_quantity}})</h6>
+								</div>
+								</div>
+								{% endif %}
+							</div>
+							<div class="row mt-2" style="height: 50%;">
+								{% ifequal obj_priority 1 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);"></i>
+								{% endifequal %}
+								{% ifequal obj_priority 2 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style=""></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style=""></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% ifequal obj_priority 3 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style=""></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% ifequal obj_priority 4 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% ifequal obj_priority 5 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;color: #30c5ff;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% if obj_priority %}
+								{% else %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);"></i>
+								{% endif %}
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container">
+			<div class="row mx-1">
+				<div class="row">
+		<div class="container">
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>{% ifequal order.order_type 'O' %}Order{% endifequal %}{% ifequal order.order_type 'D' %}Design{% endifequal %}{% ifequal order.order_type 'S' %}Sampling Order{% endifequal %}{% ifequal order.order_type 'E' %}Enquiry Request{% endifequal %} Description</b></h3>
+				<div class="order-info">
+                    <button class="order-link" onclick="openform(event ,'basic_details')">Basic Details</button>
+                    <button class="order-link" onclick="openform(event,'code')">Code</button>
+                    <button class="order-link" onclick="openform(event,'styling')">Styling</button>
+                    <button class="order-link" onclick="openform(event,'uploads')">Uploads</button>
+                    <button class="order-link" onclick="openform(event,'fabric_details')">Fabirc Details</button>
+                    <button class="order-link" onclick="openform(event,'trim_details')">Trim Details</button>
+                    <button class="order-link" onclick="openform(event,'assortments')">Assortment</button>
+                    <button class="order-link" onclick="openform(event,'tentative_info')">Tentative info</button>
+                </div>
+			</div>
+			<div class="row mx-1">
+				<div class="order-contents" id="basic_details">
+					<h6><b>Sector- </b> {{order.sector}}</h6>
+					{% for a in order.dispatch_Address.all %}
+					<h6><b>Dispatch Address - </b>{{a.address|linebreaks}}</h6>
+					{% endfor %}
+					<div class="mt-2 mb-2 notvisi" id="addaddressform">
+						<form method="POST">{% csrf_token %}
+							<textarea style="border: 1px solid rgba(0,0,0,.5);" name="addre"></textarea>
+							<input type="submit" value="Save" style="border: none; background: transparent; margin-left: 50px; color: #30c5ff">
+						</form>
+					</div>
+					<button style="margin-left: 350px;cursor: pointer; color: #30c5ff;background: transparent; border: none;" type="button" onclick="addaddre();" id="addaddrebut">Add Address</button>
+					<h6><b>Contact Person - </b>{{cnt.name}}</h6>
+					<h6><b>Contact Person No - </b>{{cnt.contact}}</h6>
+				</div>
+				<div class="order-contents" id="code">
+					<h6><b>Design Code - </b>{{order.design_code}}</h6>
+					<h6><b>Garment Code - </b>{{order.garment_code}}</h6>
+					<h6><b>Style Code - </b>{{order.style_code}}</h6>
+
+				</div>
+				<div class="order-contents" id="styling">
+					<h6><b>Fashion Brand - </b>{{order.fashion_Brand}}</h6>
+					<h6><b>Product Super-Category - </b>{{order.product_Category}}</h6>
+					<h6><b>Product Sub-Category - </b>{{order.product_Subcategory}}</h6>
+					<h6><b>Product Category - </b>{{order.product_Supercategory}}</h6>
+					{% if order.label %}
+					<h6><b>Label - </b>{{order.label}}</h6>
+					{% endif %}
+					{% if order.fit %}
+					<h6><b>Fit - </b>{{order.fit}}</h6>
+					{% endif %}
+					{% if order.season %}
+					<h6><b>Season- </b>{{order.season}}</h6>
+					{% endif %}
+					<h6><b>Style Description- </b>{{order.style_description}}</h6>
+					<h6><b>Style Type- </b> {{ order.style_type }}</h6>
+					<h6><b>Wash Type- </b> {{ order.wash_type }}</h6>
+					<h6><b>Fabric Type- </b> {{ order.fabric_type }}</h6>
+					{% if order.label_atrribute1 %}{% with order.label_atrribute1|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute2 %}{% with order.label_atrribute2|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute3 %}{% with order.label_atrribute3|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute4 %}{% with order.label_atrribute4|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute5 %}{% with order.label_atrribute5|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute6 %}{% with order.label_atrribute6|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute7 %}{% with order.label_atrribute7|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute8 %}{% with order.label_atrribute8|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute9 %}{% with order.label_atrribute9|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute10 %}{% with order.label_atrribute10|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute11 %}{% with order.label_atrribute11|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute12 %}{% with order.label_atrribute12|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute13 %}{% with order.label_atrribute13|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute14 %}{% with order.label_atrribute14|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute15 %}{% with order.label_atrribute15|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute16 %}{% with order.label_atrribute16|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute17 %}{% with order.label_atrribute17|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute18 %}{% with order.label_atrribute18|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute19 %}{% with order.label_atrribute19|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute20 %}{% with order.label_atrribute20|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+				</div>
+				<div class="order-contents" id="uploads">
+					<h6><b>Order Password - </b>{{order.order_password}}</h6>
+					{% if order.logo_placement %}<h6><b>Logo Placement - </b>{{order.logo_placement}}</h6>{% endif %}
+					{% if order.custom_logo %}<h6><b>Custom Logo - </b><a href="{{order.custom_logo.url}}" class="hov-a">Logo</a></h6>{% endif %}
+					{% if order.tech_pack %}<h6><b>Tech-Pack - </b><a href="{{order.tech_pack.url}}" class="hov-a">Tech-Pack</a></h6>{% endif %}
+					{% if order.specs %}<h6><b>Specs - </b><a href="{{order.specs.url}}" class="hov-a">Specs</a></h6>{% endif %}
+					<h6><b>Details of Users - </b>{% if order.excel %}<a href="{{order.excel.url}}" style="text-decoration: none;"><b>Excel Sheet</b></a>{% endif %}</h6>
+					{% if measu %}
+					<h6><b>Measurement Chart - </b><a href="/userdetail/seller_profile/measurements/{{measu}}" class="hov-a">View</a></h6>
+					{% endif %}
+					<h6><b>Consumer List - </b><a href="/buisness/buisness_order/{{order.order_no}}/consumer_list" class="hov-a">View</a></h6>
+					<h6><b>Customer PO - </b><input type="file" name="cpo" class="input_field_buis" style="margin-left: 4.5vw;"> {% if order.cpo %}<a href="{{order.cpo.url}}" class="hov-a">File</a>{% endif %}</h6>
+					<button type="submit" style="border:none;background: transparent;color: #30c5ff;margin-left: 35vw;">Save</button>
+				</div>
+				<div class="order-contents" id="fabric_details">
+					<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<h6><b>Fabric - </b>
+						<select name="fabric" class="input_field_buis" style="margin-left: 10vw;">
+							<option disabled selected>--------------</option>
+					{% for i in trims %}
+						<option value="{{i.id}}"{% ifequal order.fabrics.id i.id %}selected{% endifequal %}>{{i}}</option>
+					{% endfor %}
+						</select>
+					</h6>
+
+					{% if fabrics %}
+					<h6><b>Fabric Supplier-  </b>{{fabrics.seller.email}}</h6>
+					<h6><b>Fabric Description-  </b>{{fabrics.notes}}</h6>
+					<h6><b>Fabric Blend-</b> {{fabrics.atrribute11}} </h6>
+					<h6><b>GSM- </b> {{fabrics.atrribute10}}</h6>
+					<h6><b>Fabric Width- </b> {{fabrics.atrribute9}}</h6>
+					<h6><b>EPI- </b> {{fabrics.atrribute7}} | <b>PPI- </b>{{fabrics.atrribute8}} </h6>
+					<h6><b>Wrap- </b>{{fabrics.atrribute4}} | <b>Weft- </b>{{fabrics.atrribute5}}</h6>
+					<h6><b>Finish- </b>{{fabrics.atrribute12}}</h6>
+					{% endif %}
+
+					<h6><b>Fabric Consumption - </b><input type="text" name="fab_consum" placeholder="Fabric Consumption" value="{% if order.fabric_consump %}{{order.fabric_consump}}{% endif %}" class="input_field_buis" style=""></h6>
+					<h6><b>Fabric Color - </b><input type="text" name="fab_color" placeholder="Fabric Color" value="{% if order.fabric_color %}{{order.fabric_color}}{% endif %}" class="input_field_buis" style="margin-left: 6.5vw;"></h6>
+					</form>
+				</div>
+				<div class="order-contents" id="trim_details">
+					<h6><b>Accesories - </b><input type="text" name="accesories" placeholder="Accesories" value="{% if order.accesories %}{{order.accesories}}{% endif %}" class="input_field_buis" style="margin-left: 7.1vw;"></h6>
+					<h6><b>Packing Details - </b><input type="text" name="pack" placeholder="Packing Details" value="{% if order.packing_details %}{{order.packing_details}}{% endif %}" class="input_field_buis" style="margin-left: 4.5vw;"></h6>
+					{% if order.trims_atrribute1 %}{% with order.trims_atrribute1|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute2 %}{% with order.trims_atrribute2|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute3 %}{% with order.trims_atrribute3|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute4 %}{% with order.trims_atrribute4|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute5 %}{% with order.trims_atrribute5|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute6 %}{% with order.trims_atrribute6|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute7 %}{% with order.trims_atrribute7|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute8 %}{% with order.trims_atrribute8|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute9 %}{% with order.trims_atrribute9|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute10 %}{% with order.trims_atrribute10|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute11 %}{% with order.trims_atrribute11|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute12 %}{% with order.trims_atrribute12|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute13 %}{% with order.trims_atrribute13|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute14 %}{% with order.trims_atrribute14|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute15 %}{% with order.trims_atrribute15|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute16 %}{% with order.trims_atrribute16|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute17 %}{% with order.trims_atrribute17|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute18 %}{% with order.trims_atrribute18|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute19 %}{% with order.trims_atrribute19|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute20 %}{% with order.trims_atrribute20|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+				</div>
+				<div class="order-contents" id="assortments">
+					<h6><b>Quantity - </b>{{order.quantity}}</h6>
+					{% if order.plus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in plus) - </b>{{order.plus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.minus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in minus) - </b>{{order.minus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.colors_avail.all %}
+					<h6><b>Colors - </b>{% for a in order.colors_avail.all %}{{a}},{% endfor %}</h6>
+					{% endif %}
+				</div>
+				<div class="order-contents" id="tentative_info">
+					<h6><b>Target Lead Time - </b>{{order.target_lead_time}}</h6>
+					<h6><b>Target Price - </b>{{order.target_price}}</h6>
+					<h6><b>Unit Price - </b>{{order.total_Price}}</h6>
+					<h6><b>Total Price - </b>{% if order.total_Price %}{% widthratio order.total_Price 1 order.quantity %}{% endif %}</h6>
+					<h6><b>Alteration Charge - </b>{{order.alteration_Charge}}</h6>
+					<h6><b>Custom Charge - </b>{{order.custom_Charges}}</h6>
+					<!--<h6><b>Single Unit Price - </b><input type="number" name="single_unit" value="{{order.single_unit_Price}}" style="border: none;"></h6> -->
+				</div>
+			</div>
+			{% if quan.0 %}
+			{% if order_bool %}
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Quantity by Size Assortment</b></h3>
+
+			</div>
+			<div class="row mb-1 mt-1 mx-1" style="overflow:auto;">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Address</th>
+							{% for l in size_by_quan %}
+							<th>{{l}}</th>
+							{% endfor %}
+							<th>Total</th>
+						</tr>
+						{% for q in quan_by_clr %}
+						<tr>
+
+								<th>{{q.color.color}}</th>
+								<th>Location{{q.color.address.id}}</th>
+								{% for l in size_by_quan %}
+									<td>
+									<input type="number" value="0" id="{{q.color.id}}{{q.color.address.id}}{{l}}" style="background:transparent;border:none;width:3vw;"></td>
+
+								{% endfor %}
+								<td>{{q.total}}</td>
+								<script type="text/javascript">
+									{% for s in q.size %}
+										var f=document.getElementById('{{q.color.id}}{{q.color.address.id}}{{s.size_label}}');
+										f.value="{{s.quantity}}";
+										$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').change(function(){
+											$.ajax({
+												type:'POST',
+												url:'/buisness/buisness_order/{{order}}',
+												data:{
+													color_ajax:'{{q.color.color}}',
+													address_cate_ajax:'{{q.color.address.id}}',
+													size_label_ajax:'{{s.size_label}}',
+													quantity_matter:$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').val(),
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													// window.location="/userdetail/staff_profile/activities";
+													// alert("Well Done")
+													// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+														window.location="/buisness/buisness_order/{{order}}";
+												}
+											});
+										});
+									{% endfor %}
+
+									{% for s in q.size %}
+
+									{% endfor %}
+								</script>
+
+						</tr>
+						{% endfor %}
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for k in quan_by_sz %}
+							<td>{{k}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+					<div style="clear: both;" class="mt-2">
+					<p style="font-size: .6em;line-height: .1em">Here Locations Annotations are - <br/></p>
+					{% for q in order.dispatch_Address.all %}
+					<p style="font-size: .6em;line-height: .1em">Location{{q.id}} - {{q.address}}<br/></p>
+					{% endfor %}
+				</div>
+
+			</div>
+			{% endif %}
+			{% endif %}
+
+
+				{% if order.assortment_per_customer %}
+
+							<div class="row mt-3 mb-5">
+								<div class="container">
+
+
+												<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+													<h3 style="font-family: 'Cabin', sans-serif;">Assortment Permissions</h3>
+												</div>
+
+										<form method="post">{% csrf_token %}
+
+												<div class="row ml-5">
+													<div class="col-6">
+														<input type="checkbox" name="assortment_custom" {% if order.assortment_custom %}checked{% endif %}>
+														<label>Custom Size Assortment</label>
+													</div>
+														<div class="col-6">
+															<input type="checkbox" name="assortment_size_set" {% if order.assortment_size_set %}checked{% endif %}>
+															<label>Size Assortment by Size-set</label>
+														</div>
+															<div class="col-6">
+																<input type="checkbox" name="assortment_brand" {% if order.assortment_brand %}checked{% endif %}>
+																<label>Size Assortment by Brands</label>
+															</div>
+
+																<div class="col-6">
+																	<input type="checkbox" name="pom_for_consumer" {% if order.show_pom_in_assortment %}checked{% endif %}>
+																	<label>POM for Consumers(Size-set Assortment)</label>
+																</div>
+												</div>
+												<div class="row">
+													<button type="submit" name="perm_assortment" value="True" style="background:none;border:none;color:#30c5ff;margin-left:auto;margin-right:10vw;">Save</button>
+												</div>
+									</form>
+								</div>
+							</div>
+{% endif %}
+
+
+
+
+
+		<div class="row mt-3 mb-3" id="add_assort">
+			<div class="container-fluid">
+				<form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-3">
+						<label><b>Color</b></label>
+						<select name="color" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.colors_avail.all %}
+							<option value="{{a.id}}">{{a}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Address</b></label>
+						<select name="address" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.dispatch_Address.all %}
+							<option value="{{a.id}}">{{a.address}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Size</b></label>
+						<input type="number" name="size_assort" placeholder="Size" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+					<div class="col-3">
+						<label><b>Quantity</b></label>
+						<input type="number" name="quantity" placeholder="Quantity" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+				</div>
+				<div class="row mt-2">
+					<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;" class="save_but">Save</button>
+				</div>
+				</form>
+			</div>
+		</div>
+		{% ifequal order.order_type 'E' %}
+		{% else %}
+		<div class="row mt-2 mb-3">
+			<button type="button" style="border: none;color: #30c5ff;background: transparent;margin-left: auto;" onclick="showAddAssort();">Add Size Assortment</button>
+		</div>
+		{% endifequal %}
+
+		<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;">Order Forms</h3>
+		</div>
+			<div class="row mb-5">
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/packing_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/distribution_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Distribution List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/cummlative_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+			</div>
+
+
+
+
+					<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+						<h3 style="font-family: 'Cabin', sans-serif;">Order Documents</h3>
+					</div>
+						<div class="row mb-5">
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order PO</h6></a>
+							</div>
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order Invoice</h6></a>
+							</div>
+						</div>
+
+
+			{% if enquiry_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/design?order={{order.order_no}}" class="px-5 py-2"><b>Go for Design</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+			{% if design_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if sample_bool %}
+			<div class="row mb-1 mt-4 centered start_order">
+			<div class="col">
+				<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+			</div>
+			</div>
+			{% endif %}
+			<div class="row mt-4 mb-4 centered">
+				<a href="/buisness/buisness_profile" style="text-decoration: none;"><b>Back to Profile</b></a>
+			</div>
+		</div>
+	</div>
+			</div>
+
+
+
+
+
+
+					
+
+
+
+
+
+					</div>
+
+		
+		
+
+		
+
+
+		<div class="container">
+			<div class="row mt-4 mb-4 centered mt-3">
+				<a href="/userdetail/vendor_profile" style="text-decoration: none;"><b>Back to Profile</b></a>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+	{% include 'include/loader.html' %}
+<div id="Orders_Description" style="display: none;">
+	<div class="container">
+		<div class="row">
+		<div class="container">
+			<div class="row mt-4">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 order_image">
+					{% if order.image %}
+					<img src="{{order.image.url}}" style="border-radius: 50%;">
+					{% else %}
+					<img src="https://cdn11.bigcommerce.com/s-sjl48p9/images/stencil/500x659/products/1026/1078/box__63835.1377805159.jpg?c=2" style="border-radius: 50%;">
+					{% endif %}
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 order_head" style="margin-top: auto; margin-bottom: auto;">
+					<h1>{{order.fashion_Brand}}({{order.label}})</h1>
+					<h6><b>Order Time -</b> {{order.order_date_time}}</h6>
+					<div class="container" style="padding: 0;">
+						<div class="row priority_row" style="margin-left: auto;width: 17vw;height: 18vh;margin-right: 0;padding: 1vw;">
+							<div class="container-fluid">
+							<div class="row mb-3" style="height: 50%;">
+								{% if order.overall_priority %}
+								<div class="container">
+								<div class="row">
+									<h4 style="font-family: 'Cabin',sans-serif;margin-left: auto;margin-right: auto;">{{order.overall_priority}}</h4>
+								</div>
+								</div>
+								<div class="container">
+								<div class="row">
+									<h6 style="margin-left: auto;margin-right: auto;">({{order.priority_no}}/{{order.priority_quantity}})</h6>
+								</div>
+								</div>
+								{% endif %}
+							</div>
+							<div class="row mt-2" style="height: 50%;">
+								{% ifequal obj_priority 1 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);"></i>
+								{% endifequal %}
+								{% ifequal obj_priority 2 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style=""></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style=""></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% ifequal obj_priority 3 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style=""></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% ifequal obj_priority 4 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% ifequal obj_priority 5 %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);" style="color: #30c5ff;"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;color: #30c5ff;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);" style=""></i>
+								{% endifequal %}
+								{% if obj_priority %}
+								{% else %}
+								<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;" onclick="star_click(1);"></i>
+								<i class="fas fa-star fa-lg" id="star2" onmouseover="star_over(2);" onmouseout="star_out(2);" onclick="star_click(2);"></i>
+								<i class="fas fa-star fa-lg" id="star3" onmouseover="star_over(3);" onmouseout="star_out(3);" onclick="star_click(3);"></i>
+								<i class="fas fa-star fa-lg" id="star4" onmouseover="star_over(4);" onmouseout="star_out(4);" onclick="star_click(4);"></i>
+								<i class="fas fa-star fa-lg" id="star5" style="margin-right: auto;" onmouseover="star_over(5);" onmouseout="star_out(5);" onclick="star_click(5);"></i>
+								{% endif %}
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="container">
+				<div class="row">
+		<div class="container">
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>{% ifequal order.order_type 'O' %}Order{% endifequal %}{% ifequal order.order_type 'D' %}Design{% endifequal %}{% ifequal order.order_type 'S' %}Sampling Order{% endifequal %}{% ifequal order.order_type 'E' %}Enquiry Request{% endifequal %} Description</b></h3>
+				<div class="order-info">
+                    <button class="order-link" onclick="openform(event ,'basic_details')">Basic Details</button>
+                    <button class="order-link" onclick="openform(event,'code')">Code</button>
+                    <button class="order-link" onclick="openform(event,'styling')">Styling</button>
+                    <button class="order-link" onclick="openform(event,'uploads')">Uploads</button>
+                    <button class="order-link" onclick="openform(event,'fabric_details')">Fabirc Details</button>
+                    <button class="order-link" onclick="openform(event,'trim_details')">Trim Details</button>
+                    <button class="order-link" onclick="openform(event,'assortments')">Assortment</button>
+                    <button class="order-link" onclick="openform(event,'tentative_info')">Tentative info</button>
+                </div>
+			</div>
+			<div class="row mx-1">
+				<div class="order-contents" id="basic_details">
+					<h6><b>Sector- </b> {{order.sector}}</h6>
+					{% for a in order.dispatch_Address.all %}
+					<h6><b>Dispatch Address - </b>{{a.address|linebreaks}}</h6>
+					{% endfor %}
+					<div class="mt-2 mb-2 notvisi" id="addaddressform">
+						<form method="POST">{% csrf_token %}
+							<textarea style="border: 1px solid rgba(0,0,0,.5);" name="addre"></textarea>
+							<input type="submit" value="Save" style="border: none; background: transparent; margin-left: 50px; color: #30c5ff">
+						</form>
+					</div>
+					<button style="margin-left: 350px;cursor: pointer; color: #30c5ff;background: transparent; border: none;" type="button" onclick="addaddre();" id="addaddrebut">Add Address</button>
+					<h6><b>Contact Person - </b>{{cnt.name}}</h6>
+					<h6><b>Contact Person No - </b>{{cnt.contact}}</h6>
+				</div>
+				<div class="order-contents" id="code">
+					<h6><b>Design Code - </b>{{order.design_code}}</h6>
+					<h6><b>Garment Code - </b>{{order.garment_code}}</h6>
+					<h6><b>Style Code - </b>{{order.style_code}}</h6>
+
+				</div>
+				<div class="order-contents" id="styling">
+					<h6><b>Fashion Brand - </b>{{order.fashion_Brand}}</h6>
+					<h6><b>Product Super-Category - </b>{{order.product_Category}}</h6>
+					<h6><b>Product Sub-Category - </b>{{order.product_Subcategory}}</h6>
+					<h6><b>Product Category - </b>{{order.product_Supercategory}}</h6>
+					{% if order.label %}
+					<h6><b>Label - </b>{{order.label}}</h6>
+					{% endif %}
+					{% if order.fit %}
+					<h6><b>Fit - </b>{{order.fit}}</h6>
+					{% endif %}
+					{% if order.season %}
+					<h6><b>Season- </b>{{order.season}}</h6>
+					{% endif %}
+					<h6><b>Style Description- </b>{{order.style_description}}</h6>
+					<h6><b>Style Type- </b> {{ order.style_type }}</h6>
+					<h6><b>Wash Type- </b> {{ order.wash_type }}</h6>
+					<h6><b>Fabric Type- </b> {{ order.fabric_type }}</h6>
+					{% if order.label_atrribute1 %}{% with order.label_atrribute1|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute2 %}{% with order.label_atrribute2|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute3 %}{% with order.label_atrribute3|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute4 %}{% with order.label_atrribute4|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute5 %}{% with order.label_atrribute5|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute6 %}{% with order.label_atrribute6|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute7 %}{% with order.label_atrribute7|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute8 %}{% with order.label_atrribute8|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute9 %}{% with order.label_atrribute9|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute10 %}{% with order.label_atrribute10|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute11 %}{% with order.label_atrribute11|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute12 %}{% with order.label_atrribute12|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute13 %}{% with order.label_atrribute13|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute14 %}{% with order.label_atrribute14|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute15 %}{% with order.label_atrribute15|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute16 %}{% with order.label_atrribute16|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute17 %}{% with order.label_atrribute17|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute18 %}{% with order.label_atrribute18|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute19 %}{% with order.label_atrribute19|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.label_atrribute20 %}{% with order.label_atrribute20|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+				</div>
+				<div class="order-contents" id="uploads">
+					<h6><b>Order Password - </b>{{order.order_password}}</h6>
+					{% if order.logo_placement %}<h6><b>Logo Placement - </b>{{order.logo_placement}}</h6>{% endif %}
+					{% if order.custom_logo %}<h6><b>Custom Logo - </b><a href="{{order.custom_logo.url}}" class="hov-a">Logo</a></h6>{% endif %}
+					{% if order.tech_pack %}<h6><b>Tech-Pack - </b><a href="{{order.tech_pack.url}}" class="hov-a">Tech-Pack</a></h6>{% endif %}
+					{% if order.specs %}<h6><b>Specs - </b><a href="{{order.specs.url}}" class="hov-a">Specs</a></h6>{% endif %}
+					<h6><b>Details of Users - </b>{% if order.excel %}<a href="{{order.excel.url}}" style="text-decoration: none;"><b>Excel Sheet</b></a>{% endif %}</h6>
+					{% if measu %}
+					<h6><b>Measurement Chart - </b><a href="/userdetail/seller_profile/measurements/{{measu}}" class="hov-a">View</a></h6>
+					{% endif %}
+					<h6><b>Consumer List - </b><a href="/buisness/buisness_order/{{order.order_no}}/consumer_list" class="hov-a">View</a></h6>
+					<h6><b>Customer PO - </b><input type="file" name="cpo" class="input_field_buis" style="margin-left: 4.5vw;"> {% if order.cpo %}<a href="{{order.cpo.url}}" class="hov-a">File</a>{% endif %}</h6>
+					<button type="submit" style="border:none;background: transparent;color: #30c5ff;margin-left: 35vw;">Save</button>
+				</div>
+				<div class="order-contents" id="fabric_details">
+					<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<h6><b>Fabric - </b>
+						<select name="fabric" class="input_field_buis" style="margin-left: 10vw;">
+							<option disabled selected>--------------</option>
+					{% for i in trims %}
+						<option value="{{i.id}}"{% ifequal order.fabrics.id i.id %}selected{% endifequal %}>{{i}}</option>
+					{% endfor %}
+						</select>
+					</h6>
+
+					{% if fabrics %}
+					<h6><b>Fabric Supplier-  </b>{{fabrics.seller.email}}</h6>
+					<h6><b>Fabric Description-  </b>{{fabrics.notes}}</h6>
+					<h6><b>Fabric Blend-</b> {{fabrics.atrribute11}} </h6>
+					<h6><b>GSM- </b> {{fabrics.atrribute10}}</h6>
+					<h6><b>Fabric Width- </b> {{fabrics.atrribute9}}</h6>
+					<h6><b>EPI- </b> {{fabrics.atrribute7}} | <b>PPI- </b>{{fabrics.atrribute8}} </h6>
+					<h6><b>Wrap- </b>{{fabrics.atrribute4}} | <b>Weft- </b>{{fabrics.atrribute5}}</h6>
+					<h6><b>Finish- </b>{{fabrics.atrribute12}}</h6>
+					{% endif %}
+
+					<h6><b>Fabric Consumption - </b><input type="text" name="fab_consum" placeholder="Fabric Consumption" value="{% if order.fabric_consump %}{{order.fabric_consump}}{% endif %}" class="input_field_buis" style=""></h6>
+					<h6><b>Fabric Color - </b><input type="text" name="fab_color" placeholder="Fabric Color" value="{% if order.fabric_color %}{{order.fabric_color}}{% endif %}" class="input_field_buis" style="margin-left: 6.5vw;"></h6>
+					</form>
+				</div>
+				<div class="order-contents" id="trim_details">
+					<h6><b>Accesories - </b><input type="text" name="accesories" placeholder="Accesories" value="{% if order.accesories %}{{order.accesories}}{% endif %}" class="input_field_buis" style="margin-left: 7.1vw;"></h6>
+					<h6><b>Packing Details - </b><input type="text" name="pack" placeholder="Packing Details" value="{% if order.packing_details %}{{order.packing_details}}{% endif %}" class="input_field_buis" style="margin-left: 4.5vw;"></h6>
+					{% if order.trims_atrribute1 %}{% with order.trims_atrribute1|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute2 %}{% with order.trims_atrribute2|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute3 %}{% with order.trims_atrribute3|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute4 %}{% with order.trims_atrribute4|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute5 %}{% with order.trims_atrribute5|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute6 %}{% with order.trims_atrribute6|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute7 %}{% with order.trims_atrribute7|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute8 %}{% with order.trims_atrribute8|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute9 %}{% with order.trims_atrribute9|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute10 %}{% with order.trims_atrribute10|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute11 %}{% with order.trims_atrribute11|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute12 %}{% with order.trims_atrribute12|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute13 %}{% with order.trims_atrribute13|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute14 %}{% with order.trims_atrribute14|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute15 %}{% with order.trims_atrribute15|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute16 %}{% with order.trims_atrribute16|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute17 %}{% with order.trims_atrribute17|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute18 %}{% with order.trims_atrribute18|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute19 %}{% with order.trims_atrribute19|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+					{% if order.trims_atrribute20 %}{% with order.trims_atrribute20|split as val %}<h6><b>{{val.0}}-</b> {{val.1}}</h6>{% endwith %}{% endif %}
+				</div>
+				<div class="order-contents" id="assortments">
+					<h6><b>Quantity - </b>{{order.quantity}}</h6>
+					{% if order.plus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in plus) - </b>{{order.plus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.minus_Quantity_Percentage %}<h6><b>Acceptance Quantity(in minus) - </b>{{order.minus_Quantity_Percentage}}</h6>{% endif %}
+					{% if order.colors_avail.all %}
+					<h6><b>Colors - </b>{% for a in order.colors_avail.all %}{{a}},{% endfor %}</h6>
+					{% endif %}
+				</div>
+				<div class="order-contents" id="tentative_info">
+					<h6><b>Target Lead Time - </b>{{order.target_lead_time}}</h6>
+					<h6><b>Target Price - </b>{{order.target_price}}</h6>
+					<h6><b>Unit Price - </b>{{order.total_Price}}</h6>
+					<h6><b>Total Price - </b>{% if order.total_Price %}{% widthratio order.total_Price 1 order.quantity %}{% endif %}</h6>
+					<h6><b>Alteration Charge - </b>{{order.alteration_Charge}}</h6>
+					<h6><b>Custom Charge - </b>{{order.custom_Charges}}</h6>
+					<!--<h6><b>Single Unit Price - </b><input type="number" name="single_unit" value="{{order.single_unit_Price}}" style="border: none;"></h6> -->
+				</div>
+			</div>
+			{% if quan.0 %}
+			{% if order_bool %}
+			<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Quantity by Size Assortment</b></h3>
+
+			</div>
+			<div class="row mb-1 mt-1 mx-1" style="overflow:auto;">
+					<table class="acti_table" width="100%">
+						<tr>
+							<th style="width: 12.5%">Color</th>
+							<th style="width: 12.5%">Address</th>
+							{% for l in size_by_quan %}
+							<th>{{l}}</th>
+							{% endfor %}
+							<th>Total</th>
+						</tr>
+						{% for q in quan_by_clr %}
+						<tr>
+
+								<th>{{q.color.color}}</th>
+								<th>Location{{q.color.address.id}}</th>
+								{% for l in size_by_quan %}
+									<td>
+									<input type="number" value="0" id="{{q.color.id}}{{q.color.address.id}}{{l}}" style="background:transparent;border:none;width:3vw;"></td>
+
+								{% endfor %}
+								<td>{{q.total}}</td>
+								<script type="text/javascript">
+									{% for s in q.size %}
+										var f=document.getElementById('{{q.color.id}}{{q.color.address.id}}{{s.size_label}}');
+										f.value="{{s.quantity}}";
+										$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').change(function(){
+											$.ajax({
+												type:'POST',
+												url:'/buisness/buisness_order/{{order}}',
+												data:{
+													color_ajax:'{{q.color.color}}',
+													address_cate_ajax:'{{q.color.address.id}}',
+													size_label_ajax:'{{s.size_label}}',
+													quantity_matter:$('#{{q.color.id}}{{q.color.address.id}}{{s.size_label}}').val(),
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													// window.location="/userdetail/staff_profile/activities";
+													// alert("Well Done")
+													// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+														window.location="/buisness/buisness_order/{{order}}";
+												}
+											});
+										});
+									{% endfor %}
+
+									{% for s in q.size %}
+
+									{% endfor %}
+								</script>
+
+						</tr>
+						{% endfor %}
+						<tr>
+							<th style="border-right: none;">Total</th>
+							<th style="border-left: none;"></th>
+							{% for k in quan_by_sz %}
+							<td>{{k}}</td>
+							{% endfor %}
+						</tr>
+					</table>
+					<div style="clear: both;" class="mt-2">
+					<p style="font-size: .6em;line-height: .1em">Here Locations Annotations are - <br/></p>
+					{% for q in order.dispatch_Address.all %}
+					<p style="font-size: .6em;line-height: .1em">Location{{q.id}} - {{q.address}}<br/></p>
+					{% endfor %}
+				</div>
+
+			</div>
+			{% endif %}
+			{% endif %}
+
+
+				{% if order.assortment_per_customer %}
+
+							<div class="row mt-3 mb-5">
+								<div class="container">
+
+
+												<div class="row mb-3 mt-5 mx-1" style="border-bottom: 1px solid black;">
+													<h3 style="font-family: 'Cabin', sans-serif;">Assortment Permissions</h3>
+												</div>
+
+										<form method="post">{% csrf_token %}
+
+												<div class="row ml-5">
+													<div class="col-6">
+														<input type="checkbox" name="assortment_custom" {% if order.assortment_custom %}checked{% endif %}>
+														<label>Custom Size Assortment</label>
+													</div>
+														<div class="col-6">
+															<input type="checkbox" name="assortment_size_set" {% if order.assortment_size_set %}checked{% endif %}>
+															<label>Size Assortment by Size-set</label>
+														</div>
+															<div class="col-6">
+																<input type="checkbox" name="assortment_brand" {% if order.assortment_brand %}checked{% endif %}>
+																<label>Size Assortment by Brands</label>
+															</div>
+
+																<div class="col-6">
+																	<input type="checkbox" name="pom_for_consumer" {% if order.show_pom_in_assortment %}checked{% endif %}>
+																	<label>POM for Consumers(Size-set Assortment)</label>
+																</div>
+												</div>
+												<div class="row">
+													<button type="submit" name="perm_assortment" value="True" style="background:none;border:none;color:#30c5ff;margin-left:auto;margin-right:10vw;">Save</button>
+												</div>
+									</form>
+								</div>
+							</div>
+{% endif %}
+
+
+
+
+
+		<div class="row mt-3 mb-3" id="add_assort">
+			<div class="container-fluid">
+				<form method="POST">{% csrf_token %}
+				<div class="row">
+					<div class="col-3">
+						<label><b>Color</b></label>
+						<select name="color" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.colors_avail.all %}
+							<option value="{{a.id}}">{{a}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Address</b></label>
+						<select name="address" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+							{% for a in order.dispatch_Address.all %}
+							<option value="{{a.id}}">{{a.address}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-3">
+						<label><b>Size</b></label>
+						<input type="number" name="size_assort" placeholder="Size" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+					<div class="col-3">
+						<label><b>Quantity</b></label>
+						<input type="number" name="quantity" placeholder="Quantity" required style="margin-left: 2vw; width: 60%;border:none;border-bottom: 1px solid rgba(0,0,0,.5);">
+					</div>
+				</div>
+				<div class="row mt-2">
+					<button type="submit" style="border:none;font-weight: bold;font-family: 'Cabin',sans-serif;padding-left: 5vw;padding-right: 5vw;padding-top: 1vh;padding-bottom: 1vh;margin-left: auto;margin-right: auto;" class="save_but">Save</button>
+				</div>
+				</form>
+			</div>
+		</div>
+		{% ifequal order.order_type 'E' %}
+		{% else %}
+		<div class="row mt-2 mb-3">
+			<button type="button" style="border: none;color: #30c5ff;background: transparent;margin-left: auto;" onclick="showAddAssort();">Add Size Assortment</button>
+		</div>
+		{% endifequal %}
+
+		<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;">Order Forms</h3>
+		</div>
+			<div class="row mb-5">
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/packing_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/distribution_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Distribution List</h6></a>
+				</div>
+				<div class="col-2">
+					<a href="/buisness/buisness_order/{{order_no}}/forms/cummlative_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+			</div>
+
+
+
+
+					<div class="row mb-2 mt-3 mx-1" style="border-bottom: 1px solid black;">
+						<h3 style="font-family: 'Cabin', sans-serif;">Order Documents</h3>
+					</div>
+						<div class="row mb-5">
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_po" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order PO</h6></a>
+							</div>
+							<div class="col-2">
+								<a href="/buisness/buisness_order/{{order_no}}/order_documents/order_invoice" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Order Invoice</h6></a>
+							</div>
+						</div>
+
+
+			{% if enquiry_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/design?order={{order.order_no}}" class="px-5 py-2"><b>Go for Design</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+			{% if design_bool %}
+			<div class="row mb-1 mt-4 start_order">
+				<div class="col">
+					<a href="/buisness/sampling?order={{order.order_no}}" class="px-5 py-2"><b>Go for Sampling</b></a>
+				</div>
+				<div class="col">
+					<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if sample_bool %}
+			<div class="row mb-1 mt-4 centered start_order">
+			<div class="col">
+				<a href="/buisness/placeorder?order={{order.order_no}}" class="px-5 py-2"><b>Go for Order</b></a>
+			</div>
+			</div>
+			{% endif %}
+			<div class="row mt-4 mb-4 centered">
+				<a href="/buisness/buisness_profile" style="text-decoration: none;"><b>Back to Profile</b></a>
+			</div>
+		</div>
+	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="Staff_Allocation" style="display: none;">
+	<div class="container">
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Staff Allocation</b></h3>
+
+			</div>
+		{% if is_gare %}
+			{% if fab_obj.0 %}
+			<div class="container">
+
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Fabric Vendor</b></label>
+						<select name="gar_to_fab" class="ml-4" required>
+							<option disabled selected></option>
+							{% for i in fab_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Fabric Vendor" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if log_obj.0 %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Logistics Vendor</b></label>
+						<select name="gar_to_log" class="ml-4">
+							<option disabled selected></option>
+
+							{% for i in log_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Logistics Vendor" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if fin_obj %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Finishing Trims</b></label>
+						<select name="gar_to_fin" class="ml-4">
+							<option disabled selected></option>
+							{% for i in fin_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Finishing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+			{% if sew_obj %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Sewing Trims</b></label>
+						<select name="gar_to_sew" class="ml-4">
+							<option disabled selected></option>
+							{% for i in sew_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Sewing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+			{% if pack_obj.0 %}
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Packing Trims</b></label>
+						<select name="gar_to_pack" class="ml-4">
+							<option disabled selected></option>
+							{% for i in pack_obj %}
+							<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+							{% endfor %}
+						</select>
+					<input type="submit" value="Allot Packing Trims" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+
+			<div class="container">
+				<div class="row centered mt-3">
+					<form method="POST">{% csrf_token %}
+					<label><b>Colors Availiable</b></label>
+						<input type="text" name="colo" list="suggest" id="colo">
+						<datalist id="suggest">
+
+						</datalist>
+					<input type="submit" value="Add Color Availiable" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+					</form>
+				</div>
+			</div>
+		{% endif %}
+
+
+		{% if details.is_logistics_vendor %}
+		<div class="container">
+			<div class="row centered mt-3">
+				<form method="POST">{% csrf_token %}
+				<label><b>Logistics Driver</b></label>
+					<select name="logi_to_driver" class="ml-4">
+						<option disabled selected></option>
+						{% for i in logi_driver %}
+						<option value="{{i.email}}" {% ifequal i.email cum.email%}selected{% endifequal %}>{{i.email}}</option>
+						{% endfor %}
+					</select>
+				<input type="submit" value="Allot Driver" class="ml-2" style="padding: 5px; padding-left: 20px;padding-right: 20px;background-color: #30c5ff;border-radius: 20px;font-weight: bold;">
+				</form>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+
+
+<div id="Production_Orders" style="display: none">
+	<div class="container">
+		{% if prd.0 %}
+
+					<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+						<h3 style="font-family: 'Cabin', sans-serif;"><b>Production Orders</b></h3>
+
+					</div>
+
+					<div class="row mb-1 mt-1 mx-1">
+						{% for f in prd %}
+						<div class="col-6">
+							<table class="acti_table" width="100%">
+								<tr>
+									<th>Size</th>
+									<th>Color</th>
+									<th>Address</th>
+									<th>Quantity</th>
+								</tr>
+								{% for q in f.sizes.all %}
+								<tr>
+									<td><b>{{q.size_label}}</b></td>
+									<td><b>{{q.color}}</b></td>
+									<td><b>Location{{q.address.id}}</b></td>
+									<td>{{q.quantity}}</td>
+								</tr>
+								{% endfor %}
+							</table>
+						</div>
+						{% endfor %}
+					</div>
+
+
+					{% endif %}
+	</div>
+</div>
+
+
+<div id="Activities" style="display: none;">
+	<div class="container">
+		
+		{% if macro_acti.0 %}
+					<div class="row mt-3 mb-5">
+						<div class="container">
+							<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+						<h3 style="font-family: 'Cabin', sans-serif;"><b>Activities</b></h3>
+
+					</div>
+							<div class="row mt-2">
+								<ul>
+									{% for acti in macro_acti %}
+							<li class="acti_col">
+								<div class="row ml-2">
+									<i class="fas fa-plus-circle fa-lg mt-1 hov-plus" style="cursor:pointer;" onclick="showSubActi({{acti.0.id}});" id="plus{{acti.0.id}}"></i>
+									<p style="padding:0;padding-left:5vw;margin:0;">{{acti.0.title}}</p>
+									<p style="margin-left:auto;margin-right:8vw;">{{acti.1|length}} Sub-Activities</p>
+								</div>
+								<div class="row mt-2 mr-3 sub_acti_main" id="sub_acti{{acti.0.id}}">
+								<table class="acti_table" style="width:97%;margin-left:2vw;">
+									<tr>
+										<th>Activity Title</th>
+										<th>Lap</th>
+										<th>Planned Date</th>
+										<th>Custom Lap</th>
+										<th>Custom Date</th>
+										<th>Tentative Date</th>
+										<th>Actual Date</th>
+										<th>Status</th>
+										<th>Form</th>
+										<th>Attachments</th>
+									</tr>
+									{% for j in acti.1 %}
+									<tr>
+										<td>{{j.activity_Cate.title}}</td>
+										 <!-- <a href="/userdetail/staff_profile/activity/{{j.slug}}" class="ml-2 hov-a">View</a> -->
+										<!-- <td>{{j.created_on}}</td> -->
+										<td>{{j.prev_lap}}</td>
+										<td>{{j.planned_date}}</td>
+										<td><input type="number" value="{% if j.lap %}{{j.lap}}{% endif %}" style="background: transparent;border: none;width:5vw;" id="lap{{j.id}}"></td>
+										<td>{% if j.custom_date %}{{j.custom_date}}{% else %}-{% endif %}</td>
+										<td>{% if j.tentative_date %}{{j.tentative_date}}{% else %}-{% endif %}</td>
+										<td><input type="date" id="actual_date{{j.id}}" {% if j.actual_date %}value="{{j.actual_date.year}}-{% if j.actual_date.month < 10 %}0{% endif %}{{j.actual_date.month}}-{% if j.actual_date.day < 10 %}0{% endif %}{{j.actual_date.day}}"{% endif %} style="background: transparent;border: none;"></td>
+										<td id="{{j.id}}_{{acti.0.id}}_{{forloop.counter}}"></td>
+										<td>
+										{% if j.activity_Cate.request_Forms.all.first %}<a href="/userdetail/vendor_profile/orders/{{j.order}}/forms/{{j.activity_Cate.request_Forms.all.first.id}}"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endif %}{% ifequal j.activity_Cate.standard_forms 'B' %}<a href="/userdetail/vendor_profile/orders/{{j.order}}/forms/bom"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'P' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/packing_list"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'D' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/distribution_list"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'C' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/cummlative"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'L' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/logistic_request"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'Q' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/quality_evaluation"><i class="fab fa-wpforms fa-lg" style="color: black;margin-left: .8vw;cursor: pointer;"></i></a>{% endifequal %}</td>
+
+
+
+										<td>{% if j.activity_Cate.request_Forms.all.first %}<a href="/userdetail/vendor_profile/orders/{{j.order}}/forms/{{j.activity_Cate.request_Forms.all.first.id}}"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endif %}{% ifequal j.activity_Cate.standard_forms 'B' %}<a href="/userdetail/vendor_profile/orders/{{j.order}}/forms/bom"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'P' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/packing_list"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'D' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/distribution_list"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'C' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/cummlative"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'L' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/logistic_request"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}{% ifequal j.activity_Cate.standard_forms 'Q' %}<a href="/userdetail/staff_profile/orders/{{j.order}}/forms/quality_evaluation"><i class="fas fa-paperclip fa-lg" style="color: black;margin-left: 2.5vw;cursor: pointer;"></i></a>{% endifequal %}</td>
+									</tr>
+
+							<script type="text/javascript">
+								$('#actual_date{{j.id}}').change(function(){
+									$.ajax({
+										type:'POST',
+										url:'/userdetail/staff_profile/activities',
+										data:{
+											actual_date_activity_ajax:$('#actual_date{{j.id}}').val(),
+											activity_ajax_cate:'{{j.id}}',
+											csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+										},
+										cache:false,
+										dataType:"json",
+										success:function(data){
+											// window.location="/userdetail/staff_profile/activities";
+											// alert("Well Done")
+											// window.location="/userdetail/staff_profile/activities?filter={{request.GET.filter}}";
+
+												window.location="/userdetail/vendor_profile/orders/{{order}}";
+										}
+									});
+								});
+								var typingTimer;                //timer identifier
+								var doneTypingInterval = 3000;
+
+								$('#lap{{j.id}}').keyup(function(){
+								    clearTimeout(typingTimer);
+								    if ($('#lap{{j.id}}').val()) {
+								        typingTimer = setTimeout(function(){
+											alert("Custom Lap will be updated Soon !");
+											$.ajax({
+												type:'POST',
+												url:'/userdetail/staff_profile/activities',
+												data:{
+
+													lap_activity_ajax:$('#lap{{j.id}}').val(),
+													activity_ajax_cate:'{{j.id}}',
+													csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+												},
+												cache:false,
+												dataType:"json",
+												success:function(data){
+													window.location="/userdetail/vendor_profile/orders/{{order}}";
+												}
+											});
+								        }, doneTypingInterval);
+								    }
+								});
+							</script>
+
+									<script type="text/javascript">
+										var now_date=Date.parse("{{current}}");
+										var to=Date.parse("{{j.custom_date}}");
+										if (isNaN(to)){
+											to=Date.parse("{{j.planned_date}}");}
+										var some=document.getElementById('{{j.id}}_{{acti.0.id}}_{{forloop.counter}}');
+										if (now_date>to){
+											some.style.backgroundColor="{{j.activity_Cate.late_Time_Color}}";
+										}
+										else if (now_date<to){
+											some.style.backgroundColor="{{j.activity_Cate.before_Time_Color}}";
+										}
+										else{
+											some.style.backgroundColor="{{j.activity_Cate.on_Time_Color}}"
+										}
+									</script>
+													{% endfor %}
+												</table>
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+					</div>
+					</div>
+		{% endif %}
+
+		{% if details.is_driver and activ.0 %}
+		<div class="container mt-5">
+		<div class="row">
+		
+			<table style="width: 100%" class="acti_table">
+				<tr>
+					<th>Activity Title</th>
+					<th>Request Date</th>
+					<th>Vendor Invoice No.</th>
+					<th>Vendor Invoice Date</th>
+					<th>Vendor Name & Contact</th>
+					<th>Pickup Address</th>
+					<th>Product</th>
+					<th>Customer Name & Contact</th>
+					<th>Delivery Address</th>
+					<th>Quantity</th>
+					<th>No of Cartons</th>
+					<th>Pickup Date</th>
+					<th>Delivery Date</th>
+					<th>Invoice No.</th>
+					<th>LR No.</th>
+				</tr>
+				{% for j in activ %}
+
+				<tr>
+					<td>{{j.activity_Cate.title}} <a href="/userdetail/vendor_profile/activity/{{j.id}}" class="ml-2 hov-a">View</a></td>
+					<td>{{j.created_on}}</td>
+					<td>INV/{{j.order.quantity}}/{{j.order.order_no}}</td>
+					<td>{{j.logistics_invoice_date}}</td>
+					<td>{{j.logistics_pickup_user.name}}<br>{{j.logistics_pickup_user.contact}}</td>
+					<td>{{j.logistics_pickup_address}}</td>
+					<td>{{j.order.product_Supercategory}}</td>
+					<td>{{j.logistics_delivery_user.name}}<br>{{j.logistics_delivery_user.contact}}</td>
+					<td>{{j.logistics_delivery_address}}</td>
+					<td>{{j.order.quantity}}</td>
+					<td>{{j.order.packing_list_set.all.first.cartons.all.count}}<br>
+					{{af.1}}*{{af.2}}*{{af.3}}(Vol - {{af.4}})</td>
+					<td>{{j.planned_date}}</td>
+					<td>{{j.logistics_delivery_date}}</td>
+					<td>RYMD/{{j.order.quantity}}/{{j.order.order_no}}</td>
+					<td><input type="number" name="lr" value="{% if j.lr_number %}{{j.lr_number}}{% endif %}" placeholder="LR Number" id="lr{{j.id}}" style="border:none;width:100px;"></td>
+				</tr>
+				<script type="text/javascript">
+					$('#lr{{j.id}}').change(function(){
+						$.ajax({
+							type:'POST',
+							url:'/userdetail/vendor_profile/activities',
+							data:{
+								lr_activity_ajax:$('#lr{{j.id}}').val(),
+								activity_ajax_cate:'{{j.id}}',
+								csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+							},
+							cache:false,
+							dataType:"json",
+							success:function(data){
+								// window.location="/userdetail/staff_profile/activities";
+								// alert("Well Done")
+								window.location="/userdetail/vendor_profile/activities?filter={{request.GET.filter}}";
+
+							}
+						});
+					});
+				</script>
+				{% endfor %}
+			</table>
+		</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+
+<div id="Order_Forms" style="display: none;">
+	{% if details.is_driver %}
+		{% else %}
+			<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+				<h3 style="font-family: 'Cabin', sans-serif;"><b>Order Forms</b></h3>
+
+			</div>
+			<div class="row mb-5">
+				{% if is_gare %}
+				<div class="col-3 mt-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/bom{% if boms_obj %}/{{boms_obj.id}}{% endif %}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Bill of Materials & Costing({% if boms_obj %}Filled{% else %}Empty{% endif %})</h6></a>
+				</div>
+				<div class="col-3 mt-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/packing_list" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Packing List</h6></a>
+				</div>
+				<div class="col-3 mt-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/cummlative" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Cummlative List</h6></a>
+				</div>
+
+				<div class="col-2 mt-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/quality_evaluation" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">Quality Evaluation</h6></a>
+				</div>
+				<div class="col-2 mt-3">
+					<a href="/userdetail/staff_profile/orders/{{order_no}}/forms/quality_evaluation_clubbed" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">QC Clubbed Table</h6></a>
+				</div>
+				{% endif %}
+				{% for i in forms %}
+				<div class="col-3 mt-3">
+					<a href="/userdetail/vendor_profile/orders/{{order_no}}/forms/{{i.id}}" class="hov-a"><h6 style="font-family: 'Cabin', sans-serif;">{{i.name}}</h6></a>
+				</div>
+				{% endfor %}
+			</div>
+			{% endif %}
+		
+</div>
+
+
+<div id="Staff_Contacts" style="display: none;">
+	<div class="container">
+		<div class="row mb-3 mt-3 mx-1" style="border-bottom: 1px solid black;">
+			<h3 style="font-family: 'Cabin', sans-serif;">Staff Contact Details</h3>
+		</div>
+		{% for i in order.staffs_Allocated.all %}
+		<div class="row mx-1 p-2" style="border-bottom: 1px solid rgba(0,0,0,.1);">
+			<div class="col">
+				{{i.name}}
+			</div>
+			<div class="col">
+				{{i.email}}
+			</div>
+			<div class="col">
+				{{i.contact}}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+<script type="text/javascript">
+	function showData(value){
+		if (value=="Measurement_Chart"){
+			window.location.href="/userdetail/seller_profile/measurements/{{measu}}";
+		}
+		else{
+		var content=document.getElementById('content');
+		content.innerHTML="";
+		showLoader();
+		var b=document.getElementById(value.toString());
+		setTimeout(function(){
+			content.innerHTML=b.innerHTML;
+			hideLoader();
+		},100);
+		}
+	}
+</script>
+
+
+<script type="text/javascript">
+
+		var star1=document.getElementById('star1');
+		var star2=document.getElementById('star2');
+		var star3=document.getElementById('star3');
+		var star4=document.getElementById('star4');
+		var star5=document.getElementById('star5');
+	function star_over(star_value){
+		if (star_value==2){
+			star1.classList.add('hovered_star');
+		}
+		else if (star_value==3){
+			star1.classList.add('hovered_star');
+			star2.classList.add('hovered_star');
+		}
+		else if (star_value==4){
+			star1.classList.add('hovered_star');
+			star2.classList.add('hovered_star');
+			star3.classList.add('hovered_star');
+		}
+		else if (star_value==5){
+			star1.classList.add('hovered_star');
+			star2.classList.add('hovered_star');
+			star3.classList.add('hovered_star');
+			star4.classList.add('hovered_star');
+		}
+	}
+	function star_out(star_value){
+		if (star_value==2){
+			star1.classList.remove('hovered_star');
+		}
+		else if (star_value==3){
+			star1.classList.remove('hovered_star');
+			star2.classList.remove('hovered_star');
+		}
+		else if (star_value==4){
+			star1.classList.remove('hovered_star');
+			star2.classList.remove('hovered_star');
+			star3.classList.remove('hovered_star');
+		}
+		else if (star_value==5){
+			star1.classList.remove('hovered_star');
+			star2.classList.remove('hovered_star');
+			star3.classList.remove('hovered_star');
+			star4.classList.remove('hovered_star');
+		}
+	}
+	function star_click(star){
+		$.ajax({
+			type:'POST',
+			url:'/userdetail/vendor_profile/orders/{{order.order_no}}',
+			data:{
+				order_ajax_rating:'{{order.order_no}}',
+				star_click_ajax:star.toString(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+	    	cache:false,
+	    	dataType: "json",
+			success:function(data) {
+				window.location="/userdetail/vendor_profile/orders/{{order.order_no}}";
+			}
+		});
+	}
+</script>
+
+
+	<script type="text/javascript">
+		$('#colo').on('input',function(){
+			$.ajax({
+				type:'POST',
+				url:'/userdetail/vendor_profile/orders/{{order_no}}',
+				data:{
+					color_ajax_label:$('#colo').val(),
+					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+				},
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					var ht='';
+					if (data.bol){
+					$.each(data.data,function(index,value){
+						ht=ht+`<option>`+value.name+`</option>`
+					});
+					$('#measurement_season').html(ht);
+					}
+					else{
+						$('#measurement_season').html(ht);
+					}
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript" src="{% static 'js/vendor/vendor_profile_orders.js' %}">
+
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+	function showAddAssort(){
+		var add_assort=document.getElementById('add_assort');
+		add_assort.style.display="block";
+	}
+	function openform(evt, formcontent) {
+  		var i, content, links;
+  		content = document.getElementsByClassName("order-contents");
+  		for (i = 0; i < content.length; i++) {
+  		  content[i].style.display = "none";
+  		}
+  		links = document.getElementsByClassName("order-link");
+  		for (i = 0; i < links.length; i++) {
+  		  links[i].className = links[i].className.replace(" active", "");
+  		}
+  		document.getElementById(formcontent).style.display = "block";
+  		evt.currentTarget.className += " active";
+	}
+</script>
+
+<script type="text/javascript">
+		function addaddre(){
+			var gh=document.getElementById('addaddressform');
+			gh.classList.remove('notvisi');
+			var fg=document.getElementById('addaddrebut');
+			fg.classList.add('notvisi');
+		}
+</script>
+
+
+
+{% endblock %}

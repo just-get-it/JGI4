@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<style media="screen">
+  .logincol{
+    height:64vh;
+  }
+</style>
+
+
+
+<div class="row loginrow">
+	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 logincol">
+		<div class="container-fluid">
+			<div class="row fontcabin centered loginheading">
+        {% if request.GET.size %}
+				<h4>Update Garment Status</h4>
+        {% else %}
+        <h4>Update Carton Status</h4>
+        {% endif %}
+			</div>
+      <div class="row mt-2 fontcabin centered">
+        <h6>Order No - {{order.order_no}}</h6>
+      </div>
+      <div class="row fontcabin centered">
+        <h6>Carton No - {{request.GET.carton}}</h6>
+      </div>
+      {% if request.GET.size %}
+      <div class="row fontcabin centered">
+        <h6>Size - {{request.GET.size}}</h6>
+      </div>
+      {% endif %}
+			<form method="POST">{% csrf_token %}
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol1">
+					<select class="loginpassword" name="status" required>
+            <option value="---------------" disabled selected>----------------</option>
+            {% if request.GET.size %}
+            <option value="u" {% if status == "u" %}selected{% endif %}>Under Process</option>
+            <option value="p" {% if status == "p" %}selected{% endif %}>Packed</option>
+            {% else %}
+            <option value="U" {% if status == "U" %}selected disabled{% endif %}{% if status == "P" or status == "D" or status == "DD" %}disabled{% endif %}>Under Process</option>
+            <option value="P" {% if status == "P" %}selected disabled{% endif %}{% if status == "D" or status == "DD" %}disabled{% endif %}>Packed</option>
+            {% if status == "P" or status == "DD" or status == "D" %}
+            <option value="D" {% if status == "D" %}selected disabled{% endif %}{% if status == "DD" %}disabled{% endif %}>Dispatched</option>
+            {% endif %}
+            {% if status == "D" or status == "DD" %}
+            <option value="DD" {% if status == "DD" %}selected disabled{% endif %}>Delivered</option>
+            {% endif %}
+            {% endif %}
+          </select>
+					<input type="text" name="remark" placeholder="Remarks" class="loginpassword">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 logincol2">
+					<button class="py-2 loginbutton" type="submit">Update</button>
+				</div>
+			</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

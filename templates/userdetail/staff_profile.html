@@ -1,0 +1,1136 @@
+{% extends 'base.html' %} {% load static %} {% load perm_filters %} {% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/seller_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    window.onload = function() {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: ""
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0.00\"%\"",
+                indexLabel: "{label} {y}",
+                dataPoints: [{% for u in ui3 %} {
+                    y: {{ u.count|add:"0" }},
+                    label: "{{u.label}}"
+                }, {% endfor %}]
+            }]
+        });
+        chart.render();
+
+    }
+
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+            text: ""
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui3 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}"
+            }, {% endfor %}]
+        }]
+    });
+    chart.render();
+</script>
+
+
+<style type="text/css">
+    {% if no_count %}
+    
+    .noti_detail_head::after {
+        content: '{{no_count}}'
+    }
+    
+    {% else %}
+    
+    .noti_detail_head::after {
+        display: none;
+    }
+    
+    {% endif %}
+    
+    .staf_noti::after {
+        display: none;
+    }
+    
+    {
+        % if oty4 %
+    }
+    
+    .noti_head::after {
+        content: '{{oty4}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .noti_head::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty %
+    }
+    
+    .enq_noti::after {
+        content: '{{oty}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .enq_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty1 %
+    }
+    
+    .des_noti::after {
+        content: '{{oty1}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .des_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty2 %
+    }
+    
+    .samp_noti::after {
+        content: '{{oty2}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .samp_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+    
+    {
+        % if oty3 %
+    }
+    
+    .ord_noti::after {
+        content: '{{oty3}}'
+    }
+    
+    {
+        % else %
+    }
+    
+    .ord_noti::after {
+        display: none;
+    }
+    
+    {
+        % endif %
+    }
+</style>
+
+{% endblock %} {% block topcontent %}
+
+
+
+<!-- <div class="container-fluid">
+    <div class="row">
+        <div class="col py-2 centered pro_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/" class="hov-a" style="color: white;">Profile & Settings</a>
+        </div>
+        <div class="col py-2 centered noti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            Notifications
+
+        </div>
+
+        <div class="col py-2 centered acti_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            Activities
+        </div>
+        <div class="col py-2 centered staff_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/staffs" class="hov-a" style="color: white;">Staffs</a>
+        </div>
+        <div class="col py-2 centered b2b_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+             <a href="/userdetail/staff_profile/staffs" class="hov-a" style="color: white;">Staffs</a>
+        </div>
+        <div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/vendors" class="hov-a" style="color: white;">Vendors</a>
+        </div>
+        <div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/orders" class="hov-a" style="color: white;">Orders</a>
+        </div>
+        <div class="col py-2 centered vend_head" style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/products" class="hov-a" style="color: white;">Products</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/daily_report/generate" class="hov-a" style="color: white;">Generate Link For Form</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/daily_report/display_report_user" class="hov-a" style="color: white;">Display Report</a>
+        </div>
+        <div class="container-fluid drop_noti">
+            <div class="row">
+                <div class="col-2 my-3 mx-3 ml-5 tod_noti staf_noti">
+                    <img src="{% static 'img/jamie.jpg' %}">
+                    <a href="/userdetail/staff_profile/notifications?filter=staff">
+                        <div class="noti_tod_overlay">
+                            <p>Staff Notifications</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2 my-3 mx-3 tod_noti enq_noti">
+
+                    <img src="{% static 'img/pris.jpg' %}">
+                    <a href="/userdetail/staff_profile/notifications?filter=enquiry">
+                        <div class="noti_tod_overlay">
+                            <p>Enquiry Notifications</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2 my-3 mx-3 tod_noti des_noti">
+
+                    <img src="{% static 'img/kelly.jpg' %}">
+                    <a href="/userdetail/staff_profile/notifications?filter=design">
+                        <div class="noti_tod_overlay">
+                            <p>Design Notifications</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2 my-3 mx-3 tod_noti samp_noti">
+
+                    <img src="{% static 'img/freestock.jpg' %}">
+                    <a href="/userdetail/staff_profile/notifications?filter=sampling">
+                        <div class="noti_tod_overlay">
+                            <p>Sampling Notifications</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2 my-3 mx-3 tod_noti ord_noti">
+
+                    <img src="{% static 'img/andre.jpg' %}">
+                    <a href="/userdetail/staff_profile/notifications?filter=order">
+                        <div class="noti_tod_overlay">
+                            <p>Order Notifications</p>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid drop_noti_acti">
+            <div class="row">
+                <div class="col my-3 mx-3 ml-5 tod_noti">
+                    <img src="{% static 'img/agni.jpg' %}">
+                    <a href="/userdetail/staff_profile/activities?filter=today">
+                        <div class="noti_tod_overlay">
+                            <p style="margin-left: 125px">Today's</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col my-3 mx-3 tod_noti">
+
+                    <img src="{% static 'img/yunm.jpg' %}">
+                    <a href="/userdetail/staff_profile/activities?filter=pending">
+                        <div class="noti_tod_overlay">
+                            <p style="margin-left: 125px">Pending</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col my-3 mx-3 tod_noti">
+
+                    <img src="{% static 'img/carl.jpg' %}">
+                    <a href="/userdetail/staff_profile/activities?filter=enquiry">
+                        <div class="noti_tod_overlay">
+                            <p style="margin-left: 125px">Enquiry</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col my-3 mx-3 tod_noti">
+
+                    <img src="{% static 'img/dmit.jpg' %}">
+                    <a href="/userdetail/staff_profile/activities?filter=design">
+                        <div class="noti_tod_overlay">
+                            <p style="margin-left: 125px">Design</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col my-3 mx-3 tod_noti">
+
+                    <img src="{% static 'img/kelly2.jpg' %}">
+                    <a href="/userdetail/staff_profile/activities?filter=sampling">
+                        <div class="noti_tod_overlay">
+                            <p style="margin-left: 125px">Sampling</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col my-3 mx-3 tod_noti">
+
+                    <img src="{% static 'img/san.jpg' %}">
+                    <a href="/userdetail/staff_profile/activities?filter=order">
+                        <div class="noti_tod_overlay">
+                            <p style="margin-left: 125px">Order</p>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div> -->
+
+
+{% endblock %} {% block content %} {% if up_resp_fail %}
+<script type="text/javascript">
+    alert("Sorry you can only update Target Response Time upto 3 times within 15 days")
+</script>
+{% endif %}
+
+<div class="row">
+    {% if deactivated %}
+    <div class="container-fluid">
+        <div class="row centered fontpacifico" style="height: 92vh;">
+            <h1 style="margin-top: auto;margin-bottom: auto;">Sorry Your Account is not Activated</h1>
+        </div>
+    </div>
+    {% else %}
+
+    <style type="text/css">
+        .acti_table tr,
+        .acti_table th,
+        .acti_table td {
+            border: 2px solid black;
+        }
+        
+        .acti_table td,
+        .acti_table th {
+            padding: 8px;
+        }
+        
+        .acti_table th {
+            background-color: #30c5ff;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hover-col {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            transition: all .3s ease-out;
+        }
+        
+        .hover-col:hover {
+            box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+        }
+        
+        .hov-link {
+            transition: all .5s ease-out;
+            border: 1px solid black;
+            background: #30c5ff;
+            color: black;
+            border-radius: 50px;
+            text-decoration: none;
+        }
+        
+        .hov-link:hover {
+            background: #253031;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+
+<div class="container-fluid ">
+        <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                <a href="/userdetail/staff_profile/" class="nav-link" style="color: white;">Profile & Settings</a></li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Notifications
+                    </a>
+                    <div class="dropdown-menu bg-primary text-white" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/userdetail/staff_profile/notifications?filter=staff" class="dropdown-item text-white" >
+                                Staff Notifications
+                                </a>
+                    <a href="/userdetail/staff_profile/notifications?filter=enquiry" class="dropdown-item text-white" >
+                                    Enquiry Notifications
+                                </a>
+                        <a href="/userdetail/staff_profile/notifications?filter=design" class="dropdown-item text-white" >
+                                    
+                                    Design Notifications
+
+                                    
+                                </a>
+                        <a href="/userdetail/staff_profile/notifications?filter=sampling" class="dropdown-item text-white" >
+                                    
+                                    Sampling Notifications
+
+                                    
+                                </a>
+                        <a href="/userdetail/staff_profile/notifications?filter=order" class="dropdown-item text-white" >
+                                    
+                                    Order Notifications
+
+                                    
+                                </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Activites
+                    </a>
+                    <div class="dropdown-menu bg-primary text-white" aria-labelledby="navbarDropdownMenuLink">
+                    <a href="/userdetail/staff_profile/activities?filter=today" class="dropdown-item text-white" >
+                                    
+                                        Today's
+
+                                    
+                                </a>
+                    <a href="/userdetail/staff_profile/activities?filter=pending" class="dropdown-item text-white" >
+                                    
+                                        Pending
+
+                                    
+                                </a>
+                    <a href="/userdetail/staff_profile/activities?filter=enquiry" class="dropdown-item text-white" >
+                                    
+                                        Enquiry
+
+                                    
+                                </a>
+                    <a href="/userdetail/staff_profile/activities?filter=design" class="dropdown-item text-white" >
+                                    
+                                        Design
+
+                                    
+                                </a>
+                    <a href="/userdetail/staff_profile/activities?filter=sampling" class="dropdown-item text-white" >
+                                    
+                                        Sampling
+
+                                    
+                                </a>
+                    <a href="/userdetail/staff_profile/activities?filter=order" class="dropdown-item text-white" >
+                                    
+                                        Order
+
+                                    
+                                </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="/userdetail/staff_profile/staffs" class="nav-link" style="color: white;">Staffs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/userdetail/staff_profile/b2b_customer" class="nav-link" style="color: white;">B2B Customers</a>
+                </li>
+                <li class="nav-item"> <a href="/userdetail/staff_profile/vendors" class="nav-link" style="color: white;">Vendors</a></li>
+                <li class="nav-item"> <a href="/userdetail/staff_profile/orders" class="nav-link" style="color: white;">Orders</a></li>
+                <li class="nav-item"><a href="/userdetail/staff_profile/products" class="nav-link" style="color: white;">Products</a></li>
+                <li class="nav-item"> <a href="/daily_report/generate" class="nav-link" style="color: white;">Generate Link For Form</a></li>
+                <li class="nav-item"> <a href="/daily_report/display_report_user" class="nav-link" style="color: white;">Display Report</a></li>
+                <li class="nav-item"> <a href="/controladmin" class="nav-link" style="color: white;">Dashboard</a></li>
+            	<li class="nav-item"> <a href="{% url 'planner_home' %}" class="nav-link" style="color: white;">Post Internship</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</div>
+
+
+    <div class="container mt-5">
+        <div class="row mt-3 mb-5" id="profile_data">
+            {% if data.image %}
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buis_img_col">
+                <img src="{{data.image.url}}">
+            </div>
+            {% endif %}
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 buis_info_col">
+                <h1><b>{{data.name}}</b></h1>
+                <h6> <b>Email</b> - {{data.email}}</h6>
+                <h6> <b>Mission</b> - {{data.mission}}</h6>
+                <div class="row">
+					<a href="/userdetail/staff_profile_update" class="hov-a" style="margin-left: auto;">Task</a>
+                    <a href="/userdetail/staff_profile_update" class="hov-a" style="margin-left: auto;">Update Profile</a> {% if data.email|staff_perm:'holidays' %}
+                    <a href="/userdetail/staff_profile/holidays" class="hov-a" style="margin-left: 3vw;">Update Holidays</a> {% endif %}{% if data.email|staff_perm:'run_rate' %}
+                    <a href="/userdetail/staff_profile/run-rate" class="hov-a" style="margin-left: 3vw;">Update Run-Rate</a> {% endif %}{% if data.email|staff_perm:'profile_status' %}
+                    <a href="/userdetail/staff_profile/profile_status" class="hov-a" style="margin-left: 3vw;">Profile Status</a> {% endif %}
+                </div>
+                <div class="row mt-2 ml-auto">
+                    {% if sales %}{% if data.email|staff_perm:'activities_order' %}<a href="activities_order" class="px-3 py-1 ml-2 hov-link" style=""><b>Update Activities Order</b></a>{% endif %}{% endif %}
+                    <!-- <a href="/userdetail/staff_profile/create_noti_staff" class="px-3 py-1 ml-2 hov-link" style=""><b>Create Notification(Staffs)</b></a> -->
+                    <!-- <a href="/userdetail/staff_profile/create_noti_vendor" class="px-3 py-1 ml-2 hov-link" style=""><b>Create Notification(Vendors)</b></a> -->
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mb-5 buis_desc_row" id="profile_desc">
+            <h6 align="justify"><b>Description</b> : - {{data.description}}</h6>
+        </div>
+
+        {% if data.email|staff_perm:'profile_status' %}
+        <div class="row mt-2 mb-5">
+            <div class="col-2">
+                <b>Profile Status</b>
+            </div>
+            <div class="col">
+                <input type="text" name="profile_status" style="border:none;background:none;" id="profile_status_input" placeholder="Profile Status">
+            </div>
+        </div>
+        {% endif %}
+        <div class="row hide_row" id="update_resp">
+            <div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+                <div class="row centered" style="z-index: 105; margin-top: 30vh;margin-bottom: auto;margin-left: 30vw;">
+                    <div class="container-fluid">
+                        <div class="row" style="width: 50vw;height: 40vh;background: white;">
+                            <div class="row" style="height: 4vh;">
+                                <button style="border: none;background: transparent;margin-left: 48vw;" onclick="remupresp();"><i class="fas fa-times-circle"></i></button>
+                            </div>
+                            <div class="row">
+                                <h4 class="fontcabin" style="margin-left: 18vw;">Update Response Time</h4>
+                            </div>
+                            <form method="POST">{% csrf_token %}
+                                <div class="row" style="height: 10vh; margin-top: 4vh;">
+                                    <input type="number" name="up_resp" style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);">
+                                </div>
+                                <div class="row">
+                                    <button type="submit" class="px-3 py-2" style="border: none;background: #30c5ff;border-radius: 25px;font-weight: bold;margin-left: 23vw;">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row hide_row" id="update_budget">
+            <div class="container-fluid" style="position: fixed;top: 0;left: 0;z-index: 1050;width: 100vw;height: 100vh;background: rgba(0,0,0,.4);">
+                <div class="row centered" style="z-index: 105; margin-top: 30vh;margin-bottom: auto;margin-left: 30vw;">
+                    <div class="container-fluid">
+                        <div class="row" style="width: 50vw;height: 40vh;background: white;">
+                            <div class="row" style="height: 4vh;">
+                                <button style="border: none;background: transparent;margin-left: 48vw;" onclick="remupbudget();"><i class="fas fa-times-circle"></i></button>
+                            </div>
+                            <div class="row">
+                                <h4 class="fontcabin" style="margin-left: 18vw;">Update Budget-Hit Rate</h4>
+                            </div>
+                            <form method="POST">{% csrf_token %}
+                                <div class="row" style="height: 10vh; margin-top: 4vh;">
+                                    <input type="number" name="up_budget" style="width: 44.5vw; height: 5vh; margin-left: 4vw; border: none;border-bottom: 1px solid rgba(0,0,0,.8);" placeholder="Budget Hit-Rate" value="{{data.budget_hit_rate}}">
+                                </div>
+                                <div class="row">
+                                    <button type="submit" class="px-3 py-2" style="border: none;background: #30c5ff;border-radius: 25px;font-weight: bold;margin-left: 23vw;">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if data.email|staff_perm:'response_time' %}
+        <div class="row mt-3 mb-5">
+            <div class="container">
+                <div class="row">
+                    <h3 class="fontcabin" id="response_opi">Response Time</h3>
+                    <button class="hov-a" style="background: transparent;border: none;margin-left: auto;color: blue;" onclick="showupdatebudget();">Update Budget Hit-Rate</button>
+                    <button class="hov-a" style="background: transparent;border: none;margin-left: 3vw;color: blue;" onclick="showupdateresp();">Update Target Response Time</button>
+
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 centered">
+                        Todays Response Time - {{todays_resp}}
+                    </div>
+                    <div class="col-6 centered">
+                        Target Response Time - {{target_resp}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row mt-3 mb-5">
+            {% if data.email|staff_perm:'profile_performance' or data.email|staff_perm:'run_rate' %}
+            <div class="container">
+                <div class="row">
+                    <h3 class="fontcabin">Profile Performance</h3>
+                </div>
+            </div>
+            {% endif %} {% if data.email|staff_perm:'profile_performance' %}
+            <div class="col-6 pt-5">
+                <div class="row">
+                    <select id="profile_perform" style="background:none;margin-left:auto;border:none;border-bottom:1px solid black;margin-right:5vw;{% ifequal request.GET.profile_perform_filter 'hitr' %}margin-right:0vw;{% endifequal %}">
+
+						<option value="pr" selected>Product Ratio</option>
+						<option value="o" {% ifequal request.GET.profile_perform_filter 'o' %}selected{% endifequal %}>Order Type</option>
+						<option value="catr" {% ifequal request.GET.profile_perform_filter 'catr' %}selected{% endifequal %}>Category Revenue</option>
+						<option value="cusr" {% ifequal request.GET.profile_perform_filter 'cusr' %}selected{% endifequal %}>Customer Revenue</option>
+						<option value="hitr" {% ifequal request.GET.profile_perform_filter 'hitr' %}selected{% endifequal %}>Hit Ratio</option>
+					</select> {% ifequal request.GET.profile_perform_filter 'hitr' %}
+                    <select id="type_of_perf" style="background:none;margin-left:1vw;border:none;border-bottom:1px solid black;">
+							<option value="all" selected>All</option>
+							<option value="e_to_d" {% if request.GET.type == 'e_to_d' %}selected{% endif %}>Enquiry to Design</option>
+							<option value="e_to_s" {% if request.GET.type == 'e_to_s' %}selected{% endif %}>Enquiry to Sample</option>
+							<option value="e_to_o" {% if request.GET.type == 'e_to_o' %}selected{% endif %}>Enquiry to Order</option>
+							<option value="d_to_s" {% if request.GET.type == 'd_to_s' %}selected{% endif %}>Design to Sample</option>
+							<option value="d_to_o" {% if request.GET.type == 'd_to_o' %}selected{% endif %}>Design to Order</option>
+							<option value="s_to_o" {% if request.GET.type == 's_to_o' %}selected{% endif %}>Sample to Order</option>
+						</select>
+                    <select id="month_wise" style="background:none;margin-left:1vw; margin-right:5vw;border:none;border-bottom:1px solid black;">
+							<option value="all" selected>All</option>
+							{% for a in months %}
+								<option value="{{a.1}}" {% if request.GET.month == a.1 %}selected{% endif %}>{{a.0}}</option>
+							{% endfor %}
+
+						</select> {% endifequal %}
+                </div>
+                <div class="row">
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if data.email|staff_perm:'response_time' %}
+            <div class="col-6">
+                <div class="row centered">
+                    <div id="myDivproper"></div>
+                </div>
+            </div>
+            {% endif %} {% if ui4.0.total %}
+            <div class="col-6">
+                <div class="row">
+                    <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if ui5.0.total %}
+            <div class="col-6">
+                <div class="row">
+                    <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if ui6.0.total %}
+            <div class="col-6">
+                <div class="row">
+                    <div id="chartContainer3" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if ui7.0.total %}
+            <div class="col-6">
+                <div class="row">
+                    <div id="chartContainer4" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if ui8.0.total %}
+            <div class="col-6">
+                <div class="row">
+                    <div id="chartContainer5" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if ui9.0.total %}
+            <div class="col-6">
+                <div class="row">
+                    <div id="chartContainer6" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if data.email|staff_perm:'hit_run_rate' %}
+            <div class="col-6">
+                <div class="row">
+                    <select style="margin-left: auto;" id="budget_filter">
+						<option value="{{current_year|add:2}}" selected {% if request.GET.budget_year == current_year|add:2 %}selected{% endif %}>{{current_year|add:2}}</option>
+						<option value="{{current_year|add:1}}" {% if request.GET.budget_year == current_year|add:1 %}selected{% endif %}>{{current_year|add:1}}</option>
+
+						<option value="{{current_year}}" selected>{{current_year}}</option>
+						<option value="{{current_year|add:-1}}" {% if request.GET.budget_year == current_year|add:-1 %}selected{% endif %}>{{current_year|add:-1}}</option>
+						<option value="{{current_year|add:-2}}" {% if request.GET.budget_year == current_year|add:-2 %}selected{% endif %}>{{current_year|add:-2}}</option>
+					</select>
+                </div>
+                <div class="row">
+                    <div id="chartContainer7" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %} {% if data.email|staff_perm:'run_rate' %}
+            <div class="col-6">
+                <div class="row">
+                    <select style="margin-left: auto;" id="run_sector_filter">
+						{% comment %} <option value="clubbed">Clubbed</option> {% endcomment %}
+						{% for i in sectors %}
+							<option value="{{i.id}}">{{i.name}}</option>
+						{% endfor %}
+					</select>
+                    <select style="margin-left: 3vw;" id="budget_sector_years">
+						{% for i in budget_years %}
+							<option value="{{i.year.year}}">{{i.year.year}}</option>
+						{% endfor %}
+					</select>
+                    <select style="margin-left: 2vw;" id="run_year_filter">
+						<option value="yearly">Yearly</option>
+						<option value="half">Half-Yearly</option>
+						<option value="quart">Quarterly</option>
+						<option value="month">Monthly</option>
+					</select>
+                    <select style="margin-left: 2vw;" id="budget_custom">
+						<option disabled selected>------------</option>
+					</select>
+                </div>
+                <div class="row" id="graph_content">
+                    <div id="chartContainer8" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+            {% endif %}
+
+            <script type="text/javascript">
+                $('#profile_status_input').on("input", function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/userdetail/staff_profile/',
+                        data: {
+                            profile_status_ajax: $('#profile_status_input').val(),
+                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                        },
+                        cache: false,
+                        dataType: "json",
+                        success: function(data) {
+                            // alert("Done");
+                        }
+                    });
+                })
+
+
+                var trace1 = {
+                    x: [{% for f in last_few_resp %}
+                        "{{f.date}}", 
+						{% endfor %}
+                    ],
+                    y: [{% for f in last_few_resp %}
+                        "{{f.response_tm}}", 
+						{% endfor %}
+                    ],
+                    type: 'scatter',
+                    name: 'Actual Response Time'
+                };
+
+                var trace2 = {
+                    x: [{% for f in last_few_resp %}
+                        "{{f.date}}", {% endfor %}
+                    ],
+                    y: [{% for f in last_few_resp %}
+                        "{{target_resp}}", {% endfor %}
+                    ],
+                    type: 'scatter',
+                    name: 'Target Response Time'
+                };
+
+                var data = [trace1, trace2];
+
+                Plotly.newPlot('myDivproper', data, {}, {
+                    showSendToCloud: true
+                });
+
+                $('#profile_perform').change(function() {
+                    var a = document.getElementById('profile_perform').value;
+                    if (a == 'o') {
+                        window.location.href = "/userdetail/staff_profile?profile_perform_filter=o#response_opi"
+                    } else if (a == 'catr') {
+                        window.location.href = "/userdetail/staff_profile?profile_perform_filter=catr#response_opi"
+                    } else if (a == 'cusr') {
+
+                        window.location.href = "/userdetail/staff_profile?profile_perform_filter=cusr#response_opi"
+                    } else if (a == 'pr') {
+
+                        window.location.href = "/userdetail/staff_profile?profile_perform_filter=pr#response_opi"
+                    } else if (a == 'hitr') {
+
+                        window.location.href = "/userdetail/staff_profile?profile_perform_filter=hitr#response_opi"
+                    }
+                })
+            </script>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row" style="bottom: 0;position: fixed;height: 50px;width: 100%;z-index: 105;
+	margin-bottom: 50px;margin-left: 90vw;margin-right: 10vw;">
+            <a href="/userdetail/staff_profile/message"><img src="{% static 'img/msg.png' %}" style="width: 5vw;height: 5vw;cursor: pointer;"></a>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% include 'include/loader.html' %}
+<script type="text/javascript">
+    function showsomediv() {
+        var hj = document.getElementById('drop_noti');
+        hj.style.display = "block";
+    }
+</script>
+
+
+<script src="{% static 'canvas_js/canvas_js.min.js' %}"></script>
+
+
+<script type="text/javascript">
+    $('#budget_filter').on("change", function() {
+        window.location.href = "/userdetail/staff_profile?budget_year=" + $('#budget_filter').val();
+    });
+	{% if data.email|staff_perm:'profile_performance' %}
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+            text: ""
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui3 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}"
+            }, {% endfor %}]
+        }]
+    });
+    chart.render();
+	{% endif %}
+
+    {% comment %} var chart1 = new CanvasJS.Chart("chartContainer1", {
+        animationEnabled: true,
+        title: {
+            text: "Enquiry to Design"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui4 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}",
+                color: "{{u.color}}"
+            }, {% endfor %}]
+        }]
+    }); {% if ui4.0.total > 0 %}
+    chart1.render(); {% endif %}
+
+    var chart2 = new CanvasJS.Chart("chartContainer2", {
+        animationEnabled: true,
+        title: {
+            text: "Enquiry to Sample"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui5 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}",
+                color: "{{u.color}}"
+            }, {% endfor %}]
+        }]
+    }); {% if ui5.0.total > 0 %}
+    chart2.render(); {% endif %}
+    var chart3 = new CanvasJS.Chart("chartContainer3", {
+        animationEnabled: true,
+        title: {
+            text: "Enquiry to Order"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui6 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}",
+                color: "{{u.color}}"
+            }, {% endfor %}]
+        }]
+    }); {% if ui6.0.total > 0 %}
+    chart3.render(); {% endif %}
+    var chart4 = new CanvasJS.Chart("chartContainer4", {
+        animationEnabled: true,
+        title: {
+            text: "Design to Sample"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui7 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}",
+                color: "{{u.color}}"
+            }, {% endfor %}]
+        }]
+    }); {% if ui7.0.total > 0 %}
+    chart4.render(); {% endif %}
+    var chart5 = new CanvasJS.Chart("chartContainer5", {
+        animationEnabled: true,
+        title: {
+            text: "Design to Order"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui8 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}",
+                color: "{{u.color}}"
+            }, {% endfor %}]
+        }]
+    }); {% if ui8.0.total > 0 %}
+    chart5.render(); {% endif %}
+    var chart6 = new CanvasJS.Chart("chartContainer6", {
+        animationEnabled: true,
+        title: {
+            text: "Sample to Order"
+        },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [{% for u in ui9 %} {
+                y: {{ u.count|add:"0" }},
+                label: "{{u.label}}",
+                color: "{{u.color}}"
+            }, {% endfor %}]
+        }]
+    }); {% if ui9.0.total > 0 %}
+    chart6.render(); {% endif %} {% endcomment %}
+	{% if data.email|staff_perm:'hit_run_rate' %}
+    var chart7 = new CanvasJS.Chart("chartContainer7", {
+        animationEnabled: true,
+        title: {
+            text: "Budget Hit-Rate Analysis"
+        },
+        axisX: {
+            valueFormatString: "MMM",
+            minimum: new Date(parseInt('{{current_year}}') - 1, 12),
+            maximum: new Date(parseInt('{{current_year}}'), 11)
+        },
+        axisY: {
+            title: "Budget"
+        },
+        legend: {
+            verticalAlign: "top",
+            horizontalAlign: "right",
+            dockInsidePlotArea: true
+        },
+        toolTip: {
+            shared: true
+        },
+        data: [{
+            name: "Expected",
+            showInLegend: true,
+            legendMarkerType: "square",
+            type: "area",
+            color: "rgba(40,175,101,0.6)",
+            markerSize: 0,
+            dataPoints: [{
+                x: new Date(parseInt('{{current_year}}'), 1),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 2),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 3),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 4),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 5),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 6),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 7),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 8),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 9),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 10),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 11),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }, {
+                x: new Date(parseInt('{{current_year}}'), 12),
+                y: parseInt('{{data.budget_hit_rate}}')
+            }]
+        }, {
+            name: "Actual",
+            showInLegend: true,
+            legendMarkerType: "square",
+            type: "area",
+            color: "rgba(0,75,141,0.7)",
+            markerSize: 0,
+            dataPoints: [{% for i in months_wise_budget %} {
+                x: new Date(parseInt('{{current_year}}'), parseInt('{{forloop.counter}}')),
+                y: parseInt('{{i}}')
+            }, {% endfor %} {
+                x: new Date(2017, 1, 6),
+                y: 42
+            }, {
+                x: new Date(2017, 1, 7),
+                y: 34
+            }, {
+                x: new Date(2017, 1, 8),
+                y: 29
+            }, {
+                x: new Date(2017, 1, 9),
+                y: 42
+            }, {
+                x: new Date(2017, 1, 10),
+                y: 53
+            }, {
+                x: new Date(2017, 1, 11),
+                y: 15
+            }, {
+                x: new Date(2017, 1, 12),
+                y: 12
+            }]
+        }]
+    });
+    chart7.render();
+	{% endif %}
+
+
+    var chart8 = new CanvasJS.Chart("chartContainer8", {
+        animationEnabled: true,
+        title: {
+            text: "Budget Run-Rate Analysis"
+        },
+        axisX: {
+            valueFormatString: "MMM",
+            minimum: new Date(parseInt('{{cur_year}}'), 0, 0),
+            maximum: new Date(parseInt('{{cur_year}}'), 11, 0)
+        },
+        axisY: {
+            title: "Budget"
+        },
+        legend: {
+            verticalAlign: "top",
+            horizontalAlign: "right",
+            dockInsidePlotArea: true
+        },
+        toolTip: {
+            shared: true
+        },
+        data: [{
+            name: "Expected",
+            showInLegend: true,
+            legendMarkerType: "square",
+            type: "area",
+            color: "rgba(40,175,101,0.6)",
+            markerSize: 0,
+            dataPoints: [{% for i in check_run %} {
+                x: new Date(parseInt('{{cur_year}}'), parseInt('{{forloop.counter0}}')),
+                y: parseInt('{{per_month}}')
+            }, {% endfor %}]
+        }, {
+            name: "Actual",
+            showInLegend: true,
+            legendMarkerType: "square",
+            type: "area",
+            color: "rgba(0,75,141,0.7)",
+            markerSize: 0,
+            dataPoints: [{% for i in check_run %} {
+                x: new Date(parseInt('{{cur_year}}'), parseInt('{{forloop.counter}}')),
+                y: parseInt('{{i}}')
+            }, {% endfor %}]
+        }]
+    });
+    chart8.render();
+</script>
+
+<script type="text/javascript" src="{% static 'js/userdetail/staff_profile.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/userdetail/seller_profile.js' %}">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('#type_of_perf').change(function() {
+        window.location.href = "/userdetail/staff_profile?profile_perform_filter=" + $('#profile_perform').val().toString() + "&type=" + $('#type_of_perf').val().toString() + "#response_opi";
+
+    });
+    $('#month_wise').change(function() {
+        window.location.href = "/userdetail/staff_profile?profile_perform_filter=" + $('#profile_perform').val().toString() + "&type=" + $('#type_of_perf').val().toString() + "&month=" + $('#month_wise').val() + "#response_opi";
+
+    });
+</script>
+
+
+{% endblock %}

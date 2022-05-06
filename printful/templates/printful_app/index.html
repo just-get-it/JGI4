@@ -1,0 +1,724 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'printful/css/bootstrap.css' %}">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="{% static 'printful/css/mdb.min.css' %}">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" type="text/css" href="{% static 'printful/css/style.min.css' %}">
+<style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 65vh;
+    }
+
+    .drawing-area1{
+        position: absolute;
+        top: 120px;
+        right: 145px;
+        z-index: 10;
+    }
+    .drawing-area2{
+        position: absolute;
+        top: 120px;
+        right: 145px;
+        z-index: 10;
+    }
+    .drawing-area3{
+        position: absolute;
+        top: 170px;
+        right: 80px;
+        z-index: 10;
+    }
+    .drawing-area4{
+        position: absolute;
+        top: 170px;
+        left: 120px;
+        z-index: 10;
+    }
+
+    .canvas-container{
+        width: 175px;
+        height: 300px;
+        position: relative;
+        user-select: none;
+    }
+    #tshirt-div{
+        width: 452px;
+        height: 548px;
+        position: relative;
+        background-color: #fff;
+    }
+    #canvas{
+        position: absolute;
+        width: 200px;
+        height: 400px;
+        left: 370px;
+        top: 0px;
+        user-select: none;
+        cursor: default;
+    }
+
+
+.flex-container{
+    display:flex;
+}
+.flexx-child{
+    flex:1;
+}
+.flex-child:first-child{
+    margin-left: 50px;
+}
+
+#tshirt-backgroundpicture5,#tshirt-backgroundpicture6,#tshirt-backgroundpicture7,#tshirt-backgroundpicture8{
+  float:right;
+  height:450px;
+  width:25vw;
+}
+
+.carousel-indicators {
+  position: absolute;
+  top: -150px;
+  left: -60%;
+  margin: auto;
+  height: 100px;
+  width: auto;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.carousel .carousel-indicators li{
+  width:1rem;
+}
+
+.carousel-indicators li{
+  visibility: hidden;
+  margin-right: 60px;
+}
+
+.carousel-indicators li img{
+      visibility: initial;
+  margin-top: 50px;
+  float: left;
+  height: 90px;
+  width: 80px;
+  left: 50px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.carousel-indicators li .active img{
+  border: 3px solid #000;
+  opacity: 1;
+}
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+
+
+  </style>
+
+
+    <div class="row" style="margin-top: 100px;">
+        <div id="tshirt-div" class=" col-lg-4" style="margin-left: 100px;">
+            <!--<img id="tshirt-backgroundpicture" src="{% static 'images/background_tshirt.png' %}"/>-->
+
+            <div class="slider">
+                    <div id="headerSlider" class="carousel slide"> <!--data-ride="carousel"-->
+                        <ol class="carousel-indicators">
+                            <li data-target="#headerSlider" data-slide-to="0" class="active slide1">
+                                <img id="tshirt-backgroundpicture1" src="{% static 'printful/images/tee-front.png' %}" onclick="slide_1();">
+                            </li>
+                            <li data-target="#headerSlider" data-slide-to="1" class="slide1">
+                                <img id="tshirt-backgroundpicture2" src="{% static 'printful/images/tee-back.png' %}" onclick="slide_2();">
+                            </li>
+                            <li data-target="#headerSlider" data-slide-to="2" class="slide1">
+                                <img id="tshirt-backgroundpicture3" src="{% static 'printful/images/tee-left.png' %}" onclick="slide_3();">
+                            </li>
+                            <li data-target="#headerSlider" data-slide-to="3" class="slide1">
+                                <img id="tshirt-backgroundpicture4" src="{% static 'printful/images/tee-right.png' %}" onclick="slide_4();">
+                            </li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img id="tshirt-backgroundpicture5" class="d-block w-100" src="{% static 'printful/images/tee-front.png' %}">
+                                <div id="drawingArea1" class="drawing-area1">
+                                    <div class="canvas-container">
+                                        <canvas id="tshirt-canvas1" width="145" height="220"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img id="tshirt-backgroundpicture6" class="d-block w-100" src="{% static 'printful/images/tee-back.png' %}">
+                                <div id="drawingArea2" class="drawing-area2">
+                                    <div class="canvas-container">
+                                        <canvas id="tshirt-canvas2" width="145" height="220"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img id="tshirt-backgroundpicture7" class="d-block w-100" src="{% static 'printful/images/tee-left.png' %}">
+                                <div id="drawingArea3" class="drawing-area3">
+                                    <div class="canvas-container">
+                                        <canvas id="tshirt-canvas3" width="145" height="145"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img id="tshirt-backgroundpicture8" class="d-block w-100" src="{% static 'printful/images/tee-right.png' %}">
+                                <div id="drawingArea4" class="drawing-area4">
+                                    <div class="canvas-container">
+                                        <canvas id="tshirt-canvas4" width="145" height="145"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <table class="col-lg-7">
+            <tr>
+                <td width="35%"><label for="tshirt-customtext">Enter text:</label></td>
+                <td>
+                    <input type="text" maxlength="16" onkeydown="my_text1();" class="form-control col-lg-5" id="tshirt-customtext" placeholder="Enter text here..." style="display: inline-block;" />
+                    <input type="text" maxlength="16" onkeydown="my_text2();"  class="form-control col-lg-5" id="tshirt-customtext2" placeholder="Enter text here..." style="display: none;" />
+                    <input type="text" maxlength="16" onkeydown="my_text3();"  class="form-control col-lg-5" id="tshirt-customtext3" placeholder="Enter text here..." style="display: none;" />
+                    <input type="text" maxlength="16" onkeydown="my_text4();"  class="form-control col-lg-5" id="tshirt-customtext4" placeholder="Enter text here..." style="display: none;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Text X distance: &nbsp;<input type="range" id="txt-x" min="0" max="100" value="50">
+                    <span id="txt-x-out" style="padding-left:15px;"></span>
+                </td>
+                <!--<td>Text Size: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" id="txt-size" min="10" max="30" value="50"></td>-->
+            </tr>
+            <tr>
+                <td>
+                    Text Y distance: &nbsp;<input type="range" id="txt-y" min="0" max="100" value="50">
+                    <span id="txt-y-out" style="padding-left:15px;"></span>
+                </td>
+                <td>
+                    Text Rotation: &nbsp;<input type="range" id="txt-rot" min="-90" max="90" value="0">
+                    <span id="txt-rot-out" style="padding-left:15px;"></span> degree
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">trsrf</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    To remove a loaded picture on the T-Shirt select it and press the <kbd>DELETE</kbd> key.
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">trsrf</td>
+            </tr>
+            <tr>
+                <td><label for="tshirt-design">T-Shirt Design:</label></td>
+                <td>
+                    <select id="tshirt-design" class="form-control col-lg-5">
+                        <option value="">Select one of our designs ...</option>
+                        <option value="{% static 'printful/images/shirt1.png' %}">Design1</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">trsrf</td>
+            </tr>
+            <tr>
+                <td><label for="tshirt-color">T-Shirt Color:&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+                <td>
+                    <select id="tshirt-color" class="form-control col-lg-5">
+                        <option value="#fff">White</option>
+                        <option value="#000">Black</option>
+                        <option value="#f00">Red</option>
+                        <option value="#008000">Green</option>
+                        <option value="#20419a">Blue</option>
+                        <option value="#f5f5bc">Beige</option>
+                        <option value="#60371f">Brown</option>
+                        <option value="#ff7700">Orange</option>
+                        <option value="#ffc2c4">Pink</option>
+                        <option value="#5e3a8c">Purple</option>
+                        <option value="#ee82ee">Violet</option>
+                        <option value="#ff00ff">Magenta</option>
+                        <option value="#3f1924">Maroon</option>
+                        <option value="#0ca2bd">Cyan</option>
+                        <option value="#bbb">Gray</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">trsrf</td>
+            </tr>
+            <tr>
+                <td><label for="tshirt-custompicture">Upload your own design:</label></td>
+                <td>
+                    <input type="file" class="form-control col-lg-5" id="tshirt-custompicture" style="display: inline-block;" />
+                    <input type="file" class="form-control col-lg-5" id="tshirt-custompicture2" style="display: none;" />
+                    <input type="file" class="form-control col-lg-5" id="tshirt-custompicture3" style="display: none;" />
+                    <input type="file" class="form-control col-lg-5" id="tshirt-custompicture4" style="display: none;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">trsrf</td>
+            </tr>
+            <tr>
+                <td><label for="colorInput">Select a color and click Apply:</label></td>
+                <td>
+                    <input type="color" class="col-lg-2" id="colorInput" value="#ffffff">
+                    <button class="btn btn-sm btn-primary col-lg-3" onclick="color_func()">Apply Color</button>
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">trsrf</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button class="btn-lg btn-success col-lg-4">Proceed</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+               <!-- Include Fabric.js in the page -->
+    <script src="{% static 'printful/js/fabric.min.js' %}"></script>
+    <script>
+
+        //Text insert
+        function my_text1()
+        {
+            var txt_canvas1 = new fabric.Canvas('tshirt-canvas1');
+            var context1 = txt_canvas1.getContext("2d");
+            var txt = document.getElementById('tshirt-customtext').value;
+            if(txt.length!=0)
+            {
+                context1.font = "20px Georgia";
+                context1.fillText(txt, 10, 20, 140);
+
+                var degg = document.getElementById('txt-rot').value;
+                degg.style.rotate
+                //context1.rotate(degg * Math.PI / 180);
+            }
+        }
+
+        function my_text2()
+        {
+            var txt_canvas1 = new fabric.Canvas('tshirt-canvas2');
+            var context1 = txt_canvas1.getContext("2d");
+            var txt = document.getElementById('tshirt-customtext2').value;
+            if(txt.length!=0)
+            {
+                context1.font = "20px Georgia";
+                context1.fillText(txt, 10, 20, 140);
+            }
+
+        }
+        function my_text3()
+        {
+            var txt_canvas1 = new fabric.Canvas('tshirt-canvas3');
+            var context1 = txt_canvas1.getContext("2d");
+            var txt = document.getElementById('tshirt-customtext3').value;
+            if(txt.length!=0)
+            {
+                context1.font = "20px Georgia";
+                context1.fillText(txt, 10, 20, 140);
+            }
+
+        }
+        function my_text4()
+        {
+            var txt_canvas1 = new fabric.Canvas('tshirt-canvas4');
+            var context1 = txt_canvas1.getContext("2d");
+            var txt = document.getElementById('tshirt-customtext4').value;
+            if(txt.length!=0)
+            {
+                context1.font = "20px Georgia";
+                context1.fillText(txt, 10, 20, 140);
+            }
+
+        }
+
+        //Text X slider
+        var slider1 = document.getElementById('txt-x');
+        var output1 = document.getElementById('txt-x-out');
+        output1.innerHTML = slider1.value;
+        slider1.oninput = function()
+        {
+            output1.innerHTML = this.value;
+        }
+        //Text Y slider
+        var slider2 = document.getElementById('txt-y');
+        var output2 = document.getElementById('txt-y-out');
+        output2.innerHTML = slider2.value;
+        slider2.oninput = function()
+        {
+            output2.innerHTML = this.value;
+        }
+        //Text rotation slider
+        var slider3 = document.getElementById('txt-rot');
+        var output3 = document.getElementById('txt-rot-out');
+        output3.innerHTML = slider3.value;
+        slider3.oninput = function()
+        {
+            var degg = this.value;
+            output3.innerHTML = degg;
+            //document.getElementById("tshirt-customtext").style.transform = "rotate(30deg)";
+        }
+
+        //TEXT ROTATION
+
+
+
+
+
+
+           let canvas1 = new fabric.Canvas('tshirt-canvas1');
+           function updateTshirtImage1(imageURL)
+           {
+               fabric.Image.fromURL(imageURL, function(img)
+               {
+                   img.scaleToHeight(300);
+                   img.scaleToWidth(300);
+                   canvas1.centerObject(img);
+                   canvas1.add(img);
+                   canvas1.renderAll();
+               });
+           }
+
+           let canvas2 = new fabric.Canvas('tshirt-canvas2');
+           function updateTshirtImage2(imageURL)
+           {
+               fabric.Image.fromURL(imageURL, function(img)
+               {
+                   img.scaleToHeight(300);
+                   img.scaleToWidth(300);
+                   canvas2.centerObject(img);
+                   canvas2.add(img);
+                   canvas2.renderAll();
+               });
+           }
+           let canvas3 = new fabric.Canvas('tshirt-canvas3');
+           function updateTshirtImage3(imageURL)
+           {
+               fabric.Image.fromURL(imageURL, function(img)
+               {
+                   img.scaleToHeight(300);
+                   img.scaleToWidth(300);
+                   canvas3.centerObject(img);
+                   canvas3.add(img);
+                   canvas3.renderAll();
+               });
+           }
+           let canvas4 = new fabric.Canvas('tshirt-canvas4');
+           function updateTshirtImage4(imageURL)
+           {
+               fabric.Image.fromURL(imageURL, function(img)
+               {
+                   img.scaleToHeight(300);
+                   img.scaleToWidth(300);
+                   canvas4.centerObject(img);
+                   canvas4.add(img);
+                   canvas4.renderAll();
+               });
+           }
+
+            // Update the TShirt color according to the selected color by the user
+            document.getElementById("tshirt-color").addEventListener("change", function()
+            {
+                let color = this.value;
+                var i;
+                for(i=1; i<9; i++)
+                {
+                    var x = document.getElementById("tshirt-backgroundpicture"+i);
+                    x.style.backgroundColor = color;
+                }
+            }, false);
+
+            // Update the TShirt color according to the selected color by the user
+            document.getElementById("tshirt-design").addEventListener("change", function()
+            {
+                 // Call the updateTshirtImage method providing as first argument the URL
+                // of the image provided by the select
+                updateTshirtImage1(this.value);
+            }, false);
+
+            // When the user clicks on upload a custom picture
+            document.getElementById('tshirt-custompicture').addEventListener("change", function(e)
+            {
+                var reader = new FileReader();
+
+                reader.onload = function (event)
+                {
+                    var imgObj = new Image();
+                    imgObj.src = event.target.result;
+
+                    // When the picture loads, create the image in Fabric.js
+                    imgObj.onload = function ()
+                    {
+                        var img = new fabric.Image(imgObj);
+
+                        img.scaleToHeight(300);
+                        img.scaleToWidth(300);
+                        canvas1.centerObject(img);
+                        canvas1.add(img);
+                        canvas1.renderAll();
+                    };
+                };
+
+                // If the user selected a picture, load it
+                if(e.target.files[0])
+                {
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+
+                // When the user selects a picture that has been added and press the DEL key, the object will be removed !
+                document.addEventListener("keydown", function(e)
+                {
+                    var keyCode = e.keyCode;
+
+                    if(keyCode == 46)
+                    {
+                        console.log("Removing selected element on Fabric.js on DELETE key !");
+                        canvas1.remove(canvas1.getActiveObject());
+                    }
+                }, false);
+            }, false);
+
+            document.getElementById('tshirt-custompicture2').addEventListener("change", function(e)
+            {
+                var reader = new FileReader();
+
+                reader.onload = function (event)
+                {
+                    var imgObj = new Image();
+                    imgObj.src = event.target.result;
+
+                    // When the picture loads, create the image in Fabric.js
+                    imgObj.onload = function ()
+                    {
+                        var img = new fabric.Image(imgObj);
+
+                        img.scaleToHeight(300);
+                        img.scaleToWidth(300);
+                        canvas2.centerObject(img);
+                        canvas2.add(img);
+                        canvas2.renderAll();
+                    };
+                };
+
+                // If the user selected a picture, load it
+                if(e.target.files[0])
+                {
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+
+                // When the user selects a picture that has been added and press the DEL key, the object will be removed !
+                document.addEventListener("keydown", function(e)
+                {
+                    var keyCode = e.keyCode;
+
+                    if(keyCode == 46)
+                    {
+                        console.log("Removing selected element on Fabric.js on DELETE key !");
+                        canvas2.remove(canvas2.getActiveObject());
+                    }
+                }, false);
+            }, false);
+
+
+            document.getElementById('tshirt-custompicture3').addEventListener("change", function(e)
+            {
+                var reader = new FileReader();
+
+                reader.onload = function (event)
+                {
+                    var imgObj = new Image();
+                    imgObj.src = event.target.result;
+
+                    // When the picture loads, create the image in Fabric.js
+                    imgObj.onload = function ()
+                    {
+                        var img = new fabric.Image(imgObj);
+
+                        img.scaleToHeight(300);
+                        img.scaleToWidth(300);
+                        canvas3.centerObject(img);
+                        canvas3.add(img);
+                        canvas3.renderAll();
+                    };
+                };
+
+                // If the user selected a picture, load it
+                if(e.target.files[0])
+                {
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+                // When the user selects a picture that has been added and press the DEL key, the object will be removed !
+                document.addEventListener("keydown", function(e)
+                {
+                    var keyCode = e.keyCode;
+
+                    if(keyCode == 46)
+                    {
+                        console.log("Removing selected element on Fabric.js on DELETE key !");
+                        canvas3.remove(canvas3.getActiveObject());
+                    }
+                }, false);
+            }, false);
+
+
+            document.getElementById('tshirt-custompicture4').addEventListener("change", function(e)
+            {
+                var reader = new FileReader();
+
+                reader.onload = function (event)
+                {
+                    var imgObj = new Image();
+                    imgObj.src = event.target.result;
+
+                    // When the picture loads, create the image in Fabric.js
+                    imgObj.onload = function ()
+                    {
+                        var img = new fabric.Image(imgObj);
+
+                        img.scaleToHeight(300);
+                        img.scaleToWidth(300);
+                        canvas4.centerObject(img);
+                        canvas4.add(img);
+                        canvas4.renderAll();
+                    };
+                };
+
+                // If the user selected a picture, load it
+                if(e.target.files[0])
+                {
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+
+                // When the user selects a picture that has been added and press the DEL key, the object will be removed !
+                document.addEventListener("keydown", function(e)
+                {
+                    var keyCode = e.keyCode;
+
+                    if(keyCode == 46)
+                    {
+                        console.log("Removing selected element on Fabric.js on DELETE key !");
+                        canvas4.remove(canvas4.getActiveObject());
+                    }
+                }, false);
+            }, false);
+
+
+
+
+
+
+
+                function slide_1()
+                {
+                    document.getElementById("tshirt-custompicture").style.display = "inline-block";
+                    document.getElementById("tshirt-custompicture2").style.display = "none";
+                    document.getElementById("tshirt-custompicture3").style.display = "none";
+                    document.getElementById("tshirt-custompicture4").style.display = "none";
+                    //Functions for TEXT field
+                    document.getElementById("tshirt-customtext").style.display = "inline-block";
+                    document.getElementById("tshirt-customtext2").style.display = "none";
+                    document.getElementById("tshirt-customtext3").style.display = "none";
+                    document.getElementById("tshirt-customtext4").style.display = "none";
+
+                }
+                function slide_2()
+                {
+                    document.getElementById("tshirt-custompicture").style.display = "none";
+                    document.getElementById("tshirt-custompicture2").style.display = "inline-block";
+                    document.getElementById("tshirt-custompicture3").style.display = "none";
+                    document.getElementById("tshirt-custompicture4").style.display = "none";
+                    //Functions for TEXT field
+                    document.getElementById("tshirt-customtext").style.display = "none";
+                    document.getElementById("tshirt-customtext2").style.display = "inline-block";
+                    document.getElementById("tshirt-customtext3").style.display = "none";
+                    document.getElementById("tshirt-customtext4").style.display = "none";
+                }
+                function slide_3()
+                {
+                    document.getElementById("tshirt-custompicture").style.display = "none";
+                    document.getElementById("tshirt-custompicture2").style.display = "none";
+                    document.getElementById("tshirt-custompicture3").style.display = "inline-block";
+                    document.getElementById("tshirt-custompicture4").style.display = "none";
+                    //Functions for TEXT field
+                    document.getElementById("tshirt-customtext").style.display = "none";
+                    document.getElementById("tshirt-customtext2").style.display = "none";
+                    document.getElementById("tshirt-customtext3").style.display = "inline-block";
+                    document.getElementById("tshirt-customtext4").style.display = "none";
+                }
+                function slide_4()
+                {
+                    document.getElementById("tshirt-custompicture").style.display = "none";
+                    document.getElementById("tshirt-custompicture2").style.display = "none";
+                    document.getElementById("tshirt-custompicture3").style.display = "none";
+                    document.getElementById("tshirt-custompicture4").style.display = "inline-block";
+                    //Functions for TEXT field
+                    document.getElementById("tshirt-customtext").style.display = "none";
+                    document.getElementById("tshirt-customtext2").style.display = "none";
+                    document.getElementById("tshirt-customtext3").style.display = "none";
+                    document.getElementById("tshirt-customtext4").style.display = "inline-block";
+                }
+
+
+                function color_func()
+                {
+                    let color = document.getElementById('colorInput').value;
+                    var i;
+                    for(i=1; i<9; i++)
+                    {
+                        var x = document.getElementById("tshirt-backgroundpicture"+i);
+                        x.style.backgroundColor = color;
+                    }
+                }
+            </script>
+  <script type="text/javascript">
+        document.getElementById('selector').onchange = function ()
+        {
+            document.getElementById('pagelink').href = this.options[this.selectedIndex].getAttribute('data-link');
+            document.getElementById('image').src = this.value;
+        }
+    </script>
+<script type="text/javascript" src="{% static 'printful/js/jquery-3.4.1.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'printful/js/popper.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'printful/js/bootstrap.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'printful/js/mdb.min.js' %}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    new WOW().init();
+
+  </script>
+{% endblock %}

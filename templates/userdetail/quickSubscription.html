@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+<br>
+<h1>Subscription</h1>
+
+<hr>
+<form method="GET" action="{% url 'cart' %}">
+	<div class="form-group row">
+        <label for="product" class="col-sm-2 col-form-label">PRODUCT/SERVICE NAME</label>
+            <div class="col-sm-4">
+              <input list="product" name="products" id="products">
+              <datalist id="product">
+                {% for key, value in products.items %}
+                  <option data-value="{{key}}" value="{{value.title}}">
+                {% endfor %}
+              </datalist>
+                  {% comment %} <select class="form-control" name="slug">
+                    {% for key, value in products.items %}
+                      <option value="{{key}}">{{ value.title }}</option>
+                    {% endfor %}
+                  </select> {% endcomment %}
+            </div>
+    </div>
+    {% if is_service %}
+    <div class="form-group row">
+        <label for="unit_quantity" class="col-sm-2 col-form-label">Service Charge</label>
+            <div class="col-sm-4">
+                  <select class="form-control" name="unit_quantity">
+                    {% for i in service_unit %}
+                            <option value="{{i.price_range}}">{{i.price_range}}</option>
+                    {% endfor %}
+
+                  </select>
+            </div>
+    </div>
+    {% else %}
+    {% comment %} QUANTITY {% endcomment %}
+      <div class="form-group row" style="width: 500px;">
+        <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+        <div class="col-sm-5">
+          <input type="number" min="0.25" step="0.25" name="quantity" value="{{quantity}}" class="form-control" >
+        </div>
+        <h6 id="unit_of_measurement"></h6>
+      </div>
+    {% endif %}
+    {% comment %} AMOUNT {% endcomment %}
+		<div class="form-group row amount_section" style="width: 500px;" style="display: none;">
+			<div class="form-group-row">
+				<div id="price_section" class="col-sm-12" style="display: none;">
+					<h6> Price = Rs.<span id="amount"></span></h6>
+				</div>
+				<input type="number" step="0.25" name="amount" value="" style="display: none;">
+			</div>
+		</div>
+		<input type="number" name="base_price" value="" style="display: none;">
+     {% comment %} FREQUENCY {% endcomment %}
+    <div class="form-group row">
+        <label for="interval" class="col-sm-2 col-form-label">Frequency</label>
+				<div class="col-sm-4">
+					<input type="number" min="1" name="interval" class="form-control" >
+				</div>
+				<br>
+				<div>
+					<strong>Note:</strong> <span>frequency=2 means you will get delivery every 2 days. So for weekly delivery enter 7 which means you will recieve delivery every 7 days.</span>
+				</div>
+    </div>
+     {% comment %} TIME {% endcomment %}
+    <div class="form-row" style="width: 500px;">
+			<label for="shift" class="col-sm-2 col-form-label">Time for delivery: </label>
+			<div class="col-sm-4">
+        <select id="shift" class="form-control" name="shift">
+          <option value='M'> Morning </option>
+          <option value='A'> Afternoon </option>
+          <option value='E'> Evening </option>
+        </select>
+			</div>
+		</div>
+     {% comment %} START DATE {% endcomment %}
+    <div class="form-group row">
+        <label for="date" class="col-sm-2 col-form-label">Start Date</label>
+            <div class="col-sm-4">
+                  <input type="date" name="start_date" min="{{current_date|date:"Y-m-d"}}" class="form-control" >
+            </div>
+    </div>
+     {% comment %} END DATE {% endcomment %}
+    <div class="form-group row">
+        <label for="date" class="col-sm-2 col-form-label">End Date</label>
+            <div class="col-sm-4">
+                  <input type="date" name="end_date" class="form-control" >
+            </div>
+    </div>
+     {% comment %} REMARK {% endcomment %}
+    <div class="form-group row">
+        <label for="Remark" class="col-sm-2 col-form-label">Remark</label>
+            <div class="col-sm-4">
+                  <input type="text" name="remark" class="form-control">
+            </div>
+    </div>
+    <input name="slug" type="text" value="" style="display: none;">
+    {% comment %} AJAXIFY {% endcomment %}
+		<div id="finalSubscription" style="display: none;">
+			<h4> Shipping address </h4>
+			<div class="row">
+				<label for="name">Full name</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" placeholder="name" name="fullname" value="{{full_name}}" readonly>
+				</div>					
+			</div>
+			<br>    
+			<div class="row">
+				<label for="address">Address</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" placeholder="Address" name="address" value="{{address}}" readonly>
+				</div>
+			</div>
+		</div>
+		<br>
+    <button type='button' id="subscribe_cart" class="btn btn-primary">Add to Subscribe cart</button>
+		<a class="btn btn-primary" id="proceedToPayFinal" style="display: none;" href="{% url 'cart' %}" role="button">Proceed to pay</a>
+  </form>
+  <input type="text" value="" name="transaction_id" style="display: none">
+    <br>
+    <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Subscription</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% comment %} /***************************************
+					START DATE
+***************************************/ {% endcomment %}
+<script>
+	$("input[name=start_date]").change(function(e) {
+		e.preventDefault();
+		start_date = $(this).val();
+		end_date = new Date(start_date);
+		end_date.setDate(end_date.getDate() + 10);
+		month = String(end_date.getMonth() + 1);
+		day = String(end_date.getDate());
+		year = String(end_date.getFullYear());
+
+		if(month.length < 2)
+			month = '0' + month;
+		if(day.length < 2)
+			day = '0' + day;
+
+		end_date = [year, month, day].join('-')
+		$("input[name=end_date]").attr("min", end_date);
+	})
+</script>
+
+{% comment %} /*******************************
+		            PRICE
+*******************************/ {% endcomment %}
+<script>
+  product_details = JSON.parse("{{product_json|escapejs}}");
+  console.log(product_details);
+
+  $("#products").change(function() {
+    var product = $("#products").val();
+    var slug = $('#product [value="' + product + '"]').data('value');
+    product_instance = product_details[slug];
+    var product_price = product_instance.price;
+    var unit_of_measurement = product_instance.unit_of_measurement;
+
+    var quantity_unit;
+    if(unit_of_measurement == 'K')
+        quantity_unit = 'Kg(s)';
+    else if (unit_of_measurement == 'L')
+        quantity_unit = 'Litre(s)';
+    else
+        quantity_unit = 'piece(s)';
+
+    $("#unit_of_measurement").text(quantity_unit);
+
+    $("#amount").text(product_price);
+    $("input[name=amount]").val(product_price);
+    $("input[name=base_price]").val(product_price);
+    $(".amount_section").css("display", "block");
+    $("#price_section").css("display", "block");
+  });
+
+	$("input[name=quantity]").change(function(e) {
+		var quantity = $("input[name=quantity]").val();
+  	var base_price = $("input[name=base_price]").val();
+		var price = quantity*base_price;
+    $("input[name=amount]").val(price);
+    $("#amount").text(price);
+	})
+</script>
+
+{% comment %} /******************************* SUBSCRIPTION BUY
+*******************************/ {% endcomment %}
+<script>
+  $("#subscribe_cart").click(function(e) {
+		e.preventDefault();
+		var quantity = $("input[name=quantity]").val();
+    var amount = $("input[name=amount]").val();
+    var start_date = $("input[name=start_date]").val();
+    var end_date = $("input[name=end_date]").val();
+    var interval = $("input[name=interval]").val();
+    var shift = $("#shift").val();
+    var remark = $("input[name=remark]").val();
+    var product = $("#products").val();
+    var slug = $('#product [value="' + product + '"]').data('value');
+
+    if(quantity == "" || amount == "" || start_date == "" || end_date == "" || interval == "" || shift == "") {
+			alert("Please fill the form")
+		} else {
+
+		console.log(quantity, amount, start_date, end_date, interval, shift, remark, slug);
+
+		$.ajax({
+			url: "{% url 'subscriptionCart' %}",
+			data: {
+				'quantity': quantity,
+				'amount': amount,
+				'start_date': start_date,
+				'end_date': end_date,
+				'interval': interval,
+				'shift': shift,
+				'remark': remark,
+				'slug': slug
+			},
+			success: function(data) {
+				$("input[name=transaction_id").val(data.transaction_id);
+				$("#subscribe_cart").html("Added to cart");
+				$("#subscribe_cart").css("display", "none");
+        $("#proceedToPayFinal").css("display", "block");
+			}
+		});
+    }
+	});
+  /*$("#subscribeBtn").click(function (e) {
+    e.preventDefault();
+    var quantity = $("input[name=quantity]").val();
+    var start_date = $("input[name=start_date]").val();
+    var end_date = $("input[name=end_date]").val();
+    var interval = $("input[name=interval]").val();
+    var shift = $("#shift").val();
+    var remark = $("input[name=remark]").val();
+    var product = $("#products").val();
+    var slug = $('#product [value="' + product + '"]').data('value');
+    $.ajax({
+      url: ,
+      data: {
+        quantity: quantity,
+        start_date: start_date,
+        end_date: end_date,
+        interval: interval,
+        shift: shift,
+        remark: remark,
+        slug: slug,
+      },
+      success: function (data) {
+        console.log(data);
+        $("input[name=slug]").val(data.slug);
+        $("#finalSubscription").css("display", "block");
+        $("input[name=fullname]").val(data.full_name);
+        $("input[name=address]").val(data.address);
+
+        $("#subscribeBtn").css("display", "none");
+        $("#subscribe_cart").css("display", "none");
+        $("#proceedToPayFinal").css("display", "block");
+      },
+    });
+  });*/
+</script>
+{% endblock %}

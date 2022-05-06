@@ -1,0 +1,918 @@
+{% extends 'order_base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css\sidebar_bootstrap.min.css' %}">
+
+
+
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+	body {
+    position: relative;
+    overflow-x: hidden;
+}
+body,
+html { height: 100%;}
+.nav .open > a, 
+.nav .open > a:hover, 
+.nav .open > a:focus {background-color: transparent;}
+
+/*-------------------------------*/
+/*           sidebar_orderlists            */
+/*-------------------------------*/
+
+#sidebar_orderlist {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar_orderlist.toggled {
+    padding-left: 220px;
+}
+
+#sidebar-sidebar_orderlist {
+    z-index: 1200;
+    left: 220px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #111;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-sidebar_orderlist::-webkit-scrollbar {
+  display: none;
+}
+
+#sidebar_orderlist.toggled #sidebar-sidebar_orderlist {
+    width: 300px;
+}
+
+#page-content-sidebar_orderlist {
+    width: 100%;
+    padding-top: 70px;
+}
+
+#sidebar_orderlist.toggled #page-content-sidebar_orderlist {
+    position: absolute;
+    margin-right: -220px;
+}
+
+/*-------------------------------*/
+/*     Sidebar nav styles        */
+/*-------------------------------*/
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 220px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    position: relative; 
+    line-height: 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+.sidebar-nav li:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100%;
+    width: 3px;
+    background-color: #1c1c1c;
+    -webkit-transition: width .2s ease-in;
+      -moz-transition:  width .2s ease-in;
+       -ms-transition:  width .2s ease-in;
+            transition: width .2s ease-in;
+
+}
+.sidebar-nav  li:nth-child(1):before {
+    /* color: #fff; */
+    background-color: #486adb;
+}
+.sidebar-nav  li:nth-child(2):before {
+    background-color: #ec1e1e;   
+}
+.sidebar-nav li:nth-child(3):before {
+    background-color: #0c4752;   
+}
+.sidebar-nav li:nth-child(4):before {
+    background-color: #314190;   
+}
+.sidebar-nav li:nth-child(5):before {
+    background-color: #279636;   
+}
+.sidebar-nav li:nth-child(6):before {
+    background-color: #7d5d81;   
+}
+.sidebar-nav li:nth-child(7):before {
+    background-color: #ead24c;   
+}
+.sidebar-nav li:nth-child(8):before {
+    background-color: #2d2366;   
+}
+.sidebar-nav li:nth-child(9):before {
+    background-color: #35acdf;   
+}
+.sidebar-nav li:nth-child(10):before {
+    background-color: #8daf12;   
+}
+.sidebar-nav li:nth-child(11):before {
+    background-color: #cc8605;   
+}
+.sidebar-nav li:nth-child(12):before {
+    background-color: #7f35df;   
+}
+.sidebar-nav li:nth-child(13):before {
+    background-color: #125804;   
+}
+.sidebar-nav li:nth-child(14):before {
+    background-color: #e40707;   
+}
+.sidebar-nav li:nth-child(15):before {
+    background-color: #d7e234;   
+}
+
+.sidebar-nav li:hover:before,
+.sidebar-nav li.open:hover:before {
+    width: 100%;
+    -webkit-transition: width .2s ease-in;
+      -moz-transition:  width .2s ease-in;
+       -ms-transition:  width .2s ease-in;
+            transition: width .2s ease-in;
+
+}
+
+.sidebar-nav li a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    padding: 10px 5px 10px 30px;  /* changed */
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus,
+.sidebar-nav li.open a:hover,
+.sidebar-nav li.open a:active,
+.sidebar-nav li.open a:focus{
+    color: #fff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 20px;
+    line-height: 44px;
+}
+.sidebar-nav .dropdown-menu {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    background-color: #222;
+    box-shadow: none;
+}
+
+/*-------------------------------*/
+/*       Hamburger-Cross         */
+/*-------------------------------*/
+
+.hamburger {
+  position: fixed;
+  top: 200px;  
+  z-index: 1333;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none
+}
+.hamburger:hover,
+.hamburger:focus,
+.hamburger:active {
+  outline: none;
+}
+
+.navbar_open{
+  margin-left: 16%;
+}
+.navbar_close{
+	margin-left: 0%;
+}
+
+
+/* ------------------------------------------------------------------------------------       */
+
+.hamburger.is-closed:before {
+  content: '';
+  display: block;
+  width: 100px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 32px;
+  text-align: center;
+  opacity: 0;
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-closed:hover:before {
+  opacity: 1;
+  display: block;
+  -webkit-transform: translate3d(-100px,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
+
+.hamburger.is-closed .hamb-top,
+.hamburger.is-closed .hamb-middle,
+.hamburger.is-closed .hamb-bottom,
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-middle,
+.hamburger.is-open .hamb-bottom {
+  position: absolute;
+  left: 0px;
+  height: 4px;
+  width: 100%;
+}
+.hamburger.is-closed .hamb-top,
+.hamburger.is-closed .hamb-middle,
+.hamburger.is-closed .hamb-bottom {
+  background-color: #1a1a1a;
+}
+.hamburger.is-closed .hamb-top { 
+  top: 5px; 
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-closed .hamb-middle {
+  top: 50%;
+  margin-top: -2px;
+}
+.hamburger.is-closed .hamb-bottom {
+  bottom: 5px;  
+  -webkit-transition: all .35s ease-in-out;
+}
+
+.hamburger.is-closed:hover .hamb-top {
+  top: 0;
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-closed:hover .hamb-bottom {
+  bottom: 0;
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-middle,
+.hamburger.is-open .hamb-bottom {
+  background-color: #1a1a1a;
+}
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-bottom {
+  top: 50%;
+  margin-top: -2px;  
+}
+.hamburger.is-open .hamb-top { 
+  -webkit-transform: rotate(45deg);
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+}
+.hamburger.is-open .hamb-middle { display: none; }
+.hamburger.is-open .hamb-bottom {
+  -webkit-transform: rotate(-45deg);
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+}
+.hamburger.is-open:before {
+  content: '';
+  display: block;
+  width: 100px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 32px;
+  text-align: center;
+  opacity: 0;
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-open:hover:before {
+  opacity: 1;
+  display: block;
+  -webkit-transform: translate3d(-100px,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
+
+/*-------------------------------*/
+/*            Overlay            */
+/*-------------------------------*/
+
+.overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(250,250,250,0);
+    z-index: 1200;
+}
+
+
+</style>
+{% endblock %}
+
+
+
+{% block topcontent %}
+
+
+<style type="text/css">
+
+	{% if no_count %}
+	.noti_detail_head::after{
+		content: '{{no_count}}'
+	}
+	{% else %}
+
+	.noti_detail_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+.staf_noti::after{
+	display: none;
+}
+
+	{% if oty4 %}
+	.noti_head::after{
+		content: '{{oty4}}'
+	}
+	{% else %}
+
+	.noti_head::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty %}
+	.enq_noti::after{
+		content: '{{oty}}'
+	}
+	{% else %}
+
+	.enq_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+
+	{% if oty1 %}
+	.des_noti::after{
+		content: '{{oty1}}'
+	}
+	{% else %}
+
+	.des_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty2 %}
+	.samp_noti::after{
+		content: '{{oty2}}'
+	}
+	{% else %}
+
+	.samp_noti::after{
+		display: none;
+	}
+	{% endif %}
+	{% if oty3 %}
+	.ord_noti::after{
+		content: '{{oty3}}'
+	}
+	{% else %}
+
+	.ord_noti::after{
+		display: none;
+	}
+	{% endif %}
+
+</style>
+
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold" id="navbar_blue" style="border-radius: 0; height: 9%;">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown1">
+				<ul class="navbar-nav" style="font-size: 1.0em; margin-left:48%; " >
+					<li class="nav-item">
+					<a href="/userdetail/vendor_profile/" class="nav-link" style="color: white;">Profile & Settings</a>
+					</li>
+					<li class="nav-item dropdown px-3">
+						<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Notifications
+						</a>
+						<div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+                            <a href="/buisness/vendor_profile/notifications?filter=staff" class="nav-link text-white dropdown-item">Staff Notification</a>
+                            <a href="/buisness/vendor_profile/notifications?filter=enquiry" class="nav-link text-white dropdown-item">Enquiry Notifications</a>
+                            <a href="/buisness/vendor_profile/notifications?filter=design" class="nav-link text-white dropdown-item">Design Notifications</a>
+                            <a href="/buisness/vendor_profile/notifications?filter=sampling" class="nav-link text-white dropdown-item">Sampling Notifications</a>
+                            <a href="/buisness/vendor_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Activities
+						</a>
+						<div class="dropdown-menu bg-primary text-white rounded p-3" aria-labelledby="navbarDropdown">
+                            <a href="/userdetail/vendor_profile/activities?filter=today"  class="nav-link text-white dropdown-item">Today's	</a>
+                            <a href="/userdetail/vendor_profile/activities?filter=pending"  class="nav-link text-white dropdown-item">Pending</a>
+                            <a href="/userdetail/vendor_profile/activities?filter=enquiry"  class="nav-link text-white dropdown-item">Enquiry</a>
+                            <a href="/userdetail/vendor_profile/activities?filter=design"  class="nav-link text-white dropdown-item">Design	</a>
+                            <a href="/userdetail/vendor_profile/activities?filter=sampling"  class="nav-link text-white dropdown-item">	Sampling</a>
+                            <a href="/userdetail/vendor_profile/activities?filter=order"  class="nav-link text-white dropdown-item">Order</a>
+
+                            <a href="/buisness/buisness_profile/notifications?filter=order" class="nav-link text-white dropdown-item">Order Notifications</a>
+                        </div>
+					
+					</li>
+					<li class="nav-item">
+						<a href="/userdetail/vendor_profile/vendors" class="nav-link px-3" style="color: white;">Vendors</a>
+					</li>
+					<li class="nav-item">	<a href="/userdetail/vendor_profile/orders" class="nav-link" style="color: white;">Orders</a></li>
+					<li class="nav-item">	<a href="/userdetail/vendor_profile/floated_orders" class="nav-link px-3" style="color: white;">Floated Orders</a></li>
+					<li class="nav-item">	<a href="/daily_report/generate" class="nav-link" style="color: white;">Generate Link For Form</a></li>
+					<li class="nav-item">	<a href="/daily_report/display_report_user" class="nav-link px-3" style="color: white;">Display Report </a></li>
+				
+				</ul>
+			</div>
+		</nav>
+  </div>
+
+  {% endblock %}
+
+  {% block content %}
+	<style type="text/css">
+
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.foote{
+		position:inherit;
+		bottom: 0;
+		right: 0;
+		width: 50%;
+		overflow: scroll;
+	}
+	</style>
+
+	<script>
+		$(document).ready(function () {
+		var trigger = $('.hamburger')
+			overlay = $('.overlay')
+			navbar_top=$('#navbar_top')
+			navbar_bottom=$('#navbar_bottom')
+			navbar_blue=$('#navbar_blue')
+			foote=$('#foote')
+			isClosed = false;
+
+			trigger.click(function () {
+			hamburger_cross();    
+			});
+
+			function hamburger_cross() {
+
+			if (isClosed == true) {          
+				overlay.hide();
+				trigger.removeClass('is-open');
+				trigger.addClass('is-closed');
+				navbar_top.addClass('navbar_close');
+				navbar_top.removeClass('navbar_open');		
+				isClosed = false;
+			} else {   
+				overlay.show();
+				trigger.removeClass('is-closed');
+				trigger.addClass('is-open');
+				navbar_top.addClass('navbar_open');
+				navbar_top.removeClass('navbar_close');				
+				isClosed = true;
+			}
+		}
+		
+		$('[data-toggle="offcanvas"]').click(function () {
+				$('#sidebar_orderlist').toggleClass('toggled');
+		});  
+		});
+	</script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+{% block sidebar %}
+<div class="container">	
+	<div id="sidebar_orderlist">
+			<div class="overlay"></div>
+
+			<!-- Sidebar -->
+			<nav class="navbar navbar-fixed-top" id="sidebar-sidebar_orderlist" role="navigation">
+				<ul class="nav sidebar-nav">
+					<li class="sidebar-brand">
+						<a href="#">
+						JUSTGETIT
+						</a>
+					</li>
+					<li class="dropdown show">
+						<a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Fabric <span class="caret"></span></h4></a>
+						<ul class="dropdown" aria-labelledby="dropdownMenuLink">
+							<li><a href="/fabric/inhouse" class="dropdown-item">Fabric Inhouse</a></li>
+							<li><a href="/fabric/po" class="dropdown-item">Purchase Order</a></li>
+							<li><a href="{% url 'order_select' %}" class="dropdown-item">Fabric Inspection</a></li>
+							<li><a href="{% url 'inventory' %}" class="dropdown-item">Fabric Inventory</a></li>
+							<li><a href="{% url 'acceptedlotentries' %}" class="dropdown-item">Accepted Lot Entry Fabric</a></li>
+							<li><a href="{% url 'acceptedinventory' %}" class="dropdown-item">Fabric Inventory Approved</a></li>
+							<li><a href="{% url 'rejectedinventory' %}" class="dropdown-item">Fabric Inventory Rejected</a></li>
+							<li><a href="{% url 'inventoryreturn' %}" class="dropdown-item">Fabric Inventory/Return</a></li>
+							<li><a href="/fabric/grn" class="dropdown-item">Goods Recieving Note</a></li>
+							<li><a href="/cut/fabricissue" class="dropdown-item">Fabric Issue</a></li>
+							<li><a href="/cut/weekfabricreq" class="dropdown-item">Weekly Fabric Requirement Plan</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="" data-toggle="dropdown"><h4>Trims <span class="caret"></span></h4></a>
+						<ul class="dropdown" role="menu">
+							<li><a href="{% url 'triminhouse' %}">Trim Inhouse</a></li>
+							<li><a href="{% url 'triminspection' %}">Trim Inspection</a></li>
+							<li><a href="{% url 'triminventory' %}">Trim Inventory</a></li>
+							<li><a href="{% url 'triminventoryapproved' %}">Trim Inventory Approved</a></li>
+							<li><a href="{% url 'triminventoryrejected' %}">Trim Inventory Rejected</a></li>
+							<li><a href="{% url 'trimiinventoryreturn' %}">Trim Inventory/Return</a></li>
+						</ul>
+					</li>
+					
+					<li class="dropdown">
+						<a href="#" class="" data-toggle="collapse"><h4>Cut <span class="caret"></span></h4></a>
+						<ul class="dropdown" role="menu" data-toggle="collapse">
+							<li><a href="/cut/cuttingloadplan">Cut load Plan</a></li>
+							<li><a href="/cut/dailyspreadandcut">Daily Spreading and Cutting Sheet</a></li>
+							<li><a href="{% url 'rollallocation' %}">Roll Allocation</a></li>
+							<li><a href="{% url 'cut_list'%}">Cut Order Planning</a></li>
+							<li><a href="{% url 'lay_list'%}">Lay Lot Planning</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="" data-toggle="dropdown"><h4>Sewing <span class="caret"></span></h4> </a>
+						<ul class="dropdown" role="menu">
+							<li><a href="/loadplan/hello">Create Loading Plan</a></li>
+							<li><a href="/sew/home">PFM</a></li>
+							<li><a href="/operators/home">Operator</a></li>
+							<li><a href="/cpm/hello">Cost Per Minute</a></li>
+						</ul>
+					</li>	
+				</ul>
+			</nav>
+			<!-- /#sidebar-sidebar_orderlist -->
+			<!-- Page Content -->
+			<div id="page-content-sidebar_orderlist">
+				<button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+					<span class="hamb-top"></span>
+					<span class="hamb-middle"></span>
+					<span class="hamb-bottom"></span>
+				</button>
+				<div class="container" style="left:0;right:0">
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2">
+							<div class="col-10" id="content">
+								<div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5); ">
+									<div class="row">
+										<h3 style="font-family: 'Cabin',sans-serif;">Orders</h3>
+										{% if gar %}
+										<a href="/userdetail/vendor_profile/new_order" class="hov-a" style="margin-left: auto;margin-top: 2vh;">Create Personal Order</a>
+										{% endif %}
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row mt-3 pt-2 pl-2" style="">
+
+												{% for o in orders %}
+												<div class="col-2 hover-col mt-2">
+													{% if o.image %}
+													<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+													{% else %}
+													<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+													{% endif %}
+
+													<h6 class="mt-3 centered"><b>{{o.order_no}}</b></h6>
+													<h6 class="centered">{{o.user_email|truncatechars:15}}</h6>
+													{% if o.overall_priority < 1 %}
+
+														<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 1  %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 2 and o.overall_priority > 1 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 2 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 3 and o.overall_priority > 2 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 3 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 4 and o.overall_priority > 3 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 4 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 5 and o.overall_priority > 4 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 5 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;color: #30c5ff;"></i>
+													{% endif %}
+												</div>
+											</div>
+								</div>
+
+								{% if per_orders.0 %}
+								<div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+									<div class="row" >
+										<h3 style="font-family: 'Cabin',sans-serif;">Personal Orders</h3>
+									</div>
+
+								</div>
+
+
+								<div class="container" style="padding-bottom: 500px;">
+									<div class="row mt-3 pt-2 pl-2" style="">
+
+												{% for o in per_orders %}
+												<div class="col-2 hover-col mt-2">
+													{% if o.image %}
+													<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="{{o.image.url}}" style="width: 100%; height: 150px; border-radius: 50%;" id="order_{{o.order_no}}"></a>
+													{% else %}
+													<a href="/userdetail/vendor_profile/orders/{{o.order_no}}"><img src="https://asia.ifoam.bio/wp-content/uploads/2018/12/avatar__181424.png" style="width: 100%; border-radius: 50%;  height: 150px;" id="order_{{o.order_no}}"></a>
+													{% endif %}
+
+													<h6 class="mt-3 centered"><b>{{o.order_no}}</b></h6>
+													<h6 class="centered">{{o.user_email|truncatechars:15}}</h6>
+													{% if o.overall_priority < 1 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 1  %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 2 and o.overall_priority > 1 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 2 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 3 and o.overall_priority > 2 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 3 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 4 and o.overall_priority > 3 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style=""></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 4 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority < 5 and o.overall_priority > 4 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;"></i>
+													{% endif %}
+													{% if o.overall_priority == 5 %}
+
+															<i class="fas fa-star fa-lg" id="star1" style="margin-left: auto;color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="color: #30c5ff;"></i>
+															<i class="fas fa-star fa-lg" style="margin-right: auto;color: #30c5ff;"></i>
+													{% endif %}
+												</div>
+												{% endfor %}
+											</div>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+                                                                    
+					</div>
+                        
+                                                 
+					<!-- /#page-content-sidebar_orderlist -->
+
+				</div>
+				<!-- /#sidebar_orderlist -->
+
+
+
+
+		</div>
+</div>
+{% endblock %}
+
+
+
+{% endblock %}

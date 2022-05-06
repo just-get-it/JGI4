@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>None</title>
+  </head>
+  <body>
+<div class="container">
+  <div class="row">
+    <div class="col">
+<h2>Assumption</h2>
+<form method="post"> {% csrf_token %}
+    {{form1.as_p}}
+<h2>Absenteeism & Defectives</h2>
+    {{form2.as_p}}
+    <p><strong>Defective_Goods %:</strong></p>
+    {{form3.as_table}}
+<h2>Cost Assumptions</h2>
+    {{form4.as_ul}}
+<h2>Salary growth & Incentives</h2>
+    {{form5.as_ul}}
+<h2>Financial</h2>
+    {{form6.as_ul}}
+    <input type="submit" value="save">
+</form>
+<h2>Basic HTML Table</h2>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+<table style="width:100%">
+
+
+  <tr>
+    <th>Year 1</th>
+    <th>Year 2</th>
+    <th>Year 3</th>
+  </tr>
+  <tr>
+    <td>No. of Machines Planned</td>
+    <td>form2.Cutting</td>
+    <td>form2.Finishing</td>
+  </tr>
+    </div>
+    <div class="col-6">
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+    </div>
+      </div>
+    </div>
+  </body>
+</html>

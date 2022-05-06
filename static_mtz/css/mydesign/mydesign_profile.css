@@ -1,0 +1,235 @@
+
+
+
+
+
+.buis_img_col{
+  position: relative;
+  overflow: hidden;
+  width: 5vw !important;
+  height: 285px !important;
+  cursor: pointer;
+}
+.on_hover_img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  border-radius: 50%;
+  display: none;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.user_profile_image{
+  width: 285px !important;
+  height: 285px !important;
+}
+
+.buis_img_col:hover .on_hover_img{
+  display: block;
+}
+
+
+@keyframes fadein{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+
+.design_update_profile button{
+  margin-left:4vw;
+  margin-top:25vh;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  border:none;
+}
+
+
+.design_update_profile button:hover{
+
+}
+
+#design_profile_input{
+  visibility: hidden;
+}
+
+
+.processing{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 33;
+  background: rgba(37,48,49,.5);
+  display: none;
+}
+
+
+.design_spinner{
+  position: fixed;
+  margin-top: 40vh;
+  margin-left: 45vw;
+
+}
+
+
+
+
+.spinner-border{
+  width: 5rem;
+  height: 5rem;
+  border: .4em solid #30c5ff;
+  border-right-color: transparent;
+}
+
+
+.design_cabin{
+  font-family: 'Cabin', sans-serif;
+}
+
+
+.design_tagline_input{
+  border:none;
+  background: transparent;
+  font-family: 'Cabin', sans-serif;
+}
+
+
+.design_about_input textarea{
+  padding: 2vw;
+  font-family: 'Cabin', sans-serif;
+  font-size: 1.1em;
+  border:none;
+}
+
+
+
+.interest_area{
+  background: transparent;
+  border: 2px solid #30c5ff;
+  border-radius: 15px;
+  padding: 2px;
+  width: auto;
+  max-width: 250px;
+  margin-left: 15px;
+  margin-top: 5px;
+  float: left;
+  padding-left: 16px;
+  padding-right: 16px;
+  cursor: pointer;
+  transition: all .5s ease;
+
+}
+
+.interest_area:hover{
+  background: #30c5ff;
+}
+
+.opa_animation{
+  animation-name: opa_animation1;
+  animation-duration: 5s;
+}
+@keyframes opa_animation {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+.design_pacifico{
+  font-family: 'Pacifico', cursive
+}
+
+
+.design_loved{
+  background: rgba(37,49,49,.1);
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.design_loved::after{
+  content: '';
+  width: 15vw;
+  height: 25vh;
+  background: #30c5ff;
+  position: absolute;
+  top: -3vh;
+  right: 0;
+  overflow: hidden;
+  transform: rotate(20deg);
+  z-index: 0;
+}
+
+
+.design_loved button{
+  background: transparent;
+  border:none;
+  margin-left: 14vw;
+  z-index: 1;
+  position: absolute;
+  font-size: 1.5em;
+  /* font-weight: bold; */
+  font-family: 'Pacifico', cursive;
+  margin-top: .5vh;
+}
+
+
+.design_head_over{
+  margin-left: 22vw;
+  margin-right: 22vw;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+}
+
+.design_head_over div{
+  cursor: pointer;
+}
+
+.data_not_avail{
+  margin-top: 25vh;
+  margin-bottom: 25vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#posts{
+
+}
+
+.design_per_post{
+  position: relative;
+  padding: 0;
+  margin-left: .25vw;
+  margin-right: .25vw;
+}
+.design_per_post img{
+  width: 100%;
+  height: 45vh;
+}
+
+.design_about_post{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.3));
+  display: none;
+  cursor: pointer;
+}
+
+.design_per_post:hover .design_about_post{
+  display: block;
+}

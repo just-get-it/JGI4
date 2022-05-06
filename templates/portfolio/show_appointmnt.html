@@ -1,0 +1,55 @@
+
+{% if stu %}
+
+
+<h2> show data</h2>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color:white;">
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fullname</th>
+        <th>Email</th>
+        <th>Country</th>
+        <th>Number</th>
+        <th>Subject</th>
+        <th>Disp</th>
+        <th>Enquiry Title</th>
+      </tr>
+
+    </thead>
+    <tbody>
+    {% for st in stu %}
+      <tr>
+        <td>{{st.fullname}}</td>
+        <td>{{st.email}}</td>
+        <td>{{st.country}}</td>
+        <td>{{st.number}}</td>        
+        <td>{{st.subject}}</td>
+        <td>{{st.disp}}</td>
+        <td>{{st.en_title}}</td>
+      </tr> 
+
+      
+      {% endfor %}
+           
+      
+    </tbody>
+  </table>
+</div>
+
+
+{% else %}
+<h1> no data </h1>
+{% endif %}
+
+

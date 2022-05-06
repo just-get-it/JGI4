@@ -1,0 +1,35 @@
+{% extends "op_base.html" %}
+{% block body_block %}
+
+<div class="container text-center">
+    <h1>Take Leave</h1>
+    <h3>{{mess}}</h3>
+</div>
+
+<div class="container">
+  <form action="takeleave" method="post">
+    {% csrf_token %}
+      <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Operator ID</label>
+            <div class="col-sm-10">
+              <input type="text" name="operatorid" required>
+            </div>
+      </div>
+      <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">From</label>
+            <div class="col-sm-10">
+              <input type="date" name="leavestart" value="" required>
+            </div>
+      </div>
+      <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Till</label>
+            <div class="col-sm-10">
+              <input type="date" name="leaveend" value="" required>
+            </div>
+      </div>
+    <br>
+    <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+    <a class="btn btn-primary" href="leavereport" role="button">View Report</a>
+  </form>
+</div>
+{% endblock %}

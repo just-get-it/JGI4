@@ -1,0 +1,36 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>Capacity Required Table</h1>
+    </div>
+    <table class="table table-hover table-striped table-bordered" style="width: 97%; margin-left: 20px">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Order No.</th>
+            <th scope="col">Loaded To Line No.</th>
+            <th scope="col">Order Quantity</th>
+            <th scope="col">Style SMV</th>
+            <th scope="col">Capacity Required (mins.)</th>
+            <th scope="col">Capacity Available Per Day</th>
+            <th scope="col">Capacity Required (Days)</th>
+          </tr>
+        </thead>
+    {% for a in allcpr %}
+        
+        <tbody>
+          <tr>
+            <td>{{a.orderno}}</td>
+            <td>{{a.ltlc}}</td>
+            <td>{{a.orderqty}}</td>
+            <td>{{a.smv}}</td>
+            <td>{{a.crm}}</td>
+            <td>{{a.capd}}</td>
+            <td>{{a.crd}}</td>
+          </tr>
+        </tbody>
+    {% endfor %}
+      </table>
+
+    
+{% endblock  %}

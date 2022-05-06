@@ -1,0 +1,89 @@
+
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load qr_code %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+<style media="screen">
+  .but_print{
+    background:#30c5ff;
+    border:none;
+    border-radius:25vw;
+    transition:all 1s ease;
+    /* font-weight:bold; */
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .but_print:hover{
+    background:#253031;
+    color:#30c5ff;
+  }
+</style>
+
+<div class="row">
+  <div class="container mt-4">
+    <div class="row">
+      <h6 style="color:grey;">Order - {{order.order_no}} / QR Generate / </h6>
+      <h6><b>&nbsp;&nbsp;Cartons QR</b></h6>
+    </div>
+
+  </div>
+  <div class="container mt-1">
+    <div class="row">
+      {% for i in cartons_links %}
+      <div class="col-3">
+        <div class="container-fluid">
+
+          <div class="row">
+            {% qr_from_text i %}
+          </div>
+          <div class="row ml-auto">
+            <h6 style="margin-left:auto;margin-right:auto;"><b>Carton - {{forloop.counter}}</b></h6>
+          </div>
+          <div class="row mb-4">
+            <div class="col-5">
+              <button type="button" class="px-4 py-1 but_print" onclick="printCartonQR({{forloop.counter}});">Print</button>
+            </div>
+            <div class="col-7">
+              <button type="button" class="px-2 py-1 but_print" onclick="viewCarton('{{forloop.counter}}')">View Carton</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function printCartonQR(carton_count){
+    // carton_count=Integer.parseInt(carton_count);
+    var a=window.location.protocol;
+    var link=a+"/userdetail/staff_profile/orders/"+{{order.order_no}}+"/qr_generate/view?carton="+carton_count;
+    var win=window.open(link,"Print Carton","height=800,width=1200,modal=yes,alwaysRaised=yes");
+    if (win){
+      win.focus();
+    } else{
+      alert('Please Allow popups for this website.');
+    }
+
+  }
+  function viewCarton(carton_no){
+    window.location.href="/userdetail/staff_profile/orders/"+{{order.order_no}}+"/qr_generate/carton/"+carton_no;
+  }
+</script>
+
+
+
+
+{% endblock %}

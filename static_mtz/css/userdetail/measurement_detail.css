@@ -1,0 +1,83 @@
+
+
+
+
+
+
+
+
+table,th,td{
+	border: 1px solid black;
+}
+
+
+.meas_chart,.meas_chart tr th,.meas_chart tr td{
+	border: 1px solid black;
+}
+
+
+.meas_chart th,.meas_chart td{
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px
+}
+
+
+
+.meas_chart th{
+	background-color: #30c5ff;
+}
+
+
+
+.meas_chart tr{
+	background-color: white;
+}
+
+
+
+.fullpom,.halfpom,.inch,.cm{
+	border: none;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border: 1px solid black;
+	transition: all .5s ease-out;
+}
+
+
+.fullpom,.inch{
+	background-color: #30c5ff;
+}
+
+
+
+.fullpom:hover,.halfpom:hover,.inch:hover,.cm:hover{
+	background-color: rgba(48,197,255,.3);
+}
+
+
+.tbinput{
+	border: none;
+}
+
+
+
+.but_save{
+	border: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 40px;
+	padding-right: 40px;
+	border-radius: 50px;
+	background-color: #30c5ff;
+	color: white;
+	cursor: pointer;
+	transition: all .5s ease-out;
+	font-weight: bold;
+	margin-left: auto;
+}
+
+
+.but_save:hover{
+	background-color: #253031;
+}

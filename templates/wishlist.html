@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<style type="text/css">
+	.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+}
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+.row-image{
+	height:120px;
+	width:auto;
+}
+
+</style>
+
+<script type="text/javascript">
+function addQuant(id){
+
+	idstr=id;
+	action="add";
+	if (user=='AnonymousUser'){
+            console.log("user:",user);
+             if (cart[idstr] != undefined){
+                cart[idstr][0]+=1;                                 // if cart has item then +1
+
+             }
+            else {
+                qty = document.getElementById(idstr).innerHTML;
+                name = document.getElementById('name'+idstr).innerHTML;          //namepr1 id given to card title
+                price = document.getElementById('price+'+idstr).innerHTML;
+                cart[idstr]=[qty, name, parseInt(price.slice(3, ))];
+
+            }
+            updateCart(cart);
+
+        }
+        else{
+            updateuserorder(idstr,action);
+        }
+      remov="remove"+id;
+    document.getElementById(remov).click();
+
+}	
+function remQuant(id){
+	action="remove"
+	idstr=id;
+	 var url = '/wishlists/';
+	 fetch(url, {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body:JSON.stringify({'productId':idstr, 'action':action})
+        })
+        .then((response) => {
+           return response.json();
+        })
+        .then((data) => {
+            location.reload();
+        });
+
+}
+
+</script>
+	{% endblock %}
+{% block content %}
+<br><br><br>
+<h2 style="margin-left: 200px;"> Your Wishlist &nbsp;<img src="https://img.icons8.com/cotton/64/000000/like--v1.png"/></h2>
+
+
+<div class="col mt-4" id="detail">
+
+</div>
+<div class="container mt-4">
+<div class="row my-4">
+	<div class="col-lg-12">
+				{% csrf_token %}
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Actions</strong></div>
+                        </div>
+			{% if items %}
+
+            {% for item in items %}
+            {{item.title}}
+				<div class="cart-row">
+					<div style="flex:2 "><img class="row-image" src="{{item.image1.url}}"></div>
+					<div style="flex:2"><p id="name{{item.title}}">{{item.title}}</p></div>
+					<div style="flex:1">Rs. <p name="price" id="price+{{item.product_code}}" style="display: inline;" innerText="{{item.get_total}}">{{item.price}}</p></div>
+					<div style="flex:1">
+                        
+                         <div>
+     					<button type="button" class="btn-sm btn-success" style="width: 200px;text-align: center;" name="add{{item.product_code}}" id="add{{item.product_code}}"  onclick="addQuant({{item.product_code}})" data-action="delete">Add to Cart</button>
+                        </div>
+
+                        <br>
+                        <div>
+     					<button type="button" style="background-color: white;border-color: black;border-style: none;font-size:15px;color: blue;float: center" name="remove{{item.product_code}}" id="remove{{item.product_code}}"  onclick="remQuant({{item.product_code}})" data-action="remove">Remove item</button>
+                        </div>
+					</div>
+				</div>
+				{% endfor %}
+
+				<div style="float: center;text-align: center;"><strong>End of list</strong></div>
+				{% else %}
+			<div id="anonymousitems"></div>
+				{% endif %}
+
+        </div>
+</div>
+</div>
+</div>
+	
+{% if product_exist %}
+<div id="product">
+	<div class="container">
+		<h1>Product</h1>
+<div class="row">
+	<div class="col-lg-12">
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Actions</strong></div>
+                            
+                        </div>
+            {% for product in product %}
+				<div class="cart-row">
+					<div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+					<div style="flex:2"><p>{{product.product_name}}</p></div>
+					<div style="flex:1"><p>Rs. {{product.price}}</p></div>
+					<div style="flex:1">
+						
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_product?id={{product.id}}">Delete</a></button>
+                        </div>
+					</div>
+				</div>
+				{% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+	</div>
+	{% endif %}
+	{% if service_exist %}
+	<div id="service">
+	<div class="container">
+		<h1>Service</h1>
+<div class="row">
+	<div class="col-lg-12">
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Action</strong></div>
+                        
+                        </div>
+            {% for service in service %}
+				<div class="cart-row">
+					<div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+					<div style="flex:2"><p>{{service.service_name}}</p></div>
+					<div style="flex:1"><p>Rs. {{service.price_range}}</p></div>
+					<div style="flex:1">
+
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_service?id={{service.id}}">Delete</a></button>
+                        </div>
+					</div>
+					
+				</div>
+				{% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+	</div>
+	{% endif %}
+	{% if pick_exist %}
+	<div id="pick_and_drop">
+	<div class="container">
+		<h1>Pick and Drop</h1>
+<div class="row">
+	<div class="col-lg-12">
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Pick Location</strong></div>
+                            <div style="flex:1"><strong>Drop Location</strong></div>
+                            <div style="flex:1"><strong>Date</strong></div>
+                        </div>
+            {% for pick in pick %}
+				<div class="cart-row">
+					<div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+					<div style="flex:2"><p>{{pick.product_name}}</p></div>
+					<div style="flex:1"><p>Rs. {{pick.pickup_address}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{pick.delivery_address}}</p>
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_pick?id={{pick.id}}">Delete</a></button>
+                        </div>
+					</div>
+					<div style="flex:1"><p>{{pick.pickup_date}}</p></div>
+				</div>
+				{% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+	</div>
+	{% endif %}
+
+
+{% endblock %}

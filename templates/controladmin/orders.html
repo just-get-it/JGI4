@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+<style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 95%;
+  margin:30px 30px 30px 30px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  
+}
+
+th {
+  background-color: #dddddd;
+}
+</style>
+</head>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="{% url 'companyorder' %}" class="w3-bar-item w3-button"> Company Order </a>
+  <a href="{% url 'product' %}" class="w3-bar-item w3-button"> Product </a>
+  <a href="{% url 'order' %}" class="w3-bar-item w3-button">Order</a>
+<a href="{% url 'userdetail' %}" class="w3-bar-item w3-button">User Detail </a>
+
+</div>
+
+<div id="main">
+
+<div class="w3-teal">
+  <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  </div>
+
+<h2>Order</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Amount</th>
+    <th> Address,city,State</th>
+        <th> payment_method</th>
+
+    <th>Zip Code</th>
+        <th>Option</th>
+
+  </tr>
+  {% for post in posts %}
+  <tr>
+   
+    <td>{{post.label}}</td>
+    <td>{{post.total_Price}}</td>
+    <td>{{post.address}}, {{post.city}},{{post.state}}</td>
+    <td>{{post.payment_method}}</td>
+    <td>{{post.zip_code}}</td>
+    <td><div class="dropdown" >
+  <button class="dropbtn">Action</button>
+  <div class="dropdown-content" style="left:0;">
+    <a href="{%url 'orderupdate' post.pk%}">Update</a>
+    <a href="{%url 'orderdelete' post.pk%}">Delete</a>
+    <a href="#">View</a>
+  </div>
+</div></td>
+
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>
+{% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+
+    <script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+{% endblock %}

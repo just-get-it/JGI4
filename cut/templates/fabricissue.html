@@ -1,0 +1,51 @@
+{% extends 'basecut.html' %}
+
+{% block content %}
+{% csrf_token %}
+
+
+
+<div class="container text-center">
+  <h1>Fabric Issue</h1>
+</div>
+
+<form class= "", action="", method="POST", id="myForm">
+
+
+<div class="form-group col">
+
+    <p><label for="id_date">Date:</label> <input type="date" name="date" required="" id="id_date"></p>
+    <p><label for="id_time">Time:</label> <input type="time" name="time" required="" id="id_time"></p>
+    <p><label for="id_buyer">Buyer:</label> <input type="text" name="buyer" maxlength="100" required="" id="id_buyer"></p>
+    <p><label for="id_styleno">Style No:</label> <input type="text" name="styleno" maxlength="100" required="" id="id_styleno"></p>
+    <p><label for="id_lotno">Lot No:</label> <input type="number" name="lotno" required="" id="id_lotno"></p>
+    <p><label for="id_rollno">Roll No:</label> <input type="number" name="rollno" required="" id="id_rollno"></p>
+    <p><label for="id_fabric">Fabric:</label> <input type="text" name="fabric" maxlength="100" required="" id="id_fabric"></p>
+    <p><label for="id_handedoverto">Handed over to:</label> <input type="text" name="handedoverto" maxlength="100" required="" id="id_handedoverto"></p>
+    <p><label for="id_receivedby">Received by:</label> <input type="text" name="receivedby" maxlength="100" required="" id="id_receivedby"></p>
+
+
+    <br>
+
+    <button class="btn btn-primary" id="id_submit" type="submit" href="/" ,="" value="Submit">Submit</button>
+    
+
+    
+   
+</div>
+
+</form>
+
+</div>
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+
+</script>
+
+
+{% endblock %}

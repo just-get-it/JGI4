@@ -1,0 +1,1414 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+</style>
+</head>
+<body>
+
+
+
+<div class="row">
+  <div class="column">
+    <table>
+      <tr>
+        <th>Gender</th>
+        <th>{{ data.gen }}</th>
+      </tr>
+        <tr>
+        <th>Age</th>
+        <th>{{ data.age }}</th>
+      </tr>
+         <tr>
+        <th>Height</th>
+        <th>{{ data.height }}</th>
+      </tr>
+         <tr>
+        <th>Weight</th>
+        <th>{{ data.weight }}</th>
+      </tr>
+         <tr>
+        <th>Body Fat</th>
+        <th>{{ data.bodyfat }}</th>
+      </tr>
+         <tr>
+        <th>Body Physics Type</th>
+        <th>{{ data.bodyphy }}</th>
+      </tr> <tr>
+        <th>Exercise</th>
+        <th>{{ data.exercise }}</th>
+      </tr>
+         <tr>
+        <th>Activity Level</th>
+        <th>{{ data.activity }}</th>
+      </tr> <tr>
+        <th>Blood Pressure</th>
+        <th>{{ data.blood_pressure }}</th>
+      </tr> <tr>
+        <th>Sugar</th>
+        <th>{{ data.sugar }}</th>
+      </tr>
+         <tr>
+{#        <th>Vitamin Required</th>#}
+{#        <th>{{ data.vitamin }}</th>#}
+{#      </tr>#}
+{#         <tr>#}
+{#        <th>Mineral Required</th>#}
+{#        <th>{{ data.mineral }}</th>#}
+{#      </tr>#}
+         <tr>
+        <th>Blood Group</th>
+        <th>{{ data.blood_group }}</th>
+      </tr> <tr>
+{#        <th>Meals You Eat Per Day</th>#}
+{#        <th>{{ data.meal }}</th>#}
+{#      </tr> <tr>#}
+        <th>Food Habbit</th>
+        <th>{{ data.food_habbit }}</th>
+      </tr> <tr>
+        <th>FOOD Preference</th>
+        <th>{{ data.food_preference }}</th>
+      </tr>
+         <tr>
+        <th>Disability</th>
+        <th>{{ data.disability }}</th>
+      </tr>
+         <tr>
+        <th>Other Medical Issues</th>
+        <th>{{ data.medical_issues}}</th>
+      </tr>
+         <tr>
+        <th>Diseases</th>
+        <th>{{ data.diseases }}</th>
+         </tr>
+
+
+    </table>
+
+  </div>
+  <div class="column">
+       <h2 style="text-align: right;padding-bottom: 50px"> Back </h2>
+    <table >
+      <tr>
+        <th>Body Mass Index</th>
+        <th>{{ data1.bmi|floatformat:2 }}   kg/m2 </th>
+      </tr>
+        <tr>
+        <th> Lean Body Mass </th>
+        <th>{{ data1.lean_body_mass|floatformat:2 }}   kg </th>
+      </tr>
+        <tr>
+        <th> Lean Body Mass Index</th>
+        <th>{{ data1.lean_bmi|floatformat:2 }}   kg/m2 </th>
+      </tr>
+        <tr>
+        <th>Basal Metabolic Rate</th>
+        <th>{{ data1.basal_metabolic_rate|floatformat:2 }}   kcal/day </th>
+      </tr>
+        <tr>
+        <th>Maintenance</th>
+        <th>{{ data1.maintaince|floatformat:2 }}   kcal/day </th>
+      </tr>
+        <tr>
+        <th>Protein</th>
+        <th>{{ data2.protein_in_gr|floatformat:2 }}  gr</th>
+      </tr>
+<tr>
+        <th>Carbs</th>
+        <th>{{ data2.carbs_in_gr|floatformat:2 }}  gr</th>
+      </tr>
+<tr>
+        <th>Fat</th>
+        <th>{{ data2.fat_in_gr|floatformat:2 }}  gr</th>
+      </tr>
+
+    </table>
+  </div>
+<div>
+</div>
+
+<div class="column">
+
+{#{% for y in a %}#}
+{#            <th>   <th><a><input type="checkbox" name="id" value="{{ y.product_id}} "></a></th>#}
+{##}
+{#              <th>  {{ forloop.counter }}.{{ y.product_name}}<br><br></th></tr>#}
+{#{% endfor %}#}
+
+</div>
+</div>
+<h1> These are some diet products according to your Protein Required</h1>
+
+<button><b>Diet Plan</b> </button>
+{%for i in rw%}
+<a href="/diet_plan/otherdiet/{{i.id}}"><button>Diet Plan {{i.id}}</button></a>
+
+{%endfor%}
+
+<p><b>Daily Requirements:</b>
+<th>Energy</th>
+  <th>{{reqs.energy |floatformat:2}} Kcal, </th>
+  <th>Fat</th>
+  <th>{{reqs.fat |floatformat:2}} g,</th>
+  <th>Protein</th>
+  <th>{{reqs.pro |floatformat:2}} g</th>
+  <th>Water</th>
+  <th>{{reqs.water |floatformat:2}} g</th>
+  <th>Vit A</th>
+  <th>{{reqs.VitA |floatformat:2}} µg</th>
+  <th>Vit C</th>
+  <th>{{reqs.VitC |floatformat:2}} mg</th>
+  <Vit>Vit D</Vit>
+  <th>{{reqs.VitD |floatformat:2}} mg</th>
+  <th>Sodium</th>
+  <th>{{reqs.Sodium |floatformat:2}} mg</th>
+  <th>Iro</th>
+  <th>{{reqs.Iro |floatformat:2}} mg</th>
+  <th>Potassium</th>
+  <th>{{reqs.Potassium |floatformat:2}} mg</th>
+  <th>Calcium</th>
+  <th>{{reqs.Calcium |floatformat:2}} mg</th>
+  <th>Magnesium</th>
+  <th>{{reqs.Magnesium |floatformat:2}} mg</th>
+  <th>Zinc</th>
+  <th>{{reqs.Zinc |floatformat:2}} mg</th>
+  <th>Phosphorus</th>
+  <th>{{reqs.Phosphorus |floatformat:2}} mg</th>
+  <span id="dots">...</span><span id="more" style="display: none;">
+    <th>Magnesium</th>
+  <th>{{reqs.Magnesium |floatformat:2}} mg</th>
+  <th>Zinc</th>
+  <th>{{reqs.Zinc |floatformat:2}} mg</th>
+  <th>Phosphorus</th>
+  <th>{{reqs.Phosphorus |floatformat:2}} mg</th>
+  </span>
+
+<a onclick="myFunction()" id="myBtn">Show more</a>
+</p>
+<p>   
+<th><b>Diet plan provides : </b></th>
+
+{%if reqs.energy > give.Kcal %}
+<a style="color: red;">
+  <span id="parent0">
+  <th>Energy</th>
+<th>{{give.Kcal |floatformat:2}} Kcal</th>
+
+<span id="popup0" style="display: none;">
+  The diet plan has lesser energy. You can replace some items as recommended.
+
+</span>
+</span>
+</a>
+
+{%else %}
+<a style="color:greenyellow;">
+  <span id="parent0">
+    <th>Energy</th>
+    <th>{{give.Kcal |floatformat:2}} Kcal,</th>
+    <span id="popup" style="display: none;">
+      The diet plan has more Energy. You can replace some items with less energy as recommended.
+        </span>
+  </span>
+   </a>
+{%endif%}
+
+{%if reqs.fat > give.Fat%}
+<a style="color: red;">
+  <span id="parent">
+    <th>Fat</th>
+  <th>{{give.Fat |floatformat:2}} g,</th>
+  <span id="popup" style="display: none;">
+    The diet plan has lesser Fat. You can replace some items as recommended.
+      </span>
+  </span>
+  
+</a>
+{% else %}
+<a style="color:greenyellow;">
+  <span id="parent">
+  <th>Fat</th>
+<th>{{give.Fat |floatformat:2}} g,</th>
+<span id="popup" style="display: none;">
+  The diet plan has more Fat. You can replace some items with less fat as recommended.
+    </span>
+</span>
+
+</a>
+{%endif%}
+
+{% if give.Protein < reqs.pro%}
+<a style="color: red;">
+  <span id="parent1">
+    
+<th>Protein</th>
+<th>{{give.Protein |floatformat:2}} g</th>
+
+  <span id="popup1" style="display: none;">
+The diet plan has lesser Protein. Replace some items with high protein items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent1">
+    
+    <th>Protein</th>
+    <th>{{give.Protein |floatformat:2}} g</th>
+    
+      <span id="popup1" style="display: none;">
+    The diet plan has more Protein. Change some items with high protein items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Water < reqs.water%}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Water</th>
+<th>{{give.Water |floatformat:2}} g</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser water. Replace some items with high water items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Water</th>
+    <th>{{give.Water |floatformat:2}} g</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more water. Change some items with high water items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Vit_A_IU < reqs.VitA %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Vit_A</th>
+<th>{{give.Vit_A_IU |floatformat:2}} µg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Vit_A. Replace some items with high Vit_A items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Vit_A</th>
+    <th>{{give.Vit_A_IU |floatformat:2}} µg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Vit_A. Change some items with high Vit_A items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Vit_C < reqs.VitC %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Vit_C</th>
+<th>{{give.Vit_C |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Vit_C. Replace some items with high Vit_C items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Vit_C</th>
+    <th>{{give.Vit_C |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Vit_C. Change some items with high Vit_C items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Vit_D < reqs.VitD %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Vit_D</th>
+<th>{{give.Vit_D |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Vit_D. Replace some items with high Vit_D items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Vit_D</th>
+    <th>{{give.Vit_D |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Vit_D. Change some items with high Vit_D items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.sodium < reqs.Sodium %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Sodium</th>
+<th>{{give.sodium |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Sodium. Replace some items with high Sodium items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Sodium</th>
+    <th>{{give.sodium |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Sodium. Change some items with high Sodium items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Iro < reqs.Iro %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Iro</th>
+<th>{{give.Iro |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Iro. Replace some items with high Iroitems as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Iro</th>
+    <th>{{give.Iro |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Iro. Change some items with high Iro items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Potassium < reqs.Potassium %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Potassium</th>
+<th>{{give.Potassium |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Potassium. Replace some items with high Potassium items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Potassium</th>
+    <th>{{give.Potassium |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Potassium. Change some items with high Potassium items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Calcium < reqs.Calcium %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Calcium</th>
+<th>{{give.Calcium |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Calcium. Replace some items with high Calcium items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Calcium</th>
+    <th>{{give.Calcium |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Calcium. Change some items with high Calcium items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Magnesium < reqs.Magnesium %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Magnesium</th>
+<th>{{give.Magnesium |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Magnesium. Replace some items with high Magnesium items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Magnesium</th>
+    <th>{{give.Magnesium |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Magnesium. Change some items with high Magnesium items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Zinc < reqs.Zinc %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Zinc</th>
+<th>{{give.Zinc |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Zinc. Replace some items with high Zinc items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Zinc</th>
+    <th>{{give.Zinc |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Zinc. Change some items with high Zinc items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+
+{% if give.Phosphorus < reqs.Phosphorus %}
+<a style="color: red;">
+  <span id="parent2">
+    
+<th>Phosphorus</th>
+<th>{{give.Phosphorus |floatformat:2}} mg</th>
+
+  <span id="popup2" style="display: none;">
+The diet plan has lesser Phosphorus. Replace some items with high Phosphorus items as recommended.
+  </span>
+</span>
+</a>
+
+{%else%}
+
+<a style="color:greenyellow;">
+  <span id="parent2">
+    
+    <th>Phosphorus</th>
+    <th>{{give.Phosphorus |floatformat:2}} mg</th>
+    
+      <span id="popup2" style="display: none;">
+    The diet plan has more Phosphorus. Change some items with high Phosphorus items as recommended.
+        </span>
+      </span>
+</a>
+
+{%endif%}
+</p> 
+
+</p>
+<style>
+  
+  #parent0:hover #popup0 {
+  display: block;
+}
+
+#parent:hover #popup {
+  display: block;
+}
+
+#parent1:hover #popup1 {
+  display: block;
+}
+
+#parent2:hover #popup2 {
+  display: block;
+}
+
+</style>
+
+<script>
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Show more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Show less"; 
+    moreText.style.display = "inline";
+  }
+}
+var e = document.getElementById('parent0');
+e.onmouseover = function() {
+  document.getElementById('popup0').style.display = 'block';
+}
+e.onmouseout = function() {
+  document.getElementById('popup0').style.display = 'none';
+}
+
+  var e = document.getElementById('parent');
+e.onmouseover = function() {
+  document.getElementById('popup').style.display = 'block';
+}
+e.onmouseout = function() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+var e = document.getElementById('parent1');
+e.onmouseover = function() {
+  document.getElementById('popup1').style.display = 'block';
+}
+e.onmouseout = function() {
+  document.getElementById('popup1').style.display = 'none';
+}
+
+var e = document.getElementById('parent2');
+e.onmouseover = function() {
+  document.getElementById('popup2').style.display = 'block';
+}
+e.onmouseout = function() {
+  document.getElementById('popup2').style.display = 'none';
+}
+var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
+
+
+<p>Note: Data is approximate; Result will improve after enough data; Predictions depends on training data only; Change can improve diet plan by food items replacement  </p>
+<div >
+<span style="z-index: 0;">
+  <h1 style="margin-left: 13%;">Breakfast</h1>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 1</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 1 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 2</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 2 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 3</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 3 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 4</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 4 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 5</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 5 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 6</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 6 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 7</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 7 %}
+          {% ifequal i.diet_time 1 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+</span>
+
+<span style="display: inline-block;z-index: 2;margin-left: 32%; margin-top: -95%; display: inline-block; width: 100%;">
+  <h1 style="margin-left: 13%;">Lunch</h1>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 1</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 1 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 2</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 2 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 3</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 3 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 4</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 4 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 5</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 5 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 6</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 6 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 7</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 7 %}
+          {% ifequal i.diet_time 2 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+</span>
+
+<span style="z-index: 3; margin-left: 64%; margin-top:-100%; display: inline-block; width: 100%;">
+  <h1 style="margin-left: 13%;">Dinner</h1>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 1</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 1 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 2</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 2 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 3</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 3 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 4</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 4 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 5</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 5 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 6</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 6 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <h5>Day 7</h5>
+          {% for i in diet1 %}{% ifequal i.diet_day 7 %}
+          {% ifequal i.diet_time 3 %}
+          
+          <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+          
+          <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+          {% endifequal %}
+        {% endifequal %}{%endfor%}
+        </div>
+      </div>
+
+  
+  </div>
+</span>
+</div>
+<div>
+
+  {% if reqs.t_periods > 3 %}
+  <span style="z-index: 0;">
+    <h1 style="margin-left: 13%;">Breakfast</h1>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 1</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 1 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+  
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 2</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 2 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 3</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 3 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 4</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 4 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 5</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 5 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 6</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 6 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 7</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 7 %}
+            {% ifequal i.diet_time 1 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+  </span>
+  {% endif %}
+  {% ifequal reqs.t_periods 5 %}
+  <span style="display: inline-block;z-index: 2;margin-left: 32%; margin-top: -95%; display: inline-block; width: 100%;">
+    <h1 style="margin-left: 13%;">Evening snacks</h1>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 1</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 1 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+  
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 2</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 2 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 3</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 3 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 4</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 4 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 5</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 5 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 6</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 6 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+          <div class="card-body">
+            <h5>Day 7</h5>
+            {% for i in diet1 %}{% ifequal i.diet_day 7 %}
+            {% ifequal i.diet_time 20 %}
+            
+            <tr>{{i.Product}} <tr>{{i.type}}</tr><tr>{{i.copy}}</tr>
+            
+            <a href="/diet_plan/updt/{{i.pk}}" style="color:rgb(214, 172, 183)">Change</a>
+            {% endifequal %}
+          {% endifequal %}{%endfor%}
+          </div>
+        </div>
+  
+    
+    </div>
+  </span>
+
+  
+  
+</div>
+{% endifequal %}
+
+<div style="margin-left: 10%;">
+  <a >Select all diet plans alternatively <button>Ok</button></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <h8>Select multiple or any</h8> 
+  <form style="margin-left: 32%;">
+    <div class="multiselect">
+      <div class="selectBox" onclick="showCheckboxes()">
+        <select>
+          <option>Select diet plan(s)</option>
+        </select>
+        <div class="overSelect"></div>
+      </div>
+      <div id="checkboxes">
+        <label for="one">
+          <input type="checkbox" id="one" />First checkbox</label>
+        <label for="two">
+          <input type="checkbox" id="two" />Second checkbox</label>
+        <label for="three">
+          <input type="checkbox" id="three" />Third checkbox</label>
+          
+      </div>
+    </div>
+    <button type="submit" class="save btn btn-default">submit</button> 
+    
+  </form>
+
+  <br><br><br><br><br>
+  
+</div>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends 'just-connect/index.html' %}
+
+{% load static %}
+{% block indexbody %}
+<div class="container">
+    <div class="row">
+        <!-- Main Content Start -->
+        <div class="main--content col-md-12 pb--60" data-trigger="stickyScroll">
+            <div class="main--content-inner drop--shadow">
+                <!-- Filter Nav Start -->
+                <!-- Filter Nav End -->
+                <!-- Activity List Start -->
+                <div class="activity--list">
+                    <!-- Activity Items Start -->
+                    {% block postcontent %}
+                    {% endblock postcontent %}
+                    <!-- Activity Items End -->
+                </div>
+                <!-- Activity List End -->
+            </div>
+
+            <!-- Load More Button Start -->
+            {% comment %} <div class="load-more--btn pt--30 text-center">
+                <a href="#" class="btn btn-animate">
+                    <span>See More Activities<i class="fa ml--10 fa-caret-right"></i></span>
+                </a>
+            </div> {% endcomment %}
+            <!-- Load More Button End -->
+        </div>
+        <!-- Main Content End -->
+    </div>
+</div>
+
+{% endblock indexbody %}
+
+{% block js %}
+{% endblock js %}

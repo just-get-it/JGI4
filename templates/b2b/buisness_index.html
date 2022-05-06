@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/b2b/buisness_index.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+	<div class="container-fluid px-0 py-0">
+		<div class="row main_image">
+			<img src="{% static 'img/order.jpg' %}">
+			<div class="container-fluid">
+				<div class="row overlay_buis"></div>
+				<div class="row centered heading_buis">
+					<h1>Enormous Orders wouldn't take time</h1>
+
+				</div>
+				<div class="row heading_buis" id="heading_buis">
+					<a href="/userdetail/buisness_registration"><button class="py-2 px-4" id="regi_butt">REGISTER NOW</button></a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row order_buis_large">
+				<div class="col-xs-12 col-sm-4 col-md-4 co-lg-4">
+					<img src="https://5.imimg.com/data5/SG/AV/MY-5558008/paper-packaging-cartons-500x500.jpg">
+				</div>
+				<div class="col-xs-12 col-sm-8 col-md-8 co-lg-8">
+					<h3>Order by Quantity</h3>
+					<p>Now you can place orders for your buisness employee for at a very economical price, Make them Feel Better and unique. No Hectic Task Just Place Order and submit the E-xcel Sheet of your Employee and now have a Tea, We will work for you. All Employees will get their Clothes at their Doorstep and with of their fitting Clothes.Delivery Charges are Null for these Orders. You should have to submit the design of your Clothes and this will be same Color and Quality will be Provided to you with no quality Compromise.Orders are Delivered in a very economical Time. <br> </p>
+					<a href="/userdetail/buisness_registration/" style="text-decoration: none;"><p class=" hov-a preg" style=" color: black;">Register Now<i class="fas fa-chevron-right"></i></p></a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row order_buis_large">
+				
+				<div class="col-xs-12 col-sm-8 col-md-8 co-lg-8">
+					<h3>Order by Quantity</h3>
+					<p>Now you can place orders for your buisness employee for at a very economical price, Make them Feel Better and unique. No Hectic Task Just Place Order and submit the E-xcel Sheet of your Employee and now have a Tea, We will work for you. All Employees will get their Clothes at their Doorstep and with of their fitting Clothes.Delivery Charges are Null for these Orders. You should have to submit the design of your Clothes and this will be same Color and Quality will be Provided to you with no quality Compromise.Orders are Delivered in a very economical Time. <br> </p>
+					<a href="/userdetail/buisness_registration/" style="text-decoration: none;"><p class=" hov-a preg" style=" color: black;">Register Now<i class="fas fa-chevron-right"></i></p></a>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 co-lg-4">
+					<img src="https://ae01.alicdn.com/kf/HTB1Iri_QpXXXXbDaXXXq6xXFXXXi/Chef-clothing-long-sleeved-autumn-and-winter-hotel-restaurant-kitchen-uniforms-uniforms-men-and-women-kitchen.jpg_640x640.jpg">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		setTimeout(function(){
+			var butt=document.getElementById('regi_butt');
+			butt.style.display="block";
+		},1500)
+	</script>
+{% endblock %}

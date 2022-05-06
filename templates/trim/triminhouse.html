@@ -1,0 +1,407 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+<!--
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/userdetail/staff_profile.css' %}">
+
+{% endblock %}
+
+{% block title %}
+	Fabric Inhouse Form
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %} -->
+
+{% block content %}
+
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+
+      <script type="text/javascript">
+      function f_formsubmit() {
+               var po=document.getElementById("po").value;
+               var supplier=document.getElementById("supplier").value;
+               var lotNo=document.getElementById("lotNo").value;
+
+               var numRolls=document.getElementById("numRolls").value;
+               var qty=document.getElementById("qty").value;
+
+               if(po.length==0 || supplier.length==0 || lotNo.length==0 || numRolls.length==0 || qty.length==0)
+                   {
+                   document.getElementById("formdiv").innerHTML="<font color=red>Fill all the fields....</font>";
+                   return false;
+                   }
+                else if (document.getElementById("goods").value=="")
+                    {
+                       document.getElementById("goodsdiv").innerHTML="<font color=red>Select goods<font>";
+                       return false;
+                     }
+
+                   /*
+               if(po.length>6 || isNaN(po.value) || isNaN(orderNo.value) )
+                   {
+                   document.getElementById("formdiv").innerHTML="<font color=red>Length error..</font>";
+                   return false;
+                   }
+
+               if(supplier.length>7)
+                   {
+                   document.getElementById("formdiv").innerHTML="<font color=red>Supplier length error..</font>";
+                   return false;
+                   }
+                var letters = /^[A-Za-z]+$/;
+                                        var check_param=0;
+                if(supplier.value.match(letters))
+                        check_param=1;
+                if (check_param!=1)
+                    {
+                    document.getElementById("formdiv").innerHTML="<font color=red>Enter correct information..</font>";
+                   return false;
+                    }*/
+               else
+                return true;
+              }
+        </script>
+
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center"><br><br>TRIM INHOUSE<br></h3>
+            </div>
+        </div>
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+   var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            document.getElementById("date1").value=today;
+}, false);
+
+        </script>
+        <div class="container">
+            <form  method="post" >
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="date1" class="col-sm-2 col-form-label">Date</label>
+                    <div class="col-sm-4">
+                        <input type="date" name="date1" class="form-control" id="date1" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="po" class="col-sm-2 col-form-label">PO Number</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="po" class="form-control" placeholder="Enter here" id="po" onblur="f_po()">
+                        <div id="podiv"></div>
+                        <script type="text/javascript">
+                            function f_po() {
+
+                                        if (document.getElementById("po").value.length==0)
+                                            document.getElementById("podiv").innerHTML="<font color=red>Field required<font>";
+                                        else if (document.getElementById("po").value.length>6)
+                                            document.getElementById("podiv").innerHTML="<font color=red>Length should be less than 7<font>";
+
+                                        else if(isNaN(document.getElementById("po").value))
+                                            document.getElementById("podiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("podiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="orderNo" class="col-sm-2 col-form-label">Order Number</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="orderNo" class="form-control" id="orderNo" placeholder="Enter here">
+                        <div id="orderNodiv"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="supplier" class="col-sm-2 col-form-label">Supplier Name</label>
+                    <div class="col-sm-4">
+                     	 <select class="form-control" id="supplier" name="supplier" onchange="f_supplier(this)">
+							 <option value="" selected>Select supplier</option>
+							{% for item in sup %}
+							 	<option value="{{item.name}}">{{item.name}}</option>
+				            {%endfor %}
+						</select>
+                        <div id="supplierdiv"></div>
+
+
+
+                        <script type="text/javascript">
+                            function f_supplier(select) {
+                                        sel_op=select.options[select.selectedIndex].getAttribute("value");
+                                        if (sel_op.length==0)
+                                            document.getElementById("supplierdiv").innerHTML="<font color=red>Select a supplier<font>";
+                                        else
+                                            document.getElementById("supplierdiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lotNo" class="col-sm-2 col-form-label">Lot Number</label>
+                    <div class="col-sm-4">
+                        <input type="number" name="lotNo" class="form-control" id="lotNo" min="1" max="99" placeholder="Enter here between 1 to 99" onblur="f_lotNo()">
+                        <div id="lotNodiv"></div>
+                        <script type="text/javascript">
+                            function f_lotNo() {
+                                        if (document.getElementById("lotNo").value.length==0)
+                                            document.getElementById("lotNodiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("lotNodiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="category" class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-4">
+
+                        <select  name="category" class="form-control" id="category" onblur="f_goods()">
+                               <option value="" selected>Select category</option>
+                                  <option value="THREAD">THREAD</option>
+                            <option value="SEWING TRMS">SEWING TRMS</option>
+                            <option value="PACKING TRIMS">PACKING TRIMS</option>
+                            <option value="FINISHING TRIMS">FINISHING TRIMS</option>
+                        </select>
+                        <input type="button" onclick="f_optremove()" value="Remove selected option">
+                        <br>Or Add new Category
+                        <input type="text" name="newopt" class="form-control" placeholder="Enter new category name" id="newopt" onblur="f_newopt()">
+                        <input type="button" value="Add option" onclick="f_addopt()">
+
+
+                         <div id="goodsdiv"></div>
+                        <script type="text/javascript">
+                            function f_goods() {
+                                        if (document.getElementById("category").value=="")
+                                            document.getElementById("goodsdiv").innerHTML="<font color=red>Select Category<font>";
+                                        else
+                                            {document.getElementById("goodsdiv").innerHTML="";
+                                            var ct=document.getElementById("category").value+"";
+                                            if(ct=="THREAD")
+									            {
+									                    subcat=document.getElementById("subcategory");
+									                    setsel="<option value='Red'>Red</option><option value='Blue'>Blue</option><option value='Green'>Green</option><option value='Black'>Black</option><option value='White'>White</option>";
+									                    subcat.innerHTML=setsel;
+									                    subcat=document.getElementById("subcategory2");
+									                    setsel="<option value='50 TKT'>50 TKT</option><option value='80 TKT'>80 TKT</option><option value='120 TKT'>120 TKT</option><option value='150 TKT'>150 TKT</option>";
+									                    subcat.innerHTML=setsel;
+               									}
+				            				else  if(ct=="SEWING TRMS")
+									            {
+									                    subcat=document.getElementById("subcategory");
+									                    setsel="<option value='Buttons'>Buttons</option>";
+									                    subcat.innerHTML=setsel;
+									                    subcat=document.getElementById("subcategory2");
+									                    setsel="";
+									                    for(let vh=10;vh<=40;vh+=2)
+									                    setsel+="<option value='"+vh+"'>"+vh+" TKT</option>";
+
+									                    subcat.innerHTML=setsel;
+               									}
+                                            		else  if(ct=="PACKING TRIMS")
+									            {
+									                    subcat=document.getElementById("subcategory");
+									                    setsel="<option value='Polybag'>Polybag</option>";
+									                    subcat.innerHTML=setsel;
+									                    subcat=document.getElementById("subcategory2");
+									                    setsel="<option value='May-60'>May-60</option>";
+									                    subcat.innerHTML=setsel;
+               									}
+               											else  if(ct=="FINISHING TRIMS")
+									            {
+									                    subcat=document.getElementById("subcategory");
+									                    setsel="<option value='Labels'>Labels</option>";
+									                    subcat.innerHTML=setsel;
+									                    subcat=document.getElementById("subcategory2");
+									                    setsel="<option value='Size Label'>Size Label</option><option value='Washcare Label'>Washcare Label</option><option value='Brand Label'>Brand Label</option>";
+									                    subcat.innerHTML=setsel;
+               									}
+
+                                            }
+                                    }
+                            function f_newopt() {
+                                       if (document.getElementById("newopt").value.length>20)
+                                            document.getElementById("goodsdiv").innerHTML="<font color=red>Length should be less than 20<font>";
+                                        else
+                                            document.getElementById("goodsdiv").innerHTML="";
+                                        if (document.getElementById("newopt").value.length==0)
+                                         document.getElementById("goodsdiv").innerHTML="";
+                                    }
+                              function f_addopt() {
+                                         var x=document.getElementById("category");
+                                         var option = document.createElement("option");
+                                        option.text = newopt.value;
+                                        x.add(option, x[0]);
+                                        document.getElementById("newopt").value=""
+                                    }
+                              function      f_optremove(){
+                                         var x=document.getElementById("category");
+                                        x.remove(x.selectedIndex);
+                                    }
+
+                        </script>
+
+                    </div>
+                </div>
+
+                   <div class="form-group row">
+                    <label for="subcategory" class="col-sm-2 col-form-label">Select Sub Category</label>
+                    <div class="col-sm-4">
+
+                        <select  name="subcategory" class="form-control" id="subcategory" onblur="f_goodssa()">
+
+                        </select>
+                        <input type="button" onclick="f_optremovesa()" value="Remove selected option">
+                        <br>Or Add new Sub Category
+                        <input type="text" name="newoptsa" class="form-control" placeholder="Enter new subcategory name" id="newoptsa" onblur="f_newoptsa()">
+                        <input type="button" value="Add option" onclick="f_addoptsa()">
+
+
+                         <div id="goodsdivsa"></div>
+                        <script type="text/javascript">
+                            function f_goodssa() {
+                                        if (document.getElementById("subcategory").value=="")
+                                            document.getElementById("goodsdivsa").innerHTML="<font color=red>Select Sub Category<font>";
+                                        else
+                                            {document.getElementById("goodsdivsa").innerHTML="";
+
+                                            }
+                                    }
+                            function f_newoptsa() {
+                                       if (document.getElementById("newoptsa").value.length>20)
+                                            document.getElementById("goodsdivsa").innerHTML="<font color=red>Length should be less than 20<font>";
+                                        else
+                                            document.getElementById("goodsdivsa").innerHTML="";
+                                        if (document.getElementById("newoptsa").value.length==0)
+                                         document.getElementById("goodsdivsa").innerHTML="";
+                                    }
+                              function f_addoptsa() {
+                                         var x=document.getElementById("subcategory");
+                                         var option = document.createElement("option");
+                                        option.text = newoptsa.value;
+                                        x.add(option, x[0]);
+                                        document.getElementById("newoptsa").value=""
+                                    }
+                              function      f_optremovesa(){
+                                         var x=document.getElementById("subcategory");
+                                        x.remove(x.selectedIndex);
+                                    }
+
+                        </script>
+
+                    </div>
+                </div>
+
+
+
+ <div class="form-group row">
+                    <label for="subcategory2" class="col-sm-2 col-form-label">Select Super Category</label>
+                    <div class="col-sm-4">
+
+                        <select  name="subcategory2" class="form-control" id="subcategory2" onblur="f_goodssa2()">
+
+                        </select>
+                        <input type="button" onclick="f_optremovesa2()" value="Remove selected option">
+                        <br>Or Add new Super Category
+                        <input type="text" name="newoptsa2" class="form-control" placeholder="Enter new supercategory name" id="newoptsa2" onblur="f_newoptsa2()">
+                        <input type="button" value="Add option" onclick="f_addoptsa2()">
+
+
+                         <div id="goodsdivsa2"></div>
+                        <script type="text/javascript">
+                            function f_goodssa2() {
+                                        if (document.getElementById("subcategory2").value=="")
+                                            document.getElementById("goodsdivsa2").innerHTML="<font color=red>Select Super Category<font>";
+                                        else
+                                            document.getElementById("goodsdivsa2").innerHTML="";
+                                    }
+                            function f_newoptsa2() {
+                                       if (document.getElementById("newoptsa2").value.length>20)
+                                            document.getElementById("goodsdivsa2").innerHTML="<font color=red>Length should be less than 20<font>";
+                                        else
+                                            document.getElementById("goodsdivsa2").innerHTML="";
+                                        if (document.getElementById("newoptsa2").value.length==0)
+                                         document.getElementById("goodsdivsa2").innerHTML="";
+                                    }
+                              function f_addoptsa2() {
+                                         var x=document.getElementById("subcategory2");
+                                         var option = document.createElement("option");
+                                        option.text = newoptsa2.value;
+                                        x.add(option, x[0]);
+                                        document.getElementById("newoptsa2").value=""
+                                    }
+                              function      f_optremovesa2(){
+                                         var x=document.getElementById("subcategory2");
+                                        x.remove(x.selectedIndex);
+                                    }
+
+                        </script>
+
+                    </div>
+                </div>
+
+
+                                <div class="form-group row">
+                    <label for="noC" class="col-sm-2 col-form-label">No of Cartons</label>
+                    <div class="col-sm-4">
+                        <input type="number" name="noC" class="form-control" id="noC" min="1"  pattern=".{1,6}" placeholder="Enter here" >
+                        <div id="qtydiv"></div>
+                        <script type="text/javascript">
+                            function f_qty() {
+                                        if (document.getElementById("noC").value.length==0)
+                                            document.getElementById("qtydiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("qtydiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tqty" class="col-sm-2 col-form-label">Total Quantity</label>
+                    <div class="col-sm-4">
+                        <input type="number" name="tqty" class="form-control" id="tqty" min="1"  pattern=".{1,6}" placeholder="Enter here" onblur="f_qty()">
+                        <div id="qtydiv"></div>
+                        <script type="text/javascript">
+                            function f_qty() {
+                                        if (document.getElementById("tqty").value.length==0)
+                                            document.getElementById("qtydiv").innerHTML="<font color=red>Enter integer value<font>";
+                                        else
+                                            document.getElementById("qtydiv").innerHTML="";
+                                    }
+                        </script>
+                    </div>
+                </div>
+                <div id="formdiv"></div>
+                <input type="submit" class="btn btn-primary" value="Submit" formaction="{% url 'subtriminhouse' %}" onclick="return f_formsubmit()" >
+                <input type="submit" class="btn btn-primary" value="Summary" formaction="{% url 'summaryinhouse' %}">
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

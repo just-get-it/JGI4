@@ -1,0 +1,843 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<style type="text/css">
+	.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+}
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+.row-image{
+	height:120px;
+	width:auto;
+}
+
+</style>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script type="text/javascript">
+function addQuant(id){
+	// console.log('addQuant');
+
+	if (user == 'AnonymousUser') {
+		id = id.item(1).id;
+	}
+
+	// console.log("id",id, typeof id);
+	var button =  "add"+String(id);
+	// console.log("button", button);
+	var temp=document.getElementById(button);
+	// console.log(temp);
+	// var action = temp.dataset.action;
+	var rem=temp.dataset.product;
+	x=document.getElementById(id);
+	x.value=Number(x.value)+1;
+	quant=Number(x.value);
+	var totid="total+"+id;
+	var priceid="price+"+id;
+	total=document.getElementById(totid);
+	price=document.getElementById(priceid);
+	// console.log("Working");
+	total.innerText= Number(price.innerHTML)*quant;
+	// console.log(id);
+	//	console.log(total.innerText);
+	idstr=rem;
+	if (user=='AnonymousUser'){
+            // console.log("user:",user);
+             if (cart[idstr] != undefined){
+                cart[idstr][0]+=1;                                 // if cart has item then +1
+
+             }
+            else {
+                qty = document.getElementById(idstr).innerHTML;
+                name = document.getElementById('name'+idstr).innerHTML;          //namepr1 id given to card title
+                price = document.getElementById('price+'+idstr).innerHTML;
+                cart[idstr]=[qty, name, parseInt(price.slice(3, ))];
+
+			}
+
+			updateCart(cart);
+			location.reload();
+
+        }
+        else{
+			var action = temp.dataset.action;
+
+            updateuserorder(idstr,action);
+		}
+
+}
+function remQuant(id){
+	// console.log("removeQuant");
+
+	if (user == 'AnonymousUser') {
+		id = id.item(1).id;
+	}
+
+	var button="remove"+String(id);
+	x=document.getElementById(button);
+	// var action=x.dataset.action;
+	var rem=x.dataset.product;
+	var action=x.dataset.action;
+	var x=document.getElementById(id);
+	idstr=rem;
+	if (x.value>1){
+		x.value=Number(x.value)-1;
+		quant=Number(x.value);
+		var totid="total+"+id;
+		var priceid="price+"+id;
+		var nameid="name"+id;
+		total=document.getElementById(totid);
+		price=document.getElementById(priceid);
+		total.innerText= Number(price.innerHTML)*quant;
+		if (user=='AnonymousUser'){
+			// console.log("user:",user);
+			if (cart[idstr] != undefined){
+				cart[idstr][0]-=1;                                 // if cart has item then +1
+
+			}
+            else {
+                qty = document.getElementById(x).innerHTML;
+                name = document.getElementById(nameid).innerHTML;          //namepr1 id given to card title
+                price = document.getElementById(priceid).innerHTML;
+                cart[idstr]=[qty, name, parseInt(price.slice(3, ))];
+
+            }
+			updateCart(cart);
+			location.reload();
+
+        }
+        else{
+            updateuserorder(idstr,action);
+        }
+	}
+	else{
+		document.getElementById(rem).click();
+	}
+
+}
+
+function deleteQuant(id){
+	var button="delete"+id.toString();
+	x=document.getElementById(button);
+	var action=x.dataset.action;
+	var rem=x.dataset.product;
+	var x=document.getElementById(id);
+	idstr=rem;
+		if (user=='AnonymousUser'){
+            // console.log("user:",user);
+             if (cart[idstr] != undefined){
+                cart[idstr][0]+=1;                                 // if cart has item then +1
+
+             }
+            else {
+                qty = document.getElementById(x).innerHTML;
+                name = document.getElementById(nameid).innerHTML;          //namepr1 id given to card title
+                price = document.getElementById(priceid).innerHTML;
+                cart[idstr]=[qty, name, parseInt(price.slice(3, ))];
+
+            }
+            updateCart(cart);
+
+        }
+        else{
+            updateuserorder(idstr,action);
+        }
+	}
+</script>
+	{% endblock %}
+{% block content %}
+
+ {% comment %} BUTTONS {% endcomment %}
+<br>
+<div class="btn-group-lg" role="group" aria-label="Basic example" style="text-align: center;">
+  <button id="product_cart_btn" type="button" class="btn btn-primary">Products</button>
+  <button id="subscription_cart_btn" type="button" class="btn btn-secondary">Subscriptions</button>
+</div>
+{% comment %} PRODUCT CART {% endcomment %}
+<h2 id="your_cart_items_heading"> Your Cart Items</h2>
+<div class="container mt-4 product_cart_details">
+<div class="row my-4">
+	<div class="col-lg-12">
+		<div class="box-element">
+			<form action="/checkout/" method="POST">{% csrf_token %}
+			<br>
+			<br>
+			<table class="table">
+				<tr>
+					{% if order.get_cart_items %}
+						<th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+						<th><h5>Total:<strong> Rs. {{order.get_cart_total}}</strong></h5></th>
+					{% else %}
+						<th><h5>Items: <strong id="totalcartitems">items{{order.get_cart_items}}</strong></h5></th>
+						<th><h5>Total:<strong id="totalcarprice"> Rs. {{order.get_cart_total}}</strong></h5></th>
+					{% endif %}
+					<th>
+                      <!--  <a href='/checkout' class='mx-2 my-2'>-->
+						<input type="submit" value="Checkout" class='btn btn-success float-right' />
+                      <!--  </a>-->
+					</th>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<style>
+			.add{
+				border: none;
+					border-radius:50%  ;
+					background-color: transparent;
+
+				}
+				.add:hover{
+					background-color: #1dd1a1;
+				}
+				.minus{
+					border: none;
+					border-radius:50%;
+					background-color: transparent;
+				}
+				.minus:hover{
+					background-color: #ff6b6b;
+				}
+				.text_box{
+					border: none;
+					background-color: #e1f1f1;
+					text-align: center;
+				}
+				.delete_btn{
+					border: none;
+					background-color: transparent;
+				}
+		</style>
+		{% if items %}
+			<div class="box-element container d-none d-lg-block">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+						<div style="flex:2"><strong>Items</strong></div>
+							<div style="flex:1"><strong>Price</strong></div>
+							<div style="flex:2"><center><strong>Quantity</strong></center></div>
+							<div style="flex:1"><strong>Total</strong></div>
+						</div>
+						{% for item in items %}
+							<div class="cart-row">
+                        		<div style="flex:2 "><img class="row-image" src="{{item.product.image1.url}}" alt="No image found"></div>
+                        		<div style="flex:2"><p id="name{{item.product.title}}">{{item.product.title}}</p></div>
+                        		<div style="flex:1">Rs. <p name="price" id="price+{{item.id}}" style="display: inline;" innerText="{{item.get_price}}">{{item.get_price}}</p></div>
+                        		<div style="flex:2;" >
+                           			<div style="display:inline">
+                                		<div class="quantity">
+											<center>
+												<button  type="button" data-product="{{item.product.product_code}}" class=" btn delete_btn" name="delete{{item.id}}" id="delete{{item.id}}"  onclick="deleteQuant({{item.id}})" data-action="delete"><i class="far fa-trash-alt ml-2 mr-2 " style="color: crimson;"></i></button>
+												<img class="minus" data-product="{{item.product.product_code}}" data-action="remove"  id="remove{{item.id}}" name="remove{{item.id}}" class="chg-quantity"  style="display: inline;width: 20px;" alt="down" onclick="remQuant({{item.id}})"src="https://cdn.iconscout.com/icon/free/png-64/minus-111-434087.png">
+												<input class="text_box" type="text" class="quantity" id="{{item.id}}" name="{{item.id}}" value="{{item.quantity}}" style="width: 50px ;display: inline;">
+												<img class=" add" data-product="{{item.product.product_code}}" data-action="add" id="add{{item.id}}" name="add{{item.id}}" class="chg-quantity" style="display: inline; width: 20px;" alt="up" onclick="addQuant( {{item.id}})" src="https://cdn.iconscout.com/icon/free/png-64/add-insert-control-point-plus-31700.png"  >
+											</center>
+                                		</div>
+                            		</div>
+                            <!--<div class="pl-4 ">
+                                <span>
+                                    <button  type="button" data-product="{{item.product.product_code}}" class=" btn delete_btn" name="delete{{item.id}}" id="delete{{item.id}}"  onclick="deleteQuant({{item.id}})" data-action="delete"><i class="far fa-trash-alt ml-2 mr-2 " style="color: crimson;"></i></button>
+                                </span>
+                            </div>-->
+                        		</div>
+								<div style="flex:1;display: inline;">Rs. <p name="total" id="total+{{item.id}}" style="display: inline;" innerText="{{item.get_total}}">{{item.get_total}}</p></div>
+							</div>
+					{% endfor %}
+					{% else %}
+						<div id="anonymousitems"></div>
+					{% endif %}
+				</div>
+			<!-- responsive -->
+			<div class="coniatner d-lg-none">
+				{% for item in items %}
+				<hr>
+				<div class="row">
+					<div class="col-4">
+						<div><img class="row-image" src="{{item.product.image1.url}}" alt="No image found"></div>
+					</div>
+					<div class="col-8">
+						<div ><p class="mb-1" id="name{{item.product.title}}"> <b>{{item.product.title}}</b> </p></div>
+						<div class="row ">
+							<div class="pl-3 pb-3"> <b>Rs.</b> <p name="price" id="price+{{item.id}}" style="display: inline;" innerText="{{item.get_price}}"> <strong style="color:#27ae60;"> {{item.get_price}}</strong></p></div>
+						</div>
+						<div class="row">
+							<div class="col-8 p-2">
+								<img class="minus" data-product="{{item.product.product_code}}" data-action="remove"  id="remove{{item.id}}" name="remove{{item.id}}" class="chg-quantity"  style="display: inline;width: 20px;" alt="down" onclick="remQuant({{item.id}})"src="https://cdn.iconscout.com/icon/free/png-64/minus-111-434087.png">
+								<input class="text_box" type="text" class="quantity" id="{{item.id}}" name="{{item.id}}" value="{{item.quantity}}" style="width: 50px;display: inline;">
+								<img class=" add" data-product="{{item.product.product_code}}" data-action="add" id="add{{item.id}}" name="add{{item.id}}" class="chg-quantity" style="display: inline; width: 20px;" alt="up" onclick="addQuant( {{item.id}})" src="https://cdn.iconscout.com/icon/free/png-64/add-insert-control-point-plus-31700.png"  >
+							</div>
+							<div class="col-4 p-0">
+								<button  type="button" data-product="{{item.product.product_code}}" class=" btn delete_btn  " name="delete{{item.id}}" id="delete{{item.id}}"  onclick="deleteQuant({{item.id}})" data-action="delete"><i class="far fa-trash-alt " style="color: crimson;"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				<hr>
+			</div>
+			<!-- responsive -->
+</div>
+</div>
+</div>
+</form>
+{% if product_exist %}
+<div id="product">
+	<div class="container">
+		<h1>Product</h1>
+<div class="row">
+	<div class="col-lg-12">
+			<div class="box-element">
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>{{product_count}}</strong></h5></th>
+						<th><h5>Total:<strong> Rs. {{sums}}</strong></h5></th>
+						<th>
+                        <a href='/checkoutquick' class='mx-2 my-2'>
+                            <button class='btn btn-success float-right' id ='checkout'>Checkout</button>
+                        </a>
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Quantity</strong></div>
+                            <div style="flex:1"><strong>Total</strong></div>
+                        </div>
+            {% for product in product %}
+				<div class="cart-row">
+					<div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+					<div style="flex:2"><p>{{product.product_name}}</p></div>
+					<div style="flex:1"><p>Rs. {{product.price}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{product.no_of_quantity}}</p>
+<!--						<div class="quantity">-->
+<!--							<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">-->
+
+<!--							<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">-->
+<!--						</div>-->
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_product?id={{product.id}}">Delete</a></button>
+                        </div>
+					</div>
+					<div style="flex:1"><p>Rs. {{product.get_total}}</p></div>
+				</div>
+				{% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+	</div>
+	{% endif %}
+	{% if service_exist %}
+	<div id="service">
+	<div class="container">
+		<h1>Service</h1>
+<div class="row">
+	<div class="col-lg-12">
+			<div class="box-element">
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>{{service_count}}</strong></h5></th>
+						<th><h5>Total:<strong> Rs. {{servicetotal}}</strong></h5></th>
+						<th>
+                        <a href='/checkoutquick' class='mx-2 my-2'>
+                            <button class='btn btn-success float-right' id ='checkout'>Checkout</button>
+                        </a>
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Price</strong></div>
+                            <div style="flex:1"><strong>Date</strong></div>
+                            <div style="flex:1"><strong>Time</strong></div>
+                        </div>
+            {% for service in service %}
+				<div class="cart-row">
+					<div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+					<div style="flex:2"><p>{{service.service_name}}</p></div>
+					<div style="flex:1"><p>Rs. {{service.price_range}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{service.service_date}}</p>
+<!--						<div class="quantity">-->
+<!--							<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">-->
+
+<!--							<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">-->
+<!--						</div>-->
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_service?id={{service.id}}">Delete</a></button>
+                        </div>
+					</div>
+					<div style="flex:1"><p>{{service.service_time}}</p></div>
+				</div>
+				{% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+	</div>
+	{% endif %}
+	{% if pick_exist %}
+	<div id="pick_and_drop">
+	<div class="container">
+		<h1>Pick and Drop</h1>
+<div class="row">
+	<div class="col-lg-12">
+			<div class="box-element">
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>{{pick_count}}</strong></h5></th>
+						<th><h5>Total:<strong> Rs. {{order.get_cart_total}}</strong></h5></th>
+						<th>
+                        <a href='/checkout' class='mx-2 my-2'>
+                            <button class='btn btn-success float-right' id ='checkout'>Checkout</button>
+                        </a>
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+        <div class="box-element container">
+                        <div class="cart-row">
+                            <div style="flex:2"></div>
+                            <div style="flex:2"><strong>Item</strong></div>
+                            <div style="flex:1"><strong>Pick Location</strong></div>
+                            <div style="flex:1"><strong>Drop Location</strong></div>
+                            <div style="flex:1"><strong>Date</strong></div>
+                        </div>
+            {% for pick in pick %}
+				<div class="cart-row">
+					<div style="flex:2 " ><img class="row-image" src="{{item.product.image1.url}}"></div>
+					<div style="flex:2"><p>{{pick.product_name}}</p></div>
+					<div style="flex:1"><p>Rs. {{pick.pickup_address}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{pick.delivery_address}}</p>
+<!--						<div class="quantity">-->
+<!--							<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}">-->
+
+<!--							<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}">-->
+<!--						</div>-->
+                        <div>
+                            <button type="button" class="btn-sm btn-outline-danger"><a href="delete_pick?id={{pick.id}}">Delete</a></button>
+                        </div>
+					</div>
+					<div style="flex:1"><p>{{pick.pickup_date}}</p></div>
+				</div>
+				{% endfor %}
+
+        </div>
+</div>
+</div>
+
+
+</div>
+	</div>
+	{% endif %}
+<div class="subscription_details" style="display: none;">
+	{% comment %} /************ SUBSCRIPTION CART ***********/ {% endcomment %}
+	{% if areThereUnpaidSubscriptions %}
+		<h1 id="subscription_cart_heading"> Subscription Cart</h1>
+		<div id="subscription_cart">
+			{% comment %} CHECKOUT ALL SUBSCRIPTION {% endcomment %}
+			<div class="box-element checkout_section" style="margin: 20px 100px 20px 120px;">
+				<form action="{% url 'subscriptionCheckout' %}"  method="POST">{% csrf_token %}
+					<input type="hidden"  name="subscriptionCartAmount" value="{{subscriptionCartAmount}}">
+					<input type="hidden" name="numItemsInSubscriptionCart" value="{{numItemsInSubscriptionCart}}">
+					<br>
+					<br>
+					<table class="table">
+						<tr>
+							<th><h5>Items: <strong id="numOfItems">{{numItemsInSubscriptionCart}}</strong></h5></th>
+							<th><h5>Total:<strong> Rs. <span id="totalAmount">{{subscriptionCartAmount}}</span></strong></h5></th>
+							<th>
+								<input type="hidden" name="transaction" value="allcheckout" />
+								<input type="submit" value="Checkout" class='btn btn-success float-right' />
+							</th>
+						</tr>
+					</table>
+				</form>
+			</div>
+			{% comment %} PRODUCT LISTING {% endcomment %}
+			{% for transaction_id, value in unpaidSubscriptionMapping.items %}
+				<div id="class_{{transaction_id}}" class="card mb-3" style="max-width: 1100px; margin-left: 120px;">
+				<div class="row no-gutters">
+						<div class="col-md-4">
+							<img class="card-img" src="{{value.product_image.url}}" alt="Not Found" onerror=this.src="{% static 'img/noimage.png' %}">
+						</div>
+					<form method="POST">{% csrf_token %}
+						<div class="col-md-12">
+						<div class="card-body">
+							<h5 class="card-title">{{value.product_name}}</h5>
+							<h5 class="card-title">Rs. {{value.amount}}</h5>
+							<h5 class="card-title">start date: {{value.start_date}}</h5>
+							<h5 class="card-title">end date: {{value.end_date}}</h5>
+							<div id="finalSubscription" style="display: none;">
+								<h4> Shipping address </h4>
+								<div class="row">
+									<label for="name">Full name</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" placeholder="name" name="fullname" value="{{full_name}}" readonly>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<label for="address">Address</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" placeholder="Address" name="address" value="{{address}}" readonly>
+									</div>
+								</div>
+							</div>
+							<input type="number" name="quantity" value="{{value.quantity}}" style="display: none;">
+							<input type="number" id="amount_{{transaction_id}}" name="amount" value="{{value.amount}}" style="display: none;">
+							<input type="date" name="start_date" value="{{value.start_date|date:'Y-m-d'}}" style="display: none;">
+							<input type="date" name="end_date" value="{{value.end_date|date:'Y-m-d'}}" style="display: none;">
+							<input type="text" name="shift" value="{{value.shift}}" style="display: none;">
+							<input type="text" name="remark" value="{{value.remark}}" style="display: none;">
+							<input type="number" name="interval" value="{{value.interval}}" style="display: none;">
+							<input type="text" name="transaction_id" value="{{value.transaction_id}}" style="display: none">
+							<input type="text" name="slug" value="{{value.slug}}" style="display: none">
+							{% comment %} <a href="/cartToFinal/{{value.transaction_id}}"> {% endcomment %}
+							<button id="proceedToPay" type="submit" class="btn btn-primary" style="display: none;"> Proceed to pay </button>
+							
+
+							{% comment %} <a href="/deleteSubscribeCart/{{value.transaction_id}}"> {% endcomment %}
+							<form method="POST">
+								<button type="submit" id="{{transaction_id}}" class=" del-btn btn btn-danger">Delete</button>
+							</form>
+							{% comment %} </a> {% endcomment %}
+						</div>
+						</div>
+					</form>
+				</div>
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+
+	{% if areThereSubscriptions %}
+	<div class="your_subscription_section">
+		<h1 id="your_subscription_heading"> Your subscriptions </h1>
+
+		{% comment %} SUBSCRIPTION WALLET SECTION {% endcomment %}
+		<div class="card wallet-payment" style="margin: 20px 100px 20px 120px;">
+			<div class="card-header">
+				<h5>Pay with wallet</h5>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Amount: {{totalamount}}</h5>
+				<h5 class="card-text">Total amount to be paid = {{totalSubscriptionAmount}}</h5>
+				{% if totalSubscriptionAmount != 0 %}
+					<form action="/userdetail/subPayWithWallet/all" method="POST"> {% csrf_token %}
+						<input type="hidden" name="amount" value="{{totalSubscriptionAmount}}">
+						<button type="submit" id="payForAllSub" class="btn btn-success">Pay for all subscriptions</a>
+					</form>
+					<form action="{% url 'subscriptionCheckout' %}" method="POST" > {% csrf_token %}
+						<input type="hidden" name="transaction" value="payForAll" />
+						<input type="hidden" name="amount" value="{{value.amountOfUnpaidEvents}}">
+						<button type="submit" class="btn btn-primary">Payment</button>
+					</form>
+				{% else %}
+					<form action="/userdetail/subPayWithWallet/all" method="POST"> {% csrf_token %}
+						<input type="hidden" name="amount" value="{{totalSubscriptionAmount}}">
+						<button type="submit" id="payForAllSub" class="btn btn-success" disabled>Pay for all subscriptions</a>
+					</form>
+					<form action="{% url 'subscriptionCheckout' %}" method="POST" > {% csrf_token %}
+						<input type="hidden" name="transaction" value="payForAll" />
+						<input type="hidden" name="amount" value="{{value.amountOfUnpaidEvents}}">
+						<button type="submit" class="btn btn-primary" disabled>Payment</button>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+
+		{% for transaction_id, value in subscriptionMapping.items %}
+		<div id="class_sub_{{transaction_id}}" class="card mb-3" style="max-width: 1100px; margin-left: 120px;">
+			<div class="row no-gutters">
+				<div class="col-md-4">
+					<img class="card-img" src="{{value.product_image.url}}" alt="Not Found" onerror=this.src="{% static 'img/noimage.png' %}" style="object-fit: cover; height: 300px;">
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						{% if value.show_warning %}
+							<div class="alert alert-danger" role="alert">
+								<h5>{{value.message}}</h5>
+							</div>
+						{% endif %}
+						<h5 class="card-title">{{value.product_name}}</h5>
+						<h5 class="card-title">Rs. {{value.amount}}</h5>
+						<div style="display: flex">
+							<h5 class="card-title" style="margin-right: 10px;">Start date: {{value.start_date}}</h5>  
+							<h5 class="card-title">End date: {{value.end_date}}</h5>
+						</div>
+						<h5 class="card-title">Last paid on: {{value.lastPaymentDate}}</h5>
+						<h5 class="card-title">payment to be done: <span id="delete_{{transaction_id}}">{{value.amountOfUnpaidEvents}}</span></h5>
+						<div style="display: flex;">
+							{% if value.amountOfUnpaidEvents != 0.0 %}
+								<form action="/userdetail/subPayWithWallet/{{transaction_id}}" method="POST"> {% csrf_token %}
+									<input type="hidden" name="amount" value="{{value.amountOfUnpaidEvents}}">
+									<button class="btn btn-success" style="width: 125px; margin-bottom: 2px; margin-right: 5px;">payWallet</button>
+								</form>
+								<form method="POST" action="{% url 'subscriptionCheckout' %}"> {% csrf_token %}
+									<input type="hidden" name="transaction" value="{{transaction_id}}" />
+									<input type="hidden" name="amount" value="{{value.amountOfUnpaidEvents}}">
+									<button type="submit" class="btn btn-primary">Payment</button>
+								</form>
+							{% else %}
+								<form action="/userdetail/subPayWithWallet/{{transaction_id}}" method="POST"> {% csrf_token %}
+									<input type="hidden" name="amount" value="{{value.amountOfUnpaidEvents}}">
+									<button class="btn btn-success" style="width: 125px; margin-bottom: 2px;  margin-right: 5px;" disabled>payWallet</button>
+								</form>
+								<form method="POST" action="{% url 'subscriptionCheckout' %}"> {% csrf_token %}
+									<input type="hidden" name="transaction" value="{{transaction_id}}" />
+									<input type="hidden" name="amount" value="{{value.amountOfUnpaidEvents}}">
+									<button type="submit" class="btn btn-primary" disabled>Payment</button>
+								</form>
+							{% endif %}
+						</div>
+						<div style="display: flex;">
+							<a href='/cart/{{ transaction_id }}'>
+								<button class="btn btn-primary" style="width: 125px; margin-right: 5px;">Edit</button>
+							</a>
+							<form method="POST"> {% csrf_token %}
+									<button style="width: 85px;" type="submit" id="{{transaction_id}}" class="del-subscription btn btn-danger">Delete</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
+{% comment %} SWITCHING BTNS {% endcomment %}
+
+<script>
+	// check for wallet amount and total subcription amount
+
+
+	$("#product_cart_btn").click(function(e) {
+		e.preventDefault();
+		$("#subscription_cart_btn").removeClass('btn-primary');
+		$("#subscription_cart_btn").addClass('btn-secondary');
+		$(this).removeClass('btn-secondary');
+		$(this).addClass('btn-primary');
+
+		$(".subscription_details").css("display", "none");
+		$(".product_cart_details").css("display", "block");
+		$("#your_cart_items_heading").css("display", "block");
+	});
+
+	$("#subscription_cart_btn").click(function(e) {
+		e.preventDefault();
+		$("#product_cart_btn").removeClass('btn-primary');
+		$("#product_cart_btn").addClass('btn-secondary');
+		$(this).removeClass('btn-secondary');
+		$(this).addClass('btn-primary');
+
+		$(".subscription_details").css("display", "block");
+		$(".product_cart_details").css("display", "none");
+		$("#your_cart_items_heading").css("display", "none");
+	})
+</script>
+
+
+<script>
+	// Delete subscription from cart.
+	$(".del-btn").click(function(e) {
+		e.preventDefault();
+		var transaction_id = e.target.id;
+
+		$.ajax({
+			url: "{% url 'deleteSubscribeCart' %}",
+			type: "POST",
+			data: {
+				'transaction_id': transaction_id,
+				'csrfmiddlewaretoken': '{{ csrf_token }}'
+			},
+			success: function(data) {
+				jQuery.noConflict();
+				transaction_id = data.transaction_id;
+				var div_element = "#class_" + transaction_id;
+				var div_price = "#amount_" + transaction_id;
+				var amount = $(div_price).val();
+				var totalAmount = $("input[name=subscriptionCartAmount]").val();
+				var numberOfItems = $("input[name=numItemsInSubscriptionCart]").val();
+				totalAmount -= amount;
+				numberOfItems--;
+				$("#numOfItems").text(numberOfItems);
+				$("#totalAmount").text(totalAmount);
+				$(div_element).remove();
+				console.log($("#subscription_cart").children().length);
+				if($("#subscription_cart").children().length - 1 <= 0) {
+					$("#subscription_cart_heading").html("");
+					$(".checkout_section").remove();
+				}
+			}
+
+		})
+	});
+	// Pay for subscription in cart
+	/*$("#subscribeNowBtn").click(function(e) {
+		e.preventDefault();
+		var quantity = $("input[name=quantity]").val();
+		var start_date = $("input[name=start_date]").val();
+		var end_date = $("input[name=end_date]").val();
+		var interval = $("input[name=interval]").val();
+		var shift = $("input[name=shift]").val();
+		var remark = $("input[name=remark]").val();
+		var slug = $("input[name=slug]").val();
+		var transaction_id = $("input[name=transaction_id]").val();
+
+		$.ajax({
+			url: ,
+			data: {
+				'src': 'SUBSCRIBE_CART',
+				'transaction_id': transaction_id
+			},
+			success: function(data) {
+				$("#finalSubscription").css("display","block");
+				$("input[name=fullname]").val(data.full_name);
+				$("input[name=address]").val(data.address);
+
+				$("#subscribeNowBtn").css("display", "none");
+				$(".del-btn").css("display", "none");
+				$("#proceedToPay").css("display", "block");
+			}
+		});
+	})*/
+	// Delete subscription from 'Your subscriptions'
+	$('.del-subscription').click(function(e) {
+		e.preventDefault();
+		var transaction_id = e.target.id;
+		$.ajax({
+			url: "{% url 'deleteSubscription' %}",
+			type: "POST",
+			data: {
+				'transaction_id': transaction_id,
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+				'mode': 'AJAX'
+			},
+			success: function(data) {
+				jQuery.noConflict();
+				var div_element = '#class_sub_' + transaction_id;
+				var div_amount = "#delete_" + transaction_id;
+				var amount__str = $(div_amount).text();
+				var amount__int = Number(amount__str);
+				console.log(amount__int);
+				var amountToBePaid__str = $("#totalAmountToBePaid").text();
+				var amountToBePaid__int = Number(amountToBePaid__str);
+				var new_amount = amountToBePaid__int - amount__int;
+				$("#totalAmountToBePaid").text(new_amount);
+
+				$(div_element).remove();
+				console.log($(".your_subscription_section").children().length);
+				if($(".your_subscription_section").children().length <= 2) {
+					$("#your_subscription_heading").html("");
+					$(".wallet-payment").css("display","none");
+				}
+			}
+		})
+	});
+</script>
+{% endblock %}
+
+<!--{% block js %}-->
+<!--<script>-->
+<!--if (localStorage.getItem('cart')==null) {-->
+<!--    var cart={};-->
+<!--    }-->
+<!--    else{-->
+<!--    cart=JSON.parse(localStorage.getItem('cart'));-->
+<!--}-->
+
+
+<!--function updateview(){-->
+<!--    if ($.isEmptyObject(cart)){-->
+<!--        mystr='<p><h5 style="text-align:center">Your cart is empty! Please add some items</h5></p>'-->
+
+<!--        $('#card').append(mystr);-->
+<!--    }-->
+<!--    else {-->
+<!--        for (var item in cart){-->
+<!--        var name=cart[item][1];-->
+<!--        var price=cart[item][2];-->
+<!--        var qty=cart[item][0];-->
+<!--        var c=`<div class="row mt-2">-->
+<!--            <div class="col md-4">-->
+<!--                <img src="#" width="320px">-->
+<!--            </div>-->
+<!--            <div class="col md-8 mt-4">-->
+<!--                <h4 id='name'+item>${name}</h4>-->
+<!--                <p>-->
+<!--                <b>Price: Rs.</b><b>${price}</b><b>.00</b>-->
+<!--                </p>-->
+<!--                <div class="row"><p>Quantity: <b>${qty}</b></p>-->
+<!--                <span id="div"+item class="divpr mx-2"><button type="button" class="btn-sm btn-outline-danger dlt mx-4" id=${item}>Delete</button></span>-->
+<!--            </div>-->
+<!--            </div>`-->
+<!--        $('#detail').append(c);-->
+
+<!--         }-->
+<!--      }-->
+<!--}-->
+<!--updateview();-->
+<!--   $('.divpr').on('click', 'button.dlt', function(){-->
+<!--        cart = JSON.parse(localStorage.getItem('cart'));-->
+<!--        var idstr=this.id.toString();-->
+<!--        console.log(idstr);-->
+<!--        delete cart[idstr];-->
+<!--        document.getElementById("detail").innerHTML="";-->
+<!--        localStorage.setItem('cart',JSON.stringify(cart));-->
+<!--        updateview();-->
+
+<!--    });-->
+<!--</script>-->
+<!--{% endblock %}-->

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="container-fluid">
+		<div class="row">
+			<input type="text" id="mapsearch" name="" size="150" style="background: transparent;">
+			<div id="map-canvas" style="width: 100%;height: 80vh;position: fixed;top: 0;left: 0;"></div>
+			
+		</div>
+		<form method="POST">{% csrf_token %}
+		<div class="row mt-2">
+			<div class="col">
+				<input type="radio" name="location" value="pickup">
+				<label>
+					Pickup-Location
+				</label>
+			</div>
+			<div class="col">
+				<input type="radio" name="location" value="delivery">
+				<label>
+					Delivery-Location
+				</label>
+			</div>
+			<div class="col centered">
+				<input type="hidden" id="lat_input" name="lat_input">
+				<input type="hidden" id="lng_input" name="lng_input">
+				<button type="submit" style="background: #30c5ff;color:#253031;border:none;border-radius: 25vw;margin-left: auto;margin-right:10vw;" class="py-2 px-4">Save</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+
+<script type="text/javascript" src="{% static 'jQuery/jQuery.js' %}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWVvkH9RzSJ3OSt0-gS1AYNJwq7DFJTwE&callback=initMap&libraries=places"></script>
+
+<script type="text/javascript">
+	var x=document.getElementById('map-canvas');
+	function getLocation() {
+	  if (navigator.geolocation) {
+	    return navigator.geolocation.getCurrentPosition(showPosition);
+	  } else {
+	    x.innerHTML = "Geolocation is not supported by this browser.";
+	    return [27.72,85.36]
+	  }
+	}
+	var pos,lati,longi;
+	function showPosition(position) {
+	  // x.innerHTML = "Latitude: " + position.coords.latitude +
+	  // "<br>Longitude: " + position.coords.longitude;
+	  lati=position.coords.latitude
+	  longi=position.coords.longitude;
+	  $('#lat_input').val(lati);
+	  $('#lng_input').val(longi);
+	}
+	getLocation();
+	alert("Fetching Location");
+	var map= new google.maps.Map(document.getElementById('map-canvas'),{
+		center:{
+			lat: lati,
+			lng: longi
+		},
+		zoom:15
+	});
+
+	var marker = new google.maps.Marker({
+		position:{
+			lat:lati,
+			lng:longi
+		},
+		map:map,
+		draggable:true
+	});
+	google.maps.event.addListener(marker,'dragend',function(){
+		var lat=marker.getPosition().lat();
+		var lng=marker.getPosition().lng();
+		$('#lat_input').val(lat);
+		$('#lng_input').val(lng);
+	});
+	var searchBox=new google.maps.places.SearchBox(document.getElementById('mapsearch'));
+	google.maps.event.addListener(searchBox, 'places_changed',function(){
+		var places = searchBox.getPlaces();
+		var bounds = new google.maps.LatLngBounds();
+		var i,places;
+
+		for(i=0;place=places[i];i++){
+			bounds.extend(place.geometry.location);
+			marker.setPosition(place.geometry.location);
+
+		}
+		map.fitBounds(bounds);
+		map.setZoom(15);
+		$('#lat_input').val(marker.getPosition().lat());
+		$('#lng_input').val(marker.getPosition().lng());
+	});
+</script>
+
+
+{% endblock %}

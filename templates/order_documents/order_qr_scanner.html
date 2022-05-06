@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="container mt-3 mb-3">
+    <div class="row">
+      <h3><b>Quick Response Scanner</b></h3>
+    </div>
+    <div class="row centered">
+      <select disabled class="" name="status" id="status">
+        <option disabled selected>--------------</option>
+        {% for i in status %}
+          <option value="{{i.sequence}}">{{i.title}}</option>
+        {% endfor %}
+      </select>
+<script>
+        function myFunction()
+        {
+        var x=document.getElementById("table_options");
+        if(document.getElementById("which").value=="New"){
+        var a=document.getElementById("packing");
+        a.style.display="none";
+         var b=document.getElementById("distribution");
+         b.style.display="none";
+         b=document.getElementById("dispatch");
+         b.style.display="none";
+         b=document.getElementById("logistic");
+         b.style.display="none";
+         b=document.getElementById("warehouse");
+         b.style.display="none";}
+        else if(x.value=="Packing list" && document.getElementById("which").value=="old")
+        {
+        var a=document.getElementById("packing");
+        a.style.display="block";
+         var b=document.getElementById("distribution");
+         b.style.display="none";
+
+         b=document.getElementById("dispatch");
+         b.style.display="none";
+         b=document.getElementById("logistic");
+         b.style.display="none";
+         b=document.getElementById("warehouse");
+         b.style.display="none";
+         }
+       else if(x.value=="Distribution list" && document.getElementById("which").value=="old")
+        {
+
+        var a=document.getElementById("packing");
+        a.style.display="none";
+         var b=document.getElementById("distribution");
+         b.style.display="block";
+         b=document.getElementById("dispatch");
+         b.style.display="none";
+         b=document.getElementById("logistic");
+         b.style.display="none";
+         b=document.getElementById("warehouse");
+         b.style.display="none";
+
+        }
+        else if(x.value=="Dispatch list" && document.getElementById("which").value=="old")
+        {
+        var a=document.getElementById("packing");
+        a.style.display="none";
+         var b=document.getElementById("distribution");
+         b.style.display="none";
+         b=document.getElementById("dispatch");
+         b.style.display="block";
+         b=document.getElementById("logistic");
+         b.style.display="none";
+         b=document.getElementById("warehouse");
+         b.style.display="none";}
+else if(x.value=="Logistic list" && document.getElementById("which").value=="old")
+        {
+        var a=document.getElementById("packing");
+        a.style.display="none";
+         var b=document.getElementById("distribution");
+         b.style.display="none";
+         b=document.getElementById("dispatch");
+         b.style.display="none";
+         b=document.getElementById("logistic");
+         b.style.display="block";
+         b=document.getElementById("warehouse");
+         b.style.display="none";
+
+        }
+
+       else if(x.value=="Warehouse list" && document.getElementById("which").value=="old")
+        {
+        var a=document.getElementById("packing");
+        a.style.display="none";
+         var b=document.getElementById("distribution");
+         b.style.display="none";
+         b=document.getElementById("dispatch");
+         b.style.display="none";
+         b=document.getElementById("logistic");
+         b.style.display="none";
+         b=document.getElementById("warehouse");
+         b.style.display="block";
+        }
+
+
+
+
+        }
+      </script>
+      <select class="" name="table_options" id="table_options" onchange="myFunction()">
+        <option disabled selected>--------------</option>
+            {% for list in lists %}
+          <option value="{{list.name}}">{{list.name}}</option>
+          {% endfor %}
+
+      </select>
+
+        <br>
+      <select name="which" id="which" onchange="myFunction()">
+        <option value="New">New</option>
+        <option value="old">old</option>
+      </select>
+<h3 id="text">List_no</h3>
+      <select name="List_no" id="packing" style="display:none;">
+        {% for p in packing_list %}
+        <option value="{{p.list_no}}">{{p.list_no}}</option>
+        {% endfor %}
+
+      </select>
+
+
+      <select name="List_no" id="distribution" style="display:none;">
+        {% for p in distribution_list %}
+        <option value="{{p.list_no}}">{{p.list_no}}</option>
+        {% endfor %}
+
+      </select>
+
+
+      <select name="List_no" id="dispatch" style="display:none;">
+        {% for p in dispatch_list %}
+        <option value="{{p.list_no}}">{{p.list_no}}</option>
+        {% endfor %}
+      </select>
+
+
+
+
+      <select name="List_no" id="logistic" style="display:none;">
+        {% for p in logistic_list %}
+        <option value="{{p.list_no}}">{{p.list_no}}</option>
+        {% endfor %}
+      </select>
+
+
+
+       <select name="List_no" id="warehouse" style="display:none;">
+        {% for p in warehouse_list %}
+        <option value="{{p.list_no}}">{{p.list_no}}</option>
+        {% endfor %}
+      </select>
+<select name="scn" id="scan">
+    <option disabled selected>--------------</option>
+    <option>Scan now</option>
+</select>
+    </div>
+    <div class="row centered">
+      <div class="col">
+        <video id="video"></video>
+      </div>
+    </div>
+
+      <canvas  id="myCanvas" width="400" height="400" style="display: none;"></canvas>
+
+    {% csrf_token %}
+
+    {% for i in graph %}
+    {% if i.1.0.2 or i.1.1.2 %}
+      <div class="row mt-2">
+        <h5><b>{{i.0}}</b></h5>
+      </div>
+      <div class="row">
+
+      {% for j in i.1 %}
+        {% if j.2 %}
+        <div class="col-4">
+
+
+        <div id="chartContainer_{{j.0}}_{{j.3.id}}" style="height: 300px; width: 100%;"></div>
+        <script type="text/javascript">
+          var chart = new CanvasJS.Chart("chartContainer_{{j.0}}_{{j.3.id}}", {
+          animationEnabled: true,
+          title:{
+            text: "{{j.0}}",
+            horizontalAlign: "left",
+            fontSize:14
+          },
+          data: [{
+            type: "doughnut",
+            startAngle: 60,
+            //innerRadius: 60,
+            indexLabelFontSize: 12,
+            indexLabel: "{label} - #percent%",
+            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+            dataPoints: [
+              { y: parseInt("{{j.1}}"), label: "Total" },
+              { y: parseInt("{{j.2}}"), label: "{{j.0}}" },
+            ]
+          }]
+          });
+          chart.render();
+        </script>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  var video=document.getElementById('video'),
+  vendorURL=window.URL || window.webkitURL;
+
+  navigator.getMedia = navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia;
+
+  // navigator.getMedia({
+  //   video:true,
+  //   audio:false
+  // },function(stream){
+  //   video.srcObject = stream;
+  //   video.play();
+  // },
+  // function(error){
+  //
+  // });
+
+  $('#scan').on('change',function(){
+    navigator.getMedia({
+      video:true,
+      audio:false
+    },function(stream){
+      video.srcObject = stream;
+      video.play();
+    },
+    function(error){
+
+    });
+    setInterval(some,2000);
+  });
+
+    var canvas, ctx;
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext('2d');
+  function snapshot() {
+     // Draws current image from the video element into the canvas
+    ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+    // some();
+  }
+  // a();
+  // some();
+
+  function some(){
+    var canvas, ctx;
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+    var dataURL=canvas.toDataURL();
+
+
+    var formdata = new FormData();
+    formdata.append("ajax_qr", dataURL);
+    formdata.append("csrfmiddlewaretoken",$('input[name=csrfmiddlewaretoken]').val());
+    formdata.append("status",$('#status').val());
+    formdata.append("which",$('#which').val());
+    formdata.append("table_options",$('#table_options').val());
+    if(document.getElementById("packing").style.display=="block")
+    {
+    formdata.append("packing",$('#packing').val());
+    }
+    else if(document.getElementById("distribution").style.display=="block")
+    {
+    formdata.append("distribution",$('#distribution').val());
+    }
+    else if(document.getElementById("dispatch").style.display=="block")
+    {
+    formdata.append("dispatch",$('#dispatch').val());
+    }
+    else if(document.getElementById("logistic").style.display=="block")
+    {
+    formdata.append("logistic",$('#logistic').val());
+    }
+    else if(document.getElementById("warehouse").style.display=="block")
+    {
+    formdata.append("warehouse",$('#warehouse').val());
+    }
+
+    $.ajax({
+       url: "/userdetail/staff_profile/orders/{{order.order_no}}/scan_qr",
+       type: "POST",
+       data: formdata,
+       processData: false,
+       contentType: false,
+       success:function(respond){
+         // alert(respond);
+        if (respond.data){
+          // alert(respond);
+          alert("Carton Updated");
+          location.reload();
+        }
+        else{
+          if (respond.Scanned){
+            alert("QR Mis-Matched Try Again");
+          }
+          // alert(respond.code);
+          // var data = JSON.parse(respond);
+          // // alert(data[0].code);
+          // window.location.href=data[0].code;
+
+        }
+       }
+    });
+    // setTimeout(a,1000)
+  }
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}

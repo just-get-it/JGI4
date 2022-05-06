@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<br>
+item: {{orderitem}}
+<br>
+ID : {{orderitem.id}}
+<br>
+address: {{cus_address}}
+<br>
+<br>
+<form action="../allorder" method="post">
+{% csrf_token %}
+    
+    {% for boy in all_deliveryboy %}
+        <b>
+            <input type="radio" name="deliveryboy" id={{boy}} value={{boy.id}}>
+            <label for={{boy}}>
+                {{boy}}
+                {{boy.id}}
+            </label>            
+        </b>
+        <br>
+    {% endfor %}
+    <input type="hidden" name="orderitem_id" value={{orderitem.id}}>
+    <button type="submit" class="btn btn-primary">Assign</button>
+</form>
+
+<!-- get id of order -->
+<!-- select a delivery boy -->
+<!-- selected delivery boy is saved the order(fetched by ID) -->
+<!-- delivery boy gets noti in dashboard about pickup and deliver w/ time-->
+<!-- vendor gets time of pickup in his dashboard -->
+{% endblock %}
+
+  
+  
+      
+  

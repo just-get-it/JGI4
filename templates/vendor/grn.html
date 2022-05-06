@@ -1,0 +1,33 @@
+{% extends 'vendor/vendor_profile_orders_list.html' %}
+{% block content %}
+<style type="text/css">
+
+    .hover-col{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        transition: all .3s ease-out;
+    }
+    .hover-col:hover{
+        box-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+</style>
+<div class="row">
+	<div class="col-2 right_menu">
+		<div class="container">
+			
+		</div>
+	</div>
+	<div class="col-10" id="content">
+        <div class="container my-3 mt-5" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+            <div class="row">
+                <h3 style="font-family: 'Cabin',sans-serif;" class="text-center">GOODS RECIEVING NOTE</h3>
+            </div>
+        </div>
+        <div class="container">
+            <form action="{% url 'subInhouse' %}" method="post">
+                {% csrf_token %}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>ADMINISTRATIVE EXPENSES</h1>
+    </div>
+    <form action="administrative_expenses" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Month</label>
+            <div class="col-sm-10">
+              <input type="month"  name="month" value="{{month}}" id="orderno">
+            </div>
+        </div>
+        <table class="table table-hover table-striped table-bordered" style="width: 40%; margin-left: 20px">
+            <thead class="thead-dark">
+              <tr>
+                <th class="col">Fields</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bonus Incentives and Others</td>
+                    <td><input style="width:110px;" type="number" name="bonus" value="{{bonus}}"></td>
+                </tr>
+                <tr>
+                    <td>Compliance Expenses</td>
+                    <td><input style="width:110px;" type="number" name="compliance" value="{{compliance}}"></td>
+                </tr>
+                <tr>
+                    <td>Earn Leave Allowances</td>
+                    <td><input style="width:110px;" type="number" name="leave" value="{{leave}}"></td>
+                </tr>
+                <tr>
+                    <td>Fuel & Lubricant</td>
+                    <td><input style="width:110px;" type="number" name="fuel" value="{{fuel}}"></td>
+                </tr>
+                <tr>
+                    <td>House Expenses</td>
+                    <td><input style="width:110px;" type="number" name="house" value="{{house}}"></td>
+                </tr>
+                <tr>
+                    <td>House Rent - Foreign House </td>
+                    <td><input style="width:110px;" type="number" name="rent" value="{{rent}}"></td>
+                </tr>
+                <tr>
+                    <td>Medical Expenses</td>
+                    <td><input style="width:110px;" type="number" name="medical" value="{{medical}}"></td>
+                </tr>
+                <tr>
+                    <td>Miscellaneous Expenses</td>
+                    <td><input style="width:110px;" type="number" name="misc" value="{{misc}}"></td>
+                </tr>
+                <tr>
+                    <td>Office Supplies</td>
+                    <td><input style="width:110px;" type="number" name="office" value="{{office}}"></td>
+                </tr>
+                <tr>
+                    <td>Postage & Courier</td>
+                    <td><input style="width:110px;" type="number" name="postage" value="{{postage}}"></td>
+                </tr>
+                <tr>
+                    <td>Professional Fees</td>
+                    <td><input style="width:110px;" type="number" name="fees" value="{{fees}}"></td>
+                </tr>
+                <tr>
+                    <td>Repair & Maintenance</td>
+                    <td><input style="width:110px;" type="number" name="repair" value="{{repair}}"></td>
+                </tr>
+                <tr>
+                    <td>Salary & Remuneration</td>
+                    <td><input style="width:110px;" type="number" name="salary" value="{{salary}}"></td>
+                </tr>
+                <tr>
+                    <td>Security Service and Charges</td>
+                    <td><input style="width:110px;" type="number" name="security" value="{{security}}"></td>
+                </tr>
+                <tr>
+                    <td>Stationary</td>
+                    <td><input style="width:110px;" type="number" name="stationary" value="{{stationary}}"></td>
+                </tr>
+                <tr>
+                    <td>Subscription Fee</td>
+                    <td><input style="width:110px;" type="number" name="subscription" value="{{subscription}}"></td>
+                </tr>
+                <tr>
+                    <td>Telephone & Internet</td>
+                    <td><input style="width:110px;" type="number" name="internet" value="{{internet}}"></td>
+                </tr>
+                <tr>
+                    <td>Transportation Allowance</td>
+                    <td><input style="width:110px;" type="number" name="transport" value="{{transport}}"></td>
+                </tr>
+                <tr>
+                    <td>Travel & Conveyance</td>
+                    <td><input style="width:110px;" type="number" name="travel" value="{{travel}}"></td>
+                </tr>
+                <tr>
+                    <td>Visa Fee</td>
+                    <td><input style="width:110px;" type="number" name="visa" value="{{visa}}"></td>
+                </tr>
+            </tbody>
+            <thead class="thead-dark">
+              <tr>
+                <th>Total</th>
+                <th ><input style="width:110px;" type="number" name="total" value="{{total}}"></th>
+              </tr>
+            </thead>
+        </table>
+        <div class="container text-center">
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+
+    </form>
+
+    <script language="javascript">
+        function calcltf()
+    {
+        var ocd = new Date(document.getElementById("ocd").value);
+	
+        var plancd = new Date(document.getElementById("plancd").value);	
+        
+        var timeDiff = Math.abs(ocd.getTime() - plancd.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+         //alert(diffDays);
+         var ltf = document.getElementById("ltf");
+         ltf.value = diffDays;
+
+    }
+    </script>
+{% endblock %}

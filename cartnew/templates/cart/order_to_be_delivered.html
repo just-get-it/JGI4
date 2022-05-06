@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+    <h5>Order to be delivered</h5>
+    <div class="row">
+        {% for order in orders %}
+        <div class="col-6 col-md-4 my-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ order.order_item.product_name }}</h5>
+                    <p class="card-text">Shipping address{{order.order_item.shipping_address.shipping_address}}</p>
+                    <p>{{order.id}}</p>
+                    <a href="/cartnew/select_distribution_centers/{{order.order_item.id}}" class="btn btn-primary">Deliver</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'channels/planner/student_base.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+.my-app .colu-3 {
+    margin-top: 50px;
+    width: 30%;
+    float: left;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin-left: 25px;
+    padding: 0;
+    box-shadow: 5px 5px 20px 7px rgba(183,183,200,0.25), -5px -5px 20px 7px rgba(183,183,200,0.22);
+    transition: 0.4s;
+}
+.my-app .colu-3:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: 5px 5px 30px 15px rgba(183,183,200,0.25), -5px -5px 30px 15px rgba(183,183,200,0.22);
+}
+.my-app .card-header {
+    height: 150px;
+    background-color: #343a40!important;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #833499!important;
+    color: #FEE8CD;
+}
+.my-app .card-header > .row {
+    display: block;
+}    
+.my-app .card-header > .row h5 {
+    padding-top: 25px;
+}
+.my-app .colu-3 .card-body {        
+    padding-left: 20px;
+    padding-right: 20px;    
+    color:#AAADB5;
+    height: 450px;
+}
+
+.my-app .card-body > .row .col {
+    display: block!important;
+    width: unset!important;
+    max-width: unset!important;
+}
+.my-app .card-body > .row .text-right {
+    float: right;
+    display: inline-block;
+    width: unset;
+    max-width: unset;
+}
+
+.my-app .colu-3 .card-body .row {
+    display: block;
+    margin: unset;
+}
+
+.my-app .colu-3 .card-body .row > div {
+    padding: 0
+}
+
+.my-app .colu-3 .card-body .row .textright {
+    display: block;
+    text-align: center;
+}
+.my-app .colu-3 .card-body .textright a {
+    text-align: center;
+    background-color: #833499!important;
+    color: #AAADB5;
+    border-radius: 5px;
+    padding: 5px;
+}
+.my-app .colu-3 .card-body .textright a:hover {
+    background-color: #F07F03;
+    color: white;
+}
+@media only screen and (max-width: 768px){
+    .my-app .colu-3 {
+        width: 85%!important;
+    }
+    .my-app a {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+</style>
+<div class="conatiner my-app">
+    {% if applications %} {% for application in applications %}
+    <div class="colu-3 col-sm-12">
+        <div class="card-header">
+            <div class="row">
+                <h5><strong>{{application.applied_on.title}}</strong> </h5>
+                <p">Posted By: {{application.applied_on.pdetails}}</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <p><strong>Company: </strong>{{application.applied_on.organization.name}}</p>
+                </div>
+                <div class="col text-right">
+                    <img src="{{application.applied_on.organization.logo.url}}" height="50" width="50">
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <p><strong> Type Of Internship: </strong>{{application.applied_on.type.type}}</p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Location:  </strong>{% for city in application.applied_on.cities.all %}{{city}} {% endfor %}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Start Date: </strong>{{application.applied_on.start_date_from}} to {{application.applied_on.start_date_to}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Duration: </strong>{{application.applied_on.duration}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Apply By: </strong>{{application.applied_on.apply_by}}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Stipend:</strong>{{application.applied_on.stipend}}</p>
+                </div>
+            </div>
+            <div class="row textright">
+                <a href="{% url 'single_internship' internship_id=application.applied_on.id %}" type="btn-btn primary">View Internship</a>
+                <a href="https://api.whatsapp.com/send?phone=+91{{application.applied_on.pdetails.whatsapp_mobile}}&text=Hello" type="btn-btn primary">Start Chatting <i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %} {% else %}
+    <div class="row">
+        <h3> You have not applied yet! Great oppotunities await you! </h3>
+    </div>
+</div>
+{% endif %}
+<script>
+    $(document).ready(function(){
+        $(".nav-item").removeClass("active");
+        $(".nav-item:nth-child(4)").addClass("active");
+        var p = $(".sidebar-wrapper .nav-item:nth-child(4) p").text();
+        $("#page-title").text(p)
+    })
+</script>
+ {% endblock %}

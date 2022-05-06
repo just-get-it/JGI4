@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block topcontent %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/styles_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/profile_style.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="container-fluid">
+	<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary font-weight-bold m-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown1" aria-controls="navbarNavDropdown1" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+    <ul class="navbar-nav m-auto" >
+      <li class="nav-item"><a  class="nav-link" href="/userdetail/academic_profile?email={{email}}"   style="color: white;">Profile</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/upload_product"   style="color: white;">Product Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/staff_profile/message"   style="color: white;">Service Upload</a></li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/products"   style="color: white;">Suscribe</a></li>	
+	  <li class="nav-item"><a  class="nav-link" href="/cal"   style="color: white;">Diet Plan</a>
+		</li>
+	  <li class="nav-item"><a  class="nav-link" href="/userdetail/seller_profile/store"   style="color: white;">Whislist</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Cart</a>
+		</li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Order Placement</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/userdetail/seller_profile/store"   style="color: white;">Payment</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/generate"   style="color: white;">Generate Link For Form</a></li>
+	  <li class="nav-item"><a class="nav-link"  href="/daily_report/display_report_user"   style="color: white;">Display Report</a></li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<!--<div class="container-fluid">
+    <div class="row">
+        <div class="col py-2 centered b2b_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/academic_profile?email={{email}}" class="hov-a" style="color: white;">Profile</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/upload_product" class="hov-a" style="color: white;">Product Upload</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/staff_profile/message" class="hov-a" style="color: white;">Service Upload</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/products" class="hov-a" style="color: white;">Suscribe</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Whislist</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Cart</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Order Placement</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a href="/userdetail/seller_profile/store" class="hov-a" style="color: white;">Payment</a>
+        </div>
+        <div class="col py-2 centered vend_head"
+            style="font-weight: bold;font-family: 'Cabin', sans-serif; color: white;background: #30c5ff;">
+            <a data-toggle="modal" data-target="#exampleModal" class="hov-a" style="color: white;">Generate Form
+                Link</a>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Share This Link</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        127.0.0.1:8000/{{user}}/
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div> -->
+
+
+
+<div class="container">
+    <br><br><br><br>
+
+    <h1>Profile</h1><br>
+    <div class="container">
+        <div class="tab row">
+            <div class="col-3 items">
+                <div class="tablinks" onclick="openCity(event, 'Academic Profile')" id="defaultOpen"><a href="/userdetail/academic_profile?email={{email}}"><b>Academic Profile</b></a></div>
+
+                <div class="tablinks" onclick="openCity(event, 'Academic Profile')" id="defaultOpen"><a href="/userdetail/professional_profile?email={{email}}"><b>Professional Profile</b></a></div>
+
+                <div class="tablinks" onclick="openCity(event, 'Social Profile')" id="defaultOpen"><a href="/userdetail/social_profile?email={{email}}"><b>Social Profile</b></a></div>
+
+                <div class="tablinks" onclick="openCity(event, 'Medical Profile')" id="defaultOpen"><a href="/userdetail/medical_profile?email={{email}}"><b>Medical Profile</b></a></div>
+                
+            </div>
+
+            <div class="col-9 display " style="background-color: #FFFAFA;">
+                <div class="form-group">
+                    {% for i in academic_obj %}
+                    <ul>
+                        <li>
+                            <p>{{i.school_or_college}}</p>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+
+                <p class="col-sm-2 col-form-label" onclick="add_education()">+ADD EDUCATION</p>
+                <div class="form-group row" id="mydiv">
+                    <hr>
+                    <form method="post" action="academic_profile?email={{email}}">
+                        {% csrf_token %}
+                        <label class="col-sm-2 col-form-label">Name as per Documents</label>
+                        <div class="col-sm-4">
+                            {{form.name}}
+                        </div>
+
+
+                        <label class="col-sm-2 col-form-label">School/College</label>
+                        <div class="col-sm-4">
+
+                            {{form.school_or_college}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Degree</label>
+                        <div class="col-sm-4">
+                            {{form.degree}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Field of study</label>
+                        <div class="col-sm-4">
+                            {{form.field_of_study}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Start Date(mm/dd/yyyy)</label>
+                        <div class="col-sm-4">
+                            {{form.start_date}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">End Date(mm/dd/yyyy)</label>
+                        <div class="col-sm-4">
+                            {{form.end_date}}
+                        </div>
+                        <label class="col-sm-2 col-form-label">Grade(Optional)</label>
+                        <div class="col-sm-4">
+                            {{form.grade}}
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="submit" name="submit" class="btn btn-success">
+                        </div>
+
+                        <hr>
+                    </form>
+                </div>
+            </div>
+        
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+<div class="container-0">
+{% endblock %}
+{% block content %}
+
+    <br><br><br><br>
+</div>
+<br>
+<br>
+<br>
+<br>
+<script type="text/javascript">
+    var my;
+    my = document.getElementById('mydiv');
+    ex = document.getElementById('mydiv_ex');
+    my.style.display = "none";
+    ex.style.display = "none";
+    function add_education() {
+        my.style.display = "block";
+    }
+    function add_experience() {
+        ex.style.display = "block";
+    }
+
+</script>
+
+{% endblock %}

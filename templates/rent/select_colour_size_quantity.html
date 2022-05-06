@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+            {% if messages %}
+                <div class="mt-0 pt-4">
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                </div>
+           {% endif %}
+
+    <div class="container">
+    <br>
+        <h3>Category : {{ object.rent_product.title }} <br>
+            Total Quantity : {{ object.total_quantity}}<br>
+            Selected Quantity : {{ object.get_total_quantity}}<br>
+        </h3>
+        <div class="col-lg-6 col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="'border-bottom mb-4" style="color: red">Size Quantity Colour</legend>
+                    {{ quantity_size_colour_form | crispy  }}
+                </fieldset>
+                <div class="form-group">
+{#                    <button class="btn btn-outline-info" type="submit" href="{% url 'quick_costing_select_size_colour_quantity' object.slug %}">Save And Add Another</button>#}
+                    <button class="btn btn-outline-info" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

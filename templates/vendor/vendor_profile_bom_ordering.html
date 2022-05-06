@@ -1,0 +1,183 @@
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}">
+{% endblock %}
+
+
+{% block content %}
+
+	<style type="text/css">
+		.acti_table{
+			table-layout: fixed;
+			width: 100%;
+		}
+		.acti_table tr,.acti_table th,.acti_table td{
+			border:2px solid black;
+		}
+		.acti_table td,.acti_table th{
+			padding: 8px;
+			overflow: hidden;
+		}
+
+		.acti_table th{
+			background-color: #30c5ff;
+			padding-left: 1vw;
+			padding-right: 1vw;
+		}
+		.hover-col{
+			padding-top: 15px;
+			padding-bottom: 15px;
+			transition: all .3s ease-out;
+		}
+		.hover-col:hover{
+			box-shadow: 0 0 2px rgba(0,0,0,.5);
+		}
+		.hov-link{
+			transition: all .5s ease-out;
+			border: 1px solid black;
+			background: #30c5ff;
+			color: black;
+			border-radius: 50px;
+			text-decoration: none;
+		}
+		.hov-link:hover{
+			background: #253031;
+			text-decoration: none;
+			color: white;
+		}
+		.save_but{
+			transition: all .5s ease-out;
+			border-radius: 25vw;
+			background: #30c5ff;
+		}
+		.save_but:hover{
+			background: #253031;
+			color: #30c5ff;
+		}
+	</style>
+<div class="row">
+	<div class="container">
+		<div class="row my-3" style="border-bottom: 2px solid rgba(0,0,0,.5);">
+			<h3 style="font-family: 'Cabin',sans-serif;"><b>Ordering</b></h3>
+			<a href="/userdetail/vendor_profile/orders/{{order.order_no}}/forms/bom/{{bom_id}}" class="hov-a" style="margin-left:auto;">Bill of Material & Costing</a>
+		</div>
+    {% for j in trims_users %}
+  		<div class="row my-3 p-3" style="box-shadow:0 0 1px rgba(0,0,0,1);">
+        <div class="container-fluid">
+          <div class="row">
+            {% if j.0.fabric %}Fabric{% endif %}
+            {% if j.0.sewing %}Sewing{% endif %}
+            {% if j.0.packing %}Packing{% endif %}
+            {% if j.0.finishing %}Finishing{% endif %}
+            (2019000-{{j.0.trim.id}})
+          </div>
+          <div class="row">
+            <div class="col">
+              Consumption - {{j.0.consumption}}
+            </div>
+            <div class="col">
+              Specification - {{j.0.specification}}
+            </div>
+            <div class="col">
+              Descrption - {{j.0.description}}
+            </div>
+            <div class="col-2">
+              Rate - {{j.0.rate}}
+            </div>
+            <div class="col">
+              Required - {{j.0.trim_quantity}}
+            </div>
+          </div>
+          <form method="post">{% csrf_token %}
+          <div class="row mt-2">
+
+            <label style="margin-left:auto;">Availiable Vendors</label>
+            <select name="float_to_user" required style="margin-left:3vw;background:none;border:none;border-bottom:1px solid black;">
+              <option value="--------------" disabled selected>--------</option>
+              <option value="{{j.0.trim.seller.email}}">{{j.0.trim.seller.email}}</option>
+              {% for jk in j.1 %}
+                <option value="{{jk.seller.email}}">{{jk.seller.email}}</option>
+              {% endfor %}
+            </select>
+            <input type="hidden" name="trims_bom" value="{{j.0.id}}">
+            <button type="submit" class="ml-5 py-1 px-4" style="background:#30c5ff;border:none;color:#253031;border-radius:25vw;">Float</button>
+          </div>
+          </form>
+        </div>
+      </div>
+      {% for km in j.3 %}
+      <div class="row my-2 p-3" style="margin-left:3vw;box-shadow:0 0 1px rgba(0,0,0,1);">
+        <div class="container-fluid">
+          <div class="row">
+            Trim Order
+          </div>
+          <div class="row">
+            <div class="col">
+              Seller - {{km.placed_to.email}}
+            </div>
+            <div class="col-2">
+              Rate - {{km.rate}}
+            </div>
+            <div class="col">
+              Min. Order - {{km.moq}}
+            </div>
+            <div class="col">
+              Quantity - {{km.quantity}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% for km in j.2 %}
+      <div class="row my-2 p-3" style="margin-left:5vw;box-shadow:0 0 1px rgba(0,0,0,1);">
+        <div class="container-fluid">
+          <div class="row">
+            Trim Floated Order
+          </div>
+          <div class="row">
+            <div class="col">
+              Seller - {{km.placed_to.email}}
+            </div>
+            <div class="col-2">
+              Rate - {{km.rate}}
+            </div>
+						<div class="col">
+							Lead Time - {% if km.get_expected_delivery %}{{km.get_expected_delivery}}{% else %}Not Decided{% endif %}
+						</div>
+            <div class="col">
+              Min. Order Quantity - {{km.moq}}
+            </div>
+            {% if km.moq %}
+            <form method="post">{% csrf_token %}
+
+
+            <div class="col">
+              <input type="number" placeholder="Trims Quantity" min="{{km.moq}}" name="trim_quantity" required style="border:none;border-bottom:1px solid black;">
+              <input type="hidden" name="trim_order" value="{{km.id}}">
+            </div>
+            <div class="col mt-3">
+              <button type="submit" class="ml-5 py-1 px-4" style="background:#30c5ff;border:none;color:#253031;border-radius:25vw;">Order</button>
+            </div>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% endfor %}
+
+		<div class="row mt-3 mb-4 centered">
+			<a href="/userdetail/{% if is_staff_user %}staff_profile{% else %}vendor_profile{% endif %}" class="hov-a" style="color: blue;">Back to Profile</a>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

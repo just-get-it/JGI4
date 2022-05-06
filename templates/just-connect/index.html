@@ -1,0 +1,63 @@
+{% extends 'base_connect.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    .post-like {
+        cursor: pointer;
+    }
+    .btn {
+        padding: 0px;
+        padding-right: 2%;
+    }
+
+    .fa-thumbs-up {
+        font-size: 25px;
+    }
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+    #gallery img {
+        width: 400px;
+        height: 250px;
+    }
+    input[type=file].postimg {
+    display: none;
+}
+</style>
+        <!-- Page Header Start -->
+        <!-- <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">Activity</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="home-1.html" class="btn-link">Home</a></li>
+                    <li class="active"><span class="text-primary">Side-Wide Activities</span></li>
+                </ul>
+            </div>
+        </div> -->
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        
+        <section class="page--wrapper pt--80 pb--20">
+        <section style="float:left">
+        <a href="{% url 'showDraft' %}" style="margin:20px">Drafts</a>
+        <a href="{% url 'bookmarks' %}" style="margin:20px">Bookmarks</a>
+        <a href="{% url 'cproducts' %}" style="margin:20px">Commercial Products</a>
+        <a href="{% url 'cproductsorders' %}" style="margin:20px">Book Products</a>
+        <a href="{% url 'ProjectFeed' %}" style="margin:20px">Project Feed</a>
+        <a href="{% url 'DiscoverProject' %}" style="margin:20px">Discover Project</a>
+        </section>
+            {% block indexbody %}
+            {% endblock indexbody %}
+        </section>
+        <!-- Page Wrapper End -->
+
+     
+{% endblock %}
+        

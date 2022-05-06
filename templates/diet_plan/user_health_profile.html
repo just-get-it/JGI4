@@ -1,0 +1,229 @@
+
+{%  extends 'diet_plan/common.html' %}
+{% block common %}
+
+{% load static %}
+<div class="container">
+	<br><br><br><br>
+	<h1>Profile</h1><br>
+	<div class="container">
+		<div class="tab row">
+			<div class="col-3 items">
+{#				<div class="row men"><a href="/userdetail/academic_profile?email="><b>Academic Profile</b></a>#}
+{#				</div>#}
+{#				<div class="row men"><a href="/userdetail/professional_profile?email="><b>Professional#}
+{#							Profile</b></a></div>#}
+{#				<div class="row men"><a href="/userdetail/social_profile?email="><b>Social Profile</b></a>#}
+{#				</div>#}
+				<div class="row men"><a href="{% url 'user_health_profile' %}"
+						style="color: black;">
+                    <b>Health Profile</b></a></div>
+			</div>
+			<div class="col-9 display" style="background-color: #a4f599;">
+				<br>
+				<form method="post" action="{% url 'check_nutri' %}">
+                    {% csrf_token %}
+
+                    	<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Gender</label>
+						<div class="col-sm-4">
+							<select name="gender" id="id_gender">
+  <option  >SELECT</option>
+  <option value="Male">Male</option>
+
+  <option value="Female" >Female</option>
+
+</select>
+						</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Age</label>
+						<div class="col-sm-4">
+							<input  type="number" name="age" value="" required id="id_age" />
+
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Height in cms</label>
+						<div class="col-sm-4">
+							<input type="number" name="height" value="" required id="id_height" />
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Weight in kg</label>
+						<div class="col-sm-4">
+							<input type="number" name="weight" value="" required id="id_weight" />
+						</div>
+
+                    <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Body Fat %</label>
+						<div class="col-sm-4">
+							<input type="number" name="bodyfat" value="" required id="id_bodyfat" />
+						</div>
+{#                    <div class="form-group row">#}
+{#						<label class="col-sm-2 col-form-label">BMI(Body Mass Index)</label>#}
+{#						<div class="col-sm-4">#}
+{#							<input type="number" name="weight" value="" required id="id_bmi" />#}
+{#						</div>#}
+                    <div class="form-group row">
+						<label class="col-sm-2 col-form-label pr-3">Body Physics Type</label>
+						<div class="col-sm-4">
+							<input type="text" name="bodyphy" value="" required id="id_bodyphy" />
+						</div>
+
+                    <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Exercise</label>
+						<div class="col-sm-4">
+							<input type="text" name="exercise" value="" required id="id_exercise" />
+						</div>
+                         <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Activity Level</label>
+						<div class="col-sm-4">
+							<select name="activity" id="id_activity">
+                                 <option >SELECT</option>
+                                 <option value="Sedentary">Sedentary</option>
+                                 <option value="Lightly Active">Lightly Active</option>
+                                 <option value="Moderately Active">Moderately Active</option>
+                                 <option value="Intence Weight training/sports">Intence Weight training/sports</option>
+                                 <option value="Very Active">Very Active </option>
+                                 <option value="Extra Active">Extra Active </option>
+
+
+                            </select>
+						</div>
+                    <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Blood Pressure</label>
+						<div class="col-sm-4">
+							<input type="text" name="blood_pressure" value="" required id="id_blood_pressure" />
+						</div>
+                    <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Sugar</label>
+						<div class="col-sm-4">
+							<input class="pr-3" type="text" name="sugar" value="" required id="id_sugar" />
+						</div>
+{#                   <div class="form-group row">#}
+{#						<label class="col-sm-2 col-form-label">Vitamins Required</label>#}
+{#						<div class="col-sm-4">#}
+{#							<input type="text" name="vitamin" value="" required id="id_vitamin" />#}
+{#						</div>#}
+{##}
+{#                   <div class="form-group row">#}
+{#						<label class="col-sm-2 col-form-label">Minerals Required</label>#}
+{#						<div class="col-sm-4">#}
+{#							<input type="text" name="mineral" value="" required id="id_mineral" />#}
+{#						</div>#}
+
+
+
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Blood Group</label>
+						<div class="col-sm-4">
+							<input type="text" name="blood_group" value="" maxlength="200" required id="id_blood_group" />
+						</div>
+{##}
+{#					</div>#}
+{#					<div class="form-group row">#}
+{#						<label class="col-sm-2 col-form-label">Meals you Eat per Day</label>#}
+{#						<div class="col-sm-4">#}
+{#							<input type="number" name="meal" value="" maxlength="200" required id="id_meal" />#}
+{#						</div>#}
+{##}
+{#					</div>#}
+                        <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Choose Meals</label>
+						<div class="col-sm-4">
+							<select name="meal" id="id_meal">
+                                <option >SELECT</option>
+                                <option value="3">Breakfast,Lunch,Dinner</option>
+
+                                <option value="4" >Breakfast,Lunch,Evening snaks,Dinner</option>
+                                <option value="5" >Breakfast,Morning meal,Lunch,Evening snaks,Dinner</option>
+                                <option value="6" >Breakfast,Morning meal,Lunch,Evening snaks,Post WorkOut Shake,Dinner</option>
+
+                            </select>
+						</div>
+
+					</div>
+
+
+                    <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Food Habbit</label>
+						<div class="col-sm-4">
+							<select name="food_habbit" id="id_food_habbit">
+                                 <option >SELECT</option>
+                                 <option value="VEG">VEG</option>
+                                  <option value="NONVEG" >NONVEG</option>
+                            </select>
+						</div>
+                        <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Food Region</label>
+						<div class="col-sm-4">
+							<input type="text" name="food_preference" value="" maxlength="200" required id="id_food_preference" />
+                        </div></div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Disability (if any)</label>
+						<div class="col-sm-4">
+							<select name="disability" id="id_disability">
+  <option >SELECT</option>
+  <option value="YES">YES</option>
+
+  <option value="NO" >NO</option>
+
+</select>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Other medical issues (if any)</label>
+						<div class="col-sm-4">
+							<select name="medical_issues" id="id_medical_issues">
+                                <option >SELECT</option>
+                                <option value="YES">YES</option>
+
+                                <option value="NO" >NO</option>
+
+                            </select>
+						</div>
+
+					</div>
+
+                <div class="form-group row">
+						<label class="col-sm-2 col-form-label">Diseases</label>
+						<div class="col-sm-4">
+							<input type="text" name="diseases" value="" maxlength="200" required id="id_diseases" />
+						</div>
+
+					<div class="form-group row mx-auto">
+						<div class="col-sm-4">
+							<input type="submit"  id='show_calculation'  name="submit" class="btn btn-success">
+{#                           <button class="btn btn-success" id='show_calculation' >Submit</button>#}
+						</div>
+					</div>
+
+
+
+
+				</form>
+
+				
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+</div>
+<br>
+<br>
+     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>OTHER EXPENCES</h1>
+    </div>
+    <div style="margin-left:20px; width: 50%">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" style="font-size:24px;">Departments:</label>
+        </div>
+        <div style="margin-right:50px; width: 50%">
+            <a class="btn btn-primary btn-lg btn-block" href="direct_wages" role="button">Direct Wages</a>
+            <a class="btn btn-primary btn-lg btn-block" href="factory_overhead">Factory Overhead</a>
+            <a class="btn btn-primary btn-lg btn-block" href="administrative_expenses">Administrative Expenses</a>
+            <a class="btn btn-primary btn-lg btn-block" href="commercial_expenses">Commercial Expenses</a>
+            <a class="btn btn-primary btn-lg btn-block" href="financial_expenses">Financial Expenses</a>
+        </div>
+    </div>
+
+    <div class="container text-center" style="margin-top:20px;">
+      <a class="btn btn-primary" href="expenses_record" role="button">View Other Expenses Record</a>
+    </div>
+    <script language="javascript">
+        function calcltf()
+    {
+        var ocd = new Date(document.getElementById("ocd").value);
+	
+        var plancd = new Date(document.getElementById("plancd").value);	
+        
+        var timeDiff = Math.abs(ocd.getTime() - plancd.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+         //alert(diffDays);
+         var ltf = document.getElementById("ltf");
+         ltf.value = diffDays;
+
+    }
+    </script>
+
+{% endblock %}

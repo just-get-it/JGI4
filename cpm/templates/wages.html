@@ -1,0 +1,89 @@
+{% extends 'base1.html' %}
+
+    {% block content %}
+    <div class="container text-center">
+        <h1>WAGES AND EMPLOYEE SUMMARY</h1>
+    </div>
+    <form action="wages_and_emp_summary" method="post" style="margin-left:20px; width: 97%">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Department</label>
+            <div class="col-sm-10">
+              <input type="text"  name="department" id="orderno">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Line Number</label>
+            <div class="col-sm-10">
+               <select id="styleno" name = "line_no">
+                  <option value="EP-1">EP-1</option>
+                  <option value="EP-2A">EP-2A</option>
+                  <option value="EP-2B">EP-2B</option>
+                  <option value="EP-3A">EP-3A</option>
+                  <option value="EP-3A">EP-3B</option>
+                  <option value="EP-3A">EP-4</option>
+                  <option value="EP-3A">EP-5A</option>
+                  <option value="EP-3A">EP-5B</option>
+                  <option value="EP-3A">EP-6</option>
+                  <option value="EP-3A">EP-7A</option>
+                  <option value="EP-3A">EP-7B</option>
+                  <option value="EP-3A">EP-8A</option>
+                  <option value="EP-3A">EP-8B</option>
+                  <option value="EP-3A">EP-9</option>
+                  <option value="EP-3A">EP-10</option>
+                  <option value="EP-3A">EP-11A</option>
+                  <option value="EP-3A">EP-11B</option>
+                  <option value="EP-3A">EP-12</option>
+                  <option value="EP-3A">EP-13</option>
+                  <option value="EP-3A">EP-14A</option>
+                  <option value="EP-3A">EP-14B</option>
+                  <option value="EP-3A">EP-15A</option>
+              </select>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Month</label>
+            <div class="col-sm-10">
+              <input type="month" name="mon" id="orderqty">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Employee</label>
+            <div class="col-sm-10">
+              <input type="text" name="emp" id="ordercd">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">Amount</label>
+            <div class="col-sm-10">
+              <input type="text" name="amt" id="plancd">
+            </div>
+        </div>
+
+
+        <div class="container text-center">
+          <a class="btn btn-primary" href="wage_table" role="button">View Wages Table</a>
+            <input type="Submit" class="btn btn-primary">
+            <input type="reset" class="btn btn-primary">
+        </div>
+
+    </form>
+
+    <script language="javascript">
+        function calcltf()
+    {
+        var ocd = new Date(document.getElementById("ocd").value);
+	
+        var plancd = new Date(document.getElementById("plancd").value);	
+        
+        var timeDiff = Math.abs(ocd.getTime() - plancd.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+         //alert(diffDays);
+         var ltf = document.getElementById("ltf");
+         ltf.value = diffDays;
+
+    }
+    </script>
+{% endblock %}
